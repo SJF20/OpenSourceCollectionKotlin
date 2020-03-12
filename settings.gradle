@@ -1,0 +1,2 @@
+include ':app', ':base', ':wan_android'
+rootProject.name='OpenSourceCollectionKotlin'

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.shijingfeng.wan_android">
+
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 网络状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- WIFI状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 读取外部存储权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 写入外部存储权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取手机状态权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 读取设置权限 -->
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <!-- 写入设置权限 -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <!-- 挂载外部存储权限 -->
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <dist:module dist:instant="true" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <!-- 启动页 -->
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/ProjectTheme.Launcher" />
+        <!-- 登录 Activity -->
+        <activity android:name=".ui.activity.LoginActivity" />
+        <!-- 注册 Activity -->
+        <activity android:name=".ui.activity.RegisterActivity" />
+        <!-- 首页 Activity -->
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask" />
+        <!--        &lt;!&ndash; 通用WebView页面 &ndash;&gt;-->
+        <!--        <activity android:name=".ui.activity.WebViewActivity"-->
+        <!--            android:configChanges="orientation|screenSize"/>-->
+        <!--        &lt;!&ndash; 积分排行榜 Activity &ndash;&gt;-->
+        <!--        <activity android:name=".ui.activity.CoinRankActivity" />-->
+        <!--        &lt;!&ndash; 积分记录 Activity &ndash;&gt;-->
+        <!--        <activity android:name=".ui.activity.CoinRecordActivity" />-->
+        <!--        &lt;!&ndash; 我的收藏 Activity &ndash;&gt;-->
+        <!--        <activity android:name=".ui.activity.ArticleCollectedListActivity" />-->
+        <!--        &lt;!&ndash; 知识体系 详细数据 Activity &ndash;&gt;-->
+        <!--        <activity android:name=".ui.activity.KnowledgeClassifyDetailActivity" />-->
+
+    </application>
+
+</manifest>

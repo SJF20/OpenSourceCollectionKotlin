@@ -1,0 +1,31 @@
+<resources>
+    <!-- 工程主题 -->
+    <style name="ProjectTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/GlobalActivityAnimation</item>
+    </style>
+
+    <!-- 解决启动页短暂白屏问题 -->
+    <style name="ProjectTheme.Launcher">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <!-- PopupWindow动画 -->
+    <style name="pop_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_window_pop_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_window_pop_out</item>
+    </style>
+
+    <!-- 全局Activity动画 -->
+    <style name="GlobalActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_activity_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_activity_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_activity_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_activity_close_exit</item>
+    </style>
+
+</resources>

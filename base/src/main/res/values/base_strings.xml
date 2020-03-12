@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">base</string>
+    <string name="加载中">加载中&#8230;</string>
+    <string name="数据获取失败">数据获取失败</string>
+    <string name="点击刷新">点击刷新</string>
+    <string name="暂无数据">暂无数据</string>
+    <string name="保存图片">保存图片</string>
+    <string name="取消">取消</string>
+</resources>
