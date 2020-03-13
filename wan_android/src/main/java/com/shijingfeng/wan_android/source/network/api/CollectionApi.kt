@@ -1,5 +1,6 @@
 package com.shijingfeng.wan_android.source.network.api
 
+import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
 import com.shijingfeng.wan_android.entity.network.ArticleCollectedListEntity
@@ -31,7 +32,7 @@ interface CollectionApi {
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @POST("lg/collect/{articleId}/json")
-    fun collectedInSitesArticle(@Path("articleId") articleId: String): Single<ResultEntity<*>>
+    fun collectedInSitesArticle(@Path("articleId") articleId: String): Single<ResultEntity<Any>>
 
     /**
      * 收藏站外文章
@@ -42,7 +43,7 @@ interface CollectionApi {
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @FormUrlEncoded
     @POST("lg/collect/add/json")
-    fun collectedOutSitesArticle(@FieldMap postMap: Map<String, Any>): Single<ResultEntity<*>>
+    fun collectedOutSitesArticle(@FieldMap postMap: Map<String, Any>): Single<ResultEntity<Any>>
 
     /**
      * 文章列表中的文章 取消收藏
@@ -51,7 +52,7 @@ interface CollectionApi {
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @POST("lg/uncollect_originId/{articleId}/json")
-    fun uncollectedInArticleList(@Path("articleId") articleId: String): Single<ResultEntity<*>>
+    fun uncollectedInArticleList(@Path("articleId") articleId: String): Single<ResultEntity<Any>>
 
     /**
      * 收藏列表中 取消收藏
@@ -65,6 +66,6 @@ interface CollectionApi {
     fun uncollectedInCollectedList(
         @Path("articleId") articleId: String,
         @Field("originId") originId: String
-    ): Single<ResultEntity<*>>
+    ): Single<ResultEntity<Any>>
 
 }
