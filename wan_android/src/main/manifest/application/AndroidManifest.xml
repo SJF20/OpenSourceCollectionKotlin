@@ -64,9 +64,9 @@
         <!-- 首页 Activity -->
         <activity android:name="com.shijingfeng.wan_android.ui.activity.MainActivity"
             android:launchMode="singleTask"/>
-<!--        &lt;!&ndash; 通用WebView页面 &ndash;&gt;-->
-<!--        <activity android:name="com.shijingfeng.wan_android.ui.activity.WebViewActivity"-->
-<!--            android:configChanges="orientation|screenSize"/>-->
+        <!-- 通用WebView页面 -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.WebViewActivity"
+            android:configChanges="orientation|screenSize"/>
         <!-- 积分排行榜 Activity -->
         <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRankActivity" />
 <!--        &lt;!&ndash; 积分记录 Activity &ndash;&gt;-->

@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View.OnClickListener" />
 
+        <variable
+            name="titleBarHeight"
+            type="float" />
         <!-- 返回点击 -->
         <variable
             name="ivBackClick"

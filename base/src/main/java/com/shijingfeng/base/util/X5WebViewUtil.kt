@@ -4,20 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Build
-import android.webkit.WebSettings
+import android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 import com.blankj.utilcode.util.NetworkUtils
 import com.shijingfeng.base.base.application.BaseApplication
+import com.tencent.smtt.sdk.WebSettings
 
 /**
- * Function: WebView工具类
+ * Function: 腾讯X5 WebView 工具类
  * Date: 2020/2/2 21:33
  * Description:
  * @author ShiJingFeng
- */
-
-/**
- * 设置默认 WebView设置
- * @param webSettings WebView设置
  */
 
 /**
@@ -81,7 +77,7 @@ fun setDefaultX5WebSettings(webSettings: WebSettings) {
         )
         // WebView 从 5.0 开始默认不允许混合模式, https 中不能加载 http 资源,需要设置开启。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+            mixedContentMode = MIXED_CONTENT_ALWAYS_ALLOW
         }
 //                setRenderPriority(WebSettings.RenderPriority.HIGH)
         cacheMode = if (NetworkUtils.isConnected()) {

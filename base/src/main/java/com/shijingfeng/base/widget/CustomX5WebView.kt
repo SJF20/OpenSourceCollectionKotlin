@@ -10,7 +10,7 @@ import com.tencent.smtt.sdk.WebView
  * Description:
  * @author ShiJingFeng
  */
-class CustomX5WebView(
+class CustomX5WebView @JvmOverloads constructor(
     mContext: Context,
     mAttrs: AttributeSet? = null,
     mDefStyleAttr: Int = 0
