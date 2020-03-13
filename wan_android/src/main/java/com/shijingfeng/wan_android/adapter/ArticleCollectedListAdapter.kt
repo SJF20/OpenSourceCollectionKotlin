@@ -17,10 +17,10 @@ import com.shijingfeng.wan_android.entity.network.ArticleCollectedListItem
  * @author ShiJingFeng
  */
 class ArticleCollectedListAdapter(
-    mContext: Context,
-    mLayoutId: Int,
-    mDataList: List<ArticleCollectedListItem>? = null
-) : CommonAdapter<ArticleCollectedListItem>(mContext, mLayoutId, mDataList) {
+    context: Context,
+    layoutId: Int,
+    dataList: List<ArticleCollectedListItem>? = null
+) : CommonAdapter<ArticleCollectedListItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

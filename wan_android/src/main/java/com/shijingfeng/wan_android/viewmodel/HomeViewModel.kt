@@ -134,7 +134,10 @@ class HomeViewModel(
                     event.dataList = mHomeItemDataList
 
                     mHomeDataChangeEvent.value = event
-                    getLoadServiceStatusEvent().value = if (mHomeItemDataList.isEmpty()) EMPTY else REFRESH_SUCCESS
+                    getRefreshLoadMoreStatusEvent().value = REFRESH_SUCCESS
+                    if (mHomeItemDataList.isEmpty()) {
+                        getLoadServiceStatusEvent().value = EMPTY
+                    }
                 }
                 //上拉加载
                 DATA_OPERATE_TYPE_LOAD_MORE -> {

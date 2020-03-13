@@ -17,6 +17,9 @@ import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.viewmodel.LoginViewModel
 import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.view.*
+import kotlinx.android.synthetic.main.layout_title_bar.view.*
 
 /**
  * Function: 登录 Activity
@@ -53,12 +56,8 @@ class LoginActivity : WanAndroidBaseActivity<ActivityLoginBinding, LoginViewMode
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
      * @return DataBinding 变量SparseArray
      */
-    override fun getVariableSparseArray(): SparseArray<Any>? {
-        val variableSA = SparseArray<Any>()
-
-        variableSA.put(BR.loginViewModel, mViewModel)
-
-        return variableSA
+    override fun getVariableSparseArray() = SparseArray<Any>().apply {
+        put(BR.loginViewModel, mViewModel)
     }
 
     /**
@@ -68,10 +67,10 @@ class LoginActivity : WanAndroidBaseActivity<ActivityLoginBinding, LoginViewMode
         super.initData()
         val canBack = mViewModel?.mBundle?.getBoolean(LOGIN_ACTIVITY_CAN_BACK, true) ?: true
 
-        mDataBinding.includeTitleBar.ivBack.visibility = if (canBack) VISIBLE else GONE
-        mDataBinding.includeTitleBar.tvTitle.text = "登录"
-        mDataBinding.includeTitleBar.tvOperate.text = "注册"
-        mDataBinding.includeTitleBar.tvOperate.visibility = VISIBLE
+        include_title_bar.iv_back.visibility = if (canBack) VISIBLE else GONE
+        include_title_bar.tv_title.text = "登录"
+        include_title_bar.tv_operate.text = "注册"
+        include_title_bar.include_title_bar.tv_operate.visibility = VISIBLE
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

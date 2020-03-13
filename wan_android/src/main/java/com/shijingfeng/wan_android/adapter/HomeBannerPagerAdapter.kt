@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.blankj.utilcode.util.ConvertUtils
 import com.shijingfeng.base.listener.Target
-import com.shijingfeng.base.util.image_load.ImageLoader
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 import com.shijingfeng.library.banner.adapter.BaseBannerPagerAdapter
 import com.shijingfeng.wan_android.constant.VIEW_BANNER_DETAIL
@@ -19,9 +18,9 @@ import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
  * @author ShiJingFeng
  */
 class HomeBannerPagerAdapter(
-    mContext: Context,
-    mDataList: List<HomeBannerEntity>? = null
-) : BaseBannerPagerAdapter<HomeBannerEntity>(mContext, mDataList) {
+    context: Context,
+    dataList: List<HomeBannerEntity>? = null
+) : BaseBannerPagerAdapter<HomeBannerEntity>(context, dataList) {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(mContext)

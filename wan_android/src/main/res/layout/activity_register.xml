@@ -20,7 +20,7 @@
         <include
             android:id="@+id/include_title_bar"
             layout="@layout/layout_title_bar"
-            app:ivBackClick="@{registerViewModel.backClickListener}" />
+            app:ivBackClick="@{registerViewModel.MBackClickListener}" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                         android:background="@null"
                         android:hint="@string/请输入用户名"
                         android:padding="5dp"
-                        android:text="@={registerViewModel.username}"
+                        android:text="@={registerViewModel.MUsername}"
                         android:textColor="@color/black"
                         app:filterEmoji="@{true}"/>
 
@@ -60,8 +60,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:src="@drawable/ic_clear"
-                        android:visibility="@{TextUtils.isEmpty(registerViewModel.username) ? 8 : 0}"
-                        app:onClick="@{registerViewModel.clearUsernameClickListener}" />
+                        android:visibility="@{TextUtils.isEmpty(registerViewModel.MUsername) ? 8 : 0}"
+                        app:onClick="@{registerViewModel.MClearUsernameClickListener}" />
 
                 </LinearLayout>
 
@@ -90,7 +90,7 @@
                         android:hint="@string/请输入密码"
                         android:inputType="textPassword"
                         android:padding="5dp"
-                        android:text="@={registerViewModel.password}"
+                        android:text="@={registerViewModel.MPassword}"
                         android:textColor="#ff4a4a4a" />
 
                     <ImageView
@@ -101,8 +101,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:src="@drawable/ic_clear"
-                        android:visibility="@{TextUtils.isEmpty(registerViewModel.password) ? 8 : 0}"
-                        app:onClick="@{registerViewModel.clearPasswordClickListener}" />
+                        android:visibility="@{TextUtils.isEmpty(registerViewModel.MPassword) ? 8 : 0}"
+                        app:onClick="@{registerViewModel.MClearPasswordClickListener}" />
 
                 </LinearLayout>
 
@@ -131,7 +131,7 @@
                         android:hint="@string/再次确认密码"
                         android:inputType="textPassword"
                         android:padding="5dp"
-                        android:text="@={registerViewModel.confirmPassword}"
+                        android:text="@={registerViewModel.MConfirmPassword}"
                         android:textColor="#ff4a4a4a" />
 
                     <ImageView
@@ -142,8 +142,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:src="@drawable/ic_clear"
-                        android:visibility="@{TextUtils.isEmpty(registerViewModel.confirmPassword) ? 8 : 0}"
-                        app:onClick="@{registerViewModel.clearConfirmPasswordClickListener}" />
+                        android:visibility="@{TextUtils.isEmpty(registerViewModel.MConfirmPassword) ? 8 : 0}"
+                        app:onClick="@{registerViewModel.MClearConfirmPasswordClickListener}" />
 
                 </LinearLayout>
 
@@ -164,7 +164,7 @@
                     android:layout_marginEnd="35dp"
                     android:layout_marginBottom="50dp"
                     android:background="@drawable/selector_submit"
-                    android:enabled="@{registerViewModel.isRegisterEnable}"
+                    android:enabled="@{registerViewModel.MIsRegisterEnable}"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
@@ -173,7 +173,7 @@
                     android:text="@string/注册"
                     android:textColor="#ffffffff"
                     android:textSize="15sp"
-                    app:onClick="@{registerViewModel.registerClickListener}" />
+                    app:onClick="@{registerViewModel.MRegisterClickListener}" />
 
             </LinearLayout>
 

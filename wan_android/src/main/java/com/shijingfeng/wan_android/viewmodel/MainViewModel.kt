@@ -150,7 +150,7 @@ class MainViewModel(
      */
     fun getFragmentList(): List<WanAndroidBaseFragment<*, *>> {
         if (mFragmentList == null) {
-            mFragmentList = listOf(
+            mFragmentList = listOf<WanAndroidBaseFragment<*, *>>(
                 //首页 Fragment
                 HomeFragment(),
                 //分类 Fragment

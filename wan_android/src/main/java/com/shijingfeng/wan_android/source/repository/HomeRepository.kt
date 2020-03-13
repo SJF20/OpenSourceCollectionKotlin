@@ -16,7 +16,7 @@ private var sInstance: HomeRepository? = null
  * @return 实例
  */
 fun getHomeRepositoryInstance(
-    networkSource: HomeNetworkSource
+    networkSource: HomeNetworkSource? = null
 ): HomeRepository {
     if (sInstance == null) {
         synchronized(HomeRepository::class.java) {
@@ -35,7 +35,7 @@ fun getHomeRepositoryInstance(
  * @author ShiJingFeng
  */
 class HomeRepository(
-    networkSource: HomeNetworkSource
+    networkSource: HomeNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, HomeNetworkSource>(
     mNetworkSource = networkSource
 ) {

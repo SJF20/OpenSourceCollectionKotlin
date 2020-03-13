@@ -16,7 +16,7 @@ private var sInstance: RegisterRepository? = null
  * @return 实例
  */
 fun getRegisterRepositoryInstance(
-    networkSource: RegisterNetworkSource
+    networkSource: RegisterNetworkSource? = null
 ): RegisterRepository {
     if (sInstance == null) {
         synchronized(RegisterRepository::class.java) {
@@ -35,7 +35,7 @@ fun getRegisterRepositoryInstance(
  * @author ShiJingFeng
  */
 class RegisterRepository(
-    networkSource: RegisterNetworkSource
+    networkSource: RegisterNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, RegisterNetworkSource>(
     mNetworkSource = networkSource
 ) {

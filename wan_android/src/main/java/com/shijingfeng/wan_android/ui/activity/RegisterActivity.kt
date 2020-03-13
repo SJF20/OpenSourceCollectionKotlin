@@ -12,6 +12,8 @@ import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstan
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
 import com.shijingfeng.wan_android.source.repository.getRegisterRepositoryInstance
 import com.shijingfeng.wan_android.viewmodel.RegisterViewModel
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.layout_title_bar.view.*
 
 /**
  * Function: 注册 Activity
@@ -48,10 +50,8 @@ class RegisterActivity: WanAndroidBaseActivity<ActivityRegisterBinding, Register
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
      */
-    override fun getVariableSparseArray(): SparseArray<Any>? {
-        return SparseArray<Any>().apply {
-            put(BR.registerViewModel, mViewModel)
-        }
+    override fun getVariableSparseArray() = SparseArray<Any>().apply {
+        put(BR.registerViewModel, mViewModel)
     }
 
     /**
@@ -59,7 +59,7 @@ class RegisterActivity: WanAndroidBaseActivity<ActivityRegisterBinding, Register
      */
     override fun initData() {
         super.initData()
-        mDataBinding.includeTitleBar.tvTitle.text = "注册"
+        include_title_bar.tv_title.text = "注册"
     }
 
 }

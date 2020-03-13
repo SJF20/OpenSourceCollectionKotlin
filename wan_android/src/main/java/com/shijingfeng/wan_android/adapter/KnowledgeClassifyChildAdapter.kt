@@ -2,7 +2,6 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.text.TextUtils
-import android.view.View
 import android.widget.CompoundButton
 import com.shijingfeng.base.base.adapter.common.CommonAdapter
 import com.shijingfeng.base.base.adapter.common.viewholder.CommonViewHolder
@@ -18,10 +17,10 @@ import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
  * @author ShiJingFeng
  */
 class KnowledgeClassifyChildAdapter(
-    mContext: Context,
-    mLayoutId: Int,
-    mDataList: List<KnowledgeClassifyChildItem>? = null
-) : CommonAdapter<KnowledgeClassifyChildItem>(mContext, mLayoutId, mDataList) {
+    context: Context,
+    layoutId: Int,
+    dataList: List<KnowledgeClassifyChildItem>? = null
+) : CommonAdapter<KnowledgeClassifyChildItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

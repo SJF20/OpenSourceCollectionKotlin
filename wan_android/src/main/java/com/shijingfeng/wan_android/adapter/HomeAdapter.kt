@@ -41,10 +41,10 @@ import java.util.*
  * @author ShiJingFeng
  */
 class HomeAdapter(
-    mContext: Context,
-    mDataList: List<HomeItem>? = null,
-    mMultiItemTypeSupport: MultiItemTypeSupport<HomeItem>
-) : CommonMultiItemAdapter<HomeItem>(mContext, mDataList, mMultiItemTypeSupport) {
+    context: Context,
+    dataList: List<HomeItem>? = null,
+    multiItemTypeSupport: MultiItemTypeSupport<HomeItem>
+) : CommonMultiItemAdapter<HomeItem>(context, dataList, multiItemTypeSupport) {
 
     private var mBannerIndex = 0
 

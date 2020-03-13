@@ -13,10 +13,10 @@ import com.shijingfeng.wan_android.entity.network.CoinRankItem
  * @author ShiJingFeng
  */
 class CoinRankAdapter(
-    mContext: Context,
-    mLayoutId: Int,
-    mDataList: List<CoinRankItem>? = null
-) : CommonAdapter<CoinRankItem>(mContext, mLayoutId, mDataList) {
+    context: Context,
+    layoutId: Int,
+    dataList: List<CoinRankItem>? = null
+) : CommonAdapter<CoinRankItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

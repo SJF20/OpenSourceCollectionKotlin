@@ -28,44 +28,44 @@ class RegisterViewModel(
 ) : WanAndroidBaseViewModel<RegisterRepository>(repository) {
 
     /** 用户名  */
-    val username = ObservableField("")
+    val mUsername = ObservableField("")
     /** 密码  */
-    val password = ObservableField("")
+    val mPassword = ObservableField("")
     /** 确认密码  */
-    val confirmPassword = ObservableField("")
+    val mConfirmPassword = ObservableField("")
     /** 是否能注册  */
-    val isRegisterEnable = object : ObservableBoolean(username, password, confirmPassword) {
-        override fun get() = !(TextUtils.isEmpty(username.get()) || TextUtils.isEmpty(password.get()) || TextUtils.isEmpty(confirmPassword.get()))
+    val mIsRegisterEnable = object : ObservableBoolean(mUsername, mPassword, mConfirmPassword) {
+        override fun get() = !(TextUtils.isEmpty(mUsername.get()) || TextUtils.isEmpty(mPassword.get()) || TextUtils.isEmpty(mConfirmPassword.get()))
     }
 
     /** 返回  */
-    val backClickListener = View.OnClickListener { finish() }
+    val mBackClickListener = View.OnClickListener { finish() }
     /** 清除用户名  */
-    val clearUsernameClickListener = View.OnClickListener { username.set("") }
+    val mClearUsernameClickListener = View.OnClickListener { mUsername.set("") }
     /** 清除密码  */
-    val clearPasswordClickListener = View.OnClickListener { password.set("") }
+    val mClearPasswordClickListener = View.OnClickListener { mPassword.set("") }
     /** 清除确认密码  */
-    val clearConfirmPasswordClickListener = View.OnClickListener { confirmPassword.set("") }
+    val mClearConfirmPasswordClickListener = View.OnClickListener { mConfirmPassword.set("") }
     /** 注册  */
-    val registerClickListener = View.OnClickListener { register() }
+    val mRegisterClickListener = View.OnClickListener { register() }
 
     /**
      * 注册
      */
     private fun register() {
-        if (TextUtils.isEmpty(username.get())) {
+        if (TextUtils.isEmpty(mUsername.get())) {
             ToastUtils.showShort("用户名不能为空")
             return
         }
-        if (TextUtils.isEmpty(password.get())) {
+        if (TextUtils.isEmpty(mPassword.get())) {
             ToastUtils.showShort("密码不能为空")
             return
         }
-        if (TextUtils.isEmpty(confirmPassword.get())) {
+        if (TextUtils.isEmpty(mConfirmPassword.get())) {
             ToastUtils.showShort("确认密码不能为空")
             return
         }
-        if (!TextUtils.equals(password.get(), confirmPassword.get())) {
+        if (!TextUtils.equals(mPassword.get(), mConfirmPassword.get())) {
             ToastUtils.showShort("两次输入密码不一致")
             return
         }
@@ -74,9 +74,9 @@ class RegisterViewModel(
 
         val postMap = HashMap<String, Any>(3)
 
-        postMap["username"] = username
-        postMap["password"] = password
-        postMap["repassword"] = confirmPassword
+        postMap["username"] = mUsername
+        postMap["password"] = mPassword
+        postMap["repassword"] = mConfirmPassword
 
         mRepository?.register(postMap, onSuccess = onSuccessCompleted@ { userInfo ->
             //关闭加载中弹框

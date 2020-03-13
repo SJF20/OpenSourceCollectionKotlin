@@ -16,7 +16,7 @@ private var sInstance: MainRepository? = null
  * @return 实例
  */
 fun getMainRepositoryInstance(
-    networkSource: MainNetworkSource
+    networkSource: MainNetworkSource? = null
 ): MainRepository {
     if (sInstance == null) {
         synchronized(MainRepository::class.java) {
@@ -35,7 +35,7 @@ fun getMainRepositoryInstance(
  * @author ShiJingFeng
  */
 class MainRepository(
-    networkSource: MainNetworkSource
+    networkSource: MainNetworkSource? = null
 ) : BaseRepository<MainLocalSource, MainNetworkSource>(
     mNetworkSource = networkSource
 ) {

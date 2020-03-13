@@ -267,7 +267,7 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
-                iv_menu.setRotation(slideOffset * 180)
+                iv_menu.rotation = slideOffset * 180
             }
 
         })

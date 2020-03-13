@@ -32,66 +32,66 @@ class LoginViewModel(
 ) : WanAndroidBaseViewModel<LoginRepository>(repository) {
 
     /** 用户名  */
-    val username = ObservableField("")
+    val mUsername = ObservableField("")
 
     /** 用户名清除按钮 可见性  */
-    val usernameClearVisibility = object : ObservableInt(username) {
-        override fun get() = if (TextUtils.isEmpty(username.get())) GONE else VISIBLE
+    val mUsernameClearVisibility = object : ObservableInt(mUsername) {
+        override fun get() = if (TextUtils.isEmpty(mUsername.get())) GONE else VISIBLE
     }
 
     /** 密码  */
-    val password = ObservableField("")
+    val mPassword = ObservableField("")
 
     /** 密码清除按钮 可见性  */
-    val passwordClearVisibility = object : ObservableInt(password) {
-        override fun get() = if (TextUtils.isEmpty(password.get())) GONE else VISIBLE
+    val mPasswordClearVisibility = object : ObservableInt(mPassword) {
+        override fun get() = if (TextUtils.isEmpty(mPassword.get())) GONE else VISIBLE
     }
 
     /** 是否能登录  */
-    val isLoginEnable = object : ObservableBoolean(username, password) {
+    val mIsLoginEnable = object : ObservableBoolean(mUsername, mPassword) {
         override fun get() =
-            !TextUtils.isEmpty(username.get()) && !TextUtils.isEmpty(password.get())
+            !TextUtils.isEmpty(mUsername.get()) && !TextUtils.isEmpty(mPassword.get())
     }
 
     /** 密码是否是明文  true 明文 false 密文  */
-    val isCleartextPassword = ObservableBoolean(false)
+    val mIsCleartextPassword = ObservableBoolean(false)
 
     /** 设置密码保密性图标  */
-    val passwordSecrecyIcon = object : ObservableField<Drawable>(isCleartextPassword) {
+    val mPasswordSecrecyIcon = object : ObservableField<Drawable>(mIsCleartextPassword) {
         override fun get() =
-            if (isCleartextPassword.get()) getDrawable(R.drawable.ic_invisible) else getDrawable(R.drawable.ic_visible)
+            if (mIsCleartextPassword.get()) getDrawable(R.drawable.ic_invisible) else getDrawable(R.drawable.ic_visible)
     }
 
     /** 返回  */
-    val backClickListener = OnClickListener { finish() }
+    val mBackClickListener = OnClickListener { finish() }
 
     /** 去注册 */
-    val textOperateClickListener = OnClickListener {
+    val mTextOperateClickListener = OnClickListener {
         navigation(path = ACTIVITY_WAN_ANDROID_REGISTER, bundle = Bundle().apply {
             putBoolean(SKIP_TO_HOME, mBundle?.getBoolean(SKIP_TO_HOME, false) ?: false)
         })
     }
 
     /** 登录  */
-    val loginClickListener = OnClickListener { login() }
+    val mLoginClickListener = OnClickListener { login() }
 
     /** 找回密码  */
-    val retrievePasswordClickListener = OnClickListener {}
+    val mRetrievePasswordClickListener = OnClickListener {}
 
     /** 清除用户名  */
-    val clearUsernameClickListener = OnClickListener { username.set("") }
+    val mClearUsernameClickListener = OnClickListener { mUsername.set("") }
 
     /** 清除密码  */
-    val clearPasswordClickListener = OnClickListener { password.set("") }
+    val mClearPasswordClickListener = OnClickListener { mPassword.set("") }
 
     /** 密码可见性切换 */
-    val passwordVisibilityClickListener = OnClickListener {
-        if (isCleartextPassword.get()) {
+    val mPasswordVisibilityClickListener = OnClickListener {
+        if (mIsCleartextPassword.get()) {
             //设置为密文
-            isCleartextPassword.set(false)
+            mIsCleartextPassword.set(false)
         } else {
             //设置为明文
-            isCleartextPassword.set(true)
+            mIsCleartextPassword.set(true)
         }
     }
 
@@ -103,8 +103,8 @@ class LoginViewModel(
 
         val postMap = HashMap<String, Any>()
 
-        postMap["username"] = username.get() ?: ""
-        postMap["password"] = password.get() ?: ""
+        postMap["username"] = mUsername.get() ?: ""
+        postMap["password"] = mPassword.get() ?: ""
 
         mRepository?.login(postMap, onSuccess = onSuccessCompleted@{ userInfo ->
             //关闭加载中弹框

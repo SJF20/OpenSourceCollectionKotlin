@@ -13,10 +13,10 @@ import com.shijingfeng.wan_android.entity.network.CoinRecordItem
  * @author ShiJingFeng
  */
 class CoinRecordAdapter(
-    mContext: Context,
-    mLayoutId: Int,
-    mDataList: List<CoinRecordItem>? = null
-) : CommonAdapter<CoinRecordItem>(mContext, mLayoutId, mDataList) {
+    context: Context,
+    layoutId: Int,
+    dataList: List<CoinRecordItem>? = null
+) : CommonAdapter<CoinRecordItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

@@ -16,7 +16,7 @@ private var sInstance: LoginRepository? = null
  * @return 实例
  */
 fun getLoginRepositoryInstance(
-    networkSource: LoginNetworkSource
+    networkSource: LoginNetworkSource? = null
 ): LoginRepository {
     if (sInstance == null) {
         synchronized(LoginRepository::class.java) {
@@ -35,7 +35,7 @@ fun getLoginRepositoryInstance(
  * @author ShiJingFeng
  */
 class LoginRepository(
-    networkSource: LoginNetworkSource
+    networkSource: LoginNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, LoginNetworkSource>(
     mNetworkSource = networkSource
 ) {

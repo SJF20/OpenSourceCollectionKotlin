@@ -23,10 +23,10 @@ import java.util.*
  * @author ShiJingFeng
  */
 class NavigationClassifyAdapter(
-    mContext: Context,
-    mLayoutId: Int,
-    mDataList: List<NavigationClassifyEntity>? = null
-) : CommonAdapter<NavigationClassifyEntity>(mContext, mLayoutId, mDataList) {
+    context: Context,
+    layoutId: Int,
+    dataList: List<NavigationClassifyEntity>? = null
+) : CommonAdapter<NavigationClassifyEntity>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

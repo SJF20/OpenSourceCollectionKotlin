@@ -22,10 +22,10 @@ import java.util.*
  * @author ShiJingFeng
  */
 class KnowledgeClassifyAdapter(
-    mContext: Context,
-    mLayoutId: Int,
-    mDataList: List<KnowledgeClassifyEntity>? = null
-) : CommonAdapter<KnowledgeClassifyEntity>(mContext, mLayoutId, mDataList) {
+    context: Context,
+    layoutId: Int,
+    dataList: List<KnowledgeClassifyEntity>? = null
+) : CommonAdapter<KnowledgeClassifyEntity>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)
