@@ -1,7 +1,7 @@
 @file:JvmName("DirectoryConstant")
 package com.shijingfeng.base.common.constant
 
-import com.shijingfeng.base.base.application.BaseApplication.Companion.getApplication
+import com.shijingfeng.base.base.application.application
 import java.io.File
 
 /**
@@ -12,6 +12,6 @@ import java.io.File
  */
 
 /** 外部存储 -> 应用私有目录 -> cache目录  */
-val PERSONAL_CACHE_DIR: String by lazy { getApplication().externalCacheDir!!.absolutePath }
+val PERSONAL_CACHE_DIR: String by lazy { application.externalCacheDir!!.absolutePath }
 /** 外部存储 -> 应用私有目录 -> glide目录  */
 val PERSONAL_GLIDE_CACHE_DIR: String by lazy { PERSONAL_CACHE_DIR + File.separator + "glide" }

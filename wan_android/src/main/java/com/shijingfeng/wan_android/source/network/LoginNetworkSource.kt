@@ -5,7 +5,6 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.OnFailure
 import com.shijingfeng.base.common.extension.OnSuccess
 import com.shijingfeng.base.http.exception.ServerException
-import com.shijingfeng.base.util.JsonUtil
 import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS

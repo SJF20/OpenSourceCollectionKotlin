@@ -111,10 +111,11 @@ android {
     buildFeatures{
         dataBinding = true
     }
+    //Android Studio 4.0 以下 使用
     //开启DataBinding (注意每个用到DataBinding的Module都需要打开)
-    dataBinding {
-        enabled true
-    }
+//    dataBinding {
+//        enabled true
+//    }
     //开启Java8
     compileOptions {
         sourceCompatibility = 1.8
@@ -200,6 +201,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    //依赖 common 模块
+    implementation project(path: ':common')
+    //依赖 base 模块
     implementation project(path: ':base')
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]

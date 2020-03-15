@@ -1,3 +1,4 @@
+<!-- 只有设置为 application 单独调试时，才会使用 -->
 <resources>
     <style name="WanAndroidTheme" parent="ProjectTheme">
     </style>

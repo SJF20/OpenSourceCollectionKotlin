@@ -7,7 +7,7 @@ import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.ColorRes
-import com.shijingfeng.base.base.application.BaseApplication.Companion.getApplication
+import com.shijingfeng.base.base.application.application
 
 /**
  * Function: 状态栏工具类
@@ -26,7 +26,7 @@ fun setStatusBarColor(activity: Activity, @ColorRes color: Int) {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            statusBarColor = activity.resources.getColor(color)
+            statusBarColor = getColorById(color)
         }
     }
 }
@@ -58,9 +58,10 @@ fun setStatusBarContentColor(activity: Activity, dark: Boolean) {
  */
 fun getStatusBarHeight(): Int {
     var result = 0
-    val resourceId = getApplication().resources.getIdentifier("status_bar_height", "dimen", "android")
+    val resourceId = application.resources.getIdentifier("status_bar_height", "dimen", "android")
+
     if (resourceId > 0) {
-        result = getApplication().resources.getDimensionPixelSize(resourceId)
+        result = application.resources.getDimensionPixelSize(resourceId)
     }
     return result
 }

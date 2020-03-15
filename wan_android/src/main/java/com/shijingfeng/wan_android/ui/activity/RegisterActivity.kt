@@ -4,6 +4,7 @@ import android.util.SparseArray
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -59,7 +60,7 @@ class RegisterActivity: WanAndroidBaseActivity<ActivityRegisterBinding, Register
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = "注册"
+        include_title_bar.tv_title.text = getStringById(R.string.注册)
     }
 
 }

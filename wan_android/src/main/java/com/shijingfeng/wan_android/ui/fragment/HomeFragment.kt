@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
-import com.shijingfeng.base.base.adapter.common.support.MultiItemTypeSupport
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
-import com.shijingfeng.base.base.viewmodel.factory.CommonViewModelFactory
+import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
@@ -33,7 +32,6 @@ import com.shijingfeng.wan_android.entity.event.CollectionEvent
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.HomeRepository
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -140,14 +138,14 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     //滑倒最底部，隐藏
-                    mOnItemEventListener?.invoke(recyclerView, null, GONE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, GONE, TAB_LAYOUT_VISIBILITY)
                     return
                 }
                 if (!recyclerView.canScrollVertically(-1)) { //滑倒顶部，显示
-                    mOnItemEventListener?.invoke(recyclerView, null, VISIBLE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, VISIBLE, TAB_LAYOUT_VISIBILITY)
                     return
                 }
-                mOnItemEventListener?.invoke(
+                mOnItemEvent?.invoke(
                     recyclerView,
                     null,
                     if (dy > 0) GONE else VISIBLE,
@@ -156,7 +154,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
             }
 
         })
-        mHomeAdapter?.setOnItemEventListener { view, data, position, flag ->
+        mHomeAdapter?.setOnItemEventListener { _, data, position, flag ->
             if (data == null) {
                 return@setOnItemEventListener
             }

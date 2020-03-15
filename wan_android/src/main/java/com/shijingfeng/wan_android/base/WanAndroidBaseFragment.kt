@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.ResourceUtils
 import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.util.d
+import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.wan_android.R
 
 /**
@@ -26,9 +27,7 @@ abstract class WanAndroidBaseFragment<V : ViewDataBinding, VM : WanAndroidBaseVi
      *
      * @return 背景 Drawable
      */
-    override fun getStatusBarBackground(): Drawable? {
-        return ResourceUtils.getDrawable(R.color.wan_android_status_bar_default_color)
-    }
+    override fun getStatusBarBackground() = getDrawableById(R.color.wan_android_status_bar_default_color)
 
     /**
      * 滑动到顶部

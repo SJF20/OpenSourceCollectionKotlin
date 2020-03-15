@@ -3,8 +3,8 @@ package com.shijingfeng.wan_android.adapter
 import android.content.Context
 import android.view.View
 import com.blankj.utilcode.util.ClickUtils
-import com.shijingfeng.base.base.adapter.common.CommonAdapter
-import com.shijingfeng.base.base.adapter.common.viewholder.CommonViewHolder
+import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
@@ -40,11 +40,11 @@ class ArticleCollectedListAdapter(
 
         //查看文章详情
         ClickUtils.applySingleDebouncing(holder.itemView) { v ->
-            mOnItemEventListener?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
+            mOnItemEvent?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
         }
         //取消收藏
         ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
-            mOnItemEventListener?.invoke(v, data, position, ARTICLE_ITEM_UNCOLLECTED)
+            mOnItemEvent?.invoke(v, data, position, ARTICLE_ITEM_UNCOLLECTED)
         }
 
         holder.run {

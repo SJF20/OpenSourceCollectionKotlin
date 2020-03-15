@@ -25,20 +25,18 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
-import com.shijingfeng.base.arouter.ACTIVITY_BASE_VIEW_ORIGINAL_IMAGE
+import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.ARouterUtil.navigation
-import com.shijingfeng.base.base.application.BaseApplication.Companion.isX5Inited
+import com.shijingfeng.base.base.application.isX5Inited
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.entity.ViewOriginalImageItem
 import com.shijingfeng.base.entity.event.X5InitedEvent
-import com.shijingfeng.base.util.JsonUtil.Companion.serialize
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStatusBarHeight
+import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.setDefaultX5WebSettings
-import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.base.widget.dialog.CommonDialog
+import com.shijingfeng.common.entity.ViewOriginalImageItem
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -153,7 +151,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
         }
         //如果内核没有初始化完成，则不初始化 腾讯X5 WebView
         mViewModel?.let { viewModel ->
-            if (!viewModel.mHasX5WebViewInited && isX5Inited()) {
+            if (!viewModel.mHasX5WebViewInited && isX5Inited) {
                 initX5WebView()
             }
         }
@@ -195,7 +193,6 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
                     //计算滑动距离
                     mYScrollDistance += (newScrollY - oldScrollY)
                     if (mYScrollDistance >= TITLE_BAR_HEIGHT && mIsTitleBarVisible) {
-                        e("测试", "隐藏标题栏")
                         //隐藏标题栏
                         hideTitleBar()
                     }
@@ -209,7 +206,6 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
                     //计算滑动距离
                     mYScrollDistance += (oldScrollY - newScrollY)
                     if (mYScrollDistance >= TITLE_BAR_HEIGHT && !mIsTitleBarVisible) {
-                        e("测试", "显示标题栏")
                         //显示标题栏
                         showTitleBar()
                     }
@@ -227,7 +223,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
      */
     private fun initJavascriptInterfaces() {
         //图片点击 js 接口
-        mDataBinding.wvContent.addJavascriptInterface(JsCallAndroidInterface(), "imgClick")
+        wv_content.addJavascriptInterface(JsCallAndroidInterface(), "imgClick")
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -616,7 +612,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
             customViewCallback: IX5WebChromeClient.CustomViewCallback?
         ) {
             super.onShowCustomView(view, customViewCallback)
-            val statusBarView = mDataBinding.root.findViewById<StatusBarView>(R.id.status_bar_view)
+            val statusBarView = mDataBinding.root.findViewById<View>(R.id.status_bar_view)
 
             switchScreenOrientation()
             statusBarView?.setBackgroundResource(R.color.black)
@@ -630,7 +626,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
          */
         override fun onHideCustomView() {
             super.onHideCustomView()
-            val statusBarView = mDataBinding.root.findViewById<StatusBarView>(R.id.status_bar_view)
+            val statusBarView = mDataBinding.root.findViewById<View>(R.id.status_bar_view)
 
             switchScreenOrientation()
             statusBarView?.setBackgroundResource(R.color.wan_android_theme_color)
@@ -687,12 +683,14 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
         fun imageClick(data: String?) {
             runOnUiThread {
                 val dataList: List<ViewOriginalImageItem> = listOf(
-                    ViewOriginalImageItem(data ?: "")
+                    ViewOriginalImageItem(
+                        data ?: ""
+                    )
                 )
 
                 navigation(
                     activity = this@WebViewActivity,
-                    path = ACTIVITY_BASE_VIEW_ORIGINAL_IMAGE,
+                    path = ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE,
                     bundle = Bundle().apply {
                         putString(DATA, serialize(dataList))
                         putInt(CURRENT_POSITION, 0)

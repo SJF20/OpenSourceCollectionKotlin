@@ -11,12 +11,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.common.CommonMultiItemAdapter
-import com.shijingfeng.base.base.adapter.common.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.common.viewholder.CommonViewHolder
+import com.shijingfeng.base.base.adapter.CommonMultiItemAdapter
+import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.cast
+import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.library.banner.entity.BaseIndicatorData
 import com.shijingfeng.library.banner.entity.CombineIndicatorData
@@ -77,7 +78,7 @@ class HomeAdapter(
                     .setCurRealPosition(mBannerIndex)
                     .setTotalRealCount(homeBannerList.size)
                     .setTitleTextList(titleTextList)
-                    .setTitleColor(mContext.resources.getColor(R.color.white))
+                    .setTitleColor(getColorById(R.color.white))
                     .setTitleSize(18)
                     .setTitleGravity(Gravity.START or Gravity.CENTER_VERTICAL)
                 //图形指示器 数据
@@ -99,12 +100,12 @@ class HomeAdapter(
                     .setPaddingBottom(DensityUtil.dp2px(10f))
                     .setPaddingStart(DensityUtil.dp2px(10f))
                     .setPaddingEnd(DensityUtil.dp2px(10f))
-                    .setBackground(ResourceUtils.getDrawable(R.color.home_banner_title_bg))
+                    .setBackground(getDrawableById(R.color.home_banner_title_bg))
                     .setIndicatorDataList(indicatorDataList)
                 val pagerAdapter = HomeBannerPagerAdapter(mContext, homeBannerList)
 
                 pagerAdapter.setOnItemEventListener { view: View, any: Any, pos: Int, flag: String ->
-                    mOnItemEventListener?.invoke(view, any, pos, flag)
+                    mOnItemEvent?.invoke(view, any, pos, flag)
                 }
                 bannerView
                     ?.setPagerAdapter(pagerAdapter)
@@ -127,13 +128,13 @@ class HomeAdapter(
 
                 //查看详情
                 ClickUtils.applySingleDebouncing(holder.itemView) { v ->
-                    mOnItemEventListener?.invoke(v, homeSetToTopItem, position, VIEW_ARTICLE_DETAIL)
+                    mOnItemEvent?.invoke(v, homeSetToTopItem, position, VIEW_ARTICLE_DETAIL)
                 }
                 //收藏或取消收藏
                 ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEventListener?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
+                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
                 }
 
                 holder.run {
@@ -158,7 +159,7 @@ class HomeAdapter(
                         gravity = Gravity.CENTER
                         setBackgroundResource(R.drawable.shape_home_article_tag)
                         text = homeArticleItemTag.name
-                        setTextColor(mContext.resources.getColor(R.color.dodger_blue))
+                        setTextColor(getColorById(R.color.dodger_blue))
                     })
                 }
 
@@ -194,13 +195,13 @@ class HomeAdapter(
 
                 //查看详情
                 ClickUtils.applySingleDebouncing(holder.itemView) { v ->
-                    mOnItemEventListener?.invoke(v, homeArticleItem, position, VIEW_ARTICLE_DETAIL)
+                    mOnItemEvent?.invoke(v, homeArticleItem, position, VIEW_ARTICLE_DETAIL)
                 }
                 //收藏或取消收藏
                 ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEventListener?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
+                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
                 }
 
                 holder.run {
@@ -226,7 +227,7 @@ class HomeAdapter(
                         gravity = Gravity.CENTER
                         setBackgroundResource(R.drawable.shape_home_article_tag)
                         text = homeArticleItemTag.name
-                        setTextColor(mContext.resources.getColor(R.color.dodger_blue))
+                        setTextColor(getColorById(R.color.dodger_blue))
                     })
                 }
 
@@ -280,7 +281,7 @@ class HomeAdapter(
                                 ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEventListener?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
+                                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
                                 }
 
                                 holder.run {
@@ -294,7 +295,7 @@ class HomeAdapter(
                                 ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEventListener?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
+                                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
                                 }
 
                                 holder.run {

@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ResourceUtils
 import com.shijingfeng.app.R
 import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.util.d
+import com.shijingfeng.base.util.getDrawableById
 
 /**
  * Function: app 模块 Fragment 基类
@@ -26,8 +27,6 @@ abstract class AppBaseFragment<V : ViewDataBinding, VM : AppBaseViewModel<*>> : 
      *
      * @return 背景 Drawable
      */
-    override fun getStatusBarBackground(): Drawable? {
-        return ResourceUtils.getDrawable(R.color.app_status_bar_default_color)
-    }
+    override fun getStatusBarBackground() = getDrawableById(R.color.app_status_bar_default_color)
 
 }

@@ -11,10 +11,10 @@ import com.tencent.smtt.sdk.WebView
  * @author ShiJingFeng
  */
 class CustomX5WebView @JvmOverloads constructor(
-    mContext: Context,
-    mAttrs: AttributeSet? = null,
-    mDefStyleAttr: Int = 0
-) : WebView(mContext, mAttrs, mDefStyleAttr) {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : WebView(context, attrs, defStyleAttr) {
 
     private var mOnScrollChangeListener: ((
         //腾讯X5 WebView

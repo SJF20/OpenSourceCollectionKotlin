@@ -1,9 +1,10 @@
 package com.shijingfeng.wan_android.utils
 
 import com.blankj.utilcode.util.SPUtils
-import com.shijingfeng.base.util.JsonUtil
 import com.shijingfeng.base.util.decrypt
+import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.encrypt
+import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.constant.LOGIN
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
 import com.shijingfeng.wan_android.constant.USER_INFO
@@ -50,7 +51,7 @@ object UserUtil {
             val encryptLoginDataStr = SPUtils.getInstance(SP_APP_NAME).getString(USER_INFO, "")
             val loginDataStr: String = decrypt(encryptLoginDataStr)
 
-            mUserInfoEntity = JsonUtil.deserialize(loginDataStr, UserInfoEntity::class.java)
+            mUserInfoEntity = deserialize(loginDataStr, UserInfoEntity::class.java)
         }
 
         return mUserInfoEntity
@@ -66,7 +67,7 @@ object UserUtil {
         if (userInfoEntity == null) {
             SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO)
         } else {
-            SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(JsonUtil.serialize(userInfoEntity)), false)
+            SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), false)
         }
     }
 
@@ -79,7 +80,7 @@ object UserUtil {
         mUserInfoEntity = userInfoEntity
 
         SPUtils.getInstance(SP_APP_NAME).put(LOGIN, true)
-        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(JsonUtil.serialize(userInfoEntity)))
+        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)))
     }
 
     /**

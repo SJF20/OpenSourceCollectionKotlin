@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("FixedWidthGridLayoutUtil")
 package com.shijingfeng.base.util
 
 import android.content.Context

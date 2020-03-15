@@ -20,17 +20,16 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.StringUtils
 import com.google.android.material.tabs.TabLayout
-import com.shijingfeng.base.base.adapter.common.CommonFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.CommonFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.viewmodel.factory.CommonViewModelFactory
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.JsonUtil
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.RESULT_ARTICLE_COLLECTED_LIST
 import com.shijingfeng.wan_android.constant.RESULT_COIN_RECORD
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
@@ -134,16 +133,21 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
             //项目
             addTab(newTab())
             setupWithViewPager(vp_content)
-            getTabAt(HOME)?.setCustomView(getTabView(HOME))
-            getTabAt(CLASSIFY)?.setCustomView(getTabView(CLASSIFY))
-            getTabAt(OFFICIAL_ACCOUNT)?.setCustomView(getTabView(OFFICIAL_ACCOUNT))
-            getTabAt(SQUARE)?.setCustomView(getTabView(SQUARE))
-            getTabAt(PROJECT)?.setCustomView(getTabView(PROJECT))
+            //首页
+            getTabAt(HOME)?.customView = getTabView(HOME)
+            //分类
+            getTabAt(CLASSIFY)?.customView = getTabView(CLASSIFY)
+            //公众号
+            getTabAt(OFFICIAL_ACCOUNT)?.customView = getTabView(OFFICIAL_ACCOUNT)
+            //广场
+            getTabAt(SQUARE)?.customView = getTabView(SQUARE)
+            //项目
+            getTabAt(PROJECT)?.customView = getTabView(PROJECT)
         }
         UserUtil.getUserInfo()?.run {
             //如果登录则设置数据
             tv_name.text = if (TextUtils.isEmpty(nickname)) username else nickname
-            tv_id.text = "ID: $identity"
+            tv_id.text = identity
         }
     }
 
@@ -163,31 +167,30 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
                 when (tab.position) {
                     //首页
                     HOME -> {
-                        tv_indicator_home.setTextColor(resources.getColor(R.color.red))
-                        iv_indicator_home.setColorFilter(resources.getColor(R.color.red))
+                        tv_indicator_home.setTextColor(getColorById(R.color.red))
+                        iv_indicator_home.setColorFilter(getColorById(R.color.red))
                     }
                     //分类
                     CLASSIFY -> {
-                        tv_indicator_classify.setTextColor(resources.getColor(R.color.red))
-                        iv_indicator_classify.setColorFilter(resources.getColor(R.color.red))
+                        tv_indicator_classify.setTextColor(getColorById(R.color.red))
+                        iv_indicator_classify.setColorFilter(getColorById(R.color.red))
                     }
                     //公众号
                     OFFICIAL_ACCOUNT -> {
-                        tv_indicator_official_account.setTextColor(resources.getColor(R.color.red))
-                        iv_indicator_official_account.setColorFilter(resources.getColor(R.color.red))
+                        tv_indicator_official_account.setTextColor(getColorById(R.color.red))
+                        iv_indicator_official_account.setColorFilter(getColorById(R.color.red))
                     }
                     //广场
                     SQUARE -> {
-                        tv_indicator_square.setTextColor(resources.getColor(R.color.red))
-                        iv_indicator_square.setColorFilter(resources.getColor(R.color.red))
+                        tv_indicator_square.setTextColor(getColorById(R.color.red))
+                        iv_indicator_square.setColorFilter(getColorById(R.color.red))
                     }
                     //项目
                     PROJECT -> {
-                        tv_indicator_project.setTextColor(resources.getColor(R.color.red))
-                        iv_indicator_project.setColorFilter(resources.getColor(R.color.red))
+                        tv_indicator_project.setTextColor(getColorById(R.color.red))
+                        iv_indicator_project.setColorFilter(getColorById(R.color.red))
                     }
-                    else -> {
-                    }
+                    else -> {}
                 }
             }
 
@@ -195,31 +198,30 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
                 when (tab.position) {
                     //首页
                     HOME -> {
-                        tv_indicator_home.setTextColor(resources.getColor(R.color.grey))
-                        iv_indicator_home.setColorFilter(resources.getColor(R.color.grey))
+                        tv_indicator_home.setTextColor(getColorById(R.color.grey))
+                        iv_indicator_home.setColorFilter(getColorById(R.color.grey))
                     }
                     //分类
                     CLASSIFY -> {
-                        tv_indicator_classify.setTextColor(resources.getColor(R.color.grey))
-                        iv_indicator_classify.setColorFilter(resources.getColor(R.color.grey))
+                        tv_indicator_classify.setTextColor(getColorById(R.color.grey))
+                        iv_indicator_classify.setColorFilter(getColorById(R.color.grey))
                     }
                     //公众号
                     OFFICIAL_ACCOUNT -> {
-                        tv_indicator_official_account.setTextColor(resources.getColor(R.color.grey))
-                        iv_indicator_official_account.setColorFilter(resources.getColor(R.color.grey))
+                        tv_indicator_official_account.setTextColor(getColorById(R.color.grey))
+                        iv_indicator_official_account.setColorFilter(getColorById(R.color.grey))
                     }
                     //广场
                     SQUARE -> {
-                        tv_indicator_square.setTextColor(resources.getColor(R.color.grey))
-                        iv_indicator_square.setColorFilter(resources.getColor(R.color.grey))
+                        tv_indicator_square.setTextColor(getColorById(R.color.grey))
+                        iv_indicator_square.setColorFilter(getColorById(R.color.grey))
                     }
                     //项目
                     PROJECT -> {
-                        tv_indicator_project.setTextColor(resources.getColor(R.color.grey))
-                        iv_indicator_project.setColorFilter(resources.getColor(R.color.grey))
+                        tv_indicator_project.setTextColor(getColorById(R.color.grey))
+                        iv_indicator_project.setColorFilter(getColorById(R.color.grey))
                     }
-                    else -> {
-                    }
+                    else -> {}
                 }
             }
 
@@ -242,23 +244,17 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
                 mViewModel?.mCurrentFragment = mViewModel?.getFragmentList()?.get(position)
 
                 when (position) {
-                    HOME -> {
-                        tv_title.text = "首页"
-                    }
-                    CLASSIFY -> {
-                        tv_title.text = "分类"
-                    }
-                    OFFICIAL_ACCOUNT -> {
-                        tv_title.text = "公众号"
-                    }
-                    SQUARE -> {
-                        tv_title.text = "广场"
-                    }
-                    PROJECT -> {
-                        tv_title.text = "项目"
-                    }
-                    else -> {
-                    }
+                    // 首页
+                    HOME -> tv_title.text = getStringById(R.string.首页)
+                    // 分类
+                    CLASSIFY -> tv_title.text = getStringById(R.string.分类)
+                    // 公众号
+                    OFFICIAL_ACCOUNT -> tv_title.text = getStringById(R.string.公众号)
+                    // 广场
+                    SQUARE -> tv_title.text = getStringById(R.string.广场)
+                    // 项目
+                    PROJECT -> tv_title.text = getStringById(R.string.项目)
+                    else -> {}
                 }
             }
         })
@@ -374,29 +370,18 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
      * @return View 要加载的View
      */
     @SuppressLint("InflateParams")
-    private fun getTabView(position: Int): View? {
-        var view: View? = null
-
-        when (position) {
-            //首页
-            HOME -> view =
-                LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_home, null)
-            //分类
-            CLASSIFY -> view =
-                LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_classify, null)
-            //公众号
-            OFFICIAL_ACCOUNT -> view = LayoutInflater.from(this)
-                .inflate(R.layout.layout_indicator_main_official_account, null)
-            //广场
-            SQUARE -> view =
-                LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_square, null)
-            //项目
-            PROJECT -> view =
-                LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_project, null)
-            else -> {
-            }
-        }
-        return view
+    private fun getTabView(position: Int) = when (position) {
+        //首页
+        HOME -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_home, null)
+        //分类
+        CLASSIFY -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_classify, null)
+        //公众号
+        OFFICIAL_ACCOUNT -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_official_account, null)
+        //广场
+        SQUARE -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_square, null)
+        //项目
+        PROJECT -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_project, null)
+        else -> { null }
     }
 
     /**

@@ -1,2 +1,10 @@
-include ':app', ':base', ':wan_android'
+// app 模块 (空壳架子)
+include ':app'
+// 玩Android 模块
+include ':wan_android'
+// 通用 模块 (提供通用功能组件)
+include ':common'
+// 基础 模块 (第三方依赖，和一些基类)
+include ':base'
+// 工程名称
 rootProject.name='OpenSourceCollectionKotlin'

@@ -28,6 +28,12 @@ import com.tencent.smtt.sdk.QbSdk
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+import java.lang.NullPointerException
+
+/** Application实例 */
+lateinit var application: Application
+/** X5内核是否初始化完成  true 初始化完成  false 未初始化完成 */
+var isX5Inited = false
 
 /**
  * Function:  Application基类
@@ -38,11 +44,6 @@ import java.io.File
 abstract class BaseApplication : Application() {
 
     companion object {
-        /** MainApp Context  */
-        protected lateinit var sInstance: Application
-        /** X5内核是否初始化完成  */
-        private var sX5Inited = false
-
         //static 代码段可以防止内存泄露
         init {
             //设置全局的Header构建器
@@ -58,19 +59,6 @@ abstract class BaseApplication : Application() {
                 ClassicsFooter(context)
             }
         }
-
-        /**
-         * 获取 Application
-         * @return Application
-         */
-        fun getApplication() = sInstance
-
-        /**
-         * 腾讯X5内核是否初始化完成
-         * @return true 初始化完成  false 正在初始化
-         */
-        fun isX5Inited() = sX5Inited
-
     }
 
     /** X5内核是否初始化成功  true:成功 false:失败  */
@@ -78,7 +66,7 @@ abstract class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        sInstance = this
+        application = this
         //创建目录
         createDirectory()
         //初始化 ARouter 路由框架
@@ -170,7 +158,7 @@ abstract class BaseApplication : Application() {
              */
             override fun onCoreInitFinished() {
                 e("测试", "腾讯X5内核初始化完毕")
-                sX5Inited = true
+                isX5Inited = true
                 EventBus.getDefault().post(X5InitedEvent(mX5InitSuccess))
             }
 

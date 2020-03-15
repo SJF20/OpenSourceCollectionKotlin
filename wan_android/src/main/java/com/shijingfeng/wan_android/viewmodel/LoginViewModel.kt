@@ -8,11 +8,11 @@ import android.view.View.*
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import com.blankj.utilcode.util.ResourceUtils.getDrawable
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
+import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.SKIP_TO_HOME
@@ -58,8 +58,7 @@ class LoginViewModel(
 
     /** 设置密码保密性图标  */
     val mPasswordSecrecyIcon = object : ObservableField<Drawable>(mIsCleartextPassword) {
-        override fun get() =
-            if (mIsCleartextPassword.get()) getDrawable(R.drawable.ic_invisible) else getDrawable(R.drawable.ic_visible)
+        override fun get() = if (mIsCleartextPassword.get()) getDrawableById(R.drawable.ic_invisible) else getDrawableById(R.drawable.ic_visible)
     }
 
     /** 返回  */

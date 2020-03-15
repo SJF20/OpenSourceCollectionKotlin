@@ -70,8 +70,8 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = "积分排行榜"
-        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
+        include_title_bar.tv_title.text = getString(R.string.积分排行榜)
+        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             mLoadService?.showCallback(LoadingCallback::class.java)
         }
@@ -98,15 +98,15 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
         mViewModel?.getRefreshLoadMoreStatusEvent()?.observe(this, Observer { status: Int? ->
             when (status) {
                 // 下拉刷新成功
-                REFRESH_SUCCESS -> mDataBinding.srlRefresh.finishRefresh(true)
+                REFRESH_SUCCESS -> srl_refresh.finishRefresh(true)
                 // 下拉刷新失败
-                REFRESH_FAIL -> mDataBinding.srlRefresh.finishRefresh(false)
+                REFRESH_FAIL -> srl_refresh.finishRefresh(false)
                 // 上拉加载成功
-                LOAD_MORE_SUCCESS -> mDataBinding.srlRefresh.finishLoadMore(true)
+                LOAD_MORE_SUCCESS -> srl_refresh.finishLoadMore(true)
                 // 上拉加载失败
-                LOAD_MORE_FAIL -> mDataBinding.srlRefresh.finishLoadMore(false)
+                LOAD_MORE_FAIL -> srl_refresh.finishLoadMore(false)
                 // 上拉加载 所有数据加载完毕
-                LOAD_MORE_ALL -> mDataBinding.srlRefresh.finishLoadMoreWithNoMoreData()
+                LOAD_MORE_ALL -> srl_refresh.finishLoadMoreWithNoMoreData()
                 else -> {
                 }
             }

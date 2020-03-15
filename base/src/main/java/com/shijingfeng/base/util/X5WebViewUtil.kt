@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("X5WebViewUtil")
 package com.shijingfeng.base.util
 
 import android.annotation.SuppressLint
@@ -7,6 +9,7 @@ import android.os.Build
 import android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 import com.blankj.utilcode.util.NetworkUtils
 import com.shijingfeng.base.base.application.BaseApplication
+import com.shijingfeng.base.base.application.application
 import com.tencent.smtt.sdk.WebSettings
 
 /**
@@ -57,7 +60,7 @@ fun setDefaultX5WebSettings(webSettings: WebSettings) {
         setAppCacheMaxSize(Long.MAX_VALUE)
         //设置应用缓存本地存储目录
         setAppCachePath(
-            BaseApplication.getApplication().getDir(
+            application.getDir(
                 "appcache",
                 Context.MODE_PRIVATE
             ).path
@@ -70,7 +73,7 @@ fun setDefaultX5WebSettings(webSettings: WebSettings) {
         setGeolocationEnabled(true)
         //设置位置数据本地存储目录
         setGeolocationDatabasePath(
-            BaseApplication.getApplication().getDir(
+            application.getDir(
                 "geolocation",
                 MODE_PRIVATE
             ).path

@@ -14,7 +14,6 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.util.SparseArray
 import android.util.SparseIntArray
-import android.view.Gravity
 import android.view.Gravity.TOP
 import android.view.KeyEvent
 import android.view.View
@@ -30,7 +29,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
 import com.shijingfeng.base.R
@@ -42,6 +40,8 @@ import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.common.extension.OnItemEvent
+import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.setStatusBarColor
 import com.shijingfeng.base.util.setStatusBarContentColor
@@ -74,13 +74,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmFr
     /** 响应式权限请求框架  */
     protected var mRxPermissions: RxPermissions? = null
 
-    /** Activity回调监听器  */
-    protected var mOnItemEventListener: ((
-        view: View?,
-        data: Any?,
-        position: Int,
-        flag: String
-    ) -> Unit)? = null
+    /** 回调监听器  */
+    protected var mOnItemEvent: OnItemEvent? = null
 
     /** 暂存数据  */
     /** 相机Uri  */
@@ -332,7 +327,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmFr
      * 获取状态栏背景
      * @return 背景 Drawable
      */
-    protected open fun getStatusBarBackground(): Drawable? = ResourceUtils.getDrawable(R.color.project_status_bar_default_color)
+    protected open fun getStatusBarBackground(): Drawable? = getDrawableById(R.color.project_status_bar_default_color)
 
     /**
      * 跳转Activity页面
@@ -512,15 +507,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmFr
 
     /**
      * 设置回调监听器
-     * @param onItemEventListener 回调监听器
+     * @param onItemEvent 回调监听器
      */
-    fun setOnItemEventListener(onItemEventListener: ((
-        view: View?,
-        data: Any?,
-        position: Int,
-        flag: String
-    ) -> Unit)?) {
-        this.mOnItemEventListener = onItemEventListener
+    fun setOnItemEventListener(onItemEvent: OnItemEvent?) {
+        this.mOnItemEvent = onItemEvent
     }
 
     /**
@@ -541,7 +531,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmFr
     override fun onDestroy() {
         super.onDestroy()
         //解除对Activity的引用
-        mOnItemEventListener = null
+        mOnItemEvent = null
         //销毁权限申请框架
         mRxPermissions = null
         //清空Disposable

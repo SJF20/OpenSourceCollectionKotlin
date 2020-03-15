@@ -1,9 +1,10 @@
 package com.shijingfeng.wan_android.utils
 
 import com.blankj.utilcode.util.SPUtils
-import com.shijingfeng.base.util.JsonUtil
 import com.shijingfeng.base.util.decrypt
+import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.encrypt
+import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.constant.COIN_INFO
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
 import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
@@ -26,7 +27,7 @@ object CoinUtil {
     fun updateCoinInfo(coinInfoEntity: CoinInfoEntity) {
         mCoinInfoEntity = coinInfoEntity
 
-        SPUtils.getInstance(SP_APP_NAME).put(COIN_INFO, encrypt(JsonUtil.serialize(mCoinInfoEntity)))
+        SPUtils.getInstance(SP_APP_NAME).put(COIN_INFO, encrypt(serialize(mCoinInfoEntity)))
     }
 
     /**
@@ -38,7 +39,7 @@ object CoinUtil {
             val encryptCoinInfoStr = SPUtils.getInstance(SP_APP_NAME).getString(COIN_INFO, "")
             val coinInfoStr: String = decrypt(encryptCoinInfoStr)
 
-            mCoinInfoEntity = JsonUtil.deserialize(coinInfoStr, CoinInfoEntity::class.java)
+            mCoinInfoEntity = deserialize(coinInfoStr, CoinInfoEntity::class.java)
         }
         return mCoinInfoEntity
     }

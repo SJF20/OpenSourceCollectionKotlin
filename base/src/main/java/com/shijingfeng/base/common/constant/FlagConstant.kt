@@ -9,12 +9,14 @@ package com.shijingfeng.base.common.constant
  * @author ShiJingFeng
  */
 
-/** base Group 名字  */
-const val GROUP_BASE = "base"
 /** app Group 名字  */
 const val GROUP_APP = "app"
 /** wan_android Group 名字  */
 const val GROUP_WAN_ANDROID = "wan_android"
+/** common Group 名字 */
+const val GROUP_COMMON = "common"
+/** base Group 名字  */
+const val GROUP_BASE = "base"
 
 /** SparseArray Key(int) Value(Integer) Activity setResult中的resultCode  */
 const val KEY_RESULT_CODE = 1
@@ -62,9 +64,9 @@ const val CLICK = "click"
 const val LONG_CLICK = "long_click"
 
 /** HTTP协议前缀  */
-const val PROTOCOL_HTTP = "http"
+const val PROTOCOL_HTTP = "http://"
 /** HTTPS协议前缀  */
-const val PROTOCOL_HTTPS = "https"
+const val PROTOCOL_HTTPS = "https://"
 
 /** 插入顺序：正序  */
 const val ORDER_PLAIN = 0

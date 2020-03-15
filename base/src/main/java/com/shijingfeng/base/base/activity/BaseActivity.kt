@@ -39,6 +39,7 @@ import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.finishPreviousActivity
+import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.setStatusBarColor
 import com.shijingfeng.base.util.setStatusBarContentColor
 import com.shijingfeng.base.widget.StatusBarView
@@ -283,7 +284,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmAc
      * 获取状态栏背景
      * @return 背景 Drawable
      */
-    protected open fun getStatusBarBackground(): Drawable? = ResourceUtils.getDrawable(R.color.project_status_bar_default_color)
+    protected open fun getStatusBarBackground() = getDrawableById(R.color.project_status_bar_default_color)
 
     /**
      * 获取屏幕方向

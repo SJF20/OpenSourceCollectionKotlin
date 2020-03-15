@@ -6,6 +6,7 @@ import android.util.SparseIntArray
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.shijingfeng.base.base.application.BaseApplication
+import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.KEY_ENTER_ANIM
 import com.shijingfeng.base.common.constant.KEY_EXIT_ANIM
 
@@ -42,7 +43,7 @@ object ARouterUtil {
 
                 withTransition(enterAnim, exitAnim)
             }
-            ARouter.getInstance().navigation(activity ?: BaseApplication.getApplication(), this, requestCode, callback)
+            ARouter.getInstance().navigation(activity ?: application, this, requestCode, callback)
         }
     }
 

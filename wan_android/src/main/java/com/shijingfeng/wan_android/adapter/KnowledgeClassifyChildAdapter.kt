@@ -3,8 +3,8 @@ package com.shijingfeng.wan_android.adapter
 import android.content.Context
 import android.text.TextUtils
 import android.widget.CompoundButton
-import com.shijingfeng.base.base.adapter.common.CommonAdapter
-import com.shijingfeng.base.base.adapter.common.viewholder.CommonViewHolder
+import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
@@ -47,7 +47,7 @@ class KnowledgeClassifyChildAdapter(
 
             //查看文章详情
             itemView.setOnClickListener { v ->
-                mOnItemEventListener?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
+                mOnItemEvent?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
             }
             //收藏或取消收藏
             setOnCheckedListener(
@@ -58,7 +58,7 @@ class KnowledgeClassifyChildAdapter(
                         return@OnCheckedChangeListener
                     }
 
-                    mOnItemEventListener?.invoke(buttonView, data, position, ARTICLE_ITEM_COLLECTION)
+                    mOnItemEvent?.invoke(buttonView, data, position, ARTICLE_ITEM_COLLECTION)
                 }
             )
         }

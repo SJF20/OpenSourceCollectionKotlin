@@ -12,9 +12,9 @@ import androidx.viewpager.widget.ViewPager
  * @author ShiJingFeng
  */
 class PhotoViewPager(
-    mContext: Context,
-    mAttrs: AttributeSet? = null
-) : ViewPager(mContext, mAttrs) {
+    context: Context,
+    attrs: AttributeSet? = null
+) : ViewPager(context, attrs) {
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
         return try {

@@ -14,9 +14,10 @@ const val PROVIDER_BASE_COMMON_DEGRADE_SERVICE = "/base/provider/DegradeServiceI
 const val PROVIDER_BASE_COMMON_PATH_REPLACE_SERVICE = "/base/provider/PathReplaceServiceImpl"
 /** 通用跳转前预处理 Provider  */
 const val PROVIDER_BASE_COMMON_PRETREATMENT_SERVICE = "/base/provider/PretreatmentServiceImpl"
-//base 模块 Activity
+
+//common 模块 Activity
 /** 查看大图 Activity  */
-const val ACTIVITY_BASE_VIEW_ORIGINAL_IMAGE = "/base/activity/ViewOriginalImageActivity"
+const val ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE = "/common/activity/ViewOriginalImageActivity"
 
 //wan_android 模块 Provider
 /** 登录拦截 Provider  */

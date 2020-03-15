@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("WindowUtil")
 package com.shijingfeng.base.util
 
 import android.app.Activity

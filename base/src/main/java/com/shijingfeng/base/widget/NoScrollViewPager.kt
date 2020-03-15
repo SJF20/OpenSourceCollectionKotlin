@@ -13,9 +13,9 @@ import androidx.viewpager.widget.ViewPager
  * @author ShiJingFeng
  */
 class NoScrollViewPager(
-    mContext: Context,
-    mAttrs: AttributeSet? = null
-) : ViewPager(mContext, mAttrs) {
+    context: Context,
+    attrs: AttributeSet? = null
+) : ViewPager(context, attrs) {
 
     private var isCanScroll = true
 

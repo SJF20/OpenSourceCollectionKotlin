@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.shijingfeng.base.base.repository.BaseRepository
+import com.shijingfeng.base.base.view.BaseView
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
 
 /**
@@ -19,7 +19,8 @@ import com.shijingfeng.base.base.viewmodel.BaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-abstract class MvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Fragment() {
+abstract class MvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Fragment(),
+    BaseView {
 
     /** DataBinding  */
     protected lateinit var mDataBinding: V

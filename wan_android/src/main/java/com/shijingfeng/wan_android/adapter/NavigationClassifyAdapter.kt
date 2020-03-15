@@ -8,8 +8,8 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.common.CommonAdapter
-import com.shijingfeng.base.base.adapter.common.viewholder.CommonViewHolder
+import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
@@ -57,7 +57,7 @@ class NavigationClassifyAdapter(
                     )
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
                     ClickUtils.applySingleDebouncing(this) { v: View ->
-                        mOnItemEventListener?.invoke(v, navigationClassifyArticle, position, VIEW_NAVIGATION_CLASSIFY_DETAIL)
+                        mOnItemEvent?.invoke(v, navigationClassifyArticle, position, VIEW_NAVIGATION_CLASSIFY_DETAIL)
                     }
                 })
             }

@@ -14,7 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static com.shijingfeng.base.util.WindowUtilKt.setWindowOutsideBackground;
+import static com.shijingfeng.base.util.ResourceUtil.getDrawableById;
+import static com.shijingfeng.base.util.WindowUtil.setWindowOutsideBackground;
 
 /**
  * Function: 自定义 提示 PopupWindow
@@ -232,9 +233,7 @@ public class CommonDialog {
          * @return Builder
          */
         public Builder setBackgroundDrawable(@DrawableRes int drawableRes) {
-            if (mAttr.activity != null) {
-                mAttr.drawable = mAttr.activity.getResources().getDrawable(drawableRes);
-            }
+            mAttr.drawable = getDrawableById(drawableRes);
             return this;
         }
 

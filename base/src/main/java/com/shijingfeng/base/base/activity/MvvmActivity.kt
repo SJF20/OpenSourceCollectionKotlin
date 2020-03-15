@@ -1,13 +1,12 @@
 package com.shijingfeng.base.base.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.shijingfeng.base.base.repository.BaseRepository
+import com.shijingfeng.base.base.view.BaseView
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
 
 /**
@@ -16,7 +15,8 @@ import com.shijingfeng.base.base.viewmodel.BaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-abstract class MvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : AppCompatActivity() {
+abstract class MvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : AppCompatActivity(),
+    BaseView {
 
     /** DataBinding  */
     protected lateinit var mDataBinding: V

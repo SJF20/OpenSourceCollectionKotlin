@@ -7,8 +7,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.common.CommonAdapter
-import com.shijingfeng.base.base.adapter.common.viewholder.CommonViewHolder
+import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
@@ -52,7 +52,7 @@ class KnowledgeClassifyAdapter(
                     setPadding(ConvertUtils.dp2px(15F), ConvertUtils.dp2px(7F), ConvertUtils.dp2px(15F), ConvertUtils.dp2px(7F))
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
                     setOnClickListener { v ->
-                        mOnItemEventListener?.invoke(v, data, i, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
+                        mOnItemEvent?.invoke(v, data, i, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
                     }
                 })
             }
@@ -69,7 +69,7 @@ class KnowledgeClassifyAdapter(
             }
         }
         holder.itemView.setOnClickListener { v ->
-            mOnItemEventListener?.invoke(v, data, 0, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
+            mOnItemEvent?.invoke(v, data, 0, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
         }
     }
 }

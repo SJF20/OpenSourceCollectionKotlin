@@ -11,8 +11,6 @@
     <application
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="UnusedAttribute">
-        <!-- 查看大图 Activity -->
-        <activity android:name=".ui.activity.ViewOriginalImageActivity" />
         <!-- 访问本地文件 Provider -->
         <provider
             android:name="androidx.core.content.FileProvider"

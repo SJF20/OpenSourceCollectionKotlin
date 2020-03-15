@@ -60,7 +60,7 @@ class StatusBarView @JvmOverloads constructor(
     //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
     //            if (mColorRes != 0) {
     //                //自定义状态栏颜色
-    //                canvas.drawColor(getResources().getColor(mColorRes));
+    //                canvas.drawColor(getColorById(mColorRes));
     //            } else {
     //                //6.0及以上版本，背景默认设为白色（因为状态栏字体默认改为黑色）
     //                canvas.drawColor(Color.WHITE);

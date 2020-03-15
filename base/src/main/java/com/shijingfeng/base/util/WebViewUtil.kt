@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("WebViewUtil")
 package com.shijingfeng.base.util
 
 import android.annotation.SuppressLint
@@ -6,6 +8,7 @@ import android.os.Build
 import android.webkit.WebSettings
 import com.blankj.utilcode.util.NetworkUtils
 import com.shijingfeng.base.base.application.BaseApplication
+import com.shijingfeng.base.base.application.application
 
 /**
  * Function: WebView工具类
@@ -54,7 +57,7 @@ fun setDefaultWebSettings(webSettings: WebSettings) {
         //设置应用缓存大小
         setAppCacheMaxSize(Long.MAX_VALUE)
         //设置应用缓存本地存储目录
-        setAppCachePath(BaseApplication.getApplication().getDir("app_cache", MODE_PRIVATE).path)
+        setAppCachePath(application.getDir("app_cache", MODE_PRIVATE).path)
         //是否开启数据库缓存
 //        databaseEnabled = true
         //设置数据库缓存本地存储目录
@@ -62,7 +65,7 @@ fun setDefaultWebSettings(webSettings: WebSettings) {
         //是否开启位置支持
         setGeolocationEnabled(true)
         //设置位置数据本地存储目录
-        setGeolocationDatabasePath(BaseApplication.getApplication().getDir("geo_location", MODE_PRIVATE).path)
+        setGeolocationDatabasePath(application.getDir("geo_location", MODE_PRIVATE).path)
         // WebView 从 5.0 开始默认不允许混合模式, https 中不能加载 http 资源,需要设置开启。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW

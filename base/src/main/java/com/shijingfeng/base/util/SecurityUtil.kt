@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("SecurityUtil")
 package com.shijingfeng.base.util
 
 import android.text.TextUtils

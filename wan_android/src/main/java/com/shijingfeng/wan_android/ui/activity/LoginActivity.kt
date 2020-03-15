@@ -68,8 +68,8 @@ class LoginActivity : WanAndroidBaseActivity<ActivityLoginBinding, LoginViewMode
         val canBack = mViewModel?.mBundle?.getBoolean(LOGIN_ACTIVITY_CAN_BACK, true) ?: true
 
         include_title_bar.iv_back.visibility = if (canBack) VISIBLE else GONE
-        include_title_bar.tv_title.text = "登录"
-        include_title_bar.tv_operate.text = "注册"
+        include_title_bar.tv_title.text = getString(R.string.登录)
+        include_title_bar.tv_operate.text = getString(R.string.注册)
         include_title_bar.include_title_bar.tv_operate.visibility = VISIBLE
     }
 
