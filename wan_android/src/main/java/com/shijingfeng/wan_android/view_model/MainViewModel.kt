@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.viewmodel
+package com.shijingfeng.wan_android.view_model
 
 import android.os.Bundle
 import android.view.View.OnClickListener
@@ -17,7 +17,6 @@ import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.utils.CoinUtil
-import kotlin.collections.ArrayList
 
 /**
  * Function: 主页 ViewModel

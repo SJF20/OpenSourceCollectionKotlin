@@ -44,7 +44,7 @@ import com.shijingfeng.wan_android.constant.SCROLL_TO_DOWN
 import com.shijingfeng.wan_android.constant.SCROLL_TO_UP
 import com.shijingfeng.wan_android.constant.TITLE_BAR_HEIGHT
 import com.shijingfeng.wan_android.databinding.ActivityWebViewBinding
-import com.shijingfeng.wan_android.viewmodel.WebViewViewModel
+import com.shijingfeng.wan_android.view_model.WebViewViewModel
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest

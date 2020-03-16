@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentSquareBinding
-import com.shijingfeng.wan_android.viewmodel.SquareViewModel
+import com.shijingfeng.wan_android.view_model.SquareViewModel
 
 /**
  * Function: 广场 Fragment

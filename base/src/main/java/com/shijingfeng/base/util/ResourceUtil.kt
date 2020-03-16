@@ -48,7 +48,7 @@ fun getColorById(@ColorRes color: Int) = application.resources.getColor(color)
  * @param drawableId Drawable Id
  * @return Drawable
  */
-fun getDrawableById(@DrawableRes drawableId: Int): Drawable = ResourceUtils.getDrawable(drawableId)
+fun getDrawableById(@DrawableRes drawableId: Int): Drawable? = ResourceUtils.getDrawable(drawableId)
 
 /**
  * 获取 String字符串

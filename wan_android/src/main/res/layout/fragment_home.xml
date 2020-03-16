@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.shijingfeng.wan_android.viewmodel.HomeViewModel" />
+        <import type="com.shijingfeng.wan_android.view_model.HomeViewModel" />
 
         <variable
             name="homeViewModel"

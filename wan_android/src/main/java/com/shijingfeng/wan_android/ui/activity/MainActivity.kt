@@ -40,17 +40,15 @@ import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
-import com.shijingfeng.wan_android.ui.fragment.ClassifyFragment
-import com.shijingfeng.wan_android.ui.fragment.HomeFragment
-import com.shijingfeng.wan_android.ui.fragment.OfficialAccountFragment
 import com.shijingfeng.wan_android.utils.UserUtil
-import com.shijingfeng.wan_android.viewmodel.MainViewModel
+import com.shijingfeng.wan_android.view_model.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_indicator_main_classify.*
 import kotlinx.android.synthetic.main.layout_indicator_main_home.*
 import kotlinx.android.synthetic.main.layout_indicator_main_official_account.*
 import kotlinx.android.synthetic.main.layout_indicator_main_project.*
 import kotlinx.android.synthetic.main.layout_indicator_main_square.*
+import kotlinx.android.synthetic.main.layout_main_activity_drawer.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

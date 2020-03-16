@@ -16,13 +16,10 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityCoinRankBinding
 import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
-import com.shijingfeng.wan_android.viewmodel.CoinRankViewModel
+import com.shijingfeng.wan_android.view_model.CoinRankViewModel
 import kotlinx.android.synthetic.main.activity_coin_rank.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.include_title_bar
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.activity_main.view.tv_title
-import kotlinx.android.synthetic.main.layout_title_bar.view.*
 
 /**
  * Function: 积分排行榜 页面
@@ -71,6 +68,7 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
     override fun initData() {
         super.initData()
         include_title_bar.tv_title.text = getString(R.string.积分排行榜)
+
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             mLoadService?.showCallback(LoadingCallback::class.java)
@@ -110,44 +108,37 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
                 else -> {
                 }
             }
-        }
-        )
+        })
         //RecyclerView 适配器和数据列表 LiveData 监听器
-        mViewModel?.mListDataChangeEvent?.observe(this,
-            Observer ObserverReturn@ { (type, _, _, extraData, coinRankItemList, _) ->
-                when (type) {
-                    // 加载, 刷新
-                    LOAD, REFRESH -> mCoinRankAdapter?.notifyDataSetChanged()
-                    // 添加
-                    ADD -> {
-                        if (coinRankItemList.isNullOrEmpty()) {
-                            return@ObserverReturn
-                        }
+        mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@ { (type, _, _, extraData, coinRankItemList, _) ->
+            when (type) {
+                // 加载, 刷新
+                LOAD, REFRESH -> mCoinRankAdapter?.notifyDataSetChanged()
+                // 添加
+                ADD -> {
+                    if (coinRankItemList.isNullOrEmpty()) {
+                        return@ObserverLabel
+                    }
 
-                        val oldSize = extraData as Int
+                    val oldSize = extraData as Int
 
-                        if (oldSize <= 0) {
-                            mCoinRankAdapter?.notifyDataSetChanged()
-                        } else {
-                            mCoinRankAdapter?.notifyItemRangeInserted(
-                                oldSize,
-                                coinRankItemList.size
-                            )
-                        }
-                    }
-                    // 插入
-                    INSERT -> {
-                    }
-                    // 删除
-                    REMOVE -> {
-                    }
-                    // 更新
-                    UPDATE -> {
-                    }
-                    else -> {
+                    if (oldSize <= 0) {
+                        mCoinRankAdapter?.notifyDataSetChanged()
+                    } else {
+                        mCoinRankAdapter?.notifyItemRangeInserted(
+                            oldSize,
+                            coinRankItemList.size
+                        )
                     }
                 }
+                // 插入
+                INSERT -> {}
+                // 删除
+                REMOVE -> {}
+                // 更新
+                UPDATE -> {}
+                else -> {}
             }
-        )
+        })
     }
 }

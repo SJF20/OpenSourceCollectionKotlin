@@ -19,6 +19,12 @@ const val PROVIDER_BASE_COMMON_PRETREATMENT_SERVICE = "/base/provider/Pretreatme
 /** 查看大图 Activity  */
 const val ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE = "/common/activity/ViewOriginalImageActivity"
 
+//app 模块 Activity
+/** 启动页 Activity */
+const val ACTIVITY_APP_SPLASH = "/app/activity/SplashActivity"
+/** 主页 Activity */
+const val ACTIVITY_APP_MAIN = "/app/activity/MainActivity"
+
 //wan_android 模块 Provider
 /** 登录拦截 Provider  */
 const val PROVIDER_WAN_ANDROID_LOGIN_INTERCEPT = "/wan_android/activity/LoginInterceptProvider"

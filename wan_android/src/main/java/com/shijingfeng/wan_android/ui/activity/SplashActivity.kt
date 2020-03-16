@@ -6,7 +6,7 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivitySplashBinding
-import com.shijingfeng.wan_android.viewmodel.SplashViewModel
+import com.shijingfeng.wan_android.view_model.SplashViewModel
 
 /**
  * Function: 启动页 Activity

@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentClassifyBinding
-import com.shijingfeng.wan_android.viewmodel.ClassifyViewModel
+import com.shijingfeng.wan_android.view_model.ClassifyViewModel
 
 /** 知识体系  */
 private const val CLASSIFY_KNOWLEDGE = 0

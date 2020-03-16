@@ -32,4 +32,6 @@
     <string name="收藏">收藏</string>
     <string name="用浏览器打开">用浏览器打开</string>
     <string name="积分排行榜">积分排行榜</string>
+    <string name="积分记录">积分记录</string>
+    <string name="积分规则">积分规则</string>
 </resources>

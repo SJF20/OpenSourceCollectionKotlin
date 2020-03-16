@@ -64,8 +64,8 @@
             android:configChanges="orientation|screenSize" />
         <!-- 积分排行榜 Activity -->
         <activity android:name=".ui.activity.CoinRankActivity" />
-<!--        &lt;!&ndash; 积分记录 Activity &ndash;&gt;-->
-<!--        <activity android:name=".ui.activity.CoinRecordActivity" />-->
+        <!-- 积分记录 Activity -->
+        <activity android:name=".ui.activity.CoinRecordActivity" />
 <!--        &lt;!&ndash; 我的收藏 Activity &ndash;&gt;-->
 <!--        <activity android:name=".ui.activity.ArticleCollectedListActivity" />-->
 <!--        &lt;!&ndash; 知识体系 详细数据 Activity &ndash;&gt;-->

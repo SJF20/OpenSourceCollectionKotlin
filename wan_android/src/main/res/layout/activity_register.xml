@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 注册 页面 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.text.TextUtils" />
-        <import type="com.shijingfeng.wan_android.viewmodel.RegisterViewModel" />
+        <import type="com.shijingfeng.wan_android.view_model.RegisterViewModel" />
 
         <variable
             name="registerViewModel"
             type="RegisterViewModel" />
-
     </data>
 
     <LinearLayout

@@ -14,7 +14,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.constant.LOGIN_ACTIVITY_CAN_BACK
 import com.shijingfeng.wan_android.databinding.ActivityLoginBinding
 import com.shijingfeng.wan_android.source.repository.LoginRepository
-import com.shijingfeng.wan_android.viewmodel.LoginViewModel
+import com.shijingfeng.wan_android.view_model.LoginViewModel
 import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
 import kotlinx.android.synthetic.main.activity_login.*

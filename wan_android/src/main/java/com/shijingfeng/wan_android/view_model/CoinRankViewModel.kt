@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.viewmodel
+package com.shijingfeng.wan_android.view_model
 
 import android.view.View
 import com.kingja.loadsir.callback.Callback.OnReloadListener
@@ -66,7 +66,7 @@ class CoinRankViewModel(
      * 获取 积分排行榜 列表
      */
     private fun getCoinRankList(page: Int) {
-        mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@ { coinRank ->
+        mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@{ coinRank ->
             val coinRankItemList = coinRank?.coinRankItemList
             val event = ListDataChangeEvent<CoinRankItem>()
 
@@ -98,6 +98,7 @@ class CoinRankViewModel(
 
                     mListDataChangeEvent.value = event
                     getRefreshLoadMoreStatusEvent().value = REFRESH_SUCCESS
+                    // 数据为空
                     if (mCoinRankItemList.isEmpty()) {
                         getLoadServiceStatusEvent().value = EMPTY
                     }                }

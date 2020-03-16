@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.viewmodel
+package com.shijingfeng.wan_android.view_model
 
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel

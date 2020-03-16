@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.viewmodel
+package com.shijingfeng.wan_android.view_model
 
 import android.app.Activity
 import android.os.Bundle

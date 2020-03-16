@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentProjectBinding
-import com.shijingfeng.wan_android.viewmodel.ProjectViewModel
+import com.shijingfeng.wan_android.view_model.ProjectViewModel
 
 /**
  * Function: 项目 Fragment

@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentOfficialAccountBinding
-import com.shijingfeng.wan_android.viewmodel.OfficialAccountViewModel
+import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel
 
 /**
  * Function: 公众号 Fragment

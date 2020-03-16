@@ -33,7 +33,7 @@ import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
-import com.shijingfeng.wan_android.viewmodel.HomeViewModel
+import com.shijingfeng.wan_android.view_model.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

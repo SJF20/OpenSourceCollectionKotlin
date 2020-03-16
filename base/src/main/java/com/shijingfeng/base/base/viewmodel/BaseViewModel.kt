@@ -230,6 +230,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
         }
     }
 
+    /**
+     * 常用的 LiveData Event 管理器
+     */
     class CommonEventManager {
 
         /** 显示加载中 Dialog  */

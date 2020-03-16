@@ -12,7 +12,7 @@ import com.shijingfeng.wan_android.databinding.ActivityRegisterBinding
 import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
 import com.shijingfeng.wan_android.source.repository.getRegisterRepositoryInstance
-import com.shijingfeng.wan_android.viewmodel.RegisterViewModel
+import com.shijingfeng.wan_android.view_model.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_title_bar.view.*
 

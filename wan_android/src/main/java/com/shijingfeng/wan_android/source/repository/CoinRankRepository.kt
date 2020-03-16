@@ -40,6 +40,13 @@ class CoinRankRepository(
     mNetworkSource = networkSource
 ) {
 
+    /**
+     * 获取 积分排行榜 列表
+     *
+     * @param page     页码 (从1开始)
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
     fun getCoinRankList(page: Int, onSuccess: OnSuccess<CoinRankEntity?>, onFailure: OnFailure) {
         mNetworkSource?.getCoinRankList(page, onSuccess, onFailure)
     }

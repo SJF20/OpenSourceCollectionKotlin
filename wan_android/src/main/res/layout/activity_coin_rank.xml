@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 积分排行榜 页面 -->
 <layout>
 
     <data>
-        <import type="com.shijingfeng.wan_android.viewmodel.CoinRankViewModel" />
+        <import type="com.shijingfeng.wan_android.view_model.CoinRankViewModel" />
 
         <variable
             name="coinRankViewModel"

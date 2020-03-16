@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.viewmodel
+package com.shijingfeng.wan_android.view_model
 
 import android.util.SparseArray
 import com.blankj.utilcode.util.ToastUtils
@@ -8,7 +8,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.ListDataChangeEvent
-import com.shijingfeng.base.http.exception.HttpException
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID

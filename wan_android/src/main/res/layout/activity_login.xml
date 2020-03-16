@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 登录 页面 -->
 <layout>
 
     <data>
-        <import type="com.shijingfeng.wan_android.viewmodel.LoginViewModel" />
+        <import type="com.shijingfeng.wan_android.view_model.LoginViewModel" />
         <import type="android.text.TextUtils" />
 
         <variable
