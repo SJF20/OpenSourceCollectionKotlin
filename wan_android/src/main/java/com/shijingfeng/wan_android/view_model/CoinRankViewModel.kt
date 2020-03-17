@@ -39,7 +39,7 @@ class CoinRankViewModel(
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getLoadServiceStatusEvent().setValue(LOADING)
+        getLoadServiceStatusEvent().value = LOADING
         getCoinRankList(1)
     }
     /** 下拉刷新 */
@@ -123,11 +123,11 @@ class CoinRankViewModel(
         }, onFailure = {
             when (mDataOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> getLoadServiceStatusEvent().setValue(LOAD_FAIL)
+                DATA_OPERATE_TYPE_LOAD -> getLoadServiceStatusEvent().value = LOAD_FAIL
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> getRefreshLoadMoreStatusEvent().setValue(REFRESH_FAIL)
+                DATA_OPERATE_TYPE_REFRESH -> getRefreshLoadMoreStatusEvent().value = REFRESH_FAIL
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> getRefreshLoadMoreStatusEvent().setValue(LOAD_MORE_FAIL)
+                DATA_OPERATE_TYPE_LOAD_MORE -> getRefreshLoadMoreStatusEvent().value = LOAD_MORE_FAIL
                 else -> {}
             }
         })

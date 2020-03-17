@@ -43,7 +43,7 @@ class HomeViewModel(
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getLoadServiceStatusEvent().setValue(LOADING)
+        getLoadServiceStatusEvent().value = LOADING
         getHomeData(0)
     }
     /** 下拉刷新  */

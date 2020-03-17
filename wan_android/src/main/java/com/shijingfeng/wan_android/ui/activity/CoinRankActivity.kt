@@ -69,6 +69,7 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
         super.initData()
         include_title_bar.tv_title.text = getString(R.string.积分排行榜)
 
+        mSmartRefreshLayout = srl_refresh
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             mLoadService?.showCallback(LoadingCallback::class.java)
@@ -92,23 +93,6 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
      */
     override fun initObserver() {
         super.initObserver()
-        //上拉刷新，下拉加载 LiveData 监听器
-        mViewModel?.getRefreshLoadMoreStatusEvent()?.observe(this, Observer { status: Int? ->
-            when (status) {
-                // 下拉刷新成功
-                REFRESH_SUCCESS -> srl_refresh.finishRefresh(true)
-                // 下拉刷新失败
-                REFRESH_FAIL -> srl_refresh.finishRefresh(false)
-                // 上拉加载成功
-                LOAD_MORE_SUCCESS -> srl_refresh.finishLoadMore(true)
-                // 上拉加载失败
-                LOAD_MORE_FAIL -> srl_refresh.finishLoadMore(false)
-                // 上拉加载 所有数据加载完毕
-                LOAD_MORE_ALL -> srl_refresh.finishLoadMoreWithNoMoreData()
-                else -> {
-                }
-            }
-        })
         //RecyclerView 适配器和数据列表 LiveData 监听器
         mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@ { (type, _, _, extraData, coinRankItemList, _) ->
             when (type) {

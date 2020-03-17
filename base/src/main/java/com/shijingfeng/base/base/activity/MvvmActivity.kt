@@ -15,8 +15,7 @@ import com.shijingfeng.base.base.viewmodel.BaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-abstract class MvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : AppCompatActivity(),
-    BaseView {
+abstract class MvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : AppCompatActivity(), BaseView {
 
     /** DataBinding  */
     protected lateinit var mDataBinding: V

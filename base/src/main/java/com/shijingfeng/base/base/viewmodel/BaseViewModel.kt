@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.SparseArray
 import android.util.SparseIntArray
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -33,9 +31,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     /** 常用的 LiveData Event 管理器  */
     private val mCommonEventManager: CommonEventManager by lazy { CommonEventManager() }
     /** LoadService 状态 SingleLiveEvent  */
-    private val mLoadServiceStatusEvent: SingleLiveEvent<Int> by lazy { SingleLiveEvent<Int>() }
+    private val mLoadServiceStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     /** 刷新 或 上拉加载 状态 SingleLiveEvent  */
-    private val mRefreshLoadMoreStatusEvent: SingleLiveEvent<Int> by lazy { SingleLiveEvent<Int>() }
+    private val mRefreshLoadMoreStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     /** Disposable容器  */
     val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     /** 页面跳转携带的数据Bundle  */
@@ -85,7 +83,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * 获取 刷新 或 上拉加载 状态 SingleLiveEvent
      * @return 刷新 或 上拉加载 状态 SingleLiveEvent
      */
-    fun getRefreshLoadMoreStatusEvent(): SingleLiveEvent<Int> = mRefreshLoadMoreStatusEvent
+    fun getRefreshLoadMoreStatusEvent() = mRefreshLoadMoreStatusEvent
 
     /**
      * 显示加载中Dialog

@@ -110,6 +110,10 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    // 解决问题 (Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper '-jvm-target' option)
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
     androidExtensions {
         experimental = true

@@ -31,6 +31,7 @@ import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shijingfeng.base.R
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.annotation.NeedPermissions
@@ -71,6 +72,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmFr
     protected var mActivity: BaseActivity<*, *>? = null
     /** LoadSir  */
     protected var mLoadService: LoadService<*>? = null
+    /** SmartRefresh */
+    protected var mSmartRefreshLayout: SmartRefreshLayout? = null
+
     /** 响应式权限请求框架  */
     protected var mRxPermissions: RxPermissions? = null
 
@@ -293,16 +297,34 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmFr
             }
         })
         //LoadService 状态 LiveData Event监听器
-        mViewModel?.getLoadServiceStatusEvent()?.observe(viewLifecycleOwner, Observer<Int> { status ->
-            mLoadService?.run {
+        if (mLoadService != null && mActivity != null) {
+            mViewModel?.getLoadServiceStatusEvent()?.observe(mActivity!!, Observer { status ->
                 when (status) {
-                    SUCCESS -> showSuccess()
-                    LOADING -> showCallback(LoadingCallback::class.java)
-                    EMPTY -> showCallback(EmptyCallback::class.java)
-                    LOAD_FAIL -> showCallback(LoadFailCallback::class.java)
+                    SUCCESS -> mLoadService?.showSuccess()
+                    LOADING -> mLoadService?.showCallback(LoadingCallback::class.java)
+                    EMPTY -> mLoadService?.showCallback(EmptyCallback::class.java)
+                    LOAD_FAIL -> mLoadService?.showCallback(LoadFailCallback::class.java)
                 }
-            }
-        })
+            })
+        }
+        //SmartRefreshLayout 状态 LiveData Event监听器
+        if (mSmartRefreshLayout != null && mActivity != null) {
+            mViewModel?.getRefreshLoadMoreStatusEvent()?.observe(mActivity!!, Observer { status ->
+                when (status) {
+                    // 下拉刷新成功
+                    REFRESH_SUCCESS -> mSmartRefreshLayout?.finishRefresh(true)
+                    // 下拉刷新失败
+                    REFRESH_FAIL -> mSmartRefreshLayout?.finishRefresh(false)
+                    // 上拉加载成功
+                    LOAD_MORE_SUCCESS -> mSmartRefreshLayout?.finishLoadMore(true)
+                    // 上拉加载失败
+                    LOAD_MORE_FAIL -> mSmartRefreshLayout?.finishLoadMore(false)
+                    // 上拉加载 所有数据加载完毕
+                    LOAD_MORE_ALL -> mSmartRefreshLayout?.finishLoadMoreWithNoMoreData()
+                    else -> {}
+                }
+            })
+        }
     }
 
     /**

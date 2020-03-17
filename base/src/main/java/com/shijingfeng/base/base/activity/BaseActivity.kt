@@ -30,6 +30,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shijingfeng.base.R
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.annotation.NeedPermissions
@@ -67,6 +68,9 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmAc
 
     /** LoadSir  */
     protected var mLoadService: LoadService<*>? = null
+    /** SmartRefresh */
+    protected var mSmartRefreshLayout: SmartRefreshLayout? = null
+
     /** RxPermission (响应式权限申请框架)  */
     protected var mRxPermissions: RxPermissions? = null
 
@@ -256,16 +260,34 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : MvvmAc
             }
         })
         //LoadService 状态 LiveData Event监听器
-        mViewModel?.getLoadServiceStatusEvent()?.observe(this, Observer<Int> { status ->
-            mLoadService?.run {
+        mLoadService?.run {
+            mViewModel?.getLoadServiceStatusEvent()?.observe(this@BaseActivity, Observer { status ->
                 when (status) {
                     SUCCESS -> showSuccess()
                     LOADING -> showCallback(LoadingCallback::class.java)
                     EMPTY -> showCallback(EmptyCallback::class.java)
                     LOAD_FAIL -> showCallback(LoadFailCallback::class.java)
                 }
-            }
-        })
+            })
+        }
+        //SmartRefreshLayout 状态 LiveData Event监听器
+        mSmartRefreshLayout?.run {
+            mViewModel?.getRefreshLoadMoreStatusEvent()?.observe(this@BaseActivity, Observer { status ->
+                when (status) {
+                    // 下拉刷新成功
+                    REFRESH_SUCCESS -> finishRefresh(true)
+                    // 下拉刷新失败
+                    REFRESH_FAIL -> finishRefresh(false)
+                    // 上拉加载成功
+                    LOAD_MORE_SUCCESS -> finishLoadMore(true)
+                    // 上拉加载失败
+                    LOAD_MORE_FAIL -> finishLoadMore(false)
+                    // 上拉加载 所有数据加载完毕
+                    LOAD_MORE_ALL -> finishLoadMoreWithNoMoreData()
+                    else -> {}
+                }
+            })
+        }
     }
 
     /**

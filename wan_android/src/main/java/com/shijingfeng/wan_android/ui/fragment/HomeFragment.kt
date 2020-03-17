@@ -19,6 +19,7 @@ import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -86,6 +87,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
      */
     override fun initData() {
         super.initData()
+        mSmartRefreshLayout = srl_refresh
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             mLoadService?.showCallback(LoadingCallback::class.java)
@@ -123,7 +125,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                 })
             rv_content.adapter = mHomeAdapter
             rv_content.layoutManager = LinearLayoutManager(activity)
-            rv_content.addItemDecoration(DividerItemDecoration(activity, VERTICAL))
+            rv_content.addItemDecoration(LinearDividerItemDecoration())
         }
     }
 
@@ -238,24 +240,6 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
      */
     override fun initObserver() {
         super.initObserver()
-        //上拉刷新，下拉加载 LiveData 监听器
-        mViewModel?.getRefreshLoadMoreStatusEvent()
-            ?.observe(viewLifecycleOwner, Observer { status: Int ->
-                when (status) {
-                    //刷新成功
-                    REFRESH_SUCCESS -> srl_refresh.finishRefresh(true)
-                    //刷新失败
-                    REFRESH_FAIL -> srl_refresh.finishRefresh(false)
-                    //加载成功
-                    LOAD_MORE_SUCCESS -> srl_refresh.finishLoadMore(true)
-                    //加载失败
-                    LOAD_MORE_FAIL -> srl_refresh.finishLoadMore(false)
-                    //全部加载完毕
-                    LOAD_MORE_ALL -> srl_refresh.finishLoadMoreWithNoMoreData()
-                    else -> {
-                    }
-                }
-            })
         //首页数据改变监听
         mViewModel?.mHomeDataChangeEvent?.observe(viewLifecycleOwner, Observer { event ->
             val (type, _, _, extraData, homeItemList, _) = event
@@ -263,7 +247,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
             when (type) {
                 //加载
                 LOAD,
-                    //刷新
+                //刷新
                 REFRESH -> mHomeAdapter?.notifyDataSetChanged()
                 //添加
                 ADD -> {
@@ -280,16 +264,12 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                     }
                 }
                 //插入
-                INSERT -> {
-                }
+                INSERT -> {}
                 //删除
-                REMOVE -> {
-                }
+                REMOVE -> {}
                 //更新
-                UPDATE -> {
-                }
-                else -> {
-                }
+                UPDATE -> {}
+                else -> {}
             }
         })
         //收藏状态改变监听器
