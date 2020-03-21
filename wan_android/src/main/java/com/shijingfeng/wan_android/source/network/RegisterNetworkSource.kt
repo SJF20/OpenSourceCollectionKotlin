@@ -8,6 +8,7 @@ import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
 import com.shijingfeng.wan_android.source.network.api.UserApi
+import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -48,21 +49,7 @@ class RegisterNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun register(postMap: Map<String, Any>, onSuccess: OnSuccess<UserInfoEntity?>, onFailure: OnFailure) {
-        addDisposable(
-            mUserApi
-                .register(postMap)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { throwable ->
-                    onFailure(handle(throwable))
-                })
-        )
+        addDisposable(apiRequest(mUserApi.register(postMap), onSuccess, onFailure))
     }
 
     /**

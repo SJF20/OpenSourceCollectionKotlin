@@ -3,13 +3,11 @@ package com.shijingfeng.wan_android.view_model
 import android.os.Bundle
 import android.view.View.OnClickListener
 import com.blankj.utilcode.util.NetworkUtils
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_ARTICLE_COLLECTED_LIST
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_COIN_RANK
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_COIN_RECORD
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
+import com.shijingfeng.base.arouter.*
 import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.NEED_LOGIN
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.*
@@ -70,7 +68,11 @@ class MainViewModel(
     }
 
     /** 跳转到 待办事项页面  */
-    val mTodoClickListener = OnClickListener {}
+    val mTodoClickListener = OnClickListener {
+        navigation(
+            path = ACTIVITY_TODO_MAIN
+        )
+    }
 
     /** 跳转到 系统设置页面  */
     val mSettingClickListener = OnClickListener {}

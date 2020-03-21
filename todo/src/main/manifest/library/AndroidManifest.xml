@@ -1,0 +1,30 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.shijingfeng.todo">
+
+    <dist:module dist:instant="true" />
+
+    <!--
+    allowBackup: 是否开启应用备份功能(有安全漏洞，建议关闭) (true<默认>: 开启  false: 关闭)
+    supportsRtl: true: Api17及以上使用系统设置的方向 RTL 或 LTR  false<默认>: 使用从左到右的方向(LTR)
+    hardwareAccelerated: true: 开启硬件加速(使用GPU解码)  false<默认>: 关闭硬件加速(使用CPU解码)
+    hasFragileUserData: 卸载APP时 是否保留 用户外部私有目录数据 (true: 保留  false<默认>: 不保留)
+    networkSecurityConfig: Android 10 (API 29)以上默认仅支持 HTTPS 链接, 所以要想使用 HTTP 则需要此配置
+    requestLegacyExternalStorage: 设置外部存储访问模式, 分为 Filtered View(默认) 和 Legacy View, Filtered View模式规定只能自由访问外部存储 APP 私有目录, 访问其他目录需要 MediaStore 或 SAF, Legacy View模式兼容以前版本, 无限制, 参考 https://mp.weixin.qq.com/s/aiDMyAfAZvaYIHuIMLAlcg
+    -->
+    <application
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:hasFragileUserData="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+        <!-- 主页 -->
+        <activity android:name=".ui.activity.TodoMainActivity"
+            android:launchMode="singleTask"/>
+
+    </application>
+
+</manifest>

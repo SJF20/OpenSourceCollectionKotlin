@@ -25,7 +25,7 @@ interface CoinApi {
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @GET("lg/coin/userinfo/json")
-    fun getCoin(): Single<ResultEntity<CoinInfoEntity>>
+    fun getCoinInfo(): Single<ResultEntity<CoinInfoEntity>>
 
     /**
      * 获取 积分记录 列表

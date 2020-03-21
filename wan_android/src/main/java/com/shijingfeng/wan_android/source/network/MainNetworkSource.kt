@@ -9,6 +9,7 @@ import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.source.network.api.UserApi
 import com.shijingfeng.base.common.extension.OnFailure
 import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -49,19 +50,7 @@ class MainNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调接口
      */
     fun getCoinInfo(onSuccess: OnSuccess<CoinInfoEntity?>, onFailure: OnFailure) {
-        addDisposable(
-            mCoinApi
-                .getCoin()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { onFailure(handle(it)) })
-        )
+        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess, onFailure))
     }
 
     /**
@@ -70,19 +59,7 @@ class MainNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun logout(onSuccess: OnSuccess<Any?>, onFailure: OnFailure) {
-        addDisposable(
-            mUserApi
-                .logout()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { handle(it) })
-        )
+        addDisposable(apiRequest(mUserApi.logout(), onSuccess, onFailure))
     }
 
     /**

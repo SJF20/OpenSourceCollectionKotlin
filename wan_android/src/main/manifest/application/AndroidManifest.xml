@@ -39,7 +39,7 @@
     requestLegacyExternalStorage: 设置外部存储访问模式, 分为 Filtered View(默认) 和 Legacy View, Filtered View模式规定只能自由访问外部存储 APP 私有目录, 访问其他目录需要 MediaStore 或 SAF, Legacy View模式兼容以前版本, 无限制, 参考 https://mp.weixin.qq.com/s/aiDMyAfAZvaYIHuIMLAlcg
     -->
     <application
-        android:name="WanAndroidApplication"
+        android:name=".WanAndroidApplication"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_wan_android_launcher"
         android:roundIcon="@mipmap/ic_wan_android_launcher_round"

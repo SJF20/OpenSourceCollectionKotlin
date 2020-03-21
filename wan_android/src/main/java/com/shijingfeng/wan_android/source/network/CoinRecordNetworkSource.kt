@@ -9,6 +9,7 @@ import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.network.CoinRankEntity
 import com.shijingfeng.wan_android.entity.network.CoinRecordEntity
 import com.shijingfeng.wan_android.source.network.api.CoinApi
+import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -50,19 +51,7 @@ class CoinRecordNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinRecordList(page: Int, onSuccess: OnSuccess<CoinRecordEntity?>, onFailure: OnFailure) {
-        addDisposable(
-            mCoinApi
-                .getCoinRecordList(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { onFailure(handle(it)) })
-        )
+        addDisposable(apiRequest(mCoinApi.getCoinRecordList(page), onSuccess, onFailure))
     }
 
     /**

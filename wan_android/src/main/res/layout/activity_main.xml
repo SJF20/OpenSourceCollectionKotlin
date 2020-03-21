@@ -129,7 +129,9 @@
         </LinearLayout>
 
         <!-- 侧栏 -->
-        <include layout="@layout/layout_main_activity_drawer"
+        <include
+            android:id="@+id/include_drawer"
+            layout="@layout/layout_main_activity_drawer"
             app:mainViewModel="@{mainViewModel}"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>

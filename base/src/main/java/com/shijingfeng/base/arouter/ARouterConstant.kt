@@ -64,3 +64,7 @@ const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY = "/wan_android/fragment/Knowl
 const val FRAGMENT_WAN_ANDROID_NAVIGATION_CLASSIFY = "/wan_android/fragment/NavigationClassifyFragment"
 /** 知识体系子页面 Fragment  */
 const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_CHILD = "/wan_android/fragment/KnowledgeClassifyChildFragment"
+
+//todo模块 Activity
+/** 主页 Activity */
+const val ACTIVITY_TODO_MAIN = "/todo/activity/TodoMainActivity"

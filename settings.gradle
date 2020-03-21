@@ -1,4 +1,4 @@
-// app 模块 (空壳架子)
+include ':todo'// app 模块 (空壳架子)
 include ':app'
 // 玩Android 模块
 include ':wan_android'

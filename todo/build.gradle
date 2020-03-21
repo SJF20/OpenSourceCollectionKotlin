@@ -1,4 +1,9 @@
-apply plugin: 'com.android.application'
+//控制组件模式和集成模式
+if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -38,14 +43,19 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     //会导致无法联网
 //    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
     defaultConfig {
-        applicationId rootProject.ext.android.applicationId
+        if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+            //组件模式下设置applicationId
+            applicationId rootProject.ext.android.applicationId
+        }
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
 
         //配置阿里 ARouter 路由
         javaCompileOptions {
@@ -53,13 +63,8 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-
-        // Specifies the ABI configurations of your native
-        // libraries Gradle should build and package with your APK.
-//        ndk {
-//            abiFilters "armeabi"
-//        }
     }
+
     buildTypes {
         //正式模式
         release {
@@ -113,10 +118,6 @@ android {
     // 解决问题 (Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper '-jvm-target' option)
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
-    androidExtensions {
-        experimental = true
     }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {
@@ -183,13 +184,17 @@ android {
 //        ignore 'TypographyQuotes'
 //    }
 
-    //android studio默认so文件加载目录为:src/main/jniLibs
-    //如在module的build.gradle按照如下方式,自定义了so文件加载目录请确保对应目录下只有armeabi目录
     sourceSets {
-        main{
+        main {
+            if (rootProject.ext.isApplication && rootProject.ext.isWanAndroidApplication) {
+                manifest.srcFile 'src/main/manifest/application/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/manifest/library/AndroidManifest.xml'
+            }
             jniLibs.srcDirs = ['libs']
         }
     }
+
 }
 
 dependencies {
@@ -198,14 +203,6 @@ dependencies {
     implementation project(path: ':common')
     //依赖 base 模块
     implementation project(path: ':base')
-    // 依赖 wan_android 库模块
-    if (!rootProject.ext.isWanAndroidApplication) {
-        implementation project(path: ':wan_android')
-    }
-    // 依赖 todo库模块
-    if (!rootProject.ext.isTodoApplication) {
-        implementation project(path: ':todo')
-    }
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }

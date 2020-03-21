@@ -22,9 +22,12 @@ import com.blankj.utilcode.util.StringUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.base.adapter.CommonFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
+import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
+import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.base.viewmodel.factory.CommonViewModelFactory
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -49,6 +52,7 @@ import kotlinx.android.synthetic.main.layout_indicator_main_official_account.*
 import kotlinx.android.synthetic.main.layout_indicator_main_project.*
 import kotlinx.android.synthetic.main.layout_indicator_main_square.*
 import kotlinx.android.synthetic.main.layout_main_activity_drawer.*
+import kotlinx.android.synthetic.main.layout_main_activity_drawer.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

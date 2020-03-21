@@ -60,7 +60,6 @@ class LoginNetworkSource : BaseNetworkSource() {
                         onFailure(handle(ServerException(result.code, result.msg)))
                     }
                 } catch (e: Exception) {
-                    e("测试", "错误: msg: ${e.message}, cause: ${e.cause}")
                     onFailure(handle(e))
                 }
             }

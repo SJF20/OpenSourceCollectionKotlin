@@ -8,6 +8,7 @@ import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.network.CoinRankEntity
 import com.shijingfeng.wan_android.source.network.api.CoinApi
+import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -49,21 +50,7 @@ class CoinRankNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinRankList(page: Int, onSuccess: OnSuccess<CoinRankEntity?>, onFailure: OnFailure) {
-        addDisposable(
-            mCoinApi
-                .getCoinRankList(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { throwable ->
-                    onFailure(handle(throwable))
-                })
-        )
+        addDisposable(apiRequest(mCoinApi.getCoinRankList(page), onSuccess, onFailure))
     }
 
     /**

@@ -15,6 +15,7 @@ import com.shijingfeng.wan_android.entity.network.ResultEntity
 import com.shijingfeng.wan_android.source.network.api.ArticleApi
 import com.shijingfeng.wan_android.source.network.api.BannerApi
 import com.shijingfeng.wan_android.source.network.api.CollectionApi
+import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -150,21 +151,7 @@ class HomeNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun collected(articleId: String, onSuccess: OnSuccess<Any?>, onFailure: OnFailure) {
-        addDisposable(
-            mCollectionApi
-                .collectedInSitesArticle(articleId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { throwable ->
-                    onFailure(handle(throwable))
-                })
-        )
+        addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess, onFailure))
     }
 
     /**
@@ -174,21 +161,7 @@ class HomeNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun uncollected(articleId: String, onSuccess: OnSuccess<Any?>, onFailure: OnFailure) {
-        addDisposable(
-            mCollectionApi
-                .uncollectedInArticleList(articleId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { throwable ->
-                    onFailure(handle(throwable))
-                })
-        )
+        addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess, onFailure))
     }
 
     /**
