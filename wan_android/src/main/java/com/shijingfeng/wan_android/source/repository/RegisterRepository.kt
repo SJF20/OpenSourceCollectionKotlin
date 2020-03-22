@@ -2,8 +2,8 @@ package com.shijingfeng.wan_android.source.repository
 
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
 import com.shijingfeng.wan_android.source.network.RegisterNetworkSource
 
@@ -46,7 +46,7 @@ class RegisterRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun register(postMap: Map<String, Any>, onSuccess: OnSuccess<UserInfoEntity?>, onFailure: OnFailure) {
+    fun register(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
         mNetworkSource?.register(postMap, onSuccess, onFailure)
     }
 

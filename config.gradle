@@ -29,6 +29,7 @@ ext {
             "constraintlayout"                    : "1.1.3",
             "multidex"                            : "2.0.1",
             "lifecycle"                           : "2.2.0-rc03",
+            "navigation"                          : "2.3.0-alpha01",
             "paging"                              : "2.1.1",
             "leakcanary"                          : "2.0",
             "leakcanary-no-op"                    : "1.6.3",
@@ -63,25 +64,29 @@ ext {
     ]
     //androidx配置
     androidx = [
-            "appcompat"           : "androidx.appcompat:appcompat:${versions["androidx"]}",
-            "junit"               : "junit:junit:${versions["junit"]}",
-            "junit-ext"           : "androidx.test.ext:junit:${versions["junit-ext"]}",
-            "junit-espresso-core" : "androidx.test.espresso:espresso-core:${versions["junit-espresso-core"]}",
+            "appcompat"                            : "androidx.appcompat:appcompat:${versions["androidx"]}",
+            "junit"                                : "junit:junit:${versions["junit"]}",
+            "junit-ext"                            : "androidx.test.ext:junit:${versions["junit-ext"]}",
+            "junit-espresso-core"                  : "androidx.test.espresso:espresso-core:${versions["junit-espresso-core"]}",
             //约束布局
-            "constraintlayout"    : "androidx.constraintlayout:constraintlayout:${versions["constraintlayout"]}",
+            "constraintlayout"                     : "androidx.constraintlayout:constraintlayout:${versions["constraintlayout"]}",
             //MultiDex支持
-            "multidex"                       : "androidx.multidex:multidex:${versions["multidex"]}",
+            "multidex"                             : "androidx.multidex:multidex:${versions["multidex"]}",
             // ViewModel and LiveData
-            "lifecycle-extensions"           : "androidx.lifecycle:lifecycle-extensions:${versions["lifecycle"]}",
+            "lifecycle-extensions"                 : "androidx.lifecycle:lifecycle-extensions:${versions["lifecycle"]}",
             // For Kotlin use kapt instead of annotationProcessor
-            "lifecycle-compiler"             : "androidx.lifecycle:lifecycle-compiler:${versions["lifecycle"]}",
+            "lifecycle-compiler"                   : "androidx.lifecycle:lifecycle-compiler:${versions["lifecycle"]}",
             // if using Java8, use the following instead of lifecycle-compiler
-            "lifecycle-common-java8"         : "androidx.lifecycle:lifecycle-common-java8:${versions["lifecycle"]}",
+            "lifecycle-common-java8"               : "androidx.lifecycle:lifecycle-common-java8:${versions["lifecycle"]}",
             // optional - ReactiveStreams support for LiveData
-            "lifecycle-reactivestreams"      : "androidx.lifecycle:lifecycle-reactivestreams:${versions["lifecycle"]}",
+            "lifecycle-reactivestreams"            : "androidx.lifecycle:lifecycle-reactivestreams:${versions["lifecycle"]}",
+            // Navigation (Fragment导航)
+            "navigation-fragment-ktx"              : "androidx.navigation:navigation-fragment-ktx:${versions["navigation"]}",
+            "navigation-ui-ktx"                    : "androidx.navigation:navigation-ui-ktx:${versions["navigation"]}",
+            "navigation-dynamic-features-fragment" : "androidx.navigation:navigation-dynamic-features-fragment:${versions["navigation"]}",
             //Paging
-            "paging-runtime"                 : "androidx.paging:paging-runtime:${versions["paging"]}",
-            "paging-common"                  : "androidx.paging:paging-common:${versions["paging"]}"
+            "paging-runtime"                       : "androidx.paging:paging-runtime:${versions["paging"]}",
+            "paging-common"                        : "androidx.paging:paging-common:${versions["paging"]}"
     ]
     //依赖第三方配置
     dependencies = [

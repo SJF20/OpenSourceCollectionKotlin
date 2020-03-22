@@ -12,7 +12,7 @@ import com.shijingfeng.base.base.fragment.BaseFragment
  * Description: FragmentPagerAdapter(mFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) 会调用setMaxLifecycle (Fragment fragment, Lifecycle.State state)，而不会调用setUserVisibleHint
  * @author ShiJingFeng
  */
-class CommonFragmentPagerAdapter<T : BaseFragment<*, *>>(
+class CommonFragmentPagerAdapter<T : BaseFragment>(
     fragmentManager: FragmentManager,
     private var mChildFragmentList: List<T>? = null,
     /** 是否禁止销毁   true 禁止销毁  false 系统默认销毁机制 */

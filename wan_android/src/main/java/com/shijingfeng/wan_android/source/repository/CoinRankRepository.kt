@@ -2,8 +2,8 @@ package com.shijingfeng.wan_android.source.repository
 
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.CoinRankEntity
 import com.shijingfeng.wan_android.source.network.CoinRankNetworkSource
 
@@ -47,7 +47,7 @@ class CoinRankRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun getCoinRankList(page: Int, onSuccess: OnSuccess<CoinRankEntity?>, onFailure: OnFailure) {
+    fun getCoinRankList(page: Int, onSuccess: onSuccess<CoinRankEntity?>, onFailure: onFailure) {
         mNetworkSource?.getCoinRankList(page, onSuccess, onFailure)
     }
 

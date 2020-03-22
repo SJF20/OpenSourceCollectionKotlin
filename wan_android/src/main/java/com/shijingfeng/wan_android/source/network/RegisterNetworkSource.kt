@@ -1,17 +1,12 @@
 package com.shijingfeng.wan_android.source.network
 
 import com.shijingfeng.base.base.source.BaseNetworkSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
-import com.shijingfeng.base.http.exception.ServerException
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
 import com.shijingfeng.wan_android.source.network.api.UserApi
 import com.shijingfeng.wan_android.utils.apiRequest
-import com.shijingfeng.wan_android.utils.handle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 /** 单例实例 */
 @Volatile
@@ -48,7 +43,7 @@ class RegisterNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun register(postMap: Map<String, Any>, onSuccess: OnSuccess<UserInfoEntity?>, onFailure: OnFailure) {
+    fun register(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
         addDisposable(apiRequest(mUserApi.register(postMap), onSuccess, onFailure))
     }
 

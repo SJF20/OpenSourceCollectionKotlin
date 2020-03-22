@@ -1,10 +1,8 @@
 package com.shijingfeng.wan_android.base
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.blankj.utilcode.util.ResourceUtils
-import com.shijingfeng.base.base.fragment.BaseFragment
+import com.shijingfeng.base.base.fragment.BaseMvvmFragment
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.wan_android.R
@@ -15,11 +13,14 @@ import com.shijingfeng.wan_android.R
  * Description:
  * @author ShiJingFeng
  */
-abstract class WanAndroidBaseFragment<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseFragment<V, VM>() {
+abstract class WanAndroidBaseFragment<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    /**
+     * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法
+     */
+    override fun init(savedInstanceState: Bundle?) {
         d("页面", "wan_android 模块: " + this.javaClass.simpleName)
+        super.init(savedInstanceState)
     }
 
     /**

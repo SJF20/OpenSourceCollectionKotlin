@@ -2,7 +2,6 @@ package com.shijingfeng.base.base.adapter
 
 import android.content.Context
 import android.text.TextUtils
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.base.adapter.viewholder.createCommonViewHolder
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.base.common.extension.OnItemEvent
+import com.shijingfeng.base.common.extension.onItemEvent
 
 /**
  * Function: 通用 Paging分页加载 Adapter
@@ -26,7 +25,7 @@ abstract class CommonPagedListAdapter<T : BaseEntity>: PagedListAdapter<T, Commo
     /** 当前操作的Item Position  */
     protected var mChoiceItemPosition = -1
     /** 回调监听器 */
-    protected var mOnItemEvent: OnItemEvent? = null
+    protected var mOnItemEvent: onItemEvent? = null
 
     constructor(
         context: Context,
@@ -109,7 +108,7 @@ abstract class CommonPagedListAdapter<T : BaseEntity>: PagedListAdapter<T, Commo
      * 设置回调监听器
      * @param onItemEvent 回调监听器
      */
-    fun setOnItemEventListener(onItemEvent: OnItemEvent?) {
+    fun setOnItemEventListener(onItemEvent: onItemEvent?) {
         this.mOnItemEvent = onItemEvent
     }
 

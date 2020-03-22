@@ -2,8 +2,8 @@ package com.shijingfeng.wan_android.source.repository
 
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.CoinRecordEntity
 import com.shijingfeng.wan_android.source.network.CoinRecordNetworkSource
 
@@ -46,7 +46,7 @@ class CoinRecordRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun getCoinRecordList(page: Int, onSuccess: OnSuccess<CoinRecordEntity?>, onFailure: OnFailure) {
+    fun getCoinRecordList(page: Int, onSuccess: onSuccess<CoinRecordEntity?>, onFailure: onFailure) {
         mNetworkSource?.getCoinRecordList(page, onSuccess, onFailure)
     }
 

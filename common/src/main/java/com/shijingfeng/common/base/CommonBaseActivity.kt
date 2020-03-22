@@ -1,25 +1,25 @@
-package com.shijingfeng.wan_android.base
+package com.shijingfeng.common.base
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import com.shijingfeng.base.base.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.wan_android.R
+import com.shijingfeng.common.R
 
 /**
- * Function: wan_android 模块 Activity 基类
- * Date: 2020/2/3 14:22
+ * Function: common 模块 Activity 基类
+ * Date: 2020/3/22 10:13
  * Description:
  * @author ShiJingFeng
  */
-abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
+abstract class CommonBaseActivity<V : ViewDataBinding, VM : CommonBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 
     /**
      * 初始化
      */
     override fun init(savedInstanceState: Bundle?) {
-        d("页面", "wan_android 模块: " + this.javaClass.simpleName)
+        d("页面", "common 模块: " + this.javaClass.simpleName)
         super.init(savedInstanceState)
     }
 
@@ -37,6 +37,6 @@ abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndroidBaseVi
      *
      * @return 背景 Drawable
      */
-    override fun getStatusBarBackground() = getDrawableById(R.color.wan_android_status_bar_default_color)
+    override fun getStatusBarBackground(): Drawable? = null
 
 }

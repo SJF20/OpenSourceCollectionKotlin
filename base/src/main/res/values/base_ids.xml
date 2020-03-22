@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- StatusBarView ID -->
     <item name="status_bar_view" type="id" />
+    <!-- Fragment Root View ID -->
+    <item name="fragment_root_view" type="id" />
 </resources>

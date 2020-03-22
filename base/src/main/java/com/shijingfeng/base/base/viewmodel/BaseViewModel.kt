@@ -34,10 +34,12 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     private val mLoadServiceStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     /** 刷新 或 上拉加载 状态 SingleLiveEvent  */
     private val mRefreshLoadMoreStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+
     /** Disposable容器  */
-    val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-    /** 页面跳转携带的数据Bundle  */
-    var mBundle: Bundle? = null
+    private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+
+    /** 页面跳转携带的数据Bundle (注意: 和 Activity 或 Fragment 的 mDataBundle 做区分, mDataBundle随着 Activity重启 或 Fragment重启 会改变) */
+    var mParamBundle: Bundle? = null
 
     /** 连续双击退出应用  */
     protected var mExitApp: Boolean = false
@@ -223,7 +225,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     }
 
     override fun onCreate(owner: LifecycleOwner) {
-        if (owner !is BaseFragment<*, *> && !mHasInited) {
+        if (owner !is BaseFragment && !mHasInited) {
             init()
         }
     }

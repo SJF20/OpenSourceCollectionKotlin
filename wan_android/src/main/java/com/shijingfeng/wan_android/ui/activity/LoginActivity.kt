@@ -65,7 +65,7 @@ class LoginActivity : WanAndroidBaseActivity<ActivityLoginBinding, LoginViewMode
      */
     override fun initData() {
         super.initData()
-        val canBack = mViewModel?.mBundle?.getBoolean(LOGIN_ACTIVITY_CAN_BACK, true) ?: true
+        val canBack = mViewModel?.mParamBundle?.getBoolean(LOGIN_ACTIVITY_CAN_BACK, true) ?: true
 
         include_title_bar.iv_back.visibility = if (canBack) VISIBLE else GONE
         include_title_bar.tv_title.text = getString(R.string.登录)

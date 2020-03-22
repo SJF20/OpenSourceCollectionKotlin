@@ -67,7 +67,7 @@ class LoginViewModel(
     /** 去注册 */
     val mTextOperateClickListener = OnClickListener {
         navigation(path = ACTIVITY_WAN_ANDROID_REGISTER, bundle = Bundle().apply {
-            putBoolean(SKIP_TO_HOME, mBundle?.getBoolean(SKIP_TO_HOME, false) ?: false)
+            putBoolean(SKIP_TO_HOME, mParamBundle?.getBoolean(SKIP_TO_HOME, false) ?: false)
         })
     }
 
@@ -114,7 +114,7 @@ class LoginViewModel(
                 //通知其他页面更新用户数据
                 EventBus.getDefault().post(UserInfoEvent(userInfo))
 
-                val skipToHome = mBundle?.getBoolean(SKIP_TO_HOME, false) ?: false
+                val skipToHome = mParamBundle?.getBoolean(SKIP_TO_HOME, false) ?: false
 
                 if (skipToHome) {
                     //跳到首页

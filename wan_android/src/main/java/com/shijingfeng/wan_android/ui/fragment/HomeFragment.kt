@@ -93,7 +93,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
             mLoadService?.showCallback(LoadingCallback::class.java)
         }
 
-        mActivity?.let { activity ->
+        activity?.let { activity ->
             mHomeAdapter = HomeAdapter(
                 activity,
                 mViewModel?.mHomeItemDataList,
@@ -167,7 +167,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                     val (_, _, _, _, _, title, _, url) = data as HomeBannerEntity
 
                     navigation(
-                        activity = mActivity,
+                        activity = activity,
                         path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
                         bundle = Bundle().apply {
                             putString(URL, url)
@@ -187,7 +187,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                             val title = homeSetToTopItem.title
 
                             navigation(
-                                activity = mActivity,
+                                activity = activity,
                                 path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
                                 bundle = Bundle().apply {
                                     putString(URL, url)
@@ -202,7 +202,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                             val title = homeArticleItem.title
 
                             navigation(
-                                activity = mActivity,
+                                activity = activity,
                                 path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
                                 bundle = Bundle().apply {
                                     putString(URL, url)

@@ -3,8 +3,8 @@ package com.shijingfeng.common.source.network
 import android.os.Handler
 import android.os.Looper
 import com.shijingfeng.base.base.source.BaseNetworkSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.handle
 import com.shijingfeng.common.source.network.api.Api
 import com.shijingfeng.base.util.RetrofitUtil
@@ -49,7 +49,7 @@ class ViewOriginalImageNetworkSource : BaseNetworkSource() {
      * 下载图片
      * @param imageUrl 图片地址
      */
-    fun downloadImage(imageUrl: String, onSuccess: OnSuccess<ResponseBody?>, onFailure: OnFailure) {
+    fun downloadImage(imageUrl: String, onSuccess: onSuccess<ResponseBody?>, onFailure: onFailure) {
         mDownloadImageCall = mApi.downloadFile(imageUrl)
         mDownloadImageCall
             ?.enqueue(object : Callback<ResponseBody?> {

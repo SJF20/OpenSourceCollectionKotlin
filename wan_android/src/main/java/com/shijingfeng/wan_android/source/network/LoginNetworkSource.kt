@@ -1,12 +1,10 @@
 package com.shijingfeng.wan_android.source.network
 
-import android.util.Log
 import com.shijingfeng.base.base.source.BaseNetworkSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
 import com.shijingfeng.wan_android.source.network.api.UserApi
@@ -48,7 +46,7 @@ class LoginNetworkSource : BaseNetworkSource() {
      * @param postMap 数据
      * @param listener 回调监听
      */
-    fun login(postMap: Map<String, Any>, onSuccess: OnSuccess<UserInfoEntity?>, onFailure: OnFailure) {
+    fun login(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
         addCoroutinesJob(
             GlobalScope.launch(Dispatchers.Main) {
                 try {

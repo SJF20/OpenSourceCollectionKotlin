@@ -1,9 +1,6 @@
 package com.shijingfeng.wan_android.source.local
 
 import com.shijingfeng.base.base.source.BaseLocalSource
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 

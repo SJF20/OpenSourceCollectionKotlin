@@ -2,8 +2,8 @@ package com.shijingfeng.wan_android.source.network
 
 import android.annotation.SuppressLint
 import com.shijingfeng.base.base.source.BaseNetworkSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
@@ -62,7 +62,7 @@ class HomeNetworkSource : BaseNetworkSource() {
      * @param listener 回调监听器
      */
     @SuppressLint("CheckResult")
-    fun getHomeDataList(page: Int, onSuccess: OnSuccess<HomeDataEntity?>, onFailure: OnFailure) {
+    fun getHomeDataList(page: Int, onSuccess: onSuccess<HomeDataEntity?>, onFailure: onFailure) {
         if (page == 0) {
             //获取 轮播图数据, 置顶列表 和 第一页的文章列表
             addDisposable(
@@ -150,7 +150,7 @@ class HomeNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun collected(articleId: String, onSuccess: OnSuccess<Any?>, onFailure: OnFailure) {
+    fun collected(articleId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
         addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess, onFailure))
     }
 
@@ -160,7 +160,7 @@ class HomeNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun uncollected(articleId: String, onSuccess: OnSuccess<Any?>, onFailure: OnFailure) {
+    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
         addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess, onFailure))
     }
 

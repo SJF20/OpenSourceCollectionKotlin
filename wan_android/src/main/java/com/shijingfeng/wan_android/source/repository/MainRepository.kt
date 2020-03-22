@@ -1,8 +1,8 @@
 package com.shijingfeng.wan_android.source.repository
 
 import com.shijingfeng.base.base.repository.BaseRepository
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.source.local.MainLocalSource
 import com.shijingfeng.wan_android.source.network.MainNetworkSource
@@ -45,7 +45,7 @@ class MainRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun getCoinInfo(onSuccess: OnSuccess<CoinInfoEntity?>, onFailure: OnFailure) {
+    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
         val coinInfo = mLocalSource?.getCoinInfo()
 
         if (coinInfo == null) {
@@ -61,7 +61,7 @@ class MainRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun logout(onSuccess: OnSuccess<Any?>, onFailure: OnFailure) {
+    fun logout(onSuccess: onSuccess<Any?>, onFailure: onFailure) {
         mLocalSource?.logout()
         mNetworkSource?.logout(onSuccess, onFailure)
     }

@@ -13,13 +13,13 @@ import kotlin.coroutines.coroutineContext
  */
 
 /** 成功回调 */
-typealias OnSuccess<T> = (data: T) -> Unit
+typealias onSuccess<T> = (data: T) -> Unit
 
 /** 失败回调 */
-typealias OnFailure = (e: HttpException?) -> Unit
+typealias onFailure = (e: HttpException?) -> Unit
 
 /** 适配器事件监听回调 */
-typealias OnItemEvent = (view: View?, data: Any?, position: Int, flag: String) -> Unit
+typealias onItemEvent = (view: View?, data: Any?, position: Int, flag: String) -> Unit
 
 /**
  * 当前 协程 Job

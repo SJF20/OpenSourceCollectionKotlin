@@ -1,9 +1,9 @@
 package com.shijingfeng.common.viewmodel
 
-import com.shijingfeng.base.base.viewmodel.BaseViewModel
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.common.source.repository.ViewOriginalImageRepository
 import com.shijingfeng.base.widget.dialog.LoadingDialog
+import com.shijingfeng.common.base.CommonBaseViewModel
 import okhttp3.ResponseBody
 
 /**
@@ -13,8 +13,8 @@ import okhttp3.ResponseBody
  * @author ShiJingFeng
  */
 class ViewOriginalImageViewModel(
-    mRepository: com.shijingfeng.common.source.repository.ViewOriginalImageRepository? = null
-) : BaseViewModel<com.shijingfeng.common.source.repository.ViewOriginalImageRepository>(mRepository) {
+    mRepository: ViewOriginalImageRepository? = null
+) : CommonBaseViewModel<ViewOriginalImageRepository>(mRepository) {
 
     /** 保存图片 LiveEvent */
     val mSaveImageLiveEvent: SingleLiveEvent<ResponseBody?> = SingleLiveEvent()

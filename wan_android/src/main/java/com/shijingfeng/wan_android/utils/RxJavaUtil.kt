@@ -3,9 +3,8 @@
 
 package com.shijingfeng.wan_android.utils
 
-import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.http.exception.handle
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
@@ -28,7 +27,7 @@ import io.reactivex.schedulers.Schedulers
  * @param onSuccess 成功函数回调
  * @param onFailure 失败函数回调
  */
-fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: OnSuccess<D?>? = null, onFailure: OnFailure? = null): Disposable {
+fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: onSuccess<D?>? = null, onFailure: onFailure? = null): Disposable {
     return single
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

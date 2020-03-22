@@ -26,7 +26,6 @@ import com.google.gson.reflect.TypeToken
 import com.shijingfeng.common.adapter.ViewOriginalImageAdapter
 import com.shijingfeng.base.annotation.NeedPermissions
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
-import com.shijingfeng.base.base.activity.BaseActivity
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
@@ -39,6 +38,7 @@ import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.common.BR
 import com.shijingfeng.common.R
+import com.shijingfeng.common.base.CommonBaseActivity
 import com.shijingfeng.common.databinding.ActivityViewOriginalImageBinding
 import kotlinx.android.synthetic.main.activity_view_original_image.*
 import kotlinx.android.synthetic.main.dialog_view_original_image_long_click.view.*
@@ -53,7 +53,7 @@ import java.io.InputStream
  */
 @NeedPermissions
 @Route(path = ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE)
-class ViewOriginalImageActivity : BaseActivity<ActivityViewOriginalImageBinding, ViewOriginalImageViewModel>() {
+class ViewOriginalImageActivity : CommonBaseActivity<ActivityViewOriginalImageBinding, ViewOriginalImageViewModel>() {
 
     private lateinit var mFromName: String
     private lateinit var mDataList: List<ViewOriginalImageItem>
@@ -101,7 +101,7 @@ class ViewOriginalImageActivity : BaseActivity<ActivityViewOriginalImageBinding,
      */
     override fun initParam() {
         super.initParam()
-        mViewModel?.mBundle?.let { bundle ->
+        mViewModel?.mParamBundle?.let { bundle ->
             mFromName = bundle.getString(FROM_ACTIVITY_NAME, "")
             mDataList = deserialize(
                 bundle.getString(

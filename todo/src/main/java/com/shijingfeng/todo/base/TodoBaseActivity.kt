@@ -2,7 +2,7 @@ package com.shijingfeng.todo.base
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.activity.BaseActivity
+import com.shijingfeng.base.base.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.todo.R
@@ -13,11 +13,14 @@ import com.shijingfeng.todo.R
  * Description:
  * @author ShiJingFeng
  */
-abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewModel<*>> : BaseActivity<V, VM>() {
+abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    /**
+     * 初始化
+     */
+    override fun init(savedInstanceState: Bundle?) {
         d("页面", "todo 模块: " + this.javaClass.simpleName)
+        super.init(savedInstanceState)
     }
 
     /**

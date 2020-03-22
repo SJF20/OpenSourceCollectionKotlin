@@ -87,7 +87,7 @@ class RegisterViewModel(
                 //通知其他页面更新用户数据
                 EventBus.getDefault().post(UserInfoEvent(userInfo))
 
-                val skipToHome = mBundle?.getBoolean(SKIP_TO_HOME, false) ?: false
+                val skipToHome = mParamBundle?.getBoolean(SKIP_TO_HOME, false) ?: false
 
                 if (skipToHome) {
                     //跳到首页

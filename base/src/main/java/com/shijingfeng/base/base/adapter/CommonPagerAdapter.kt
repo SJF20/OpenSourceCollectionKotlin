@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.shijingfeng.base.common.extension.OnItemEvent
+import com.shijingfeng.base.common.extension.onItemEvent
 
 /**
  * Function: 通用 PagerAdapter
@@ -17,7 +17,7 @@ open class CommonPagerAdapter<T>(
     protected val mDataList: List<T>? = null
 ) : PagerAdapter() {
 
-    protected var mOnItemEvent: OnItemEvent? = null
+    protected var mOnItemEvent: onItemEvent? = null
 
     /**
      * 初始化 Item
@@ -55,7 +55,7 @@ open class CommonPagerAdapter<T>(
      * 设置 事件回调监听
      * @param onItemEvent 事件回调监听
      */
-    fun setOnItemEventListener(onItemEvent: OnItemEvent?) {
+    fun setOnItemEventListener(onItemEvent: onItemEvent?) {
         this.mOnItemEvent = onItemEvent
     }
 

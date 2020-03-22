@@ -1,13 +1,12 @@
 package com.shijingfeng.base.base.adapter
 
 import android.content.Context
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.base.adapter.viewholder.createCommonViewHolder
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.base.common.extension.OnItemEvent
+import com.shijingfeng.base.common.extension.onItemEvent
 
 /**
  * Function: 通用 RecyclerView Adapter
@@ -24,7 +23,7 @@ abstract class CommonAdapter<T : BaseEntity>(
     /** 当前操作的Item Position  */
     protected var mChoiceItemPosition = -1
     /** 回调监听器 */
-    protected var mOnItemEvent: OnItemEvent? = null
+    protected var mOnItemEvent: onItemEvent? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -106,7 +105,7 @@ abstract class CommonAdapter<T : BaseEntity>(
      * 设置回调监听器
      * @param onItemEvent 回调监听器
      */
-    fun setOnItemEventListener(onItemEvent: OnItemEvent?) {
+    fun setOnItemEventListener(onItemEvent: onItemEvent?) {
         this.mOnItemEvent = onItemEvent
     }
 

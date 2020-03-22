@@ -2,8 +2,8 @@ package com.shijingfeng.common.source.repository
 
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
-import com.shijingfeng.base.common.extension.OnFailure
-import com.shijingfeng.base.common.extension.OnSuccess
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.common.source.network.ViewOriginalImageNetworkSource
 import okhttp3.ResponseBody
 
@@ -49,7 +49,7 @@ class ViewOriginalImageRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun downloadImage(imageUrl: String, onSuccess: OnSuccess<ResponseBody?>, onFailure: OnFailure) {
+    fun downloadImage(imageUrl: String, onSuccess: onSuccess<ResponseBody?>, onFailure: onFailure) {
         mNetworkSource?.downloadImage(imageUrl, onSuccess, onFailure)
     }
 

@@ -199,6 +199,10 @@ dependencies {
     api rootProject.ext.androidx["lifecycle-common-java8"]
     // optional - ReactiveStreams support for LiveData
     api rootProject.ext.androidx["lifecycle-reactivestreams"]
+    // Navigation (Fragment导航)
+    api rootProject.ext.androidx["navigation-fragment-ktx"]
+    api rootProject.ext.androidx["navigation-ui-ktx"]
+    api rootProject.ext.androidx["navigation-dynamic-features-fragment"]
     //Paging 分页加载
     api rootProject.ext.androidx["paging-runtime"]
     api rootProject.ext.androidx["paging-common"]
@@ -228,14 +232,6 @@ dependencies {
     api rootProject.ext.dependencies["rxjava2"]
     //RxAndroid 异步加载框架
     api rootProject.ext.dependencies["rxjava2-android"]
-//    //RxLifecycle
-//    api rootProject.ext.dependencies["rxlifecycle3"]
-//    //RxLifecycle If you want to bind to Android-specific lifecycles
-//    api rootProject.ext.dependencies["rxlifecycle3-android"]
-//    //RxLifecycle If you want pre-written Activities and Fragments you can subclass as providers
-//    api rootProject.ext.dependencies["rxlifecycle3-components"]
-//    //RxLifecycle If you want to use Android Lifecycle for providers
-//    api rootProject.ext.dependencies["rxlifecycle3-android-lifecycle"]
     //EventBus
     api rootProject.ext.dependencies["eventbus"]
     //万能工具类

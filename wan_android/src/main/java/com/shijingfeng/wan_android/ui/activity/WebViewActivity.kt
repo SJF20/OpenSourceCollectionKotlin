@@ -32,6 +32,7 @@ import com.shijingfeng.base.base.application.isX5Inited
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.X5InitedEvent
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.setDefaultX5WebSettings
@@ -122,7 +123,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
      */
     override fun initParam() {
         super.initParam()
-        mViewModel?.mBundle?.run {
+        mViewModel?.mParamBundle?.run {
             mFromName = getString(FROM_ACTIVITY_NAME, "")
             mUrl = getString(URL, "")
             mTitle = getString(TITLE, "")

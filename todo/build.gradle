@@ -119,6 +119,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
+    androidExtensions {
+        experimental = true
+    }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {
         preDexLibraries = false

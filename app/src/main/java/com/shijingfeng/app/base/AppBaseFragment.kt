@@ -1,11 +1,9 @@
 package com.shijingfeng.app.base
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.blankj.utilcode.util.ResourceUtils
 import com.shijingfeng.app.R
-import com.shijingfeng.base.base.fragment.BaseFragment
+import com.shijingfeng.base.base.fragment.BaseMvvmFragment
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getDrawableById
 
@@ -15,11 +13,14 @@ import com.shijingfeng.base.util.getDrawableById
  * Description:
  * @author ShiJingFeng
  */
-abstract class AppBaseFragment<V : ViewDataBinding, VM : AppBaseViewModel<*>> : BaseFragment<V, VM>() {
+abstract class AppBaseFragment<V : ViewDataBinding, VM : AppBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    /**
+     * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法
+     */
+    override fun init(savedInstanceState: Bundle?) {
         d("页面", "app 模块: " + this.javaClass.simpleName)
+        super.init(savedInstanceState)
     }
 
     /**
