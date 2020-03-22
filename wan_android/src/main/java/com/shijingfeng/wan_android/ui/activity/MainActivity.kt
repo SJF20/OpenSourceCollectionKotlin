@@ -4,12 +4,14 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.text.TextUtils
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -292,6 +294,10 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
                 tv_coin_quantity.text = coinInfo.coinCount.toString()
             }
         })
+        // 显示 退出登录确认对话框
+        mViewModel?.mShowLogoutDialogEvent?.observe(this, Observer {
+            showLogoutDialog()
+        })
     }
 
     /**
@@ -387,6 +393,20 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
     }
 
     /**
+     * 显示 退出登录确认对话框
+     */
+    fun showLogoutDialog() {
+        AlertDialog.Builder(this)
+            .setMessage("是否退出登录?")
+            .setPositiveButton("是") { _, _ ->
+                mViewModel?.logout()
+            }
+            .setNegativeButton("否", null)
+            .setCancelable(true)
+            .show()
+    }
+
+    /**
      * Dispatch incoming result to the correct fragment.
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -403,6 +423,9 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
         }
     }
 
+    /**
+     * 模拟按键 按下监听
+     */
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {

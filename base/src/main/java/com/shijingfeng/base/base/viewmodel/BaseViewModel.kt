@@ -238,7 +238,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
         /** 显示加载中 Dialog  */
         private val mShowLoadingDialogEvent by lazy { SingleLiveEvent<String>() }
         /** 隐藏加载中 Dialog  */
-        private val mHideLoadingDialogEvent by lazy { SingleLiveEvent<Any>() }
+        private val mHideLoadingDialogEvent by lazy { SingleLiveEvent<Any?>() }
         /** 跳转 Activity  */
         private val mStartActivityEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
         /** 页面跳转  */

@@ -19,7 +19,7 @@ fun createCommonViewModelFactory(
  * Description:
  * @author ShiJingFeng
  */
-class CommonViewModelFactory(
+class CommonViewModelFactory internal constructor(
     private var mConstructorParamArray: Array<out Any>? = null,
     private var mRepository: BaseRepository<*, *>? = null
 ) : ViewModelProvider.Factory {
@@ -29,7 +29,6 @@ class CommonViewModelFactory(
      * @param modelClass 要创建的 ViewModel 反射类
      */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-
         var viewModel: ViewModel? = null
 
         try {

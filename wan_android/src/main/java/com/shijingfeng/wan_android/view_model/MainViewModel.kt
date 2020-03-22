@@ -34,6 +34,8 @@ class MainViewModel(
 
     /** 更新积分数据 LiveData Event  */
     val mUpdateCoinInfoEvent = SingleLiveEvent<CoinInfoEntity>()
+    /** 显示 退出登录确认对话框 */
+    val mShowLogoutDialogEvent = SingleLiveEvent<Any?>()
 
     /** 跳转到 积分排行榜页面 */
     val mRankClickListener = OnClickListener {
@@ -82,7 +84,7 @@ class MainViewModel(
 
     /** 注销登录  */
     val mLogoutClickListener = OnClickListener {
-        logout()
+        mShowLogoutDialogEvent.call()
     }
 
     /** 置顶  */
@@ -128,7 +130,7 @@ class MainViewModel(
     /**
      * 退出登录
      */
-    private fun logout() {
+    fun logout() {
         showLoadingDialog("退出登录中...")
         mRepository?.logout(onSuccess = {
             hideLoadingDialog()
