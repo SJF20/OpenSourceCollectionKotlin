@@ -7,7 +7,7 @@ import android.widget.ImageView
 import com.blankj.utilcode.util.ConvertUtils
 import com.shijingfeng.base.listener.Target
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
-import com.shijingfeng.library.banner.adapter.BaseBannerPagerAdapter
+import com.shijingfeng.sjf_banner.library.banner.adapter.BaseBannerPagerAdapter
 import com.shijingfeng.wan_android.constant.VIEW_BANNER_DETAIL
 import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 
@@ -17,7 +17,7 @@ import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
  * Description:
  * @author ShiJingFeng
  */
-class HomeBannerPagerAdapter(
+internal class HomeBannerPagerAdapter(
     context: Context,
     dataList: List<HomeBannerEntity>? = null
 ) : BaseBannerPagerAdapter<HomeBannerEntity>(context, dataList) {

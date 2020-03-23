@@ -15,13 +15,17 @@ private var sInstance: MainRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getMainRepositoryInstance(
+internal fun getMainRepositoryInstance(
+    localSource: MainLocalSource? = null,
     networkSource: MainNetworkSource? = null
 ): MainRepository {
     if (sInstance == null) {
         synchronized(MainRepository::class.java) {
             if (sInstance == null) {
-                sInstance = MainRepository(networkSource = networkSource)
+                sInstance = MainRepository(
+                    localSource = localSource,
+                    networkSource = networkSource
+                )
             }
         }
     }
@@ -34,9 +38,11 @@ fun getMainRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class MainRepository(
+internal class MainRepository(
+    localSource: MainLocalSource? = null,
     networkSource: MainNetworkSource? = null
 ) : BaseRepository<MainLocalSource, MainNetworkSource>(
+    mLocalSource = localSource,
     mNetworkSource = networkSource
 ) {
 

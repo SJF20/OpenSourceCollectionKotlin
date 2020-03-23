@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.entity.event
  * Description:
  * @author ShiJingFeng
  */
-data class CollectionEvent(
+internal data class CollectionEvent(
 
     /** 文章 或 网址 id */
     var id: String,

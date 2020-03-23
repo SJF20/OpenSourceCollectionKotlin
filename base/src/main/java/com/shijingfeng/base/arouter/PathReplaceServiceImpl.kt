@@ -15,7 +15,7 @@ import java.util.*
  * @author ShiJingFeng
  */
 @Route(path = PROVIDER_BASE_COMMON_PATH_REPLACE_SERVICE)
-class PathReplaceServiceImpl : PathReplaceService {
+internal class PathReplaceServiceImpl : PathReplaceService {
 
     /** Key(String): 替换前的路径  Value(String): 替换后的路径  */
     private val mPathMap: MutableMap<String, String> = mutableMapOf()

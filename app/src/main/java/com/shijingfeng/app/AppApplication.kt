@@ -8,4 +8,4 @@ import com.shijingfeng.base.base.application.BaseApplication
  * Description:
  * @author ShiJingFeng
  */
-class AppApplication : BaseApplication()
+internal class AppApplication : BaseApplication()

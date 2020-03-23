@@ -9,7 +9,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Description:
  * @author ShiJingFeng
  */
-data class HomeBannerEntity(
+internal data class HomeBannerEntity(
 
     /** ID  */
     @SerializedName("id")

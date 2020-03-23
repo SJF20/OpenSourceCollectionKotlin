@@ -16,7 +16,7 @@ import retrofit2.http.*
  * Description:
  * @author ShiJingFeng
  */
-interface UserApi {
+internal interface UserApi {
 
     /**
      * 登录 (使用协程)

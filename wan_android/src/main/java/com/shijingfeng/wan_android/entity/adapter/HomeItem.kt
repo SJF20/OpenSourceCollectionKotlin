@@ -13,7 +13,7 @@ import com.shijingfeng.wan_android.entity.network.HomeArticleItem
  * Description:
  * @author ShiJingFeng
  */
-abstract class HomeItem : BaseEntity() {
+internal abstract class HomeItem : BaseEntity() {
 
     /**
      * 获取类型

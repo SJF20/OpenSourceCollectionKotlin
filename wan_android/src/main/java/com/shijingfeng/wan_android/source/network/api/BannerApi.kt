@@ -15,7 +15,7 @@ import retrofit2.http.Headers
  * Description:
  * @author ShiJingFeng
  */
-interface BannerApi {
+internal interface BannerApi {
 
     /**
      * 获取 首页 轮播图 数据

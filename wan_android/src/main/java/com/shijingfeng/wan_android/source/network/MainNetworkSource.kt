@@ -17,7 +17,7 @@ private var sInstance: MainNetworkSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getMainNetworkSourceInstance(): MainNetworkSource {
+internal fun getMainNetworkSourceInstance(): MainNetworkSource {
     if (sInstance == null) {
         synchronized(MainNetworkSource::class.java) {
             if (sInstance == null) {
@@ -34,7 +34,7 @@ fun getMainNetworkSourceInstance(): MainNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-class MainNetworkSource : BaseNetworkSource() {
+internal class MainNetworkSource : BaseNetworkSource() {
 
     private val mCoinApi: CoinApi = RetrofitUtil.create(CoinApi::class.java)
     private val mUserApi: UserApi = RetrofitUtil.create(UserApi::class.java)

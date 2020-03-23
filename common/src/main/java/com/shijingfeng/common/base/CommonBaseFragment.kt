@@ -12,7 +12,7 @@ import com.shijingfeng.base.util.d
  * Description:
  * @author ShiJingFeng
  */
-abstract class CommonBaseFragment<V : ViewDataBinding, VM : CommonBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
+internal abstract class CommonBaseFragment<V : ViewDataBinding, VM : CommonBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
 
     /**
      * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法

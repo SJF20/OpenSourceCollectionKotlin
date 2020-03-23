@@ -15,12 +15,11 @@
     -->
     <application
         android:name=".TodoApplication"
-        android:label="@string/app_name"
+        android:label="@string/todo_name"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/TodoTheme"
 
-        android:allowBackup="false"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:hasFragileUserData="true"
@@ -28,8 +27,14 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- 主页 -->
-        <activity android:name=".ui.activity.TodoMainActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -8,4 +8,4 @@ import com.shijingfeng.base.base.application.BaseApplication
  * Description:
  * @author ShiJingFeng
  */
-class TodoApplication : BaseApplication()
+internal class TodoApplication : BaseApplication()

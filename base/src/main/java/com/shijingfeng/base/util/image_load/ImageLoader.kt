@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.shijingfeng.base.R
-import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.listener.Target
 
 /** 图片加载器 实例 (可以随时切换加载框架) */
@@ -30,6 +28,7 @@ abstract class ImageLoader {
      * @param context Context
      * @param imageView ImageView控件
      * @param imagePath 路径 (本地路径 或 网络路径)
+     * @param outputType 输出源类型
      * @param placeholder 加载中 占位符
      * @param error 加载错误 占位符
      */
@@ -37,6 +36,7 @@ abstract class ImageLoader {
         context: Context,
         imageView: ImageView,
         imagePath: String,
+        outputType: Int = AS_DRAWABLE,
         @DrawableRes placeholder: Int = 0,
         @DrawableRes error: Int = 0
     )

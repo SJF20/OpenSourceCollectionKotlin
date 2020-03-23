@@ -11,7 +11,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
  * Description:
  * @author ShiJingFeng
  */
-class MainViewModel(
+internal class MainViewModel(
     repository: BaseRepository<*, *>? = null
 ) : AppBaseViewModel<BaseRepository<*, *>>(repository = repository) {
 

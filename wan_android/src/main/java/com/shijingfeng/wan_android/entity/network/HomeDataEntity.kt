@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
  * Description:
  * @author ShiJingFeng
  */
-data class HomeDataEntity(
+internal data class HomeDataEntity(
 
     /** 首页 轮播图数据 */
     var homeBannerList: List<HomeBannerEntity> = ArrayList(),

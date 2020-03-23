@@ -16,7 +16,7 @@ private var sInstance: RegisterNetworkSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getRegisterNetworkSourceInstance(): RegisterNetworkSource {
+internal fun getRegisterNetworkSourceInstance(): RegisterNetworkSource {
     if (sInstance == null) {
         synchronized(RegisterNetworkSource::class.java) {
             if (sInstance == null) {
@@ -33,7 +33,7 @@ fun getRegisterNetworkSourceInstance(): RegisterNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-class RegisterNetworkSource : BaseNetworkSource() {
+internal class RegisterNetworkSource : BaseNetworkSource() {
 
     private val mUserApi: UserApi = RetrofitUtil.create(UserApi::class.java)
 

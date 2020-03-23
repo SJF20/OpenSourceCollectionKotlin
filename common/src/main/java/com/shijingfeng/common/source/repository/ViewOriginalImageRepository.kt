@@ -15,7 +15,7 @@ private var sInstance: ViewOriginalImageRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getViewOriginalImageRepositoryInstance(
+internal fun getViewOriginalImageRepositoryInstance(
     networkSource: ViewOriginalImageNetworkSource? = null
 ): ViewOriginalImageRepository {
     if (sInstance == null) {
@@ -37,7 +37,7 @@ fun getViewOriginalImageRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class ViewOriginalImageRepository(
+internal class ViewOriginalImageRepository(
     networkSource: ViewOriginalImageNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, ViewOriginalImageNetworkSource>(
     mNetworkSource = networkSource

@@ -18,7 +18,7 @@ import retrofit2.http.Query
  * Description:
  * @author ShiJingFeng
  */
-interface ArticleApi {
+internal interface ArticleApi {
 
     /**
      * 获取 首页置顶文章 列表

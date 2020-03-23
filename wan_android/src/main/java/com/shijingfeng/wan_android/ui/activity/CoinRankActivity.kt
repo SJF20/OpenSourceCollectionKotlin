@@ -7,19 +7,19 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_COIN_RANK
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRankAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.databinding.ActivityCoinRankBinding
+import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRankBinding
 import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
 import com.shijingfeng.wan_android.view_model.CoinRankViewModel
-import kotlinx.android.synthetic.main.activity_coin_rank.*
-import kotlinx.android.synthetic.main.activity_login.include_title_bar
-import kotlinx.android.synthetic.main.activity_main.view.tv_title
+import kotlinx.android.synthetic.main.activity_wan_android_coin_rank.*
+import kotlinx.android.synthetic.main.activity_wan_android_login.include_title_bar
+import kotlinx.android.synthetic.main.activity_wan_android_main.view.tv_title
 
 /**
  * Function: 积分排行榜 页面
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_main.view.tv_title
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_COIN_RANK)
-class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRankViewModel>() {
+internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinRankBinding, CoinRankViewModel>() {
 
     private var mCoinRankAdapter: CoinRankAdapter? = null
 
@@ -37,7 +37,7 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_coin_rank
+    override fun getLayoutId() = R.layout.activity_wan_android_coin_rank
 
     /**
      * 获取ViewModel
@@ -67,15 +67,16 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getString(R.string.积分排行榜)
+        include_title_bar.tv_title.text = getStringById(R.string.积分排行榜)
 
         mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            mLoadService?.showCallback(LoadingCallback::class.java)
+            showCallback(LOADING)
         }
 
-        mCoinRankAdapter = CoinRankAdapter(this, R.layout.adapter_item_coin_rank, mViewModel?.mCoinRankItemList)
+        mCoinRankAdapter = CoinRankAdapter(this, R.layout.adapter_wan_android_item_coin_rank, mViewModel?.mCoinRankItemList)
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mCoinRankAdapter
     }
@@ -94,7 +95,7 @@ class CoinRankActivity : WanAndroidBaseActivity<ActivityCoinRankBinding, CoinRan
     override fun initObserver() {
         super.initObserver()
         //RecyclerView 适配器和数据列表 LiveData 监听器
-        mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@ { (type, _, _, extraData, coinRankItemList, _) ->
+        mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@{ (type, _, _, extraData, coinRankItemList, _) ->
             when (type) {
                 // 加载, 刷新
                 LOAD, REFRESH -> mCoinRankAdapter?.notifyDataSetChanged()

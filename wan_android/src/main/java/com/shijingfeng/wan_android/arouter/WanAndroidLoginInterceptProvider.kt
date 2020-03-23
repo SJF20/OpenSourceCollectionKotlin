@@ -19,7 +19,7 @@ import com.shijingfeng.wan_android.utils.UserUtil
  * @author ShiJingFeng
  */
 @Route(path = PROVIDER_WAN_ANDROID_LOGIN_INTERCEPT)
-class WanAndroidLoginInterceptProvider : LoginInterceptProvider {
+internal class WanAndroidLoginInterceptProvider : LoginInterceptProvider {
 
     /**
      * 只初始化一次, 在 DegradeServiceImpl 加载时初始化

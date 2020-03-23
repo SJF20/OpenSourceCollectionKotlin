@@ -13,7 +13,7 @@ import com.shijingfeng.common.R
  * Description:
  * @author ShiJingFeng
  */
-abstract class CommonBaseActivity<V : ViewDataBinding, VM : CommonBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
+internal abstract class CommonBaseActivity<V : ViewDataBinding, VM : CommonBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 
     /**
      * 初始化

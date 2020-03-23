@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.text.TextUtils
 import android.util.SparseArray
@@ -24,12 +23,8 @@ import com.blankj.utilcode.util.StringUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.base.adapter.CommonFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
-import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
-import com.shijingfeng.base.arouter.ARouterUtil.navigation
-import com.shijingfeng.base.base.viewmodel.factory.CommonViewModelFactory
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -38,23 +33,22 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.constant.RESULT_ARTICLE_COLLECTED_LIST
 import com.shijingfeng.wan_android.constant.RESULT_COIN_RECORD
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
-import com.shijingfeng.wan_android.databinding.ActivityMainBinding
+import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
+import com.shijingfeng.wan_android.source.local.getMainLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.view_model.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_indicator_main_classify.*
-import kotlinx.android.synthetic.main.layout_indicator_main_home.*
-import kotlinx.android.synthetic.main.layout_indicator_main_official_account.*
-import kotlinx.android.synthetic.main.layout_indicator_main_project.*
-import kotlinx.android.synthetic.main.layout_indicator_main_square.*
-import kotlinx.android.synthetic.main.layout_main_activity_drawer.*
-import kotlinx.android.synthetic.main.layout_main_activity_drawer.view.*
+import kotlinx.android.synthetic.main.activity_wan_android_main.*
+import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_classify.*
+import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_home.*
+import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_official_account.*
+import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_project.*
+import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_square.*
+import kotlinx.android.synthetic.main.layout_wan_android_main_activity_drawer.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -81,24 +75,25 @@ private const val PROJECT = 4
  */
 @BindEventBus
 @Route(path = ACTIVITY_WAN_ANDROID_MAIN)
-class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>() {
+internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBinding, MainViewModel>() {
 
     /**
      * 获取视图ID
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_main
+    override fun getLayoutId() = R.layout.activity_wan_android_main
 
     /**
      * 获取ViewModel
      * @return ViewModel
      */
     override fun getViewModel(): MainViewModel? {
-        val mainRepository: MainRepository = getMainRepositoryInstance(
+        val mainRepository = getMainRepositoryInstance(
+            localSource = getMainLocalSourceInstance(),
             networkSource = getMainNetworkSourceInstance()
         )
-        val factory: CommonViewModelFactory = createCommonViewModelFactory(
+        val factory = createCommonViewModelFactory(
             repository = mainRepository
         )
 
@@ -380,15 +375,15 @@ class MainActivity : WanAndroidBaseActivity<ActivityMainBinding, MainViewModel>(
     @SuppressLint("InflateParams")
     private fun getTabView(position: Int) = when (position) {
         //首页
-        HOME -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_home, null)
+        HOME -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_home, null)
         //分类
-        CLASSIFY -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_classify, null)
+        CLASSIFY -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_classify, null)
         //公众号
-        OFFICIAL_ACCOUNT -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_official_account, null)
+        OFFICIAL_ACCOUNT -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_official_account, null)
         //广场
-        SQUARE -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_square, null)
+        SQUARE -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_square, null)
         //项目
-        PROJECT -> LayoutInflater.from(this).inflate(R.layout.layout_indicator_main_project, null)
+        PROJECT -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_project, null)
         else -> { null }
     }
 

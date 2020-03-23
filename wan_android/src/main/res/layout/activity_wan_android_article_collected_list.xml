@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.shijingfeng.wan_android.view_model.ArticleCollectedListViewModel" />
+
+        <variable
+            name="articleCollectedListViewModel"
+            type="ArticleCollectedListViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_title_bar"
+            layout="@layout/layout_wan_android_title_bar"
+            app:ivBackClick="@{articleCollectedListViewModel.mBackClickListener}"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/srl_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srlEnableRefresh="true"
+                app:srlEnableLoadMore="true"
+                app:onRefreshListener="@{articleCollectedListViewModel.mOnRefreshListener}"
+                app:onLoadMoreListener="@{articleCollectedListViewModel.mOnLoadMoreListener}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"/>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_to_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="95dp"
+                android:src="@drawable/ic_top"
+                app:backgroundTint="@color/red"
+                app:fabSize="mini"
+                app:onClick="@{articleCollectedListViewModel.mScrollToTopListener}" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</layout>

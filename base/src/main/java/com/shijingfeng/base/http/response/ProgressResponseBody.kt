@@ -12,7 +12,7 @@ import java.io.IOException
  * Description:
  * @author ShiJingFeng
  */
-class ProgressResponseBody(
+internal class ProgressResponseBody(
     private val mResponseBody: ResponseBody,
     private val mTag: String? = null
 ) : ResponseBody() {

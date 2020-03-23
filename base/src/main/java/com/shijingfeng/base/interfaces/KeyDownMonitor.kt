@@ -8,7 +8,7 @@ import android.view.KeyEvent
  * Description:
  * @author ShiJingFeng
  */
-interface KeyDownMonitor {
+internal interface KeyDownMonitor {
 
     /**
      * 模拟按键 按下监听 回调方法

@@ -12,8 +12,13 @@ import okhttp3.Response
  * Description:
  * @author ShiJingFeng
  */
-class CacheInterceptor : Interceptor {
+internal class CacheInterceptor : Interceptor {
 
+    /**
+     * 拦截回调
+     * @param chain 拦截链
+     * @return Response响应
+     */
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
 

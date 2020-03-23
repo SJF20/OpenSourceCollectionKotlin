@@ -23,7 +23,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-class RegisterViewModel(
+internal class RegisterViewModel(
     repository: RegisterRepository? = null
 ) : WanAndroidBaseViewModel<RegisterRepository>(repository) {
 

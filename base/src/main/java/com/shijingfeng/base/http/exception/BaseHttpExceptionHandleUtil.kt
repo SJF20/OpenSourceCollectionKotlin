@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("BaseHttpExceptionHandleUtil")
 package com.shijingfeng.base.http.exception
 
 import android.net.ParseException

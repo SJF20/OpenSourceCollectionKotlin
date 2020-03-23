@@ -8,13 +8,13 @@ import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.databinding.ActivityRegisterBinding
+import com.shijingfeng.wan_android.databinding.ActivityWanAndroidRegisterBinding
 import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
 import com.shijingfeng.wan_android.source.repository.getRegisterRepositoryInstance
 import com.shijingfeng.wan_android.view_model.RegisterViewModel
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.layout_title_bar.view.*
+import kotlinx.android.synthetic.main.activity_wan_android_login.*
+import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 注册 Activity
@@ -23,14 +23,14 @@ import kotlinx.android.synthetic.main.layout_title_bar.view.*
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_REGISTER)
-class RegisterActivity: WanAndroidBaseActivity<ActivityRegisterBinding, RegisterViewModel>() {
+internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegisterBinding, RegisterViewModel>() {
 
     /**
      * 获取视图ID
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_register
+    override fun getLayoutId() = R.layout.activity_wan_android_register
 
     /**
      * 获取ViewModel

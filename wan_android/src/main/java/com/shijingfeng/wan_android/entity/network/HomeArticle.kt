@@ -15,7 +15,7 @@ import java.util.*
 /**
  * 首页 -> 文章 实体类
  */
-data class HomeArticleEntity(
+internal data class HomeArticleEntity(
 
     /** 当前页码  */
     @SerializedName("curPage")
@@ -49,7 +49,7 @@ data class HomeArticleEntity(
 /**
  * 首页 -> 文章 -> Item 实体类
  */
-data class HomeArticleItem(
+internal data class HomeArticleItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -164,7 +164,7 @@ data class HomeArticleItem(
 /**
  * 首页 -> 文章 -> Item -> 标签 实体类
  */
-data class HomeArticleItemTag(
+internal data class HomeArticleItemTag(
 
     @SerializedName("name")
     var name: String? = "",

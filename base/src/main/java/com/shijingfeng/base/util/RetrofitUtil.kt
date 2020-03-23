@@ -93,7 +93,7 @@ object RetrofitUtil {
 /**
  * 自定义 OkHttp 拦截器 Logger
  */
-class HttpLogger : HttpLoggingInterceptor.Logger {
+private class HttpLogger : HttpLoggingInterceptor.Logger {
 
     override fun log(message: String) {
         d("网络拦截", message)

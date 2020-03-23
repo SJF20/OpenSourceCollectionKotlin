@@ -17,7 +17,7 @@ import com.shijingfeng.wan_android.utils.UserUtil
  * Description:
  * @author ShiJingFeng
  */
-class SplashViewModel(
+internal class SplashViewModel(
     repository: BaseRepository<*, *>? = null
 ) : WanAndroidBaseViewModel<BaseRepository<*, *>>(repository = repository) {
 

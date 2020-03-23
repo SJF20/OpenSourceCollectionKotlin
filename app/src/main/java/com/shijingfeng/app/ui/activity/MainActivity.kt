@@ -11,8 +11,14 @@ import com.shijingfeng.app.databinding.ActivityAppMainBinding
 import com.shijingfeng.app.view_model.MainViewModel
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
 
+/**
+ * Function: 主页
+ * Date: 2020/3/16 13:28
+ * Description:
+ * @author ShiJingFeng
+ */
 @Route(path = ACTIVITY_APP_MAIN)
-class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewModel>() {
+internal class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewModel>() {
 
     /**
      * 获取视图ID

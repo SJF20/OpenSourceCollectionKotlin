@@ -9,7 +9,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Description:
  * @author ShiJingFeng
  */
-data class CoinInfoEntity(
+internal data class CoinInfoEntity(
 
     /** 用户ID  */
     @SerializedName("userId")

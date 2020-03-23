@@ -9,6 +9,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-class SquareViewModel(
+internal class SquareViewModel(
     repository: BaseRepository<*, *>? = null
 ) : WanAndroidBaseViewModel<BaseRepository<*, *>>()

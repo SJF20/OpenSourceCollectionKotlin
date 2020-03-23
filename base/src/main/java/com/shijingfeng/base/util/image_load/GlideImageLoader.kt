@@ -9,6 +9,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.shijingfeng.base.listener.Target
+import com.shijingfeng.base.util.e
+
+/** Glide输出源: Drawable */
+const val AS_DRAWABLE = 1
+/** Glide输出源: Bitmap */
+const val AS_BITMAP = 2
+/** Glide输出源: Gif */
+const val AS_GIF = 3
+/** Glide输出源: File */
+const val AS_FILE = 4
 
 /**
  * Function: Glide 图片加载器
@@ -23,6 +33,7 @@ class GlideImageLoader : ImageLoader() {
      * @param context Context
      * @param imageView ImageView控件
      * @param imagePath 路径 (本地路径 或 网络路径)
+     * @param outputType Glide输出源类型
      * @param placeholder 加载中 占位符
      * @param error 加载错误 占位符
      */
@@ -30,10 +41,20 @@ class GlideImageLoader : ImageLoader() {
         context: Context,
         imageView: ImageView,
         imagePath: String,
+        outputType: Int,
         @DrawableRes placeholder: Int,
         @DrawableRes error: Int
     ) {
-        Glide.with(context)
+        val requestManager = Glide.with(context)
+        val requestBuilder = when (outputType) {
+            AS_DRAWABLE -> requestManager.asDrawable()
+            AS_BITMAP -> requestManager.asBitmap()
+            AS_GIF -> requestManager.asGif()
+            AS_FILE -> requestManager.asFile()
+            else -> requestManager.asDrawable()
+        }
+
+        requestBuilder
             .load(imagePath)
             .placeholder(placeholder)
             .error(error)
@@ -52,9 +73,9 @@ class GlideImageLoader : ImageLoader() {
     override fun displayImage(
         context: Context,
         imageView: ImageView,
-        drawableRes: Int,
-        placeholder: Int,
-        error: Int
+        @DrawableRes drawableRes: Int,
+        @DrawableRes placeholder: Int,
+        @DrawableRes error: Int
     ) {
         Glide.with(context)
             .load(drawableRes)

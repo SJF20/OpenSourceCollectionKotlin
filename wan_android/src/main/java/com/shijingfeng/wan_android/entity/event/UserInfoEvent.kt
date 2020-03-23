@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.entity.network.UserInfoEntity
  * Description:
  * @author ShiJingFeng
  */
-data class UserInfoEvent(
+internal data class UserInfoEvent(
 
     /** 用户信息数据实体类 */
     var newUserInfoEntity: UserInfoEntity

@@ -30,9 +30,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
 
     /** 常用的 LiveData Event 管理器  */
     private val mCommonEventManager: CommonEventManager by lazy { CommonEventManager() }
-    /** LoadService 状态 SingleLiveEvent  */
+    /** LoadService 状态 LiveData Event  */
     private val mLoadServiceStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
-    /** 刷新 或 上拉加载 状态 SingleLiveEvent  */
+    /** 刷新 或 上拉加载 状态 LiveData Event  */
     private val mRefreshLoadMoreStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
 
     /** Disposable容器  */
@@ -40,6 +40,8 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
 
     /** 页面跳转携带的数据Bundle (注意: 和 Activity 或 Fragment 的 mDataBundle 做区分, mDataBundle随着 Activity重启 或 Fragment重启 会改变) */
     var mParamBundle: Bundle? = null
+    /** LoadSir 状态 */
+    var mLoadServiceStatus = SUCCESS
 
     /** 连续双击退出应用  */
     protected var mExitApp: Boolean = false

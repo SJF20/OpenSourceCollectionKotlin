@@ -39,9 +39,9 @@ import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.common.BR
 import com.shijingfeng.common.R
 import com.shijingfeng.common.base.CommonBaseActivity
-import com.shijingfeng.common.databinding.ActivityViewOriginalImageBinding
-import kotlinx.android.synthetic.main.activity_view_original_image.*
-import kotlinx.android.synthetic.main.dialog_view_original_image_long_click.view.*
+import com.shijingfeng.common.databinding.ActivityCommonViewOriginalImageBinding
+import kotlinx.android.synthetic.main.activity_common_view_original_image.*
+import kotlinx.android.synthetic.main.dialog_common_view_original_image_long_click.view.*
 import java.io.IOException
 import java.io.InputStream
 
@@ -53,7 +53,7 @@ import java.io.InputStream
  */
 @NeedPermissions
 @Route(path = ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE)
-class ViewOriginalImageActivity : CommonBaseActivity<ActivityViewOriginalImageBinding, ViewOriginalImageViewModel>() {
+internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonViewOriginalImageBinding, ViewOriginalImageViewModel>() {
 
     private lateinit var mFromName: String
     private lateinit var mDataList: List<ViewOriginalImageItem>
@@ -69,14 +69,14 @@ class ViewOriginalImageActivity : CommonBaseActivity<ActivityViewOriginalImageBi
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_view_original_image
+    override fun getLayoutId() = R.layout.activity_common_view_original_image
 
     /**
      * 获取ViewModel
      *
      * @return ViewModel
      */
-    override fun getViewModel(): ViewOriginalImageViewModel {
+    override fun getViewModel(): ViewOriginalImageViewModel? {
         val viewOriginalImageRepository = getViewOriginalImageRepositoryInstance(
             networkSource = getViewOriginalImageNetworkSourceInstance()
         )
@@ -147,7 +147,7 @@ class ViewOriginalImageActivity : CommonBaseActivity<ActivityViewOriginalImageBi
                     val imagePath = (data as ViewOriginalImageItem).imagePath
                     val protocol = if (imagePath.length > 8) imagePath.substring(0, 8).toLowerCase() else ""
 
-                    if (protocol.startsWith(PROTOCOL_HTTP) || protocol.startsWith(PROTOCOL_HTTPS)) {
+                    if (protocol.startsWith(PROTOCOL_HTTP, true) || protocol.startsWith(PROTOCOL_HTTPS, true)) {
                         showLongClickDialog()
                     }
                 }
@@ -200,7 +200,7 @@ class ViewOriginalImageActivity : CommonBaseActivity<ActivityViewOriginalImageBi
             }
         }
 
-        val contentView = LayoutInflater.from(this).inflate(R.layout.dialog_view_original_image_long_click, null)
+        val contentView = LayoutInflater.from(this).inflate(R.layout.dialog_common_view_original_image_long_click, null)
 
         mLongClickDialog = CommonDialog.Builder(this)
             .setContentView(contentView)

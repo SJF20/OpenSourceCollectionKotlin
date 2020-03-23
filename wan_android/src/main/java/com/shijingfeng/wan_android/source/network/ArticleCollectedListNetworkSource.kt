@@ -1,0 +1,71 @@
+package com.shijingfeng.wan_android.source.network
+
+import com.shijingfeng.base.base.source.BaseNetworkSource
+import com.shijingfeng.base.common.extension.onFailure
+import com.shijingfeng.base.common.extension.onSuccess
+import com.shijingfeng.base.util.RetrofitUtil
+import com.shijingfeng.wan_android.entity.network.ArticleCollectedListEntity
+import com.shijingfeng.wan_android.source.network.api.CollectionApi
+import com.shijingfeng.wan_android.utils.apiRequest
+import kotlin.math.sin
+
+
+/** 单例实例 */
+@Volatile
+private var sInstance: ArticleCollectedListNetworkSource? = null
+
+/**
+ * DCL双检 获取实例
+ * @return 实例
+ */
+internal fun getArticleCollectedListNetworkSourceInstance(): ArticleCollectedListNetworkSource {
+    if (sInstance == null) {
+        synchronized(ArticleCollectedListNetworkSource::class.java) {
+            if (sInstance == null) {
+                sInstance = ArticleCollectedListNetworkSource()
+            }
+        }
+    }
+    return sInstance!!
+}
+
+/**
+ * Function: 文章收藏列表 (入口: 首页侧边栏 我的收藏) 网络源
+ * Date: 2020/3/22 19:15
+ * Description:
+ * @author ShiJingFeng
+ */
+internal class ArticleCollectedListNetworkSource : BaseNetworkSource() {
+
+    /** 收藏相关 Api */
+    private var mCollectionApi = RetrofitUtil.create(CollectionApi::class.java)
+
+    /**
+     * 获取文章收藏列表
+     * @param page      页码 (从 0 开始)
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
+    fun getArticleCollectedList(page: Int, onSuccess: onSuccess<ArticleCollectedListEntity?>, onFailure: onFailure) {
+        addDisposable(apiRequest(mCollectionApi.getArticleCollectedList(page), onSuccess, onFailure))
+    }
+
+    /**
+     * 文章收藏列表 内 取消收藏
+     * @param articleId 文章ID
+     * @param originId  originId
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
+    fun uncollectedInCollectedList(articleId: String, originId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
+        addDisposable(apiRequest(mCollectionApi.uncollectedInCollectedList(articleId,originId), onSuccess, onFailure))
+    }
+
+    /**
+     * 清除数据
+     */
+    override fun onCleared() {
+        super.onCleared()
+        sInstance = null
+    }
+}

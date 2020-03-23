@@ -20,7 +20,7 @@ private var sInstance: LoginNetworkSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getLoginNetworkSourceInstance(): LoginNetworkSource {
+internal fun getLoginNetworkSourceInstance(): LoginNetworkSource {
     if (sInstance == null) {
         synchronized(LoginNetworkSource::class.java) {
             if (sInstance == null) {
@@ -37,7 +37,7 @@ fun getLoginNetworkSourceInstance(): LoginNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-class LoginNetworkSource : BaseNetworkSource() {
+internal class LoginNetworkSource : BaseNetworkSource() {
 
     private val mUserApi: UserApi = RetrofitUtil.create(UserApi::class.java)
 

@@ -14,7 +14,7 @@ import java.util.*
 /**
  * 知识体系 实体类
  */
-data class KnowledgeClassifyEntity(
+internal data class KnowledgeClassifyEntity(
 
     @SerializedName("id")
     var identity: String = "",
@@ -54,7 +54,7 @@ data class KnowledgeClassifyEntity(
 /**
  * 知识体系 第二级数据 实体类
  */
-data class KnowledgeClassifyChildren(
+internal data class KnowledgeClassifyChildren(
 
     @SerializedName("id")
     var identity: String = "",
@@ -94,4 +94,4 @@ data class KnowledgeClassifyChildren(
 /**
  * 知识体系 第三级数据 实体类
  */
-class KnowledgeClassifyGrandchildren : BaseEntity()
+internal class KnowledgeClassifyGrandchildren : BaseEntity()

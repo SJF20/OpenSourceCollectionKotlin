@@ -12,9 +12,9 @@ import okhttp3.ResponseBody
  * Description:
  * @author ShiJingFeng
  */
-class ViewOriginalImageViewModel(
-    mRepository: ViewOriginalImageRepository? = null
-) : CommonBaseViewModel<ViewOriginalImageRepository>(mRepository) {
+internal class ViewOriginalImageViewModel(
+    repository: ViewOriginalImageRepository? = null
+) : CommonBaseViewModel<ViewOriginalImageRepository>(repository) {
 
     /** 保存图片 LiveEvent */
     val mSaveImageLiveEvent: SingleLiveEvent<ResponseBody?> = SingleLiveEvent()

@@ -13,7 +13,7 @@ import com.shijingfeng.base.util.getDrawableById
  * Description:
  * @author ShiJingFeng
  */
-abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
+internal abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 
     /**
      * 初始化

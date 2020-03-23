@@ -18,14 +18,17 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-class CoinRankViewModel(
+internal class CoinRankViewModel(
     repository: CoinRankRepository? = null
 ) : WanAndroidBaseViewModel<CoinRankRepository>(
     repository
 ) {
 
+    /** 第一页 页码  */
+    private val FIRST_PAGE = 1
+
     /** 当前页码  */
-    private var mPage = 1
+    private var mPage = FIRST_PAGE
     /** 数据操作类型  */
     private var mDataOperateType = DATA_OPERATE_TYPE_LOAD
     /** 积分排行榜 数据列表  */
@@ -38,14 +41,17 @@ class CoinRankViewModel(
     val mBackClickListener = View.OnClickListener { finish() }
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
+        if (mLoadServiceStatus == LOADING) {
+            return@OnReloadListener
+        }
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
         getLoadServiceStatusEvent().value = LOADING
-        getCoinRankList(1)
+        getCoinRankList(FIRST_PAGE)
     }
     /** 下拉刷新 */
     val mOnRefreshListener = OnRefreshListener {
         mDataOperateType = DATA_OPERATE_TYPE_REFRESH
-        getCoinRankList(1)
+        getCoinRankList(FIRST_PAGE)
     }
     /** 上拉加载 */
     val mOnLoadMoreListener = OnLoadMoreListener {
@@ -59,11 +65,12 @@ class CoinRankViewModel(
     override fun init() {
         super.init()
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getCoinRankList(1)
+        getCoinRankList(FIRST_PAGE)
     }
 
     /**
      * 获取 积分排行榜 列表
+     * @param page 页码 (从 [FIRST_PAGE] 开始)
      */
     private fun getCoinRankList(page: Int) {
         mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@{ coinRank ->
@@ -73,7 +80,7 @@ class CoinRankViewModel(
             when (mDataOperateType) {
                 // 加载数据
                 DATA_OPERATE_TYPE_LOAD -> {
-                    mPage = 1
+                    mPage = FIRST_PAGE
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
                         mCoinRankItemList.addAll(coinRankItemList)
@@ -87,7 +94,7 @@ class CoinRankViewModel(
                 }
                 // 下拉刷新
                 DATA_OPERATE_TYPE_REFRESH -> {
-                    mPage = 1
+                    mPage = FIRST_PAGE
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
                         mCoinRankItemList.addAll(coinRankItemList)

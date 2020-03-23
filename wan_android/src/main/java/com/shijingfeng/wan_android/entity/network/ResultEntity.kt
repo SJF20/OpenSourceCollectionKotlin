@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * Description:
  * @author ShiJingFeng
  */
-data class ResultEntity<T>(
+internal data class ResultEntity<T>(
 
     /** 错误码 或 成功码 */
     @SerializedName("errorCode")

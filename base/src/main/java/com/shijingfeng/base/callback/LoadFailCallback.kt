@@ -9,7 +9,7 @@ import com.shijingfeng.base.R
  * Description:
  * @author ShiJingFeng
  */
-class LoadFailCallback : Callback() {
+internal class LoadFailCallback : Callback() {
 
     override fun onCreateView() = R.layout.callback_load_fail
 

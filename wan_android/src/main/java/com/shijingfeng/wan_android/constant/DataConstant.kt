@@ -10,4 +10,4 @@ import com.blankj.utilcode.util.ConvertUtils
  */
 
 /** 标题栏高度  */
-val TITLE_BAR_HEIGHT = ConvertUtils.dp2px(55F)
+internal val TITLE_BAR_HEIGHT = ConvertUtils.dp2px(55F)

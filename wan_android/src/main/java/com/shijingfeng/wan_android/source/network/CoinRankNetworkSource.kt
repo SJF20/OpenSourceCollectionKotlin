@@ -16,7 +16,7 @@ private var sInstance: CoinRankNetworkSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getCoinRankNetworkSourceInstance(): CoinRankNetworkSource {
+internal fun getCoinRankNetworkSourceInstance(): CoinRankNetworkSource {
     if (sInstance == null) {
         synchronized(CoinRankNetworkSource::class.java) {
             if (sInstance == null) {
@@ -33,7 +33,7 @@ fun getCoinRankNetworkSourceInstance(): CoinRankNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-class CoinRankNetworkSource : BaseNetworkSource() {
+internal class CoinRankNetworkSource : BaseNetworkSource() {
 
     private val mCoinApi = RetrofitUtil.create(CoinApi::class.java)
 

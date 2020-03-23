@@ -17,7 +17,7 @@ import com.shijingfeng.base.common.constant.FROM_ACTIVITY_NAME
  * @author ShiJingFeng
  */
 @Route(path = PROVIDER_BASE_COMMON_PRETREATMENT_SERVICE)
-class PretreatmentServiceImpl : PretreatmentService {
+internal class PretreatmentServiceImpl : PretreatmentService {
 
     /**
      * 只初始化一次, 在 PretreatmentServiceImpl 加载时初始化

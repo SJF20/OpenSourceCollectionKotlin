@@ -12,7 +12,7 @@ import com.shijingfeng.wan_android.entity.network.CoinRecordItem
  * Description:
  * @author ShiJingFeng
  */
-class CoinRecordAdapter(
+internal class CoinRecordAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<CoinRecordItem>? = null

@@ -22,7 +22,7 @@ import com.shijingfeng.wan_android.utils.CoinUtil
  * Description:
  * @author ShiJingFeng
  */
-class MainViewModel(
+internal class MainViewModel(
     repository: MainRepository? = null
 ) : WanAndroidBaseViewModel<MainRepository>(repository) {
 
@@ -153,9 +153,12 @@ class MainViewModel(
      */
     fun getFragmentList(): List<WanAndroidBaseFragment<*, *>> {
         if (mFragmentList == null) {
-            mFragmentList = listOf<WanAndroidBaseFragment<*, *>>(
+            val homeFragment = HomeFragment()
+
+            mCurrentFragment = homeFragment
+            mFragmentList = mutableListOf(
                 //首页 Fragment
-                HomeFragment(),
+                homeFragment,
                 //分类 Fragment
                 ClassifyFragment(),
                 //公众号 Fragment

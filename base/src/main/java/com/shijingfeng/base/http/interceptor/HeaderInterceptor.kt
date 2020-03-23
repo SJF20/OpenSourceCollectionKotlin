@@ -9,8 +9,15 @@ import okhttp3.Response
  * Description:
  * @author ShiJingFeng
  */
-class HeaderInterceptor constructor(private val mHeaderMap: Map<String, String>) : Interceptor {
+internal class HeaderInterceptor constructor(
+    private val mHeaderMap: Map<String, String>
+) : Interceptor {
 
+    /**
+     * 拦截回调
+     * @param chain 拦截链
+     * @return Response响应
+     */
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val builder = request.newBuilder()

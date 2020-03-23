@@ -15,7 +15,7 @@ private var sInstance: HomeRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getHomeRepositoryInstance(
+internal fun getHomeRepositoryInstance(
     networkSource: HomeNetworkSource? = null
 ): HomeRepository {
     if (sInstance == null) {
@@ -34,7 +34,7 @@ fun getHomeRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class HomeRepository(
+internal class HomeRepository(
     networkSource: HomeNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, HomeNetworkSource>(
     mNetworkSource = networkSource

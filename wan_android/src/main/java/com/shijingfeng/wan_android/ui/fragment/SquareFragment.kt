@@ -6,7 +6,7 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_SQUARE
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.databinding.FragmentSquareBinding
+import com.shijingfeng.wan_android.databinding.FragmentWanAndroidSquareBinding
 import com.shijingfeng.wan_android.view_model.SquareViewModel
 
 /**
@@ -16,13 +16,13 @@ import com.shijingfeng.wan_android.view_model.SquareViewModel
  * @author ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_SQUARE)
-class SquareFragment : WanAndroidBaseFragment<FragmentSquareBinding, SquareViewModel>() {
+internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareBinding, SquareViewModel>() {
 
     /**
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_square
+    override fun getLayoutId() = R.layout.fragment_wan_android_square
 
     /**
      * 获取ViewModel

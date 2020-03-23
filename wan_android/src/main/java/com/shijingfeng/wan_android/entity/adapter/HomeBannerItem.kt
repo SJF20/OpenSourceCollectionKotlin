@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
  * Description:
  * @author ShiJingFeng
  */
-class HomeBannerItem(
+internal class HomeBannerItem(
 
     /** 轮播图数据 */
     var homeBannerList: List<HomeBannerEntity> = ArrayList()

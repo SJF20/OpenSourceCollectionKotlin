@@ -29,7 +29,7 @@ import java.net.UnknownHostException
  * @param e 异常
  * @return 转换后的异常
  */
-fun handle(e: Throwable): HttpException {
+internal fun handle(e: Throwable): HttpException {
     val exception: HttpException
 
     when(e) {

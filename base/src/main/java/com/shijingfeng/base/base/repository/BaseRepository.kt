@@ -3,7 +3,6 @@ package com.shijingfeng.base.base.repository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.util.cast
-import com.shijingfeng.library.util.CastUtil
 
 /**
  * Function: Repository基类

@@ -113,7 +113,13 @@ class CommonViewHolder constructor (
         @IdRes viewId: Int,
         path: String
     ): CommonViewHolder {
-        getImageLoaderInstance().displayImage(mContext, getView(viewId)!!, path)
+        val imageView = getView<ImageView>(viewId) ?: return this
+
+        getImageLoaderInstance().displayImage(
+            context = mContext,
+            imageView = imageView,
+            imagePath = path
+        )
         return this
     }
 

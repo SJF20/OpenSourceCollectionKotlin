@@ -4,7 +4,7 @@ package com.shijingfeng.base.databinding.view_adapter
 
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.shijingfeng.base.listener.OnSwipeRefreshListener
+import com.shijingfeng.base.common.extension.OnSwipeRefresh
 
 /**
  * Function: 下拉刷新 View适配器
@@ -16,17 +16,17 @@ import com.shijingfeng.base.listener.OnSwipeRefreshListener
 /**
  * 设置 下拉刷新 回调
  * @param swipeRefreshLayout SwipeRefreshLayout
- * @param listener 回调监听器
+ * @param onSwipeRefresh 刷新回调监听器
  */
 @BindingAdapter(value = ["onRefreshListener"], requireAll = false)
 fun setOnRefreshListener(
     swipeRefreshLayout: SwipeRefreshLayout,
-    listener: OnSwipeRefreshListener?
+    onSwipeRefresh: OnSwipeRefresh?
 ) {
-    if (listener == null) {
+    if (onSwipeRefresh == null) {
         return
     }
     swipeRefreshLayout.setOnRefreshListener {
-        listener.onRefresh(swipeRefreshLayout)
+        onSwipeRefresh(swipeRefreshLayout)
     }
 }

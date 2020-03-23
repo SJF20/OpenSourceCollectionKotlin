@@ -13,7 +13,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
 /**
  * 积分排行榜 实体类
  */
-data class CoinRankEntity(
+internal data class CoinRankEntity(
 
     /** 此页开始的下标  */
     @SerializedName("offset")
@@ -47,7 +47,7 @@ data class CoinRankEntity(
 /**
  * 积分排行榜 Item 实体类
  */
-data class CoinRankItem(
+internal data class CoinRankItem(
 
     @SerializedName("userId")
     var userId: String = "",

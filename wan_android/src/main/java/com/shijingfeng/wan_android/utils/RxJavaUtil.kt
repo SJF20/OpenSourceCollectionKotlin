@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers
  * @param onSuccess 成功函数回调
  * @param onFailure 失败函数回调
  */
-fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: onSuccess<D?>? = null, onFailure: onFailure? = null): Disposable {
+internal fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: onSuccess<D?>? = null, onFailure: onFailure? = null): Disposable {
     return single
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

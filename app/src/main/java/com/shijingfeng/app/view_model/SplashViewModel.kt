@@ -13,7 +13,7 @@ import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
  * Description:
  * @author ShiJingFeng
  */
-class SplashViewModel(
+internal class SplashViewModel(
     repository: BaseRepository<*, *>? = null
 ) : AppBaseViewModel<BaseRepository<*, *>>(repository = repository) {
 

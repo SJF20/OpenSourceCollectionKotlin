@@ -13,7 +13,7 @@ import com.shijingfeng.todo.R
  * Description:
  * @author ShiJingFeng
  */
-abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
+internal abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 
     /**
      * 初始化

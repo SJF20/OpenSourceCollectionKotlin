@@ -15,7 +15,7 @@ private var sInstance: LoginRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getLoginRepositoryInstance(
+internal fun getLoginRepositoryInstance(
     networkSource: LoginNetworkSource? = null
 ): LoginRepository {
     if (sInstance == null) {
@@ -34,7 +34,7 @@ fun getLoginRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class LoginRepository(
+internal class LoginRepository(
     networkSource: LoginNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, LoginNetworkSource>(
     mNetworkSource = networkSource

@@ -8,6 +8,9 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.shijingfeng.base.base.adapter.CommonPagerAdapter
 import com.shijingfeng.base.common.constant.CLICK
 import com.shijingfeng.base.common.constant.LONG_CLICK
+import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.image_load.AS_DRAWABLE
+import com.shijingfeng.base.util.image_load.AS_GIF
 import com.shijingfeng.common.entity.ViewOriginalImageItem
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 import com.shijingfeng.common.R
@@ -18,7 +21,7 @@ import com.shijingfeng.common.R
  * Description:
  * @author ShiJingFeng
  */
-class ViewOriginalImageAdapter(
+internal class ViewOriginalImageAdapter(
     context: Context,
     dataList: List<ViewOriginalImageItem>? = null
 ) : CommonPagerAdapter<ViewOriginalImageItem>(context, dataList) {
@@ -33,12 +36,16 @@ class ViewOriginalImageAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val data = mDataList!![position]
         val photoView = PhotoView(mContext)
+        val imagePath = data.imagePath
+        val outputType = if (imagePath.endsWith(".gif", true)) AS_GIF else AS_DRAWABLE
 
         getImageLoaderInstance().displayImage(
             context = mContext,
             imageView = photoView,
             imagePath = data.imagePath,
-            placeholder = R.drawable.ic_image
+            outputType = outputType,
+            placeholder = R.drawable.ic_image,
+            error = R.drawable.ic_image
         )
         // 点击
         photoView.setOnClickListener { v ->

@@ -8,6 +8,6 @@ package com.shijingfeng.wan_android.constant
  */
 
 /** 请求成功  */
-const val SERVER_SUCCESS = 0
+internal const val SERVER_SUCCESS = 0
 /** 需要登录  */
-const val SERVER_NEED_LOGIN = -1001
+internal const val SERVER_NEED_LOGIN = -1001

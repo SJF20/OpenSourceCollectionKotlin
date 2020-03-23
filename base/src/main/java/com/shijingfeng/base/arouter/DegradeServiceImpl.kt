@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.ToastUtils
  * @author ShiJingFeng
  */
 @Route(path = PROVIDER_BASE_COMMON_DEGRADE_SERVICE)
-class DegradeServiceImpl : DegradeService {
+internal class DegradeServiceImpl : DegradeService {
 
     /**
      * 只初始化一次, 在 DegradeServiceImpl 加载时初始化

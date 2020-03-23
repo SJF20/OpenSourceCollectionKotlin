@@ -12,7 +12,7 @@ import retrofit2.http.Url
  * Description:
  * @author ShiJingFeng
  */
-interface Api {
+internal interface Api {
 
     /**
      * 下载文件

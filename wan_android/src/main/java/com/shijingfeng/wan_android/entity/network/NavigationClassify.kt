@@ -13,7 +13,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
 /**
  * 导航数据 实体类
  */
-data class NavigationClassifyEntity(
+internal data class NavigationClassifyEntity(
 
     @SerializedName("cid")
     var cid: String = "",
@@ -39,7 +39,7 @@ data class NavigationClassifyEntity(
 /**
  * 导航数据 文章 实体类
  */
-data class NavigationClassifyArticle(
+internal data class NavigationClassifyArticle(
 
     @SerializedName("id")
     var identity: String = "",
@@ -154,4 +154,4 @@ data class NavigationClassifyArticle(
 /**
  * 导航数据 文章 标签 实体类
  */
-class NavigationClassifyArticleTag : BaseEntity()
+internal class NavigationClassifyArticleTag : BaseEntity()

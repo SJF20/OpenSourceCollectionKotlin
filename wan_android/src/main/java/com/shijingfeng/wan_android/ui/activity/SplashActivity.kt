@@ -5,7 +5,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.databinding.ActivitySplashBinding
+import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSplashBinding
 import com.shijingfeng.wan_android.view_model.SplashViewModel
 
 /**
@@ -15,14 +15,14 @@ import com.shijingfeng.wan_android.view_model.SplashViewModel
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SPLASH)
-class SplashActivity : WanAndroidBaseActivity<ActivitySplashBinding, SplashViewModel>() {
+internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashBinding, SplashViewModel>() {
 
     /**
      * 获取视图ID
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_splash
+    override fun getLayoutId() = R.layout.activity_wan_android_splash
 
     /**
      * 获取ViewModel

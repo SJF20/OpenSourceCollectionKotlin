@@ -12,7 +12,7 @@ private var sInstance: MainLocalSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getMainLocalSourceInstance(): MainLocalSource {
+internal fun getMainLocalSourceInstance(): MainLocalSource {
     if (sInstance == null) {
         synchronized(MainLocalSource::class.java) {
             if (sInstance == null) {
@@ -29,7 +29,7 @@ fun getMainLocalSourceInstance(): MainLocalSource {
  * Description:
  * @author ShiJingFeng
  */
-class MainLocalSource : BaseLocalSource() {
+internal class MainLocalSource : BaseLocalSource() {
 
     /**
      * 获取 积分信息

@@ -15,7 +15,7 @@ private var sInstance: CoinRecordRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getCoinRecordRepositoryInstance(
+internal fun getCoinRecordRepositoryInstance(
     networkSource: CoinRecordNetworkSource? = null
 ): CoinRecordRepository {
     if (sInstance == null) {
@@ -34,7 +34,7 @@ fun getCoinRecordRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class CoinRecordRepository(
+internal class CoinRecordRepository(
     networkSource: CoinRecordNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, CoinRecordNetworkSource>(
     mNetworkSource = networkSource

@@ -21,7 +21,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-class KnowledgeClassifyAdapter(
+internal class KnowledgeClassifyAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<KnowledgeClassifyEntity>? = null

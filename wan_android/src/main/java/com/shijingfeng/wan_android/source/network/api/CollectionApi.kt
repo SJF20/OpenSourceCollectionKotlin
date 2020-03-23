@@ -14,7 +14,7 @@ import retrofit2.http.*
  * Description:
  * @author ShiJingFeng
  */
-interface CollectionApi {
+internal interface CollectionApi {
 
     /**
      * 获取文章收藏列表

@@ -7,7 +7,7 @@ import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.base.TodoBaseActivity
 import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
-import com.shijingfeng.todo.view_model.TodoMainViewModel
+import com.shijingfeng.todo.view_model.MainViewModel
 import kotlinx.android.synthetic.main.activity_todo_main.*
 
 /**
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_todo_main.*
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_TODO_MAIN)
-class TodoMainActivity : TodoBaseActivity<ActivityTodoMainBinding, TodoMainViewModel>() {
+internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainViewModel>() {
 
     /**
      * 获取视图ID
@@ -30,7 +30,7 @@ class TodoMainActivity : TodoBaseActivity<ActivityTodoMainBinding, TodoMainViewM
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(TodoMainViewModel::class.java)
+    override fun getViewModel() = createViewModel(MainViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

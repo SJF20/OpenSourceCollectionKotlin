@@ -20,7 +20,7 @@ fun createEditTextInputFilterUtil(): EditTextInputFilterUtil {
  * Description:
  * @author ShiJingFeng
  */
-class EditTextInputFilterUtil {
+class EditTextInputFilterUtil internal constructor() {
 
     /**
      * 获取 禁止系统表情输入 过滤器

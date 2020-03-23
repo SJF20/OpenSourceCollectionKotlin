@@ -17,7 +17,7 @@ import com.shijingfeng.base.common.constant.GROUP_WAN_ANDROID
  * @author ShiJingFeng
  */
 @Interceptor(priority = 1, name = "登录拦截")
-class LoginInterceptor : IInterceptor {
+internal class LoginInterceptor : IInterceptor {
 
     /**
      * 拦截器的初始化，会在 SDK 初始化的时候调用该方法，仅会调用一次

@@ -27,7 +27,7 @@ import org.greenrobot.eventbus.EventBus
  * Description:
  * @author ShiJingFeng
  */
-class LoginViewModel(
+internal class LoginViewModel(
     repository: LoginRepository? = null
 ) : WanAndroidBaseViewModel<LoginRepository>(repository) {
 

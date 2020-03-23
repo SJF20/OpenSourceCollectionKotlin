@@ -15,7 +15,7 @@ import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
  * Description:
  * @author ShiJingFeng
  */
-object CoinUtil {
+internal object CoinUtil {
 
     /** 积分数据  */
     private var mCoinInfoEntity: CoinInfoEntity? = null

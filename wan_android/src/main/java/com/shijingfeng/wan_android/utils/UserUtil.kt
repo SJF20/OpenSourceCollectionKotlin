@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.entity.network.UserInfoEntity
  * Description:
  * @author ShiJingFeng
  */
-object UserUtil {
+internal object UserUtil {
 
     /** 是否已登录  true: 已登录  false: 未登录  */
     private var mLogin = false

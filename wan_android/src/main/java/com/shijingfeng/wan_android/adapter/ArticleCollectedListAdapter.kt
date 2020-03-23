@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.entity.network.ArticleCollectedListItem
  * Description:
  * @author ShiJingFeng
  */
-class ArticleCollectedListAdapter(
+internal class ArticleCollectedListAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<ArticleCollectedListItem>? = null

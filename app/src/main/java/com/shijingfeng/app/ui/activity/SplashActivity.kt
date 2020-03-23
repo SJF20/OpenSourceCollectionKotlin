@@ -16,7 +16,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_APP_SPLASH
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_APP_SPLASH)
-class SplashActivity : AppBaseActivity<ActivityAppSplashBinding, SplashViewModel>(){
+internal class SplashActivity : AppBaseActivity<ActivityAppSplashBinding, SplashViewModel>(){
 
     /**
      * 获取视图ID

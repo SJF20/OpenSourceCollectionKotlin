@@ -27,7 +27,6 @@
         android:hardwareAccelerated="true"
         android:hasFragileUserData="true"
         android:networkSecurityConfig="@xml/network_security_config"
-        tools:replace="android:allowBackup"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- 启动页 -->

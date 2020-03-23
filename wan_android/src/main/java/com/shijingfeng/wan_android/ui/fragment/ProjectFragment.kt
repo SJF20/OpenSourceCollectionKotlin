@@ -6,7 +6,7 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PROJECT
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.databinding.FragmentProjectBinding
+import com.shijingfeng.wan_android.databinding.FragmentWanAndroidProjectBinding
 import com.shijingfeng.wan_android.view_model.ProjectViewModel
 
 /**
@@ -16,13 +16,13 @@ import com.shijingfeng.wan_android.view_model.ProjectViewModel
  * @author ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_PROJECT)
-class ProjectFragment : WanAndroidBaseFragment<FragmentProjectBinding, ProjectViewModel>() {
+internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjectBinding, ProjectViewModel>() {
 
     /**
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_project
+    override fun getLayoutId() = R.layout.fragment_wan_android_project
 
     /**
      * 获取ViewModel

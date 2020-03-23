@@ -15,7 +15,7 @@ private var sInstance: CoinRankRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getCoinRankRepositoryInstance(
+internal fun getCoinRankRepositoryInstance(
     networkSource: CoinRankNetworkSource? = null
 ): CoinRankRepository {
     if (sInstance == null) {
@@ -34,7 +34,7 @@ fun getCoinRankRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class CoinRankRepository(
+internal class CoinRankRepository(
     networkSource: CoinRankNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, CoinRankNetworkSource>(
     mNetworkSource = networkSource
@@ -43,7 +43,7 @@ class CoinRankRepository(
     /**
      * 获取 积分排行榜 列表
      *
-     * @param page     页码 (从1开始)
+     * @param page      页码 (从1开始)
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */

@@ -10,7 +10,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-data class UserInfoEntity(
+internal data class UserInfoEntity(
 
     /** ID  */
     @SerializedName("id")

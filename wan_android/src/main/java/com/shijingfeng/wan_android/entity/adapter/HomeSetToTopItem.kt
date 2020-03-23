@@ -10,7 +10,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-class HomeSetToTopItem(
+internal class HomeSetToTopItem(
 
     @SerializedName("id")
     var identity: String = "",

@@ -6,7 +6,7 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.databinding.FragmentOfficialAccountBinding
+import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountBinding
 import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel
 
 /**
@@ -16,13 +16,13 @@ import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel
  * @author ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT)
-class OfficialAccountFragment : WanAndroidBaseFragment<FragmentOfficialAccountBinding, OfficialAccountViewModel>() {
+internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndroidOfficialAccountBinding, OfficialAccountViewModel>() {
 
     /**
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_official_account
+    override fun getLayoutId() = R.layout.fragment_wan_android_official_account
 
     /**
      * 获取ViewModel

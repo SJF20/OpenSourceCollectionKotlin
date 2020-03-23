@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("ARouterConstant")
 package com.shijingfeng.base.arouter
 
 /**

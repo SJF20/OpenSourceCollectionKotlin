@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
  * Description:
  * @author ShiJingFeng
  */
-class CoinInfoEvent(
+internal class CoinInfoEvent(
 
     /** 积分信息数据实体类 */
     var newCoinInfoEntity: CoinInfoEntity

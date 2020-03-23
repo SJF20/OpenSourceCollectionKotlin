@@ -9,6 +9,6 @@ import com.shijingfeng.base.base.viewmodel.BaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-abstract class WanAndroidBaseViewModel<R : BaseRepository<*, *>>(
+internal abstract class WanAndroidBaseViewModel<R : BaseRepository<*, *>>(
     repository: R? = null
 ) : BaseViewModel<R>(repository)

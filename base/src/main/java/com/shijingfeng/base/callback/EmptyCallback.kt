@@ -9,7 +9,7 @@ import com.shijingfeng.base.R
  * Description:
  * @author ShiJingFeng
  */
-class EmptyCallback : Callback() {
+internal class EmptyCallback : Callback() {
 
     override fun onCreateView() = R.layout.callback_empty
 

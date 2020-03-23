@@ -40,7 +40,7 @@
     -->
     <application
         android:name=".WanAndroidApplication"
-        android:label="@string/app_name"
+        android:label="@string/wan_android_name"
         android:icon="@mipmap/ic_wan_android_launcher"
         android:roundIcon="@mipmap/ic_wan_android_launcher_round"
         android:theme="@style/WanAndroidTheme"
@@ -75,8 +75,8 @@
         <activity android:name=".ui.activity.CoinRankActivity" />
         <!-- 积分记录 Activity -->
         <activity android:name=".ui.activity.CoinRecordActivity" />
-<!--        &lt;!&ndash; 我的收藏 Activity &ndash;&gt;-->
-<!--        <activity android:name=".ui.activity.ArticleCollectedListActivity" />-->
+        <!-- 我的收藏 Activity -->
+        <activity android:name=".ui.activity.ArticleCollectedListActivity" />
 <!--        &lt;!&ndash; 知识体系 详细数据 Activity &ndash;&gt;-->
 <!--        <activity android:name=".ui.activity.KnowledgeClassifyDetailActivity" />-->
 

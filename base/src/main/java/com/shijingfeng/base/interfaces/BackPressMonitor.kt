@@ -6,7 +6,7 @@ package com.shijingfeng.base.interfaces
  * Description:
  * @author ShiJingFeng
  */
-interface BackPressMonitor {
+internal interface BackPressMonitor {
 
     /**
      * 返回键点击 回调方法

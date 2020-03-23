@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.databinding.FragmentClassifyBinding
+import com.shijingfeng.wan_android.databinding.FragmentWanAndroidClassifyBinding
 import com.shijingfeng.wan_android.view_model.ClassifyViewModel
 
 /** 知识体系  */
@@ -22,13 +22,13 @@ private const val CLASSIFY_NAVIGATION = 1
  * @author ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_CLASSIFY)
-class ClassifyFragment : WanAndroidBaseFragment<FragmentClassifyBinding, ClassifyViewModel>() {
+internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClassifyBinding, ClassifyViewModel>() {
 
     /**
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_classify
+    override fun getLayoutId() = R.layout.fragment_wan_android_classify
 
     /**
      * 获取ViewModel

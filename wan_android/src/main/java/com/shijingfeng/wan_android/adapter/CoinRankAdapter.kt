@@ -12,7 +12,7 @@ import com.shijingfeng.wan_android.entity.network.CoinRankItem
  * Description:
  * @author ShiJingFeng
  */
-class CoinRankAdapter(
+internal class CoinRankAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<CoinRankItem>? = null

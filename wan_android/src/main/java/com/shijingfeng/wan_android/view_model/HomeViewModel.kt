@@ -23,12 +23,15 @@ import com.shijingfeng.wan_android.source.repository.HomeRepository
  * Description:
  * @author ShiJingFeng
  */
-class HomeViewModel(
+internal class HomeViewModel(
     repository: HomeRepository? = null
 ) : WanAndroidBaseViewModel<HomeRepository>(repository) {
 
+    /** 第一页 页码  */
+    private val FIRST_PAGE = 0
+
     /** 当前页码  */
-    private var mPage = 0
+    private var mPage = FIRST_PAGE
     /** 数据操作类型  */
     private var mDataOperateType = DATA_OPERATE_TYPE_LOAD
 
@@ -42,9 +45,12 @@ class HomeViewModel(
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
+        if (mLoadServiceStatus == LOADING) {
+            return@OnReloadListener
+        }
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
         getLoadServiceStatusEvent().value = LOADING
-        getHomeData(0)
+        getHomeData(FIRST_PAGE)
     }
     /** 下拉刷新  */
     val mOnRefreshListener = OnRefreshListener { refresh() }
@@ -57,7 +63,7 @@ class HomeViewModel(
     override fun init() {
         super.init()
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getHomeData(0)
+        getHomeData(FIRST_PAGE)
     }
 
     /**
@@ -65,7 +71,7 @@ class HomeViewModel(
      */
     fun refresh() {
         mDataOperateType = DATA_OPERATE_TYPE_REFRESH
-        getHomeData(0)
+        getHomeData(FIRST_PAGE)
     }
 
     /**
@@ -78,7 +84,7 @@ class HomeViewModel(
 
     /**
      * 获取首页数据
-     * @param page 页码 (从0开始, 为了兼容以前)
+     * @param page 页码 (从 [FIRST_PAGE] 开始, 为了兼容以前)
      */
     private fun getHomeData(page: Int) {
         mRepository?.getHomeDataList(page, onSuccess = { homeData ->
@@ -91,7 +97,7 @@ class HomeViewModel(
             when (mDataOperateType) {
                 //加载数据
                 DATA_OPERATE_TYPE_LOAD -> {
-                    mPage = 0
+                    mPage = FIRST_PAGE
                     mHomeItemDataList.clear()
                     //添加轮播图数据
                     if (!homeBannerList.isNullOrEmpty()) {
@@ -114,7 +120,7 @@ class HomeViewModel(
                 }
                 //下拉刷新
                 DATA_OPERATE_TYPE_REFRESH -> {
-                    mPage = 0
+                    mPage = FIRST_PAGE
                     mHomeItemDataList.clear()
                     //添加轮播图数据
                     if (!homeBannerList.isNullOrEmpty()) {

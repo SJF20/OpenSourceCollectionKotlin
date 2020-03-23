@@ -22,7 +22,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-class NavigationClassifyAdapter(
+internal class NavigationClassifyAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<NavigationClassifyEntity>? = null

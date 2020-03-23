@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
-import com.shijingfeng.library.util.CastUtil
+import com.shijingfeng.base.util.cast
 import java.lang.reflect.InvocationTargetException
 
 /** 简单工厂模式创建实例 */
@@ -66,7 +66,7 @@ class CommonViewModelFactory internal constructor(
             e.printStackTrace()
         }
 
-        return CastUtil.cast(viewModel)
+        return cast(viewModel)
     }
 
 }

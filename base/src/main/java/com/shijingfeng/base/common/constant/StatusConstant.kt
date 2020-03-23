@@ -10,13 +10,13 @@ package com.shijingfeng.base.common.constant
  */
 
 /** 成功  */
-const val SUCCESS = 1
+const val SUCCESS = 0
 /** 加载中  */
-const val LOADING = 2
+const val LOADING = 1
 /** 暂无数据  */
-const val EMPTY = 3
+const val EMPTY = 2
 /** 加载失败  */
-const val LOAD_FAIL = 4
+const val LOAD_FAIL = 3
 
 /** 下拉刷新成功  */
 const val REFRESH_SUCCESS = 1

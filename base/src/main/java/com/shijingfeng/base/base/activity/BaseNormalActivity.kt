@@ -2,7 +2,6 @@ package com.shijingfeng.base.base.activity
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -13,11 +12,9 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -25,10 +22,6 @@ import com.shijingfeng.base.R
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.annotation.NeedPermissions
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.finishPreviousActivity
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.base.util.setStatusBarColor
-import com.shijingfeng.base.util.setStatusBarContentColor
 import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -39,6 +32,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+import com.kingja.loadsir.callback.Callback
 
 /**
  * Function: 通用的 Activity 基类

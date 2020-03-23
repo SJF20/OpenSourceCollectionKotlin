@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
  * Description:
  * @author ShiJingFeng
  */
-class KnowledgeClassifyChildAdapter(
+internal class KnowledgeClassifyChildAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<KnowledgeClassifyChildItem>? = null

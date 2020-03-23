@@ -17,7 +17,7 @@ import retrofit2.http.Path
  * Description:
  * @author ShiJingFeng
  */
-interface CoinApi {
+internal interface CoinApi {
 
     /**
      * 获取个人积分

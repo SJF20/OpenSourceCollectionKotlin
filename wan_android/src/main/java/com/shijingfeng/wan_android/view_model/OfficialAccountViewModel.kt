@@ -9,6 +9,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-class OfficialAccountViewModel(
+internal class OfficialAccountViewModel(
     repository: BaseRepository<*, *>? = null
 ) : WanAndroidBaseViewModel<BaseRepository<*, *>>(repository)

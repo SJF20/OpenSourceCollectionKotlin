@@ -1,6 +1,9 @@
+/** 生成的 Java 类名 */
+@file:JvmName("CommonExtension")
 package com.shijingfeng.base.common.extension
 
 import android.view.View
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.shijingfeng.base.http.exception.HttpException
 import kotlinx.coroutines.Job
 import kotlin.coroutines.coroutineContext
@@ -20,6 +23,9 @@ typealias onFailure = (e: HttpException?) -> Unit
 
 /** 适配器事件监听回调 */
 typealias onItemEvent = (view: View?, data: Any?, position: Int, flag: String) -> Unit
+
+/** SwipeRefreshLayout 刷新回调 */
+typealias OnSwipeRefresh = (refreshLayout: SwipeRefreshLayout) -> Unit
 
 /**
  * 当前 协程 Job

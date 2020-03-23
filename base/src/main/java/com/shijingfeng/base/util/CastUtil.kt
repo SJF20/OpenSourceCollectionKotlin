@@ -16,4 +16,4 @@ package com.shijingfeng.base.util
  * @return 装换类型后的数据
  */
 @Suppress("UNCHECKED_CAST")
-fun <T> cast(obj : Any) : T = obj as T
+fun <T> cast(obj : Any?) : T = obj as T

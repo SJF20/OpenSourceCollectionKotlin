@@ -21,7 +21,7 @@ private var sInstance: ViewOriginalImageNetworkSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getViewOriginalImageNetworkSourceInstance(): ViewOriginalImageNetworkSource {
+internal fun getViewOriginalImageNetworkSourceInstance(): ViewOriginalImageNetworkSource {
     if (sInstance == null) {
         synchronized(ViewOriginalImageNetworkSource::class.java) {
             if (sInstance == null) {
@@ -39,7 +39,7 @@ fun getViewOriginalImageNetworkSourceInstance(): ViewOriginalImageNetworkSource 
  * Description:
  * @author ShiJingFeng
  */
-class ViewOriginalImageNetworkSource : BaseNetworkSource() {
+internal class ViewOriginalImageNetworkSource : BaseNetworkSource() {
 
     private val mApi: Api = RetrofitUtil.create(
         Api::class.java)

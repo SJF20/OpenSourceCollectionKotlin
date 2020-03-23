@@ -5,8 +5,6 @@ import android.util.SparseArray
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -17,16 +15,16 @@ import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
-import com.shijingfeng.library.banner.view.BannerView
+import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.HomeAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.*
-import com.shijingfeng.wan_android.databinding.FragmentHomeBinding
+import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
 import com.shijingfeng.wan_android.entity.event.CollectionEvent
@@ -35,7 +33,7 @@ import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_wan_android_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -48,7 +46,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 @BindEventBus
 @Route(path = FRAGMENT_WAN_ANDROID_HOME)
-class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>() {
+internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBinding, HomeViewModel>() {
 
     /** 首页数据适配器  */
     private var mHomeAdapter: HomeAdapter? = null
@@ -57,7 +55,7 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_home
+    override fun getLayoutId() = R.layout.fragment_wan_android_home
 
     /**
      * 获取ViewModel
@@ -88,9 +86,10 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            mLoadService?.showCallback(LoadingCallback::class.java)
+            showCallback(LOADING)
         }
 
         activity?.let { activity ->
@@ -106,11 +105,11 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
                      */
                     override fun getLayoutId(itemType: Int): Int = when (itemType) {
                         //轮播图
-                        HOME_BANNER -> R.layout.adapter_item_home_banner
+                        HOME_BANNER -> R.layout.adapter_wan_android_item_home_banner
                         //置顶文章
-                        HOME_SET_TO_TOP -> R.layout.adapter_item_home_set_to_top
+                        HOME_SET_TO_TOP -> R.layout.adapter_wan_android_item_home_set_to_top
                         //文章
-                        HOME_ARTICLE -> R.layout.adapter_item_home_article
+                        HOME_ARTICLE -> R.layout.adapter_wan_android_item_home_article
                         else -> 0
                     }
 
@@ -346,8 +345,11 @@ class HomeFragment : WanAndroidBaseFragment<FragmentHomeBinding, HomeViewModel>(
      */
     override fun scrollToTop() {
         super.scrollToTop()
+        e("测试", "scrollToTop 1")
         mViewModel?.run {
+            e("测试", "scrollToTop 2")
             if (mHomeItemDataList.isNotEmpty()) {
+                e("测试", "scrollToTop 3")
                 rv_content.smoothScrollToPosition(0)
             }
         }

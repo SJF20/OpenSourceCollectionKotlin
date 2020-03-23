@@ -14,7 +14,7 @@ import java.util.*
 /**
  * 积分记录 实体类
  */
-data class CoinRecordEntity(
+internal data class CoinRecordEntity(
 
     /** 当前页码  */
     @SerializedName("curPage")
@@ -49,7 +49,7 @@ data class CoinRecordEntity(
 /**
  * 积分记录 Item 实体类
  */
-data class CoinRecordItem(
+internal data class CoinRecordItem(
 
     /** 此条记录 的 ID  */
     @SerializedName("id")

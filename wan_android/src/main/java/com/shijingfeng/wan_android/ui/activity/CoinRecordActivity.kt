@@ -6,25 +6,23 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_COIN_RECORD
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRecordAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.databinding.ActivityCoinRecordBinding
+import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRecordBinding
 import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil.getCoinInfo
 import com.shijingfeng.wan_android.view_model.CoinRecordViewModel
-import kotlinx.android.synthetic.main.activity_coin_record.*
-import kotlinx.android.synthetic.main.activity_coin_record.srl_refresh
-import kotlinx.android.synthetic.main.activity_web_view.include_title_bar
-import kotlinx.android.synthetic.main.layout_title_bar.view.*
+import kotlinx.android.synthetic.main.activity_wan_android_coin_record.*
+import kotlinx.android.synthetic.main.activity_wan_android_coin_record.srl_refresh
+import kotlinx.android.synthetic.main.activity_wan_android_web_view.include_title_bar
+import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 积分记录 Activity
@@ -33,7 +31,7 @@ import kotlinx.android.synthetic.main.layout_title_bar.view.*
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_COIN_RECORD)
-class CoinRecordActivity : WanAndroidBaseActivity<ActivityCoinRecordBinding, CoinRecordViewModel>() {
+internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinRecordBinding, CoinRecordViewModel>() {
 
     /** 积分记录列表适配器  */
     private var mCoinRecordAdapter: CoinRecordAdapter? = null
@@ -43,7 +41,7 @@ class CoinRecordActivity : WanAndroidBaseActivity<ActivityCoinRecordBinding, Coi
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_coin_record
+    override fun getLayoutId() = R.layout.activity_wan_android_coin_record
 
     /**
      * 获取ViewModel
@@ -78,9 +76,10 @@ class CoinRecordActivity : WanAndroidBaseActivity<ActivityCoinRecordBinding, Coi
         include_title_bar.iv_operate.visibility = VISIBLE
 
         mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            mLoadService?.showCallback(LoadingCallback::class.java)
+            showCallback(LOADING)
         }
 
         // 设置个人积分数量
@@ -90,7 +89,7 @@ class CoinRecordActivity : WanAndroidBaseActivity<ActivityCoinRecordBinding, Coi
 
         mCoinRecordAdapter = CoinRecordAdapter(
             this,
-            R.layout.adapter_item_coin_record,
+            R.layout.adapter_wan_android_item_coin_record,
             mViewModel?.mCoinRecordItemList
         )
         rv_content.layoutManager = LinearLayoutManager(this)

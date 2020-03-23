@@ -25,7 +25,7 @@
 
             <include
                 android:id="@+id/include_title_bar"
-                layout="@layout/layout_title_bar"
+                layout="@layout/layout_wan_android_title_bar"
                 app:ivBackClick="@{coinRecordViewModel.mBackClickListener}"
                 app:ivOperateClick="@{coinRecordViewModel.mTextOperateClickListener}" />
 

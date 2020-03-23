@@ -13,7 +13,7 @@ import com.shijingfeng.wan_android.R
  * Description:
  * @author ShiJingFeng
  */
-abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
+internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 
     /**
      * 初始化

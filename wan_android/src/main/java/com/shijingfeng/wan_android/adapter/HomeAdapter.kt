@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.SizeUtils.dp2px
 import com.shijingfeng.base.base.adapter.CommonMultiItemAdapter
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
@@ -19,12 +20,11 @@ import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.layout
-import com.shijingfeng.library.banner.entity.BaseIndicatorData
-import com.shijingfeng.library.banner.entity.CombineIndicatorData
-import com.shijingfeng.library.banner.entity.ShapeIndicatorData
-import com.shijingfeng.library.banner.entity.TitleIndicatorData
-import com.shijingfeng.library.banner.view.BannerView
-import com.shijingfeng.library.util.DensityUtil
+import com.shijingfeng.sjf_banner.library.banner.entity.BaseIndicatorData
+import com.shijingfeng.sjf_banner.library.banner.entity.CombineIndicatorData
+import com.shijingfeng.sjf_banner.library.banner.entity.ShapeIndicatorData
+import com.shijingfeng.sjf_banner.library.banner.entity.TitleIndicatorData
+import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
@@ -41,7 +41,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-class HomeAdapter(
+internal class HomeAdapter(
     context: Context,
     dataList: List<HomeItem>? = null,
     multiItemTypeSupport: MultiItemTypeSupport<HomeItem>
@@ -96,10 +96,10 @@ class HomeAdapter(
                     .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                     .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
                     .setGravity(Gravity.BOTTOM)
-                    .setPaddingTop(DensityUtil.dp2px(10f))
-                    .setPaddingBottom(DensityUtil.dp2px(10f))
-                    .setPaddingStart(DensityUtil.dp2px(10f))
-                    .setPaddingEnd(DensityUtil.dp2px(10f))
+                    .setPaddingTop(dp2px(10f))
+                    .setPaddingBottom(dp2px(10f))
+                    .setPaddingStart(dp2px(10f))
+                    .setPaddingEnd(dp2px(10f))
                     .setBackground(getDrawableById(R.color.home_banner_title_bg))
                     .setIndicatorDataList(indicatorDataList)
                 val pagerAdapter = HomeBannerPagerAdapter(mContext, homeBannerList)

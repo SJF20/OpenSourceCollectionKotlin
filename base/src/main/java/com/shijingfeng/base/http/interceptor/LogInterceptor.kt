@@ -12,8 +12,13 @@ import java.nio.charset.Charset
  * Description:
  * @author ShiJingFeng
  */
-class LogInterceptor : Interceptor {
+internal class LogInterceptor : Interceptor {
 
+    /**
+     * 拦截回调
+     * @param chain 拦截链
+     * @return Response响应
+     */
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
 

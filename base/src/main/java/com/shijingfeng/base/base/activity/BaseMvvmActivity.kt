@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.SparseArray
 import android.util.SparseIntArray
+import androidx.annotation.IntRange
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -12,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.JsonUtils
+import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.callback.SuccessCallback
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
@@ -20,6 +23,7 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.dialog.LoadingDialog
+import kotlin.reflect.KClass
 
 /**
  * Function: MVVM架构 Activity 基类
@@ -151,12 +155,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
         //LoadService 状态 LiveData Event监听器
         mLoadService?.run {
             mViewModel?.getLoadServiceStatusEvent()?.observe(this@BaseMvvmActivity, Observer { status ->
-                when (status) {
-                    SUCCESS -> showSuccess()
-                    LOADING -> showCallback(LoadingCallback::class.java)
-                    EMPTY -> showCallback(EmptyCallback::class.java)
-                    LOAD_FAIL -> showCallback(LoadFailCallback::class.java)
-                }
+                showCallback(status)
             })
         }
         //SmartRefreshLayout 状态 LiveData Event监听器
@@ -177,6 +176,28 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
                 }
             })
         }
+    }
+
+    /**
+     * LoadSir 切换状态
+     * @param status 要切换到的状态
+     */
+    protected fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+        val callback = when (status) {
+            // LoadSir 状态: 成功
+            SUCCESS -> SuccessCallback::class.java
+            // LoadSir 状态: 加载中
+            LOADING -> LoadingCallback::class.java
+            // LoadSir 状态: 暂无数据
+            EMPTY -> EmptyCallback::class.java
+            // LoadSir 状态: 加载失败
+            LOAD_FAIL -> LoadFailCallback::class.java
+            // 默认 LoadSir 状态 成功
+            else -> SuccessCallback::class.java
+        }
+
+        mViewModel?.mLoadServiceStatus = status
+        mLoadService?.showCallback(callback)
     }
 
     /**

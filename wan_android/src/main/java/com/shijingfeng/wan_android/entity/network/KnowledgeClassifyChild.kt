@@ -14,7 +14,7 @@ import java.util.*
 /**
  * 知识体系 二级数据 实体类
  */
-data class KnowledgeClassifyChildEntity(
+internal data class KnowledgeClassifyChildEntity(
 
     @SerializedName("curPage")
     var curPage: Int = 1,
@@ -42,7 +42,7 @@ data class KnowledgeClassifyChildEntity(
 /**
  * 知识体系 二级数据 Item 实体类
  */
-data class KnowledgeClassifyChildItem(
+internal data class KnowledgeClassifyChildItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -157,7 +157,7 @@ data class KnowledgeClassifyChildItem(
 /**
  * 知识体系 二级数据  Item Tag 实体类
  */
-data class KnowledgeClassifyChildItemTag(
+internal data class KnowledgeClassifyChildItemTag(
 
     @SerializedName("name")
     var name: String = "",

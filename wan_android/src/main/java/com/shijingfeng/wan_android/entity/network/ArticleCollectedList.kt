@@ -14,7 +14,7 @@ import java.util.*
 /**
  * 文章收藏列表 实体类
  */
-data class ArticleCollectedListEntity(
+internal data class ArticleCollectedListEntity(
 
     /** 当前页码  */
     @SerializedName("curPage")
@@ -41,14 +41,14 @@ data class ArticleCollectedListEntity(
 
     /** 当前 页 的 条 列表数据  */
     @SerializedName("datas")
-    var dataList: List<ArticleCollectedListItem> = ArrayList()
+    var articleCollectedItemList: List<ArticleCollectedListItem> = ArrayList()
 
 ) : BaseEntity()
 
 /**
  * 文章收藏列表 Item 实体类
  */
-data class ArticleCollectedListItem(
+internal data class ArticleCollectedListItem(
 
     @SerializedName("id")
     var identity: String = "",

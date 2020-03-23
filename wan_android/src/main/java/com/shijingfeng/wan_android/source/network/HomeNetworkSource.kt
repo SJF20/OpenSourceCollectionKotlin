@@ -30,7 +30,7 @@ private var sInstance: HomeNetworkSource? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getHomeNetworkSourceInstance(): HomeNetworkSource {
+internal fun getHomeNetworkSourceInstance(): HomeNetworkSource {
     if (sInstance == null) {
         synchronized(HomeNetworkSource::class.java) {
             if (sInstance == null) {
@@ -47,7 +47,7 @@ fun getHomeNetworkSourceInstance(): HomeNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-class HomeNetworkSource : BaseNetworkSource() {
+internal class HomeNetworkSource : BaseNetworkSource() {
 
     /** 轮播图 Api  */
     private val mBannerApi: BannerApi = RetrofitUtil.create(BannerApi::class.java)

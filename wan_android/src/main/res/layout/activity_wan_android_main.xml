@@ -131,7 +131,7 @@
         <!-- 侧栏 -->
         <include
             android:id="@+id/include_drawer"
-            layout="@layout/layout_main_activity_drawer"
+            layout="@layout/layout_wan_android_main_activity_drawer"
             app:mainViewModel="@{mainViewModel}"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>

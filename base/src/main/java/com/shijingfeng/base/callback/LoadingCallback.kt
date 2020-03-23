@@ -14,7 +14,7 @@ import com.shijingfeng.base.R
  * Description:
  * @author ShiJingFeng
  */
-class LoadingCallback : Callback() {
+internal class LoadingCallback : Callback() {
 
     private var mAnimator: ObjectAnimator? = null
 
@@ -29,8 +29,8 @@ class LoadingCallback : Callback() {
      * 销毁Callback
      */
     override fun onDetach() {
-        super.onDetach()
         destroyAnimator()
+        super.onDetach()
     }
 
     /**

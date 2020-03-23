@@ -29,13 +29,9 @@ import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.base.application.isX5Inited
-import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.X5InitedEvent
-import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.getStatusBarHeight
-import com.shijingfeng.base.util.serialize
-import com.shijingfeng.base.util.setDefaultX5WebSettings
+import com.shijingfeng.base.util.*
 import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.common.entity.ViewOriginalImageItem
 import com.shijingfeng.wan_android.BR
@@ -44,14 +40,14 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.constant.SCROLL_TO_DOWN
 import com.shijingfeng.wan_android.constant.SCROLL_TO_UP
 import com.shijingfeng.wan_android.constant.TITLE_BAR_HEIGHT
-import com.shijingfeng.wan_android.databinding.ActivityWebViewBinding
+import com.shijingfeng.wan_android.databinding.ActivityWanAndroidWebViewBinding
 import com.shijingfeng.wan_android.view_model.WebViewViewModel
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.*
-import kotlinx.android.synthetic.main.activity_web_view.*
-import kotlinx.android.synthetic.main.layout_title_bar.view.*
+import kotlinx.android.synthetic.main.activity_wan_android_web_view.*
+import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.ByteArrayOutputStream
@@ -65,7 +61,7 @@ import java.io.ByteArrayOutputStream
  */
 @BindEventBus
 @Route(path = ACTIVITY_WAN_ANDROID_WEB_VIEW)
-class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewViewModel>() {
+internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebViewBinding, WebViewViewModel>() {
 
     /** 第一次加载网页  */
     private var mFirstLoad = false
@@ -102,7 +98,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_web_view
+    override fun getLayoutId() = R.layout.activity_wan_android_web_view
 
     /**
      * 获取ViewModel
@@ -144,11 +140,14 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
         include_title_bar.iv_operate.visibility = VISIBLE
 
         mLoadService = LoadSir.getDefault().register(wv_content) {
-            mLoadService?.showCallback(LoadingCallback::class.java)
+            if (mViewModel?.mLoadServiceStatus == LOADING) {
+                return@register
+            }
+            showCallback(LOADING)
             wv_content.loadUrl(mUrl)
         }
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            mLoadService?.showCallback(LoadingCallback::class.java)
+            showCallback(LOADING)
         }
         //如果内核没有初始化完成，则不初始化 腾讯X5 WebView
         mViewModel?.let { viewModel ->
@@ -224,7 +223,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
      */
     private fun initJavascriptInterfaces() {
         //图片点击 js 接口
-        wv_content.addJavascriptInterface(JsCallAndroidInterface(), "imgClick")
+        wv_content.addJavascriptInterface(ImageClickInterface(), "imgClick")
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -382,7 +381,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
             return
         }
 
-        val view = LayoutInflater.from(this).inflate(R.layout.layout_webview_more, null)
+        val view = LayoutInflater.from(this).inflate(R.layout.layout_wan_android_webview_more, null)
 
         mMoreDialog = CommonDialog.Builder(this)
             .setContentView(view)
@@ -471,8 +470,6 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getX5InitedEvent(event: X5InitedEvent) {
-        val success = event.success
-
         mViewModel?.run {
             if (!mHasX5WebViewInited) {
                 initX5WebView()
@@ -538,7 +535,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
             pb_progress.visibility = VISIBLE
             if (mFirstLoad) {
                 mFirstLoad = false
-                mLoadService?.showCallback(LoadingCallback::class.java)
+                showCallback(LOADING)
             }
         }
 
@@ -552,7 +549,7 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
             mLoading = false
             include_title_bar.iv_back.setImageResource(R.drawable.ic_back)
             pb_progress.visibility = GONE
-            mLoadService?.showSuccess()
+            showCallback(SUCCESS)
             //在 HTML 标签加载完成之后开始加载图片内容
             wv_content?.settings?.blockNetworkImage = false
             //添加图片可点击 js 接口
@@ -676,25 +673,48 @@ class WebViewActivity : WanAndroidBaseActivity<ActivityWebViewBinding, WebViewVi
     }
 
     /**
-     * 图片点击 (HTML调用 原生)
+     * 图片操作 (Js 调用 原生 接口)
      */
-    private inner class JsCallAndroidInterface {
+    private inner class ImageClickInterface {
 
+        /**
+         * 图片点击回调
+         * @param clickImageSrc 图片地址
+         */
         @JavascriptInterface
-        fun imageClick(data: String?) {
-            runOnUiThread {
-                val dataList: List<ViewOriginalImageItem> = listOf(
-                    ViewOriginalImageItem(
-                        data ?: ""
-                    )
-                )
+        fun imageClick(clickImageSrc: String?, imageSrcArray: Array<String>?) {
+            if (clickImageSrc.isNullOrEmpty()) {
+                return
+            }
+            if (!clickImageSrc.startsWith(PROTOCOL_HTTP, true) && !clickImageSrc.startsWith(PROTOCOL_HTTPS, true)) {
+                return
+            }
 
+            var clickedIndex = 0
+            val dataList: List<ViewOriginalImageItem>
+
+            if (imageSrcArray.isNullOrEmpty() || !imageSrcArray.contains(clickImageSrc)) {
+                dataList = listOf(
+                    ViewOriginalImageItem(imagePath = clickImageSrc)
+                )
+            } else {
+                imageSrcArray.forEachIndexed { index, imageSrc ->
+                    if (TextUtils.equals(clickImageSrc, imageSrc)) {
+                        clickedIndex = index
+                    }
+                }
+                dataList = imageSrcArray.map { imageSrc ->
+                    ViewOriginalImageItem(imagePath = imageSrc)
+                }.toList()
+            }
+
+            runOnUiThread {
                 navigation(
                     activity = this@WebViewActivity,
                     path = ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE,
                     bundle = Bundle().apply {
                         putString(DATA, serialize(dataList))
-                        putInt(CURRENT_POSITION, 0)
+                        putInt(CURRENT_POSITION, clickedIndex)
                     },
                     animSparseArray = SparseIntArray().apply {
                         put(KEY_ENTER_ANIM, R.anim.anim_activity_open_enter_view_original_image)

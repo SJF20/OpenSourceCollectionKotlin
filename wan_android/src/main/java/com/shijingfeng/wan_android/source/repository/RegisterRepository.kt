@@ -15,7 +15,7 @@ private var sInstance: RegisterRepository? = null
  * DCL双检 获取实例
  * @return 实例
  */
-fun getRegisterRepositoryInstance(
+internal fun getRegisterRepositoryInstance(
     networkSource: RegisterNetworkSource? = null
 ): RegisterRepository {
     if (sInstance == null) {
@@ -34,7 +34,7 @@ fun getRegisterRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-class RegisterRepository(
+internal class RegisterRepository(
     networkSource: RegisterNetworkSource? = null
 ) : BaseRepository<BaseLocalSource, RegisterNetworkSource>(
     mNetworkSource = networkSource

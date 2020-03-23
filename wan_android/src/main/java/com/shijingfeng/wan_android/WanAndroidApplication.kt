@@ -8,4 +8,4 @@ import com.shijingfeng.base.base.application.BaseApplication
  * Description:
  * @author ShiJingFeng
  */
-class WanAndroidApplication : BaseApplication()
+internal class WanAndroidApplication : BaseApplication()
