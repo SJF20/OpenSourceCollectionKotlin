@@ -8,12 +8,9 @@ import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshFooter
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.shijingfeng.base.BuildConfig
 import com.shijingfeng.base.BuildConfig.DEBUG
-import com.shijingfeng.base.BuildConfig.IS_DEBUG
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
@@ -21,19 +18,12 @@ import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.BASE_URL_VALUE_WAN_ANDROID
 import com.shijingfeng.base.common.constant.PERSONAL_CACHE_DIR
 import com.shijingfeng.base.common.constant.PERSONAL_GLIDE_CACHE_DIR
-import com.shijingfeng.base.entity.event.X5InitedEvent
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
-import com.tencent.smtt.sdk.QbSdk
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
-import org.greenrobot.eventbus.EventBus
 import java.io.File
-import java.lang.NullPointerException
 
 /** Application实例 */
 lateinit var application: Application
-/** X5内核是否初始化完成  true 初始化完成  false 未初始化完成 */
-var isX5Inited = false
 
 /**
  * Function:  Application基类
@@ -77,8 +67,6 @@ abstract class BaseApplication : Application() {
         initLoadSir()
         //初始化 RetrofitUrlManager
         initRetrofitUrlManager()
-        //初始化腾讯X5
-        initX5()
     }
 
     override fun attachBaseContext(base: Context) {
@@ -133,38 +121,6 @@ abstract class BaseApplication : Application() {
             BASE_URL_NAME_WAN_ANDROID,
             BASE_URL_VALUE_WAN_ANDROID
         )
-    }
-
-    /**
-     * 初始化腾讯X5
-     */
-    private fun initX5() {
-        //搜集本地TBS内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-        val cb = object : QbSdk.PreInitCallback {
-
-            /**
-             * x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-             * @param success true 内核加载成功  false 内核加载失败, 自动切换到系统内核
-             */
-            override fun onViewInitFinished(success: Boolean) {
-                mX5InitSuccess = success
-                if (!success) {
-                    e("测试", "腾讯X5内核加载失败")
-                }
-            }
-
-            /**
-             * x5內核初始化完成回调
-             */
-            override fun onCoreInitFinished() {
-                e("测试", "腾讯X5内核初始化完毕")
-                isX5Inited = true
-                EventBus.getDefault().post(X5InitedEvent(mX5InitSuccess))
-            }
-
-        }
-        //x5内核初始化接口
-        QbSdk.initX5Environment(this, cb)
     }
 
     /**

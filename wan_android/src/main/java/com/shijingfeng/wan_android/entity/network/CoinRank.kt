@@ -70,8 +70,6 @@ internal data class CoinRankItem(
      * 获取ID
      * @return ID
      */
-    override fun getId(): String {
-        return userId
-    }
+    override fun getId() = userId
 
 }

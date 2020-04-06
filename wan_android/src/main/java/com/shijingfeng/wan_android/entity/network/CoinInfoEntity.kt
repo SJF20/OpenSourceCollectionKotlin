@@ -37,7 +37,6 @@ internal data class CoinInfoEntity(
      * 获取ID
      * @return ID
      */
-    override fun getId(): String {
-        return userId
-    }
+    override fun getId() = userId
+
 }

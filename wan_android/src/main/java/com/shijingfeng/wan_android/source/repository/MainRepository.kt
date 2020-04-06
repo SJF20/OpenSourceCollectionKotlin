@@ -49,14 +49,13 @@ internal class MainRepository(
     /**
      * 获取 积分信息
      * @param onSuccess 成功回调函数
-     * @param onFailure 失败回调函数
      */
-    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
+    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>) {
         val coinInfo = mLocalSource?.getCoinInfo()
 
         if (coinInfo == null) {
             // 如果本地源没有获取到数据，则从网络源中获取数据
-            mNetworkSource?.getCoinInfo(onSuccess, onFailure)
+            mNetworkSource?.getCoinInfo(onSuccess)
         } else {
             onSuccess(coinInfo)
         }

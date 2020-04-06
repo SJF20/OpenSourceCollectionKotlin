@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import com.blankj.utilcode.util.ClickUtils
 import com.github.chrisbanes.photoview.PhotoView
 import com.shijingfeng.base.base.adapter.CommonPagerAdapter
 import com.shijingfeng.base.common.constant.CLICK
@@ -43,12 +44,10 @@ internal class ViewOriginalImageAdapter(
             context = mContext,
             imageView = photoView,
             imagePath = data.imagePath,
-            outputType = outputType,
-            placeholder = R.drawable.ic_image,
-            error = R.drawable.ic_image
+            outputType = outputType
         )
         // 点击
-        photoView.setOnClickListener { v ->
+        ClickUtils.applySingleDebouncing(photoView) { v ->
             mOnItemEvent?.invoke(v, data, position, CLICK)
         }
         // 长按

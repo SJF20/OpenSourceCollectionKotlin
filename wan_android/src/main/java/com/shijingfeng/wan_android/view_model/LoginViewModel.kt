@@ -13,6 +13,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.util.getDrawableById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.SKIP_TO_HOME
@@ -49,8 +50,7 @@ internal class LoginViewModel(
 
     /** 是否能登录  */
     val mIsLoginEnable = object : ObservableBoolean(mUsername, mPassword) {
-        override fun get() =
-            !TextUtils.isEmpty(mUsername.get()) && !TextUtils.isEmpty(mPassword.get())
+        override fun get() = !TextUtils.isEmpty(mUsername.get()) && !TextUtils.isEmpty(mPassword.get())
     }
 
     /** 密码是否是明文  true 明文 false 密文  */
@@ -98,7 +98,7 @@ internal class LoginViewModel(
      * 登录
      */
     private fun login() {
-        showLoadingDialog("登录中...")
+        showLoadingDialog(getStringById(R.string.登录中))
 
         val postMap = HashMap<String, Any>()
 
@@ -126,7 +126,7 @@ internal class LoginViewModel(
                 setResult(Activity.RESULT_OK)
                 finish()
             } else {
-                ToastUtils.showShort("服务器出错，登录失败")
+                ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
             }
         }, onFailure = {
             //关闭加载中弹框

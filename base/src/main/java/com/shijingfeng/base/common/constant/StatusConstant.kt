@@ -9,14 +9,14 @@ package com.shijingfeng.base.common.constant
  * @author ShiJingFeng
  */
 
-/** 成功  */
-const val SUCCESS = 0
-/** 加载中  */
-const val LOADING = 1
-/** 暂无数据  */
-const val EMPTY = 2
-/** 加载失败  */
-const val LOAD_FAIL = 3
+/** LoadService状态: 成功  */
+const val LOAD_SERVICE_SUCCESS = 0
+/** LoadService状态: 加载中  */
+const val LOAD_SERVICE_LOADING = 1
+/** LoadService状态: 暂无数据  */
+const val LOAD_SERVICE_EMPTY = 2
+/** LoadService状态: 加载失败  */
+const val LOAD_SERVICE_LOAD_FAIL = 3
 
 /** 下拉刷新成功  */
 const val REFRESH_SUCCESS = 1

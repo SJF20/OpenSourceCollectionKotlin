@@ -41,8 +41,7 @@ internal fun getViewOriginalImageNetworkSourceInstance(): ViewOriginalImageNetwo
  */
 internal class ViewOriginalImageNetworkSource : BaseNetworkSource() {
 
-    private val mApi: Api = RetrofitUtil.create(
-        Api::class.java)
+    private val mApi: Api = RetrofitUtil.create(Api::class.java)
     private var mDownloadImageCall: Call<ResponseBody?>? = null
 
     /**

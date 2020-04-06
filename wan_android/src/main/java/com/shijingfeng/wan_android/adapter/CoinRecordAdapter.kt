@@ -34,8 +34,11 @@ internal class CoinRecordAdapter(
         val desc = data.desc
 
         holder.run {
+            // 何种方式获得的积分
             setText(R.id.tv_reason, reason)
+            // 积分记录描述
             setText(R.id.tv_desc, desc)
+            // 积分数量
             setText(R.id.tv_quantity, quantity.toString())
         }
     }

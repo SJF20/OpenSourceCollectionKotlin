@@ -46,7 +46,7 @@ const val ACTIVITY_WAN_ANDROID_COIN_RANK = "/wan_android/activity/CoinRankActivi
 /** 积分明细 Activity  */
 const val ACTIVITY_WAN_ANDROID_COIN_RECORD = "/wan_android/activity/CoinRecordActivity"
 /** 文章收藏列表 Activity  */
-const val ACTIVITY_WAN_ANDROID_ARTICLE_COLLECTED_LIST = "/wan_android/activity/ArticleCollectedListActivity"
+const val ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION = "/wan_android/activity/PersonalCollectionActivity"
 /** 知识体系详情 Activity  */
 const val ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL = "/wan_android/activity/KnowledgeClassifyDetailActivity"
 //wan_android 模块 Fragment
@@ -66,6 +66,10 @@ const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY = "/wan_android/fragment/Knowl
 const val FRAGMENT_WAN_ANDROID_NAVIGATION_CLASSIFY = "/wan_android/fragment/NavigationClassifyFragment"
 /** 知识体系子页面 Fragment  */
 const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_CHILD = "/wan_android/fragment/KnowledgeClassifyChildFragment"
+/** 我的收藏 -> 收藏文章 Fragment */
+const val FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_ARTICLE = "/wan_android/fragment/PersonalCollectionArticleFragment"
+/** 我的收藏 -> 收藏网站 Fragment */
+const val FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE = "/wan_android/fragment/PersonalCollectionWebsiteFragment"
 
 //todo模块 Activity
 /** 主页 Activity */

@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -153,9 +154,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    // 依赖 base 模块
     implementation project(path: ':base')
-    //ARouter 路由框架 注解执行器
+
+    // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }
 

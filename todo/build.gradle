@@ -41,8 +41,7 @@ android {
         }
     }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    //会导致无法联网
-//    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {

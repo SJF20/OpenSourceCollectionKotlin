@@ -5,6 +5,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.shijingfeng.base.R
 
 /**
  * 简单工厂模式创建对象
@@ -37,7 +38,7 @@ class EditTextInputFilterUtil internal constructor() {
                 if (!isSystemEmoji(codePoint)) {
                     buffer.append(codePoint)
                 } else {
-                    ToastUtils.showShort("暂不支持系统表情")
+                    ToastUtils.showShort(getStringById(R.string.暂不支持系统表情))
                     ++i
                 }
                 ++i

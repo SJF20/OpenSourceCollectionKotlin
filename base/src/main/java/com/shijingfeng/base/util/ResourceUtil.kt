@@ -3,9 +3,7 @@
 package com.shijingfeng.base.util
 
 import android.graphics.drawable.Drawable
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import com.blankj.utilcode.util.ResourceUtils
 import com.shijingfeng.base.base.application.application
 
@@ -41,6 +39,7 @@ fun getResId(variableName: String, cls: Class<*>): Int {
  * @param color Color Id
  * @return ColorInt
  */
+@ColorInt
 fun getColorById(@ColorRes color: Int) = application.resources.getColor(color)
 
 /**

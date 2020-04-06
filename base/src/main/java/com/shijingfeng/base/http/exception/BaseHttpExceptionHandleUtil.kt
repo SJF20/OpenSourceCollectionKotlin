@@ -6,9 +6,11 @@ import android.net.ParseException
 import android.text.TextUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.JsonParseException
+import com.shijingfeng.base.R
 import com.shijingfeng.base.common.constant.NETWORK_EXCEPTION
 import com.shijingfeng.base.common.constant.PARSE_EXCEPTION
 import com.shijingfeng.base.common.constant.UNKNOWN_EXCEPTION
+import com.shijingfeng.base.util.getStringById
 import org.json.JSONException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -27,29 +29,22 @@ import java.net.UnknownHostException
  * @return 转换后的异常
  */
 fun handle(e: Throwable): HttpException {
-    val exception: HttpException
-
-    if (e is ServerException) {
+    val exception = when (e) {
         //服务器异常
-        exception = HttpException(e.errorCode, e.errorMsg, e)
-    } else if (e is retrofit2.HttpException) {
+        is ServerException -> HttpException(e.errorCode, e.errorMsg, e)
         //网络请求异常 (比如常见404 500之类的等)
-        exception = HttpException(e.code(), "网络请求错误${e.code()}", e)
-    } else if (e is JsonParseException || e is JSONException || e is ParseException) {
+        is retrofit2.HttpException -> HttpException(e.code(), getStringById(R.string.网络请求错误) + e.code(), e)
         //解析异常
-        exception = HttpException(PARSE_EXCEPTION, "解析错误", e)
-    } else if (e is ConnectException || e is UnknownHostException || e is SocketTimeoutException) {
+        is JsonParseException, is JSONException, is ParseException -> HttpException(PARSE_EXCEPTION, getStringById(R.string.解析错误), e)
         //网络连接异常
-        exception =
-            HttpException(NETWORK_EXCEPTION, "网络连接错误", e)
-    } else {
+        is ConnectException, is UnknownHostException, is SocketTimeoutException -> HttpException(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), e)
         //未知异常
-        exception = HttpException(UNKNOWN_EXCEPTION, "未知错误", e)
+        else -> HttpException(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), e)
     }
     if (!TextUtils.isEmpty(exception.errorMsg)) {
         ToastUtils.showShort(exception.errorMsg)
     } else {
-        ToastUtils.showShort("未知错误")
+        ToastUtils.showShort(getStringById(R.string.未知错误))
     }
     return exception
 }

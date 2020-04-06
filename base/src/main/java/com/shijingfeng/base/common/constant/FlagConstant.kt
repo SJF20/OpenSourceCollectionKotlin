@@ -73,6 +73,9 @@ const val ORDER_PLAIN = 0
 /** 插入顺序：倒序  */
 const val ORDER_REVERSED = 1
 
+/** 数据操作类型：无操作 */
+const val NONE = 0
+
 /** 数据操作:  加载数据  */
 const val LOAD = 1
 /** 数据操作: 刷新数据  */
@@ -86,11 +89,12 @@ const val REMOVE = 5
 /** 数据操作: 更新数据  */
 const val UPDATE = 6
 
-/** 数据操作类型：无操作 */
-const val DATA_OPERATE_TYPE_NONE = 0
 /** 数据操作类型：加载数据  */
 const val DATA_OPERATE_TYPE_LOAD = 1
 /** 数据操作类型：下拉刷新  */
 const val DATA_OPERATE_TYPE_REFRESH = 2
 /** 数据操作类型：上拉加载更多  */
 const val DATA_OPERATE_TYPE_LOAD_MORE = 3
+
+/** Adapter Item 未知类型 */
+const val ADAPTER_TYPE_UNKNOWN = 0

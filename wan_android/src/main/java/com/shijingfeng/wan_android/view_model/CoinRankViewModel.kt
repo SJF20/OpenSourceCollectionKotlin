@@ -5,7 +5,7 @@ import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.entity.event.ListDataChangeEvent
+import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.network.CoinRankItem
@@ -41,31 +41,47 @@ internal class CoinRankViewModel(
     val mBackClickListener = View.OnClickListener { finish() }
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
-        if (mLoadServiceStatus == LOADING) {
+        if (mLoadServiceStatus == LOAD_SERVICE_LOADING) {
             return@OnReloadListener
         }
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getLoadServiceStatusEvent().value = LOADING
-        getCoinRankList(FIRST_PAGE)
+        showCallback(LOAD_SERVICE_LOADING)
+        load()
     }
     /** 下拉刷新 */
-    val mOnRefreshListener = OnRefreshListener {
-        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
-        getCoinRankList(FIRST_PAGE)
-    }
+    val mOnRefreshListener = OnRefreshListener { refresh() }
     /** 上拉加载 */
-    val mOnLoadMoreListener = OnLoadMoreListener {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
-        getCoinRankList(mPage + 1)
-    }
+    val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
 
     /**
      * 初始化
      */
     override fun init() {
         super.init()
+        load()
+    }
+
+    /**
+     * 加载数据
+     */
+    private fun load() {
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
         getCoinRankList(FIRST_PAGE)
+    }
+
+    /**
+     * 下拉刷新
+     */
+    private fun refresh() {
+        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
+        getCoinRankList(FIRST_PAGE)
+    }
+
+    /**
+     * 上拉加载
+     */
+    private fun loadMore() {
+        mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
+        getCoinRankList(mPage + 1)
     }
 
     /**
@@ -75,7 +91,8 @@ internal class CoinRankViewModel(
     private fun getCoinRankList(page: Int) {
         mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@{ coinRank ->
             val coinRankItemList = coinRank?.coinRankItemList
-            val event = ListDataChangeEvent<CoinRankItem>()
+            val event =
+                ListDataChangeEvent<CoinRankItem>()
 
             when (mDataOperateType) {
                 // 加载数据
@@ -90,7 +107,7 @@ internal class CoinRankViewModel(
                     event.dataList = coinRankItemList
 
                     mListDataChangeEvent.value = event
-                    getLoadServiceStatusEvent().value = if (mCoinRankItemList.isEmpty()) EMPTY else SUCCESS
+                    showCallback(if (mCoinRankItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
                 // 下拉刷新
                 DATA_OPERATE_TYPE_REFRESH -> {
@@ -104,15 +121,16 @@ internal class CoinRankViewModel(
                     event.dataList = coinRankItemList
 
                     mListDataChangeEvent.value = event
-                    getRefreshLoadMoreStatusEvent().value = REFRESH_SUCCESS
+                    updateRefreshLoadMoreStatus(REFRESH_SUCCESS)
                     // 数据为空
                     if (mCoinRankItemList.isEmpty()) {
-                        getLoadServiceStatusEvent().value = EMPTY
-                    }                }
+                        showCallback(LOAD_SERVICE_EMPTY)
+                    }
+                }
                 // 上拉加载
                 DATA_OPERATE_TYPE_LOAD_MORE -> {
                     if (coinRankItemList.isNullOrEmpty()) {
-                        getRefreshLoadMoreStatusEvent().value = LOAD_MORE_ALL
+                        updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
                         return@onSuccessLabel
                     }
                     ++mPage
@@ -123,18 +141,18 @@ internal class CoinRankViewModel(
 
                     mCoinRankItemList.addAll(coinRankItemList)
                     mListDataChangeEvent.value = event
-                    getRefreshLoadMoreStatusEvent().value = LOAD_MORE_SUCCESS
+                    updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
                 }
                 else -> {}
             }
         }, onFailure = {
             when (mDataOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> getLoadServiceStatusEvent().value = LOAD_FAIL
+                DATA_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> getRefreshLoadMoreStatusEvent().value = REFRESH_FAIL
+                DATA_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> getRefreshLoadMoreStatusEvent().value = LOAD_MORE_FAIL
+                DATA_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
                 else -> {}
             }
         })

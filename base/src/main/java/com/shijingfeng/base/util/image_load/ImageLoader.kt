@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import com.shijingfeng.base.R
 import com.shijingfeng.base.listener.Target
 
 /** 图片加载器 实例 (可以随时切换加载框架) */
@@ -37,8 +38,8 @@ abstract class ImageLoader {
         imageView: ImageView,
         imagePath: String,
         outputType: Int = AS_DRAWABLE,
-        @DrawableRes placeholder: Int = 0,
-        @DrawableRes error: Int = 0
+        @DrawableRes placeholder: Int = R.drawable.ic_image,
+        @DrawableRes error: Int = R.drawable.ic_image
     )
 
     /**
@@ -53,8 +54,8 @@ abstract class ImageLoader {
         context: Context,
         imageView: ImageView,
         @DrawableRes drawableRes: Int,
-        @DrawableRes placeholder: Int = 0,
-        @DrawableRes error: Int = 0
+        @DrawableRes placeholder: Int = R.drawable.ic_image,
+        @DrawableRes error: Int = R.drawable.ic_image
     )
 
     /**
@@ -81,8 +82,8 @@ abstract class ImageLoader {
         context: Context,
         imageView: ImageView,
         videoFilePath: String,
-        @DrawableRes placeholder: Int = 0,
-        @DrawableRes error: Int = 0
+        @DrawableRes placeholder: Int = R.drawable.ic_image,
+        @DrawableRes error: Int = R.drawable.ic_image
     )
 
     /**

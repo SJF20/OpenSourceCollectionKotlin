@@ -7,7 +7,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.entity.event.ListDataChangeEvent
+import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
@@ -60,35 +60,51 @@ internal class CoinRecordViewModel(
     }
 
     /** LoadService 重新加载监听器  */
-    var mReloadListener = OnReloadListener {
-        if (mLoadServiceStatus == LOADING) {
+    val mReloadListener = OnReloadListener {
+        if (mLoadServiceStatus == LOAD_SERVICE_LOADING) {
             return@OnReloadListener
         }
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getLoadServiceStatusEvent().value = LOADING
-        getCoinRecordList(FIRST_PAGE)
+        showCallback(LOAD_SERVICE_LOADING)
+        load()
     }
 
     /** 下拉刷新  */
-    var mOnRefreshListener = OnRefreshListener {
-        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
-        //下拉刷新 期间禁止 上拉加载
-        getCoinRecordList(FIRST_PAGE)
-    }
+    val mOnRefreshListener = OnRefreshListener { refresh() }
 
     /** 上拉加载  */
-    var mOnLoadMoreListener = OnLoadMoreListener {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
-        getCoinRecordList(mPage + 1)
-    }
+    val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
 
     /**
      * 初始化
      */
     override fun init() {
         super.init()
+        load()
+    }
+
+    /**
+     * 加载数据
+     */
+    private fun load() {
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
         getCoinRecordList(FIRST_PAGE)
+    }
+
+    /**
+     * 下拉刷新
+     */
+    private fun refresh() {
+        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
+        //下拉刷新 期间禁止 上拉加载
+        getCoinRecordList(FIRST_PAGE)
+    }
+
+    /**
+     * 上拉加载
+     */
+    private fun loadMore() {
+        mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
+        getCoinRecordList(mPage + 1)
     }
 
     /**
@@ -98,7 +114,8 @@ internal class CoinRecordViewModel(
     private fun getCoinRecordList(page: Int) {
         mRepository?.getCoinRecordList(page, onSuccess = onSuccessLabel@{ coinRecord ->
             val coinRecordItemList = coinRecord?.coinRecordItemList
-            val event = ListDataChangeEvent<CoinRecordItem>()
+            val event =
+                ListDataChangeEvent<CoinRecordItem>()
 
             when (mDataOperateType) {
                 // 加载数据 或 重新加载
@@ -113,7 +130,7 @@ internal class CoinRecordViewModel(
                     event.dataList = coinRecordItemList
 
                     mListDataChangeEvent.value = event
-                    getLoadServiceStatusEvent().value = if (mCoinRecordItemList.isEmpty()) EMPTY else SUCCESS
+                    showCallback(if (mCoinRecordItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
                 // 下拉刷新
                 DATA_OPERATE_TYPE_REFRESH -> {
@@ -127,16 +144,16 @@ internal class CoinRecordViewModel(
                     event.dataList = coinRecordItemList
 
                     mListDataChangeEvent.value = event
-                    getRefreshLoadMoreStatusEvent().value = REFRESH_SUCCESS
+                    updateRefreshLoadMoreStatus(REFRESH_SUCCESS)
                     // 数据为空
                     if (mCoinRecordItemList.isEmpty()) {
-                        getLoadServiceStatusEvent().value = EMPTY
+                        showCallback(LOAD_SERVICE_EMPTY)
                     }
                 }
                 // 上拉加载
                 DATA_OPERATE_TYPE_LOAD_MORE -> {
                     if (coinRecordItemList.isNullOrEmpty()) {
-                        getRefreshLoadMoreStatusEvent().value = LOAD_MORE_ALL
+                        updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
                         return@onSuccessLabel
                     }
                     ++mPage
@@ -148,18 +165,18 @@ internal class CoinRecordViewModel(
                     //添加数据
                     mCoinRecordItemList.addAll(coinRecordItemList)
                     mListDataChangeEvent.value = event
-                    getRefreshLoadMoreStatusEvent().value = LOAD_MORE_SUCCESS
+                    updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
                 }
                 else -> {}
             }
         }, onFailure = {
             when (mDataOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> getLoadServiceStatusEvent().value = LOAD_FAIL
+                DATA_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> getRefreshLoadMoreStatusEvent().value = REFRESH_FAIL
+                DATA_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> getRefreshLoadMoreStatusEvent().value = LOAD_MORE_FAIL
+                DATA_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
                 else -> {}
             }
         })

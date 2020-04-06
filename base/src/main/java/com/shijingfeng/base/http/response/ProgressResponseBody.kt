@@ -1,6 +1,6 @@
 package com.shijingfeng.base.http.response
 
-import com.shijingfeng.base.entity.event.DownloadEvent
+import com.shijingfeng.base.entity.event.event_bus.DownloadEvent
 import okhttp3.ResponseBody
 import okio.*
 import org.greenrobot.eventbus.EventBus
@@ -45,7 +45,14 @@ internal class ProgressResponseBody(
                 //增加当前读取的字节数，如果读取完成了bytesRead会返回-1
                 currentLength += if (bytesRead == -1L) 0 else bytesRead
                 //使用EventBus的方式，实时发送当前已读取的字节数据, 注: 如果contentLength()不知道长度，会返回-1
-                EventBus.getDefault().post(DownloadEvent(currentLength, totalLength, bytesRead == -1L, mTag))
+                EventBus.getDefault().post(
+                    DownloadEvent(
+                        currentLength,
+                        totalLength,
+                        bytesRead == -1L,
+                        mTag
+                    )
+                )
                 return bytesRead
             }
         }

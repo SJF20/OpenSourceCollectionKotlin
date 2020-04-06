@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.shijingfeng.wan_android.view_model.PersonalCollectionArticleViewModel" />
+
+        <variable
+            name="personalCollectionArticleViewModel"
+            type="PersonalCollectionArticleViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlEnableRefresh="true"
+            app:srlEnableLoadMore="true"
+            app:onRefreshListener="@{personalCollectionArticleViewModel.mOnRefreshListener}"
+            app:onLoadMoreListener="@{personalCollectionArticleViewModel.mOnLoadMoreListener}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</layout>

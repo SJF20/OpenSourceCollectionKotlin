@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -28,12 +29,15 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.ARouterUtil.navigation
-import com.shijingfeng.base.base.application.isX5Inited
+import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.entity.event.X5InitedEvent
-import com.shijingfeng.base.util.*
+import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
+import com.shijingfeng.base.util.getStatusBarHeight
+import com.shijingfeng.base.util.serialize
+import com.shijingfeng.base.util.shareText
 import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.common.entity.ViewOriginalImageItem
+import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -41,6 +45,8 @@ import com.shijingfeng.wan_android.constant.SCROLL_TO_DOWN
 import com.shijingfeng.wan_android.constant.SCROLL_TO_UP
 import com.shijingfeng.wan_android.constant.TITLE_BAR_HEIGHT
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidWebViewBinding
+import com.shijingfeng.wan_android.source.network.getWebViewNetworkSourceInstance
+import com.shijingfeng.wan_android.source.repository.getWebViewRepositoryInstance
 import com.shijingfeng.wan_android.view_model.WebViewViewModel
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
@@ -83,15 +89,8 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
     /** 更多 Dialog  */
     private var mMoreDialog: CommonDialog? = null
-
-    /** 上一个页面的全限定名称  */
-    private var mFromName = ""
-
-    /** 加载的URL  */
-    private var mUrl = ""
-
-    /** 标题  */
-    private var mTitle = ""
+    /** 更多 Dialog Content View */
+    private lateinit var mMoreDialogContentView: View
 
     /**
      * 获取视图ID
@@ -104,7 +103,16 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(WebViewViewModel::class.java)
+    override fun getViewModel(): WebViewViewModel? {
+        val webViewRepository = getWebViewRepositoryInstance(
+            networkSource = getWebViewNetworkSourceInstance()
+        )
+        val factory = createCommonViewModelFactory(
+            repository = webViewRepository
+        )
+
+        return createViewModel(WebViewViewModel::class.java, factory)
+    }
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
@@ -119,10 +127,10 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      */
     override fun initParam() {
         super.initParam()
-        mViewModel?.mParamBundle?.run {
-            mFromName = getString(FROM_ACTIVITY_NAME, "")
-            mUrl = getString(URL, "")
-            mTitle = getString(TITLE, "")
+        mDataBundle?.run {
+            mViewModel?.mFromName = getString(FROM_ACTIVITY_NAME, "")
+            mViewModel?.mUrl = getString(URL, "")
+            mViewModel?.mTitle = getString(TITLE, "")
         }
     }
 
@@ -135,37 +143,31 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         mIsTitleBarVisible = true
         mAnimLoadFinish = true
 
-        include_title_bar.tv_title.text = mTitle
+        include_title_bar.tv_title.text = mViewModel?.mTitle
         include_title_bar.iv_operate.setImageResource(R.drawable.ic_more)
         include_title_bar.iv_operate.visibility = VISIBLE
 
         mLoadService = LoadSir.getDefault().register(wv_content) {
-            if (mViewModel?.mLoadServiceStatus == LOADING) {
+            if (mViewModel?.mLoadServiceStatus == LOAD_SERVICE_LOADING) {
                 return@register
             }
-            showCallback(LOADING)
-            wv_content.loadUrl(mUrl)
+            showCallback(LOAD_SERVICE_LOADING)
+            wv_content.loadUrl(mViewModel?.mUrl)
         }
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            showCallback(LOADING)
+            showCallback(LOAD_SERVICE_LOADING)
         }
-        //如果内核没有初始化完成，则不初始化 腾讯X5 WebView
-        mViewModel?.let { viewModel ->
-            if (!viewModel.mHasX5WebViewInited && isX5Inited) {
-                initX5WebView()
-            }
-        }
+        initX5WebView()
     }
 
     /**
      * 初始化 腾讯X5 WebView
      */
     private fun initX5WebView() {
-        mViewModel?.mHasX5WebViewInited = true
         setDefaultX5WebSettings(wv_content.settings)
         wv_content.webViewClient = CustomWebViewClient()
         wv_content.webChromeClient = CustomWebChromeClient()
-        wv_content.loadUrl(mUrl)
+        wv_content.loadUrl(mViewModel?.mUrl)
         CookieSyncManager.createInstance(this)
         CookieSyncManager.getInstance().sync()
     }
@@ -381,10 +383,10 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             return
         }
 
-        val view = LayoutInflater.from(this).inflate(R.layout.layout_wan_android_webview_more, null)
+        mMoreDialogContentView = LayoutInflater.from(this).inflate(R.layout.layout_wan_android_webview_more, null)
 
         mMoreDialog = CommonDialog.Builder(this)
-            .setContentView(view)
+            .setContentView(mMoreDialogContentView)
             .setGravity(
                 Gravity.TOP or Gravity.END,
                 ConvertUtils.dp2px(5f),
@@ -397,26 +399,31 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         mMoreDialog?.setOnDismissListener {}
         //刷新
         ClickUtils.applySingleDebouncing(
-            view.findViewById<TextView>(R.id.tv_reload)
+            mMoreDialogContentView.findViewById<TextView>(R.id.tv_reload)
         ) {
             mMoreDialog?.hide()
             wv_content.reload()
         }
         //分享
         ClickUtils.applySingleDebouncing(
-            view.findViewById<TextView>(R.id.tv_share)
+            mMoreDialogContentView.findViewById<TextView>(R.id.tv_share)
         ) {
             mMoreDialog?.hide()
+            shareText(this, mViewModel?.mTitle, mViewModel?.mUrl)
         }
         //收藏
         ClickUtils.applySingleDebouncing(
-            view.findViewById<TextView>(R.id.tv_collection)
+            mMoreDialogContentView.findViewById<TextView>(R.id.tv_collection)
         ) {
             mMoreDialog?.hide()
+            mViewModel?.collectedWebsite(HashMap<String, Any>(2).apply {
+                put("name", mViewModel?.mTitle ?: "")
+                put("link", mViewModel?.mUrl ?: "")
+            })
         }
         //在浏览器中打开
         ClickUtils.applySingleDebouncing(
-            view.findViewById<TextView>(R.id.tv_open_in_browser)
+            mMoreDialogContentView.findViewById<TextView>(R.id.tv_open_in_browser)
         ) {
             mMoreDialog?.hide()
             startActivity(Intent().apply {
@@ -470,11 +477,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getX5InitedEvent(event: X5InitedEvent) {
-        mViewModel?.run {
-            if (!mHasX5WebViewInited) {
-                initX5WebView()
-            }
-        }
+        wv_content.reload()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -498,6 +501,8 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
     }
 
     override fun onDestroy() {
+        mMoreDialog?.hide()
+        mMoreDialog = null
         wv_content?.clearHistory()
         (mDataBinding.root as ViewGroup).removeView(wv_content)
         wv_content?.destroy()
@@ -508,6 +513,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      * 通用 WebClient
      */
     private inner class CustomWebViewClient : WebViewClient() {
+
         /**
          * 网页拦截
          * @param view WebView
@@ -518,7 +524,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             view: WebView?,
             request: WebResourceRequest?
         ): Boolean {
-            mUrl = request?.url?.toString() ?: ""
+            mViewModel?.mUrl = request?.url?.toString() ?: ""
             return false
         }
 
@@ -535,7 +541,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             pb_progress.visibility = VISIBLE
             if (mFirstLoad) {
                 mFirstLoad = false
-                showCallback(LOADING)
+                showCallback(LOAD_SERVICE_LOADING)
             }
         }
 
@@ -549,7 +555,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             mLoading = false
             include_title_bar.iv_back.setImageResource(R.drawable.ic_back)
             pb_progress.visibility = GONE
-            showCallback(SUCCESS)
+            showCallback(LOAD_SERVICE_SUCCESS)
             //在 HTML 标签加载完成之后开始加载图片内容
             wv_content?.settings?.blockNetworkImage = false
             //添加图片可点击 js 接口
@@ -661,14 +667,18 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             pb_progress.progress = newProgress
         }
 
+        /**
+         * 标题接收回调
+         * @param webView WebView
+         * @param title 标题
+         */
         override fun onReceivedTitle(
             webView: WebView?,
             title: String?
         ) {
             super.onReceivedTitle(webView, title)
-            if (!TextUtils.isEmpty(title)) {
-                include_title_bar.tv_title.text = title
-            }
+            mViewModel?.mTitle = title ?: ""
+            include_title_bar.tv_title.text = title ?: ""
         }
     }
 

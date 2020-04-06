@@ -10,6 +10,8 @@ import com.shijingfeng.base.arouter.PROVIDER_WAN_ANDROID_LOGIN_INTERCEPT
 import com.shijingfeng.base.arouter.service.LoginInterceptProvider
 import com.shijingfeng.base.common.constant.FROM_ACTIVITY_NAME
 import com.shijingfeng.base.common.constant.NEED_LOGIN
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.utils.UserUtil
 
 /**
@@ -42,7 +44,7 @@ internal class WanAndroidLoginInterceptProvider : LoginInterceptProvider {
                     .build(ACTIVITY_WAN_ANDROID_LOGIN)
                     .withString(FROM_ACTIVITY_NAME, fromName)
                     .navigation()
-                callback.onInterrupt(Exception("需要登录"))
+                callback.onInterrupt(Exception(getStringById(R.string.需要登录)))
             }
         }
         callback.onContinue(postcard)

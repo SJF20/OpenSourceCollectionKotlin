@@ -35,13 +35,17 @@ internal class NavigationClassifyAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: NavigationClassifyEntity, position: Int) {
+        // 导航标签 View列表 容器
         val llChild = holder.getView<LinearLayout>(R.id.ll_child)
 
+        // 导航分类名称
         holder.setText(R.id.tv_name, data.name)
         if (data.articleList.isEmpty()) {
             llChild?.visibility = View.GONE
         } else {
+            // 可容纳的最大宽度
             val totalWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15F)
+            // 导航标签 View列表
             val viewList: MutableList<View> = ArrayList()
 
             for (navigationClassifyArticle in data.articleList) {
@@ -56,13 +60,15 @@ internal class NavigationClassifyAdapter(
                         ConvertUtils.dp2px(7f)
                     )
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
-                    ClickUtils.applySingleDebouncing(this) { v: View ->
-                        mOnItemEvent?.invoke(v, navigationClassifyArticle, position, VIEW_NAVIGATION_CLASSIFY_DETAIL)
+                    // 查看 导航标签 详情
+                    ClickUtils.applySingleDebouncing(this) {
+                        mOnItemEvent?.invoke(this, navigationClassifyArticle, position, VIEW_NAVIGATION_CLASSIFY_DETAIL)
                     }
                 })
             }
 
             if (llChild != null) {
+                // 对 导航标签控件 进行整体布局 (按控件宽度逐行排列，没有固定列数)
                 layout(
                     linearLayout = llChild,
                     childViewList = viewList,

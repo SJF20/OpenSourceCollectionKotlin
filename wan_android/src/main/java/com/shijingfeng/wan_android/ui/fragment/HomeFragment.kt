@@ -1,6 +1,7 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -16,7 +17,6 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
@@ -27,7 +27,7 @@ import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
-import com.shijingfeng.wan_android.entity.event.CollectionEvent
+import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
@@ -44,8 +44,8 @@ import org.greenrobot.eventbus.ThreadMode
  * Description:
  * @author ShiJingFeng
  */
-@BindEventBus
 @Route(path = FRAGMENT_WAN_ANDROID_HOME)
+@BindEventBus
 internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBinding, HomeViewModel>() {
 
     /** 首页数据适配器  */
@@ -89,7 +89,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            showCallback(LOADING)
+            showCallback(LOAD_SERVICE_LOADING)
         }
 
         activity?.let { activity ->
@@ -104,12 +104,14 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                      * @return Layout Id
                      */
                     override fun getLayoutId(itemType: Int): Int = when (itemType) {
-                        //轮播图
-                        HOME_BANNER -> R.layout.adapter_wan_android_item_home_banner
-                        //置顶文章
-                        HOME_SET_TO_TOP -> R.layout.adapter_wan_android_item_home_set_to_top
-                        //文章
-                        HOME_ARTICLE -> R.layout.adapter_wan_android_item_home_article
+                        // 轮播图
+                        HOME_BANNER -> R.layout.adapter_item_wan_android_home_banner
+                        // 置顶文章
+                        HOME_SET_TO_TOP -> R.layout.adapter_item_wan_android_home_set_to_top
+                        // 文章
+                        HOME_ARTICLE -> R.layout.adapter_item_wan_android_home_article
+                        // 未知类型
+                        ADAPTER_TYPE_UNKNOWN -> R.layout.adapter_item_null
                         else -> 0
                     }
 
@@ -163,7 +165,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             when (flag) {
                 //查看轮播图详情
                 VIEW_BANNER_DETAIL -> {
-                    val (_, _, _, _, _, title, _, url) = data as HomeBannerEntity
+                    val (identity, _, _, _, _, title, _, url) = data as HomeBannerEntity
 
                     navigation(
                         activity = activity,
@@ -182,8 +184,10 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         //置顶文章
                         HOME_SET_TO_TOP -> {
                             val homeSetToTopItem = homeItem as HomeSetToTopItem
+                            val identity = homeSetToTopItem.identity
                             val url = homeSetToTopItem.link
                             val title = homeSetToTopItem.title
+                            val collected = homeSetToTopItem.collected
 
                             navigation(
                                 activity = activity,
@@ -197,8 +201,10 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         //文章
                         HOME_ARTICLE -> {
                             val homeArticleItem = homeItem as HomeArticleItem
+                            val identity = homeArticleItem.identity
                             val url = homeArticleItem.link
                             val title = homeArticleItem.title
+                            val collected = homeArticleItem.collected
 
                             navigation(
                                 activity = activity,
@@ -287,8 +293,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                 when (homeItem) {
                     is HomeSetToTopItem -> homeItem.collected = collected
                     is HomeArticleItem -> homeItem.collected = collected
-                    else -> {
-                    }
+                    else -> {}
                 }
                 mHomeAdapter?.notifyItemChanged(position, payloadMap)
             }
@@ -345,11 +350,8 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
      */
     override fun scrollToTop() {
         super.scrollToTop()
-        e("测试", "scrollToTop 1")
         mViewModel?.run {
-            e("测试", "scrollToTop 2")
             if (mHomeItemDataList.isNotEmpty()) {
-                e("测试", "scrollToTop 3")
                 rv_content.smoothScrollToPosition(0)
             }
         }
@@ -359,8 +361,15 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
      * 更新 首页收藏
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun getCollectionEvent(event: CollectionEvent) {
-        //因为服务器返回字段设计问题，导致 被收藏的文章 的 id 和 文章的 id 不相等, 故采用全局刷新的方式
+    fun getCollectionEvent(event: ArticleCollectionEvent) {
+        if (HomeFragment::class.java.name == event.fromName) {
+            return
+        }
+        if (TextUtils.isEmpty(event.id)) {
+            return
+        }
+
+        //因为服务器返回字段设计问题，导致 收藏列表中被收藏的文章 的 id 和 收藏列表以外的文章的 id 不相等, 故采用全局刷新的方式
         mViewModel?.refresh()
 
 //        val id = event.id

@@ -73,10 +73,10 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            showCallback(LOADING)
+            showCallback(LOAD_SERVICE_LOADING)
         }
 
-        mCoinRankAdapter = CoinRankAdapter(this, R.layout.adapter_wan_android_item_coin_rank, mViewModel?.mCoinRankItemList)
+        mCoinRankAdapter = CoinRankAdapter(this, R.layout.adapter_item_wan_android_coin_rank, mViewModel?.mCoinRankItemList)
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mCoinRankAdapter
     }

@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.utils
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.ServerException
-import com.shijingfeng.base.http.exception.handle
+import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.network.ResultEntity
 import io.reactivex.Single
@@ -30,14 +30,19 @@ import io.reactivex.schedulers.Schedulers
 internal fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: onSuccess<D?>? = null, onFailure: onFailure? = null): Disposable {
     return single
         .subscribeOn(Schedulers.io())
+        .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ result ->
             if (result.code == SERVER_SUCCESS) {
                 onSuccess?.invoke(result.data)
             } else {
-                onFailure?.invoke(handle(ServerException(result.code, result.msg)))
+                val httpException = handle(ServerException(result.code, result.msg))
+
+                onFailure?.invoke(httpException)
             }
         }, { throwable ->
-            onFailure?.invoke(handle(throwable))
+            val httpException = handle(throwable)
+
+            onFailure?.invoke(httpException)
         })
 }

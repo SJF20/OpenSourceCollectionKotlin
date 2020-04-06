@@ -30,8 +30,11 @@ internal class CoinRankAdapter(
         position: Int
     ) {
         holder.run {
+            // 排名
             setText(R.id.tv_rank, (position + 1).toString())
+            // 用户名
             setText(R.id.tv_name, data.username)
+            // 积分数量
             setText(R.id.tv_coin_count, data.coinCount.toString())
         }
     }

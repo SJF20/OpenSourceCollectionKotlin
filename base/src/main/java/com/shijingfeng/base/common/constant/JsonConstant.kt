@@ -10,3 +10,5 @@ package com.shijingfeng.base.common.constant
 
 /** Json转换 空数组 */
 const val EMPTY_ARRAY = "[]"
+/** Json转换 空对象 */
+const val EMPTY_OBJECT = "{}"

@@ -1,10 +1,12 @@
 package com.shijingfeng.base.widget.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 
@@ -13,6 +15,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 
+import static android.view.MotionEvent.ACTION_OUTSIDE;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.shijingfeng.base.util.ResourceUtil.getDrawableById;
 import static com.shijingfeng.base.util.WindowUtil.setWindowOutsideBackground;
@@ -40,6 +43,7 @@ public class CommonDialog {
     /**
      * 显示 PopupWindow
      */
+    @SuppressLint("ClickableViewAccessibility")
     public void show() {
         if (mCommonPw != null) {
             if (!mCommonPw.isShowing()) {
@@ -213,7 +217,12 @@ public class CommonDialog {
          * @return Builder
          */
         public Builder setCancelable(boolean cancelable) {
-            this.mAttr.outsideTouchable = true;
+            if (cancelable) {
+                this.mAttr.outsideTouchable = true;
+                this.mAttr.focusable = true;
+            } else {
+                this.mAttr.outsideTouchable = false;
+            }
             return this;
         }
 

@@ -42,10 +42,9 @@ internal class MainNetworkSource : BaseNetworkSource() {
     /**
      * 获取 积分信息
      * @param onSuccess 成功回调接口
-     * @param onFailure 失败回调接口
      */
-    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess, onFailure))
+    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>) {
+        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess))
     }
 
     /**

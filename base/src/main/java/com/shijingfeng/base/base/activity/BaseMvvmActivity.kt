@@ -2,7 +2,6 @@ package com.shijingfeng.base.base.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import android.util.SparseIntArray
 import androidx.annotation.IntRange
@@ -12,18 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.JsonUtils
-import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.callback.SuccessCallback
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.dialog.LoadingDialog
-import kotlin.reflect.KClass
 
 /**
  * Function: MVVM架构 Activity 基类
@@ -161,43 +155,9 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
         //SmartRefreshLayout 状态 LiveData Event监听器
         mSmartRefreshLayout?.run {
             mViewModel?.getRefreshLoadMoreStatusEvent()?.observe(this@BaseMvvmActivity, Observer { status ->
-                when (status) {
-                    // 下拉刷新成功
-                    REFRESH_SUCCESS -> finishRefresh(true)
-                    // 下拉刷新失败
-                    REFRESH_FAIL -> finishRefresh(false)
-                    // 上拉加载成功
-                    LOAD_MORE_SUCCESS -> finishLoadMore(true)
-                    // 上拉加载失败
-                    LOAD_MORE_FAIL -> finishLoadMore(false)
-                    // 上拉加载 所有数据加载完毕
-                    LOAD_MORE_ALL -> finishLoadMoreWithNoMoreData()
-                    else -> {}
-                }
+               updateRefreshLoadMoreStatus(status)
             })
         }
-    }
-
-    /**
-     * LoadSir 切换状态
-     * @param status 要切换到的状态
-     */
-    protected fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
-        val callback = when (status) {
-            // LoadSir 状态: 成功
-            SUCCESS -> SuccessCallback::class.java
-            // LoadSir 状态: 加载中
-            LOADING -> LoadingCallback::class.java
-            // LoadSir 状态: 暂无数据
-            EMPTY -> EmptyCallback::class.java
-            // LoadSir 状态: 加载失败
-            LOAD_FAIL -> LoadFailCallback::class.java
-            // 默认 LoadSir 状态 成功
-            else -> SuccessCallback::class.java
-        }
-
-        mViewModel?.mLoadServiceStatus = status
-        mLoadService?.showCallback(callback)
     }
 
     /**

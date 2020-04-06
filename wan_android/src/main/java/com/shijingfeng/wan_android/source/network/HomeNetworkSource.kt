@@ -19,6 +19,7 @@ import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 
@@ -59,25 +60,28 @@ internal class HomeNetworkSource : BaseNetworkSource() {
     /**
      * 获取首页数据
      * @param page 页码 (从0开始，为了兼容以前的)
-     * @param listener 回调监听器
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
      */
     @SuppressLint("CheckResult")
     fun getHomeDataList(page: Int, onSuccess: onSuccess<HomeDataEntity?>, onFailure: onFailure) {
+        val disposable: Disposable
+
         if (page == 0) {
             //获取 轮播图数据, 置顶列表 和 第一页的文章列表
-            addDisposable(
-                Single.zip(
+            disposable = apiRequest(
+                single = Single.zip(
                     mBannerApi.getHomeBannerData(),
                     mArticleApi.getHomeSetToTopList(),
                     mArticleApi.getHomeArticleList(page),
                     Function3<
-                        ResultEntity<List<HomeBannerEntity>>,
-                        ResultEntity<List<HomeSetToTopItem>>,
-                        ResultEntity<HomeArticleEntity>,
-                        ResultEntity<HomeDataEntity>
-                    > { homeBannerListResult,
-                        homeSetToTopItemListResult,
-                        homeArticleResult ->
+                            ResultEntity<List<HomeBannerEntity>>,
+                            ResultEntity<List<HomeSetToTopItem>>,
+                            ResultEntity<HomeArticleEntity>,
+                            ResultEntity<HomeDataEntity>
+                            > { homeBannerListResult,
+                                homeSetToTopItemListResult,
+                                homeArticleResult ->
 
                         val code: Int
                         var msg = ""
@@ -107,61 +111,44 @@ internal class HomeNetworkSource : BaseNetworkSource() {
 
                         return@Function3 ResultEntity(code, msg, homeData)
                     }
-                )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                }, { throwable ->
-                    onFailure(handle(throwable))
-                })
+                ),
+                onSuccess = onSuccess,
+                onFailure = onFailure
             )
         } else {
             //获取指定页码的文章列表
-            addDisposable(
-                mArticleApi
-                    .getHomeArticleList(page)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ result ->
-                        if (result.code == SERVER_SUCCESS) {
-                            onSuccess(HomeDataEntity().also { homeData ->
-                                result.data?.let { homeArticle ->
-                                    homeData.homeArticle = homeArticle
-                                }
-                            })
-                        } else {
-                            onFailure(handle(ServerException(result.code, result.msg)))
+            disposable = apiRequest(
+                single = mArticleApi.getHomeArticleList(page),
+                onSuccess = { data ->
+                    onSuccess(HomeDataEntity().also { homeData ->
+                        data?.let { homeArticle ->
+                            homeData.homeArticle = homeArticle
                         }
-                    }, { throwable ->
-                        onFailure(handle(throwable))
                     })
+                },
+                onFailure = onFailure
             )
         }
+
+        addDisposable(disposable)
     }
 
     /**
      * 收藏
      * @param articleId 文章ID
      * @param onSuccess 成功回调函数
-     * @param onFailure 失败回调函数
      */
-    fun collected(articleId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess, onFailure))
+    fun collected(articleId: String, onSuccess: onSuccess<Any?>) {
+        addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess))
     }
 
     /**
      * 取消收藏
      * @param articleId 文章ID
      * @param onSuccess 成功回调函数
-     * @param onFailure 失败回调函数
      */
-    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess, onFailure))
+    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>) {
+        addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess))
     }
 
     /**

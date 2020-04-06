@@ -5,17 +5,20 @@ import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.entity.event.ListDataChangeEvent
+import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
-import com.shijingfeng.wan_android.constant.SERVER_NEED_LOGIN
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
+import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.source.repository.HomeRepository
+import com.shijingfeng.wan_android.ui.fragment.HomeFragment
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Function: 首页 ViewModel
@@ -45,23 +48,29 @@ internal class HomeViewModel(
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
-        if (mLoadServiceStatus == LOADING) {
+        if (mLoadServiceStatus == LOAD_SERVICE_LOADING) {
             return@OnReloadListener
         }
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD
-        getLoadServiceStatusEvent().value = LOADING
-        getHomeData(FIRST_PAGE)
+        showCallback(LOAD_SERVICE_LOADING)
+        load()
     }
     /** 下拉刷新  */
     val mOnRefreshListener = OnRefreshListener { refresh() }
     /** 上拉加载  */
-    val mOnLoadMoreListener = OnLoadMoreListener { load() }
+    val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
 
     /**
      * 初始化
      */
     override fun init() {
         super.init()
+        load()
+    }
+
+    /**
+     * 加载数据
+     */
+    private fun load() {
         mDataOperateType = DATA_OPERATE_TYPE_LOAD
         getHomeData(FIRST_PAGE)
     }
@@ -77,7 +86,7 @@ internal class HomeViewModel(
     /**
      * 上拉加载
      */
-    fun load() {
+    private fun loadMore() {
         mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
         getHomeData(mPage + 1)
     }
@@ -92,7 +101,8 @@ internal class HomeViewModel(
             val homeSetToTopItemList = homeData?.homeSetToTopItemList
             val homeArticle = homeData?.homeArticle
             val homeArticleItemList = homeArticle?.dataList
-            val event = ListDataChangeEvent<HomeItem>()
+            val event =
+                ListDataChangeEvent<HomeItem>()
 
             when (mDataOperateType) {
                 //加载数据
@@ -116,7 +126,7 @@ internal class HomeViewModel(
                     event.dataList = mHomeItemDataList
 
                     mHomeDataChangeEvent.value = event
-                    getLoadServiceStatusEvent().value = if (mHomeItemDataList.isEmpty()) EMPTY else SUCCESS
+                    showCallback(if (mHomeItemDataList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
                 //下拉刷新
                 DATA_OPERATE_TYPE_REFRESH -> {
@@ -139,15 +149,15 @@ internal class HomeViewModel(
                     event.dataList = mHomeItemDataList
 
                     mHomeDataChangeEvent.value = event
-                    getRefreshLoadMoreStatusEvent().value = REFRESH_SUCCESS
+                    updateRefreshLoadMoreStatus(REFRESH_SUCCESS)
                     if (mHomeItemDataList.isEmpty()) {
-                        getLoadServiceStatusEvent().value = EMPTY
+                        showCallback(LOAD_SERVICE_EMPTY)
                     }
                 }
                 //上拉加载
                 DATA_OPERATE_TYPE_LOAD_MORE -> {
                     if (homeArticleItemList.isNullOrEmpty()) {
-                        getRefreshLoadMoreStatusEvent().value = LOAD_MORE_ALL
+                        updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
                         return@getHomeDataList
                     }
                     ++mPage
@@ -158,18 +168,18 @@ internal class HomeViewModel(
 
                     mHomeItemDataList.addAll(homeArticleItemList)
                     mHomeDataChangeEvent.value = event
-                    getRefreshLoadMoreStatusEvent().value = LOAD_MORE_SUCCESS
+                    updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
                 }
                 else -> {}
             }
         }, onFailure = {
             when (mDataOperateType) {
                 //加载数据
-                DATA_OPERATE_TYPE_LOAD -> getLoadServiceStatusEvent().value = LOAD_FAIL
+                DATA_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                 //下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> getRefreshLoadMoreStatusEvent().value = REFRESH_FAIL
+                DATA_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                 //上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> getRefreshLoadMoreStatusEvent().value = LOAD_MORE_FAIL
+                DATA_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
                 else -> {}
             }
         })
@@ -181,16 +191,17 @@ internal class HomeViewModel(
      */
     fun collected(articleId: String) {
         mRepository?.collected(articleId, onSuccess = {
-            ToastUtils.showShort("收藏成功")
+            ToastUtils.showShort(getStringById(R.string.收藏成功))
             mCollectedStatusEvent.value = SparseArray<Any?>().apply {
                 put(KEY_COLLECTED, true)
                 put(KEY_ARTICLE_ID, articleId)
             }
-        }, onFailure = { httpException ->
-            if (httpException?.errorCode == SERVER_NEED_LOGIN) {
-                //需要登录
-                navigation(path = ACTIVITY_WAN_ANDROID_LOGIN)
-            }
+            // 收藏该文章 广播出去
+            EventBus.getDefault().post(ArticleCollectionEvent(
+                fromName = HomeFragment::class.java.name,
+                id = articleId,
+                collected = true
+            ))
         })
     }
 
@@ -200,16 +211,17 @@ internal class HomeViewModel(
      */
     fun uncollected(articleId: String) {
         mRepository?.uncollected(articleId, onSuccess = {
-            ToastUtils.showShort("取消收藏成功")
+            ToastUtils.showShort(getStringById(R.string.取消收藏成功))
             mCollectedStatusEvent.value = SparseArray<Any?>().apply {
                 put(KEY_COLLECTED, false)
                 put(KEY_ARTICLE_ID, articleId)
             }
-        }, onFailure = { httpException ->
-            if (httpException?.errorCode == SERVER_NEED_LOGIN) {
-                //需要登录
-                navigation(path = ACTIVITY_WAN_ANDROID_LOGIN)
-            }
+            // 取消收藏该文章 广播出去
+            EventBus.getDefault().post(ArticleCollectionEvent(
+                fromName = HomeFragment::class.java.name,
+                id = articleId,
+                collected = false
+            ))
         })
     }
 

@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.shijingfeng.base.base.adapter.CommonAdapter
@@ -34,13 +35,26 @@ internal class KnowledgeClassifyAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: KnowledgeClassifyEntity, position: Int) {
+        // 知识标签 View列表 容器
         val llChild = holder.getView<LinearLayout>(R.id.ll_child)
 
-        holder.setText(R.id.tv_name, data.name)
+        holder.run {
+            // 知识体系名称
+            setText(R.id.tv_name, data.name)
+            // 查看 知识体系 详情
+            setOnClickListener(
+                viewId = R.id.ll_content,
+                listener = View.OnClickListener { v ->
+                    mOnItemEvent?.invoke(v, data, 0, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
+                }
+            )
+        }
         if (data.childrenList.isEmpty()) {
             llChild?.visibility = View.GONE
         } else {
+            // 可容纳的最大宽度
             val totalWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15f)
+            // 知识标签 View列表
             val viewList = ArrayList<View>()
 
             for (i in data.childrenList.indices) {
@@ -51,13 +65,15 @@ internal class KnowledgeClassifyAdapter(
                     text = name
                     setPadding(ConvertUtils.dp2px(15F), ConvertUtils.dp2px(7F), ConvertUtils.dp2px(15F), ConvertUtils.dp2px(7F))
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
-                    setOnClickListener { v ->
-                        mOnItemEvent?.invoke(v, data, i, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
+                    // 查看 知识标签 详情
+                    ClickUtils.applySingleDebouncing(this) {
+                        mOnItemEvent?.invoke(this, data, i, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
                     }
                 })
             }
 
             if (llChild != null) {
+                // 对 知识标签控件 进行整体布局 (按控件宽度逐行排列，没有固定列数)
                 layout(
                     llChild,
                     viewList,
@@ -67,9 +83,6 @@ internal class KnowledgeClassifyAdapter(
                 )
                 llChild.visibility = View.VISIBLE
             }
-        }
-        holder.itemView.setOnClickListener { v ->
-            mOnItemEvent?.invoke(v, data, 0, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
         }
     }
 }

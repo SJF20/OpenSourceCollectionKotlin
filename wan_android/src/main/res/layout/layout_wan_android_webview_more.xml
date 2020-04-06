@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="刷新"
+            android:text="@string/刷新"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="分享"
+            android:text="@string/分享"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="收藏"
+            android:text="@string/收藏"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="用浏览器打开"
+            android:text="@string/用浏览器打开"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

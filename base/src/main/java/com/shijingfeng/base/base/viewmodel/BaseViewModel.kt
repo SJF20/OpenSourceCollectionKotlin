@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.SparseArray
 import android.util.SparseIntArray
-import androidx.lifecycle.*
+import androidx.annotation.IntRange
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -14,6 +18,8 @@ import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.R.string.再按一次退出应用
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import org.greenrobot.eventbus.EventBus
@@ -29,11 +35,11 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
 ) : ViewModel(), DefaultLifecycleObserver {
 
     /** 常用的 LiveData Event 管理器  */
-    private val mCommonEventManager: CommonEventManager by lazy { CommonEventManager() }
+    private val mCommonEventManager by lazy { CommonEventManager() }
     /** LoadService 状态 LiveData Event  */
-    private val mLoadServiceStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+    private val mLoadServiceStatusEvent by lazy { MutableLiveData<Int>() }
     /** 刷新 或 上拉加载 状态 LiveData Event  */
-    private val mRefreshLoadMoreStatusEvent: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
+    private val mRefreshLoadMoreStatusEvent by lazy { MutableLiveData<Int>() }
 
     /** Disposable容器  */
     private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
@@ -41,7 +47,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     /** 页面跳转携带的数据Bundle (注意: 和 Activity 或 Fragment 的 mDataBundle 做区分, mDataBundle随着 Activity重启 或 Fragment重启 会改变) */
     var mParamBundle: Bundle? = null
     /** LoadSir 状态 */
-    var mLoadServiceStatus = SUCCESS
+    var mLoadServiceStatus = LOAD_SERVICE_SUCCESS
+    /** 下拉刷新 或 上拉加载 状态 */
+    var mRefreshLoadMoreStatus = 0
 
     /** 连续双击退出应用  */
     protected var mExitApp: Boolean = false
@@ -88,6 +96,24 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @return 刷新 或 上拉加载 状态 SingleLiveEvent
      */
     fun getRefreshLoadMoreStatusEvent() = mRefreshLoadMoreStatusEvent
+
+    /**
+     * LoadSir 切换状态
+     * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
+     */
+    fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+        mLoadServiceStatus = status
+        getLoadServiceStatusEvent().value = status
+    }
+
+    /**
+     * 更新 下拉刷新，上拉加载 状态
+     * @param status 下拉刷新 或 上拉加载 状态 {@link com.zjn.transport.constant.StatusConstant#REFRESH_SUCCESS}
+     */
+    fun updateRefreshLoadMoreStatus (status: Int) {
+        mRefreshLoadMoreStatus = status
+        getRefreshLoadMoreStatusEvent().value = status
+    }
 
     /**
      * 显示加载中Dialog
@@ -200,7 +226,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
             ActivityUtils.finishAllActivities()
         } else {
             mExitApp = true
-            ToastUtils.showShort("再按一次退出应用")
+            ToastUtils.showShort(getStringById(再按一次退出应用))
             //超过两秒没有再次点击，则不退出App
             Handler().postDelayed({ mExitApp = false }, 2000)
         }
@@ -226,6 +252,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
         mHasInited = true
     }
 
+    /**
+     * 会在 Activity 的 onCreate 方法完全执行完后执行
+     */
     override fun onCreate(owner: LifecycleOwner) {
         if (owner !is BaseFragment && !mHasInited) {
             init()

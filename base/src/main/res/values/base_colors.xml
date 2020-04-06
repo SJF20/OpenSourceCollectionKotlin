@@ -16,6 +16,7 @@
     <color name="light_grey">#EBEBEB</color>
     <color name="white_smoke">#F5F5F5</color>
     <color name="red">#FF0000</color>
+    <color name="orange">#FFA500</color>
     <color name="blue">#0000FF</color>
     <color name="dodger_blue">#1E90FF</color>
 </resources>

@@ -1,6 +1,6 @@
 package com.shijingfeng.base.http.request
 
-import com.shijingfeng.base.entity.event.UploadEvent
+import com.shijingfeng.base.entity.event.event_bus.UploadEvent
 import okhttp3.RequestBody
 import okio.*
 import org.greenrobot.eventbus.EventBus
@@ -49,7 +49,14 @@ internal class ProgressRequestBody(
                 //增加当前写入的字节数
                 currentLength += byteCount
                 //使用EventBus的方式，实时发送当前已上传的字节数据
-                EventBus.getDefault().post(UploadEvent(currentLength, totalLength, currentLength == totalLength, mTag))
+                EventBus.getDefault().post(
+                    UploadEvent(
+                        currentLength,
+                        totalLength,
+                        currentLength == totalLength,
+                        mTag
+                    )
+                )
             }
         }
     }

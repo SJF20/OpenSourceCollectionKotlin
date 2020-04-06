@@ -13,6 +13,10 @@ internal const val SKIP_TO_HOME = "skip_to_home"
 internal const val KNOWLEDGE_CLASSIFY_ENTITY = "knowledge_classify_entity"
 /** Bundle Key(String) Value(boolean)  登录页面是否能返回 (App是否只剩下登录页面了)  */
 internal const val LOGIN_ACTIVITY_CAN_BACK = "login_activity_can_back"
+/** Bundle Key(String) Value(String)  文章ID  */
+internal const val ARTICLE_ID = "article_id"
+/** Bundle Key(String) Value(boolean)  文章是否已被收藏 (true: 已被收藏, false: 未被收藏) */
+internal const val ARTICLE_COLLECTED = "article_collected"
 
 /** Map Key(String) Value(String)  RecyclerView适配器局部更新标记  */
 internal const val PART_UPDATE_FLAG = "part_update_flag"
@@ -32,8 +36,6 @@ internal const val SCROLL_TO_UP = 2
 /** TabLayout可见性  */
 internal const val TAB_LAYOUT_VISIBILITY = "tab_layout_visibility"
 
-/** 类型: 未知 */
-internal const val HOME_UNKNOWN = 0
 /** 类型: 首页轮播图  */
 internal const val HOME_BANNER = 1
 /** 类型: 置顶  */
@@ -49,6 +51,12 @@ internal const val VIEW_ARTICLE_DETAIL = "view_article_detail"
 internal const val ARTICLE_ITEM_COLLECTION = "article_item_collection"
 /** 文章Item 取消收藏  */
 internal const val ARTICLE_ITEM_UNCOLLECTED = "article_item_uncollected"
+/** 网站Item 取消收藏 */
+internal const val WEBSITE_ITEM_UNCOLLECTED = "website_item_uncollected"
+/** 网站Item 编辑 */
+internal const val WEBSITE_ITEM_EDIT = "website_item_edit"
+/** 查看网站详情 */
+internal const val VIEW_WEBSITE_DETAIL = "view_website_detail"
 
 /** 查看知识体系详情  */
 internal const val VIEW_KNOWLEDGE_CLASSIFY_DETAIL = "view_knowledge_classify_detail"

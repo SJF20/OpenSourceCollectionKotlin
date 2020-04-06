@@ -66,8 +66,6 @@ internal data class UserInfoEntity(
      * 获取ID
      * @return ID
      */
-    override fun getId(): String {
-        return identity
-    }
+    override fun getId() = identity
 
 }

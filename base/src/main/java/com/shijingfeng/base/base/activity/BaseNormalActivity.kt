@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.IntRange
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -33,6 +34,11 @@ import kotlinx.coroutines.cancel
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.callback.SuccessCallback
+import com.shijingfeng.base.callback.EmptyCallback
+import com.shijingfeng.base.callback.LoadFailCallback
+import com.shijingfeng.base.callback.LoadingCallback
+import com.shijingfeng.base.util.getStringById
 
 /**
  * Function: 通用的 Activity 基类
@@ -138,9 +144,50 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
     protected open fun isSetCustomStatusBar() = false
 
     /**
+     * LoadSir 切换状态
+     * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
+     */
+    protected fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+        mLoadService?.showCallback(when (status) {
+            // LoadSir 状态: 成功
+            LOAD_SERVICE_SUCCESS -> SuccessCallback::class.java
+            // LoadSir 状态: 加载中
+            LOAD_SERVICE_LOADING -> LoadingCallback::class.java
+            // LoadSir 状态: 暂无数据
+            LOAD_SERVICE_EMPTY -> EmptyCallback::class.java
+            // LoadSir 状态: 加载失败
+            LOAD_SERVICE_LOAD_FAIL -> LoadFailCallback::class.java
+            // 默认 LoadSir 状态 成功
+            else -> SuccessCallback::class.java
+        })
+    }
+
+    /**
+     * 更新 下拉刷新，上拉加载 状态
+     * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
+     */
+    protected fun updateRefreshLoadMoreStatus(status: Int) {
+        mSmartRefreshLayout?.run {
+            when (status) {
+                // 下拉刷新成功
+                REFRESH_SUCCESS -> finishRefresh(true)
+                // 下拉刷新失败
+                REFRESH_FAIL -> finishRefresh(false)
+                // 上拉加载成功
+                LOAD_MORE_SUCCESS -> finishLoadMore(true)
+                // 上拉加载失败
+                LOAD_MORE_FAIL -> finishLoadMore(false)
+                // 上拉加载 所有数据加载完毕
+                LOAD_MORE_ALL -> finishLoadMoreWithNoMoreData()
+                else -> {}
+            }
+        }
+    }
+
+    /**
      * 打开相机
      */
-    fun openCamera() {
+    protected fun openCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             //权限已授予，执行打开相机操作
             val saveFile = File(PERSONAL_CACHE_DIR, "shoot_" + System.currentTimeMillis() + ".jpg")
@@ -176,12 +223,12 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
                                     openCamera()
                                 }
                                 it.shouldShowRequestPermissionRationale -> {
-                                    ToastUtils.showShort("相机权限授予失败")
+                                    ToastUtils.showShort(getStringById(R.string.相机权限授予失败))
                                 }
                                 else -> {
                                     AlertDialog.Builder(this@BaseNormalActivity)
-                                        .setMessage("需要您去设置页面，「权限管理」，开启「相机」权限")
-                                        .setPositiveButton("去设置") {_, _ ->
+                                        .setMessage(getStringById(R.string.设置页面开启相机权限))
+                                        .setPositiveButton(getStringById(R.string.去设置)) { _, _ ->
                                             startActivity(Intent().apply {
                                                 action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                                                 data = Uri.fromParts("package", packageName, null)
@@ -202,13 +249,13 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
     /**
      * 打开相册
      */
-    fun openPhoto() {
+    protected fun openPhoto() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             //权限已授予，打开相册
             startActivityForResult(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_PICK
                 setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-            }, "选择图片"), RESULT_PHOTO)
+            }, getStringById(R.string.选择图片)), RESULT_PHOTO)
         } else {
             //权限未授予，请求相机权限
             mRxPermissions?.run {
@@ -221,12 +268,12 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
                                     openPhoto()
                                 }
                                 it.shouldShowRequestPermissionRationale -> {
-                                    ToastUtils.showShort("外部存储权限授予失败")
+                                    ToastUtils.showShort(getStringById(R.string.外部存储权限授予失败))
                                 }
                                 else -> {
                                     AlertDialog.Builder(this@BaseNormalActivity)
-                                        .setMessage("需要您去设置页面，「权限管理」，开启「外部存储」权限")
-                                        .setPositiveButton("去设置") {_, _ ->
+                                        .setMessage(getStringById(R.string.设置页面开启外部存储权限))
+                                        .setPositiveButton(getStringById(R.string.去设置)) { _, _ ->
                                             startActivity(Intent().apply {
                                                 action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                                                 data = Uri.fromParts("package", packageName, null)
@@ -249,7 +296,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      *
      * @param data 原始图片URI
      */
-    fun startImageClip(data: Uri?) {
+    protected fun startImageClip(data: Uri?) {
         val saveClipImageFile = File(PERSONAL_CACHE_DIR, "clip_" + System.currentTimeMillis() + ".jpg")
 
         mClipTempFilePath = saveClipImageFile.absolutePath
@@ -276,7 +323,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * 添加Disposable
      * @param disposable Disposable
      */
-    fun addDisposable(disposable: Disposable) {
+    protected fun addDisposable(disposable: Disposable) {
         mCompositeDisposable.add(disposable)
     }
 

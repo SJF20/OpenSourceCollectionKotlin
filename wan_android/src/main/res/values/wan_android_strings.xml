@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="wan_android_name">玩Android</string>
 
     <string name="四杠占位符">----</string>
@@ -30,9 +30,32 @@
     <string name="刷新">刷新</string>
     <string name="分享">分享</string>
     <string name="收藏">收藏</string>
+    <string name="取消收藏">取消收藏</string>
     <string name="用浏览器打开">用浏览器打开</string>
     <string name="积分排行榜">积分排行榜</string>
     <string name="积分记录">积分记录</string>
     <string name="积分规则">积分规则</string>
-    <string name="我的收藏文章">我的收藏文章</string>
+    <string name="文章收藏">文章收藏</string>
+    <string name="网站收藏">网站收藏</string>
+    <string name="未知作者">未知作者</string>
+    <string name="编辑">编辑</string>
+    <string name="删除">删除</string>
+    <string name="网站标题">网站标题</string>
+    <string name="网站链接">网站链接</string>
+    <string name="需要登录">需要登录</string>
+    <string name="是否退出登录">是否退出登录？</string>
+    <string name="是">是</string>
+    <string name="否">否</string>
+    <string name="收藏成功">收藏成功</string>
+    <string name="取消收藏成功">取消收藏成功</string>
+    <string name="已经取消收藏">已经取消收藏</string>
+    <string name="网络请求错误">网络请求错误</string>
+    <string name="解析错误">解析错误</string>
+    <string name="网络连接错误">网络连接错误</string>
+    <string name="未知错误">未知错误</string>
+    <string name="登录中" tools:ignore="TypographyEllipsis">登录中...</string>
+    <string name="退出登录中" tools:ignore="TypographyEllipsis">退出登录中...</string>
+    <string name="服务器出错登录失败">服务器出错，登录失败</string>
+    <string name="服务器出错注册失败">服务器出错，注册失败</string>
+    <string name="两次输入密码不一致">两次输入密码不一致</string>
 </resources>

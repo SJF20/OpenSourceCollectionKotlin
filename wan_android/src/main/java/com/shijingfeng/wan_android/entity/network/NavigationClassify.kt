@@ -30,9 +30,7 @@ internal data class NavigationClassifyEntity(
      * 获取ID
      * @return ID
      */
-    override fun getId(): String {
-        return cid
-    }
+    override fun getId() = cid
 
 }
 
@@ -145,9 +143,7 @@ internal data class NavigationClassifyArticle(
      * 获取ID
      * @return ID
      */
-    override fun getId(): String {
-        return identity
-    }
+    override fun getId() = identity
 
 }
 

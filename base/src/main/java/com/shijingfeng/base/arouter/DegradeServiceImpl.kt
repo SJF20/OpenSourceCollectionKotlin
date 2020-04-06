@@ -5,6 +5,8 @@ import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.service.DegradeService
 import com.blankj.utilcode.util.ToastUtils
+import com.shijingfeng.base.R
+import com.shijingfeng.base.util.getStringById
 
 /**
  * Function: 全局降级 Service (项目中只允许有一个 DegradeService 子类, 否则执行最新加载的那一个)
@@ -27,7 +29,7 @@ internal class DegradeServiceImpl : DegradeService {
      * @param postcard Postcard
      */
     override fun onLost(context: Context, postcard: Postcard) {
-        ToastUtils.showShort("哎呀，页面打开失败！")
+        ToastUtils.showShort(getStringById(R.string.哎呀页面打开失败))
     }
 
 }

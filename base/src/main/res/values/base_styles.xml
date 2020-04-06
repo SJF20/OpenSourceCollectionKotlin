@@ -1,6 +1,6 @@
 <resources>
     <!-- 工程主题 -->
-    <style name="ProjectTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="ProjectTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -14,10 +14,16 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
-    <!-- PopupWindow动画 -->
-    <style name="pop_anim" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/anim_window_pop_in</item>
-        <item name="android:windowExitAnimation">@anim/anim_window_pop_out</item>
+    <!-- 从底部弹出的Dialog 动画 -->
+    <style name="bottom_dialog_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_dialog_hide</item>
+    </style>
+
+    <!-- 从顶部弹出的Dialog 动画 -->
+    <style name="top_dialog_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_top_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_top_dialog_hide</item>
     </style>
 
     <!-- 全局Activity动画 -->

@@ -11,27 +11,26 @@ import android.provider.Settings
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.IntRange
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ToastUtils
+import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shijingfeng.base.R
 import com.shijingfeng.base.interfaces.BackPressMonitor
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.annotation.NeedPermissions
-import com.shijingfeng.base.common.constant.PERSONAL_CACHE_DIR
-import com.shijingfeng.base.common.constant.RESULT_CAMERA
-import com.shijingfeng.base.common.constant.RESULT_CLIP
-import com.shijingfeng.base.common.constant.RESULT_PHOTO
+import com.shijingfeng.base.callback.EmptyCallback
+import com.shijingfeng.base.callback.LoadFailCallback
+import com.shijingfeng.base.callback.LoadingCallback
+import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.common.extension.onItemEvent
 import com.shijingfeng.base.interfaces.KeyDownMonitor
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.base.util.getStatusBarHeight
-import com.shijingfeng.base.util.setStatusBarColor
-import com.shijingfeng.base.util.setStatusBarContentColor
+import com.shijingfeng.base.util.*
 import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -243,12 +242,53 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     protected open fun getStatusBarBackground() = getDrawableById(R.color.project_status_bar_default_color)
 
     /**
+     * LoadSir 切换状态
+     * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
+     */
+    protected fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+        mLoadService?.showCallback(when (status) {
+            // LoadSir 状态: 成功
+            LOAD_SERVICE_SUCCESS -> SuccessCallback::class.java
+            // LoadSir 状态: 加载中
+            LOAD_SERVICE_LOADING -> LoadingCallback::class.java
+            // LoadSir 状态: 暂无数据
+            LOAD_SERVICE_EMPTY -> EmptyCallback::class.java
+            // LoadSir 状态: 加载失败
+            LOAD_SERVICE_LOAD_FAIL -> LoadFailCallback::class.java
+            // 默认 LoadSir 状态 成功
+            else -> SuccessCallback::class.java
+        })
+    }
+
+    /**
+     * 更新 下拉刷新，上拉加载 状态
+     * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
+     */
+    protected fun updateRefreshLoadMoreStatus(status: Int) {
+        mSmartRefreshLayout?.run {
+            when (status) {
+                // 下拉刷新成功
+                REFRESH_SUCCESS -> finishRefresh(true)
+                // 下拉刷新失败
+                REFRESH_FAIL -> finishRefresh(false)
+                // 上拉加载成功
+                LOAD_MORE_SUCCESS -> finishLoadMore(true)
+                // 上拉加载失败
+                LOAD_MORE_FAIL -> finishLoadMore(false)
+                // 上拉加载 所有数据加载完毕
+                LOAD_MORE_ALL -> finishLoadMoreWithNoMoreData()
+                else -> {}
+            }
+        }
+    }
+
+    /**
      * 跳转Activity页面
      * @param cls 要跳转到的页面反射Class
      * @param bundle 携带的数据
      * @param requestCode 请求码
      */
-    fun startActivity(cls: Class<*>, bundle: Bundle? = null, requestCode: Int = -1) {
+    protected fun startActivity(cls: Class<*>, bundle: Bundle? = null, requestCode: Int = -1) {
         activity?.let { activity ->
             startActivityForResult(Intent().apply {
                 setClass(activity, cls)
@@ -262,7 +302,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     /**
      * 打开相机
      */
-    fun openCamera() {
+    protected fun openCamera() {
         activity?.let { activity ->
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 //权限已授予，执行打开相机操作
@@ -293,12 +333,12 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
                                         openCamera()
                                     }
                                     permission.shouldShowRequestPermissionRationale -> {
-                                        ToastUtils.showShort("相机权限授予失败")
+                                        ToastUtils.showShort(getStringById(R.string.相机权限授予失败))
                                     }
                                     else -> {
                                         AlertDialog.Builder(activity)
-                                            .setMessage("需要您去设置页面，「权限管理」，开启「相机」权限")
-                                            .setPositiveButton("去设置") {_, _ ->
+                                            .setMessage(getStringById(R.string.设置页面开启相机权限))
+                                            .setPositiveButton(getStringById(R.string.去设置)) { _, _ ->
                                                 startActivity(Intent().apply {
                                                     action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                                                     data = Uri.fromParts("package", activity.packageName, null)
@@ -320,14 +360,14 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     /**
      * 打开相册
      */
-    fun openPhoto() {
+    protected fun openPhoto() {
         activity?.let { activity ->
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 //权限已授予，打开相册
                 startActivityForResult(Intent.createChooser(Intent().apply {
                     action = Intent.ACTION_PICK
                     setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-                }, "选择图片"), RESULT_PHOTO)
+                }, getStringById(R.string.选择图片)), RESULT_PHOTO)
             } else {
                 //权限未授予，请求相机权限
                 mRxPermissions?.run {
@@ -340,12 +380,12 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
                                         openPhoto()
                                     }
                                     it.shouldShowRequestPermissionRationale -> {
-                                        ToastUtils.showShort("外部存储权限授予失败")
+                                        ToastUtils.showShort(getStringById(R.string.外部存储权限授予失败))
                                     }
                                     else -> {
                                         AlertDialog.Builder(activity)
-                                            .setMessage("需要您去设置页面，「权限管理」，开启「外部存储」权限")
-                                            .setPositiveButton("去设置") {_, _ ->
+                                            .setMessage(getStringById(R.string.设置页面开启外部存储权限))
+                                            .setPositiveButton(getStringById(R.string.去设置)) {_, _ ->
                                                 startActivity(Intent().apply {
                                                     action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                                                     data = Uri.fromParts("package", activity.packageName, null)
@@ -369,7 +409,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      *
      * @param data 原始图片URI
      */
-    fun startImageClip(data: Uri?) {
+    protected fun startImageClip(data: Uri?) {
         val intent = Intent("com.android.camera.action.CROP")
         val saveClipImageFile = File(PERSONAL_CACHE_DIR, "clip_" + System.currentTimeMillis() + ".jpg")
 
@@ -397,7 +437,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * 添加Disposable
      * @param disposable Disposable
      */
-    fun addDisposable(disposable: Disposable) {
+    protected fun addDisposable(disposable: Disposable) {
         mCompositeDisposable.add(disposable)
     }
 

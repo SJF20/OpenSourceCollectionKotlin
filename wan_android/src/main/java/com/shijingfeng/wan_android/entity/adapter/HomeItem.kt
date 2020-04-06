@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.wan_android.constant.HOME_ARTICLE
 import com.shijingfeng.wan_android.constant.HOME_BANNER
 import com.shijingfeng.wan_android.constant.HOME_SET_TO_TOP
-import com.shijingfeng.wan_android.constant.HOME_UNKNOWN
+import com.shijingfeng.base.common.constant.ADAPTER_TYPE_UNKNOWN
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 
 /**
@@ -21,10 +21,13 @@ internal abstract class HomeItem : BaseEntity() {
      */
     fun getType(): Int {
         return when(this) {
+            // 轮播图
             is HomeBannerItem -> HOME_BANNER
+            // 置顶文章
             is HomeSetToTopItem -> HOME_SET_TO_TOP
+            // 文章
             is HomeArticleItem -> HOME_ARTICLE
-            else -> HOME_UNKNOWN
+            else -> ADAPTER_TYPE_UNKNOWN
         }
     }
 }

@@ -36,8 +36,8 @@ android {
         }
     }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    //会导致无法联网
-//    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -54,11 +54,11 @@ android {
             }
         }
 
-        // Specifies the ABI configurations of your native
-        // libraries Gradle should build and package with your APK.
-//        ndk {
-//            abiFilters "armeabi"
-//        }
+        // 腾讯X5 必须显式指定 armeabi so库
+        // 大厂APP一般只有一个 armeabi so库文件
+        ndk {
+            abiFilters "armeabi"
+        }
     }
     buildTypes {
         //正式模式
@@ -194,9 +194,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    //依赖 common 模块
+
+    // 依赖 tencent_x5 模块
+    implementation project(path: ':tencent_x5')
+    // 依赖 common 模块
     implementation project(path: ':common')
-    //依赖 base 模块
+    // 依赖 base 模块
     implementation project(path: ':base')
     // 依赖 wan_android 库模块
     if (!rootProject.ext.isWanAndroidApplication) {
@@ -206,7 +209,8 @@ dependencies {
     if (!rootProject.ext.isTodoApplication) {
         implementation project(path: ':todo')
     }
-    //ARouter 路由框架 注解执行器
+
+    // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }
 

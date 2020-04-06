@@ -1,6 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="common_name">common</string>
 
     <string name="保存图片">保存图片</string>
     <string name="取消">取消</string>
+    <string name="保存中" tools:ignore="TypographyEllipsis">保存中...</string>
+    <string name="保存失败">保存失败</string>
+    <string name="保存成功">保存成功</string>
+    <string name="外部存储权限授予失败">外部存储权限授予失败</string>
+    <string name="设置页面开启外部存储权限">需要您去设置页面，「权限管理」，开启「外部存储」权限</string>
+    <string name="去设置">去设置</string>
 </resources>

@@ -54,20 +54,18 @@ internal class HomeRepository(
      * 收藏
      * @param articleId 文章ID
      * @param onSuccess 成功回调函数
-     * @param onFailure 失败回调函数
      */
-    fun collected(articleId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        mNetworkSource?.collected(articleId, onSuccess, onFailure)
+    fun collected(articleId: String, onSuccess: onSuccess<Any?>) {
+        mNetworkSource?.collected(articleId, onSuccess)
     }
 
     /**
      * 取消收藏
      * @param articleId 文章ID
      * @param onSuccess 成功回调函数
-     * @param onFailure 失败回调函数
      */
-    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        mNetworkSource?.uncollected(articleId, onSuccess, onFailure)
+    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>) {
+        mNetworkSource?.uncollected(articleId, onSuccess)
     }
 
     /**

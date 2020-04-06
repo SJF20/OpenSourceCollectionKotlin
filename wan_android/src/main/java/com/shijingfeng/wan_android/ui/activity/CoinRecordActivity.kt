@@ -79,7 +79,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
-            showCallback(LOADING)
+            showCallback(LOAD_SERVICE_LOADING)
         }
 
         // 设置个人积分数量
@@ -89,7 +89,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
 
         mCoinRecordAdapter = CoinRecordAdapter(
             this,
-            R.layout.adapter_wan_android_item_coin_record,
+            R.layout.adapter_item_wan_android_coin_record,
             mViewModel?.mCoinRecordItemList
         )
         rv_content.layoutManager = LinearLayoutManager(this)

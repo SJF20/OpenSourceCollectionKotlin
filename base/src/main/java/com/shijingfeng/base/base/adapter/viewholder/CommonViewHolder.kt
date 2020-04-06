@@ -11,10 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import androidx.annotation.IntRange
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ClickUtils
 import com.shijingfeng.base.base.adapter.CommonAdapter
 import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.util.cast
@@ -208,14 +210,34 @@ class CommonViewHolder constructor (
     /**
      * View 设置 OnClickListener
      * @param viewId View Id
+     * @param duration 下一次可点击的间隔时间(毫秒值) (防连击) (默认 200 ms)
      * @param listener OnClickListener
      * @return CommonViewHolder
      */
     fun setOnClickListener(
         @IdRes viewId: Int,
+        @IntRange(from = 0) duration: Long = 200,
         listener: View.OnClickListener?
     ): CommonViewHolder? {
-        getView<View>(viewId)?.setOnClickListener(listener)
+        val view = getView<View>(viewId)
+
+        ClickUtils.applySingleDebouncing(view, duration, listener)
+        return this
+    }
+
+    /**
+     * View 设置 OnClickListener
+     * @param view View
+     * @param duration 下一次可点击的间隔时间 (防连击)
+     * @param listener OnClickListener
+     * @return CommonViewHolder
+     */
+    fun setOnClickListener(
+        view: View,
+        @IntRange(from = 0) duration: Long = 0,
+        listener: View.OnClickListener?
+    ): CommonViewHolder? {
+        ClickUtils.applySingleDebouncing(view, duration, listener)
         return this
     }
 

@@ -1,9 +1,9 @@
 package com.shijingfeng.wan_android.source.network.api
 
-import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.wan_android.entity.network.ArticleCollectedListEntity
+import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleEntity
+import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.entity.network.ResultEntity
 import io.reactivex.Single
 import retrofit2.http.*
@@ -23,7 +23,7 @@ internal interface CollectionApi {
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @GET("lg/collect/list/{page}/json")
-    fun getArticleCollectedList(@Path("page") page: Int): Single<ResultEntity<ArticleCollectedListEntity>>
+    fun getArticleCollectedList(@Path("page") page: Int): Single<ResultEntity<PersonalCollectionArticleEntity>>
 
     /**
      * 收藏站内文章
@@ -66,6 +66,53 @@ internal interface CollectionApi {
     fun uncollectedInCollectedList(
         @Path("articleId") articleId: String,
         @Field("originId") originId: String
+    ): Single<ResultEntity<Any>>
+
+    /**
+     * 获取 网站收藏列表
+     * @return RxJava Single
+     */
+    @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
+    @GET("lg/collect/usertools/json")
+    fun getWebsiteCollectedList(): Single<ResultEntity<List<PersonalCollectionWebsiteEntity>>>
+
+    /**
+     * 收藏 网站
+     * @param postMap 请求参数集合 name，link
+     * @return RxJava Single
+     */
+    @JvmSuppressWildcards //Java和Kotlin交互问题: 防止 Map<String, Any> 解析成 Map<String, ?>
+    @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
+    @FormUrlEncoded
+    @POST("lg/collect/addtool/json")
+    fun collectedWebsite(
+        @FieldMap postMap: Map<String, Any>
+    ): Single<ResultEntity<PersonalCollectionWebsiteEntity>>
+
+    /**
+     * 编辑 网站
+     * @param postMap 请求参数集合 id，name，link
+     * @return RxJava Single
+     */
+    @JvmSuppressWildcards //Java和Kotlin交互问题: 防止 Map<String, Any> 解析成 Map<String, ?>
+    @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
+    @FormUrlEncoded
+    @POST("lg/collect/updatetool/json")
+    fun updateWebsite(
+        @FieldMap postMap: Map<String, Any>
+    ): Single<ResultEntity<PersonalCollectionWebsiteEntity>>
+
+    /**
+     * 删除 网站
+     * @param id 网站 ID
+     * @return RxJava Single
+     */
+    @JvmSuppressWildcards //Java和Kotlin交互问题: 防止 Map<String, Any> 解析成 Map<String, ?>
+    @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
+    @FormUrlEncoded
+    @POST("lg/collect/deletetool/json")
+    fun deleteWebsite(
+        @Field("id") id: String
     ): Single<ResultEntity<Any>>
 
 }

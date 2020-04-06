@@ -2,6 +2,7 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.text.TextUtils
+import android.view.View
 import android.widget.CompoundButton
 import com.shijingfeng.base.base.adapter.CommonAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
@@ -38,17 +39,26 @@ internal class KnowledgeClassifyChildAdapter(
         val isCollected = data.collected
 
         holder.run {
+            // 原作者 或 转载者
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
+            // 文章时间 或 转载时间
             setText(R.id.tv_date_time, niceDate)
+            // 文章标题
             setText(R.id.tv_title, title)
+            // 领域名称 (例如: 跨平台)
             setText(R.id.tv_first_type, firstType)
+            // 方向名称 (例如: Flutter)
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
+            // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
 
             //查看文章详情
-            itemView.setOnClickListener { v ->
-                mOnItemEvent?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
-            }
+            setOnClickListener(
+                viewId = R.id.ll_content,
+                listener = View.OnClickListener { v ->
+                    mOnItemEvent?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
+                }
+            )
             //收藏或取消收藏
             setOnCheckedListener(
                 R.id.ckb_collection,

@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.CompoundButton
@@ -16,10 +17,7 @@ import com.blankj.utilcode.util.SizeUtils.dp2px
 import com.shijingfeng.base.base.adapter.CommonMultiItemAdapter
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.util.cast
-import com.shijingfeng.base.util.getColorById
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.base.util.layout
+import com.shijingfeng.base.util.*
 import com.shijingfeng.sjf_banner.library.banner.entity.BaseIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.entity.CombineIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.entity.ShapeIndicatorData
@@ -47,6 +45,7 @@ internal class HomeAdapter(
     multiItemTypeSupport: MultiItemTypeSupport<HomeItem>
 ) : CommonMultiItemAdapter<HomeItem>(context, dataList, multiItemTypeSupport) {
 
+    /** 轮播图当前下标 */
     private var mBannerIndex = 0
 
     /**
@@ -62,191 +61,11 @@ internal class HomeAdapter(
     ) {
         when(data.getType()) {
             //轮播图
-            HOME_BANNER -> {
-                val bannerView = holder.getView<BannerView>(R.id.bv_banner)
-
-                val homeBannerItem = data as HomeBannerItem
-                val homeBannerList: List<HomeBannerEntity> = homeBannerItem.homeBannerList
-                val titleTextList = ArrayList<String>(homeBannerList.size)
-
-                for (homeBanner in homeBannerList) {
-                    titleTextList.add(homeBanner.title)
-                }
-
-                //标题指示器 数据
-                val titleIndicatorData = TitleIndicatorData()
-                    .setCurRealPosition(mBannerIndex)
-                    .setTotalRealCount(homeBannerList.size)
-                    .setTitleTextList(titleTextList)
-                    .setTitleColor(getColorById(R.color.white))
-                    .setTitleSize(18)
-                    .setTitleGravity(Gravity.START or Gravity.CENTER_VERTICAL)
-                //图形指示器 数据
-                val shapeIndicatorData = ShapeIndicatorData()
-                    .setCurRealPosition(mBannerIndex)
-                    .setTotalRealCount(homeBannerList.size)
-                    .setGravity(Gravity.END or Gravity.CENTER_VERTICAL)
-                //指示器数据列表
-                val indicatorDataList: MutableList<BaseIndicatorData<*>> = ArrayList<BaseIndicatorData<*>>().apply {
-                    add(titleIndicatorData)
-                    add(shapeIndicatorData)
-                }
-                //组合指示器 数据
-                val combineIndicatorData = CombineIndicatorData()
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .setGravity(Gravity.BOTTOM)
-                    .setPaddingTop(dp2px(10f))
-                    .setPaddingBottom(dp2px(10f))
-                    .setPaddingStart(dp2px(10f))
-                    .setPaddingEnd(dp2px(10f))
-                    .setBackground(getDrawableById(R.color.home_banner_title_bg))
-                    .setIndicatorDataList(indicatorDataList)
-                val pagerAdapter = HomeBannerPagerAdapter(mContext, homeBannerList)
-
-                pagerAdapter.setOnItemEventListener { view: View, any: Any, pos: Int, flag: String ->
-                    mOnItemEvent?.invoke(view, any, pos, flag)
-                }
-                bannerView
-                    ?.setPagerAdapter(pagerAdapter)
-                    ?.setCurrentRealItem(mBannerIndex, false)
-                    ?.setIndicator(combineIndicatorData)
-                    ?.start()
-            }
+            HOME_BANNER -> initBannerItemData(holder, data as HomeBannerItem)
             //置顶文章
-            HOME_SET_TO_TOP -> {
-                val homeSetToTopItem = data as HomeSetToTopItem
-                val isFresh = homeSetToTopItem.fresh
-                val tagList = homeSetToTopItem.tagList
-                val author = homeSetToTopItem.author
-                val shareUser = homeSetToTopItem.shareUser
-                val niceDate = homeSetToTopItem.niceDate
-                val title = homeSetToTopItem.title
-                val firstType = homeSetToTopItem.superChapterName
-                val secondType = homeSetToTopItem.chapterName
-                val isCollected = homeSetToTopItem.collected
-
-                //查看详情
-                ClickUtils.applySingleDebouncing(holder.itemView) { v ->
-                    mOnItemEvent?.invoke(v, homeSetToTopItem, position, VIEW_ARTICLE_DETAIL)
-                }
-                //收藏或取消收藏
-                ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
-                    val isChecked = (v as CompoundButton).isChecked
-
-                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
-                }
-
-                holder.run {
-                    setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
-                    setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
-                    setText(R.id.tv_date_time, niceDate)
-                    setText(R.id.tv_title, title)
-                    setText(R.id.tv_first_type, firstType)
-                    setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
-                    setChecked(R.id.ckb_collection, isCollected)
-                    setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
-                }
-                val llTagList = holder.getView<LinearLayout>(R.id.ll_tag_list)
-                val tagViewList = ArrayList<View>()
-
-                //清空子View
-                llTagList?.removeAllViews()
-                for (homeArticleItemTag in tagList) {
-                    tagViewList.add(TextView(mContext).apply {
-                        height = ConvertUtils.dp2px(23f)
-                        setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
-                        gravity = Gravity.CENTER
-                        setBackgroundResource(R.drawable.shape_home_article_tag)
-                        text = homeArticleItemTag.name
-                        setTextColor(getColorById(R.color.dodger_blue))
-                    })
-                }
-
-                val tagListMaxWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15f) - measureTotalWidth(
-                    holder.getView(R.id.tv_set_to_top),
-                    holder.getView(R.id.tv_latest),
-                    holder.getView(R.id.tv_author),
-                    holder.getView(R.id.tv_date_time)
-                )
-
-                if (llTagList != null) {
-                    layout(
-                        llTagList,
-                        tagViewList,
-                        tagListMaxWidth,
-                        ConvertUtils.dp2px(10f),
-                        Gravity.START
-                    )
-                }
-            }
+            HOME_SET_TO_TOP -> initTopArticleItemData(holder, data as HomeSetToTopItem)
             //文章
-            HOME_ARTICLE -> {
-                val homeArticleItem = data as HomeArticleItem
-                val isFresh = homeArticleItem.fresh
-                val tagList = homeArticleItem.tagList
-                val author = homeArticleItem.author
-                val shareUser = homeArticleItem.shareUser
-                val niceDate = homeArticleItem.niceDate
-                val title = homeArticleItem.title
-                val firstType = homeArticleItem.superChapterName
-                val secondType = homeArticleItem.chapterName
-                val isCollected = homeArticleItem.collected
-
-                //查看详情
-                ClickUtils.applySingleDebouncing(holder.itemView) { v ->
-                    mOnItemEvent?.invoke(v, homeArticleItem, position, VIEW_ARTICLE_DETAIL)
-                }
-                //收藏或取消收藏
-                ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
-                    val isChecked = (v as CompoundButton).isChecked
-
-                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
-                }
-
-                holder.run {
-                    setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
-                    setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
-                    setText(R.id.tv_date_time, niceDate)
-                    setText(R.id.tv_title, title)
-                    setText(R.id.tv_first_type, firstType)
-                    setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
-                    setChecked(R.id.ckb_collection, isCollected)
-                    setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
-                }
-
-                val llTagList = holder.getView<LinearLayout>(R.id.ll_tag_list)
-                val tagViewList = ArrayList<View>()
-
-                //清空子View
-                llTagList?.removeAllViews()
-                for (homeArticleItemTag in tagList) {
-                    tagViewList.add(TextView(mContext).apply {
-                        height = ConvertUtils.dp2px(23f)
-                        setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
-                        gravity = Gravity.CENTER
-                        setBackgroundResource(R.drawable.shape_home_article_tag)
-                        text = homeArticleItemTag.name
-                        setTextColor(getColorById(R.color.dodger_blue))
-                    })
-                }
-
-                val tagListMaxWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15f) - measureTotalWidth(
-                    holder.getView(R.id.tv_latest),
-                    holder.getView(R.id.tv_author),
-                    holder.getView(R.id.tv_date_time)
-                )
-
-                if (llTagList != null) {
-                    layout(
-                        llTagList,
-                        tagViewList,
-                        tagListMaxWidth,
-                        ConvertUtils.dp2px(10f),
-                        Gravity.START
-                    )
-                }
-            }
+            HOME_ARTICLE -> initArticleItemData(holder, data as HomeArticleItem)
         }
     }
 
@@ -274,35 +93,27 @@ internal class HomeAdapter(
                 when(partUpdateFlag) {
                     //更新收藏状态
                     PART_UPDATE_COLLECTION_STATUS -> {
-                        when(data) {
+                        val collected = when(data) {
                             //文章 Item
-                            is HomeArticleItem -> {
-                                //收藏或取消收藏
-                                ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
-                                    val isChecked = (v as CompoundButton).isChecked
-
-                                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
-                                }
-
-                                holder.run {
-                                    setChecked(R.id.ckb_collection, data.collected)
-                                    setButtonDrawable(R.id.ckb_collection, if (data.collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
-                                }
-                            }
+                            is HomeArticleItem -> data.collected
                             //置顶文章 Item
-                            is HomeSetToTopItem -> {
-                                //收藏或取消收藏
-                                ClickUtils.applySingleDebouncing(holder.getView<View>(R.id.ckb_collection)) { v ->
+                            is HomeSetToTopItem -> data.collected
+                            else -> false
+                        }
+
+                        holder.run {
+                            setChecked(R.id.ckb_collection, collected)
+                            setButtonDrawable(R.id.ckb_collection, if (collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+                            //收藏 或 取消收藏
+                            setOnClickListener(
+                                viewId = R.id.ckb_collection,
+                                listener = OnClickListener { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
                                     mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
                                 }
-
-                                holder.run {
-                                    setChecked(R.id.ckb_collection, data.collected)
-                                    setButtonDrawable(R.id.ckb_collection, if (data.collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
-                                }
-                            }
+                            )
                         }
                     }
                     else -> {}
@@ -311,10 +122,16 @@ internal class HomeAdapter(
         }
     }
 
+    /**
+     * View 绑定到 Window 上 (可见)
+     */
     override fun onViewAttachedToWindow(holder: CommonViewHolder) {
         super.onViewAttachedToWindow(holder)
     }
 
+    /**
+     * View 从 Window 上解绑 (不可见)
+     */
     override fun onViewDetachedFromWindow(holder: CommonViewHolder) {
         val position = holder.layoutPosition
         val itemType = getItemViewType(position)
@@ -328,32 +145,244 @@ internal class HomeAdapter(
     }
 
     /**
-     * 测量多个View的宽
-     * @param viewArray View数组
-     * @return 总宽度
+     * 初始化 轮播图 数据
+     * @param holder CommonViewHolder
+     * @param homeBannerItem 轮播图数据实体类
      */
-    private fun measureTotalWidth(vararg viewArray: View?): Int {
-        var totalWidth = 0
+    private fun initBannerItemData(holder: CommonViewHolder, homeBannerItem: HomeBannerItem) {
+        val bannerView = holder.getView<BannerView>(R.id.bv_banner)
 
-        for (view in viewArray) {
-            if (view == null) {
-                continue
-            }
+        val homeBannerList: List<HomeBannerEntity> = homeBannerItem.homeBannerList
+        val titleTextList = ArrayList<String>(homeBannerList.size)
 
-            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec((1 shl 30) - 1, View.MeasureSpec.AT_MOST)
-            val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec((1 shl 30) - 1, View.MeasureSpec.AT_MOST)
-
-            view.measure(widthMeasureSpec, heightMeasureSpec)
-
-            totalWidth += if (view.layoutParams is MarginLayoutParams) {
-                val marginLayoutParams = view.layoutParams as MarginLayoutParams
-
-                view.measuredWidth + marginLayoutParams.marginStart + marginLayoutParams.marginEnd
-            } else {
-                view.measuredWidth
-            }
+        for (homeBanner in homeBannerList) {
+            titleTextList.add(homeBanner.title)
         }
-        return totalWidth
+
+        //标题指示器 数据
+        val titleIndicatorData = TitleIndicatorData()
+            .setCurRealPosition(mBannerIndex)
+            .setTotalRealCount(homeBannerList.size)
+            .setTitleTextList(titleTextList)
+            .setTitleColor(getColorById(R.color.white))
+            .setTitleSize(18)
+            .setTitleGravity(Gravity.START or Gravity.CENTER_VERTICAL)
+        //图形指示器 数据
+        val shapeIndicatorData = ShapeIndicatorData()
+            .setCurRealPosition(mBannerIndex)
+            .setTotalRealCount(homeBannerList.size)
+            .setGravity(Gravity.END or Gravity.CENTER_VERTICAL)
+        //指示器数据列表
+        val indicatorDataList: MutableList<BaseIndicatorData<*>> = ArrayList<BaseIndicatorData<*>>().apply {
+            add(titleIndicatorData)
+            add(shapeIndicatorData)
+        }
+        //组合指示器 数据
+        val combineIndicatorData = CombineIndicatorData()
+            .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+            .setGravity(Gravity.BOTTOM)
+            .setPaddingTop(dp2px(10f))
+            .setPaddingBottom(dp2px(10f))
+            .setPaddingStart(dp2px(10f))
+            .setPaddingEnd(dp2px(10f))
+            .setBackground(getDrawableById(R.color.home_banner_title_bg))
+            .setIndicatorDataList(indicatorDataList)
+        val pagerAdapter = HomeBannerPagerAdapter(mContext, homeBannerList)
+
+        pagerAdapter.setOnItemEventListener { view: View, any: Any, pos: Int, flag: String ->
+            mOnItemEvent?.invoke(view, any, pos, flag)
+        }
+        bannerView
+            ?.setPagerAdapter(pagerAdapter)
+            ?.setCurrentRealItem(mBannerIndex, false)
+            ?.setIndicator(combineIndicatorData)
+            ?.start()
     }
 
+    /**
+     * 初始化 置顶文章 数据
+     * @param holder CommonViewHolder
+     * @param homeSetToTopItem 置顶文章数据实体类
+     */
+    private fun initTopArticleItemData(holder: CommonViewHolder, homeSetToTopItem: HomeSetToTopItem) {
+        val isFresh = homeSetToTopItem.fresh
+        val tagList = homeSetToTopItem.tagList
+        val author = homeSetToTopItem.author
+        val shareUser = homeSetToTopItem.shareUser
+        val niceDate = homeSetToTopItem.niceDate
+        val title = homeSetToTopItem.title
+        val firstType = homeSetToTopItem.superChapterName
+        val secondType = homeSetToTopItem.chapterName
+        val isCollected = homeSetToTopItem.collected
+
+        holder.run {
+            // "新" 醒目标签
+            setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
+            // 原作者 或 转载人
+            setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
+            // 文章日期 或 转载日期
+            setText(R.id.tv_date_time, niceDate)
+            // 标题
+            setText(R.id.tv_title, title)
+            // 领域名称 (例如: 跨平台)
+            setText(R.id.tv_first_type, firstType)
+            // 方向名称 (例如: Flutter)
+            setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
+            // 是否已收藏
+            setChecked(R.id.ckb_collection, isCollected)
+            setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+            //查看详情
+            setOnClickListener(
+                viewId = R.id.ll_top_article_content,
+                listener = OnClickListener { v ->
+                    mOnItemEvent?.invoke(v, homeSetToTopItem, holder.adapterPosition, VIEW_ARTICLE_DETAIL)
+                }
+            )
+            //收藏或取消收藏
+            setOnClickListener(
+                viewId = R.id.ckb_collection,
+                listener = OnClickListener { v ->
+                    val isChecked = (v as CompoundButton).isChecked
+
+                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition, ARTICLE_ITEM_COLLECTION)
+                }
+            )
+        }
+
+        // 普通标签 View 列表 容器
+        val llTagList = holder.getView<LinearLayout>(R.id.ll_tag_list)
+        // 普通标签 View 列表
+        val tagViewList = ArrayList<View>()
+
+        //清空子View
+        llTagList?.removeAllViews()
+        // 添加 普通标签TextView 列表
+        for (homeArticleItemTag in tagList) {
+            tagViewList.add(TextView(mContext).apply {
+                height = ConvertUtils.dp2px(23f)
+                setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
+                gravity = Gravity.CENTER
+                setBackgroundResource(R.drawable.shape_home_article_tag)
+                text = homeArticleItemTag.name
+                setTextColor(getColorById(R.color.dodger_blue))
+            })
+        }
+
+        // 测量得到 标签列表 可容纳的最大宽度
+        val tagListMaxWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15f) - measureTotalWidth(
+            // "置顶" 醒目标签
+            holder.getView(R.id.tv_set_to_top),
+            // "新" 醒目标签
+            holder.getView(R.id.tv_latest),
+            // 原作者 或 转载者
+            holder.getView(R.id.tv_author),
+            // 文章日期 或 转载日期
+            holder.getView(R.id.tv_date_time)
+        )
+
+        if (llTagList != null) {
+            // 对 普通标签TextView 进行整体布局 (按控件宽度逐行排列，没有固定列数)
+            layout(
+                llTagList,
+                tagViewList,
+                tagListMaxWidth,
+                ConvertUtils.dp2px(10f),
+                Gravity.START
+            )
+        }
+    }
+
+    /**
+     * 初始化 文章 数据
+     * @param holder CommonViewHolder
+     * @param homeArticleItem 文章数据实体类
+     */
+    private fun initArticleItemData(holder: CommonViewHolder, homeArticleItem: HomeArticleItem) {
+        val isFresh = homeArticleItem.fresh
+        val tagList = homeArticleItem.tagList
+        val author = homeArticleItem.author
+        val shareUser = homeArticleItem.shareUser
+        val niceDate = homeArticleItem.niceDate
+        val title = homeArticleItem.title
+        val firstType = homeArticleItem.superChapterName
+        val secondType = homeArticleItem.chapterName
+        val isCollected = homeArticleItem.collected
+
+        holder.run {
+            // "新"
+            setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
+            // 原作者 或 转载人
+            setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
+            // 文章日期 或 转载日期
+            setText(R.id.tv_date_time, niceDate)
+            // 标题
+            setText(R.id.tv_title, title)
+            // 领域名称 (例如: 跨平台)
+            setText(R.id.tv_first_type, firstType)
+            // 方向名称 (例如: Flutter)
+            setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
+            // 是否已收藏
+            setChecked(R.id.ckb_collection, isCollected)
+            setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+            //查看详情
+            setOnClickListener(
+                viewId = R.id.ll_article_content,
+                listener = OnClickListener { v ->
+                    mOnItemEvent?.invoke(v, homeArticleItem, holder.adapterPosition, VIEW_ARTICLE_DETAIL)
+                }
+            )
+            //收藏或取消收藏
+            setOnClickListener(
+                viewId = R.id.ckb_collection,
+                listener = OnClickListener { v ->
+                    val isChecked = (v as CompoundButton).isChecked
+
+                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition, ARTICLE_ITEM_COLLECTION)
+                }
+            )
+        }
+
+        // 普通标签 View 列表 容器
+        val llTagList = holder.getView<LinearLayout>(R.id.ll_tag_list)
+        // 普通标签 View 列表 容器
+        val tagViewList = ArrayList<View>()
+
+        //清空子View
+        llTagList?.removeAllViews()
+        // 添加 普通标签TextView 列表
+        for (homeArticleItemTag in tagList) {
+            tagViewList.add(TextView(mContext).apply {
+                height = ConvertUtils.dp2px(23f)
+                setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
+                gravity = Gravity.CENTER
+                setBackgroundResource(R.drawable.shape_home_article_tag)
+                text = homeArticleItemTag.name
+                setTextColor(getColorById(R.color.dodger_blue))
+            })
+        }
+
+        // 测量得到 标签列表 可容纳的最大宽度
+        val tagListMaxWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15f) - measureTotalWidth(
+            // "新" 醒目标签
+            holder.getView(R.id.tv_latest),
+            // 原作者 或 转载者
+            holder.getView(R.id.tv_author),
+            // 文章日期 或 转载日期
+            holder.getView(R.id.tv_date_time)
+        )
+
+        if (llTagList != null) {
+            // 对 普通标签TextView 进行整体布局 (按控件宽度逐行排列，没有固定列数)
+            layout(
+                llTagList,
+                tagViewList,
+                tagListMaxWidth,
+                ConvertUtils.dp2px(10f),
+                Gravity.START
+            )
+        }
+    }
 }

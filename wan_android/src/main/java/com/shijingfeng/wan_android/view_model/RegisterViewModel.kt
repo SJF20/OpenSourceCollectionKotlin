@@ -9,6 +9,8 @@ import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.SKIP_TO_HOME
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
@@ -35,7 +37,7 @@ internal class RegisterViewModel(
     val mConfirmPassword = ObservableField("")
     /** 是否能注册  */
     val mIsRegisterEnable = object : ObservableBoolean(mUsername, mPassword, mConfirmPassword) {
-        override fun get() = !(TextUtils.isEmpty(mUsername.get()) || TextUtils.isEmpty(mPassword.get()) || TextUtils.isEmpty(mConfirmPassword.get()))
+        override fun get() = !TextUtils.isEmpty(mUsername.get()) && !TextUtils.isEmpty(mPassword.get()) && !TextUtils.isEmpty(mConfirmPassword.get())
     }
 
     /** 返回  */
@@ -53,24 +55,12 @@ internal class RegisterViewModel(
      * 注册
      */
     private fun register() {
-        if (TextUtils.isEmpty(mUsername.get())) {
-            ToastUtils.showShort("用户名不能为空")
-            return
-        }
-        if (TextUtils.isEmpty(mPassword.get())) {
-            ToastUtils.showShort("密码不能为空")
-            return
-        }
-        if (TextUtils.isEmpty(mConfirmPassword.get())) {
-            ToastUtils.showShort("确认密码不能为空")
-            return
-        }
         if (!TextUtils.equals(mPassword.get(), mConfirmPassword.get())) {
-            ToastUtils.showShort("两次输入密码不一致")
+            ToastUtils.showShort(getStringById(R.string.两次输入密码不一致))
             return
         }
 
-        showLoadingDialog("注册中...")
+        showLoadingDialog(getStringById(R.string.注册中))
 
         val postMap = HashMap<String, Any>(3)
 
@@ -99,7 +89,7 @@ internal class RegisterViewModel(
                 setResult(Activity.RESULT_OK)
                 finish()
             } else {
-                ToastUtils.showShort("服务器出错，注册失败")
+                ToastUtils.showShort(getStringById(R.string.服务器出错注册失败))
             }
         }, onFailure = {
             //关闭加载中弹框

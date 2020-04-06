@@ -53,19 +53,19 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /** 首页  */
-private const val HOME = 0
+private const val MAIN_HOME = 0
 
 /** 分类  */
-private const val CLASSIFY = 1
+private const val MAIN_CLASSIFY = 1
 
 /** 公众号  */
-private const val OFFICIAL_ACCOUNT = 2
+private const val MAIN_OFFICIAL_ACCOUNT = 2
 
 /** 广场  */
-private const val SQUARE = 3
+private const val MAIN_SQUARE = 3
 
 /** 项目  */
-private const val PROJECT = 4
+private const val MAIN_PROJECT = 4
 
 /**
  * Function: 首页 Activity
@@ -133,15 +133,15 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             addTab(newTab())
             setupWithViewPager(vp_content)
             //首页
-            getTabAt(HOME)?.customView = getTabView(HOME)
+            getTabAt(MAIN_HOME)?.customView = getTabView(MAIN_HOME)
             //分类
-            getTabAt(CLASSIFY)?.customView = getTabView(CLASSIFY)
+            getTabAt(MAIN_CLASSIFY)?.customView = getTabView(MAIN_CLASSIFY)
             //公众号
-            getTabAt(OFFICIAL_ACCOUNT)?.customView = getTabView(OFFICIAL_ACCOUNT)
+            getTabAt(MAIN_OFFICIAL_ACCOUNT)?.customView = getTabView(MAIN_OFFICIAL_ACCOUNT)
             //广场
-            getTabAt(SQUARE)?.customView = getTabView(SQUARE)
+            getTabAt(MAIN_SQUARE)?.customView = getTabView(MAIN_SQUARE)
             //项目
-            getTabAt(PROJECT)?.customView = getTabView(PROJECT)
+            getTabAt(MAIN_PROJECT)?.customView = getTabView(MAIN_PROJECT)
         }
         UserUtil.getUserInfo()?.run {
             //如果登录则设置数据
@@ -165,27 +165,27 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     //首页
-                    HOME -> {
+                    MAIN_HOME -> {
                         tv_indicator_home.setTextColor(getColorById(R.color.red))
                         iv_indicator_home.setColorFilter(getColorById(R.color.red))
                     }
                     //分类
-                    CLASSIFY -> {
+                    MAIN_CLASSIFY -> {
                         tv_indicator_classify.setTextColor(getColorById(R.color.red))
                         iv_indicator_classify.setColorFilter(getColorById(R.color.red))
                     }
                     //公众号
-                    OFFICIAL_ACCOUNT -> {
+                    MAIN_OFFICIAL_ACCOUNT -> {
                         tv_indicator_official_account.setTextColor(getColorById(R.color.red))
                         iv_indicator_official_account.setColorFilter(getColorById(R.color.red))
                     }
                     //广场
-                    SQUARE -> {
+                    MAIN_SQUARE -> {
                         tv_indicator_square.setTextColor(getColorById(R.color.red))
                         iv_indicator_square.setColorFilter(getColorById(R.color.red))
                     }
                     //项目
-                    PROJECT -> {
+                    MAIN_PROJECT -> {
                         tv_indicator_project.setTextColor(getColorById(R.color.red))
                         iv_indicator_project.setColorFilter(getColorById(R.color.red))
                     }
@@ -196,27 +196,27 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     //首页
-                    HOME -> {
+                    MAIN_HOME -> {
                         tv_indicator_home.setTextColor(getColorById(R.color.grey))
                         iv_indicator_home.setColorFilter(getColorById(R.color.grey))
                     }
                     //分类
-                    CLASSIFY -> {
+                    MAIN_CLASSIFY -> {
                         tv_indicator_classify.setTextColor(getColorById(R.color.grey))
                         iv_indicator_classify.setColorFilter(getColorById(R.color.grey))
                     }
                     //公众号
-                    OFFICIAL_ACCOUNT -> {
+                    MAIN_OFFICIAL_ACCOUNT -> {
                         tv_indicator_official_account.setTextColor(getColorById(R.color.grey))
                         iv_indicator_official_account.setColorFilter(getColorById(R.color.grey))
                     }
                     //广场
-                    SQUARE -> {
+                    MAIN_SQUARE -> {
                         tv_indicator_square.setTextColor(getColorById(R.color.grey))
                         iv_indicator_square.setColorFilter(getColorById(R.color.grey))
                     }
                     //项目
-                    PROJECT -> {
+                    MAIN_PROJECT -> {
                         tv_indicator_project.setTextColor(getColorById(R.color.grey))
                         iv_indicator_project.setColorFilter(getColorById(R.color.grey))
                     }
@@ -244,15 +244,15 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
                 when (position) {
                     // 首页
-                    HOME -> tv_title.text = getStringById(R.string.首页)
+                    MAIN_HOME -> tv_title.text = getStringById(R.string.首页)
                     // 分类
-                    CLASSIFY -> tv_title.text = getStringById(R.string.分类)
+                    MAIN_CLASSIFY -> tv_title.text = getStringById(R.string.分类)
                     // 公众号
-                    OFFICIAL_ACCOUNT -> tv_title.text = getStringById(R.string.公众号)
+                    MAIN_OFFICIAL_ACCOUNT -> tv_title.text = getStringById(R.string.公众号)
                     // 广场
-                    SQUARE -> tv_title.text = getStringById(R.string.广场)
+                    MAIN_SQUARE -> tv_title.text = getStringById(R.string.广场)
                     // 项目
-                    PROJECT -> tv_title.text = getStringById(R.string.项目)
+                    MAIN_PROJECT -> tv_title.text = getStringById(R.string.项目)
                     else -> {}
                 }
             }
@@ -375,28 +375,28 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     @SuppressLint("InflateParams")
     private fun getTabView(position: Int) = when (position) {
         //首页
-        HOME -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_home, null)
+        MAIN_HOME -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_home, null)
         //分类
-        CLASSIFY -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_classify, null)
+        MAIN_CLASSIFY -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_classify, null)
         //公众号
-        OFFICIAL_ACCOUNT -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_official_account, null)
+        MAIN_OFFICIAL_ACCOUNT -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_official_account, null)
         //广场
-        SQUARE -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_square, null)
+        MAIN_SQUARE -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_square, null)
         //项目
-        PROJECT -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_project, null)
+        MAIN_PROJECT -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_project, null)
         else -> { null }
     }
 
     /**
      * 显示 退出登录确认对话框
      */
-    fun showLogoutDialog() {
+    private fun showLogoutDialog() {
         AlertDialog.Builder(this)
-            .setMessage("是否退出登录?")
-            .setPositiveButton("是") { _, _ ->
+            .setMessage(getStringById(R.string.是否退出登录))
+            .setPositiveButton(getStringById(R.string.是)) { _, _ ->
                 mViewModel?.logout()
             }
-            .setNegativeButton("否", null)
+            .setNegativeButton(getStringById(R.string.否), null)
             .setCancelable(true)
             .show()
     }

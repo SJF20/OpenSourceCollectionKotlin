@@ -33,6 +33,7 @@ import com.shijingfeng.common.entity.ViewOriginalImageItem
 import com.shijingfeng.common.source.network.getViewOriginalImageNetworkSourceInstance
 import com.shijingfeng.common.source.repository.getViewOriginalImageRepositoryInstance
 import com.shijingfeng.base.util.getDrawableById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.common.viewmodel.ViewOriginalImageViewModel
 import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.base.widget.dialog.LoadingDialog
@@ -54,10 +55,6 @@ import java.io.InputStream
 @NeedPermissions
 @Route(path = ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE)
 internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonViewOriginalImageBinding, ViewOriginalImageViewModel>() {
-
-    private lateinit var mFromName: String
-    private lateinit var mDataList: List<ViewOriginalImageItem>
-    private var mCurrentPosition = 0
 
     /** ViewPager 适配器  */
     private lateinit var mViewOriginalImageAdapter: ViewOriginalImageAdapter
@@ -101,16 +98,13 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
      */
     override fun initParam() {
         super.initParam()
-        mViewModel?.mParamBundle?.let { bundle ->
-            mFromName = bundle.getString(FROM_ACTIVITY_NAME, "")
-            mDataList = deserialize(
-                bundle.getString(
-                    DATA,
-                    EMPTY_ARRAY
-                ),
+        mDataBundle?.run {
+            mViewModel?.mFromName = getString(FROM_ACTIVITY_NAME, "")
+            mViewModel?.mDataList = deserialize(
+                getString(DATA, EMPTY_ARRAY),
                 object : TypeToken<List<ViewOriginalImageItem>>() {}.type
             )
-            mCurrentPosition = bundle.getInt(CURRENT_POSITION, 0)
+            mViewModel?.mCurrentPosition = getInt(CURRENT_POSITION, 0)
         }
     }
 
@@ -120,16 +114,18 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
     @SuppressLint("SetTextI18n")
     override fun initData() {
         super.initData()
-        if (mDataList.isEmpty()) {
-            tv_count.visibility = View.GONE
-        } else {
-            tv_count.text = "${mCurrentPosition + 1} / ${mDataList.size}"
+        mViewModel?.let { viewModel ->
+            if (viewModel.mDataList.isEmpty()) {
+                tv_count.visibility = View.GONE
+            } else {
+                tv_count.text = "${viewModel.mCurrentPosition + 1} / ${viewModel.mDataList.size}"
+            }
+            vp_image.adapter = ViewOriginalImageAdapter(
+                this,
+                viewModel.mDataList
+            ).also { mViewOriginalImageAdapter = it }
+            vp_image.setCurrentItem(viewModel.mCurrentPosition, false)
         }
-        vp_image.adapter = ViewOriginalImageAdapter(
-            this,
-            mDataList
-        ).also { mViewOriginalImageAdapter = it }
-        vp_image.setCurrentItem(mCurrentPosition, false)
     }
 
     /**
@@ -160,8 +156,8 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
             @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                mCurrentPosition = position
-                tv_count.text = "${position + 1} / ${mDataList.size}"
+                mViewModel?.mCurrentPosition = position
+                tv_count.text = "${position + 1} / ${mViewModel?.mDataList?.size}"
             }
 
         })
@@ -169,12 +165,12 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
             if (responseBody == null || !saveImage(responseBody.byteStream())) {
                 Handler(Looper.getMainLooper()).post {
                     LoadingDialog.getInstance().hide()
-                    ToastUtils.showShort("保存失败")
+                    ToastUtils.showShort(getStringById(R.string.保存失败))
                 }
             } else {
                 Handler(Looper.getMainLooper()).post {
                     LoadingDialog.getInstance().hide()
-                    ToastUtils.showShort("保存成功")
+                    ToastUtils.showShort(getStringById(R.string.保存成功))
                 }
             }
         })
@@ -207,14 +203,14 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
             .setWindowWidth(MATCH_PARENT)
             .setGravity(Gravity.BOTTOM, 0, 0)
             .setWindowOutsideAlpha(0.7F)
-            .setAnimStyle(R.style.pop_anim)
+            .setAnimStyle(R.style.bottom_dialog_anim)
             .setCancelable(true)
             .show()
 
         //下载图片
         contentView.tv_download_img.setOnClickListener {
-            val data = mDataList[mCurrentPosition]
-            val imageUrl = data.imagePath
+            val data = mViewModel?.mDataList?.get(mViewModel?.mCurrentPosition ?: 0)
+            val imageUrl = data?.imagePath ?: ""
 
             mLongClickDialog?.hide()
             addDisposable(
@@ -227,13 +223,13 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
                                 mViewModel?.downloadImage(imageUrl)
                             }
                             permission.shouldShowRequestPermissionRationale -> {
-                                ToastUtils.showShort("读写外部存储权限授予失败")
+                                ToastUtils.showShort(getStringById(R.string.外部存储权限授予失败))
                             }
                             else -> {
                                 AlertDialog.Builder(this)
-                                    .setMessage("需要您去设置页面，「权限管理」，开启「读写外部存储」权限")
+                                    .setMessage(getStringById(R.string.设置页面开启外部存储权限))
                                     .setPositiveButton(
-                                        "去设置"
+                                        getStringById(R.string.去设置)
                                     ) { _: DialogInterface?, _: Int ->
                                         val settingIntent = Intent()
                                         settingIntent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
@@ -300,4 +296,12 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
         return true
     }
 
+    /**
+     * Activity 销毁回调
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        mLongClickDialog?.hide()
+        mLongClickDialog = null
+    }
 }

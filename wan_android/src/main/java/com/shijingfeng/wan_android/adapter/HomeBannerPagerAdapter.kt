@@ -2,8 +2,10 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.shijingfeng.base.listener.Target
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
@@ -22,35 +24,27 @@ internal class HomeBannerPagerAdapter(
     dataList: List<HomeBannerEntity>? = null
 ) : BaseBannerPagerAdapter<HomeBannerEntity>(context, dataList) {
 
+    /**
+     * 初始化 Item
+     * @param container 容器 ViewGroup
+     * @param position 当前 Item 索引
+     */
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(mContext)
         val realPosition = getRealPositionByPosition(position)
         val homeBanner = mDataList[realPosition]
 
-        getImageLoaderInstance().displayImage(
-            mContext,
-            homeBanner.imagePath,
-            object : Target<Drawable?> {
-
-                /**
-                 * 加载完成
-                 *
-                 * @param resource 资源
-                 */
-                override fun onLoadFinished(resource: Drawable?) {
-                    imageView.setImageDrawable(resource)
-                }
-
-            }
-        )
-        imageView.setOnClickListener { v ->
-            mOnItemEventListener?.onItemEvent(v, homeBanner, realPosition, VIEW_BANNER_DETAIL)
-        }
+        getImageLoaderInstance().displayImage(mContext, imageView, homeBanner.imagePath)
         container.addView(
             imageView,
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ConvertUtils.dp2px(200f)
+            ConvertUtils.dp2px(200F)
         )
+
+        // 查看详情
+        ClickUtils.applySingleDebouncing(imageView) { v ->
+            mOnItemEventListener?.onItemEvent(v, homeBanner, realPosition, VIEW_BANNER_DETAIL)
+        }
 
         return imageView
     }

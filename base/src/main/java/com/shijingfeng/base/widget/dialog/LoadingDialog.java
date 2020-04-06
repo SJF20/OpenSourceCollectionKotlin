@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.shijingfeng.base.R;
+import com.shijingfeng.base.util.ResourceUtil;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -28,7 +29,7 @@ public class LoadingDialog {
 
     private CommonDialog mDialog;
     private ObjectAnimator mAnimator;
-    private String mHintText = "提交中...";
+    private String mHintText = ResourceUtil.getStringById(R.string.提交中);
 
     private LoadingDialog() {}
 
