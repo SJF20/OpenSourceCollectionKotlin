@@ -1,6 +1,5 @@
 /** 生成的 Java 类名 */
 @file:JvmName("RxJavaUtil")
-
 package com.shijingfeng.wan_android.utils
 
 import com.shijingfeng.base.common.extension.onFailure

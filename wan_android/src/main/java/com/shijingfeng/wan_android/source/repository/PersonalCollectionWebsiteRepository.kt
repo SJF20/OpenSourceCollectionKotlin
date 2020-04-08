@@ -54,9 +54,10 @@ internal class PersonalCollectionWebsiteRepository(
      * 编辑 网站
      * @param dataMap 请求参数集合 id，name，link
      * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
      */
-    fun updateWebsite(dataMap: Map<String, Any>, onSuccess: onSuccess<PersonalCollectionWebsiteEntity?>) {
-        mNetworkSource?.updateWebsite(dataMap, onSuccess)
+    fun updateWebsite(dataMap: Map<String, Any>, onSuccess: onSuccess<PersonalCollectionWebsiteEntity?>, onFailure: onFailure) {
+        mNetworkSource?.updateWebsite(dataMap, onSuccess, onFailure)
     }
 
     /**

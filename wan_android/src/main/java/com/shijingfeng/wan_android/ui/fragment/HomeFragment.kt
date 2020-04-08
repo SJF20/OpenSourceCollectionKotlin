@@ -184,7 +184,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         //置顶文章
                         HOME_SET_TO_TOP -> {
                             val homeSetToTopItem = homeItem as HomeSetToTopItem
-                            val identity = homeSetToTopItem.identity
+                            val identity = homeSetToTopItem.getId()
                             val url = homeSetToTopItem.link
                             val title = homeSetToTopItem.title
                             val collected = homeSetToTopItem.collected
@@ -201,7 +201,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         //文章
                         HOME_ARTICLE -> {
                             val homeArticleItem = homeItem as HomeArticleItem
-                            val identity = homeArticleItem.identity
+                            val identity = homeArticleItem.getId()
                             val url = homeArticleItem.link
                             val title = homeArticleItem.title
                             val collected = homeArticleItem.collected

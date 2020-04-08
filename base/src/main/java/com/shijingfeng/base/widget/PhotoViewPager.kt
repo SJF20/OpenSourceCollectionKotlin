@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
  * Description: 用于解决 ViewPager 嵌套 PhotoView 发生异常
  * @author ShiJingFeng
  */
-class PhotoViewPager(
+class PhotoViewPager @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : ViewPager(context, attrs) {

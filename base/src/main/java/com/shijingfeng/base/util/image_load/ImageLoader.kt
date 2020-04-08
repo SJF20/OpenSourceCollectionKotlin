@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.shijingfeng.base.R
+import com.shijingfeng.base.annotation.define.GlideOutputType
 import com.shijingfeng.base.listener.Target
 
 /** 图片加载器 实例 (可以随时切换加载框架) */
@@ -37,7 +38,7 @@ abstract class ImageLoader {
         context: Context,
         imageView: ImageView,
         imagePath: String,
-        outputType: Int = AS_DRAWABLE,
+        @GlideOutputType outputType: Int = AS_DRAWABLE,
         @DrawableRes placeholder: Int = R.drawable.ic_image,
         @DrawableRes error: Int = R.drawable.ic_image
     )
@@ -64,10 +65,11 @@ abstract class ImageLoader {
      * @param imagePath 路径 (本地路径 或 网络路径)
      * @param target 加载回调
      */
-    abstract fun displayImage(
+    abstract fun <T> displayImage(
         context: Context,
         imagePath: String,
-        target: Target<Drawable?>
+        @GlideOutputType outputType: Int = AS_DRAWABLE,
+        target: Target<T>
     )
 
     /**
@@ -95,7 +97,7 @@ abstract class ImageLoader {
     abstract fun displayVideoThumb(
         context: Context,
         videoFilePath: String,
-        target: Target<Drawable?>
+        target: Target<Drawable>
     )
 
 }

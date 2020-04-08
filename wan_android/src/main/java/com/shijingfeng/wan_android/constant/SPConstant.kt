@@ -1,3 +1,5 @@
+/** 生成的 Java 类名 */
+@file:JvmName("SPConstant")
 package com.shijingfeng.wan_android.constant
 
 /**

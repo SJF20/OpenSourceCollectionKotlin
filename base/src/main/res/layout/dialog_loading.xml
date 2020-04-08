@@ -31,7 +31,7 @@
             android:maxWidth="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:text="提交中..."
+            android:text="@string/提交中"
             android:textColor="@color/white"
             android:textSize="19sp"/>
 

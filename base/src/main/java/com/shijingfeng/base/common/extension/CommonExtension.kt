@@ -25,7 +25,7 @@ typealias onFailure = (e: HttpException?) -> Unit
 typealias onItemEvent = (view: View?, data: Any?, position: Int, flag: String) -> Unit
 
 /** SwipeRefreshLayout 刷新回调 */
-typealias OnSwipeRefresh = (refreshLayout: SwipeRefreshLayout) -> Unit
+typealias onSwipeRefresh = (refreshLayout: SwipeRefreshLayout) -> Unit
 
 /**
  * 当前 协程 Job

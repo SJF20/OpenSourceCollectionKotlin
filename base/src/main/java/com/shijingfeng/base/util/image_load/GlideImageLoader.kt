@@ -5,11 +5,15 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.shijingfeng.base.annotation.define.GlideOutputType
 import com.shijingfeng.base.listener.Target
-import com.shijingfeng.base.util.e
+import com.shijingfeng.sjf_banner.library.util.CastUtil
+import java.lang.reflect.Field
+import java.lang.reflect.TypeVariable
 
 /** Glide输出源: Drawable */
 const val AS_DRAWABLE = 1
@@ -41,7 +45,7 @@ class GlideImageLoader : ImageLoader() {
         context: Context,
         imageView: ImageView,
         imagePath: String,
-        outputType: Int,
+        @GlideOutputType outputType: Int,
         @DrawableRes placeholder: Int,
         @DrawableRes error: Int
     ) {
@@ -91,15 +95,61 @@ class GlideImageLoader : ImageLoader() {
      * @param imagePath 路径 (本地路径 或 网络路径)
      * @param target 加载回调
      */
-    override fun displayImage(
+    override fun <T> displayImage(
         context: Context,
         imagePath: String,
-        target: Target<Drawable?>
+        @GlideOutputType outputType: Int,
+        target: Target<T>
     ) {
-        Glide.with(context)
+//        val requestManager = Glide.with(context)
+//
+//        when (outputType) {
+//            AS_DRAWABLE -> requestManager
+//                .asDrawable()
+//                .load(imagePath)
+//                .dontAnimate()
+//                .into(object : CustomTarget<Drawable>() {
+//                    override fun onLoadStarted(placeholder: Drawable?) {
+//                        super.onLoadStarted(placeholder)
+//                        target.onLoadStarted(placeholder)
+//                    }
+//
+//                    override fun onLoadFailed(errorDrawable: Drawable?) {
+//                        super.onLoadFailed(errorDrawable)
+//                        target.onLoadFailed(errorDrawable)
+//                    }
+//
+//                    override fun onResourceReady(
+//                        resource: Drawable,
+//                        transition: Transition<in Drawable>?
+//                    ) {
+//                        target.onLoadFinished(CastUtil.cast(resource))
+//                    }
+//
+//                    override fun onLoadCleared(placeholder: Drawable?) {
+//                        target.onLoadFailed(placeholder)
+//                    }
+//                })
+//            AS_BITMAP -> CastUtil.cast(requestManager.asBitmap())
+//            AS_GIF -> CastUtil.cast(requestManager.asGif())
+//            AS_FILE -> CastUtil.cast(requestManager.asFile())
+//            else -> CastUtil.cast(requestManager.asDrawable())
+//        }
+
+        val requestManager = Glide.with(context)
+
+        val requestBuilder: RequestBuilder<Any> = when (outputType) {
+            AS_DRAWABLE -> CastUtil.cast(requestManager.asDrawable())
+            AS_BITMAP -> CastUtil.cast(requestManager.asBitmap())
+            AS_GIF -> CastUtil.cast(requestManager.asGif())
+            AS_FILE -> CastUtil.cast(requestManager.asFile())
+            else -> CastUtil.cast(requestManager.asDrawable())
+        }
+
+        requestBuilder
             .load(imagePath)
             .dontAnimate()
-            .into(object : CustomTarget<Drawable>() {
+            .into(object : CustomTarget<Any>() {
 
                 override fun onLoadStarted(placeholder: Drawable?) {
                     super.onLoadStarted(placeholder)
@@ -112,10 +162,10 @@ class GlideImageLoader : ImageLoader() {
                 }
 
                 override fun onResourceReady(
-                    resource: Drawable,
-                    transition: Transition<in Drawable>?
+                    resource: Any,
+                    transition: Transition<in Any>?
                 ) {
-                    target.onLoadFinished(resource)
+                    target.onLoadFinished(CastUtil.cast(resource))
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
@@ -157,7 +207,7 @@ class GlideImageLoader : ImageLoader() {
     override fun displayVideoThumb(
         context: Context,
         videoFilePath: String,
-        target: Target<Drawable?>
+        target: Target<Drawable>
     ) {
         Glide.with(context)
             .load(videoFilePath)

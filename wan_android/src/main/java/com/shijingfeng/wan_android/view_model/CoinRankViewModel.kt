@@ -4,6 +4,7 @@ import android.view.View
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
@@ -29,8 +30,9 @@ internal class CoinRankViewModel(
 
     /** 当前页码  */
     private var mPage = FIRST_PAGE
-    /** 数据操作类型  */
-    private var mDataOperateType = DATA_OPERATE_TYPE_LOAD
+    /** 页面操作类型  */
+    @PageOperateType
+    private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
     /** 积分排行榜 数据列表  */
     var mCoinRankItemList = ArrayList<CoinRankItem>()
 
@@ -64,7 +66,7 @@ internal class CoinRankViewModel(
      * 加载数据
      */
     private fun load() {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD
+        mPageOperateType = PAGE_OPERATE_TYPE_LOAD
         getCoinRankList(FIRST_PAGE)
     }
 
@@ -72,7 +74,7 @@ internal class CoinRankViewModel(
      * 下拉刷新
      */
     private fun refresh() {
-        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
+        mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         getCoinRankList(FIRST_PAGE)
     }
 
@@ -80,7 +82,7 @@ internal class CoinRankViewModel(
      * 上拉加载
      */
     private fun loadMore() {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
+        mPageOperateType = PAGE_OPERATE_TYPE_LOAD_MORE
         getCoinRankList(mPage + 1)
     }
 
@@ -91,12 +93,11 @@ internal class CoinRankViewModel(
     private fun getCoinRankList(page: Int) {
         mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@{ coinRank ->
             val coinRankItemList = coinRank?.coinRankItemList
-            val event =
-                ListDataChangeEvent<CoinRankItem>()
+            val event = ListDataChangeEvent<CoinRankItem>()
 
-            when (mDataOperateType) {
+            when (mPageOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> {
+                PAGE_OPERATE_TYPE_LOAD -> {
                     mPage = FIRST_PAGE
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
@@ -110,7 +111,7 @@ internal class CoinRankViewModel(
                     showCallback(if (mCoinRankItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> {
+                PAGE_OPERATE_TYPE_REFRESH -> {
                     mPage = FIRST_PAGE
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
@@ -128,7 +129,7 @@ internal class CoinRankViewModel(
                     }
                 }
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> {
+                PAGE_OPERATE_TYPE_LOAD_MORE -> {
                     if (coinRankItemList.isNullOrEmpty()) {
                         updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
                         return@onSuccessLabel
@@ -146,13 +147,13 @@ internal class CoinRankViewModel(
                 else -> {}
             }
         }, onFailure = {
-            when (mDataOperateType) {
+            when (mPageOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
+                PAGE_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
+                PAGE_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
+                PAGE_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
                 else -> {}
             }
         })

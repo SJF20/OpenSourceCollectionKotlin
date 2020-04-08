@@ -1,8 +1,8 @@
 package com.shijingfeng.base.entity.event.live_data
 
-import androidx.annotation.IntRange
+import com.shijingfeng.base.annotation.define.DataOperateType
+import com.shijingfeng.base.annotation.define.Order
 import com.shijingfeng.base.common.constant.NONE
-import com.shijingfeng.base.common.constant.ORDER_PLAIN
 import com.shijingfeng.base.common.constant.ORDER_REVERSED
 
 /**
@@ -15,12 +15,11 @@ import com.shijingfeng.base.common.constant.ORDER_REVERSED
 data class ListDataChangeEvent<T> @JvmOverloads constructor(
 
     /** 操作类型  */
-    var type: Int = NONE,
+    @DataOperateType var type: Int = NONE,
     /** 插入的下标 (用于插入)  */
     var insertIndex: Int = -1,
     /** 插入顺序 默认倒序  */
-    @IntRange(from = ORDER_PLAIN.toLong(), to = ORDER_REVERSED.toLong())
-    var insertOrder: Int = ORDER_REVERSED,
+    @Order var insertOrder: Int = ORDER_REVERSED,
     /** 额外携带的数据  */
     var extraData: Any? = null,
     /** 数据列表 (用于 刷新，添加 或 插入)  */

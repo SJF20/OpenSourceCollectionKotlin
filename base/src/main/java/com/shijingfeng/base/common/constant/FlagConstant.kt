@@ -13,6 +13,10 @@ package com.shijingfeng.base.common.constant
 const val GROUP_APP = "app"
 /** wan_android Group 名字  */
 const val GROUP_WAN_ANDROID = "wan_android"
+/** todo模块 Group名字 */
+const val GROUP_TODO = "todo"
+/** tencent_x5 Group名字 */
+const val TENCENT_X5 = "tencent_x5"
 /** common Group 名字 */
 const val GROUP_COMMON = "common"
 /** base Group 名字  */
@@ -89,12 +93,12 @@ const val REMOVE = 5
 /** 数据操作: 更新数据  */
 const val UPDATE = 6
 
-/** 数据操作类型：加载数据  */
-const val DATA_OPERATE_TYPE_LOAD = 1
-/** 数据操作类型：下拉刷新  */
-const val DATA_OPERATE_TYPE_REFRESH = 2
-/** 数据操作类型：上拉加载更多  */
-const val DATA_OPERATE_TYPE_LOAD_MORE = 3
+/** 页面操作类型：加载数据  */
+const val PAGE_OPERATE_TYPE_LOAD = 1
+/** 页面操作类型：下拉刷新  */
+const val PAGE_OPERATE_TYPE_REFRESH = 2
+/** 页面操作类型：上拉加载更多  */
+const val PAGE_OPERATE_TYPE_LOAD_MORE = 3
 
 /** Adapter Item 未知类型 */
 const val ADAPTER_TYPE_UNKNOWN = 0

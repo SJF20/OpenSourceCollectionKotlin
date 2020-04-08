@@ -448,7 +448,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         val newUserInfoEntity = event.newUserInfoEntity
         val newNickname = newUserInfoEntity.nickname
         val newUsername = newUserInfoEntity.username
-        val newId: String = newUserInfoEntity.identity
+        val newId: String = newUserInfoEntity.getId()
 
         if (!StringUtils.isEmpty(newNickname)) {
             if (tv_name.text.toString() !== newNickname) {

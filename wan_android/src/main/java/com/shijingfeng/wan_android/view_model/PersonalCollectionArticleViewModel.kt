@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
@@ -33,8 +34,8 @@ internal class PersonalCollectionArticleViewModel(
 
     /** 当前页码  */
     private var mPage = FIRST_PAGE
-    /** 数据操作类型  */
-    private var mDataOperateType = DATA_OPERATE_TYPE_LOAD
+    /** 页面操作类型  */
+    @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
     /** 文章收藏列表 数据列表 */
     val mArticleCollectedListItemList = ArrayList<PersonalCollectionArticleItem>()
 
@@ -66,7 +67,7 @@ internal class PersonalCollectionArticleViewModel(
      * 加载数据
      */
     private fun load() {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD
+        mPageOperateType = PAGE_OPERATE_TYPE_LOAD
         getArticleCollectedList(FIRST_PAGE)
     }
 
@@ -74,7 +75,7 @@ internal class PersonalCollectionArticleViewModel(
      * 下拉刷新
      */
     fun refresh() {
-        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
+        mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         getArticleCollectedList(FIRST_PAGE)
     }
 
@@ -82,7 +83,7 @@ internal class PersonalCollectionArticleViewModel(
      * 上拉加载
      */
     private fun loadMore() {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD_MORE
+        mPageOperateType = PAGE_OPERATE_TYPE_LOAD_MORE
         getArticleCollectedList(mPage + 1)
     }
 
@@ -96,9 +97,9 @@ internal class PersonalCollectionArticleViewModel(
             val event =
                 ListDataChangeEvent<PersonalCollectionArticleItem>()
 
-            when (mDataOperateType) {
+            when (mPageOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> {
+                PAGE_OPERATE_TYPE_LOAD -> {
                     mPage = FIRST_PAGE
                     mArticleCollectedListItemList.clear()
                     if (!articleCollectedItemList.isNullOrEmpty()) {
@@ -112,7 +113,7 @@ internal class PersonalCollectionArticleViewModel(
                     showCallback(if (mArticleCollectedListItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> {
+                PAGE_OPERATE_TYPE_REFRESH -> {
                     mPage = FIRST_PAGE
                     mArticleCollectedListItemList.clear()
                     if (!articleCollectedItemList.isNullOrEmpty()) {
@@ -130,7 +131,7 @@ internal class PersonalCollectionArticleViewModel(
                     }
                 }
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> {
+                PAGE_OPERATE_TYPE_LOAD_MORE -> {
                     if (articleCollectedItemList.isNullOrEmpty()) {
                         updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
                         return@onSuccessLabel
@@ -148,13 +149,13 @@ internal class PersonalCollectionArticleViewModel(
                 else -> {}
             }
         }, onFailure = {
-            when (mDataOperateType) {
+            when (mPageOperateType) {
                 // 加载数据
-                DATA_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
+                PAGE_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
+                PAGE_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                 // 上拉加载
-                DATA_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
+                PAGE_OPERATE_TYPE_LOAD_MORE -> updateRefreshLoadMoreStatus(LOAD_MORE_FAIL)
                 else -> {}
             }
         })
@@ -165,7 +166,7 @@ internal class PersonalCollectionArticleViewModel(
      * @param articleCollectedListItem 文章收藏列表 Item 实体
      */
     fun uncollectedInCollectedList(articleCollectedListItem: PersonalCollectionArticleItem) {
-        val articleId = articleCollectedListItem.identity
+        val articleId = articleCollectedListItem.getId()
         val originalId = articleCollectedListItem.originId
 
         mRepository?.uncollectedInCollectedList(articleId, originalId, onSuccess = {

@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
  * Description:
  * @author ShiJingFeng
  */
-class NoScrollViewPager(
+class NoScrollViewPager @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : ViewPager(context, attrs) {

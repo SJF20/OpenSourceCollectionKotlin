@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
-import com.shijingfeng.base.listener.Target
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 import com.shijingfeng.sjf_banner.library.banner.adapter.BaseBannerPagerAdapter
 import com.shijingfeng.wan_android.constant.VIEW_BANNER_DETAIL

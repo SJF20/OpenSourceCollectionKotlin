@@ -3,17 +3,17 @@ package com.shijingfeng.wan_android.view_model
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getPositionById
-import com.shijingfeng.base.util.getStringById
-import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent
 import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionWebsiteRepository
 import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionWebsiteFragment
+import okhttp3.internal.immutableListOf
 import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
@@ -27,8 +27,8 @@ internal class PersonalCollectionWebsiteViewModel(
     repository: PersonalCollectionWebsiteRepository? = null
 ) : WanAndroidBaseViewModel<PersonalCollectionWebsiteRepository>(repository) {
 
-    /** 数据操作类型  */
-    private var mDataOperateType = DATA_OPERATE_TYPE_LOAD
+    /** 页面操作类型  */
+    @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
     /** 网站收藏列表 数据列表 */
     val mWebsiteCollectedListItemList = ArrayList<PersonalCollectionWebsiteEntity>()
 
@@ -58,7 +58,7 @@ internal class PersonalCollectionWebsiteViewModel(
      * 加载数据
      */
     private fun load() {
-        mDataOperateType = DATA_OPERATE_TYPE_LOAD
+        mPageOperateType = PAGE_OPERATE_TYPE_LOAD
         getWebsiteCollectedList()
     }
 
@@ -66,7 +66,7 @@ internal class PersonalCollectionWebsiteViewModel(
      * 下拉刷新
      */
     fun refresh() {
-        mDataOperateType = DATA_OPERATE_TYPE_REFRESH
+        mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         getWebsiteCollectedList()
     }
 
@@ -75,12 +75,11 @@ internal class PersonalCollectionWebsiteViewModel(
      */
     private fun getWebsiteCollectedList() {
         mRepository?.getWebsiteCollectedList(onSuccess = { personalCollectionWebsiteList ->
-            val event =
-                ListDataChangeEvent<PersonalCollectionWebsiteEntity>()
+            val event = ListDataChangeEvent<PersonalCollectionWebsiteEntity>()
 
-            when (mDataOperateType) {
+            when (mPageOperateType) {
                 // 加载数据 或 重新加载
-                DATA_OPERATE_TYPE_LOAD -> {
+                PAGE_OPERATE_TYPE_LOAD -> {
                     mWebsiteCollectedListItemList.clear()
                     if (!personalCollectionWebsiteList.isNullOrEmpty()) {
                         mWebsiteCollectedListItemList.addAll(personalCollectionWebsiteList)
@@ -93,7 +92,7 @@ internal class PersonalCollectionWebsiteViewModel(
                     showCallback(if (mWebsiteCollectedListItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> {
+                PAGE_OPERATE_TYPE_REFRESH -> {
                     mWebsiteCollectedListItemList.clear()
                     if (!personalCollectionWebsiteList.isNullOrEmpty()) {
                         mWebsiteCollectedListItemList.addAll(personalCollectionWebsiteList)
@@ -112,11 +111,11 @@ internal class PersonalCollectionWebsiteViewModel(
                 else -> {}
             }
         }, onFailure = {
-            when (mDataOperateType) {
+            when (mPageOperateType) {
                 // 加载数据 或 重新加载
-                DATA_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
+                PAGE_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                 // 下拉刷新
-                DATA_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
+                PAGE_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                 else -> {}
             }
         })
@@ -127,9 +126,38 @@ internal class PersonalCollectionWebsiteViewModel(
      * @param dataMap 请求携带的数据 (id, name, link)
      */
     fun updateWebsite(dataMap: Map<String, Any>) {
-        showLoadingDialog(getStringById(R.string.提交中))
-        mRepository?.updateWebsite(dataMap, onSuccess = {
-            // TODO 编辑未完成
+        showLoadingDialog()
+        mRepository?.updateWebsite(dataMap, onSuccess = OnSuccess@{ personalCollectionWebsite ->
+            if (personalCollectionWebsite == null) {
+                return@OnSuccess
+            }
+
+            val position = getPositionById(personalCollectionWebsite.getId(), mWebsiteCollectedListItemList)
+
+            if (position == -1) {
+                return@OnSuccess
+            }
+
+            val event = ListDataChangeEvent<PersonalCollectionWebsiteEntity>(
+                type = UPDATE,
+                indexList = immutableListOf(position)
+            )
+
+            mWebsiteCollectedListItemList[position] = personalCollectionWebsite
+            mListDataChangeEvent.value = event
+
+            hideLoadingDialog()
+
+            // 更新此网站收藏
+            EventBus.getDefault().post(
+                WebsiteCollectionEvent(
+                    fromName = PersonalCollectionWebsiteFragment::class.java.name,
+                    type = UPDATE,
+                    personalCollectionWebsite = personalCollectionWebsite
+                )
+            )
+        }, onFailure = {
+            hideLoadingDialog()
         })
     }
 
@@ -142,8 +170,7 @@ internal class PersonalCollectionWebsiteViewModel(
             val position = getPositionById(websiteId, mWebsiteCollectedListItemList)
 
             if (position != -1) {
-                val event =
-                    ListDataChangeEvent<PersonalCollectionWebsiteEntity>()
+                val event = ListDataChangeEvent<PersonalCollectionWebsiteEntity>()
                 val indexList = listOf(position)
 
                 event.type = REMOVE
@@ -157,7 +184,7 @@ internal class PersonalCollectionWebsiteViewModel(
                     //数据为空
                     showCallback(LOAD_SERVICE_EMPTY)
                 }
-                // 取消某一网站收藏
+                // 取消此网站收藏
                 EventBus.getDefault().post(
                     WebsiteCollectionEvent(
                         fromName = PersonalCollectionWebsiteFragment::class.java.name,

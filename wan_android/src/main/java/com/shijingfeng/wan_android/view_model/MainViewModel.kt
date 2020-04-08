@@ -6,6 +6,8 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.shijingfeng.base.arouter.*
 import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.NEED_LOGIN
+import com.shijingfeng.base.common.constant.TITLE
+import com.shijingfeng.base.common.constant.URL
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
@@ -76,7 +78,11 @@ internal class MainViewModel(
     /** 跳转到 系统设置页面  */
     val mSettingClickListener = OnClickListener {}
     /** 跳转到 关于我们页面  */
-    val mAboutClickListener = OnClickListener {}
+    val mAboutClickListener = OnClickListener {
+        navigation(
+            path = ACTIVITY_WAN_ANDROID_ABOUT_US
+        )
+    }
     /** 注销登录  */
     val mLogoutClickListener = OnClickListener {
         mShowLogoutDialogEvent.call()

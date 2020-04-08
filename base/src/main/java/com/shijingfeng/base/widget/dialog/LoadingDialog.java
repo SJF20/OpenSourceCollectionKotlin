@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import com.shijingfeng.base.R;
 import com.shijingfeng.base.util.ResourceUtil;
 
+import java.sql.ResultSet;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -25,11 +27,14 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  */
 public class LoadingDialog {
 
+    /** 默认提示文本 */
+    private static final String DEFAULT_HINT_TEXT = ResourceUtil.getStringById(R.string.提交中);
+
     private static LoadingDialog sInstance;
 
     private CommonDialog mDialog;
     private ObjectAnimator mAnimator;
-    private String mHintText = ResourceUtil.getStringById(R.string.提交中);
+    private String mHintText = DEFAULT_HINT_TEXT;
 
     private LoadingDialog() {}
 
@@ -71,9 +76,9 @@ public class LoadingDialog {
      * 设置提示文本
      * @param hintText 提示文本
      */
-    public LoadingDialog setHintText(@NonNull String hintText) {
+    public LoadingDialog setHintText(String hintText) {
         if (TextUtils.isEmpty(hintText)) {
-            this.mHintText = "提交中...";
+            this.mHintText = DEFAULT_HINT_TEXT;
         } else {
             this.mHintText = hintText;
         }

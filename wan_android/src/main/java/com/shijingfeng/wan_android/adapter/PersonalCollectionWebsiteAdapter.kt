@@ -57,7 +57,7 @@ internal class PersonalCollectionWebsiteAdapter(
             setOnClickListener(
                 viewId = R.id.btn_uncollected,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data.identity, position, WEBSITE_ITEM_UNCOLLECTED)
+                    mOnItemEvent?.invoke(v, data.getId(), position, WEBSITE_ITEM_UNCOLLECTED)
                 }
             )
         }

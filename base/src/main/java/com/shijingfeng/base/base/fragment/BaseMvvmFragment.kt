@@ -8,7 +8,6 @@ import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IntRange
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -16,11 +15,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.kingja.loadsir.callback.SuccessCallback
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
-import com.shijingfeng.base.callback.EmptyCallback
-import com.shijingfeng.base.callback.LoadFailCallback
-import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 
@@ -113,7 +108,7 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
      */
     protected open fun initObserver() {
         //显示加载中提示对话框
-        mViewModel?.getCommonEventManager()?.getShowLoadingDialogEvent()?.observe(viewLifecycleOwner, Observer<String> { hint ->
+        mViewModel?.getCommonEventManager()?.getShowLoadingDialogEvent()?.observe(viewLifecycleOwner, Observer<String?> { hint ->
             LoadingDialog.getInstance()
                 .setHintText(hint)
                 .show(activity)

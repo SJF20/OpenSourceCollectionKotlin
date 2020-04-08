@@ -12,7 +12,6 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.annotation.IntRange
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -33,8 +32,9 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import org.greenrobot.eventbus.EventBus
 import java.io.File
-import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.callback.SuccessCallback
+import com.shijingfeng.base.annotation.define.LoadServiceStatus
+import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
@@ -147,7 +147,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * LoadSir 切换状态
      * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
      */
-    protected fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+    protected fun showCallback(@LoadServiceStatus status: Int) {
         mLoadService?.showCallback(when (status) {
             // LoadSir 状态: 成功
             LOAD_SERVICE_SUCCESS -> SuccessCallback::class.java
@@ -166,7 +166,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * 更新 下拉刷新，上拉加载 状态
      * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
      */
-    protected fun updateRefreshLoadMoreStatus(status: Int) {
+    protected fun updateRefreshLoadMoreStatus(@RefreshLoadMoreStatus status: Int) {
         mSmartRefreshLayout?.run {
             when (status) {
                 // 下拉刷新成功

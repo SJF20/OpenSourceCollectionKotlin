@@ -5,9 +5,11 @@ import android.text.TextUtils
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.JsonUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
@@ -17,10 +19,13 @@ import com.shijingfeng.base.arouter.ARouterUtil
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.base.widget.dialog.CommonDialog
+import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.PersonalCollectionWebsiteAdapter
@@ -55,6 +60,12 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
 
     /** 网站编辑 Dialog */
     private var mEditDialog: CommonDialog? = null
+    /** 网站编辑 ContentView */
+    private lateinit var mEditContentView: View
+    /** 当前 网站编辑 实体类 */
+    private lateinit var mPersonalCollectionWebsite: PersonalCollectionWebsiteEntity
+    /** 当前操作的 position */
+    private var mCurrentPosition = -1
 
     /**
      * 获取视图ID
@@ -91,6 +102,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -113,7 +125,8 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
      */
     override fun initAction() {
         super.initAction()
-        mPersonalCollectionWebsiteAdapter?.setOnItemEventListener { _, data, _, flag ->
+        mPersonalCollectionWebsiteAdapter?.setOnItemEventListener { _, data, position, flag ->
+            mCurrentPosition = position
             when (flag) {
                 // 查看网站详情
                 VIEW_WEBSITE_DETAIL -> {
@@ -134,7 +147,10 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
                     )
                 }
                 // 网站编辑
-                WEBSITE_ITEM_EDIT -> showEditDialog(data as PersonalCollectionWebsiteEntity)
+                WEBSITE_ITEM_EDIT -> {
+                    mPersonalCollectionWebsite = mViewModel?.mWebsiteCollectedListItemList?.get(mCurrentPosition) ?: return@setOnItemEventListener
+                    showEditDialog()
+                }
                 // 网站取消收藏
                 WEBSITE_ITEM_UNCOLLECTED -> mViewModel?.uncollected(data as String)
                 else -> {}
@@ -174,31 +190,44 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
                     )
                     ToastUtils.showShort(getStringById(R.string.取消收藏成功))
                 }
+                // 更新
+                UPDATE -> {
+                    if (indexList.isNullOrEmpty()) {
+                        return@ObserverLabel
+                    }
+
+                    indexList.forEach { position ->
+                        mPersonalCollectionWebsiteAdapter?.notifyItemChanged(position)
+                    }
+                }
             }
         })
     }
 
     /**
      * 显示 网站编辑 Dialog
-     * @param personalCollectionWebsite 网站收藏 实体类
      */
-    private fun showEditDialog(personalCollectionWebsite: PersonalCollectionWebsiteEntity) {
-        mEditDialog.let { editDialog ->
-            if (editDialog != null) {
-                if (!editDialog.isShowing) {
-                    editDialog.show()
-                }
-                return
-            }
+    private fun showEditDialog() {
+        if (activity == null || mCurrentPosition == -1) {
+            return
         }
 
-        val contentView = LayoutInflater.from(activity).inflate(R.layout.dialog_wan_android_personal_collection_website_edit, null)
+        mEditDialog?.run {
+            if (!isShowing) {
+                mEditContentView.et_website_title.setText(mPersonalCollectionWebsite.name)
+                mEditContentView.et_website_link.setText(mPersonalCollectionWebsite.link)
+                show()
+            }
+            return
+        }
 
-        contentView.et_website_title.setText(personalCollectionWebsite.name)
-        contentView.et_website_link.setText(personalCollectionWebsite.link)
+        mEditContentView = LayoutInflater.from(activity).inflate(R.layout.dialog_wan_android_personal_collection_website_edit, null)
+
+        mEditContentView.et_website_title.setText(mPersonalCollectionWebsite.name)
+        mEditContentView.et_website_link.setText(mPersonalCollectionWebsite.link)
 
         mEditDialog = CommonDialog.Builder(activity!!)
-            .setContentView(contentView)
+            .setContentView(mEditContentView)
             .setWindowWidth(SizeUtils.dp2px(350F))
             .setGravity(Gravity.TOP, 0, SizeUtils.dp2px(45F))
             .setBackgroundDrawable(R.drawable.shape_website_edit_bg)
@@ -208,16 +237,16 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
             .show()
 
         // 取消
-        contentView.tv_cancel.setOnClickListener {
+        mEditContentView.tv_cancel?.setOnClickListener {
             mEditDialog?.hide()
         }
         // 确认
-        contentView.tv_ensure.setOnClickListener {
+        mEditContentView.tv_ensure?.setOnClickListener {
             mEditDialog?.hide()
             mViewModel?.updateWebsite(HashMap<String, Any>().apply {
-                put("id", personalCollectionWebsite.identity)
-                put("name", contentView.et_website_title.text.toString().trim())
-                put("link", contentView.et_website_link.text.toString().trim())
+                put("id", mPersonalCollectionWebsite.getId())
+                put("name", mEditContentView.et_website_title.text.toString().trim())
+                put("link", mEditContentView.et_website_link.text.toString().trim())
             })
         }
     }

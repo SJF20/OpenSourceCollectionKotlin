@@ -20,7 +20,7 @@ interface Target<R> {
      * 加载完成
      * @param resource 资源
      */
-    fun onLoadFinished(resource: R) {}
+    fun onLoadFinished(resource: R?) {}
 
     /**
      * 加载失败

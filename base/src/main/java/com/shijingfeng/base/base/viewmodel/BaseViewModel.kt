@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.SparseArray
 import android.util.SparseIntArray
-import androidx.annotation.IntRange
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +19,8 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.R.string.再按一次退出应用
+import com.shijingfeng.base.annotation.define.LoadServiceStatus
+import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import org.greenrobot.eventbus.EventBus
@@ -47,9 +48,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     /** 页面跳转携带的数据Bundle (注意: 和 Activity 或 Fragment 的 mDataBundle 做区分, mDataBundle随着 Activity重启 或 Fragment重启 会改变) */
     var mParamBundle: Bundle? = null
     /** LoadSir 状态 */
-    var mLoadServiceStatus = LOAD_SERVICE_SUCCESS
+    @LoadServiceStatus var mLoadServiceStatus = LOAD_SERVICE_SUCCESS
     /** 下拉刷新 或 上拉加载 状态 */
-    var mRefreshLoadMoreStatus = 0
+    @RefreshLoadMoreStatus var mRefreshLoadMoreStatus = 0
 
     /** 连续双击退出应用  */
     protected var mExitApp: Boolean = false
@@ -101,7 +102,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * LoadSir 切换状态
      * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
      */
-    fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+    fun showCallback(@LoadServiceStatus status: Int) {
         mLoadServiceStatus = status
         getLoadServiceStatusEvent().value = status
     }
@@ -110,16 +111,16 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * 更新 下拉刷新，上拉加载 状态
      * @param status 下拉刷新 或 上拉加载 状态 {@link com.zjn.transport.constant.StatusConstant#REFRESH_SUCCESS}
      */
-    fun updateRefreshLoadMoreStatus (status: Int) {
+    fun updateRefreshLoadMoreStatus (@RefreshLoadMoreStatus status: Int) {
         mRefreshLoadMoreStatus = status
         getRefreshLoadMoreStatusEvent().value = status
     }
 
     /**
      * 显示加载中Dialog
-     * @param hint 提示文本
+     * @param hint 提示文本  null: 默认提示 (提交中...)
      */
-    fun showLoadingDialog(hint: String) {
+    fun showLoadingDialog(hint: String? = null) {
         getCommonEventManager().getShowLoadingDialogEvent().postValue(hint)
     }
 
@@ -267,7 +268,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     class CommonEventManager {
 
         /** 显示加载中 Dialog  */
-        private val mShowLoadingDialogEvent by lazy { SingleLiveEvent<String>() }
+        private val mShowLoadingDialogEvent by lazy { SingleLiveEvent<String?>() }
         /** 隐藏加载中 Dialog  */
         private val mHideLoadingDialogEvent by lazy { SingleLiveEvent<Any?>() }
         /** 跳转 Activity  */

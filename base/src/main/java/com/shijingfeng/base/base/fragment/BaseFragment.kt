@@ -11,7 +11,6 @@ import android.provider.Settings
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.annotation.IntRange
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -23,7 +22,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.shijingfeng.base.R
 import com.shijingfeng.base.interfaces.BackPressMonitor
 import com.shijingfeng.base.annotation.BindEventBus
+import com.shijingfeng.base.annotation.define.LoadServiceStatus
 import com.shijingfeng.base.annotation.NeedPermissions
+import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
@@ -245,7 +246,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * LoadSir 切换状态
      * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
      */
-    protected fun showCallback(@IntRange(from = 0, to = 3) status: Int) {
+    protected fun showCallback(@LoadServiceStatus status: Int) {
         mLoadService?.showCallback(when (status) {
             // LoadSir 状态: 成功
             LOAD_SERVICE_SUCCESS -> SuccessCallback::class.java
@@ -264,7 +265,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * 更新 下拉刷新，上拉加载 状态
      * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
      */
-    protected fun updateRefreshLoadMoreStatus(status: Int) {
+    protected fun updateRefreshLoadMoreStatus(@RefreshLoadMoreStatus status: Int) {
         mSmartRefreshLayout?.run {
             when (status) {
                 // 下拉刷新成功
