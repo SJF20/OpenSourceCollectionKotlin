@@ -12,7 +12,6 @@ import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.constant.LOGIN_ACTIVITY_CAN_BACK
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidLoginBinding
 import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.view_model.LoginViewModel
@@ -66,9 +65,6 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
      */
     override fun initData() {
         super.initData()
-        val canBack = mViewModel?.mParamBundle?.getBoolean(LOGIN_ACTIVITY_CAN_BACK, true) ?: true
-
-        include_title_bar.iv_back.visibility = if (canBack) VISIBLE else GONE
         include_title_bar.tv_title.text = getStringById(R.string.登录)
         include_title_bar.tv_operate.text = getStringById(R.string.注册)
         include_title_bar.include_title_bar.tv_operate.visibility = VISIBLE

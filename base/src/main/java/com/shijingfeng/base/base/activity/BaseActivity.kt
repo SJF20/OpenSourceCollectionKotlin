@@ -48,7 +48,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
             //销毁前一个Activity
             if (finishPrevious && !mIsPreActivityFinished) {
-                finishPreviousActivity(this@BaseActivity, false)
+                finishPreviousActivity(this@BaseActivity)
                 mIsPreActivityFinished = true
             }
             //销毁前面所有的Activity

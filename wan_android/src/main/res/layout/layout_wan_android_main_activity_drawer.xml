@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:background="@color/red"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            app:onClick="@{mainViewModel.mHeaderClickListener}">
 
             <include
                 android:id="@+id/sbv_status_bar2"
@@ -65,7 +66,7 @@
                 android:ellipsize="end"
                 android:maxLength="15"
                 android:maxLines="1"
-                android:text="@string/四杠占位符"
+                android:text="@string/三杠占位符"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -88,7 +89,7 @@
                     android:id="@+id/tv_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/四杠占位符"
+                    android:text="@string/三杠占位符"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
@@ -112,7 +113,7 @@
                     android:id="@+id/tv_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/四杠占位符"
+                    android:text="@string/三杠占位符"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
@@ -128,7 +129,7 @@
                     android:id="@+id/tv_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/四杠占位符"
+                    android:text="@string/三杠占位符"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
@@ -326,7 +327,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
-                    app:onClick="@{mainViewModel.mLogoutClickListener}">
+                    android:visibility="gone"
+                    app:onClick="@{mainViewModel.mLogoutClickListener}"
+                    tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/iv_logout"

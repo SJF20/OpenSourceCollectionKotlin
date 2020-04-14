@@ -18,19 +18,20 @@ import com.shijingfeng.base.util.image_load.ImageLoader
  * @param currentActivity 当前 Activity
  * @param isLoadAnim 是否加载 Activity切换动画
  */
-fun finishPreviousActivity(currentActivity: Activity, isLoadAnim: Boolean) {
+fun finishPreviousActivity(currentActivity: Activity, isLoadAnim: Boolean = false) {
     //销毁前一个Activity
     val activityList = ActivityUtils.getActivityList()
     val size = activityList.size
 
     for (i in size - 1 downTo 0) {
-        if (activityList[i] === currentActivity && i != 0) {
+        if (activityList[i] == currentActivity && i > 0) {
             activityList[i - 1]?.run {
                 finish()
                 if (!isLoadAnim) {
                     overridePendingTransition(0, 0)
                 }
             }
+            break
         }
     }
 }

@@ -39,6 +39,8 @@ const val ACTIVITY_WAN_ANDROID_LOGIN = "/wan_android/activity/LoginActivity"
 const val ACTIVITY_WAN_ANDROID_REGISTER = "/wan_android/activity/RegisterActivity"
 /** 主页 Activity  */
 const val ACTIVITY_WAN_ANDROID_MAIN = "/wan_android/activity/MainActivity"
+/** 用户信息 Activity */
+const val ACTIVITY_WAN_ANDROID_USER_INFO = "/wan_android/activity/UserInfoActivity"
 /** WebView Activity  */
 const val ACTIVITY_WAN_ANDROID_WEB_VIEW = "/wan_android/activity/WebViewActivity"
 /** 积分排名 Activity  */

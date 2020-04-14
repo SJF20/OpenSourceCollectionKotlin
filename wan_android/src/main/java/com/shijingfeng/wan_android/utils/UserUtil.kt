@@ -8,7 +8,9 @@ import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.constant.LOGIN
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
 import com.shijingfeng.wan_android.constant.USER_INFO
+import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Function: 用户工具类
@@ -21,7 +23,31 @@ internal object UserUtil {
     /** 是否已登录  true: 已登录  false: 未登录  */
     private var mLogin = false
     /** 登录数据  */
-    private var mUserInfoEntity: UserInfoEntity? = null
+    private var mUserInfo: UserInfoEntity? = null
+
+    var userInfo: UserInfoEntity?
+    get() {
+        if (mUserInfo == null) {
+            val encryptLoginDataStr = SPUtils.getInstance(SP_APP_NAME).getString(USER_INFO, "")
+            val loginDataStr: String = decrypt(encryptLoginDataStr)
+
+            mUserInfo = deserialize(loginDataStr, UserInfoEntity::class.java)
+        }
+
+        return mUserInfo
+    }
+    set(userInfo) {
+        mUserInfo = userInfo
+
+        if (userInfo == null) {
+            SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO, true)
+        } else {
+            SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfo)), true)
+        }
+
+        //通知其他页面更新用户数据
+        EventBus.getDefault().post(UserInfoEvent())
+    }
 
     /**
      * 是否已登录
@@ -39,36 +65,7 @@ internal object UserUtil {
      * @return 用户ID
      */
     fun getId(): String {
-        return getUserInfo()?.getId() ?: ""
-    }
-
-    /**
-     * 获取用户数据
-     * @return 登录数据
-     */
-    fun getUserInfo(): UserInfoEntity? {
-        if (mUserInfoEntity == null) {
-            val encryptLoginDataStr = SPUtils.getInstance(SP_APP_NAME).getString(USER_INFO, "")
-            val loginDataStr: String = decrypt(encryptLoginDataStr)
-
-            mUserInfoEntity = deserialize(loginDataStr, UserInfoEntity::class.java)
-        }
-
-        return mUserInfoEntity
-    }
-
-    /**
-     * 更新用户数据
-     * @param userInfoEntity 新的登录数据
-     */
-    fun updateUserInfo(userInfoEntity: UserInfoEntity?) {
-        mUserInfoEntity = userInfoEntity
-
-        if (userInfoEntity == null) {
-            SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO)
-        } else {
-            SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), false)
-        }
+        return userInfo?.getId() ?: ""
     }
 
     /**
@@ -77,10 +74,13 @@ internal object UserUtil {
      */
     fun login(userInfoEntity: UserInfoEntity) {
         mLogin = true
-        mUserInfoEntity = userInfoEntity
+        mUserInfo = userInfoEntity
 
-        SPUtils.getInstance(SP_APP_NAME).put(LOGIN, true)
-        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)))
+        SPUtils.getInstance(SP_APP_NAME).put(LOGIN, true, true)
+        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), true)
+
+        //通知其他页面更新用户数据
+        EventBus.getDefault().post(UserInfoEvent())
     }
 
     /**
@@ -88,10 +88,13 @@ internal object UserUtil {
      */
     fun logout() {
         mLogin = false
-        mUserInfoEntity = null
+        mUserInfo = null
 
-        SPUtils.getInstance(SP_APP_NAME).remove(LOGIN, false)
-        SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO, false)
+        SPUtils.getInstance(SP_APP_NAME).remove(LOGIN, true)
+        SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO, true)
+
+        //通知其他页面更新用户数据
+        EventBus.getDefault().post(UserInfoEvent())
     }
 
 }

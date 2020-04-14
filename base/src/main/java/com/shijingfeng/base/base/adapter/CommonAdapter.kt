@@ -80,28 +80,6 @@ abstract class CommonAdapter<T : BaseEntity>(
     ) {}
 
     /**
-     * 通过ID 获取当前Position位置
-     * @param id 位置
-     */
-    open fun getPositionById(id: String): Int {
-        val dataList = mDataList
-
-        if (dataList.isNullOrEmpty()) {
-            return -1
-        }
-
-        for (i in dataList.indices) {
-            val data: BaseEntity = dataList[i]
-            val currentId = data.getId()
-
-            if (id === currentId) {
-                return i
-            }
-        }
-        return -1
-    }
-
-    /**
      * 设置回调监听器
      * @param onItemEvent 回调监听器
      */

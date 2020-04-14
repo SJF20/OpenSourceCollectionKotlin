@@ -9,12 +9,8 @@ package com.shijingfeng.wan_android.constant
  * @author ShiJingFeng
  */
 
-/** Bundle Key(String) Value(boolean)  跳转到首页  */
-internal const val SKIP_TO_HOME = "skip_to_home"
 /** Bundle Key(String) Value(String)  知识体系实体类  */
 internal const val KNOWLEDGE_CLASSIFY_ENTITY = "knowledge_classify_entity"
-/** Bundle Key(String) Value(boolean)  登录页面是否能返回 (App是否只剩下登录页面了)  */
-internal const val LOGIN_ACTIVITY_CAN_BACK = "login_activity_can_back"
 /** Bundle Key(String) Value(String)  文章ID  */
 internal const val ARTICLE_ID = "article_id"
 /** Bundle Key(String) Value(boolean)  文章是否已被收藏 (true: 已被收藏, false: 未被收藏) */

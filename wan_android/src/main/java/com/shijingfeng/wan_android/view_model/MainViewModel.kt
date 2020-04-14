@@ -14,10 +14,14 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
+import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.utils.CoinUtil
+import com.shijingfeng.wan_android.utils.UserUtil
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Function: 主页 ViewModel
@@ -35,11 +39,19 @@ internal class MainViewModel(
     /** 当前Fragment  */
     var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
 
-    /** 更新积分数据 LiveData Event  */
-    val mUpdateCoinInfoEvent = SingleLiveEvent<CoinInfoEntity>()
-    /** 显示 退出登录确认对话框 */
+    /** 显示 退出登录确认对话框 Event */
     val mShowLogoutDialogEvent = SingleLiveEvent<Any?>()
 
+    /** 侧边栏 Header 点击事件 */
+    val mHeaderClickListener = OnClickListener {
+        // 跳转到用户信息页面
+        navigation(
+            path = ACTIVITY_WAN_ANDROID_USER_INFO,
+            bundle = Bundle().apply {
+                putBoolean(NEED_LOGIN, true)
+            }
+        )
+    }
     /** 跳转到 积分排行榜页面 */
     val mRankClickListener = OnClickListener {
         navigation(
@@ -94,52 +106,6 @@ internal class MainViewModel(
     }
 
     /**
-     * 初始化
-     */
-    override fun init() {
-        super.init()
-        if (NetworkUtils.isConnected()) {
-            getCoinInfo()
-        } else {
-            val coinInfo: CoinInfoEntity? = CoinUtil.getCoinInfo()
-
-            mUpdateCoinInfoEvent.value = coinInfo
-        }
-    }
-
-    /**
-     * 获取积分信息
-     */
-    private fun getCoinInfo() {
-        mRepository?.getCoinInfo(onSuccess = { coinInfo ->
-            coinInfo?.run {
-                CoinUtil.updateCoinInfo(coinInfo)
-                mUpdateCoinInfoEvent.value = coinInfo
-            }
-        })
-    }
-
-    /**
-     * 退出登录
-     */
-    fun logout() {
-        showLoadingDialog(getStringById(R.string.退出登录中))
-        mRepository?.logout(onSuccess = {
-            hideLoadingDialog()
-            navigation(
-                path = ACTIVITY_WAN_ANDROID_LOGIN,
-                bundle = Bundle().apply {
-                    putBoolean(SKIP_TO_HOME, true)
-                    putBoolean(FINISH_FRONT_ALL_ACTIVITY, true)
-                    putBoolean(LOGIN_ACTIVITY_CAN_BACK, false)
-                }
-            )
-        }, onFailure = {
-            hideLoadingDialog()
-        })
-    }
-
-    /**
      * 获取 Fragment列表
      * @return Fragment列表
      */
@@ -162,6 +128,24 @@ internal class MainViewModel(
             )
         }
         return mFragmentList as List<WanAndroidBaseFragment<*, *>>
+    }
+
+    /**
+     * 退出登录
+     */
+    fun logout() {
+        showLoadingDialog(getStringById(R.string.退出登录中))
+        mRepository?.logout(onSuccess = {
+            // 本地退出登录
+            UserUtil.logout()
+            // 删除积分信息
+            CoinUtil.coinInfo = null
+            // 关闭加载中弹框
+            hideLoadingDialog()
+        }, onFailure = {
+            // 关闭加载中弹框
+            hideLoadingDialog()
+        })
     }
 
 }

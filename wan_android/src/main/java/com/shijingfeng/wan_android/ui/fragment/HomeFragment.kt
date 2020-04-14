@@ -17,6 +17,7 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
@@ -282,7 +283,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             //收藏还是取消收藏  true:收藏  false:取消收藏
             val collected = sparseArray[KEY_COLLECTED] as Boolean
             val articleId = sparseArray[KEY_ARTICLE_ID] as String
-            val position: Int = mHomeAdapter?.getPositionById(articleId) ?: -1
+            val position = getPositionById(articleId, mViewModel?.mHomeItemDataList!!)
 
             if (position != -1) {
                 val homeItem = mViewModel!!.mHomeItemDataList[position]

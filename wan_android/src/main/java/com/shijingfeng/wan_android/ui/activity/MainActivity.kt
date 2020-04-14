@@ -10,6 +10,8 @@ import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -36,10 +38,9 @@ import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
-import com.shijingfeng.wan_android.source.local.getMainLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
+import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.view_model.MainViewModel
 import kotlinx.android.synthetic.main.activity_wan_android_main.*
@@ -90,7 +91,6 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     override fun getViewModel(): MainViewModel? {
         val mainRepository = getMainRepositoryInstance(
-            localSource = getMainLocalSourceInstance(),
             networkSource = getMainNetworkSourceInstance()
         )
         val factory = createCommonViewModelFactory(
@@ -131,7 +131,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             addTab(newTab())
             //项目
             addTab(newTab())
+
+            /// TabLayout 和 ViewPager 协同
             setupWithViewPager(vp_content)
+
             //首页
             getTabAt(MAIN_HOME)?.customView = getTabView(MAIN_HOME)
             //分类
@@ -143,10 +146,23 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             //项目
             getTabAt(MAIN_PROJECT)?.customView = getTabView(MAIN_PROJECT)
         }
-        UserUtil.getUserInfo()?.run {
-            //如果登录则设置数据
+        // 显示用户信息数据
+        UserUtil.userInfo?.run {
+            // 昵称 或 用户名
             tv_name.text = if (TextUtils.isEmpty(nickname)) username else nickname
+            // ID
             tv_id.text = identity
+        }
+        // 显示积分信息数据
+        CoinUtil.coinInfo?.run {
+            // 等级
+            tv_level.text = level.toString()
+            // 排名
+            tv_rank.text = rank.toString()
+            // 积分数量
+            tv_coin_quantity.text = coinCount.toString()
+            // 显示注销登录
+            ll_logout.visibility = VISIBLE
         }
     }
 
@@ -155,11 +171,11 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     override fun initAction() {
         super.initAction()
-        //打开DrawerLayout
+        // 打开DrawerLayout
         ClickUtils.applySingleDebouncing(iv_menu) {
             dwl_drawer.openDrawer(GravityCompat.START)
         }
-        //TabLayout Item 事件
+        // TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -227,7 +243,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             override fun onTabReselected(tab: TabLayout.Tab) {}
 
         })
-        //ViewPager Item 事件
+        // ViewPager Item 事件
         vp_content.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
@@ -257,7 +273,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                 }
             }
         })
-        //DrawerLayout 事件
+        // DrawerLayout 事件
         dwl_drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
@@ -266,6 +282,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             }
 
         })
+        // Fragment事件
         mViewModel?.getFragmentList()?.forEach { fragment ->
             fragment.setOnItemEventListener { _, _, visibility, flag ->
                 when (flag) {
@@ -281,14 +298,6 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     override fun initObserver() {
         super.initObserver()
-        //设置积分数据
-        mViewModel?.mUpdateCoinInfoEvent?.observe(this, Observer<CoinInfoEntity?> { coinInfo ->
-            if (coinInfo != null) {
-                tv_level.text = coinInfo.level.toString()
-                tv_rank.text = coinInfo.rank.toString()
-                tv_coin_quantity.text = coinInfo.coinCount.toString()
-            }
-        })
         // 显示 退出登录确认对话框
         mViewModel?.mShowLogoutDialogEvent?.observe(this, Observer {
             showLogoutDialog()
@@ -445,22 +454,32 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getUserInfoEvent(event: UserInfoEvent) {
-        val newUserInfoEntity = event.newUserInfoEntity
-        val newNickname = newUserInfoEntity.nickname
-        val newUsername = newUserInfoEntity.username
-        val newId: String = newUserInfoEntity.getId()
+        val userInfo = UserUtil.userInfo
+        val nickname = userInfo?.nickname
+        val username = userInfo?.username
+        val id = userInfo?.getId()
 
-        if (!StringUtils.isEmpty(newNickname)) {
-            if (tv_name.text.toString() !== newNickname) {
-                tv_name.text = newNickname
+        // 是否隐藏注销登录, 已注销登录则隐藏注销登录Item, 否则显示
+        ll_logout.visibility = if (userInfo == null) GONE else VISIBLE
+
+        // 用户名
+        if (!StringUtils.isEmpty(nickname)) {
+            if (tv_name.text.toString() != nickname) {
+                tv_name.text = nickname
+            }
+        } else if (!StringUtils.isEmpty(username)) {
+            if (tv_name.text.toString() != username) {
+                tv_name.text = username
             }
         } else {
-            if (tv_name.text.toString() !== newUsername) {
-                tv_name.text = newUsername
-            }
+            tv_name.text = getStringById(R.string.三杠占位符)
         }
-        if (tv_id.text.toString() !== newId) {
-            tv_id.text = newId
+
+        // 用户ID
+        if (tv_id.text.toString() != id) {
+            tv_id.text = id
+        } else {
+            tv_id.text = getStringById(R.string.三杠占位符)
         }
     }
 
@@ -470,19 +489,36 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getCoinInfoEvent(event: CoinInfoEvent) {
-        val newCoinInfoEntity = event.newCoinInfoEntity
-        val newLevel = newCoinInfoEntity.level.toString()
-        val newRank = newCoinInfoEntity.rank.toString()
-        val newCoinCount = newCoinInfoEntity.coinCount.toString()
+        val coinInfo = CoinUtil.coinInfo
+        val level = coinInfo?.level?.toString()
+        val rank = coinInfo?.rank?.toString()
+        val coinCount = coinInfo?.coinCount?.toString()
 
-        if (tv_level.text.toString() !== newLevel) {
-            tv_level.text = newLevel
+        // 等级
+        if (!StringUtils.isEmpty(level)) {
+            if (tv_level.text.toString() != level) {
+                tv_level.text = level
+            }
+        } else {
+            tv_level.text = getStringById(R.string.三杠占位符)
         }
-        if (tv_rank.text.toString() !== newRank) {
-            tv_rank.text = newRank
+
+        // 排名
+        if (!StringUtils.isEmpty(rank)) {
+            if (tv_rank.text.toString() != rank) {
+                tv_rank.text = rank
+            }
+        } else {
+            tv_rank.text = getStringById(R.string.三杠占位符)
         }
-        if (tv_coin_quantity.text.toString() !== newCoinCount) {
-            tv_coin_quantity.text = newCoinCount
+
+        // 积分数量
+        if (!StringUtils.isEmpty(coinCount)) {
+            if (tv_coin_quantity.text.toString() != coinCount) {
+                tv_coin_quantity.text = coinCount
+            }
+        } else {
+            tv_coin_quantity.text = "0"
         }
     }
 

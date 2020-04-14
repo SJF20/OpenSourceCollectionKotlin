@@ -9,16 +9,15 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import com.blankj.utilcode.util.ToastUtils
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
-import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.constant.SKIP_TO_HOME
+import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.repository.LoginRepository
+import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import org.greenrobot.eventbus.EventBus
 
@@ -66,9 +65,9 @@ internal class LoginViewModel(
 
     /** 去注册 */
     val mTextOperateClickListener = OnClickListener {
-        navigation(path = ACTIVITY_WAN_ANDROID_REGISTER, bundle = Bundle().apply {
-            putBoolean(SKIP_TO_HOME, mParamBundle?.getBoolean(SKIP_TO_HOME, false) ?: false)
-        })
+        navigation(
+            path = ACTIVITY_WAN_ANDROID_REGISTER
+        )
     }
 
     /** 登录  */
@@ -100,37 +99,40 @@ internal class LoginViewModel(
     private fun login() {
         showLoadingDialog(getStringById(R.string.登录中))
 
-        val postMap = HashMap<String, Any>()
-
-        postMap["username"] = mUsername.get() ?: ""
-        postMap["password"] = mPassword.get() ?: ""
-
-        mRepository?.login(postMap, onSuccess = onSuccessCompleted@{ userInfo ->
-            //关闭加载中弹框
-            hideLoadingDialog()
+        mRepository?.login(HashMap<String, Any>(2).apply {
+            put("username", mUsername.get() ?: "")
+            put("password", mPassword.get() ?: "")
+        }, onSuccess = onSuccessCompleted@{ userInfo ->
             if (userInfo != null) {
                 //登录信息存储到本地
                 UserUtil.login(userInfo)
-                //通知其他页面更新用户数据
-                EventBus.getDefault().post(UserInfoEvent(userInfo))
-
-                val skipToHome = mParamBundle?.getBoolean(SKIP_TO_HOME, false) ?: false
-
-                if (skipToHome) {
-                    //跳到首页
-                    navigation(path = ACTIVITY_WAN_ANDROID_MAIN, bundle = Bundle().apply {
-                        putBoolean(FINISH_PREVIOUS_ACTIVITY, true)
-                    })
-                    return@onSuccessCompleted
-                }
-                setResult(Activity.RESULT_OK)
-                finish()
+                // 登录完成后 获取 积分信息
+                getCoinInfo()
             } else {
+                //关闭加载中弹框
+                hideLoadingDialog()
                 ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
             }
         }, onFailure = {
             //关闭加载中弹框
             hideLoadingDialog()
+        })
+    }
+
+    /**
+     * 获取积分信息
+     */
+    private fun getCoinInfo() {
+        mRepository?.getCoinInfo(onSuccess = { coinInfo ->
+            //积分信息存储到本地
+            CoinUtil.coinInfo = coinInfo
+            //关闭加载中弹框
+            hideLoadingDialog()
+            finish()
+        }, onFailure = {
+            //关闭加载中弹框
+            hideLoadingDialog()
+            finish()
         })
     }
 

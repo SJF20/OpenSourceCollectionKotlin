@@ -17,7 +17,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRecordBinding
 import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
-import com.shijingfeng.wan_android.utils.CoinUtil.getCoinInfo
+import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.view_model.CoinRecordViewModel
 import kotlinx.android.synthetic.main.activity_wan_android_coin_record.*
 import kotlinx.android.synthetic.main.activity_wan_android_coin_record.srl_refresh
@@ -83,7 +83,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
         }
 
         // 设置个人积分数量
-        getCoinInfo()?.let { coinInfo ->
+        CoinUtil.coinInfo?.let { coinInfo ->
             tv_coin_quantity.text = coinInfo.coinCount.toString()
         }
 

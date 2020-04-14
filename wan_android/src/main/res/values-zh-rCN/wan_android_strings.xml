@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="wan_android_name">玩Android</string>
 
-    <string name="四杠占位符">----</string>
+    <string name="三杠占位符">---</string>
     <string name="请输入用户名">请输入用户名</string>
     <string name="请输入密码">请输入密码</string>
     <string name="再次确认密码">再次确认密码</string>
@@ -27,6 +27,7 @@
     <string name="注销登录">注销登录</string>
     <string name="知识体系">知识体系</string>
     <string name="导航分类">导航分类</string>
+    <string name="用户信息">用户信息</string>
     <string name="刷新">刷新</string>
     <string name="分享">分享</string>
     <string name="收藏">收藏</string>

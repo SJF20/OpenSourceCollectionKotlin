@@ -6,8 +6,11 @@ import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
+import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
+import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.source.network.api.UserApi
+import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -39,12 +42,16 @@ internal fun getLoginNetworkSourceInstance(): LoginNetworkSource {
  */
 internal class LoginNetworkSource : BaseNetworkSource() {
 
-    private val mUserApi: UserApi = RetrofitUtil.create(UserApi::class.java)
+    /** 用户信息相关 Api */
+    private val mUserApi = RetrofitUtil.create(UserApi::class.java)
+    /** 积分信息相关 Api */
+    private val mCoinApi = RetrofitUtil.create(CoinApi::class.java)
 
     /**
      * 登录
      * @param postMap 数据
-     * @param listener 回调监听
+     * @param onSuccess 成功回调监听
+     * @param onFailure 失败回调监听
      */
     fun login(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
         addCoroutinesJob(
@@ -62,6 +69,15 @@ internal class LoginNetworkSource : BaseNetworkSource() {
                 }
             }
         )
+    }
+
+    /**
+     * 获取 积分信息
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
+    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
+        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess, onFailure))
     }
 
     /**

@@ -4,7 +4,9 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
+import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.entity.network.UserInfoEntity
+import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.source.network.api.UserApi
 import com.shijingfeng.wan_android.utils.apiRequest
 
@@ -35,7 +37,10 @@ internal fun getRegisterNetworkSourceInstance(): RegisterNetworkSource {
  */
 internal class RegisterNetworkSource : BaseNetworkSource() {
 
-    private val mUserApi: UserApi = RetrofitUtil.create(UserApi::class.java)
+    /** 用户信息相关 Api */
+    private val mUserApi = RetrofitUtil.create(UserApi::class.java)
+    /** 积分信息相关 Api */
+    private val mCoinApi = RetrofitUtil.create(CoinApi::class.java)
 
     /**
      * 注册
@@ -45,6 +50,15 @@ internal class RegisterNetworkSource : BaseNetworkSource() {
      */
     fun register(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
         addDisposable(apiRequest(mUserApi.register(postMap), onSuccess, onFailure))
+    }
+
+    /**
+     * 获取 积分信息
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
+    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
+        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess, onFailure))
     }
 
     /**

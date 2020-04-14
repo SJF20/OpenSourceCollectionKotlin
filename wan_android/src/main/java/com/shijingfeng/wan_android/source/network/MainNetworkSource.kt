@@ -2,8 +2,6 @@ package com.shijingfeng.wan_android.source.network
 
 import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
-import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.source.network.api.UserApi
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
@@ -36,16 +34,7 @@ internal fun getMainNetworkSourceInstance(): MainNetworkSource {
  */
 internal class MainNetworkSource : BaseNetworkSource() {
 
-    private val mCoinApi: CoinApi = RetrofitUtil.create(CoinApi::class.java)
     private val mUserApi: UserApi = RetrofitUtil.create(UserApi::class.java)
-
-    /**
-     * 获取 积分信息
-     * @param onSuccess 成功回调接口
-     */
-    fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>) {
-        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess))
-    }
 
     /**
      * 退出登录

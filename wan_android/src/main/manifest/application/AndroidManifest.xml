@@ -59,6 +59,8 @@
         <!-- 首页 Activity -->
         <activity android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"/>
+        <!-- 用户信息 Activity -->
+        <activity android:name=".ui.activity.UserInfoActivity" />
         <!-- 通用WebView页面 -->
         <activity android:name=".ui.activity.WebViewActivity"
             android:configChanges="orientation|screenSize"/>
