@@ -32,6 +32,7 @@ import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.shareText
@@ -58,6 +59,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.ByteArrayOutputStream
 
+/** TitleBar 隐藏 或 显示 所要滑动的距离 */
+private val TITLE_BAR_VISIBILITY_SCROLL_DISTANCE = TITLE_BAR_HEIGHT * 3
 
 /**
  * Function: WebView容器 Activity
@@ -189,34 +192,36 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         ClickUtils.applySingleDebouncing(include_title_bar.iv_operate) { showMoreDialog() }
         //WebView滑动监听器
         wv_content.setCustomOnScrollChangeListener { _, _, newScrollY, _, oldScrollY ->
+            e("测试", "newScrollY: $newScrollY  oldScrollY: $oldScrollY")
             if (newScrollY > oldScrollY) {
                 //触控点向上走，视图向下滚动，即手指向上滑动
                 if (mYScrollDirection == SCROLL_TO_DOWN) {
                     //计算滑动距离
                     mYScrollDistance += (newScrollY - oldScrollY)
-                    if (mYScrollDistance >= TITLE_BAR_HEIGHT && mIsTitleBarVisible) {
+                    if (mYScrollDistance >= TITLE_BAR_VISIBILITY_SCROLL_DISTANCE && mIsTitleBarVisible) {
                         //隐藏标题栏
                         hideTitleBar()
                     }
                 } else {
-                    mYScrollDistance = 0
-                    mYScrollDirection = SCROLL_TO_DOWN;
+                    mYScrollDistance = newScrollY - oldScrollY
+                    mYScrollDirection = SCROLL_TO_DOWN
                 }
-            } else {
+            } else if (newScrollY < oldScrollY) {
                 //触控点想下走，视图向上滚动，即手指向下滑动
                 if (mYScrollDirection == SCROLL_TO_UP) {
                     //计算滑动距离
                     mYScrollDistance += (oldScrollY - newScrollY)
-                    if (mYScrollDistance >= TITLE_BAR_HEIGHT && !mIsTitleBarVisible) {
+                    if (mYScrollDistance >= TITLE_BAR_VISIBILITY_SCROLL_DISTANCE && !mIsTitleBarVisible) {
                         //显示标题栏
                         showTitleBar()
                     }
                 } else {
-                    mYScrollDistance = 0;
-                    mYScrollDirection = SCROLL_TO_UP;
+                    mYScrollDistance = oldScrollY - newScrollY
+                    mYScrollDirection = SCROLL_TO_UP
                 }
             }
         }
+        // JS交互接口
         initJavascriptInterfaces()
     }
 

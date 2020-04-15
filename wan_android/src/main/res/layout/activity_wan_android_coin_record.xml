@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="45dp"
-                android:text="@string/四杠占位符"
+                android:text="@string/三杠占位符"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
