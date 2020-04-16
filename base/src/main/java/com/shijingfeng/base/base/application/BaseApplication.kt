@@ -51,9 +51,6 @@ abstract class BaseApplication : Application() {
         }
     }
 
-    /** X5内核是否初始化成功  true:成功 false:失败  */
-    private var mX5InitSuccess = false
-
     override fun onCreate() {
         super.onCreate()
         application = this

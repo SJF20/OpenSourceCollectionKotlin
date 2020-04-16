@@ -6,11 +6,9 @@ import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils.dp2px
@@ -31,6 +29,7 @@ import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import java.util.*
+import kotlin.math.min
 
 
 /**
@@ -45,8 +44,8 @@ internal class HomeAdapter(
     multiItemTypeSupport: MultiItemTypeSupport<HomeItem>
 ) : CommonMultiItemAdapter<HomeItem>(context, dataList, multiItemTypeSupport) {
 
-    /** 轮播图当前下标 */
-    private var mBannerIndex = 0
+    /** 轮播图当前下标  null: 最初状态 (下标为 0)  not null: 轮播图下标 */
+    private var mBannerIndex: Int? = null
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)
@@ -123,28 +122,6 @@ internal class HomeAdapter(
     }
 
     /**
-     * View 绑定到 Window 上 (可见)
-     */
-    override fun onViewAttachedToWindow(holder: CommonViewHolder) {
-        super.onViewAttachedToWindow(holder)
-    }
-
-    /**
-     * View 从 Window 上解绑 (不可见)
-     */
-    override fun onViewDetachedFromWindow(holder: CommonViewHolder) {
-        val position = holder.layoutPosition
-        val itemType = getItemViewType(position)
-
-        if (itemType == HOME_BANNER) {
-            val bannerView = holder.getView<BannerView>(R.id.bv_banner)
-
-            mBannerIndex = bannerView?.currentRealItem ?: 0
-        }
-        super.onViewDetachedFromWindow(holder)
-    }
-
-    /**
      * 初始化 轮播图 数据
      * @param holder CommonViewHolder
      * @param homeBannerItem 轮播图数据实体类
@@ -161,7 +138,7 @@ internal class HomeAdapter(
 
         //标题指示器 数据
         val titleIndicatorData = TitleIndicatorData()
-            .setCurRealPosition(mBannerIndex)
+            .setCurRealPosition(mBannerIndex ?: 0)
             .setTotalRealCount(homeBannerList.size)
             .setTitleTextList(titleTextList)
             .setTitleColor(getColorById(R.color.white))
@@ -169,7 +146,7 @@ internal class HomeAdapter(
             .setTitleGravity(Gravity.START or Gravity.CENTER_VERTICAL)
         //图形指示器 数据
         val shapeIndicatorData = ShapeIndicatorData()
-            .setCurRealPosition(mBannerIndex)
+            .setCurRealPosition(mBannerIndex ?: 0)
             .setTotalRealCount(homeBannerList.size)
             .setGravity(Gravity.END or Gravity.CENTER_VERTICAL)
         //指示器数据列表
@@ -195,7 +172,7 @@ internal class HomeAdapter(
         }
         bannerView
             ?.setPagerAdapter(pagerAdapter)
-            ?.setCurrentRealItem(mBannerIndex, false)
+            ?.setCurrentRealItem(mBannerIndex ?: 0, false)
             ?.setIndicator(combineIndicatorData)
             ?.start()
     }
@@ -385,4 +362,60 @@ internal class HomeAdapter(
             )
         }
     }
+
+    /**
+     * View 绑定到 Window 上 (可见)
+     */
+    override fun onViewAttachedToWindow(holder: CommonViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        val position = holder.layoutPosition
+        val itemType = getItemViewType(position)
+
+        if (itemType == HOME_BANNER) {
+            val bannerView = holder.getView<BannerView>(R.id.bv_banner)
+
+            bannerView?.currentRealItem = mBannerIndex ?: 0
+        }
+    }
+
+    /**
+     * View 从 Window 上解绑 (不可见)
+     */
+    override fun onViewDetachedFromWindow(holder: CommonViewHolder) {
+        val position = holder.layoutPosition
+        val itemType = getItemViewType(position)
+
+        if (itemType == HOME_BANNER) {
+            val bannerView = holder.getView<BannerView>(R.id.bv_banner)
+
+            // 记录当前 轮播图 下标
+            mBannerIndex = if (mBannerIndex == null) 0 else bannerView?.currentRealItem
+        }
+        super.onViewDetachedFromWindow(holder)
+    }
+
+    /**
+     * View 被销毁
+     */
+    override fun onViewRecycled(holder: CommonViewHolder) {
+        val position = holder.layoutPosition
+        val itemType = getItemViewType(position)
+
+        if (itemType == HOME_BANNER) {
+            val bannerView = holder.getView<BannerView>(R.id.bv_banner)
+
+            // 销毁 BannerView 防止内存泄漏
+            bannerView?.destroy()
+        }
+        super.onViewRecycled(holder)
+    }
+
+    /**
+     * 全部数据视图更新
+     */
+    fun notifyDataChanged() {
+        mBannerIndex = null
+        notifyDataSetChanged()
+    }
+
 }

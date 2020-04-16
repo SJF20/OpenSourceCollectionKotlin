@@ -15,6 +15,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
@@ -124,7 +125,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                      */
                     override fun getItemViewType(position: Int, data: HomeItem) = data.getType()
 
-                })
+            })
             rv_content.adapter = mHomeAdapter
             rv_content.layoutManager = LinearLayoutManager(activity)
             rv_content.addItemDecoration(LinearDividerItemDecoration())
@@ -254,7 +255,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                 //加载
                 LOAD,
                 //刷新
-                REFRESH -> mHomeAdapter?.notifyDataSetChanged()
+                REFRESH -> mHomeAdapter?.notifyDataChanged()
                 //添加
                 ADD -> {
                     if (homeItemList.isNullOrEmpty()) {
@@ -302,41 +303,29 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
     }
 
     override fun onPause() {
-        val layoutManager = rv_content.layoutManager as LinearLayoutManager?
+        val viewHolder = rv_content.findViewHolderForAdapterPosition(0)
 
-        if (layoutManager != null) {
-            val first = layoutManager.findFirstVisibleItemPosition()
+        if (viewHolder != null) {
+            val commonViewHolder = viewHolder as CommonViewHolder
+            val bannerView = commonViewHolder.getView<BannerView>(R.id.bv_banner)
 
-            if (first == 0) {
-                val view = layoutManager.getChildAt(0)
-
-                if (view != null) {
-                    val bannerView: BannerView? = view.findViewById(R.id.bv_banner)
-
-                    bannerView?.pause()
-                }
-            }
+            // 暂停轮播图自动轮播
+            bannerView?.pause()
         }
         super.onPause()
     }
 
     override fun onResume() {
-        val layoutManager = rv_content.layoutManager as LinearLayoutManager?
-
-        if (layoutManager != null) {
-            val first = layoutManager.findFirstVisibleItemPosition()
-
-            if (first == 0) {
-                val view = layoutManager.getChildAt(0)
-
-                if (view != null) {
-                    val bannerView: BannerView? = view.findViewById(R.id.bv_banner)
-
-                    bannerView?.resume()
-                }
-            }
-        }
         super.onResume()
+        val viewHolder = rv_content.findViewHolderForAdapterPosition(0)
+
+        if (viewHolder != null) {
+            val commonViewHolder = viewHolder as CommonViewHolder
+            val bannerView = commonViewHolder.getView<BannerView>(R.id.bv_banner)
+
+            // 恢复轮播图自动轮播
+            bannerView?.resume()
+        }
     }
 
     /**

@@ -175,7 +175,7 @@ dependencies {
     api rootProject.ext.androidx["constraintlayout"]
     //Leak Canary 内存泄漏检测框架
     debugApi rootProject.ext.dependencies["leakcanary-android"]
-//    debugApi rootProject.ext.dependencies["leakcanary-android-no-op"]
+    releaseApi rootProject.ext.dependencies["leakcanary-android-no-op"]
     //Design设计库
     api rootProject.ext.dependencies["material"]
     //Glide图片加载框架
