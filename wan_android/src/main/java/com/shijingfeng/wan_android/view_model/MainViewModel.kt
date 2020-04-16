@@ -55,10 +55,7 @@ internal class MainViewModel(
     /** 跳转到 积分排行榜页面 */
     val mRankClickListener = OnClickListener {
         navigation(
-            path = ACTIVITY_WAN_ANDROID_COIN_RANK,
-            bundle = Bundle().apply {
-                putBoolean(NEED_LOGIN, true)
-            }
+            path = ACTIVITY_WAN_ANDROID_COIN_RANK
         )
     }
     /** 跳转到 积分记录页面 */
