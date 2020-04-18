@@ -128,10 +128,12 @@ internal class LoginViewModel(
             CoinUtil.coinInfo = coinInfo
             //关闭加载中弹框
             hideLoadingDialog()
+            // 关闭登录页面
             finish()
         }, onFailure = {
             //关闭加载中弹框
             hideLoadingDialog()
+            // 关闭登录页面
             finish()
         })
     }
