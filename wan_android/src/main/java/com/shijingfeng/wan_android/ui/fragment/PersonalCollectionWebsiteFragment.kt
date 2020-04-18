@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.JsonUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
@@ -19,13 +17,10 @@ import com.shijingfeng.base.arouter.ARouterUtil
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
-import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.base.widget.dialog.CommonDialog
-import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.PersonalCollectionWebsiteAdapter
@@ -41,9 +36,13 @@ import com.shijingfeng.wan_android.view_model.PersonalCollectionWebsiteViewModel
 import kotlinx.android.synthetic.main.dialog_wan_android_personal_collection_website_edit.view.*
 import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_article.rv_content
 import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_article.srl_refresh
-import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_website.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
+/**
+ * 创建 PersonalCollectionWebsiteFragment 实例
+ */
+internal fun createPersonalCollectionWebsiteFragment() = PersonalCollectionWebsiteFragment()
 
 /**
  * Function: 我的收藏 -> 收藏网站列表 Fragment

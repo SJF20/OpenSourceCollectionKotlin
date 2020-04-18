@@ -2,7 +2,7 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.view.View.OnClickListener
-import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.VIEW_WEBSITE_DETAIL
@@ -20,7 +20,7 @@ internal class PersonalCollectionWebsiteAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<PersonalCollectionWebsiteEntity>? = null
-) : CommonAdapter<PersonalCollectionWebsiteEntity>(context, layoutId, dataList) {
+) : BaseAdapter<PersonalCollectionWebsiteEntity>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

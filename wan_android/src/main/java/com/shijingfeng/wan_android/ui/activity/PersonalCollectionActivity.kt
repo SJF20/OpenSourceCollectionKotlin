@@ -6,28 +6,39 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ClickUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION
-import com.shijingfeng.base.base.adapter.CommonFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidPersonalCollectionBinding
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionRepositoryInstance
+import com.shijingfeng.wan_android.ui.fragment.*
+import com.shijingfeng.wan_android.ui.fragment.createEmptyFragment
 import com.shijingfeng.wan_android.view_model.PersonalCollectionViewModel
+import kotlinx.android.synthetic.main.activity_wan_android_main.*
 import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
+import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.fab_to_top
+import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.tl_tabs
+import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.vp_content
 
 /** 我的收藏 -> 文章 */
 private const val PERSONAL_COLLECTION_ARTICLE = 0
 /** 我的收藏 -> 网站 */
 private const val PERSONAL_COLLECTION_WEBSITE = 1
+
+/** Fragment 数量 */
+private const val FRAGMENT_COUNT = 2
 
 /**
  * Function: 我的收藏 Activity
@@ -37,6 +48,12 @@ private const val PERSONAL_COLLECTION_WEBSITE = 1
  */
 @Route(path = ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION)
 internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAndroidPersonalCollectionBinding, PersonalCollectionViewModel>() {
+
+    /** 我的收藏 ViewPager Fragment 适配器 */
+    private var mPersonalCollectionFragmentPagerAdapter: PersonalCollectionFragmentPagerAdapter? = null
+
+    /** 当前Fragment  */
+    var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
 
     /**
      * 获取视图ID
@@ -73,13 +90,10 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
      */
     override fun initData() {
         super.initData()
+        mPersonalCollectionFragmentPagerAdapter = PersonalCollectionFragmentPagerAdapter(supportFragmentManager)
         vp_content.setCanScroll(false)
         vp_content.offscreenPageLimit = 1
-        vp_content.adapter = CommonFragmentPagerAdapter(
-            supportFragmentManager,
-            mViewModel?.getFragmentList(),
-            true
-        )
+        vp_content.adapter =mPersonalCollectionFragmentPagerAdapter
 
         tl_tabs.run {
             // 文章
@@ -99,6 +113,10 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
      */
     override fun initAction() {
         super.initAction()
+        // 置顶
+        ClickUtils.applySingleDebouncing(fab_to_top) {
+            mCurrentFragment?.scrollToTop()
+        }
         //TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
@@ -124,16 +142,16 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                mViewModel?.mCurrentFragment = mViewModel?.getFragmentList()?.get(position)
+                mCurrentFragment = mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(position)
             }
 
         })
         // 文章收藏列表 Fragment 回调
-        mViewModel?.getFragmentList()?.get(PERSONAL_COLLECTION_ARTICLE)?.setOnItemEventListener { view, data, position, flag ->
+        mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(PERSONAL_COLLECTION_ARTICLE)?.setOnItemEventListener { view, data, position, flag ->
 
         }
         // 网站收藏列表 Fragment 回调
-        mViewModel?.getFragmentList()?.get(PERSONAL_COLLECTION_WEBSITE)?.setOnItemEventListener { view, data, position, flag ->
+        mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(PERSONAL_COLLECTION_WEBSITE)?.setOnItemEventListener { view, data, position, flag ->
 
         }
     }
@@ -169,5 +187,39 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
 
         return textView
     }
+
+}
+
+/**
+ * 我的收藏 ViewPager Fragment 适配器
+ */
+internal class PersonalCollectionFragmentPagerAdapter(
+    fragmentManager: FragmentManager
+) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
+    fragmentManager = fragmentManager,
+    mBanDestroyed = true
+) {
+
+    /**
+     * 创建 Fragment Item
+     * @param position 下标
+     * @return 创建好的 Fragment
+     */
+    override fun createItem(position: Int): WanAndroidBaseFragment<*, *> {
+        return when (position) {
+            // 我的收藏 -> 收藏文章列表 Fragment
+            PERSONAL_COLLECTION_ARTICLE -> createPersonalCollectionArticleFragment()
+            // 我的收藏 -> 收藏网站列表 Fragment
+            PERSONAL_COLLECTION_WEBSITE -> createPersonalCollectionWebsiteFragment()
+            // 空 Fragment
+            else -> createEmptyFragment()
+        }
+    }
+
+    /**
+     * 获取 Fragment List Count
+     * @return Fragment List Count
+     */
+    override fun getCount() = FRAGMENT_COUNT
 
 }

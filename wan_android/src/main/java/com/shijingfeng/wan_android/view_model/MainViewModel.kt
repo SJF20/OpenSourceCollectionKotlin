@@ -33,12 +33,6 @@ internal class MainViewModel(
     repository: MainRepository? = null
 ) : WanAndroidBaseViewModel<MainRepository>(repository) {
 
-    /** Fragment列表  */
-    private var mFragmentList: List<WanAndroidBaseFragment<*, *>>? = null
-
-    /** 当前Fragment  */
-    var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
-
     /** 显示 退出登录确认对话框 Event */
     val mShowLogoutDialogEvent = SingleLiveEvent<Any?>()
 
@@ -98,36 +92,6 @@ internal class MainViewModel(
     /** 注销登录  */
     val mLogoutClickListener = OnClickListener {
         mShowLogoutDialogEvent.call()
-    }
-
-    /** 置顶  */
-    val mScrollToTopClickListener = OnClickListener {
-        mCurrentFragment?.scrollToTop()
-    }
-
-    /**
-     * 获取 Fragment列表
-     * @return Fragment列表
-     */
-    fun getFragmentList(): List<WanAndroidBaseFragment<*, *>> {
-        if (mFragmentList == null) {
-            val homeFragment = HomeFragment()
-
-            mCurrentFragment = homeFragment
-            mFragmentList = mutableListOf(
-                //首页 Fragment
-                homeFragment,
-                //分类 Fragment
-                ClassifyFragment(),
-                //公众号 Fragment
-                OfficialAccountFragment(),
-                //广场 Fragment
-                SquareFragment(),
-                //项目 Fragment
-                ProjectFragment()
-            )
-        }
-        return mFragmentList as List<WanAndroidBaseFragment<*, *>>
     }
 
     /**

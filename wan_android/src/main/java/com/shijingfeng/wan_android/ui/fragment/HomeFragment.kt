@@ -39,6 +39,10 @@ import kotlinx.android.synthetic.main.fragment_wan_android_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 创建 HomeFragment 实例
+ */
+internal fun createHomeFragment() = HomeFragment()
 
 /**
  * Function: 首页 Fragment

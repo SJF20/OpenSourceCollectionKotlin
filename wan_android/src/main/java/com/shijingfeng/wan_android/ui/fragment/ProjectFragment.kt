@@ -10,6 +10,11 @@ import com.shijingfeng.wan_android.databinding.FragmentWanAndroidProjectBinding
 import com.shijingfeng.wan_android.view_model.ProjectViewModel
 
 /**
+ * 创建 ProjectFragment 实例
+ */
+internal fun createProjectFragment() = ProjectFragment()
+
+/**
  * Function: 项目 Fragment
  * Date: 2020/2/12 17:11
  * Description:

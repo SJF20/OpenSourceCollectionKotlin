@@ -1,7 +1,7 @@
 package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
-import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.entity.network.CoinRankItem
@@ -16,7 +16,7 @@ internal class CoinRankAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<CoinRankItem>? = null
-) : CommonAdapter<CoinRankItem>(context, layoutId, dataList) {
+) : BaseAdapter<CoinRankItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

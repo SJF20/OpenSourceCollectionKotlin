@@ -19,37 +19,9 @@ internal class PersonalCollectionViewModel(
     repository: PersonalCollectionRepository? = null
 ) : WanAndroidBaseViewModel<PersonalCollectionRepository>(repository) {
 
-    /** Fragment列表  */
-    private var mFragmentList: List<WanAndroidBaseFragment<*, *>>? = null
-    /** 当前Fragment  */
-    var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
-
     /** 返回  */
     val mBackClickListener = OnClickListener {
         finish()
-    }
-    /** 置顶  */
-    val mScrollToTopListener = OnClickListener {
-        mCurrentFragment?.scrollToTop()
-    }
-
-    /**
-     * 获取 Fragment列表
-     * @return Fragment列表
-     */
-    fun getFragmentList(): List<WanAndroidBaseFragment<*, *>> {
-        if (mFragmentList == null) {
-            val personalCollectionArticleFragment = PersonalCollectionArticleFragment()
-
-            mCurrentFragment = personalCollectionArticleFragment
-            mFragmentList = mutableListOf(
-                // 文章收藏 Fragment
-                personalCollectionArticleFragment,
-                // 网站收藏 Fragment
-                PersonalCollectionWebsiteFragment()
-            )
-        }
-        return mFragmentList as List<WanAndroidBaseFragment<*, *>>
     }
 
 }

@@ -17,7 +17,7 @@ import com.shijingfeng.base.common.extension.onItemEvent
  * Description:
  * @author ShiJingFeng
  */
-abstract class CommonPagedListAdapter<T : BaseEntity>: PagedListAdapter<T, CommonViewHolder> {
+abstract class BasePagedListAdapter<T : BaseEntity>: PagedListAdapter<T, CommonViewHolder> {
 
     private val mContext: Context
     private val mLayoutId: Int

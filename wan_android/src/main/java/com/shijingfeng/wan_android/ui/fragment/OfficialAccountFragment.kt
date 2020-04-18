@@ -10,6 +10,11 @@ import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccount
 import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel
 
 /**
+ * 创建 OfficialAccountFragment 实例
+ */
+internal fun createOfficialAccountFragment() = OfficialAccountFragment()
+
+/**
  * Function: 公众号 Fragment
  * Date: 2020/2/12 17:02
  * Description:

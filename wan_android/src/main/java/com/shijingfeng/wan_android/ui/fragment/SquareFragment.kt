@@ -10,6 +10,11 @@ import com.shijingfeng.wan_android.databinding.FragmentWanAndroidSquareBinding
 import com.shijingfeng.wan_android.view_model.SquareViewModel
 
 /**
+ * 创建 SquareFragment 实例
+ */
+internal fun createSquareFragment() = SquareFragment()
+
+/**
  * Function: 广场 Fragment
  * Date: 2020/2/12 17:07
  * Description:

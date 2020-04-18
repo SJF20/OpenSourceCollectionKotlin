@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils.dp2px
-import com.shijingfeng.base.base.adapter.CommonMultiItemAdapter
+import com.shijingfeng.base.base.adapter.BaseMultiItemAdapter
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.*
@@ -29,7 +29,6 @@ import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import java.util.*
-import kotlin.math.min
 
 
 /**
@@ -42,7 +41,7 @@ internal class HomeAdapter(
     context: Context,
     dataList: List<HomeItem>? = null,
     multiItemTypeSupport: MultiItemTypeSupport<HomeItem>
-) : CommonMultiItemAdapter<HomeItem>(context, dataList, multiItemTypeSupport) {
+) : BaseMultiItemAdapter<HomeItem>(context, dataList, multiItemTypeSupport) {
 
     /** 轮播图当前下标  null: 最初状态 (下标为 0)  not null: 轮播图下标 */
     private var mBannerIndex: Int? = null

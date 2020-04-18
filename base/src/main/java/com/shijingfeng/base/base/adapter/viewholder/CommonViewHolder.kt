@@ -17,11 +17,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
-import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
-import java.lang.Exception
 
 /**
  * 简单工厂模式创建对象
@@ -177,7 +176,7 @@ class CommonViewHolder constructor (
      */
     fun <T : BaseEntity> setLinearAdapter(
         @IdRes viewId: Int,
-        adapter: CommonAdapter<T>,
+        adapter: BaseAdapter<T>,
         @RecyclerView.Orientation orientation: Int
     ): CommonViewHolder {
         getView<RecyclerView>(viewId)?.let { recyclerView ->
@@ -197,7 +196,7 @@ class CommonViewHolder constructor (
      */
     fun <T : BaseEntity> setGridAdapter(
         @IdRes viewId: Int,
-        adapter: CommonAdapter<T>,
+        adapter: BaseAdapter<T>,
         spanCount: Int
     ): CommonViewHolder {
         getView<RecyclerView>(viewId)?.let { recyclerView ->

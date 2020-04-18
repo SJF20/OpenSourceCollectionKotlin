@@ -33,6 +33,11 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
+ * 创建 PersonalCollectionArticleFragment 实例
+ */
+internal fun createPersonalCollectionArticleFragment() = PersonalCollectionArticleFragment()
+
+/**
  * Function: 我的收藏 -> 收藏文章列表 Fragment
  * Date: 2020/3/24 22:53
  * Description:

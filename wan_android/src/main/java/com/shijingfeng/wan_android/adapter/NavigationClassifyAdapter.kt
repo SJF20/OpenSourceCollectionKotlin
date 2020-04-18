@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
@@ -26,7 +26,7 @@ internal class NavigationClassifyAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<NavigationClassifyEntity>? = null
-) : CommonAdapter<NavigationClassifyEntity>(context, layoutId, dataList) {
+) : BaseAdapter<NavigationClassifyEntity>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

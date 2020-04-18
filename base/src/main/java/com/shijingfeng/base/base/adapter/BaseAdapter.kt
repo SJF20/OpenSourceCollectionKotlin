@@ -14,7 +14,7 @@ import com.shijingfeng.base.common.extension.onItemEvent
  * Description:
  * @author ShiJingFeng
  */
-abstract class CommonAdapter<T : BaseEntity>(
+abstract class BaseAdapter<T : BaseEntity>(
     protected val mContext: Context,
     protected val mLayoutId: Int,
     protected var mDataList: List<T>? = null

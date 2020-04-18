@@ -4,7 +4,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.view.View
 import android.widget.CompoundButton
-import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
@@ -21,7 +21,7 @@ internal class KnowledgeClassifyChildAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<KnowledgeClassifyChildItem>? = null
-) : CommonAdapter<KnowledgeClassifyChildItem>(context, layoutId, dataList) {
+) : BaseAdapter<KnowledgeClassifyChildItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

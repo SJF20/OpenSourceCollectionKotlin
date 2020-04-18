@@ -2,12 +2,9 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.text.TextUtils
-import android.view.View
 import android.view.View.OnClickListener
-import com.blankj.utilcode.util.ClickUtils
-import com.shijingfeng.base.base.adapter.CommonAdapter
+import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.library.SwipeRemoveLayout
 import com.shijingfeng.wan_android.R
@@ -25,7 +22,7 @@ internal class PersonalCollectionArticleAdapter(
     context: Context,
     layoutId: Int,
     dataList: List<PersonalCollectionArticleItem>? = null
-) : CommonAdapter<PersonalCollectionArticleItem>(context, layoutId, dataList) {
+) : BaseAdapter<PersonalCollectionArticleItem>(context, layoutId, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

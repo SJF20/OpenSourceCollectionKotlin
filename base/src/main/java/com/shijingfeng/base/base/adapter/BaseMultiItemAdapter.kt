@@ -12,11 +12,11 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Description:
  * @author ShiJingFeng
  */
-abstract class CommonMultiItemAdapter<T : BaseEntity>(
+abstract class BaseMultiItemAdapter<T : BaseEntity>(
     mContext: Context,
     mDataList: List<T>? = null,
     protected val mMultiItemTypeSupport: MultiItemTypeSupport<T>
-) : CommonAdapter<T>(mContext, -1, mDataList) {
+) : BaseAdapter<T>(mContext, -1, mDataList) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         createCommonViewHolder(

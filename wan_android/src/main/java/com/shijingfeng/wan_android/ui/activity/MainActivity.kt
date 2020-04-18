@@ -15,6 +15,7 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -23,7 +24,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.StringUtils
 import com.google.android.material.tabs.TabLayout
-import com.shijingfeng.base.base.adapter.CommonFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
@@ -32,6 +33,7 @@ import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.RESULT_ARTICLE_COLLECTED_LIST
 import com.shijingfeng.wan_android.constant.RESULT_COIN_RECORD
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
@@ -40,6 +42,12 @@ import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
+import com.shijingfeng.wan_android.ui.fragment.createClassifyFragment
+import com.shijingfeng.wan_android.ui.fragment.createEmptyFragment
+import com.shijingfeng.wan_android.ui.fragment.createHomeFragment
+import com.shijingfeng.wan_android.ui.fragment.createOfficialAccountFragment
+import com.shijingfeng.wan_android.ui.fragment.createProjectFragment
+import com.shijingfeng.wan_android.ui.fragment.createSquareFragment
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.view_model.MainViewModel
@@ -68,6 +76,9 @@ private const val MAIN_SQUARE = 3
 /** 项目  */
 private const val MAIN_PROJECT = 4
 
+/** Fragment 数量 */
+private const val FRAGMENT_COUNT = 5
+
 /**
  * Function: 首页 Activity
  * Date: 2020/2/11 13:55
@@ -77,6 +88,12 @@ private const val MAIN_PROJECT = 4
 @BindEventBus
 @Route(path = ACTIVITY_WAN_ANDROID_MAIN)
 internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBinding, MainViewModel>() {
+
+    /** 主页 ViewPager Fragment 适配器 */
+    private var mMainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
+
+    /** 当前Fragment  */
+    var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
 
     /**
      * 获取视图ID
@@ -114,12 +131,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     @SuppressLint("SetTextI18n")
     override fun initData() {
         super.initData()
+        mMainFragmentPagerAdapter = MainFragmentPagerAdapter(supportFragmentManager)
         vp_content.offscreenPageLimit = 1
-        vp_content.adapter = CommonFragmentPagerAdapter(
-            supportFragmentManager,
-            mViewModel?.getFragmentList(),
-            true
-        )
+        vp_content.adapter = mMainFragmentPagerAdapter
+
         tl_tabs.run {
             //首页
             addTab(newTab(), true)
@@ -174,6 +189,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         // 打开DrawerLayout
         ClickUtils.applySingleDebouncing(iv_menu) {
             dwl_drawer.openDrawer(GravityCompat.START)
+        }
+        // 置顶
+        ClickUtils.applySingleDebouncing(fab_to_top) {
+            mCurrentFragment?.scrollToTop()
         }
         // TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -256,7 +275,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             }
 
             override fun onPageSelected(position: Int) {
-                mViewModel?.mCurrentFragment = mViewModel?.getFragmentList()?.get(position)
+                mCurrentFragment = mMainFragmentPagerAdapter?.getFragmentByPosition(position)
 
                 when (position) {
                     // 首页
@@ -283,8 +302,8 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
         })
         // Fragment事件
-        mViewModel?.getFragmentList()?.forEach { fragment ->
-            fragment.setOnItemEventListener { _, _, visibility, flag ->
+        for (index in 0 until FRAGMENT_COUNT) {
+            mMainFragmentPagerAdapter?.getFragmentByPosition(index)?.setOnItemEventListener { _, _, visibility, flag ->
                 when (flag) {
                     //TabLayout 设置可见性
                     TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
@@ -521,5 +540,45 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             tv_coin_quantity.text = "0"
         }
     }
+
+}
+
+/**
+ * 主页 ViewPager Fragment 适配器
+ */
+internal class MainFragmentPagerAdapter(
+    fragmentManager: FragmentManager
+) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
+    fragmentManager = fragmentManager,
+    mBanDestroyed = true
+) {
+
+    /**
+     * 创建 Fragment Item
+     * @param position 下标
+     * @return 创建好的 Fragment
+     */
+    override fun createItem(position: Int): WanAndroidBaseFragment<*, *> {
+        return when (position) {
+            // 首页
+            MAIN_HOME -> createHomeFragment()
+            // 分类
+            MAIN_CLASSIFY -> createClassifyFragment()
+            // 公众号
+            MAIN_OFFICIAL_ACCOUNT -> createOfficialAccountFragment()
+            // 广场
+            MAIN_SQUARE -> createSquareFragment()
+            // 项目
+            MAIN_PROJECT -> createProjectFragment()
+            // 空 Fragment
+            else -> createEmptyFragment()
+        }
+    }
+
+    /**
+     * 获取 Fragment List Count
+     * @return Fragment List Count
+     */
+    override fun getCount() = FRAGMENT_COUNT
 
 }

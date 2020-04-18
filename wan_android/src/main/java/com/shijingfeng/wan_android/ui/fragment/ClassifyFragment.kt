@@ -10,6 +10,11 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidClassifyBinding
 import com.shijingfeng.wan_android.view_model.ClassifyViewModel
 
+/**
+ * 创建 ClassifyFragment 实例
+ */
+internal fun createClassifyFragment() = ClassifyFragment()
+
 /** 知识体系  */
 private const val CLASSIFY_KNOWLEDGE = 0
 /** 分类导航  */
