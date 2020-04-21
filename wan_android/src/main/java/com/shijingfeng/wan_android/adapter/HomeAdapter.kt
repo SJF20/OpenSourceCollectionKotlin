@@ -23,11 +23,10 @@ import com.shijingfeng.sjf_banner.library.banner.entity.TitleIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.*
-import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
+import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
-import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import java.util.*
 
 
@@ -59,9 +58,9 @@ internal class HomeAdapter(
     ) {
         when(data.getType()) {
             //轮播图
-            HOME_BANNER -> initBannerItemData(holder, data as HomeBannerItem)
+            HOME_BANNER -> initBannerItemData(holder, data as HomeBannerListItem)
             //置顶文章
-            HOME_SET_TO_TOP -> initTopArticleItemData(holder, data as HomeSetToTopItem)
+            HOME_TOP_ARTICLE -> initTopArticleItemData(holder, data as HomeTopArticleItem)
             //文章
             HOME_ARTICLE -> initArticleItemData(holder, data as HomeArticleItem)
         }
@@ -95,7 +94,7 @@ internal class HomeAdapter(
                             //文章 Item
                             is HomeArticleItem -> data.collected
                             //置顶文章 Item
-                            is HomeSetToTopItem -> data.collected
+                            is HomeTopArticleItem -> data.collected
                             else -> false
                         }
 
@@ -125,10 +124,9 @@ internal class HomeAdapter(
      * @param holder CommonViewHolder
      * @param homeBannerItem 轮播图数据实体类
      */
-    private fun initBannerItemData(holder: CommonViewHolder, homeBannerItem: HomeBannerItem) {
+    private fun initBannerItemData(holder: CommonViewHolder, homeBannerItem: HomeBannerListItem) {
         val bannerView = holder.getView<BannerView>(R.id.bv_banner)
-
-        val homeBannerList: List<HomeBannerEntity> = homeBannerItem.homeBannerList
+        val homeBannerList = homeBannerItem.homeBannerList
         val titleTextList = ArrayList<String>(homeBannerList.size)
 
         for (homeBanner in homeBannerList) {
@@ -181,7 +179,7 @@ internal class HomeAdapter(
      * @param holder CommonViewHolder
      * @param homeSetToTopItem 置顶文章数据实体类
      */
-    private fun initTopArticleItemData(holder: CommonViewHolder, homeSetToTopItem: HomeSetToTopItem) {
+    private fun initTopArticleItemData(holder: CommonViewHolder, homeSetToTopItem: HomeTopArticleItem) {
         val isFresh = homeSetToTopItem.fresh
         val tagList = homeSetToTopItem.tagList
         val author = homeSetToTopItem.author

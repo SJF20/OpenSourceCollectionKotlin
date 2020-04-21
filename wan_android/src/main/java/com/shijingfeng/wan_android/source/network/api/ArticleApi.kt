@@ -2,10 +2,11 @@ package com.shijingfeng.wan_android.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeArticleEntity
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildEntity
 import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.view_model.HOME_FIRST_PAGE
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -26,11 +27,11 @@ internal interface ArticleApi {
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @GET("article/top/json")
-    fun getHomeSetToTopList(): Single<ResultEntity<List<HomeSetToTopItem>>>
+    fun getHomeTopArticleList(): Single<ResultEntity<List<HomeTopArticleItem>>>
 
     /**
      * 获取 首页文章 列表
-     * @param page 页码 (从0开始，为了兼容旧版本)
+     * @param page 页码 (从 [HOME_FIRST_PAGE] 开始，为了兼容旧版本)
      * @return Single<ResultEntity>
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)

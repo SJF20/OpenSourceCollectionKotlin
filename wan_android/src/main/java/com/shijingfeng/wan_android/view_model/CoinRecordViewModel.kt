@@ -16,6 +16,9 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.network.CoinRecordItem
 import com.shijingfeng.wan_android.source.repository.CoinRecordRepository
 
+/** 第一页 页码  */
+const val COIN_RECORD_FIRST_PAGE = 1
+
 /**
  * Function: 积分记录 ViewModel
  * Date: 2020/3/16 21:51
@@ -28,11 +31,8 @@ internal class CoinRecordViewModel(
     repository = repository
 ) {
 
-    /** 第一页 页码  */
-    private val FIRST_PAGE = 1
-
     /** 当前页码  */
-    private var mPage = FIRST_PAGE
+    private var mPage = COIN_RECORD_FIRST_PAGE
 
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
@@ -88,7 +88,7 @@ internal class CoinRecordViewModel(
      */
     private fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-        getCoinRecordList(FIRST_PAGE)
+        getCoinRecordList(COIN_RECORD_FIRST_PAGE)
     }
 
     /**
@@ -97,7 +97,7 @@ internal class CoinRecordViewModel(
     private fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         //下拉刷新 期间禁止 上拉加载
-        getCoinRecordList(FIRST_PAGE)
+        getCoinRecordList(COIN_RECORD_FIRST_PAGE)
     }
 
     /**
@@ -110,18 +110,17 @@ internal class CoinRecordViewModel(
 
     /**
      * 获取积分记录列表
-     * @param page 页码 (从 [FIRST_PAGE] 开始)
+     * @param page 页码 (从 [COIN_RECORD_FIRST_PAGE] 开始)
      */
     private fun getCoinRecordList(page: Int) {
         mRepository?.getCoinRecordList(page, onSuccess = onSuccessLabel@{ coinRecord ->
             val coinRecordItemList = coinRecord?.coinRecordItemList
-            val event =
-                ListDataChangeEvent<CoinRecordItem>()
+            val event = ListDataChangeEvent<CoinRecordItem>()
 
             when (mPageOperateType) {
                 // 加载数据 或 重新加载
                 PAGE_OPERATE_TYPE_LOAD -> {
-                    mPage = FIRST_PAGE
+                    mPage = COIN_RECORD_FIRST_PAGE
                     mCoinRecordItemList.clear()
                     if (!coinRecordItemList.isNullOrEmpty()) {
                         mCoinRecordItemList.addAll(coinRecordItemList)
@@ -135,7 +134,7 @@ internal class CoinRecordViewModel(
                 }
                 // 下拉刷新
                 PAGE_OPERATE_TYPE_REFRESH -> {
-                    mPage = FIRST_PAGE
+                    mPage = COIN_RECORD_FIRST_PAGE
                     mCoinRecordItemList.clear()
                     if (!coinRecordItemList.isNullOrEmpty()) {
                         mCoinRecordItemList.addAll(coinRecordItemList)

@@ -10,6 +10,8 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import com.shijingfeng.wan_android.view_model.COIN_RANK_FIRST_PAGE
+import com.shijingfeng.wan_android.view_model.COIN_RECORD_FIRST_PAGE
 
 /**
  * Function: 积分 Api
@@ -29,7 +31,7 @@ internal interface CoinApi {
 
     /**
      * 获取 积分记录 列表
-     * @param page 页码
+     * @param page 页码 从 [COIN_RECORD_FIRST_PAGE] 开始
      * @return Single<ResultEntity>
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
@@ -38,7 +40,7 @@ internal interface CoinApi {
 
     /**
      * 获取 积分排行榜 列表
-     * @param page 页码
+     * @param page 页码 从 [COIN_RANK_FIRST_PAGE] 开始
      * @return Single<ResultEntity>
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)

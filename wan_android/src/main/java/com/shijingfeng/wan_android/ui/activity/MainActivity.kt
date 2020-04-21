@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Handler
 import android.text.TextUtils
 import android.util.SparseArray
 import android.view.KeyEvent
@@ -28,6 +29,7 @@ import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -92,8 +94,8 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     /** 主页 ViewPager Fragment 适配器 */
     private var mMainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
 
-    /** 当前Fragment  */
-    var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
+    /** 当前 ViewPager 下标  */
+    var mCurPosition = MAIN_HOME
 
     /**
      * 获取视图ID
@@ -131,6 +133,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     @SuppressLint("SetTextI18n")
     override fun initData() {
         super.initData()
+        mCurPosition = MAIN_HOME
         mMainFragmentPagerAdapter = MainFragmentPagerAdapter(supportFragmentManager)
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mMainFragmentPagerAdapter
@@ -192,7 +195,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         }
         // 置顶
         ClickUtils.applySingleDebouncing(fab_to_top) {
-            mCurrentFragment?.scrollToTop()
+            mMainFragmentPagerAdapter?.getFragmentByPosition(mCurPosition)?.scrollToTop()
         }
         // TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -271,11 +274,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
-            ) {
-            }
+            ) {}
 
             override fun onPageSelected(position: Int) {
-                mCurrentFragment = mMainFragmentPagerAdapter?.getFragmentByPosition(position)
+                mCurPosition = position
 
                 when (position) {
                     // 首页
@@ -302,14 +304,17 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
         })
         // Fragment事件
-        for (index in 0 until FRAGMENT_COUNT) {
-            mMainFragmentPagerAdapter?.getFragmentByPosition(index)?.setOnItemEventListener { _, _, visibility, flag ->
-                when (flag) {
-                    //TabLayout 设置可见性
-                    TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
+        // 延迟 500 毫秒, 防止 getFragmentByPosition() 获取 Fragment 为 null
+        Handler().postDelayed({
+            for (index in 0 until FRAGMENT_COUNT) {
+                mMainFragmentPagerAdapter?.getFragmentByPosition(index)?.setOnItemEventListener { _, _, visibility, flag ->
+                    when (flag) {
+                        //TabLayout 设置可见性
+                        TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
+                    }
                 }
             }
-        }
+        }, 500)
     }
 
     /**
@@ -336,12 +341,12 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     private fun setTabLayoutVisibility(visibility: Int) {
         if (ll_tabs.tag == null) {
-            ll_tabs.tag = View.VISIBLE
+            ll_tabs.tag = VISIBLE
         }
-        if (visibility == View.VISIBLE) {
+        if (visibility == VISIBLE) {
             //设置为可见
-            if (ll_tabs.tag as Int != View.VISIBLE) {
-                ll_tabs.tag = View.VISIBLE
+            if (ll_tabs.tag as Int != VISIBLE) {
+                ll_tabs.tag = VISIBLE
                 ll_tabs
                     .animate()
                     .setDuration(400)
@@ -365,10 +370,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                     .scaleX(1.0f)
                     .scaleY(1.0f)
             }
-        } else if (visibility == View.GONE) {
+        } else if (visibility == GONE) {
             //设置为不可见
-            if (ll_tabs.tag as Int != View.GONE) {
-                ll_tabs.tag = View.GONE
+            if (ll_tabs.tag as Int != GONE) {
+                ll_tabs.tag = GONE
                 ll_tabs
                     .animate()
                     .setDuration(400)

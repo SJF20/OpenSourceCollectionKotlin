@@ -6,6 +6,7 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.CoinRankEntity
 import com.shijingfeng.wan_android.source.network.CoinRankNetworkSource
+import com.shijingfeng.wan_android.view_model.COIN_RANK_FIRST_PAGE
 
 /** 单例实例 */
 @Volatile
@@ -43,7 +44,7 @@ internal class CoinRankRepository(
     /**
      * 获取 积分排行榜 列表
      *
-     * @param page      页码 (从1开始)
+     * @param page      页码 (从 [COIN_RANK_FIRST_PAGE] 开始)
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */

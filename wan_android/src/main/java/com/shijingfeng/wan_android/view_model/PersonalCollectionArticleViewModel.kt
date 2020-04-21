@@ -19,6 +19,9 @@ import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionArticleFragment
 import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
+/** 第一页 页码  */
+const val PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE = 0
+
 /**
  * Function: 我的收藏 -> 收藏文章列表 ViewModel
  * Date: 2020/3/24 22:56
@@ -29,11 +32,8 @@ internal class PersonalCollectionArticleViewModel(
     repository: PersonalCollectionArticleRepository? = null
 ) : WanAndroidBaseViewModel<PersonalCollectionArticleRepository>(repository) {
 
-    /** 第一页 页码  */
-    private val FIRST_PAGE = 0
-
     /** 当前页码  */
-    private var mPage = FIRST_PAGE
+    private var mPage = PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
     /** 文章收藏列表 数据列表 */
@@ -68,7 +68,7 @@ internal class PersonalCollectionArticleViewModel(
      */
     private fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-        getArticleCollectedList(FIRST_PAGE)
+        getArticleCollectedList(PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE)
     }
 
     /**
@@ -76,7 +76,7 @@ internal class PersonalCollectionArticleViewModel(
      */
     fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
-        getArticleCollectedList(FIRST_PAGE)
+        getArticleCollectedList(PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE)
     }
 
     /**
@@ -89,7 +89,7 @@ internal class PersonalCollectionArticleViewModel(
 
     /**
      * 获取 文章收藏列表
-     * @param page 页码 (从 0 开始)
+     * @param page 页码 (从 [PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE] 开始)
      */
     private fun getArticleCollectedList(page: Int) {
         mRepository?.getArticleCollectedList(page, onSuccess = onSuccessLabel@{ articleCollectedList ->
@@ -100,7 +100,7 @@ internal class PersonalCollectionArticleViewModel(
             when (mPageOperateType) {
                 // 加载数据
                 PAGE_OPERATE_TYPE_LOAD -> {
-                    mPage = FIRST_PAGE
+                    mPage = PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
                     mArticleCollectedListItemList.clear()
                     if (!articleCollectedItemList.isNullOrEmpty()) {
                         mArticleCollectedListItemList.addAll(articleCollectedItemList)
@@ -114,7 +114,7 @@ internal class PersonalCollectionArticleViewModel(
                 }
                 // 下拉刷新
                 PAGE_OPERATE_TYPE_REFRESH -> {
-                    mPage = FIRST_PAGE
+                    mPage = PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
                     mArticleCollectedListItemList.clear()
                     if (!articleCollectedItemList.isNullOrEmpty()) {
                         mArticleCollectedListItemList.addAll(articleCollectedItemList)

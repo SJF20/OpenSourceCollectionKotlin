@@ -14,12 +14,15 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
-import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
+import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.source.repository.HomeRepository
 import com.shijingfeng.wan_android.ui.fragment.HomeFragment
 import org.greenrobot.eventbus.EventBus
+
+/** 第一页 页码  */
+const val HOME_FIRST_PAGE = 0
 
 /**
  * Function: 首页 ViewModel
@@ -31,11 +34,8 @@ internal class HomeViewModel(
     repository: HomeRepository? = null
 ) : WanAndroidBaseViewModel<HomeRepository>(repository) {
 
-    /** 第一页 页码  */
-    private val FIRST_PAGE = 0
-
     /** 当前页码  */
-    private var mPage = FIRST_PAGE
+    private var mPage = HOME_FIRST_PAGE
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
 
@@ -73,7 +73,7 @@ internal class HomeViewModel(
      */
     private fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-        getHomeData(FIRST_PAGE)
+        getHomeData(HOME_FIRST_PAGE)
     }
 
     /**
@@ -81,7 +81,7 @@ internal class HomeViewModel(
      */
     fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
-        getHomeData(FIRST_PAGE)
+        getHomeData(HOME_FIRST_PAGE)
     }
 
     /**
@@ -94,29 +94,28 @@ internal class HomeViewModel(
 
     /**
      * 获取首页数据
-     * @param page 页码 (从 [FIRST_PAGE] 开始, 为了兼容以前)
+     * @param page 页码 (从 [HOME_FIRST_PAGE] 开始, 为了兼容以前)
      */
     private fun getHomeData(page: Int) {
         mRepository?.getHomeDataList(page, onSuccess = { homeData ->
-            val homeBannerList = homeData?.homeBannerList
-            val homeSetToTopItemList = homeData?.homeSetToTopItemList
+            val homeBannerListItem = homeData?.homeBannerListItem
+            val homeTopArticleItemList = homeData?.homeTopArticleItemList
             val homeArticle = homeData?.homeArticle
             val homeArticleItemList = homeArticle?.dataList
-            val event =
-                ListDataChangeEvent<HomeItem>()
+            val event = ListDataChangeEvent<HomeItem>()
 
             when (mPageOperateType) {
                 //加载数据
                 PAGE_OPERATE_TYPE_LOAD -> {
-                    mPage = FIRST_PAGE
+                    mPage = HOME_FIRST_PAGE
                     mHomeItemDataList.clear()
                     //添加轮播图数据
-                    if (!homeBannerList.isNullOrEmpty()) {
-                        mHomeItemDataList.add(HomeBannerItem(homeBannerList))
+                    if (homeBannerListItem != null && !homeBannerListItem.homeBannerList.isNullOrEmpty()) {
+                        mHomeItemDataList.add(homeBannerListItem)
                     }
                     //添加置顶数据
-                    if (!homeSetToTopItemList.isNullOrEmpty()) {
-                        mHomeItemDataList.addAll(homeSetToTopItemList)
+                    if (!homeTopArticleItemList.isNullOrEmpty()) {
+                        mHomeItemDataList.addAll(homeTopArticleItemList)
                     }
                     //添加文章数据
                     if (!homeArticleItemList.isNullOrEmpty()) {
@@ -131,15 +130,15 @@ internal class HomeViewModel(
                 }
                 //下拉刷新
                 PAGE_OPERATE_TYPE_REFRESH -> {
-                    mPage = FIRST_PAGE
+                    mPage = HOME_FIRST_PAGE
                     mHomeItemDataList.clear()
                     //添加轮播图数据
-                    if (!homeBannerList.isNullOrEmpty()) {
-                        mHomeItemDataList.add(HomeBannerItem(homeBannerList))
+                    if (homeBannerListItem != null && !homeBannerListItem.homeBannerList.isNullOrEmpty()) {
+                        mHomeItemDataList.add(homeBannerListItem)
                     }
                     //添加置顶数据
-                    if (!homeSetToTopItemList.isNullOrEmpty()) {
-                        mHomeItemDataList.addAll(homeSetToTopItemList)
+                    if (!homeTopArticleItemList.isNullOrEmpty()) {
+                        mHomeItemDataList.addAll(homeTopArticleItemList)
                     }
                     //添加文章数据
                     if (!homeArticleItemList.isNullOrEmpty()) {

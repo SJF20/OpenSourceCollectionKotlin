@@ -1,6 +1,7 @@
 package com.shijingfeng.wan_android.ui.activity
 
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -52,8 +53,8 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
     /** 我的收藏 ViewPager Fragment 适配器 */
     private var mPersonalCollectionFragmentPagerAdapter: PersonalCollectionFragmentPagerAdapter? = null
 
-    /** 当前Fragment  */
-    var mCurrentFragment: WanAndroidBaseFragment<*, *>? = null
+    /** 当前 ViewPager 下标  */
+    var mCurPosition = PERSONAL_COLLECTION_ARTICLE
 
     /**
      * 获取视图ID
@@ -90,10 +91,11 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
      */
     override fun initData() {
         super.initData()
+        mCurPosition = PERSONAL_COLLECTION_ARTICLE
         mPersonalCollectionFragmentPagerAdapter = PersonalCollectionFragmentPagerAdapter(supportFragmentManager)
         vp_content.setCanScroll(false)
         vp_content.offscreenPageLimit = 1
-        vp_content.adapter =mPersonalCollectionFragmentPagerAdapter
+        vp_content.adapter = mPersonalCollectionFragmentPagerAdapter
 
         tl_tabs.run {
             // 文章
@@ -115,7 +117,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
         super.initAction()
         // 置顶
         ClickUtils.applySingleDebouncing(fab_to_top) {
-            mCurrentFragment?.scrollToTop()
+            mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(mCurPosition)?.scrollToTop()
         }
         //TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -142,7 +144,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                mCurrentFragment = mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(position)
+                mCurPosition = position
             }
 
         })

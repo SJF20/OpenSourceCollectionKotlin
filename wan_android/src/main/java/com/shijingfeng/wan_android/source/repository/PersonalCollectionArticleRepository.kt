@@ -6,6 +6,7 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleEntity
 import com.shijingfeng.wan_android.source.network.PersonalCollectionArticleNetworkSource
+import com.shijingfeng.wan_android.view_model.PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
 
 /** 单例实例 */
 @Volatile
@@ -42,7 +43,7 @@ internal class PersonalCollectionArticleRepository(
 
     /**
      * 获取文章收藏列表
-     * @param page      页码 (从 0 开始)
+     * @param page      页码 (从 [PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE] 开始)
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */

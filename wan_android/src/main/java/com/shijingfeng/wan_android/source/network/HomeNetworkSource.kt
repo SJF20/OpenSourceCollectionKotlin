@@ -4,24 +4,22 @@ import android.annotation.SuppressLint
 import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
-import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
+import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
+import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import com.shijingfeng.wan_android.entity.network.HomeArticleEntity
-import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
 import com.shijingfeng.wan_android.entity.network.HomeDataEntity
 import com.shijingfeng.wan_android.entity.network.ResultEntity
 import com.shijingfeng.wan_android.source.network.api.ArticleApi
 import com.shijingfeng.wan_android.source.network.api.BannerApi
 import com.shijingfeng.wan_android.source.network.api.CollectionApi
 import com.shijingfeng.wan_android.utils.apiRequest
-import com.shijingfeng.wan_android.utils.handle
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Function3
-import io.reactivex.schedulers.Schedulers
+import com.shijingfeng.wan_android.view_model.HOME_FIRST_PAGE
 
 /** 单例实例 */
 @Volatile
@@ -59,7 +57,7 @@ internal class HomeNetworkSource : BaseNetworkSource() {
 
     /**
      * 获取首页数据
-     * @param page 页码 (从0开始，为了兼容以前的)
+     * @param page 页码 (从 [HOME_FIRST_PAGE] 开始，为了兼容以前的)
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
@@ -67,31 +65,31 @@ internal class HomeNetworkSource : BaseNetworkSource() {
     fun getHomeDataList(page: Int, onSuccess: onSuccess<HomeDataEntity?>, onFailure: onFailure) {
         val disposable: Disposable
 
-        if (page == 0) {
+        if (page == HOME_FIRST_PAGE) {
             //获取 轮播图数据, 置顶列表 和 第一页的文章列表
             disposable = apiRequest(
                 single = Single.zip(
-                    mBannerApi.getHomeBannerData(),
-                    mArticleApi.getHomeSetToTopList(),
+                    mBannerApi.getHomeBannerList(),
+                    mArticleApi.getHomeTopArticleList(),
                     mArticleApi.getHomeArticleList(page),
                     Function3<
-                            ResultEntity<List<HomeBannerEntity>>,
-                            ResultEntity<List<HomeSetToTopItem>>,
-                            ResultEntity<HomeArticleEntity>,
-                            ResultEntity<HomeDataEntity>
-                            > { homeBannerListResult,
-                                homeSetToTopItemListResult,
-                                homeArticleResult ->
+                      ResultEntity<List<HomeBannerItem>>,
+                      ResultEntity<List<HomeTopArticleItem>>,
+                      ResultEntity<HomeArticleEntity>,
+                      ResultEntity<HomeDataEntity>
+                    > { homeBannerListResult,
+                        homeSetToTopItemListResult,
+                        homeArticleResult ->
 
                         val code: Int
                         var msg = ""
                         val homeData = HomeDataEntity()
 
                         homeBannerListResult.data?.let { homeBannerList ->
-                            homeData.homeBannerList = homeBannerList
+                            homeData.homeBannerListItem = HomeBannerListItem(homeBannerList)
                         }
                         homeSetToTopItemListResult.data?.let { homeSetToTopItemList ->
-                            homeData.homeSetToTopItemList = homeSetToTopItemList
+                            homeData.homeTopArticleItemList = homeSetToTopItemList
                         }
                         homeArticleResult.data?.let { homeArticle ->
                             homeData.homeArticle = homeArticle

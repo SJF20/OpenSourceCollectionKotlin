@@ -1,8 +1,6 @@
 package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.blankj.utilcode.util.ClickUtils
@@ -10,7 +8,7 @@ import com.blankj.utilcode.util.ConvertUtils
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 import com.shijingfeng.sjf_banner.library.banner.adapter.BaseBannerPagerAdapter
 import com.shijingfeng.wan_android.constant.VIEW_BANNER_DETAIL
-import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
+import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 
 /**
  * Function: 首页轮播图ViewPager适配器
@@ -20,8 +18,8 @@ import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
  */
 internal class HomeBannerPagerAdapter(
     context: Context,
-    dataList: List<HomeBannerEntity>? = null
-) : BaseBannerPagerAdapter<HomeBannerEntity>(context, dataList) {
+    dataList: List<HomeBannerItem>? = null
+) : BaseBannerPagerAdapter<HomeBannerItem>(context, dataList) {
 
     /**
      * 初始化 Item

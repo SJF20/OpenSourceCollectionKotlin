@@ -37,7 +37,7 @@ internal const val TAB_LAYOUT_VISIBILITY = "tab_layout_visibility"
 /** 类型: 首页轮播图  */
 internal const val HOME_BANNER = 1
 /** 类型: 置顶  */
-internal const val HOME_SET_TO_TOP = 2
+internal const val HOME_TOP_ARTICLE = 2
 /** 类型: 首页文章  */
 internal const val HOME_ARTICLE = 3
 

@@ -13,6 +13,9 @@ import com.shijingfeng.wan_android.entity.network.CoinRankItem
 import com.shijingfeng.wan_android.source.repository.CoinRankRepository
 import java.util.*
 
+/** 第一页 页码  */
+const val COIN_RANK_FIRST_PAGE = 1
+
 /**
  * Function: 积分排行榜 ViewModel
  * Date: 2020/3/12 22:43
@@ -25,11 +28,8 @@ internal class CoinRankViewModel(
     repository
 ) {
 
-    /** 第一页 页码  */
-    private val FIRST_PAGE = 1
-
     /** 当前页码  */
-    private var mPage = FIRST_PAGE
+    private var mPage = COIN_RANK_FIRST_PAGE
     /** 页面操作类型  */
     @PageOperateType
     private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
@@ -67,7 +67,7 @@ internal class CoinRankViewModel(
      */
     private fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-        getCoinRankList(FIRST_PAGE)
+        getCoinRankList(COIN_RANK_FIRST_PAGE)
     }
 
     /**
@@ -75,7 +75,7 @@ internal class CoinRankViewModel(
      */
     private fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
-        getCoinRankList(FIRST_PAGE)
+        getCoinRankList(COIN_RANK_FIRST_PAGE)
     }
 
     /**
@@ -88,7 +88,7 @@ internal class CoinRankViewModel(
 
     /**
      * 获取 积分排行榜 列表
-     * @param page 页码 (从 [FIRST_PAGE] 开始)
+     * @param page 页码 (从 [COIN_RANK_FIRST_PAGE] 开始)
      */
     private fun getCoinRankList(page: Int) {
         mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@{ coinRank ->
@@ -98,7 +98,7 @@ internal class CoinRankViewModel(
             when (mPageOperateType) {
                 // 加载数据
                 PAGE_OPERATE_TYPE_LOAD -> {
-                    mPage = FIRST_PAGE
+                    mPage = COIN_RANK_FIRST_PAGE
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
                         mCoinRankItemList.addAll(coinRankItemList)
@@ -112,7 +112,7 @@ internal class CoinRankViewModel(
                 }
                 // 下拉刷新
                 PAGE_OPERATE_TYPE_REFRESH -> {
-                    mPage = FIRST_PAGE
+                    mPage = COIN_RANK_FIRST_PAGE
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
                         mCoinRankItemList.addAll(coinRankItemList)

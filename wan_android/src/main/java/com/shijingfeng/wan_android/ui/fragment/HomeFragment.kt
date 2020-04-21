@@ -28,10 +28,11 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
-import com.shijingfeng.wan_android.entity.adapter.HomeSetToTopItem
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.network.HomeArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeBannerEntity
+import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
+import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
@@ -113,7 +114,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         // 轮播图
                         HOME_BANNER -> R.layout.adapter_item_wan_android_home_banner
                         // 置顶文章
-                        HOME_SET_TO_TOP -> R.layout.adapter_item_wan_android_home_set_to_top
+                        HOME_TOP_ARTICLE -> R.layout.adapter_item_wan_android_home_top_article
                         // 文章
                         HOME_ARTICLE -> R.layout.adapter_item_wan_android_home_article
                         // 未知类型
@@ -150,7 +151,8 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                     mOnItemEvent?.invoke(recyclerView, null, GONE, TAB_LAYOUT_VISIBILITY)
                     return
                 }
-                if (!recyclerView.canScrollVertically(-1)) { //滑倒顶部，显示
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //滑倒顶部，显示
                     mOnItemEvent?.invoke(recyclerView, null, VISIBLE, TAB_LAYOUT_VISIBILITY)
                     return
                 }
@@ -171,7 +173,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             when (flag) {
                 //查看轮播图详情
                 VIEW_BANNER_DETAIL -> {
-                    val (identity, _, _, _, _, title, _, url) = data as HomeBannerEntity
+                    val (identity, _, _, _, _, title, _, url) = data as HomeBannerItem
 
                     navigation(
                         activity = activity,
@@ -188,12 +190,12 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
 
                     when (homeItem.getType()) {
                         //置顶文章
-                        HOME_SET_TO_TOP -> {
-                            val homeSetToTopItem = homeItem as HomeSetToTopItem
-                            val identity = homeSetToTopItem.getId()
-                            val url = homeSetToTopItem.link
-                            val title = homeSetToTopItem.title
-                            val collected = homeSetToTopItem.collected
+                        HOME_TOP_ARTICLE -> {
+                            val homeTopArticleItem = homeItem as HomeTopArticleItem
+                            val identity = homeTopArticleItem.getId()
+                            val url = homeTopArticleItem.link
+                            val title = homeTopArticleItem.title
+                            val collected = homeTopArticleItem.collected
 
                             navigation(
                                 activity = activity,
@@ -297,7 +299,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                 payloadMap[PART_UPDATE_FLAG] = PART_UPDATE_COLLECTION_STATUS
 
                 when (homeItem) {
-                    is HomeSetToTopItem -> homeItem.collected = collected
+                    is HomeTopArticleItem -> homeItem.collected = collected
                     is HomeArticleItem -> homeItem.collected = collected
                     else -> {}
                 }
@@ -349,6 +351,15 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                 rv_content.smoothScrollToPosition(0)
             }
         }
+    }
+
+    /**
+     * 获取 用户信息 改变 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getUserInfoEvent(event: UserInfoEvent) {
+        // 自动刷新
+        srl_refresh.autoRefresh()
     }
 
     /**

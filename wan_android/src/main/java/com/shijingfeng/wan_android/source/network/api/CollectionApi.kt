@@ -5,6 +5,7 @@ import com.shijingfeng.base.common.constant.DOMAIN_HEADER
 import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleEntity
 import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.view_model.PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -18,7 +19,7 @@ internal interface CollectionApi {
 
     /**
      * 获取文章收藏列表
-     * @param page 页码 (从 0 开始)
+     * @param page 页码 (从 [PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE] 开始)
      * @return RxJava Single
      */
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)

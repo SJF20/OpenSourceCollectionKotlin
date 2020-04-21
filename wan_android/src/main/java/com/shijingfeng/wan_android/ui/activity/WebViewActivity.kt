@@ -192,7 +192,6 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         ClickUtils.applySingleDebouncing(include_title_bar.iv_operate) { showMoreDialog() }
         //WebView滑动监听器
         wv_content.setCustomOnScrollChangeListener { _, _, newScrollY, _, oldScrollY ->
-            e("测试", "newScrollY: $newScrollY  oldScrollY: $oldScrollY")
             if (newScrollY > oldScrollY) {
                 //触控点向上走，视图向下滚动，即手指向上滑动
                 if (mYScrollDirection == SCROLL_TO_DOWN) {

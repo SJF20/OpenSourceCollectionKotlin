@@ -5,12 +5,12 @@ import com.shijingfeng.wan_android.entity.network.HomeArticleItemTag
 import java.util.*
 
 /**
- * Function: 设置置顶 Item
+ * Function: 设置置顶文章 Item
  * Date: 2020/2/3 19:22
  * Description:
  * @author ShiJingFeng
  */
-internal class HomeSetToTopItem(
+internal class HomeTopArticleItem(
 
     @SerializedName("id")
     var identity: String = "",
