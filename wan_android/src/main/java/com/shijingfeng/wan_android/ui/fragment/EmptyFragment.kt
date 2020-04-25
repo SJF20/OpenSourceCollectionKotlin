@@ -3,7 +3,7 @@ package com.shijingfeng.wan_android.ui.fragment
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.databinding.FragmentNullBinding
+import com.shijingfeng.wan_android.databinding.FragmentWanAndroidNullBinding
 
 /**
  * 创建 EmptyFragment 实例
@@ -16,7 +16,7 @@ internal fun createEmptyFragment() = EmptyFragment()
  * Description:
  * @author ShiJingFeng
  */
-internal class EmptyFragment : WanAndroidBaseFragment<FragmentNullBinding, WanAndroidBaseViewModel<*>>() {
+internal class EmptyFragment : WanAndroidBaseFragment<FragmentWanAndroidNullBinding, WanAndroidBaseViewModel<*>>() {
 
     /**
      * 获取ViewModel
@@ -34,6 +34,6 @@ internal class EmptyFragment : WanAndroidBaseFragment<FragmentNullBinding, WanAn
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_null
+    override fun getLayoutId() = R.layout.fragment_wan_android_null
 
 }

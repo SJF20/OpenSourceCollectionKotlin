@@ -7,7 +7,7 @@ import android.text.TextUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.JsonParseException
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
-import com.shijingfeng.base.arouter.ARouterUtil.navigation
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.common.constant.NETWORK_EXCEPTION
 import com.shijingfeng.base.common.constant.PARSE_EXCEPTION
 import com.shijingfeng.base.common.constant.UNKNOWN_EXCEPTION

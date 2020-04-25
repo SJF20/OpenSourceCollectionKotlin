@@ -29,7 +29,7 @@ internal fun getKnowledgeClassifyRepositoryInstance(
 }
 
 /**
- * Function: 知识体系 仓库
+ * Function: 知识体系 一级数据 仓库
  * Date: 2020/4/21 20:31
  * Description:
  * @author ShiJingFeng
@@ -41,7 +41,7 @@ internal class KnowledgeClassifyRepository(
 ) {
 
     /**
-     * 获取知识体系数据列表
+     * 获取 知识体系 一级数据 列表
      *
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数

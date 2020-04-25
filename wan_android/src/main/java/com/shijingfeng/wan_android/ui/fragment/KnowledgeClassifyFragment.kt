@@ -1,26 +1,32 @@
 package com.shijingfeng.wan_android.ui.fragment
 
+import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
+import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
+import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_STR
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.wan_android.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyBinding
+import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_coin_record.rv_content
-import kotlinx.android.synthetic.main.activity_wan_android_coin_record.srl_refresh
-import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.fragment_wan_android_knowledge_classify.*
 
 /**
  * 创建 KnowledgeClassifyFragment 实例
@@ -73,7 +79,8 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -82,7 +89,7 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
         context?.run {
             mKnowledgeClassifyAdapter = KnowledgeClassifyAdapter(
                 this,
-                R.layout.adapter_item_knowledge_classify,
+                R.layout.adapter_item_wan_android_knowledge_classify,
                 mViewModel?.mKnowledgeClassifyList
             )
             rv_content.layoutManager = LinearLayoutManager(this)
@@ -118,6 +125,23 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
             }
 
         })
+        mKnowledgeClassifyAdapter?.setOnItemEventListener { _, data, position, flag ->
+            when (flag) {
+                // 查看知识体系详情
+                VIEW_KNOWLEDGE_CLASSIFY_DETAIL -> {
+                    val knowledgeClassify = data as KnowledgeClassifyEntity
+
+                    navigation(
+                        activity = activity,
+                        path = ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL,
+                        bundle = Bundle().apply {
+                            putString(KNOWLEDGE_CLASSIFY_STR, serialize(knowledgeClassify))
+                            putInt(CURRENT_POSITION, position)
+                        }
+                    )
+                }
+            }
+        }
     }
 
     /**
@@ -132,7 +156,7 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
             when (type) {
                 //加载
                 LOAD,
-                    //刷新
+                //刷新
                 REFRESH -> mKnowledgeClassifyAdapter?.notifyDataSetChanged()
                 //添加
                 ADD -> {

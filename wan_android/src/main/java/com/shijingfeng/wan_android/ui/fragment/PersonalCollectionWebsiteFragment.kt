@@ -13,8 +13,8 @@ import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
-import com.shijingfeng.base.arouter.ARouterUtil
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
@@ -34,8 +34,7 @@ import com.shijingfeng.wan_android.source.network.getPersonalCollectionWebsiteNe
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionWebsiteRepositoryInstance
 import com.shijingfeng.wan_android.view_model.PersonalCollectionWebsiteViewModel
 import kotlinx.android.synthetic.main.dialog_wan_android_personal_collection_website_edit.view.*
-import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_article.rv_content
-import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_article.srl_refresh
+import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_website.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -101,7 +100,8 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -136,7 +136,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
                     if (activity == null) {
                         return@setOnItemEventListener
                     }
-                    ARouterUtil.navigation(
+                    navigation(
                         activity = activity,
                         path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
                         bundle = Bundle().apply {

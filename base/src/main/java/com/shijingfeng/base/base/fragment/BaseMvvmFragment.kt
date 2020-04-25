@@ -66,13 +66,11 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
      * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法
      */
     override fun init(savedInstanceState: Bundle?) {
-        initParam()
         initAAC()
+        initParam()
         initData()
         initAction()
-        mViewModel?.let {
-            initObserver()
-        }
+        initObserver()
         mViewModel?.let { viewModel ->
             if (!viewModel.mHasInited) {
                 viewModel.init()

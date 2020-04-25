@@ -18,6 +18,7 @@ import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.source.repository.MainRepository
+import com.shijingfeng.wan_android.ui.activity.MAIN_HOME
 import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
@@ -32,6 +33,9 @@ import org.greenrobot.eventbus.EventBus
 internal class MainViewModel(
     repository: MainRepository? = null
 ) : WanAndroidBaseViewModel<MainRepository>(repository) {
+
+    /** 当前 ViewPager 下标  */
+    var mCurPosition = MAIN_HOME
 
     /** 显示 退出登录确认对话框 Event */
     val mShowLogoutDialogEvent = SingleLiveEvent<Any?>()

@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.activity
 
 import android.annotation.SuppressLint
-import android.os.Handler
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -25,18 +24,13 @@ import com.shijingfeng.wan_android.databinding.ActivityWanAndroidPersonalCollect
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.*
-import com.shijingfeng.wan_android.ui.fragment.createEmptyFragment
 import com.shijingfeng.wan_android.view_model.PersonalCollectionViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_main.*
 import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.*
-import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.fab_to_top
-import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.tl_tabs
-import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.vp_content
 
 /** 我的收藏 -> 文章 */
-private const val PERSONAL_COLLECTION_ARTICLE = 0
+internal const val PERSONAL_COLLECTION_ARTICLE = 0
 /** 我的收藏 -> 网站 */
-private const val PERSONAL_COLLECTION_WEBSITE = 1
+internal const val PERSONAL_COLLECTION_WEBSITE = 1
 
 /** Fragment 数量 */
 private const val FRAGMENT_COUNT = 2
@@ -52,9 +46,6 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
 
     /** 我的收藏 ViewPager Fragment 适配器 */
     private var mPersonalCollectionFragmentPagerAdapter: PersonalCollectionFragmentPagerAdapter? = null
-
-    /** 当前 ViewPager 下标  */
-    var mCurPosition = PERSONAL_COLLECTION_ARTICLE
 
     /**
      * 获取视图ID
@@ -91,7 +82,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
      */
     override fun initData() {
         super.initData()
-        mCurPosition = PERSONAL_COLLECTION_ARTICLE
+        mViewModel?.mCurPosition = PERSONAL_COLLECTION_ARTICLE
         mPersonalCollectionFragmentPagerAdapter = PersonalCollectionFragmentPagerAdapter(supportFragmentManager)
         vp_content.setCanScroll(false)
         vp_content.offscreenPageLimit = 1
@@ -117,7 +108,9 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
         super.initAction()
         // 置顶
         ClickUtils.applySingleDebouncing(fab_to_top) {
-            mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(mCurPosition)?.scrollToTop()
+            mViewModel?.mCurPosition?.let { position ->
+                mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(position)?.scrollToTop()
+            }
         }
         //TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -144,7 +137,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                mCurPosition = position
+                mViewModel?.mCurPosition = position
             }
 
         })

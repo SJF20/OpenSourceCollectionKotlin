@@ -2,11 +2,8 @@
 @file:JvmName("JsonUtil")
 package com.shijingfeng.base.util
 
-import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonSyntaxException
-import com.shijingfeng.base.common.constant.EMPTY_OBJECT
 import java.lang.reflect.Type
 
 /**

@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidUserInfoBinding
 import com.shijingfeng.wan_android.view_model.UserInfoViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_about_us.*
+import kotlinx.android.synthetic.main.activity_wan_android_user_info.*
 import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**

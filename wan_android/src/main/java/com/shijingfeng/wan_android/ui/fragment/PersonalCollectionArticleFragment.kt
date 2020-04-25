@@ -10,8 +10,8 @@ import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
-import com.shijingfeng.base.arouter.ARouterUtil
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_ARTICLE
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
@@ -85,7 +85,8 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -119,7 +120,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
                     if (activity == null) {
                         return@setOnItemEventListener
                     }
-                    ARouterUtil.navigation(
+                    navigation(
                         activity = activity,
                         path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
                         bundle = Bundle().apply {
@@ -158,8 +159,9 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
                     if (oldSize <= 0) {
                         mPersonalCollectionArticleAdapter?.notifyDataSetChanged()
                     } else {
+                        // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
                         mPersonalCollectionArticleAdapter?.notifyItemRangeInserted(
-                            oldSize,
+                            oldSize - 1,
                             articleCollectedListItem.size
                         )
                     }

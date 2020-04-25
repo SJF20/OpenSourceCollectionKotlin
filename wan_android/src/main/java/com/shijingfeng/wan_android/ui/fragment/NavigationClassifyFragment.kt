@@ -1,5 +1,6 @@
 package com.shijingfeng.wan_android.ui.fragment
 
+import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,15 +14,17 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
-import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyBinding
-import kotlinx.android.synthetic.main.activity_wan_android_coin_record.rv_content
-import kotlinx.android.synthetic.main.activity_wan_android_coin_record.srl_refresh
 import androidx.lifecycle.Observer
+import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.wan_android.adapter.NavigationClassifyAdapter
+import com.shijingfeng.wan_android.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidNavigationClassifyBinding
+import com.shijingfeng.wan_android.entity.network.NavigationClassifyArticle
 import com.shijingfeng.wan_android.source.network.getNavigationClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getNavigationClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.NavigationClassifyViewModel
+import kotlinx.android.synthetic.main.fragment_wan_android_navigation_classify.*
 
 /**
  * 创建 NavigationClassifyFragment 实例
@@ -74,7 +77,8 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -83,7 +87,7 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
         context?.run {
             mNavigationClassifyAdapter = NavigationClassifyAdapter(
                 this,
-                R.layout.adapter_item_navigation_classify,
+                R.layout.adapter_item_wan_android_navigation_classify,
                 mViewModel?.mNavigationClassifyList
             )
             rv_content.layoutManager = LinearLayoutManager(this)
@@ -119,6 +123,23 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
             }
 
         })
+        mNavigationClassifyAdapter?.setOnItemEventListener { _, data, _, flag ->
+            when (flag) {
+                // 查看导航分类详情
+                VIEW_NAVIGATION_CLASSIFY_DETAIL -> {
+                    val navigationArticle = data as NavigationClassifyArticle
+
+                    navigation(
+                        activity = activity,
+                        path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
+                        bundle = Bundle().apply {
+                            putString(URL, navigationArticle.link)
+                            putString(TITLE, navigationArticle.title)
+                        }
+                    )
+                }
+            }
+        }
     }
 
     /**

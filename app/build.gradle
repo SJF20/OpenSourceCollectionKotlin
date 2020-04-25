@@ -56,9 +56,9 @@ android {
 
         // 腾讯X5 必须显式指定 armeabi so库
         // 大厂APP一般只有一个 armeabi so库文件
-        ndk {
-            abiFilters "armeabi"
-        }
+//        ndk {
+//            abiFilters "armeabi"
+//        }
     }
     buildTypes {
         //正式模式

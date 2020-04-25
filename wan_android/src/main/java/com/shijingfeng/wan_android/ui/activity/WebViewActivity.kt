@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -28,11 +27,10 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
-import com.shijingfeng.base.arouter.ARouterUtil.navigation
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.shareText

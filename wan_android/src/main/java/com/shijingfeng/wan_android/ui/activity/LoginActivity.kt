@@ -2,7 +2,6 @@ package com.shijingfeng.wan_android.ui.activity
 
 import android.util.SparseArray
 import android.view.KeyEvent
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils

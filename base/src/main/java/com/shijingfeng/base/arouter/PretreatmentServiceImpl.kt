@@ -35,18 +35,18 @@ internal class PretreatmentServiceImpl : PretreatmentService {
         context: Context?,
         postcard: Postcard
     ): Boolean {
-        var bundle = postcard.extras
+        val bundle = postcard.extras
 
         if (bundle == null) {
-            if (context is Activity) {
-                bundle = Bundle()
-                bundle.putString(FROM_ACTIVITY_NAME, context.javaClass.name)
-                postcard.with(bundle)
+            if (context != null && context is Activity) {
+                postcard.with(Bundle().apply {
+                    putString(FROM_ACTIVITY_NAME, context.javaClass.name)
+                })
             }
         } else {
             val fromName = bundle.getString(FROM_ACTIVITY_NAME, "")
 
-            if (TextUtils.isEmpty(fromName) && context is Activity) {
+            if (context != null && context is Activity && TextUtils.isEmpty(fromName)) {
                 bundle.putString(FROM_ACTIVITY_NAME, context.javaClass.name)
                 postcard.with(bundle)
             }

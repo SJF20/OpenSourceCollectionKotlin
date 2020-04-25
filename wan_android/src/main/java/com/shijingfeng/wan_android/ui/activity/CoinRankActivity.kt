@@ -18,8 +18,7 @@ import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstan
 import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
 import com.shijingfeng.wan_android.view_model.CoinRankViewModel
 import kotlinx.android.synthetic.main.activity_wan_android_coin_rank.*
-import kotlinx.android.synthetic.main.activity_wan_android_login.include_title_bar
-import kotlinx.android.synthetic.main.activity_wan_android_main.view.tv_title
+import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 积分排行榜 页面
@@ -70,7 +69,8 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
         include_title_bar.tv_title.text = getStringById(R.string.积分排行榜)
 
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)

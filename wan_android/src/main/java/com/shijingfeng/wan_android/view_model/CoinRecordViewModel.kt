@@ -38,7 +38,7 @@ internal class CoinRecordViewModel(
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
 
     /** 积分记录 数据列表  */
-    var mCoinRecordItemList = arrayListOf<CoinRecordItem>()
+    var mCoinRecordItemList = mutableListOf<CoinRecordItem>()
 
     /** 列表数据改变 LiveData Event  */
     var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<CoinRecordItem>>()

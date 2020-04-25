@@ -1,13 +1,10 @@
 package com.shijingfeng.wan_android.ui.activity
 
 import android.annotation.SuppressLint
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.util.SparseArray
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.AppUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_ABOUT_US
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R

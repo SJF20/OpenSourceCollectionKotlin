@@ -3,7 +3,7 @@ package com.shijingfeng.todo.ui.activity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
-import com.shijingfeng.base.arouter.ARouterUtil.navigation
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.base.TodoBaseActivity
 import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
@@ -53,6 +53,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         // 跳转到 wan_android 模块 主页
         btn_skip_to_wan_android_main.setOnClickListener {
             navigation(
+                activity = this,
                 path = ACTIVITY_WAN_ANDROID_MAIN
             )
         }

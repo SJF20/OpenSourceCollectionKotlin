@@ -9,8 +9,10 @@ package com.shijingfeng.wan_android.constant
  * @author ShiJingFeng
  */
 
-/** Bundle Key(String) Value(String)  知识体系实体类  */
-internal const val KNOWLEDGE_CLASSIFY_ENTITY = "knowledge_classify_entity"
+/** Bundle Key(String) Value(String)  知识体系 一级数据 实体类 序列化后的字符串 */
+internal const val KNOWLEDGE_CLASSIFY_STR = "knowledge_classify"
+/** Bundle Key(String) Value(String)  知识体系 二级数据 实体类 序列化后的字符串 */
+internal const val KNOWLEDGE_CLASSIFY_CHILDREN_STR = "knowledge_classify_children_str"
 /** Bundle Key(String) Value(String)  文章ID  */
 internal const val ARTICLE_ID = "article_id"
 /** Bundle Key(String) Value(boolean)  文章是否已被收藏 (true: 已被收藏, false: 未被收藏) */

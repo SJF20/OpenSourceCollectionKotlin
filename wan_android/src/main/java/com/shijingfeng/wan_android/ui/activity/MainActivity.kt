@@ -29,7 +29,6 @@ import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -44,8 +43,8 @@ import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
+import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.ui.fragment.createClassifyFragment
-import com.shijingfeng.wan_android.ui.fragment.createEmptyFragment
 import com.shijingfeng.wan_android.ui.fragment.createHomeFragment
 import com.shijingfeng.wan_android.ui.fragment.createOfficialAccountFragment
 import com.shijingfeng.wan_android.ui.fragment.createProjectFragment
@@ -64,19 +63,19 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /** 首页  */
-private const val MAIN_HOME = 0
+internal const val MAIN_HOME = 0
 
 /** 分类  */
-private const val MAIN_CLASSIFY = 1
+internal const val MAIN_CLASSIFY = 1
 
 /** 公众号  */
-private const val MAIN_OFFICIAL_ACCOUNT = 2
+internal const val MAIN_OFFICIAL_ACCOUNT = 2
 
 /** 广场  */
-private const val MAIN_SQUARE = 3
+internal const val MAIN_SQUARE = 3
 
 /** 项目  */
-private const val MAIN_PROJECT = 4
+internal const val MAIN_PROJECT = 4
 
 /** Fragment 数量 */
 private const val FRAGMENT_COUNT = 5
@@ -93,9 +92,6 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
     /** 主页 ViewPager Fragment 适配器 */
     private var mMainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
-
-    /** 当前 ViewPager 下标  */
-    var mCurPosition = MAIN_HOME
 
     /**
      * 获取视图ID
@@ -133,7 +129,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     @SuppressLint("SetTextI18n")
     override fun initData() {
         super.initData()
-        mCurPosition = MAIN_HOME
+        mViewModel?.mCurPosition = MAIN_HOME
         mMainFragmentPagerAdapter = MainFragmentPagerAdapter(supportFragmentManager)
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mMainFragmentPagerAdapter
@@ -193,9 +189,15 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         ClickUtils.applySingleDebouncing(iv_menu) {
             dwl_drawer.openDrawer(GravityCompat.START)
         }
+        // 搜索
+        ClickUtils.applyGlobalDebouncing(iv_search) {
+
+        }
         // 置顶
         ClickUtils.applySingleDebouncing(fab_to_top) {
-            mMainFragmentPagerAdapter?.getFragmentByPosition(mCurPosition)?.scrollToTop()
+            mViewModel?.mCurPosition?.let { position ->
+                mMainFragmentPagerAdapter?.getFragmentByPosition(position)?.scrollToTop()
+            }
         }
         // TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -277,7 +279,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             ) {}
 
             override fun onPageSelected(position: Int) {
-                mCurPosition = position
+                mViewModel?.mCurPosition = position
 
                 when (position) {
                     // 首页

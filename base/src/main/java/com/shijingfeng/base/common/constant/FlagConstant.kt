@@ -32,8 +32,6 @@ const val KEY_CLASS = 1
 const val KEY_BUNDLE = 2
 /** SparseArray Key(int) Value(Integer) 跳转请求码  */
 const val KEY_REQUEST_CODE = 3
-/** SparseArray Key(int) Value(String) Activity 全限定名称  */
-const val KEY_ACTIVITY_NAME = 4
 /** SparseArray Key(int) Value(String) 要跳转到的页面路径  */
 const val KEY_PATH = 5
 /** SparseArray Key(int) Value([com.alibaba.android.arouter.facade.callback.NavigationCallback]) 跳转页面回调接口  */

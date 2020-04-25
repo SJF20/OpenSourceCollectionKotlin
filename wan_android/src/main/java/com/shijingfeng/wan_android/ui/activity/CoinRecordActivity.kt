@@ -20,8 +20,6 @@ import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInst
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.view_model.CoinRecordViewModel
 import kotlinx.android.synthetic.main.activity_wan_android_coin_record.*
-import kotlinx.android.synthetic.main.activity_wan_android_coin_record.srl_refresh
-import kotlinx.android.synthetic.main.activity_wan_android_web_view.include_title_bar
 import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
@@ -76,7 +74,8 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
         include_title_bar.iv_operate.visibility = VISIBLE
 
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)

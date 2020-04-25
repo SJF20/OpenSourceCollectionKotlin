@@ -29,7 +29,7 @@ internal fun getKnowledgeClassifyNetworkSourceInstance(): KnowledgeClassifyNetwo
 }
 
 /**
- * Function: 知识体系数据 网络源
+ * Function: 知识体系 一级数据 网络源
  * Date: 2020/4/21 20:32
  * Description:
  * @author ShiJingFeng
@@ -39,7 +39,7 @@ internal class KnowledgeClassifyNetworkSource : BaseNetworkSource() {
     private val mClassifyApi = RetrofitUtil.create(ClassifyApi::class.java)
 
     /**
-     * 获取知识体系数据列表
+     * 获取　知识体系　一级数据　列表
      *
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数

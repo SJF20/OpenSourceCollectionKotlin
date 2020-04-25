@@ -9,7 +9,9 @@ package com.shijingfeng.base.arouter
  * @author ShiJingFeng
  */
 
-//base 模块 IProvider
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// base 模块 IProvider
 /** 通用降级 Provider  */
 const val PROVIDER_BASE_COMMON_DEGRADE_SERVICE = "/base/provider/DegradeServiceImpl"
 /** 通用路径替换 Provider  */
@@ -17,20 +19,27 @@ const val PROVIDER_BASE_COMMON_PATH_REPLACE_SERVICE = "/base/provider/PathReplac
 /** 通用跳转前预处理 Provider  */
 const val PROVIDER_BASE_COMMON_PRETREATMENT_SERVICE = "/base/provider/PretreatmentServiceImpl"
 
-//common 模块 Activity
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// common 模块 Activity
 /** 查看大图 Activity  */
 const val ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE = "/common/activity/ViewOriginalImageActivity"
 
-//app 模块 Activity
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// app 模块 Activity
 /** 启动页 Activity */
 const val ACTIVITY_APP_SPLASH = "/app/activity/SplashActivity"
 /** 主页 Activity */
 const val ACTIVITY_APP_MAIN = "/app/activity/MainActivity"
 
-//wan_android 模块 Provider
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// wan_android 模块 Provider
 /** 登录拦截 Provider  */
 const val PROVIDER_WAN_ANDROID_LOGIN_INTERCEPT = "/wan_android/activity/LoginInterceptProvider"
-//wan_android 模块 Activity
+
+// wan_android 模块 Activity
 /** 启动页 Activity  */
 const val ACTIVITY_WAN_ANDROID_SPLASH = "/wan_android/activity/SplashActivity"
 /** 登录 Activity  */
@@ -53,7 +62,8 @@ const val ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION = "/wan_android/activity/Pers
 const val ACTIVITY_WAN_ANDROID_ABOUT_US = "/wan_android/activity/AboutUsActivity"
 /** 知识体系详情 Activity  */
 const val ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL = "/wan_android/activity/KnowledgeClassifyDetailActivity"
-//wan_android 模块 Fragment
+
+// wan_android 模块 Fragment
 /** 首页 Fragment  */
 const val FRAGMENT_WAN_ANDROID_HOME = "/wan_android/fragment/HomeFragment"
 /** 分类 Fragment  */
@@ -75,6 +85,10 @@ const val FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_ARTICLE = "/wan_android/fragm
 /** 我的收藏 -> 收藏网站 Fragment */
 const val FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE = "/wan_android/fragment/PersonalCollectionWebsiteFragment"
 
-//todo模块 Activity
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// todo模块 Activity
 /** 主页 Activity */
 const val ACTIVITY_TODO_MAIN = "/todo/activity/TodoMainActivity"
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

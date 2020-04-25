@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.viewmodel.BaseViewModel
 import com.shijingfeng.base.util.cast
-import java.lang.reflect.InvocationTargetException
+import com.shijingfeng.base.util.showDebugLongToast
 
 /** 简单工厂模式创建实例 */
 fun createCommonViewModelFactory(
@@ -31,39 +31,42 @@ class CommonViewModelFactory internal constructor(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         var viewModel: ViewModel? = null
 
-        try {
-            val constructorParamArray: Array<out Any>? = mConstructorParamArray
+        val constructorParamArray = mConstructorParamArray
 
-            if (constructorParamArray != null) {
-                val clzArray: Array<Class<*>?> = arrayOfNulls(constructorParamArray.size)
+        if (constructorParamArray != null) {
+            val clzArray: Array<Class<*>?> = arrayOfNulls(constructorParamArray.size)
 
-                for (i in constructorParamArray.indices) {
-                    val any = constructorParamArray[i]
+            for (i in constructorParamArray.indices) {
+                val any = constructorParamArray[i]
 
-                    clzArray[i] = any.javaClass
-                }
+                clzArray[i] = any.javaClass
+            }
+            try {
                 viewModel = modelClass.getConstructor(*clzArray).newInstance(*constructorParamArray)
-            } else {
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showDebugLongToast("CommonViewModelFactory错误: 指定构造方法参数错误(构造方法参数类型不一致 或 数量不一致)")
+            }
+        } else {
+            try {
                 viewModel = modelClass.newInstance()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showDebugLongToast("CommonViewModelFactory错误: 创建无参构造方法失败(没有无参构造方法)")
+            }
 
-                if (mRepository != null) {
+            if (mRepository != null) {
+                try {
                     //反射设置值
                     val field = BaseViewModel::class.java.getDeclaredField("mRepository")
 
                     field.isAccessible = true
                     field.set(viewModel, mRepository)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showDebugLongToast("CommonViewModelFactory错误: 反射设置 mRepository 错误 (检查ViewModel基类中是否有 mRepository 是否类型一致)")
                 }
             }
-        } catch (e: NoSuchMethodException) {
-            e.printStackTrace()
-        } catch (e: NoSuchFieldException) {
-            e.printStackTrace()
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        } catch (e: InstantiationException) {
-            e.printStackTrace()
-        } catch (e: InvocationTargetException) {
-            e.printStackTrace()
         }
 
         return cast(viewModel)

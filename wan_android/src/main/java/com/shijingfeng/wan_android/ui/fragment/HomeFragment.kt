@@ -12,8 +12,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
-import com.shijingfeng.base.arouter.ARouterUtil.navigation
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
@@ -93,7 +93,8 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
     override fun initData() {
         super.initData()
         mSmartRefreshLayout = srl_refresh
-        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(false)
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -173,7 +174,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             when (flag) {
                 //查看轮播图详情
                 VIEW_BANNER_DETAIL -> {
-                    val (identity, _, _, _, _, title, _, url) = data as HomeBannerItem
+                    val (_, _, _, _, _, title, _, url) = data as HomeBannerItem
 
                     navigation(
                         activity = activity,
@@ -273,7 +274,8 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                     if (oldSize <= 0) {
                         mHomeAdapter?.notifyDataSetChanged()
                     } else {
-                        mHomeAdapter?.notifyItemRangeInserted(oldSize, homeItemList.size)
+                        // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
+                        mHomeAdapter?.notifyItemRangeInserted(oldSize - 1, homeItemList.size)
                     }
                 }
                 //插入

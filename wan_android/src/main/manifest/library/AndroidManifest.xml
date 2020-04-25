@@ -72,8 +72,8 @@
         <activity android:name=".ui.activity.PersonalCollectionActivity" />
         <!-- 关于我们 Activity -->
         <activity android:name=".ui.activity.AboutUsActivity" />
-<!--        &lt;!&ndash; 知识体系 详细数据 Activity &ndash;&gt;-->
-<!--        <activity android:name=".ui.activity.KnowledgeClassifyDetailActivity" />-->
+        <!-- 知识体系 详细数据 Activity -->
+        <activity android:name=".ui.activity.KnowledgeClassifyDetailActivity" />
 
     </application>
 

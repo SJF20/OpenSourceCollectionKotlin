@@ -20,7 +20,7 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidClassifyBinding
 import com.shijingfeng.wan_android.view_model.ClassifyViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_main.*
+import kotlinx.android.synthetic.main.fragment_wan_android_classify.*
 
 /**
  * 创建 ClassifyFragment 实例
@@ -165,9 +165,9 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
         }
         return when (position) {
             // 知识体系
-            CLASSIFY_KNOWLEDGE -> LayoutInflater.from(activity).inflate(R.layout.layout_indicator_classify_knowledge, null)
+            CLASSIFY_KNOWLEDGE -> LayoutInflater.from(activity).inflate(R.layout.layout_wan_android_indicator_classify_knowledge, null)
             // 导航分类
-            CLASSIFY_NAVIGATION -> LayoutInflater.from(activity).inflate(R.layout.layout_indicator_classify_navigation, null)
+            CLASSIFY_NAVIGATION -> LayoutInflater.from(activity).inflate(R.layout.layout_wan_android_indicator_classify_navigation, null)
             else -> null
         }
     }
