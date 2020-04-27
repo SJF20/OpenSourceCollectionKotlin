@@ -275,7 +275,9 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         mHomeAdapter?.notifyDataSetChanged()
                     } else {
                         // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
-                        mHomeAdapter?.notifyItemRangeInserted(oldSize - 1, homeItemList.size)
+                        // 单独使用 notifyItemChanged 是为了避免 RecyclerView item更新动画 不美观
+                        mHomeAdapter?.notifyItemChanged(oldSize - 1)
+                        mHomeAdapter?.notifyItemRangeInserted(oldSize, homeItemList.size)
                     }
                 }
                 //插入

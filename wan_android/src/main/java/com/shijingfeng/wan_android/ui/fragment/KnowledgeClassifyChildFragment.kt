@@ -8,6 +8,9 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
+import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.serialize
+import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyChildAdapter
@@ -18,7 +21,9 @@ import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyChildViewModel
+import kotlinx.android.synthetic.main.fragment_wan_android_home.*
 import kotlinx.android.synthetic.main.fragment_wan_android_knowledge_classify_child.*
+import kotlinx.android.synthetic.main.fragment_wan_android_knowledge_classify_child.rv_content
 
 /**
  * 创建 KnowledgeClassifyChildFragment 实例
@@ -83,10 +88,10 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
      */
     override fun initData() {
         super.initData()
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
@@ -97,8 +102,12 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
                 R.layout.adapter_item_wan_android_knowledge_classify_child,
                 mViewModel?.mKnowledgeClassifyChildItemList
             )
-            rv_content.layoutManager = LinearLayoutManager(this)
-            rv_content.adapter = mKnowledgeClassifyChildAdapter
+            // 注意此处不要使用 rv_content 或 findViewById  否则会导致 ViewPager中相同 Fragment 类,
+            // 只会显示最先出现的第一个Fragment页面, 其他为空白, 具体原因应该和 kotlin 省略findViewById写法有关,
+            // 如果ViewPager中没有相同 Fragment类 则不会出现此种情况
+            mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
+            mDataBinding.rvContent.adapter = mKnowledgeClassifyChildAdapter
+            mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
     }
 
@@ -123,9 +132,11 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
                     if (oldSize <= 0) {
                         mKnowledgeClassifyChildAdapter?.notifyDataSetChanged()
                     } else {
+                        // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
+                        // 单独使用 notifyItemChanged 是为了避免 RecyclerView item更新动画 不美观
+                        mKnowledgeClassifyChildAdapter?.notifyItemChanged(oldSize - 1)
                         mKnowledgeClassifyChildAdapter?.notifyItemRangeInserted(
-                            // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
-                            oldSize - 1,
+                            oldSize,
                             knowledgeClassifyChildItemList.size
                         )
                     }
@@ -155,7 +166,7 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
         super.scrollToTop()
         mViewModel?.run {
             if (mKnowledgeClassifyChildItemList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

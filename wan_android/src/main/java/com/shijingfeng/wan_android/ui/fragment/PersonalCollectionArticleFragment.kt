@@ -160,8 +160,10 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
                         mPersonalCollectionArticleAdapter?.notifyDataSetChanged()
                     } else {
                         // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
+                        // 单独使用 notifyItemChanged 是为了避免 RecyclerView item更新动画 不美观
+                        mPersonalCollectionArticleAdapter?.notifyItemChanged(oldSize - 1)
                         mPersonalCollectionArticleAdapter?.notifyItemRangeInserted(
-                            oldSize - 1,
+                            oldSize,
                             articleCollectedListItem.size
                         )
                     }

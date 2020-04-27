@@ -89,7 +89,6 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
         )
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mKnowledgeClassifyDetailFragmentPagerAdapter
-        vp_content.currentItem = mViewModel?.mCurrentFragmentPosition ?: 0
 
         mViewModel?.mKnowledgeClassify?.childrenList?.forEachIndexed { index, _ ->
             if (index == mViewModel?.mCurrentFragmentPosition) {
@@ -144,6 +143,7 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
                 mViewModel?.mCurrentFragmentPosition = position
             }
         })
+        vp_content.currentItem = mViewModel?.mCurrentFragmentPosition ?: 0
     }
 
     /**
