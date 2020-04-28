@@ -58,7 +58,7 @@ internal const val WEBSITE_ITEM_EDIT = "website_item_edit"
 /** 查看网站详情 */
 internal const val VIEW_WEBSITE_DETAIL = "view_website_detail"
 
-/** 查看知识体系详情  */
+/** 查看知识体系 一级数据 详情 (一级数据内的二级数据列表)  */
 internal const val VIEW_KNOWLEDGE_CLASSIFY_DETAIL = "view_knowledge_classify_detail"
 /** 查看导航分类详情  */
 internal const val VIEW_NAVIGATION_CLASSIFY_DETAIL = "view_navigation_classify_detail"

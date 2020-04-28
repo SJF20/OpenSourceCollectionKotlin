@@ -5,25 +5,24 @@ import android.util.SparseArray
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kingja.loadsir.core.LoadSir
+import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
-import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
+import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
+import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyChildViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_home.*
-import kotlinx.android.synthetic.main.fragment_wan_android_knowledge_classify_child.*
-import kotlinx.android.synthetic.main.fragment_wan_android_knowledge_classify_child.rv_content
 
 /**
  * 创建 KnowledgeClassifyChildFragment 实例
@@ -108,6 +107,30 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
             mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
             mDataBinding.rvContent.adapter = mKnowledgeClassifyChildAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
+        }
+    }
+
+    /**
+     * 初始化事件
+     */
+    override fun initAction() {
+        super.initAction()
+        mKnowledgeClassifyChildAdapter?.setOnItemEventListener { _, data, _, flag ->
+            when (flag) {
+                // 查看二级数据文章详情
+                VIEW_ARTICLE_DETAIL -> {
+                    val knowledgeClassifyChildItem = data as KnowledgeClassifyChildItem
+
+                    navigation(
+                        activity = activity,
+                        path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
+                        bundle = Bundle().apply {
+                            putString(URL, knowledgeClassifyChildItem.apkLink)
+                            putString(TITLE, knowledgeClassifyChildItem.title)
+                        }
+                    )
+                }
+            }
         }
     }
 
