@@ -1,21 +1,34 @@
 package com.shijingfeng.wan_android.ui.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.ClickUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
+import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
+import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
+import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
+import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
+import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
+import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
@@ -115,21 +128,116 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
      */
     override fun initAction() {
         super.initAction()
-        mKnowledgeClassifyChildAdapter?.setOnItemEventListener { _, data, _, flag ->
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    //滑倒最底部，隐藏
+                    setToTopButtonVisibility(GONE)
+                    return
+                }
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //滑倒顶部，显示
+                    setToTopButtonVisibility(VISIBLE)
+                    return
+                }
+                setToTopButtonVisibility(if (dy > 0) GONE else VISIBLE)
+            }
+
+        })
+        // 置顶
+        ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
+            scrollToTop()
+        }
+        mKnowledgeClassifyChildAdapter?.setOnItemEventListener { _, data, position, flag ->
             when (flag) {
                 // 查看二级数据文章详情
                 VIEW_ARTICLE_DETAIL -> {
                     val knowledgeClassifyChildItem = data as KnowledgeClassifyChildItem
 
+                    // 跳转到 WebViewActivity
                     navigation(
                         activity = activity,
                         path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
                         bundle = Bundle().apply {
-                            putString(URL, knowledgeClassifyChildItem.apkLink)
+                            putString(URL, knowledgeClassifyChildItem.link)
                             putString(TITLE, knowledgeClassifyChildItem.title)
                         }
                     )
                 }
+                //文章 收藏 或 取消收藏
+                ARTICLE_ITEM_COLLECTION -> {
+                    mViewModel?.run {
+                        val knowledgeClassifyChildItem = mKnowledgeClassifyChildItemList[position]
+                        val collected = data as Boolean
+
+                        if (collected) {
+                            //收藏
+                            collected(knowledgeClassifyChildItem.getId())
+                        } else {
+                            //取消收藏
+                            uncollected(knowledgeClassifyChildItem.getId())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 设置 置顶按钮 的可见性
+     * @param visibility 可见性
+     */
+    private fun setToTopButtonVisibility(visibility: Int) {
+        if (mDataBinding.fabToTop.tag == null) {
+            mDataBinding.fabToTop.tag = VISIBLE
+        }
+        if (visibility == VISIBLE) {
+            //设置为可见
+            if (mDataBinding.fabToTop.tag as Int != VISIBLE) {
+                mDataBinding.fabToTop.tag = VISIBLE
+                mDataBinding.fabToTop
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            mDataBinding.fabToTop.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            mDataBinding.fabToTop.isEnabled = true
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+            }
+        } else if (visibility == View.GONE) {
+            //设置为不可见
+            if (mDataBinding.fabToTop.tag as Int != GONE) {
+                mDataBinding.fabToTop.tag = GONE
+                mDataBinding.fabToTop
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            mDataBinding.fabToTop.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            mDataBinding.fabToTop.isEnabled = false
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(0f)
+                    .scaleY(0f)
             }
         }
     }
@@ -140,7 +248,7 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
     override fun initObserver() {
         super.initObserver()
         //RecyclerView 适配器和数据列表 LiveData 监听器
-        mViewModel?.mKnowledgeClassifyChildDataChangeEvent?.observe(this, Observer ObserverLabel@{ (type, _, _, extraData, knowledgeClassifyChildItemList, _) ->
+        mViewModel?.mKnowledgeClassifyChildDataChangeEvent?.observe(viewLifecycleOwner, Observer ObserverLabel@{ (type, _, _, extraData, knowledgeClassifyChildItemList, _) ->
             when (type) {
                 // 加载, 刷新
                 LOAD, REFRESH -> mKnowledgeClassifyChildAdapter?.notifyDataSetChanged()
@@ -171,6 +279,22 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
                 // 更新
                 UPDATE -> {}
                 else -> {}
+            }
+        })
+        //收藏状态改变监听器
+        mViewModel?.mCollectedStatusEvent?.observe(viewLifecycleOwner, Observer { sparseArray ->
+            //收藏还是取消收藏  true:收藏  false:取消收藏
+            val collected = sparseArray[KEY_COLLECTED] as Boolean
+            val articleId = sparseArray[KEY_ARTICLE_ID] as String
+            val position = getPositionById(articleId, mViewModel?.mKnowledgeClassifyChildItemList!!)
+
+            if (position != -1) {
+                val knowledgeClassifyChildItem = mViewModel!!.mKnowledgeClassifyChildItemList[position]
+
+                knowledgeClassifyChildItem.collected = collected
+                mKnowledgeClassifyChildAdapter?.notifyItemChanged(position, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_COLLECTION_STATUS)
+                })
             }
         })
     }

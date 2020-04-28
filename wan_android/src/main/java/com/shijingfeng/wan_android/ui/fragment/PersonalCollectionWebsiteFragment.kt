@@ -162,7 +162,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
      */
     override fun initObserver() {
         super.initObserver()
-        mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@{ (type, _, _, extraData, _, indexList) ->
+        mViewModel?.mListDataChangeEvent?.observe(viewLifecycleOwner, Observer ObserverLabel@{ (type, _, _, extraData, _, indexList) ->
             when (type) {
                 // 加载
                 LOAD,

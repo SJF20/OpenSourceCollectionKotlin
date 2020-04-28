@@ -53,6 +53,24 @@ internal class KnowledgeClassifyChildRepository(
     }
 
     /**
+     * 收藏
+     * @param articleId 文章ID
+     * @param onSuccess 成功回调
+     */
+    fun collected(articleId: String, onSuccess: onSuccess<Any?>) {
+        mNetworkSource?.collected(articleId, onSuccess)
+    }
+
+    /**
+     * 取消收藏
+     * @param articleId 文章ID
+     * @param onSuccess 成功回调
+     */
+    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>) {
+        mNetworkSource?.uncollected(articleId, onSuccess)
+    }
+
+    /**
      * 销毁回调
      */
     override fun onCleared() {

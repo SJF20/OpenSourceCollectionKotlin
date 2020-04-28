@@ -1,5 +1,7 @@
 package com.shijingfeng.wan_android.view_model
 
+import android.util.SparseArray
+import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -9,12 +11,20 @@ import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
+import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
+import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
+import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
+import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.source.repository.KnowledgeClassifyChildRepository
+import com.shijingfeng.wan_android.ui.fragment.HomeFragment
+import com.shijingfeng.wan_android.ui.fragment.KnowledgeClassifyChildFragment
+import org.greenrobot.eventbus.EventBus
 
 /** 第一页 页码  */
 const val KNOWLEDGE_CLASSIFY_CHILD_FIRST_PAGE = 0
@@ -40,6 +50,8 @@ internal class KnowledgeClassifyChildViewModel(
 
     /** 知识体系　二级数据 列表 改变 SingleLiveEvent  */
     val mKnowledgeClassifyChildDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<KnowledgeClassifyChildItem>>()
+    /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
+    val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
 
     /** 知识体系 二级数据 */
     var mKnowledgeClassifyChildren: KnowledgeClassifyChildren? = null
@@ -168,6 +180,46 @@ internal class KnowledgeClassifyChildViewModel(
                 }
             }
         )
+    }
+
+    /**
+     * 收藏
+     * @param articleId 文章ID
+     */
+    fun collected(articleId: String) {
+        mRepository?.collected(articleId, onSuccess = {
+            ToastUtils.showShort(getStringById(R.string.收藏成功))
+            mCollectedStatusEvent.value = SparseArray<Any?>().apply {
+                put(KEY_COLLECTED, true)
+                put(KEY_ARTICLE_ID, articleId)
+            }
+            // 收藏该文章 广播出去
+            EventBus.getDefault().post(ArticleCollectionEvent(
+                fromName = KnowledgeClassifyChildFragment::class.java.name,
+                id = articleId,
+                collected = true
+            ))
+        })
+    }
+
+    /**
+     * 取消收藏
+     * @param articleId 文章ID
+     */
+    fun uncollected(articleId: String) {
+        mRepository?.uncollected(articleId, onSuccess = {
+            ToastUtils.showShort(getStringById(R.string.取消收藏成功))
+            mCollectedStatusEvent.value = SparseArray<Any?>().apply {
+                put(KEY_COLLECTED, false)
+                put(KEY_ARTICLE_ID, articleId)
+            }
+            // 取消收藏该文章 广播出去
+            EventBus.getDefault().post(ArticleCollectionEvent(
+                fromName = KnowledgeClassifyChildFragment::class.java.name,
+                id = articleId,
+                collected = false
+            ))
+        })
     }
 
 }

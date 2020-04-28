@@ -142,7 +142,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
     override fun initObserver() {
         super.initObserver()
         //RecyclerView 适配器和数据列表 LiveData 监听器
-        mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@{ (type, _, _, extraData, articleCollectedListItem, indexList) ->
+        mViewModel?.mListDataChangeEvent?.observe(viewLifecycleOwner, Observer ObserverLabel@{ (type, _, _, extraData, articleCollectedListItem, indexList) ->
             when (type) {
                 // 加载
                 LOAD,
