@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
 import com.kingja.loadsir.core.LoadSir
+import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
@@ -31,11 +32,14 @@ import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
+import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyChildViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 创建 KnowledgeClassifyChildFragment 实例
@@ -50,6 +54,7 @@ internal fun createKnowledgeClassifyChildFragment(bundle: Bundle) = KnowledgeCla
  * Description:
  * @author shijingfeng
  */
+@BindEventBus
 internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentWanAndroidKnowledgeClassifyChildBinding, KnowledgeClassifyChildViewModel>() {
 
     private var mKnowledgeClassifyChildAdapter: KnowledgeClassifyChildAdapter? = null
@@ -316,6 +321,15 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
                 mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
+    }
+
+    /**
+     * 获取 用户信息 改变 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getUserInfoEvent(event: UserInfoEvent) {
+        // 自动刷新
+        mDataBinding.srlRefresh.autoRefresh()
     }
 
 }

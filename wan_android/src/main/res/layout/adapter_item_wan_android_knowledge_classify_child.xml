@@ -80,7 +80,7 @@
             android:id="@+id/ckb_collection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/selector_collection"
+            android:button="@drawable/ic_uncollected"
             android:checked="false" />
 
     </LinearLayout>

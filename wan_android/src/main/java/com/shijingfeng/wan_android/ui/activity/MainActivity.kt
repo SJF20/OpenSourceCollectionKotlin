@@ -59,6 +59,7 @@ import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_official
 import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_project.*
 import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_square.*
 import kotlinx.android.synthetic.main.layout_wan_android_main_activity_drawer.*
+import kotlinx.android.synthetic.main.layout_wan_android_main_activity_drawer.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -163,20 +164,20 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         // 显示用户信息数据
         UserUtil.userInfo?.run {
             // 昵称 或 用户名
-            tv_name.text = if (TextUtils.isEmpty(nickname)) username else nickname
+            include_drawer.tv_name.text = if (TextUtils.isEmpty(nickname)) username else nickname
             // ID
-            tv_id.text = identity
+            include_drawer.tv_id.text = identity
         }
         // 显示积分信息数据
         CoinUtil.coinInfo?.run {
             // 等级
-            tv_level.text = level.toString()
+            include_drawer.tv_level.text = level.toString()
             // 排名
-            tv_rank.text = rank.toString()
+            include_drawer.tv_rank.text = rank.toString()
             // 积分数量
-            tv_coin_quantity.text = coinCount.toString()
+            include_drawer.tv_coin_quantity.text = coinCount.toString()
             // 显示注销登录
-            ll_logout.visibility = VISIBLE
+            include_drawer.ll_logout.visibility = VISIBLE
         }
     }
 
@@ -486,26 +487,24 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         val id = userInfo?.getId()
 
         // 是否隐藏注销登录, 已注销登录则隐藏注销登录Item, 否则显示
-        ll_logout.visibility = if (userInfo == null) GONE else VISIBLE
+        include_drawer.ll_logout.visibility = if (userInfo == null) GONE else VISIBLE
 
         // 用户名
         if (!StringUtils.isEmpty(nickname)) {
-            if (tv_name.text.toString() != nickname) {
-                tv_name.text = nickname
+            if (include_drawer.tv_name.text.toString() != nickname) {
+                include_drawer.tv_name.text = nickname
             }
         } else if (!StringUtils.isEmpty(username)) {
-            if (tv_name.text.toString() != username) {
-                tv_name.text = username
+            if (include_drawer.tv_name.text.toString() != username) {
+                include_drawer.tv_name.text = username
             }
         } else {
-            tv_name.text = getStringById(R.string.三杠占位符)
+            include_drawer.tv_name.text = getStringById(R.string.三杠占位符)
         }
 
         // 用户ID
-        if (tv_id.text.toString() != id) {
-            tv_id.text = id
-        } else {
-            tv_id.text = getStringById(R.string.三杠占位符)
+        if (include_drawer.tv_id.text.toString() != id) {
+            include_drawer.tv_id.text = if (!TextUtils.isEmpty(id)) id else getStringById(R.string.三杠占位符)
         }
     }
 
@@ -521,30 +520,18 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         val coinCount = coinInfo?.coinCount?.toString()
 
         // 等级
-        if (!StringUtils.isEmpty(level)) {
-            if (tv_level.text.toString() != level) {
-                tv_level.text = level
-            }
-        } else {
-            tv_level.text = getStringById(R.string.三杠占位符)
+        if (include_drawer.tv_level.text.toString() != level) {
+            include_drawer.tv_level.text = if (!TextUtils.isEmpty(level)) level else getStringById(R.string.三杠占位符)
         }
 
         // 排名
-        if (!StringUtils.isEmpty(rank)) {
-            if (tv_rank.text.toString() != rank) {
-                tv_rank.text = rank
-            }
-        } else {
-            tv_rank.text = getStringById(R.string.三杠占位符)
+        if (include_drawer.tv_rank.text.toString() != rank) {
+            include_drawer.tv_rank.text = if (!TextUtils.isEmpty(rank)) rank else getStringById(R.string.三杠占位符)
         }
 
         // 积分数量
-        if (!StringUtils.isEmpty(coinCount)) {
-            if (tv_coin_quantity.text.toString() != coinCount) {
-                tv_coin_quantity.text = coinCount
-            }
-        } else {
-            tv_coin_quantity.text = "0"
+        if (include_drawer.tv_coin_quantity.text.toString() != coinCount) {
+            include_drawer.tv_coin_quantity.text = if (!TextUtils.isEmpty(coinCount)) coinCount else "0"
         }
     }
 
