@@ -13,6 +13,8 @@ package com.shijingfeng.wan_android.constant
 internal const val KNOWLEDGE_CLASSIFY_STR = "knowledge_classify"
 /** Bundle Key(String) Value(String)  知识体系 二级数据 实体类 序列化后的字符串 */
 internal const val KNOWLEDGE_CLASSIFY_CHILDREN_STR = "knowledge_classify_children_str"
+/** Bundle Key(String) Value(String) 项目 某个索引数据 实体类 序列化后的字符串 */
+internal const val PROJECT_INDEX_STR = "project_index_str"
 /** Bundle Key(String) Value(String)  文章ID  */
 internal const val ARTICLE_ID = "article_id"
 /** Bundle Key(String) Value(boolean)  文章是否已被收藏 (true: 已被收藏, false: 未被收藏) */
