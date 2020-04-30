@@ -2,7 +2,8 @@
 apply from: "config.gradle"
 
 buildscript {
-    ext.kotlin_version = '1.3.71'
+    ext.kotlin_version = '1.3.72'
+    // gradle脚本执行所需依赖仓库
     repositories {
         google()
         jcenter()
@@ -20,6 +21,7 @@ buildscript {
 }
 
 allprojects {
+    // 项目本身需要的依赖仓库
     repositories {
         google()
         jcenter()

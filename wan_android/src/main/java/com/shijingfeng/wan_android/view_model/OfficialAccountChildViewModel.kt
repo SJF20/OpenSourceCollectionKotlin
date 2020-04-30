@@ -6,8 +6,6 @@ import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.network.ProjectChildItem
-import com.shijingfeng.wan_android.source.repository.ProjectChildRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -17,36 +15,39 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
+import com.shijingfeng.wan_android.entity.network.OfficialAccountChildItem
+import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.source.repository.OfficialAccountChildRepository
+import com.shijingfeng.wan_android.ui.fragment.OfficialAccountChildFragment
 import org.greenrobot.eventbus.EventBus
 
 /** 第一页 页码  */
-const val PROJECT_CHILD_FIRST_PAGE = 1
+const val OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE = 1
 
 /**
- * Function: 项目 二级数据 ViewModel
+ * Function: 公众号 二级数据 ViewModel
  * Date: 20-4-29 下午10:17
  * Description:
  * @author shijingfeng
  */
-internal class ProjectChildViewModel(
-    repository: ProjectChildRepository? = null
-) : WanAndroidBaseViewModel<ProjectChildRepository>(repository) {
+internal class OfficialAccountChildViewModel(
+    repository: OfficialAccountChildRepository? = null
+) : WanAndroidBaseViewModel<OfficialAccountChildRepository>(repository) {
 
     /** 当前页码  */
-    private var mPage = PROJECT_CHILD_FIRST_PAGE
+    private var mPage = OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE
 
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
 
-    /** 项目 某个索引数据 */
-    var mProjectIndex: ProjectIndexEntity? = null
+    /** 公众号 某个索引数据 */
+    var mOfficialAccountIndex: OfficialAccountIndexEntity? = null
 
-    /** 项目 二级数据 列表  */
-    var mProjectChildItemList = mutableListOf<ProjectChildItem>()
+    /** 公众号 二级数据 列表  */
+    var mOfficialAccountChildItemList = mutableListOf<OfficialAccountChildItem>()
 
-    /** 项目 二级数据 列表 改变 SingleLiveEvent  */
-    val mProjectChildDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<ProjectChildItem>>()
+    /** 公众号 二级数据 列表 改变 SingleLiveEvent  */
+    val mOfficialAccountChildDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<OfficialAccountChildItem>>()
     /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
     val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
 
@@ -78,7 +79,7 @@ internal class ProjectChildViewModel(
      */
     private fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-        getProjectChild(PROJECT_CHILD_FIRST_PAGE)
+        getOfficialAccountChild(OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE)
     }
 
     /**
@@ -86,7 +87,7 @@ internal class ProjectChildViewModel(
      */
     private fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
-        getProjectChild(PROJECT_CHILD_FIRST_PAGE)
+        getOfficialAccountChild(OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE)
     }
 
     /**
@@ -94,69 +95,69 @@ internal class ProjectChildViewModel(
      */
     private fun loadMore() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD_MORE
-        getProjectChild(mPage + 1)
+        getOfficialAccountChild(mPage + 1)
     }
 
     /**
      * 项目 二级数据
-     * @param page 页码 (从 [PROJECT_CHILD_FIRST_PAGE] 开始)
+     * @param page 页码 (从 [OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE] 开始)
      */
-    private fun getProjectChild(page: Int) {
-        mRepository?.getProjectChild(
+    private fun getOfficialAccountChild(page: Int) {
+        mRepository?.getOfficialAccountChild(
             page = page,
-            id = mProjectIndex?.getId() ?: "",
-            onSuccess = onSuccessLabel@{ projectChild ->
-                val projectChildItemList = projectChild?.projectChildItemList
-                val event = ListDataChangeEvent<ProjectChildItem>()
+            id = mOfficialAccountIndex?.getId() ?: "",
+            onSuccess = onSuccessLabel@{ officialAccountChild ->
+                val officialAccountChildItemList = officialAccountChild?.officialAccountChildItemList
+                val event = ListDataChangeEvent<OfficialAccountChildItem>()
 
                 when (mPageOperateType) {
                     // 加载数据 或 重新加载
                     PAGE_OPERATE_TYPE_LOAD -> {
-                        mPage = PROJECT_CHILD_FIRST_PAGE
-                        mProjectChildItemList.clear()
-                        if (!projectChildItemList.isNullOrEmpty()) {
-                            mProjectChildItemList.addAll(projectChildItemList)
+                        mPage = OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE
+                        mOfficialAccountChildItemList.clear()
+                        if (!officialAccountChildItemList.isNullOrEmpty()) {
+                            mOfficialAccountChildItemList.addAll(officialAccountChildItemList)
                         }
 
                         event.type = LOAD
-                        event.dataList = projectChildItemList
+                        event.dataList = officialAccountChildItemList
 
-                        mProjectChildDataChangeEvent.value = event
-                        showCallback(if (mProjectChildItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
+                        mOfficialAccountChildDataChangeEvent.value = event
+                        showCallback(if (mOfficialAccountChildItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                     }
                     // 下拉刷新
                     PAGE_OPERATE_TYPE_REFRESH -> {
-                        mPage = PROJECT_CHILD_FIRST_PAGE
-                        mProjectChildItemList.clear()
-                        if (!projectChildItemList.isNullOrEmpty()) {
-                            mProjectChildItemList.addAll(projectChildItemList)
+                        mPage = OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE
+                        mOfficialAccountChildItemList.clear()
+                        if (!officialAccountChildItemList.isNullOrEmpty()) {
+                            mOfficialAccountChildItemList.addAll(officialAccountChildItemList)
                         }
 
                         event.type = REFRESH
-                        event.dataList = projectChildItemList
+                        event.dataList = officialAccountChildItemList
 
-                        mProjectChildDataChangeEvent.value = event
+                        mOfficialAccountChildDataChangeEvent.value = event
                         updateRefreshLoadMoreStatus(REFRESH_SUCCESS)
                         // 数据为空
-                        if (mProjectChildItemList.isEmpty()) {
+                        if (mOfficialAccountChildItemList.isEmpty()) {
                             showCallback(LOAD_SERVICE_EMPTY)
                         }
                     }
                     // 上拉加载
                     PAGE_OPERATE_TYPE_LOAD_MORE -> {
-                        if (projectChildItemList.isNullOrEmpty()) {
+                        if (officialAccountChildItemList.isNullOrEmpty()) {
                             updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
                             return@onSuccessLabel
                         }
                         ++mPage
 
                         event.type = ADD
-                        event.dataList = projectChildItemList
-                        event.extraData = mProjectChildItemList.size
+                        event.dataList = officialAccountChildItemList
+                        event.extraData = mOfficialAccountChildItemList.size
 
                         //添加数据
-                        mProjectChildItemList.addAll(projectChildItemList)
-                        mProjectChildDataChangeEvent.value = event
+                        mOfficialAccountChildItemList.addAll(officialAccountChildItemList)
+                        mOfficialAccountChildDataChangeEvent.value = event
                         updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
                     }
                     else -> {}
@@ -190,11 +191,10 @@ internal class ProjectChildViewModel(
             // 收藏该文章 广播出去
             EventBus.getDefault().post(
                 ArticleCollectionEvent(
-                fromName = ProjecChildFragment::class.java.name,
+                fromName = OfficialAccountChildFragment::class.java.name,
                 id = articleId,
                 collected = true
-            )
-            )
+            ))
         })
     }
 
@@ -212,11 +212,10 @@ internal class ProjectChildViewModel(
             // 取消收藏该文章 广播出去
             EventBus.getDefault().post(
                 ArticleCollectionEvent(
-                fromName = ProjecChildFragment::class.java.name,
+                fromName = OfficialAccountChildFragment::class.java.name,
                 id = articleId,
                 collected = false
-            )
-            )
+            ))
         })
     }
 
