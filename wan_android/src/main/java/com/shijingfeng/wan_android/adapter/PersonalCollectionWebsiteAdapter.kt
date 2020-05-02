@@ -18,9 +18,8 @@ import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntit
  */
 internal class PersonalCollectionWebsiteAdapter(
     context: Context,
-    layoutId: Int,
     dataList: List<PersonalCollectionWebsiteEntity>? = null
-) : BaseAdapter<PersonalCollectionWebsiteEntity>(context, layoutId, dataList) {
+) : BaseAdapter<PersonalCollectionWebsiteEntity>(context, R.layout.adapter_item_wan_android_personal_collection_website, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

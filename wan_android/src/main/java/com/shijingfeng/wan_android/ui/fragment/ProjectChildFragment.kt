@@ -3,8 +3,10 @@ package com.shijingfeng.wan_android.ui.fragment
 import android.os.Bundle
 import android.util.SparseArray
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
+import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PROJECT_CHILD
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
@@ -38,6 +40,7 @@ internal fun createProjectChildFragment(bundle: Bundle) = ProjectChildFragment()
  * @author shijingfeng
  */
 @BindEventBus
+@Route(path = FRAGMENT_WAN_ANDROID_PROJECT_CHILD)
 internal class ProjectChildFragment : WanAndroidBaseFragment<FragmentWanAndroidProjectChildBinding, ProjectChildViewModel>() {
 
     /**

@@ -238,7 +238,7 @@ internal class HomeAdapter(
                 height = ConvertUtils.dp2px(23f)
                 setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
                 gravity = Gravity.CENTER
-                setBackgroundResource(R.drawable.shape_home_article_tag)
+                setBackgroundResource(R.drawable.shape_tag)
                 text = homeArticleItemTag.name
                 setTextColor(getColorById(R.color.dodger_blue))
             })
@@ -332,7 +332,7 @@ internal class HomeAdapter(
                 height = ConvertUtils.dp2px(23f)
                 setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
                 gravity = Gravity.CENTER
-                setBackgroundResource(R.drawable.shape_home_article_tag)
+                setBackgroundResource(R.drawable.shape_tag)
                 text = homeArticleItemTag.name
                 setTextColor(getColorById(R.color.dodger_blue))
             })

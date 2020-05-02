@@ -44,7 +44,7 @@ internal class OfficialAccountChildViewModel(
     var mOfficialAccountIndex: OfficialAccountIndexEntity? = null
 
     /** 公众号 二级数据 列表  */
-    var mOfficialAccountChildItemList = mutableListOf<OfficialAccountChildItem>()
+    val mOfficialAccountChildItemList = mutableListOf<OfficialAccountChildItem>()
 
     /** 公众号 二级数据 列表 改变 SingleLiveEvent  */
     val mOfficialAccountChildDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<OfficialAccountChildItem>>()

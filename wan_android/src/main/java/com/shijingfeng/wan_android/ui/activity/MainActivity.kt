@@ -7,6 +7,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -28,7 +29,9 @@ import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
+import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -131,7 +134,16 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     override fun initData() {
         super.initData()
         mViewModel?.mCurPosition = MAIN_HOME
-        mMainFragmentPagerAdapter = MainFragmentPagerAdapter(supportFragmentManager)
+
+        mMainFragmentPagerAdapter = MainFragmentPagerAdapter(supportFragmentManager, onFragmentCreate = { _, fragment ->
+            fragment.setOnItemEventListener { _, _, visibility, flag ->
+                when (flag) {
+                    //TabLayout 设置可见性
+                    TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
+                    else -> {}
+                }
+            }
+        })
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mMainFragmentPagerAdapter
 
@@ -306,18 +318,6 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             }
 
         })
-        // Fragment事件
-        // 延迟 500 毫秒, 防止 getFragmentByPosition() 获取 Fragment 为 null
-        Handler().postDelayed({
-            for (index in 0 until FRAGMENT_COUNT) {
-                mMainFragmentPagerAdapter?.getFragmentByPosition(index)?.setOnItemEventListener { _, _, visibility, flag ->
-                    when (flag) {
-                        //TabLayout 设置可见性
-                        TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
-                    }
-                }
-            }
-        }, 500)
     }
 
     /**
@@ -541,10 +541,12 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
  * 主页 ViewPager Fragment 适配器
  */
 internal class MainFragmentPagerAdapter(
-    fragmentManager: FragmentManager
+    fragmentManager: FragmentManager,
+    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = true
+    mBanDestroyed = true,
+    mOnFragmentCreate = onFragmentCreate
 ) {
 
     /**

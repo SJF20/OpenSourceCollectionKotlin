@@ -14,9 +14,8 @@ import com.shijingfeng.wan_android.entity.network.CoinRankItem
  */
 internal class CoinRankAdapter(
     context: Context,
-    layoutId: Int,
     dataList: List<CoinRankItem>? = null
-) : BaseAdapter<CoinRankItem>(context, layoutId, dataList) {
+) : BaseAdapter<CoinRankItem>(context, R.layout.adapter_item_wan_android_coin_rank, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

@@ -24,9 +24,8 @@ import java.util.*
  */
 internal class NavigationClassifyAdapter(
     context: Context,
-    layoutId: Int,
     dataList: List<NavigationClassifyEntity>? = null
-) : BaseAdapter<NavigationClassifyEntity>(context, layoutId, dataList) {
+) : BaseAdapter<NavigationClassifyEntity>(context, R.layout.adapter_item_wan_android_navigation_classify, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

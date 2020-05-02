@@ -24,9 +24,8 @@ import java.util.*
  */
 internal class KnowledgeClassifyAdapter(
     context: Context,
-    layoutId: Int,
     dataList: List<KnowledgeClassifyEntity>? = null
-) : BaseAdapter<KnowledgeClassifyEntity>(context, layoutId, dataList) {
+) : BaseAdapter<KnowledgeClassifyEntity>(context, R.layout.adapter_item_wan_android_knowledge_classify, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

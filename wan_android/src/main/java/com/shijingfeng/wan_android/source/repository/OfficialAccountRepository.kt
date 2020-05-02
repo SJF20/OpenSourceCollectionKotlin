@@ -5,23 +5,23 @@ import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
-import com.shijingfeng.wan_android.source.network.OfficialAccountIndexNetworkSource
+import com.shijingfeng.wan_android.source.network.OfficialAccountNetworkSource
 
 /** 单例实例 */
 @Volatile
-private var sInstance: OfficialAccountIndexRepository? = null
+private var sInstance: OfficialAccountRepository? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getOfficialAccountIndexRepositoryInstance(
-    networkSource: OfficialAccountIndexNetworkSource? = null
-): OfficialAccountIndexRepository {
+internal fun getOfficialAccountRepositoryInstance(
+    networkSource: OfficialAccountNetworkSource? = null
+): OfficialAccountRepository {
     if (sInstance == null) {
-        synchronized(OfficialAccountIndexRepository::class.java) {
+        synchronized(OfficialAccountRepository::class.java) {
             if (sInstance == null) {
-                sInstance = OfficialAccountIndexRepository(networkSource = networkSource)
+                sInstance = OfficialAccountRepository(networkSource = networkSource)
             }
         }
     }
@@ -30,14 +30,14 @@ internal fun getOfficialAccountIndexRepositoryInstance(
 
 
 /**
- * Function: 公众号 索引数据 仓库
+ * Function: 公众号 仓库
  * Date: 2020/4/30 16:31
  * Description:
  * @author ShiJingFeng
  */
-internal class OfficialAccountIndexRepository(
-    networkSource: OfficialAccountIndexNetworkSource? = null
-) : BaseRepository<BaseLocalSource, OfficialAccountIndexNetworkSource>(
+internal class OfficialAccountRepository(
+    networkSource: OfficialAccountNetworkSource? = null
+) : BaseRepository<BaseLocalSource, OfficialAccountNetworkSource>(
     mNetworkSource = networkSource
 ) {
 

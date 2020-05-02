@@ -110,7 +110,6 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
         activity?.let { activity ->
             mPersonalCollectionWebsiteAdapter = PersonalCollectionWebsiteAdapter(
                 activity,
-                R.layout.adapter_item_wan_android_personal_collection_website,
                 mViewModel?.mWebsiteCollectedListItemList
             )
             rv_content.layoutManager = LinearLayoutManager(activity)

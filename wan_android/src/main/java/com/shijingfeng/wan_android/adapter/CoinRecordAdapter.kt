@@ -14,9 +14,8 @@ import com.shijingfeng.wan_android.entity.network.CoinRecordItem
  */
 internal class CoinRecordAdapter(
     context: Context,
-    layoutId: Int,
     dataList: List<CoinRecordItem>? = null
-) : BaseAdapter<CoinRecordItem>(context, layoutId, dataList) {
+) : BaseAdapter<CoinRecordItem>(context, R.layout.adapter_item_wan_android_coin_record, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)

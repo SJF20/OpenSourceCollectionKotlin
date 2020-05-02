@@ -90,7 +90,7 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     /**
      * 初始化AAC组件
      */
-    private fun initAAC() {
+    protected fun initAAC() {
         mViewModel = getViewModel()
         getVariableSparseArray()?.run {
             for (i in 0 until size()) {

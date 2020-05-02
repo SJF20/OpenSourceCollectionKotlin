@@ -18,6 +18,7 @@ import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
+import com.shijingfeng.wan_android.ui.fragment.ProjectChildFragment
 import org.greenrobot.eventbus.EventBus
 
 /** 第一页 页码  */
@@ -190,7 +191,7 @@ internal class ProjectChildViewModel(
             // 收藏该文章 广播出去
             EventBus.getDefault().post(
                 ArticleCollectionEvent(
-                fromName = ProjecChildFragment::class.java.name,
+                fromName = ProjectChildFragment::class.java.name,
                 id = articleId,
                 collected = true
             )
@@ -212,7 +213,7 @@ internal class ProjectChildViewModel(
             // 取消收藏该文章 广播出去
             EventBus.getDefault().post(
                 ArticleCollectionEvent(
-                fromName = ProjecChildFragment::class.java.name,
+                fromName = ProjectChildFragment::class.java.name,
                 id = articleId,
                 collected = false
             )

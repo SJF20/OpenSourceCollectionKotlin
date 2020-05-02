@@ -70,16 +70,20 @@ const val FRAGMENT_WAN_ANDROID_HOME = "/wan_android/fragment/HomeFragment"
 const val FRAGMENT_WAN_ANDROID_CLASSIFY = "/wan_android/fragment/ClassifyFragment"
 /** 公众号 Fragment  */
 const val FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT = "/wan_android/fragment/OfficialAccountFragment"
+/** 公众号 二级数据 Fragment */
+const val FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT_CHILD = "/wan_android/fragment/OfficialAccountChildFragment"
 /** 广场 Fragment  */
 const val FRAGMENT_WAN_ANDROID_SQUARE = "/wan_android/fragment/SquareFragment"
 /** 项目 Fragment  */
 const val FRAGMENT_WAN_ANDROID_PROJECT = "/wan_android/fragment/ProjectFragment"
+/** 项目 二级数据 Fragment */
+const val FRAGMENT_WAN_ANDROID_PROJECT_CHILD = "/wan_android/fragment/ProjectChildFragment"
 /** 知识体系 Fragment  */
 const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY = "/wan_android/fragment/KnowledgeClassifyFragment"
-/** 导航分类 Fragment  */
-const val FRAGMENT_WAN_ANDROID_NAVIGATION_CLASSIFY = "/wan_android/fragment/NavigationClassifyFragment"
 /** 知识体系子页面 Fragment  */
 const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_CHILD = "/wan_android/fragment/KnowledgeClassifyChildFragment"
+/** 导航分类 Fragment  */
+const val FRAGMENT_WAN_ANDROID_NAVIGATION_CLASSIFY = "/wan_android/fragment/NavigationClassifyFragment"
 /** 我的收藏 -> 收藏文章 Fragment */
 const val FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_ARTICLE = "/wan_android/fragment/PersonalCollectionArticleFragment"
 /** 我的收藏 -> 收藏网站 Fragment */

@@ -76,7 +76,7 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
             showCallback(LOAD_SERVICE_LOADING)
         }
 
-        mCoinRankAdapter = CoinRankAdapter(this, R.layout.adapter_item_wan_android_coin_rank, mViewModel?.mCoinRankItemList)
+        mCoinRankAdapter = CoinRankAdapter(this, mViewModel?.mCoinRankItemList)
         rv_list.layoutManager = LinearLayoutManager(this)
         rv_list.adapter = mCoinRankAdapter
     }

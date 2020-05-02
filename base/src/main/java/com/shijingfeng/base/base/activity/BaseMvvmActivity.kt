@@ -53,7 +53,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     /**
      * 初始化AAC组件
      */
-    private fun initAAC() {
+    protected fun initAAC() {
         mDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
         mViewModel = getViewModel()
         getVariableSparseArray()?.run {

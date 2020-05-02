@@ -4,27 +4,23 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildEntity
-import com.shijingfeng.wan_android.entity.network.OfficialAccountChildEntity
 import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
-import com.shijingfeng.wan_android.source.network.api.ClassifyApi
-import com.shijingfeng.wan_android.source.network.api.CollectionApi
 import com.shijingfeng.wan_android.source.network.api.OfficialAccountApi
 import com.shijingfeng.wan_android.utils.apiRequest
 
 /** 单例实例 */
 @Volatile
-private var sInstance: OfficialAccountIndexNetworkSource? = null
+private var sInstance: OfficialAccountNetworkSource? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getOfficialAccountIndexNetworkSourceInstance(): OfficialAccountIndexNetworkSource {
+internal fun getOfficialAccountNetworkSourceInstance(): OfficialAccountNetworkSource {
     if (sInstance == null) {
-        synchronized(OfficialAccountIndexNetworkSource::class.java) {
+        synchronized(OfficialAccountNetworkSource::class.java) {
             if (sInstance == null) {
-                sInstance = OfficialAccountIndexNetworkSource()
+                sInstance = OfficialAccountNetworkSource()
             }
         }
     }
@@ -32,12 +28,12 @@ internal fun getOfficialAccountIndexNetworkSourceInstance(): OfficialAccountInde
 }
 
 /**
- * Function: 公众号 索引数据 Fragment
+ * Function: 公众号 网络源
  * Date: 2020/4/21 20:32
  * Description:
  * @author ShiJingFeng
  */
-internal class OfficialAccountIndexNetworkSource : BaseNetworkSource() {
+internal class OfficialAccountNetworkSource : BaseNetworkSource() {
 
     /** 公众号相关 Api */
     private val mOfficialAccountApi = RetrofitUtil.create(OfficialAccountApi::class.java)

@@ -88,7 +88,6 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
 
         mCoinRecordAdapter = CoinRecordAdapter(
             this,
-            R.layout.adapter_item_wan_android_coin_record,
             mViewModel?.mCoinRecordItemList
         )
         rv_content.layoutManager = LinearLayoutManager(this)

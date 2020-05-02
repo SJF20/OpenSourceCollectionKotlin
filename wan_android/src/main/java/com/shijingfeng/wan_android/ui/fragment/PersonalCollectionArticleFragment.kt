@@ -95,7 +95,6 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
         activity?.let { activity ->
             mPersonalCollectionArticleAdapter = PersonalCollectionArticleAdapter(
                 activity,
-                R.layout.adapter_item_wan_android_personal_collection_article,
                 mViewModel?.mArticleCollectedListItemList
             )
             rv_content.layoutManager = LinearLayoutManager(activity)

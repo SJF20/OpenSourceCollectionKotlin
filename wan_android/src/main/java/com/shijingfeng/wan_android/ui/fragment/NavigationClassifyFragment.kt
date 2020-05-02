@@ -87,7 +87,6 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
         context?.run {
             mNavigationClassifyAdapter = NavigationClassifyAdapter(
                 this,
-                R.layout.adapter_item_wan_android_navigation_classify,
                 mViewModel?.mNavigationClassifyList
             )
             rv_content.layoutManager = LinearLayoutManager(this)

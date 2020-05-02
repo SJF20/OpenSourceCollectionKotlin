@@ -116,7 +116,6 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
         activity?.run {
             mKnowledgeClassifyChildAdapter = KnowledgeClassifyChildAdapter(
                 this,
-                R.layout.adapter_item_wan_android_knowledge_classify_child,
                 mViewModel?.mKnowledgeClassifyChildItemList
             )
             // 注意此处不要使用 rv_content 或 findViewById  否则会导致 ViewPager中相同 Fragment 类,
@@ -191,63 +190,6 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
     }
 
     /**
-     * 设置 置顶按钮 的可见性
-     * @param visibility 可见性
-     */
-    private fun setToTopButtonVisibility(visibility: Int) {
-        if (mDataBinding.fabToTop.tag == null) {
-            mDataBinding.fabToTop.tag = VISIBLE
-        }
-        if (visibility == VISIBLE) {
-            //设置为可见
-            if (mDataBinding.fabToTop.tag as Int != VISIBLE) {
-                mDataBinding.fabToTop.tag = VISIBLE
-                mDataBinding.fabToTop
-                    .animate()
-                    .setListener(object : AnimatorListenerAdapter() {
-
-                        override fun onAnimationStart(animation: Animator) {
-                            super.onAnimationStart(animation)
-                            mDataBinding.fabToTop.isEnabled = false
-                        }
-
-                        override fun onAnimationEnd(animation: Animator) {
-                            super.onAnimationEnd(animation)
-                            mDataBinding.fabToTop.isEnabled = true
-                        }
-
-                    })
-                    .setDuration(400)
-                    .scaleX(1.0f)
-                    .scaleY(1.0f)
-            }
-        } else if (visibility == View.GONE) {
-            //设置为不可见
-            if (mDataBinding.fabToTop.tag as Int != GONE) {
-                mDataBinding.fabToTop.tag = GONE
-                mDataBinding.fabToTop
-                    .animate()
-                    .setListener(object : AnimatorListenerAdapter() {
-
-                        override fun onAnimationStart(animation: Animator) {
-                            super.onAnimationStart(animation)
-                            mDataBinding.fabToTop.isEnabled = false
-                        }
-
-                        override fun onAnimationEnd(animation: Animator) {
-                            super.onAnimationEnd(animation)
-                            mDataBinding.fabToTop.isEnabled = false
-                        }
-
-                    })
-                    .setDuration(400)
-                    .scaleX(0f)
-                    .scaleY(0f)
-            }
-        }
-    }
-
-    /**
      * 初始化 LiveData Observer
      */
     override fun initObserver() {
@@ -302,6 +244,63 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
                 })
             }
         })
+    }
+
+    /**
+     * 设置 置顶按钮 的可见性
+     * @param visibility 可见性
+     */
+    private fun setToTopButtonVisibility(visibility: Int) {
+        if (mDataBinding.fabToTop.tag == null) {
+            mDataBinding.fabToTop.tag = VISIBLE
+        }
+        if (visibility == VISIBLE) {
+            //设置为可见
+            if (mDataBinding.fabToTop.tag as Int != VISIBLE) {
+                mDataBinding.fabToTop.tag = VISIBLE
+                mDataBinding.fabToTop
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            mDataBinding.fabToTop.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            mDataBinding.fabToTop.isEnabled = true
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+            }
+        } else if (visibility == View.GONE) {
+            //设置为不可见
+            if (mDataBinding.fabToTop.tag as Int != GONE) {
+                mDataBinding.fabToTop.tag = GONE
+                mDataBinding.fabToTop
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            mDataBinding.fabToTop.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            mDataBinding.fabToTop.isEnabled = false
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(0f)
+                    .scaleY(0f)
+            }
+        }
     }
 
     /**

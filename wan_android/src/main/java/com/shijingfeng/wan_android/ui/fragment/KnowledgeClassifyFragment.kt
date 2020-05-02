@@ -89,7 +89,6 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
         context?.run {
             mKnowledgeClassifyAdapter = KnowledgeClassifyAdapter(
                 this,
-                R.layout.adapter_item_wan_android_knowledge_classify,
                 mViewModel?.mKnowledgeClassifyList
             )
             rv_content.layoutManager = LinearLayoutManager(this)

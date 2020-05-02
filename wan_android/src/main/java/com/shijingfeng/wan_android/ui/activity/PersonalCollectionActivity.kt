@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
@@ -83,7 +84,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
     override fun initData() {
         super.initData()
         mViewModel?.mCurPosition = PERSONAL_COLLECTION_ARTICLE
-        mPersonalCollectionFragmentPagerAdapter = PersonalCollectionFragmentPagerAdapter(supportFragmentManager)
+        mPersonalCollectionFragmentPagerAdapter = PersonalCollectionFragmentPagerAdapter(supportFragmentManager, onFragmentCreate = { _, _ -> })
         vp_content.setCanScroll(false)
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mPersonalCollectionFragmentPagerAdapter
@@ -141,14 +142,6 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
             }
 
         })
-        // 文章收藏列表 Fragment 回调
-        mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(PERSONAL_COLLECTION_ARTICLE)?.setOnItemEventListener { view, data, position, flag ->
-
-        }
-        // 网站收藏列表 Fragment 回调
-        mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(PERSONAL_COLLECTION_WEBSITE)?.setOnItemEventListener { view, data, position, flag ->
-
-        }
     }
 
     /**
@@ -189,10 +182,12 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
  * 我的收藏 ViewPager Fragment 适配器
  */
 internal class PersonalCollectionFragmentPagerAdapter(
-    fragmentManager: FragmentManager
+    fragmentManager: FragmentManager,
+    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = true
+    mBanDestroyed = true,
+    mOnFragmentCreate = onFragmentCreate
 ) {
 
     /**

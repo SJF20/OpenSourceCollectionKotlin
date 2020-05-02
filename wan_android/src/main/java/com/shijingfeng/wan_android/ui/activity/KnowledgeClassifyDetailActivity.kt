@@ -84,7 +84,6 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
         tv_title.text = mViewModel?.mKnowledgeClassify?.name ?: ""
         mKnowledgeClassifyDetailFragmentPagerAdapter = KnowledgeClassifyDetailFragmentPagerAdapter(
             supportFragmentManager,
-            mViewModel?.mKnowledgeClassify?.childrenList?.size ?: 0,
             mViewModel?.mKnowledgeClassify ?: KnowledgeClassifyEntity()
         )
         vp_content.offscreenPageLimit = 1
@@ -172,8 +171,6 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
  */
 internal class KnowledgeClassifyDetailFragmentPagerAdapter(
     fragmentManager: FragmentManager,
-    /** Fragment Item 数量 */
-    private val mFragmentCount: Int,
     /** 知识体系　一级 Item 实体类　*/
     private val mKnowledgeClassify: KnowledgeClassifyEntity
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
@@ -194,5 +191,6 @@ internal class KnowledgeClassifyDetailFragmentPagerAdapter(
      * 获取 Fragment List Count
      * @return Fragment List Count
      */
-    override fun getCount() = mFragmentCount
+    override fun getCount() = mKnowledgeClassify.childrenList.size
+
 }

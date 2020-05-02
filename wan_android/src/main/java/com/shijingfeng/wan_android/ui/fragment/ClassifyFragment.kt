@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_CLASSIFY
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.wan_android.BR
@@ -76,7 +77,11 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
     override fun initData() {
         super.initData()
         mCurPosition = CLASSIFY_KNOWLEDGE
-        mClassifyFragmentPagerAdapter = ClassifyFragmentPagerAdapter(childFragmentManager)
+        mClassifyFragmentPagerAdapter = ClassifyFragmentPagerAdapter(childFragmentManager, onFragmentCreate = { _, fragment ->
+            fragment.setOnItemEventListener { view, data, position, flag ->
+                mOnItemEvent?.invoke(view, data, position, flag)
+            }
+        })
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mClassifyFragmentPagerAdapter
 
@@ -136,22 +141,6 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
                 mCurPosition = position
             }
         })
-        // Fragment事件
-        // 延迟 500 毫秒, 防止 getFragmentByPosition() 获取 Fragment 为 null
-        Handler().postDelayed({
-            //知识体系 Fragment 事件
-            mClassifyFragmentPagerAdapter?.getFragmentByPosition(CLASSIFY_KNOWLEDGE)?.setOnItemEventListener { view, data, position, flag ->
-                when (flag) {
-                    else -> mOnItemEvent?.invoke(view, data, position, flag)
-                }
-            }
-            //导航分类 Fragment 事件
-            mClassifyFragmentPagerAdapter?.getFragmentByPosition(CLASSIFY_NAVIGATION)?.setOnItemEventListener { view, data, position, flag ->
-                when (flag) {
-                    else -> mOnItemEvent?.invoke(view, data, position, flag)
-                }
-            }
-        }, 500)
     }
 
     /**
@@ -192,10 +181,12 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
  * 知识体系 ViewPager Fragment 适配器
  */
 internal class ClassifyFragmentPagerAdapter(
-    fragmentManager: FragmentManager
+    fragmentManager: FragmentManager,
+    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = true
+    mBanDestroyed = true,
+    mOnFragmentCreate = onFragmentCreate
 ) {
 
     /**

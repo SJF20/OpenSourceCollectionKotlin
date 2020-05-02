@@ -20,9 +20,8 @@ import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleItem
  */
 internal class PersonalCollectionArticleAdapter(
     context: Context,
-    layoutId: Int,
     dataList: List<PersonalCollectionArticleItem>? = null
-) : BaseAdapter<PersonalCollectionArticleItem>(context, layoutId, dataList) {
+) : BaseAdapter<PersonalCollectionArticleItem>(context, R.layout.adapter_item_wan_android_personal_collection_article, dataList) {
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)
