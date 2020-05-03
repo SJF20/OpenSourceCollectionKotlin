@@ -31,6 +31,7 @@ import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountChildBinding
+import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.network.OfficialAccountChildItem
 import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
@@ -274,6 +275,22 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
     fun getUserInfoEvent(event: UserInfoEvent) {
         // 自动刷新
         mDataBinding.srlRefresh.autoRefresh()
+    }
+
+    /**
+     * 更新 收藏
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getCollectionEvent(event: ArticleCollectionEvent) {
+        if (OfficialAccountChildFragment::class.java.name == event.fromName) {
+            return
+        }
+//        if (TextUtils.isEmpty(event.id)) {
+//            return
+//        }
+
+        //因为服务器返回字段设计问题，导致 收藏列表中被收藏的文章 的 id 和 收藏列表以外的文章的 id 不相等, 故采用全局刷新的方式
+        mViewModel?.refresh()
     }
 
 }

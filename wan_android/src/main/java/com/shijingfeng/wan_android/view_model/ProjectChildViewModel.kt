@@ -85,7 +85,7 @@ internal class ProjectChildViewModel(
     /**
      * 下拉刷新
      */
-    private fun refresh() {
+    fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         getProjectChild(PROJECT_CHILD_FIRST_PAGE)
     }

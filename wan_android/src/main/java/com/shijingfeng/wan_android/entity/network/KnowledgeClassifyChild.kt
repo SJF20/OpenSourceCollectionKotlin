@@ -124,9 +124,9 @@ internal data class KnowledgeClassifyChildItem(
 
     /** 标签列表 (例如: 问答, 导航, 公众号) */
     @SerializedName("tags")
-    var tagList: List<HomeArticleItemTag> = ArrayList(),
+    var tagList: List<KnowledgeClassifyChildItemTag> = ArrayList(),
 
-    /** 文章标题  */
+    /** 文章标题 */
     @SerializedName("title")
     var title: String = "",
 

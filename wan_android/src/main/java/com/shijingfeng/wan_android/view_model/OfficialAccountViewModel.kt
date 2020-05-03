@@ -7,8 +7,6 @@ import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.repository.OfficialAccountRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.serialize
 
 /**
  * Function: 公众号 ViewModel

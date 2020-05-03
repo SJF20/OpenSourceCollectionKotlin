@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ClickUtils
+import com.shijingfeng.base.R
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.util.cast
@@ -108,18 +109,24 @@ class CommonViewHolder constructor (
      * ImageView 设置 本地路径或网络路径资源
      * @param viewId ImageView Id
      * @param path 本地路径或网络路径
+     * @param placeholder 占位图片 (加载中)
+     * @param error 错误图片 (加载失败)
      * @return CommonViewHolder
      */
     fun setImagePath(
         @IdRes viewId: Int,
-        path: String
+        path: String,
+        @DrawableRes placeholder: Int = R.drawable.ic_image,
+        @DrawableRes error: Int = R.drawable.ic_image
     ): CommonViewHolder {
         val imageView = getView<ImageView>(viewId) ?: return this
 
         getImageLoaderInstance().displayImage(
             context = mContext,
             imageView = imageView,
-            imagePath = path
+            imagePath = path,
+            placeholder = placeholder,
+            error = error
         )
         return this
     }

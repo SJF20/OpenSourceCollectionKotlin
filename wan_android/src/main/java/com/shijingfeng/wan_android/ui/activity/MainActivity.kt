@@ -5,9 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -31,7 +29,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -61,7 +58,6 @@ import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_home.*
 import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_official_account.*
 import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_project.*
 import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_square.*
-import kotlinx.android.synthetic.main.layout_wan_android_main_activity_drawer.*
 import kotlinx.android.synthetic.main.layout_wan_android_main_activity_drawer.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -135,15 +131,18 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         super.initData()
         mViewModel?.mCurPosition = MAIN_HOME
 
-        mMainFragmentPagerAdapter = MainFragmentPagerAdapter(supportFragmentManager, onFragmentCreate = { _, fragment ->
-            fragment.setOnItemEventListener { _, _, visibility, flag ->
-                when (flag) {
-                    //TabLayout 设置可见性
-                    TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
-                    else -> {}
+        mMainFragmentPagerAdapter = MainFragmentPagerAdapter(
+            fragmentManager = supportFragmentManager,
+            onFragmentCreate = { _, fragment ->
+                fragment.setOnItemEventListener { _, _, visibility, flag ->
+                    when (flag) {
+                        //TabLayout 设置可见性
+                        TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
+                        else -> {}
+                    }
                 }
             }
-        })
+        )
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mMainFragmentPagerAdapter
 

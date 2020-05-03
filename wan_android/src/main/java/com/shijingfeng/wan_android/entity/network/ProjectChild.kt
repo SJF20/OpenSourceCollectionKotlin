@@ -76,6 +76,7 @@ internal data class ProjectChildItem(
     @SerializedName("courseId")
     var courseId: Int = 0,
 
+    /** 简介 */
     @SerializedName("desc")
     var desc: String = "",
 

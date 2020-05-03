@@ -85,7 +85,7 @@ internal class KnowledgeClassifyChildViewModel(
     /**
      * 下拉刷新
      */
-    private fun refresh() {
+    fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         getKnowledgeClassifyChildList(KNOWLEDGE_CLASSIFY_CHILD_FIRST_PAGE)
     }

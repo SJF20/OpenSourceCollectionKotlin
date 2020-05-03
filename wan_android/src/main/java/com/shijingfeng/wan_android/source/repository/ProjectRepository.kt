@@ -5,23 +5,23 @@ import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
-import com.shijingfeng.wan_android.source.network.ProjectIndexNetworkSource
+import com.shijingfeng.wan_android.source.network.ProjectNetworkSource
 
 /** 单例实例 */
 @Volatile
-private var sInstance: ProjectIndexRepository? = null
+private var sInstance: ProjectRepository? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getProjectIndexRepositoryInstance(
-    networkSource: ProjectIndexNetworkSource? = null
-): ProjectIndexRepository {
+internal fun getProjectRepositoryInstance(
+    networkSource: ProjectNetworkSource? = null
+): ProjectRepository {
     if (sInstance == null) {
-        synchronized(ProjectIndexRepository::class.java) {
+        synchronized(ProjectRepository::class.java) {
             if (sInstance == null) {
-                sInstance = ProjectIndexRepository(networkSource = networkSource)
+                sInstance = ProjectRepository(networkSource = networkSource)
             }
         }
     }
@@ -29,14 +29,14 @@ internal fun getProjectIndexRepositoryInstance(
 }
 
 /**
- * Function: 项目索引数据 仓库
+ * Function: 项目 仓库
  * Date: 20-4-29 下午9:53
  * Description:
  * @author shijingfeng
  */
-internal class ProjectIndexRepository(
-    networkSource: ProjectIndexNetworkSource? = null
-) : BaseRepository<BaseLocalSource, ProjectIndexNetworkSource>(
+internal class ProjectRepository(
+    networkSource: ProjectNetworkSource? = null
+) : BaseRepository<BaseLocalSource, ProjectNetworkSource>(
     mNetworkSource = networkSource
 )  {
 

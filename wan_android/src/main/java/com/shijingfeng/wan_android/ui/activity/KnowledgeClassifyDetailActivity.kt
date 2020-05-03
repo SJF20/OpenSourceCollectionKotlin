@@ -83,8 +83,8 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
         super.initData()
         tv_title.text = mViewModel?.mKnowledgeClassify?.name ?: ""
         mKnowledgeClassifyDetailFragmentPagerAdapter = KnowledgeClassifyDetailFragmentPagerAdapter(
-            supportFragmentManager,
-            mViewModel?.mKnowledgeClassify ?: KnowledgeClassifyEntity()
+            fragmentManager = supportFragmentManager,
+            mKnowledgeClassify = mViewModel?.mKnowledgeClassify ?: KnowledgeClassifyEntity()
         )
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mKnowledgeClassifyDetailFragmentPagerAdapter

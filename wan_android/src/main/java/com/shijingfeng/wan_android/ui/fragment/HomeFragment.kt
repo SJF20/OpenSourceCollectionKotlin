@@ -374,9 +374,9 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
         if (HomeFragment::class.java.name == event.fromName) {
             return
         }
-        if (TextUtils.isEmpty(event.id)) {
-            return
-        }
+//        if (TextUtils.isEmpty(event.id)) {
+//            return
+//        }
 
         //因为服务器返回字段设计问题，导致 收藏列表中被收藏的文章 的 id 和 收藏列表以外的文章的 id 不相等, 故采用全局刷新的方式
         mViewModel?.refresh()

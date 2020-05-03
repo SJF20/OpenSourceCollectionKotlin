@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayout
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
@@ -60,11 +61,11 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
      * @return ViewModel
      */
     override fun getViewModel(): OfficialAccountViewModel? {
-        val officialAccountRepository = getOfficialAccountRepositoryInstance(
+        val repository = getOfficialAccountRepositoryInstance(
             networkSource = getOfficialAccountNetworkSourceInstance()
         )
         val factory = createCommonViewModelFactory(
-            repository = officialAccountRepository
+            repository = repository
         )
 
         return createViewModel(OfficialAccountViewModel::class.java, factory)
@@ -94,7 +95,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
      */
     override fun initObserver() {
         super.initObserver()
-        mViewModel?.mOfficialAccountIndexDataChangeEvent?.observe(viewLifecycleOwner, Observer ObserverLabel@{ (type, _, _, extraData, knowledgeClassifyChildItemList, _) ->
+        mViewModel?.mOfficialAccountIndexDataChangeEvent?.observe(viewLifecycleOwner, Observer ObserverLabel@{ (type, _, _, _, _, _) ->
             when (type) {
                 // 加载
                 LOAD -> startLazyInit()
@@ -115,8 +116,13 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
      */
     private fun lazyInitData() {
         mOfficialAccountFragmentPagerAdapter = OfficialAccountFragmentPagerAdapter(
-            childFragmentManager,
-            mViewModel?.mOfficialAccountIndexList ?: mutableListOf()
+            fragmentManager = childFragmentManager,
+            mOfficialAccountIndexList = mViewModel?.mOfficialAccountIndexList ?: mutableListOf(),
+            onFragmentCreate = { _, fragment ->
+                fragment.setOnItemEventListener { view, data, visibility, flag ->
+                    mOnItemEvent?.invoke(view, data, visibility, flag)
+                }
+            }
         )
         vp_content.offscreenPageLimit = 1
         vp_content.adapter = mOfficialAccountFragmentPagerAdapter
@@ -229,11 +235,14 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
  */
 internal class OfficialAccountFragmentPagerAdapter(
     fragmentManager: FragmentManager,
+    /** Fragment 创建回调 */
+    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>,
     /** 知识体系　一级 Item 实体类　*/
     private val mOfficialAccountIndexList: List<OfficialAccountIndexEntity>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = false
+    mBanDestroyed = false,
+    mOnFragmentCreate = onFragmentCreate
 ) {
 
     /**
