@@ -17,6 +17,8 @@ internal const val KNOWLEDGE_CLASSIFY_CHILDREN_STR = "knowledge_classify_childre
 internal const val OFFICIAL_ACCOUNT_INDEX_STR = "official_account_index_str"
 /** Bundle Key(String) Value(String) 项目 某个索引数据 实体类 序列化后的字符串 */
 internal const val PROJECT_INDEX_STR = "project_index_str"
+/** Bundle Key(String) Value(String) 搜索关键词 */
+internal const val SEARCH_HOT_WORD = "search_hot_word"
 /** Bundle Key(String) Value(String) 搜索列表(第一页) 序列化后的字符串 */
 internal const val SEARCH_LIST_STR = "search_list_str"
 /** Bundle Key(String) Value(String)  文章ID  */
@@ -68,3 +70,8 @@ internal const val VIEW_WEBSITE_DETAIL = "view_website_detail"
 internal const val VIEW_KNOWLEDGE_CLASSIFY_DETAIL = "view_knowledge_classify_detail"
 /** 查看导航分类详情  */
 internal const val VIEW_NAVIGATION_CLASSIFY_DETAIL = "view_navigation_classify_detail"
+
+/** 搜索 */
+internal const val SEARCH = "search"
+/** 删除 某条 搜索历史 */
+internal const val REMOVE_SEARCH_HISTORY_ITEM = "remove_search_history_item"

@@ -50,7 +50,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     /** LoadSir 状态 */
     @LoadServiceStatus var mLoadServiceStatus = LOAD_SERVICE_SUCCESS
     /** 下拉刷新 或 上拉加载 状态 */
-    @RefreshLoadMoreStatus var mRefreshLoadMoreStatus = 0
+    @RefreshLoadMoreStatus var mRefreshLoadMoreStatus = REFRESH_LOAD_MORE_NONE
 
     /** 连续双击退出应用  */
     protected var mExitApp: Boolean = false
@@ -103,8 +103,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
      */
     fun showCallback(@LoadServiceStatus status: Int) {
-        mLoadServiceStatus = status
-        getLoadServiceStatusEvent().value = status
+        if (mLoadServiceStatus != status) {
+            getLoadServiceStatusEvent().value = status
+        }
     }
 
     /**
@@ -112,8 +113,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param status 下拉刷新 或 上拉加载 状态 {@link com.zjn.transport.constant.StatusConstant#REFRESH_SUCCESS}
      */
     fun updateRefreshLoadMoreStatus (@RefreshLoadMoreStatus status: Int) {
-        mRefreshLoadMoreStatus = status
-        getRefreshLoadMoreStatusEvent().value = status
+        if (mRefreshLoadMoreStatus != status) {
+            getRefreshLoadMoreStatusEvent().value = status
+        }
     }
 
     /**

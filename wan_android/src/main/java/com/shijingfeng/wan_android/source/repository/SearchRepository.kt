@@ -1,9 +1,9 @@
 package com.shijingfeng.wan_android.source.repository
 
 import com.shijingfeng.base.base.repository.BaseRepository
-import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
+import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.entity.network.SearchHotWordEntity
 import com.shijingfeng.wan_android.entity.network.SearchListEntity
 import com.shijingfeng.wan_android.source.local.SearchLocalSource
@@ -72,37 +72,18 @@ internal class SearchRepository(
      * @param onSuccess 成功回调
      * @param onFailure 失败回调
      */
-    fun getSearchHistoryList(onSuccess: onSuccess<List<String>?>, onFailure: onFailure) {
+    fun getSearchHistoryList(onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
         mLocalSource?.getSearchHistoryList(onSuccess, onFailure)
     }
 
     /**
-     * 添加 某条搜索历史 Item
-     * @param name 搜索关键词
+     * 更新 搜索历史列表 数据
+     * @param searchHistoryList 搜索历史列表 (null 或 empty 代表清空数据)
      * @param onSuccess 成功回调
      * @param onFailure 失败回调
      */
-    fun addSearchHistoryItem(name: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        mLocalSource?.addSearchHistoryItem(name, onSuccess, onFailure)
-    }
-
-    /**
-     * 清空 搜索历史列表 数据
-     * @param onSuccess 成功回调
-     * @param onFailure 失败回调
-     */
-    fun clearSearchHistoryList(onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        mLocalSource?.clearSearchHistoryList(onSuccess, onFailure)
-    }
-
-    /**
-     * 删除 某条搜索历史 Item
-     * @param name 搜索关键词
-     * @param onSuccess 成功回调
-     * @param onFailure 失败回调
-     */
-    fun removeSearchHistoryItem(name: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        mLocalSource?.removeSearchHistoryItem(name, onSuccess, onFailure)
+    fun updateSearchHistory(searchHistoryList: List<SearchHistoryItem>?, onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
+        mLocalSource?.updateSearchHistoryList(searchHistoryList, onSuccess, onFailure)
     }
 
     /**

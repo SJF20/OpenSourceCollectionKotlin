@@ -18,6 +18,8 @@ const val LOAD_SERVICE_EMPTY = 2
 /** LoadService状态: 加载失败  */
 const val LOAD_SERVICE_LOAD_FAIL = 3
 
+/** 下拉刷新 和 上拉加载 无操作 */
+const val REFRESH_LOAD_MORE_NONE = 0
 /** 下拉刷新成功  */
 const val REFRESH_SUCCESS = 1
 /** 下拉刷新失败  */

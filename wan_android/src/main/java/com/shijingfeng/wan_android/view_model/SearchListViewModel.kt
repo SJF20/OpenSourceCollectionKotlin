@@ -1,6 +1,8 @@
 package com.shijingfeng.wan_android.view_model
 
+import android.view.View
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
+import com.shijingfeng.wan_android.entity.network.SearchListItem
 import com.shijingfeng.wan_android.source.repository.SearchListRepository
 
 /**
@@ -12,6 +14,13 @@ import com.shijingfeng.wan_android.source.repository.SearchListRepository
 internal class SearchListViewModel(
     repository: SearchListRepository? = null
 ) : WanAndroidBaseViewModel<SearchListRepository>(repository) {
+
+    /** 搜索关键词 */
+    var mSearchHotWord = ""
+    /** 搜索列表 */
+    var mSearchList = mutableListOf<SearchListItem>()
+
+    val mBackClickListener = View.OnClickListener { finish() }
 
     /**
      * 初始化

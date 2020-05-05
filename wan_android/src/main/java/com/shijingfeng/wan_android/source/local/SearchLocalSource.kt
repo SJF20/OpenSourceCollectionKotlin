@@ -3,6 +3,7 @@ package com.shijingfeng.wan_android.source.local
 import android.os.Handler
 import android.os.Looper
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ThreadUtils
 import com.google.gson.reflect.TypeToken
 import com.shijingfeng.base.base.source.BaseLocalSource
@@ -19,6 +20,7 @@ import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.SEARCH_HISTORY_LIST
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
+import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.entity.network.SearchHotWordEntity
 import com.shijingfeng.wan_android.entity.network.SearchListEntity
 import com.shijingfeng.wan_android.source.network.api.SearchApi
@@ -61,11 +63,11 @@ internal class SearchLocalSource : BaseLocalSource() {
      * @param onSuccess 成功回调
      * @param onFailure 失败回调
      */
-    fun getSearchHistoryList(onSuccess: onSuccess<List<String>?>, onFailure: onFailure) {
+    fun getSearchHistoryList(onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
         Executors.newSingleThreadExecutor().execute {
             try {
                 val searchHistoryListStr = SPUtils.getInstance(SP_APP_NAME).getString(SEARCH_HISTORY_LIST, EMPTY_ARRAY)
-                val searchHistoryList = deserialize<List<String>>(searchHistoryListStr, object : TypeToken<List<String>>() {}.type)
+                val searchHistoryList = deserialize<List<SearchHistoryItem>>(searchHistoryListStr, object : TypeToken<List<SearchHistoryItem>>() {}.type)
 
                 mHandler.post {
                     onSuccess(searchHistoryList)
@@ -83,78 +85,21 @@ internal class SearchLocalSource : BaseLocalSource() {
     }
 
     /**
-     * 添加 某条搜索历史 Item
-     * @param name 搜索关键词
+     * 更新 搜索历史列表 数据
+     * @param searchHistoryList 搜索历史列表 (null 或 empty 代表清空数据)
      * @param onSuccess 成功回调
      * @param onFailure 失败回调
      */
-    fun addSearchHistoryItem(name: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
+    fun updateSearchHistoryList(searchHistoryList: List<SearchHistoryItem>?, onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
         Executors.newSingleThreadExecutor().execute {
             try {
-                val searchHistoryListStr = SPUtils.getInstance(SP_APP_NAME).getString(SEARCH_HISTORY_LIST, EMPTY_ARRAY)
-                val searchHistoryList = deserialize<MutableList<String>>(searchHistoryListStr, object : TypeToken<MutableList<String>>() {}.type)
-
                 if (searchHistoryList.isNullOrEmpty()) {
-                    searchHistoryList.add(name)
+                    SPUtils.getInstance(SP_APP_NAME).remove(SEARCH_HISTORY_LIST, true)
                 } else {
-                    searchHistoryList.add(0, name)
+                    SPUtils.getInstance(SP_APP_NAME).put(SEARCH_HISTORY_LIST, serialize(searchHistoryList), true)
                 }
-                SPUtils.getInstance(SP_APP_NAME).put(SEARCH_HISTORY_LIST, serialize(searchHistoryList), true)
                 mHandler.post {
-                    onSuccess(null)
-                }
-            } catch (e: Exception) {
-                mHandler.post {
-                    onFailure(HttpException(
-                        errorCode = -1,
-                        errorMsg = e.message ?: "",
-                        throwable = e
-                    ))
-                }
-            }
-        }
-    }
-
-    /**
-     * 清空 搜索历史列表 数据
-     * @param onSuccess 成功回调
-     * @param onFailure 失败回调
-     */
-    fun clearSearchHistoryList(onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        Executors.newSingleThreadExecutor().execute {
-            try {
-                SPUtils.getInstance(SP_APP_NAME).remove(SEARCH_HISTORY_LIST, true)
-                mHandler.post {
-                    onSuccess(null)
-                }
-            } catch (e: Exception) {
-                mHandler.post {
-                    onFailure(HttpException(
-                        errorCode = -1,
-                        errorMsg = e.message ?: "",
-                        throwable = e
-                    ))
-                }
-            }
-        }
-    }
-
-    /**
-     * 删除 某条搜索历史 Item
-     * @param name 搜索关键词
-     * @param onSuccess 成功回调
-     * @param onFailure 失败回调
-     */
-    fun removeSearchHistoryItem(name: String, onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        Executors.newSingleThreadExecutor().execute {
-            try {
-                val searchHistoryListStr = SPUtils.getInstance(SP_APP_NAME).getString(SEARCH_HISTORY_LIST, EMPTY_ARRAY)
-                val searchHistoryList = deserialize<MutableList<String>>(searchHistoryListStr, object : TypeToken<MutableList<String>>() {}.type)
-
-                searchHistoryList.remove(name)
-                SPUtils.getInstance(SP_APP_NAME).put(SEARCH_HISTORY_LIST, serialize(searchHistoryList), true)
-                mHandler.post {
-                    onSuccess(null)
+                    onSuccess(searchHistoryList)
                 }
             } catch (e: Exception) {
                 mHandler.post {

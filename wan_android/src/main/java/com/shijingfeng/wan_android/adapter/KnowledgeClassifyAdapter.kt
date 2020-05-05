@@ -73,13 +73,7 @@ internal class KnowledgeClassifyAdapter(
 
             if (llChild != null) {
                 // 对 知识标签控件 进行整体布局 (按控件宽度逐行排列，没有固定列数)
-                layout(
-                    llChild,
-                    viewList,
-                    totalWidth,
-                    ConvertUtils.dp2px(10F),
-                    Gravity.START
-                )
+                layout(llChild, viewList, totalWidth, ConvertUtils.dp2px(10F), Gravity.START)
                 llChild.visibility = View.VISIBLE
             }
         }

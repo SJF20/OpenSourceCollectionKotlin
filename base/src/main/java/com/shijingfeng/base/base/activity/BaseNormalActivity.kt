@@ -147,7 +147,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * LoadSir 切换状态
      * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
      */
-    protected fun showCallback(@LoadServiceStatus status: Int) {
+    protected open fun showCallback(@LoadServiceStatus status: Int) {
         mLoadService?.showCallback(when (status) {
             // LoadSir 状态: 成功
             LOAD_SERVICE_SUCCESS -> SuccessCallback::class.java
@@ -166,7 +166,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * 更新 下拉刷新，上拉加载 状态
      * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
      */
-    protected fun updateRefreshLoadMoreStatus(@RefreshLoadMoreStatus status: Int) {
+    protected open fun updateRefreshLoadMoreStatus(@RefreshLoadMoreStatus status: Int) {
         mSmartRefreshLayout?.run {
             when (status) {
                 // 下拉刷新成功

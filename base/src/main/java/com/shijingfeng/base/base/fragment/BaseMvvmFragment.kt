@@ -182,6 +182,30 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     }
 
     /**
+     * LoadSir 切换状态
+     * @param status 要切换到的状态  默认: [LOAD_SERVICE_SUCCESS]
+     */
+    override fun showCallback(status: Int) {
+        if (mViewModel != null && mViewModel!!.mLoadServiceStatus == status) {
+            return
+        }
+        mViewModel?.mLoadServiceStatus = status
+        super.showCallback(status)
+    }
+
+    /**
+     * 更新 下拉刷新，上拉加载 状态
+     * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
+     */
+    override fun updateRefreshLoadMoreStatus(status: Int) {
+        if (mViewModel != null && mViewModel!!.mRefreshLoadMoreStatus == status) {
+            return
+        }
+        mViewModel?.mRefreshLoadMoreStatus = status
+        super.updateRefreshLoadMoreStatus(status)
+    }
+
+    /**
      * 创建ViewModel
      *
      * @param cls Activity Class

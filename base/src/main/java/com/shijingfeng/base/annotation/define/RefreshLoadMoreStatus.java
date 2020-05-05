@@ -9,6 +9,7 @@ import static com.shijingfeng.base.common.constant.StatusConstant.LOAD_MORE_ALL;
 import static com.shijingfeng.base.common.constant.StatusConstant.LOAD_MORE_FAIL;
 import static com.shijingfeng.base.common.constant.StatusConstant.LOAD_MORE_SUCCESS;
 import static com.shijingfeng.base.common.constant.StatusConstant.REFRESH_FAIL;
+import static com.shijingfeng.base.common.constant.StatusConstant.REFRESH_LOAD_MORE_NONE;
 import static com.shijingfeng.base.common.constant.StatusConstant.REFRESH_SUCCESS;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
@@ -23,6 +24,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @author shijingfeng
  */
 @IntDef({
+    /** 下拉刷新 和 上拉加载 无操作 */
+    REFRESH_LOAD_MORE_NONE,
     // 下拉刷新成功
     REFRESH_SUCCESS,
     // 下拉刷新失败
