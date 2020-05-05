@@ -27,6 +27,8 @@ import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
+import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
@@ -202,8 +204,11 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             dwl_drawer.openDrawer(GravityCompat.START)
         }
         // 搜索
-        ClickUtils.applyGlobalDebouncing(iv_search) {
-
+        ClickUtils.applySingleDebouncing(iv_search) {
+            navigation(
+                activity = this,
+                path = ACTIVITY_WAN_ANDROID_SEARCH
+            )
         }
         // 置顶
         ClickUtils.applySingleDebouncing(fab_to_top) {

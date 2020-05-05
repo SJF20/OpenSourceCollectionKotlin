@@ -1,10 +1,8 @@
 package com.shijingfeng.base.annotation.define;
 
 import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
 import static com.shijingfeng.base.common.constant.StatusConstant.LOAD_SERVICE_EMPTY;
 import static com.shijingfeng.base.common.constant.StatusConstant.LOAD_SERVICE_LOADING;
 import static com.shijingfeng.base.common.constant.StatusConstant.LOAD_SERVICE_LOAD_FAIL;

@@ -21,8 +21,8 @@ import com.blankj.utilcode.util.ClickUtils
 fun onClick(
     view: View,
     listener: View.OnClickListener?,
-    disEnableClickThrottle: Boolean,
-    @IntRange(from = 0) clickThrottleMs: Int
+    disEnableClickThrottle: Boolean = false,
+    @IntRange(from = 0) clickThrottleMs: Int = 0
 ) {
     if (listener == null) {
         return

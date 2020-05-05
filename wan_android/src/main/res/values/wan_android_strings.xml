@@ -59,6 +59,20 @@
     <string name="服务器出错登录失败">服务器出错，登录失败</string>
     <string name="服务器出错注册失败">服务器出错，注册失败</string>
     <string name="两次输入密码不一致">两次输入密码不一致</string>
+    <string name="搜索中" tools:ignore="TypographyEllipsis">搜索中...</string>
+    <string name="搜索失败">搜索失败</string>
+    <string name="清空失败">清空失败</string>
+    <string name="删除失败">删除失败</string>
+    <string name="请输入搜索关键词">请输入搜索关键词</string>
+    <string name="热门搜索">热门搜索</string>
+    <string name="搜索历史">搜索历史</string>
+    <string name="清空">清空</string>
+    <string name="获取热门搜索中" tools:ignore="TypographyEllipsis">获取热门搜索中...</string>
+    <string name="暂无热门搜索">暂无热门搜索</string>
+    <string name="获取热门搜索失败">获取热门搜索失败</string>
+    <string name="获取搜索历史中" tools:ignore="TypographyEllipsis">获取历史搜索中...</string>
+    <string name="暂无搜索历史">暂无搜索历史</string>
+    <string name="获取搜索历史失败">获取搜索历史失败</string>
 
     <string name="about_us_content" translatable="false"><![CDATA[
         <h2>网站内容</h2>

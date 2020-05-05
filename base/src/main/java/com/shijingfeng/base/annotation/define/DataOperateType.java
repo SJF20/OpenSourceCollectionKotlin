@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static com.shijingfeng.base.common.constant.FlagConstant.ADD;
+import static com.shijingfeng.base.common.constant.FlagConstant.CLEAR;
 import static com.shijingfeng.base.common.constant.FlagConstant.INSERT;
 import static com.shijingfeng.base.common.constant.FlagConstant.LOAD;
 import static com.shijingfeng.base.common.constant.FlagConstant.NONE;
@@ -38,7 +39,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
     // 数据操作: 删除数据
     REMOVE,
     // 数据操作: 更新数据
-    UPDATE
+    UPDATE,
+    // 数据操作: 清空
+    CLEAR
 })
 @Target({
     // 类属性

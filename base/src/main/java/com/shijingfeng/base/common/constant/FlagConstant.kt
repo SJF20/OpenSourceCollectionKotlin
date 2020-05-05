@@ -90,6 +90,8 @@ const val INSERT = 4
 const val REMOVE = 5
 /** 数据操作: 更新数据  */
 const val UPDATE = 6
+/** 数据操作: 清空 */
+const val CLEAR = 7
 
 /** 页面操作类型：加载数据  */
 const val PAGE_OPERATE_TYPE_LOAD = 1

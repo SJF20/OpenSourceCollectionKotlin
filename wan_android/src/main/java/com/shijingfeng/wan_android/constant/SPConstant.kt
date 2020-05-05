@@ -13,9 +13,11 @@ package com.shijingfeng.wan_android.constant
 internal const val SP_APP_NAME = "wan_android"
 /** SP key: 当前是否已登录, value(boolean)  */
 internal const val LOGIN = "login"
-/** SP key: 用户信息, value(加密String) */
+/** SP key: 用户信息, value(String: 序列化后加密字符串) */
 internal const val USER_INFO = "login_info"
 /** SP key: 第一次使用App, value(boolean)  */
 internal const val FIRST_USE = "first_use"
-/** SP key: 积分信息, value(加密String)  */
+/** SP key: 积分信息, value(String: 序列化后加密字符串)  */
 internal const val COIN_INFO = "coin_info"
+/** SP key: 搜索历史列表, value(String: 序列化字符串) */
+internal const val SEARCH_HISTORY_LIST = "search_history_list"

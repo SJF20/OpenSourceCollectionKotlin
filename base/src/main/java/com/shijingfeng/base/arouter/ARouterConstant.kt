@@ -62,6 +62,10 @@ const val ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION = "/wan_android/activity/Pers
 const val ACTIVITY_WAN_ANDROID_ABOUT_US = "/wan_android/activity/AboutUsActivity"
 /** 知识体系详情 Activity  */
 const val ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL = "/wan_android/activity/KnowledgeClassifyDetailActivity"
+/** 搜索 Activity */
+const val ACTIVITY_WAN_ANDROID_SEARCH = "/wan_android/activity/SearchActivity"
+/** 搜索列表 Activity */
+const val ACTIVITY_WAN_ANDROID_SEARCH_LIST = "/wan_android/activity/SearchListActivity"
 
 // wan_android 模块 Fragment
 /** 首页 Fragment  */

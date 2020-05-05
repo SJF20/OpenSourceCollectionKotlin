@@ -16,6 +16,7 @@ import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleItem
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionArticleRepository
 import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionArticleFragment
+import okhttp3.internal.immutableListOf
 import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
@@ -173,9 +174,8 @@ internal class PersonalCollectionArticleViewModel(
             val position = getPositionById(articleId, mArticleCollectedListItemList)
 
             if (position != -1) {
-                val event =
-                    ListDataChangeEvent<PersonalCollectionArticleItem>()
-                val indexList = listOf(position)
+                val event = ListDataChangeEvent<PersonalCollectionArticleItem>()
+                val indexList = immutableListOf(position)
 
                 event.type = REMOVE
                 event.indexList = indexList

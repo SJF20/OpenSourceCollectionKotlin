@@ -74,6 +74,8 @@
         <activity android:name=".ui.activity.AboutUsActivity" />
         <!-- 知识体系 详细数据 Activity -->
         <activity android:name=".ui.activity.KnowledgeClassifyDetailActivity" />
+        <!-- 搜索 Activity -->
+        <activity android:name=".ui.activity.SearchActivity" />
 
     </application>
 

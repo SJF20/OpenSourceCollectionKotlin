@@ -171,7 +171,7 @@ internal class PersonalCollectionWebsiteViewModel(
 
             if (position != -1) {
                 val event = ListDataChangeEvent<PersonalCollectionWebsiteEntity>()
-                val indexList = listOf(position)
+                val indexList = immutableListOf(position)
 
                 event.type = REMOVE
                 event.indexList = indexList
