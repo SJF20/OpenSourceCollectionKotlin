@@ -2,27 +2,17 @@ package com.shijingfeng.wan_android.view_model
 
 import android.os.Bundle
 import android.view.View.OnClickListener
-import com.blankj.utilcode.util.NetworkUtils
 import com.shijingfeng.base.arouter.*
-import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.NEED_LOGIN
-import com.shijingfeng.base.common.constant.TITLE
-import com.shijingfeng.base.common.constant.URL
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.*
-import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
-import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
 import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.ui.activity.MAIN_HOME
-import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Function: 主页 ViewModel

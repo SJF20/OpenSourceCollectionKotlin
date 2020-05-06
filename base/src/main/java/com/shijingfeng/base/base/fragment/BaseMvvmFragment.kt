@@ -198,9 +198,6 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
      * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
      */
     override fun updateRefreshLoadMoreStatus(status: Int) {
-        if (mViewModel != null && mViewModel!!.mRefreshLoadMoreStatus == status) {
-            return
-        }
         mViewModel?.mRefreshLoadMoreStatus = status
         super.updateRefreshLoadMoreStatus(status)
     }

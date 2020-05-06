@@ -53,6 +53,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
             //销毁前面所有的Activity
             if (finishFrontAll) {
+                // FIXME 万能工具类升级为 1.27.1 此处会有bug (for循环条件有问题，具体查看源码)
                 ActivityUtils.finishAllActivitiesExceptNewest(false)
             }
         }

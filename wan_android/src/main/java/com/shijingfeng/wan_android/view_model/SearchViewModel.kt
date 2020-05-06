@@ -146,7 +146,7 @@ internal class SearchViewModel(
                         navigation(
                             path = ACTIVITY_WAN_ANDROID_SEARCH_LIST,
                             bundle = Bundle().apply {
-                                putBoolean(FINISH_PREVIOUS_ACTIVITY, true)
+                                putString(SEARCH_HOT_WORD, keyword)
                                 putString(SEARCH_LIST_STR, serialize(searchItemList))
                             }
                         )

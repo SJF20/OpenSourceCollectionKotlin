@@ -136,6 +136,7 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
      */
     override fun initAction() {
         super.initAction()
+        // RecyclerView滑动监听
         mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

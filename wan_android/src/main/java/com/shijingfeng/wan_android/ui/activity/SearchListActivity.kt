@@ -1,27 +1,44 @@
 package com.shijingfeng.wan_android.ui.activity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.os.Bundle
 import android.util.SparseArray
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ClickUtils
+import com.blankj.utilcode.util.ConvertUtils
 import com.google.gson.reflect.TypeToken
-import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH_LIST
+import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.common.constant.CURRENT_POSITION
-import com.shijingfeng.base.common.constant.EMPTY_OBJECT
+import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
+import com.shijingfeng.base.util.getPositionById
+import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
+import com.shijingfeng.wan_android.adapter.SearchListAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_STR
+import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
+import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.SearchListItem
 import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSearchListRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SearchListViewModel
+import kotlinx.android.synthetic.main.activity_wan_android_main.*
 import kotlinx.android.synthetic.main.activity_wan_android_search_list.*
+import kotlinx.android.synthetic.main.activity_wan_android_search_list.fab_to_top
 import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
@@ -32,6 +49,9 @@ import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SEARCH_LIST)
 internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchListBinding, SearchListViewModel>() {
+
+    /** 搜索列表 Adapter */
+    private var mSearchListAdapter: SearchListAdapter? = null
 
     /**
      * 获取ViewModel
@@ -83,5 +103,189 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
     override fun initData() {
         super.initData()
         include_title_bar.tv_title.text = mViewModel?.mSearchHotWord ?: ""
+        mSmartRefreshLayout = srl_refresh
+
+        mSearchListAdapter = SearchListAdapter(this, mViewModel?.mSearchList)
+        rv_content.layoutManager = LinearLayoutManager(this)
+        rv_content.adapter = mSearchListAdapter
+        rv_content.addItemDecoration(LinearDividerItemDecoration())
     }
+
+    /**
+     * 初始化事件
+     */
+    override fun initAction() {
+        super.initAction()
+        // RecyclerView滑动监听
+        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    //滑倒最底部，隐藏
+                    setToTopButtonVisibility(GONE)
+                    return
+                }
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //滑倒顶部，显示
+                    setToTopButtonVisibility(VISIBLE)
+                    return
+                }
+                setToTopButtonVisibility(if (dy > 0) GONE else VISIBLE)
+            }
+
+        })
+        // 置顶
+        ClickUtils.applySingleDebouncing(fab_to_top) {
+            scrollToTop()
+        }
+        mSearchListAdapter?.setOnItemEventListener { _, data, position, flag ->
+            when (flag) {
+                // 查看搜索详情
+                VIEW_SEARCH_DETAIL -> {
+                    val searchListItem = data as SearchListItem
+
+                    navigation(
+                        activity = this,
+                        path = ACTIVITY_WAN_ANDROID_WEB_VIEW,
+                        bundle = Bundle().apply {
+                            putString(TITLE, searchListItem.title)
+                            putString(URL, searchListItem.link)
+                        }
+                    )
+                }
+                // 文章 收藏 或 取消收藏
+                ARTICLE_ITEM_COLLECTION -> {
+                    mViewModel?.run {
+                        val searchListItem = mSearchList[position]
+                        val collected = data as Boolean
+
+                        if (collected) {
+                            //收藏
+                            collected(searchListItem.getId())
+                        } else {
+                            //取消收藏
+                            uncollected(searchListItem.getId())
+                        }
+                    }
+                }
+                else -> {}
+            }
+        }
+    }
+
+    /**
+     * 初始化 LiveData Observer
+     */
+    override fun initObserver() {
+        super.initObserver()
+        //搜素列表数据改变监听
+        mViewModel?.mSearchListDataChangeEvent?.observe(this, Observer Observer@{ (type, _, _, extraData, searchItemList, _) ->
+            when (type) {
+                //添加
+                ADD -> {
+                    if (searchItemList.isNullOrEmpty()) {
+                        return@Observer
+                    }
+
+                    val oldSize = extraData as Int
+
+                    if (oldSize <= 0) {
+                        mSearchListAdapter?.notifyDataSetChanged()
+                    } else {
+                        // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
+                        // 单独使用 notifyItemChanged 是为了避免 RecyclerView item更新动画 不美观
+                        mSearchListAdapter?.notifyItemChanged(oldSize - 1)
+                        mSearchListAdapter?.notifyItemRangeInserted(oldSize, searchItemList.size)
+                    }
+                }
+                else -> {}
+            }
+        })
+        //收藏状态改变监听器
+        mViewModel?.mCollectedStatusEvent?.observe(this, Observer Observer@{ sparseArray ->
+            //收藏还是取消收藏  true:收藏  false:取消收藏
+            val collected = sparseArray[KEY_COLLECTED] as Boolean
+            val articleId = sparseArray[KEY_ARTICLE_ID] as String
+            val position = getPositionById(articleId, mViewModel?.mSearchList!!)
+
+            if (position != -1) {
+                val searchItem = mViewModel!!.mSearchList[position]
+
+                searchItem.collected = collected
+                mSearchListAdapter?.notifyItemChanged(position, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_COLLECTION_STATUS)
+                })
+            }
+        })
+    }
+
+    /**
+     * 设置 置顶按钮 的可见性
+     * @param visibility 可见性
+     */
+    private fun setToTopButtonVisibility(visibility: Int) {
+        if (fab_to_top.tag == null) {
+            fab_to_top.tag = VISIBLE
+        }
+        if (visibility == VISIBLE) {
+            //设置为可见
+            if (fab_to_top.tag as Int != VISIBLE) {
+                fab_to_top.tag = VISIBLE
+                fab_to_top
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            fab_to_top.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            fab_to_top.isEnabled = true
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+            }
+        } else if (visibility == GONE) {
+            //设置为不可见
+            if (fab_to_top.tag as Int != GONE) {
+                fab_to_top.tag = GONE
+                fab_to_top
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            fab_to_top.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            fab_to_top.isEnabled = false
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(0f)
+                    .scaleY(0f)
+            }
+        }
+    }
+
+    /**
+     * 滑动到顶部
+     */
+    private fun scrollToTop() {
+        mViewModel?.run {
+            if (mSearchList.isNotEmpty()) {
+                rv_content.smoothScrollToPosition(0)
+            }
+        }
+    }
+
 }

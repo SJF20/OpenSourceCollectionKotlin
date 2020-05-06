@@ -5,6 +5,7 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.wan_android.entity.network.SearchListEntity
+import com.shijingfeng.wan_android.source.network.api.CollectionApi
 import com.shijingfeng.wan_android.source.network.api.SearchApi
 import com.shijingfeng.wan_android.utils.apiRequest
 
@@ -36,6 +37,8 @@ internal class SearchListNetworkSource : BaseNetworkSource() {
 
     /** 搜索相关 Api */
     private val mSearchApi = RetrofitUtil.create(SearchApi::class.java)
+    /** 收藏 Api  */
+    private val mCollectionApi = RetrofitUtil.create(CollectionApi::class.java)
 
     /**
      * 获取 搜索列表 数据
@@ -43,7 +46,25 @@ internal class SearchListNetworkSource : BaseNetworkSource() {
      * @param keyword 搜索关键词
      */
     fun getSearchList(page: Int, keyword: String, onSuccess: onSuccess<SearchListEntity?>, onFailure: onFailure) {
-        apiRequest(mSearchApi.getSearchList(page, keyword), onSuccess, onFailure)
+        addDisposable(apiRequest(mSearchApi.getSearchList(page, keyword), onSuccess, onFailure))
+    }
+
+    /**
+     * 收藏
+     * @param articleId 文章ID
+     * @param onSuccess 成功回调函数
+     */
+    fun collected(articleId: String, onSuccess: onSuccess<Any?>) {
+        addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess))
+    }
+
+    /**
+     * 取消收藏
+     * @param articleId 文章ID
+     * @param onSuccess 成功回调函数
+     */
+    fun uncollected(articleId: String, onSuccess: onSuccess<Any?>) {
+        addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess))
     }
 
     /**

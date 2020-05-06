@@ -113,9 +113,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param status 下拉刷新 或 上拉加载 状态 {@link com.zjn.transport.constant.StatusConstant#REFRESH_SUCCESS}
      */
     fun updateRefreshLoadMoreStatus (@RefreshLoadMoreStatus status: Int) {
-        if (mRefreshLoadMoreStatus != status) {
-            getRefreshLoadMoreStatusEvent().value = status
-        }
+        getRefreshLoadMoreStatusEvent().value = status
     }
 
     /**

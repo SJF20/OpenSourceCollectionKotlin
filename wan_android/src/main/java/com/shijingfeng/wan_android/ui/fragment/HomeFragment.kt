@@ -243,8 +243,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                         }
                     }
                 }
-                else -> {
-                }
+                else -> {}
             }
         }
     }
@@ -255,9 +254,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
     override fun initObserver() {
         super.initObserver()
         //首页数据改变监听
-        mViewModel?.mHomeDataChangeEvent?.observe(viewLifecycleOwner, Observer { event ->
-            val (type, _, _, extraData, homeItemList, _) = event
-
+        mViewModel?.mHomeDataChangeEvent?.observe(viewLifecycleOwner, Observer { (type, _, _, extraData, homeItemList, _) ->
             when (type) {
                 //加载
                 LOAD,

@@ -75,3 +75,6 @@ internal const val VIEW_NAVIGATION_CLASSIFY_DETAIL = "view_navigation_classify_d
 internal const val SEARCH = "search"
 /** 删除 某条 搜索历史 */
 internal const val REMOVE_SEARCH_HISTORY_ITEM = "remove_search_history_item"
+
+/** 查看搜索详情 */
+internal const val VIEW_SEARCH_DETAIL = "view_search_detail"

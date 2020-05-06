@@ -56,7 +56,10 @@ internal fun getSearchLocalSourceInstance(): SearchLocalSource {
  */
 internal class SearchLocalSource : BaseLocalSource() {
 
+    /** 用于 切换到主线程 */
     private val mHandler = Handler(Looper.getMainLooper())
+    /** 线程池 */
+    private var mExecutorService = Executors.newCachedThreadPool()
 
     /**
      * 获取 搜索历史列表 数据
@@ -64,7 +67,7 @@ internal class SearchLocalSource : BaseLocalSource() {
      * @param onFailure 失败回调
      */
     fun getSearchHistoryList(onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
-        Executors.newSingleThreadExecutor().execute {
+        mExecutorService?.execute {
             try {
                 val searchHistoryListStr = SPUtils.getInstance(SP_APP_NAME).getString(SEARCH_HISTORY_LIST, EMPTY_ARRAY)
                 val searchHistoryList = deserialize<List<SearchHistoryItem>>(searchHistoryListStr, object : TypeToken<List<SearchHistoryItem>>() {}.type)
@@ -91,7 +94,7 @@ internal class SearchLocalSource : BaseLocalSource() {
      * @param onFailure 失败回调
      */
     fun updateSearchHistoryList(searchHistoryList: List<SearchHistoryItem>?, onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
-        Executors.newSingleThreadExecutor().execute {
+        mExecutorService?.execute {
             try {
                 if (searchHistoryList.isNullOrEmpty()) {
                     SPUtils.getInstance(SP_APP_NAME).remove(SEARCH_HISTORY_LIST, true)
@@ -118,6 +121,7 @@ internal class SearchLocalSource : BaseLocalSource() {
      */
     override fun onCleared() {
         super.onCleared()
+        mExecutorService.shutdownNow()
         sInstance = null
     }
 

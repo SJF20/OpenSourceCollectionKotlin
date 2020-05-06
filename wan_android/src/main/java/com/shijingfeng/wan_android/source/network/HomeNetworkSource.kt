@@ -49,11 +49,11 @@ internal fun getHomeNetworkSourceInstance(): HomeNetworkSource {
 internal class HomeNetworkSource : BaseNetworkSource() {
 
     /** 轮播图 Api  */
-    private val mBannerApi: BannerApi = RetrofitUtil.create(BannerApi::class.java)
+    private val mBannerApi = RetrofitUtil.create(BannerApi::class.java)
     /** 文章 Api  */
-    private val mArticleApi: ArticleApi = RetrofitUtil.create(ArticleApi::class.java)
+    private val mArticleApi = RetrofitUtil.create(ArticleApi::class.java)
     /** 收藏 Api  */
-    private val mCollectionApi: CollectionApi = RetrofitUtil.create(CollectionApi::class.java)
+    private val mCollectionApi = RetrofitUtil.create(CollectionApi::class.java)
 
     /**
      * 获取首页数据
