@@ -1,11 +1,16 @@
 package com.shijingfeng.wan_android.ui.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.SparseArray
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
@@ -108,6 +113,29 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
      */
     override fun initAction() {
         super.initAction()
+        // RecyclerView滑动监听
+        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    //滑倒最底部，隐藏
+                    setToTopButtonVisibility(View.GONE)
+                    return
+                }
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //滑倒顶部，显示
+                    setToTopButtonVisibility(View.VISIBLE)
+                    return
+                }
+                setToTopButtonVisibility(if (dy > 0) View.GONE else View.VISIBLE)
+            }
+
+        })
+        // 置顶
+        ClickUtils.applySingleDebouncing(fab_to_top) {
+            scrollToTop()
+        }
         mPersonalCollectionArticleAdapter?.setOnItemEventListener { _, data, _, flag ->
             when (flag) {
                 // 查看文章详情
@@ -195,6 +223,64 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
                 else -> {}
             }
         })
+    }
+
+
+    /**
+     * 设置 置顶按钮 的可见性
+     * @param visibility 可见性
+     */
+    private fun setToTopButtonVisibility(visibility: Int) {
+        if (fab_to_top.tag == null) {
+            fab_to_top.tag = View.VISIBLE
+        }
+        if (visibility == View.VISIBLE) {
+            //设置为可见
+            if (fab_to_top.tag as Int != View.VISIBLE) {
+                fab_to_top.tag = View.VISIBLE
+                fab_to_top
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            fab_to_top.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            fab_to_top.isEnabled = true
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+            }
+        } else if (visibility == View.GONE) {
+            //设置为不可见
+            if (fab_to_top.tag as Int != View.GONE) {
+                fab_to_top.tag = View.GONE
+                fab_to_top
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            fab_to_top.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            fab_to_top.isEnabled = false
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(0f)
+                    .scaleY(0f)
+            }
+        }
     }
 
     /**

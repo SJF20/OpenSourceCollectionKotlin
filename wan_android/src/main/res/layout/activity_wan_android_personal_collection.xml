@@ -44,30 +44,13 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <com.shijingfeng.base.widget.NoScrollViewPager
+            android:id="@+id/vp_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.shijingfeng.base.widget.NoScrollViewPager
-                android:id="@+id/vp_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fadingEdge="none"
-                android:overScrollMode="never"
-                android:scrollbars="none"/>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_to_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="95dp"
-                android:src="@drawable/ic_top"
-                app:backgroundTint="@color/red"
-                app:fabSize="mini" />
-
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none"/>
 
     </LinearLayout>
 

@@ -110,12 +110,6 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
      */
     override fun initAction() {
         super.initAction()
-        // 置顶
-        ClickUtils.applySingleDebouncing(fab_to_top) {
-            mViewModel?.mCurPosition?.let { position ->
-                mPersonalCollectionFragmentPagerAdapter?.getFragmentByPosition(position)?.scrollToTop()
-            }
-        }
         //TabLayout Item 事件
         tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
