@@ -43,25 +43,42 @@
 
         </LinearLayout>
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/srl_refresh"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srlEnableRefresh="true"
-            app:srlEnableLoadMore="true"
-            app:onRefreshListener="@{coinRecordViewModel.mOnRefreshListener}"
-            app:onLoadMoreListener="@{coinRecordViewModel.mOnLoadMoreListener}">
+            android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_content"
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/srl_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fadingEdge="none"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                tools:listitem=""/>
+                app:srlEnableRefresh="true"
+                app:srlEnableLoadMore="true"
+                app:onRefreshListener="@{coinRecordViewModel.mOnRefreshListener}"
+                app:onLoadMoreListener="@{coinRecordViewModel.mOnLoadMoreListener}">
 
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    tools:listitem=""/>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_to_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="95dp"
+                android:src="@drawable/ic_top"
+                app:backgroundTint="@color/red"
+                app:fabSize="mini" />
+
+        </FrameLayout>
 
     </LinearLayout>
 </layout>
