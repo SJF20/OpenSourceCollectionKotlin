@@ -3,36 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.shijingfeng.wan_android.view_model.SquareViewModel" />
 
+        <variable
+            name="squareViewModel"
+            type="SquareViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srl_refresh"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_content"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:fadingEdge="none"-->
-<!--            android:overScrollMode="never"-->
-<!--            android:scrollbars="none" />-->
-
-        <FrameLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:srlEnableRefresh="true"
+            app:srlEnableLoadMore="true"
+            app:onRefreshListener="@{squareViewModel.mOnRefreshListener}"
+            app:onLoadMoreListener="@{squareViewModel.mOnLoadMoreListener}">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="广场"
-                android:textColor="#000000"
-                android:textSize="22sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
 
-        </FrameLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </FrameLayout>
 
 </layout>

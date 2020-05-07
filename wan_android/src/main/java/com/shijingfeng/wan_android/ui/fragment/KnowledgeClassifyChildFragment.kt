@@ -341,7 +341,7 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getCollectionEvent(event: ArticleCollectionEvent) {
-        if (OfficialAccountChildFragment::class.java.name == event.fromName) {
+        if (KnowledgeClassifyChildFragment::class.java.name == event.fromName) {
             return
         }
 //        if (TextUtils.isEmpty(event.id)) {

@@ -103,7 +103,10 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
     override fun initData() {
         super.initData()
         include_title_bar.tv_title.text = mViewModel?.mSearchHotWord ?: ""
+
         mSmartRefreshLayout = srl_refresh
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
 
         mSearchListAdapter = SearchListAdapter(this, mViewModel?.mSearchList)
         rv_content.layoutManager = LinearLayoutManager(this)

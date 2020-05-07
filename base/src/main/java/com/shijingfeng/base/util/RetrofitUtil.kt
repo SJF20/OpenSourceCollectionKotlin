@@ -70,6 +70,7 @@ object RetrofitUtil {
             //默认 BaseUrl: 玩安卓域名 (只是占位用, 会被动态替换)
             .baseUrl(BASE_URL_VALUE_WAN_ANDROID)
             .client(okHttpClient)
+            //添加对 Gson 的支持
             .addConverterFactory(CustomGsonConverterFactory.create(gson))
             //添加对 RxJava2 的支持
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
