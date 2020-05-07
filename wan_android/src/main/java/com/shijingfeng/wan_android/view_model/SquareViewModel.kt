@@ -40,7 +40,7 @@ internal class SquareViewModel(
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
     /** 广场 Item 数据列表  */
-    var mSquareItemList = mutableListOf<SquareItem>()
+    val mSquareItemList = mutableListOf<SquareItem>()
 
     /** 列表数据改变 LiveData Event  */
     var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<SquareItem>>()

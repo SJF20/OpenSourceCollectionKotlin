@@ -107,7 +107,7 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
      */
     override fun initAction() {
         super.initAction()
-        mSquareAdapter?.setOnItemEventListener { view, data, position, flag ->
+        mSquareAdapter?.setOnItemEventListener { _, data, position, flag ->
             when (flag) {
                 //查看文章详情
                 VIEW_ARTICLE_DETAIL -> {
