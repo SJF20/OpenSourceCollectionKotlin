@@ -12,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -54,13 +56,6 @@ import com.shijingfeng.wan_android.ui.fragment.createSquareFragment
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.view_model.MainViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_main.*
-import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_classify.*
-import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_home.*
-import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_official_account.*
-import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_project.*
-import kotlinx.android.synthetic.main.layout_wan_android_indicator_main_square.*
-import kotlinx.android.synthetic.main.layout_wan_android_main_activity_drawer.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -145,10 +140,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                 }
             }
         )
-        vp_content.offscreenPageLimit = 1
-        vp_content.adapter = mMainFragmentPagerAdapter
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mMainFragmentPagerAdapter
 
-        tl_tabs.run {
+        mDataBinding.tlTabs.run {
             //首页
             addTab(newTab(), true)
             //分类
@@ -161,7 +156,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             addTab(newTab())
 
             /// TabLayout 和 ViewPager 协同
-            setupWithViewPager(vp_content)
+            setupWithViewPager(mDataBinding.vpContent)
 
             //首页
             getTabAt(MAIN_HOME)?.customView = getTabView(MAIN_HOME)
@@ -177,20 +172,20 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         // 显示用户信息数据
         UserUtil.userInfo?.run {
             // 昵称 或 用户名
-            include_drawer.tv_name.text = if (TextUtils.isEmpty(nickname)) username else nickname
+            mDataBinding.includeDrawer.tvName.text = if (TextUtils.isEmpty(nickname)) username else nickname
             // ID
-            include_drawer.tv_id.text = identity
+            mDataBinding.includeDrawer.tvId.text = identity
         }
         // 显示积分信息数据
         CoinUtil.coinInfo?.run {
             // 等级
-            include_drawer.tv_level.text = level.toString()
+            mDataBinding.includeDrawer.tvLevel.text = level.toString()
             // 排名
-            include_drawer.tv_rank.text = rank.toString()
+            mDataBinding.includeDrawer.tvRank.text = rank.toString()
             // 积分数量
-            include_drawer.tv_coin_quantity.text = coinCount.toString()
+            mDataBinding.includeDrawer.tvCoinQuantity.text = coinCount.toString()
             // 显示注销登录
-            include_drawer.ll_logout.visibility = VISIBLE
+            mDataBinding.includeDrawer.llLogout.visibility = VISIBLE
         }
     }
 
@@ -200,82 +195,86 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
     override fun initAction() {
         super.initAction()
         // 打开DrawerLayout
-        ClickUtils.applySingleDebouncing(iv_menu) {
-            dwl_drawer.openDrawer(GravityCompat.START)
+        ClickUtils.applySingleDebouncing(mDataBinding.ivMenu) {
+            mDataBinding.dwlDrawer.openDrawer(GravityCompat.START)
         }
         // 搜索
-        ClickUtils.applySingleDebouncing(iv_search) {
+        ClickUtils.applySingleDebouncing(mDataBinding.ivSearch) {
             navigation(
                 activity = this,
                 path = ACTIVITY_WAN_ANDROID_SEARCH
             )
         }
         // 置顶
-        ClickUtils.applySingleDebouncing(fab_to_top) {
+        ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             mViewModel?.mCurPosition?.let { position ->
                 mMainFragmentPagerAdapter?.getFragmentByPosition(position)?.scrollToTop()
             }
         }
         // TabLayout Item 事件
-        tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
+                val view = tab.customView
+
                 when (tab.position) {
                     //首页
                     MAIN_HOME -> {
-                        tv_indicator_home.setTextColor(getColorById(R.color.red))
-                        iv_indicator_home.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_home)?.setTextColor(getColorById(R.color.red))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_home)?.setColorFilter(getColorById(R.color.red))
                     }
                     //分类
                     MAIN_CLASSIFY -> {
-                        tv_indicator_classify.setTextColor(getColorById(R.color.red))
-                        iv_indicator_classify.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_classify)?.setTextColor(getColorById(R.color.red))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_classify)?.setColorFilter(getColorById(R.color.red))
                     }
                     //公众号
                     MAIN_OFFICIAL_ACCOUNT -> {
-                        tv_indicator_official_account.setTextColor(getColorById(R.color.red))
-                        iv_indicator_official_account.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_official_account)?.setTextColor(getColorById(R.color.red))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_official_account)?.setColorFilter(getColorById(R.color.red))
                     }
                     //广场
                     MAIN_SQUARE -> {
-                        tv_indicator_square.setTextColor(getColorById(R.color.red))
-                        iv_indicator_square.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_square)?.setTextColor(getColorById(R.color.red))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_square)?.setColorFilter(getColorById(R.color.red))
                     }
                     //项目
                     MAIN_PROJECT -> {
-                        tv_indicator_project.setTextColor(getColorById(R.color.red))
-                        iv_indicator_project.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_project)?.setTextColor(getColorById(R.color.red))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_project)?.setColorFilter(getColorById(R.color.red))
                     }
                     else -> {}
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
+                val view = tab.customView
+
                 when (tab.position) {
                     //首页
                     MAIN_HOME -> {
-                        tv_indicator_home.setTextColor(getColorById(R.color.grey))
-                        iv_indicator_home.setColorFilter(getColorById(R.color.grey))
+                        view?.findViewById<TextView>(R.id.tv_indicator_home)?.setTextColor(getColorById(R.color.grey))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_home)?.setColorFilter(getColorById(R.color.grey))
                     }
                     //分类
                     MAIN_CLASSIFY -> {
-                        tv_indicator_classify.setTextColor(getColorById(R.color.grey))
-                        iv_indicator_classify.setColorFilter(getColorById(R.color.grey))
+                        view?.findViewById<TextView>(R.id.tv_indicator_classify)?.setTextColor(getColorById(R.color.grey))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_classify)?.setColorFilter(getColorById(R.color.grey))
                     }
                     //公众号
                     MAIN_OFFICIAL_ACCOUNT -> {
-                        tv_indicator_official_account.setTextColor(getColorById(R.color.grey))
-                        iv_indicator_official_account.setColorFilter(getColorById(R.color.grey))
+                        view?.findViewById<TextView>(R.id.tv_indicator_official_account)?.setTextColor(getColorById(R.color.grey))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_official_account)?.setColorFilter(getColorById(R.color.grey))
                     }
                     //广场
                     MAIN_SQUARE -> {
-                        tv_indicator_square.setTextColor(getColorById(R.color.grey))
-                        iv_indicator_square.setColorFilter(getColorById(R.color.grey))
+                        view?.findViewById<TextView>(R.id.tv_indicator_square)?.setTextColor(getColorById(R.color.grey))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_square)?.setColorFilter(getColorById(R.color.grey))
                     }
                     //项目
                     MAIN_PROJECT -> {
-                        tv_indicator_project.setTextColor(getColorById(R.color.grey))
-                        iv_indicator_project.setColorFilter(getColorById(R.color.grey))
+                        view?.findViewById<TextView>(R.id.tv_indicator_project)?.setTextColor(getColorById(R.color.grey))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_project)?.setColorFilter(getColorById(R.color.grey))
                     }
                     else -> {}
                 }
@@ -285,7 +284,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
         })
         // ViewPager Item 事件
-        vp_content.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -300,25 +299,25 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
                 when (position) {
                     // 首页
-                    MAIN_HOME -> tv_title.text = getStringById(R.string.首页)
+                    MAIN_HOME -> mDataBinding.tvTitle.text = getStringById(R.string.首页)
                     // 分类
-                    MAIN_CLASSIFY -> tv_title.text = getStringById(R.string.分类)
+                    MAIN_CLASSIFY -> mDataBinding.tvTitle.text = getStringById(R.string.分类)
                     // 公众号
-                    MAIN_OFFICIAL_ACCOUNT -> tv_title.text = getStringById(R.string.公众号)
+                    MAIN_OFFICIAL_ACCOUNT -> mDataBinding.tvTitle.text = getStringById(R.string.公众号)
                     // 广场
-                    MAIN_SQUARE -> tv_title.text = getStringById(R.string.广场)
+                    MAIN_SQUARE -> mDataBinding.tvTitle.text = getStringById(R.string.广场)
                     // 项目
-                    MAIN_PROJECT -> tv_title.text = getStringById(R.string.项目)
+                    MAIN_PROJECT -> mDataBinding.tvTitle.text = getStringById(R.string.项目)
                     else -> {}
                 }
             }
         })
         // DrawerLayout 事件
-        dwl_drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+        mDataBinding.dwlDrawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
-                iv_menu.rotation = slideOffset * 180
+                mDataBinding.ivMenu.rotation = slideOffset * 180
             }
 
         })
@@ -347,29 +346,29 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      * @param visibility 可见性
      */
     private fun setTabLayoutVisibility(visibility: Int) {
-        if (ll_tabs.tag == null) {
-            ll_tabs.tag = VISIBLE
+        if (mDataBinding.llTabs.tag == null) {
+            mDataBinding.llTabs.tag = VISIBLE
         }
         if (visibility == VISIBLE) {
             //设置为可见
-            if (ll_tabs.tag as Int != VISIBLE) {
-                ll_tabs.tag = VISIBLE
-                ll_tabs
+            if (mDataBinding.llTabs.tag as Int != VISIBLE) {
+                mDataBinding.llTabs.tag = VISIBLE
+                mDataBinding.llTabs
                     .animate()
                     .setDuration(400)
                     .translationY(0f)
-                fab_to_top
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = true
+                            mDataBinding.fabToTop.isEnabled = true
                         }
 
                     })
@@ -379,24 +378,24 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             }
         } else if (visibility == GONE) {
             //设置为不可见
-            if (ll_tabs.tag as Int != GONE) {
-                ll_tabs.tag = GONE
-                ll_tabs
+            if (mDataBinding.llTabs.tag as Int != GONE) {
+                mDataBinding.llTabs.tag = GONE
+                mDataBinding.llTabs
                     .animate()
                     .setDuration(400)
                     .translationY(ConvertUtils.dp2px(70f).toFloat())
-                fab_to_top
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                     })
@@ -450,7 +449,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             //积分记录, 文章收藏列表
             RESULT_COIN_RECORD, RESULT_ARTICLE_COLLECTED_LIST -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    dwl_drawer.closeDrawer(GravityCompat.START)
+                    mDataBinding.dwlDrawer.closeDrawer(GravityCompat.START)
                 }
             }
             else -> {
@@ -491,24 +490,24 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         val id = userInfo?.getId()
 
         // 是否隐藏注销登录, 已注销登录则隐藏注销登录Item, 否则显示
-        include_drawer.ll_logout.visibility = if (userInfo == null) GONE else VISIBLE
+        mDataBinding.includeDrawer.llLogout.visibility = if (userInfo == null) GONE else VISIBLE
 
         // 用户名
         if (!StringUtils.isEmpty(nickname)) {
-            if (include_drawer.tv_name.text.toString() != nickname) {
-                include_drawer.tv_name.text = nickname
+            if (mDataBinding.includeDrawer.tvName.text.toString() != nickname) {
+                mDataBinding.includeDrawer.tvName.text = nickname
             }
         } else if (!StringUtils.isEmpty(username)) {
-            if (include_drawer.tv_name.text.toString() != username) {
-                include_drawer.tv_name.text = username
+            if (mDataBinding.includeDrawer.tvName.text.toString() != username) {
+                mDataBinding.includeDrawer.tvName.text = username
             }
         } else {
-            include_drawer.tv_name.text = getStringById(R.string.三杠占位符)
+            mDataBinding.includeDrawer.tvName.text = getStringById(R.string.三杠占位符)
         }
 
         // 用户ID
-        if (include_drawer.tv_id.text.toString() != id) {
-            include_drawer.tv_id.text = if (!TextUtils.isEmpty(id)) id else getStringById(R.string.三杠占位符)
+        if (mDataBinding.includeDrawer.tvId.text.toString() != id) {
+            mDataBinding.includeDrawer.tvId.text = if (!TextUtils.isEmpty(id)) id else getStringById(R.string.三杠占位符)
         }
     }
 
@@ -524,18 +523,18 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         val coinCount = coinInfo?.coinCount?.toString()
 
         // 等级
-        if (include_drawer.tv_level.text.toString() != level) {
-            include_drawer.tv_level.text = if (!TextUtils.isEmpty(level)) level else getStringById(R.string.三杠占位符)
+        if (mDataBinding.includeDrawer.tvLevel.text.toString() != level) {
+            mDataBinding.includeDrawer.tvLevel.text = if (!TextUtils.isEmpty(level)) level else getStringById(R.string.三杠占位符)
         }
 
         // 排名
-        if (include_drawer.tv_rank.text.toString() != rank) {
-            include_drawer.tv_rank.text = if (!TextUtils.isEmpty(rank)) rank else getStringById(R.string.三杠占位符)
+        if (mDataBinding.includeDrawer.tvRank.text.toString() != rank) {
+            mDataBinding.includeDrawer.tvRank.text = if (!TextUtils.isEmpty(rank)) rank else getStringById(R.string.三杠占位符)
         }
 
         // 积分数量
-        if (include_drawer.tv_coin_quantity.text.toString() != coinCount) {
-            include_drawer.tv_coin_quantity.text = if (!TextUtils.isEmpty(coinCount)) coinCount else "0"
+        if (mDataBinding.includeDrawer.tvCoinQuantity.text.toString() != coinCount) {
+            mDataBinding.includeDrawer.tvCoinQuantity.text = if (!TextUtils.isEmpty(coinCount)) coinCount else "0"
         }
     }
 

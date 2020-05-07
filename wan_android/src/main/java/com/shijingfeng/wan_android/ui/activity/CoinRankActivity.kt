@@ -22,8 +22,6 @@ import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRankBinding
 import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
 import com.shijingfeng.wan_android.view_model.CoinRankViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_coin_rank.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 积分排行榜 页面
@@ -71,19 +69,19 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getStringById(R.string.积分排行榜)
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.积分排行榜)
 
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 
         mCoinRankAdapter = CoinRankAdapter(this, mViewModel?.mCoinRankItemList)
-        rv_list.layoutManager = LinearLayoutManager(this)
-        rv_list.adapter = mCoinRankAdapter
+        mDataBinding.rvList.layoutManager = LinearLayoutManager(this)
+        mDataBinding.rvList.adapter = mCoinRankAdapter
     }
 
     /**
@@ -92,7 +90,7 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
     override fun initAction() {
         super.initAction()
         // RecyclerView滑动监听
-        rv_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mDataBinding.rvList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -111,7 +109,7 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
 
         })
         // 置顶
-        ClickUtils.applySingleDebouncing(fab_to_top) {
+        ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
         mCoinRankAdapter?.setOnItemEventListener { _, _, _, _ -> }
@@ -160,25 +158,25 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
      * @param visibility 可见性
      */
     private fun setToTopButtonVisibility(visibility: Int) {
-        if (fab_to_top.tag == null) {
-            fab_to_top.tag = View.VISIBLE
+        if (mDataBinding.fabToTop.tag == null) {
+            mDataBinding.fabToTop.tag = View.VISIBLE
         }
         if (visibility == View.VISIBLE) {
             //设置为可见
-            if (fab_to_top.tag as Int != View.VISIBLE) {
-                fab_to_top.tag = View.VISIBLE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != View.VISIBLE) {
+                mDataBinding.fabToTop.tag = View.VISIBLE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = true
+                            mDataBinding.fabToTop.isEnabled = true
                         }
 
                     })
@@ -188,20 +186,20 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
             }
         } else if (visibility == View.GONE) {
             //设置为不可见
-            if (fab_to_top.tag as Int != View.GONE) {
-                fab_to_top.tag = View.GONE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != View.GONE) {
+                mDataBinding.fabToTop.tag = View.GONE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                     })
@@ -218,7 +216,7 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
     private fun scrollToTop() {
         mViewModel?.run {
             if (mCoinRankItemList.isNotEmpty()) {
-                rv_list.smoothScrollToPosition(0)
+                mDataBinding.rvList.smoothScrollToPosition(0)
             }
         }
     }

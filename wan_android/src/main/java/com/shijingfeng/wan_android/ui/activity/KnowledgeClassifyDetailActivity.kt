@@ -27,8 +27,6 @@ import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.ui.fragment.createKnowledgeClassifyChildFragment
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyDetailViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_knowledge_classify_detail.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.*
 
 /**
  * Function: 知识体系 详细数据 Activity
@@ -81,24 +79,24 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
      */
     override fun initData() {
         super.initData()
-        tv_title.text = mViewModel?.mKnowledgeClassify?.name ?: ""
+        mDataBinding.includeTitleBar.tvTitle.text = mViewModel?.mKnowledgeClassify?.name ?: ""
         mKnowledgeClassifyDetailFragmentPagerAdapter = KnowledgeClassifyDetailFragmentPagerAdapter(
             fragmentManager = supportFragmentManager,
             mKnowledgeClassify = mViewModel?.mKnowledgeClassify ?: KnowledgeClassifyEntity()
         )
-        vp_content.offscreenPageLimit = 1
-        vp_content.adapter = mKnowledgeClassifyDetailFragmentPagerAdapter
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mKnowledgeClassifyDetailFragmentPagerAdapter
 
         mViewModel?.mKnowledgeClassify?.childrenList?.forEachIndexed { index, _ ->
             if (index == mViewModel?.mCurrentFragmentPosition) {
-                tl_tabs.addTab(tl_tabs.newTab(), true)
+                mDataBinding.tlTabs.addTab(mDataBinding.tlTabs.newTab(), true)
             } else {
-                tl_tabs.addTab(tl_tabs.newTab())
+                mDataBinding.tlTabs.addTab(mDataBinding.tlTabs.newTab())
             }
         }
-        tl_tabs.setupWithViewPager(vp_content)
+        mDataBinding.tlTabs.setupWithViewPager(mDataBinding.vpContent)
         mViewModel?.mKnowledgeClassify?.childrenList?.forEachIndexed { index, knowledgeClassifyChildren ->
-            tl_tabs.getTabAt(index)?.customView = getTabView(index, knowledgeClassifyChildren)
+            mDataBinding.tlTabs.getTabAt(index)?.customView = getTabView(index, knowledgeClassifyChildren)
         }
     }
 
@@ -108,7 +106,7 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
     override fun initAction() {
         super.initAction()
         //TabLayout Item 事件
-        tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 (tab?.customView as TextView?)?.run {
@@ -128,7 +126,7 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
 
         })
         //ViewPager Item 事件
-        vp_content.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -142,7 +140,7 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
                 mViewModel?.mCurrentFragmentPosition = position
             }
         })
-        vp_content.currentItem = mViewModel?.mCurrentFragmentPosition ?: 0
+        mDataBinding.vpContent.currentItem = mViewModel?.mCurrentFragmentPosition ?: 0
     }
 
     /**

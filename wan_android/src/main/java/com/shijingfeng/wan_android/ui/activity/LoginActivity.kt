@@ -16,9 +16,6 @@ import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.view_model.LoginViewModel
 import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
-import kotlinx.android.synthetic.main.activity_wan_android_login.*
-import kotlinx.android.synthetic.main.activity_wan_android_login.view.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 登录 Activity
@@ -64,9 +61,9 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getStringById(R.string.登录)
-        include_title_bar.tv_operate.text = getStringById(R.string.注册)
-        include_title_bar.include_title_bar.tv_operate.visibility = VISIBLE
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.登录)
+        mDataBinding.includeTitleBar.tvOperate.text = getStringById(R.string.注册)
+        mDataBinding.includeTitleBar.tvOperate.visibility = VISIBLE
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

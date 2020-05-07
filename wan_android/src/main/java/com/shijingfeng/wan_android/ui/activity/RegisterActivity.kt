@@ -13,8 +13,6 @@ import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstan
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
 import com.shijingfeng.wan_android.source.repository.getRegisterRepositoryInstance
 import com.shijingfeng.wan_android.view_model.RegisterViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_register.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 注册 Activity
@@ -60,7 +58,7 @@ internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegist
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getStringById(R.string.注册)
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.注册)
     }
 
 }

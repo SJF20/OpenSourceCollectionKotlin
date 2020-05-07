@@ -51,8 +51,6 @@ import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.*
-import kotlinx.android.synthetic.main.activity_wan_android_web_view.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.io.ByteArrayOutputStream
@@ -144,16 +142,16 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         mIsTitleBarVisible = true
         mAnimLoadFinish = true
 
-        include_title_bar.tv_title.text = mViewModel?.mTitle
-        include_title_bar.iv_operate.setImageResource(R.drawable.ic_more)
-        include_title_bar.iv_operate.visibility = VISIBLE
+        mDataBinding.includeTitleBar.tvTitle.text = mViewModel?.mTitle
+        mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_more)
+        mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
 
-        mLoadService = LoadSir.getDefault().register(wv_content) {
+        mLoadService = LoadSir.getDefault().register(mDataBinding.wvContent) {
             if (mViewModel?.mLoadServiceStatus == LOAD_SERVICE_LOADING) {
                 return@register
             }
             showCallback(LOAD_SERVICE_LOADING)
-            wv_content.loadUrl(mViewModel?.mUrl)
+            mDataBinding.wvContent.loadUrl(mViewModel?.mUrl)
         }
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
@@ -165,10 +163,10 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      * 初始化 腾讯X5 WebView
      */
     private fun initX5WebView() {
-        setDefaultX5WebSettings(wv_content.settings)
-        wv_content.webViewClient = CustomWebViewClient()
-        wv_content.webChromeClient = CustomWebChromeClient()
-        wv_content.loadUrl(mViewModel?.mUrl)
+        setDefaultX5WebSettings(mDataBinding.wvContent.settings)
+        mDataBinding.wvContent.webViewClient = CustomWebViewClient()
+        mDataBinding.wvContent.webChromeClient = CustomWebChromeClient()
+        mDataBinding.wvContent.loadUrl(mViewModel?.mUrl)
         CookieSyncManager.createInstance(this)
         CookieSyncManager.getInstance().sync()
     }
@@ -179,17 +177,17 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
     override fun initAction() {
         super.initAction()
         //返回 或 取消加载
-        ClickUtils.applySingleDebouncing(include_title_bar.iv_back) {
+        ClickUtils.applySingleDebouncing(mDataBinding.includeTitleBar.ivBack) {
             if (mLoading) {
-                wv_content.stopLoading()
+                mDataBinding.wvContent.stopLoading()
             } else {
                 finish()
             }
         }
         //显示 更多 Dialog
-        ClickUtils.applySingleDebouncing(include_title_bar.iv_operate) { showMoreDialog() }
+        ClickUtils.applySingleDebouncing(mDataBinding.includeTitleBar.ivOperate) { showMoreDialog() }
         //WebView滑动监听器
-        wv_content.setCustomOnScrollChangeListener { _, _, newScrollY, _, oldScrollY ->
+        mDataBinding.wvContent.setCustomOnScrollChangeListener { _, _, newScrollY, _, oldScrollY ->
             if (newScrollY > oldScrollY) {
                 //触控点向上走，视图向下滚动，即手指向上滑动
                 if (mYScrollDirection == SCROLL_TO_DOWN) {
@@ -227,21 +225,21 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      */
     private fun initJavascriptInterfaces() {
         //图片点击 js 接口
-        wv_content.addJavascriptInterface(ImageClickInterface(), "imgClick")
+        mDataBinding.wvContent.addJavascriptInterface(ImageClickInterface(), "imgClick")
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onStart() {
         super.onStart()
-        wv_content.onResume()
-        wv_content.settings.javaScriptEnabled = true
-        wv_content.settings.javaScriptCanOpenWindowsAutomatically = true
+        mDataBinding.wvContent.onResume()
+        mDataBinding.wvContent.settings.javaScriptEnabled = true
+        mDataBinding.wvContent.settings.javaScriptCanOpenWindowsAutomatically = true
     }
 
     override fun onStop() {
-        wv_content.onPause()
-        wv_content.settings.javaScriptEnabled = false
-        wv_content.settings.javaScriptCanOpenWindowsAutomatically = false
+        mDataBinding.wvContent.onPause()
+        mDataBinding.wvContent.settings.javaScriptEnabled = false
+        mDataBinding.wvContent.settings.javaScriptCanOpenWindowsAutomatically = false
         super.onStop()
     }
 
@@ -260,7 +258,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
         translationValueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
-            val viewGroup = include_title_bar
+            val viewGroup = mDataBinding.includeTitleBar.flTitleBar
             val layoutParams = viewGroup.layoutParams
 
             layoutParams.height = value
@@ -269,15 +267,15 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         scaleValueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
 
-            include_title_bar.iv_back.run {
+            mDataBinding.includeTitleBar.ivBack.run {
                 scaleX = value
                 scaleY = value
             }
-            include_title_bar.tv_title.run {
+            mDataBinding.includeTitleBar.tvTitle.run {
                 scaleX = value
                 scaleY = value
             }
-            include_title_bar.iv_operate.run {
+            mDataBinding.includeTitleBar.ivOperate.run {
                 scaleX = value
                 scaleY = value
             }
@@ -324,7 +322,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
         translationValueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
-            val viewGroup = include_title_bar
+            val viewGroup = mDataBinding.includeTitleBar.flTitleBar
             val layoutParams = viewGroup.layoutParams
 
             layoutParams.height = value
@@ -333,15 +331,15 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         scaleValueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
 
-            include_title_bar.iv_back.run {
+            mDataBinding.includeTitleBar.ivBack.run {
                 scaleX = value
                 scaleY = value
             }
-            include_title_bar.tv_title.run {
+            mDataBinding.includeTitleBar.tvTitle.run {
                 scaleX = value
                 scaleY = value
             }
-            include_title_bar.iv_operate.run {
+            mDataBinding.includeTitleBar.ivOperate.run {
                 scaleX = value
                 scaleY = value
             }
@@ -404,7 +402,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             mMoreDialogContentView.findViewById<TextView>(R.id.tv_reload)
         ) {
             mMoreDialog?.hide()
-            wv_content.reload()
+            mDataBinding.wvContent.reload()
         }
         //分享
         ClickUtils.applySingleDebouncing(
@@ -430,7 +428,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             mMoreDialog?.hide()
             startActivity(Intent().apply {
                 action = Intent.ACTION_VIEW
-                data = Uri.parse(wv_content.url)
+                data = Uri.parse(mDataBinding.wvContent.url)
                 addCategory(Intent.CATEGORY_BROWSABLE)
             })
         }
@@ -455,7 +453,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             }
         }
         if (!TextUtils.isEmpty(imageClickJs)) {
-            wv_content.evaluateJavascript(imageClickJs) {}
+            mDataBinding.wvContent.evaluateJavascript(imageClickJs) {}
         }
     }
 
@@ -479,7 +477,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getX5InitedEvent(event: X5InitedEvent) {
-        wv_content.reload()
+        mDataBinding.wvContent.reload()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -488,13 +486,13 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             KeyEvent.KEYCODE_BACK -> if (mMoreDialog != null && mMoreDialog!!.isShowing) {
                 mMoreDialog?.hide()
                 return true
-            } else if (wv_content.canGoBack()) {
-                wv_content.goBack()
+            } else if (mDataBinding.wvContent.canGoBack()) {
+                mDataBinding.wvContent.goBack()
                 return true
             }
             // 前进
-            KeyEvent.KEYCODE_FORWARD -> if (wv_content.canGoForward()) {
-                wv_content.goForward()
+            KeyEvent.KEYCODE_FORWARD -> if (mDataBinding.wvContent.canGoForward()) {
+                mDataBinding.wvContent.goForward()
                 return true
             }
             else -> {}
@@ -505,9 +503,9 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
     override fun onDestroy() {
         mMoreDialog?.hide()
         mMoreDialog = null
-        wv_content?.clearHistory()
-        (mDataBinding.root as ViewGroup).removeView(wv_content)
-        wv_content?.destroy()
+        mDataBinding.wvContent?.clearHistory()
+        (mDataBinding.root as ViewGroup).removeView(mDataBinding.wvContent)
+        mDataBinding.wvContent?.destroy()
         super.onDestroy()
     }
 
@@ -539,8 +537,8 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
             mLoading = true
-            include_title_bar.iv_back.setImageResource(R.drawable.ic_cancel)
-            pb_progress.visibility = VISIBLE
+            mDataBinding.includeTitleBar.ivBack.setImageResource(R.drawable.ic_cancel)
+            mDataBinding.pbProgress.visibility = VISIBLE
             if (mFirstLoad) {
                 mFirstLoad = false
                 showCallback(LOAD_SERVICE_LOADING)
@@ -555,11 +553,11 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             mLoading = false
-            include_title_bar.iv_back.setImageResource(R.drawable.ic_back)
-            pb_progress.visibility = GONE
+            mDataBinding.includeTitleBar.ivBack.setImageResource(R.drawable.ic_back)
+            mDataBinding.pbProgress.visibility = GONE
             showCallback(LOAD_SERVICE_SUCCESS)
             //在 HTML 标签加载完成之后开始加载图片内容
-            wv_content?.settings?.blockNetworkImage = false
+            mDataBinding.wvContent.settings.blockNetworkImage = false
             //添加图片可点击 js 接口
             addImageClickJs()
         }
@@ -622,9 +620,9 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
             switchScreenOrientation()
             statusBarView?.setBackgroundResource(R.color.black)
-            frame_video.visibility = VISIBLE
-            ll_web_view.visibility = GONE
-            frame_video.addView(view, MATCH_PARENT, MATCH_PARENT)
+            mDataBinding.frameVideo.visibility = VISIBLE
+            mDataBinding.llWebView.visibility = GONE
+            mDataBinding.frameVideo.addView(view, MATCH_PARENT, MATCH_PARENT)
         }
 
         /**
@@ -636,9 +634,9 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
             switchScreenOrientation()
             statusBarView?.setBackgroundResource(R.color.wan_android_theme_color)
-            frame_video.visibility = GONE
-            ll_web_view.visibility = VISIBLE
-            frame_video.removeAllViews()
+            mDataBinding.frameVideo.visibility = GONE
+            mDataBinding.llWebView.visibility = VISIBLE
+            mDataBinding.frameVideo.removeAllViews()
         }
 
         /**
@@ -666,7 +664,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             newProgress: Int
         ) {
             super.onProgressChanged(view, newProgress)
-            pb_progress.progress = newProgress
+            mDataBinding.pbProgress.progress = newProgress
         }
 
         /**
@@ -680,7 +678,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         ) {
             super.onReceivedTitle(webView, title)
             mViewModel?.mTitle = title ?: ""
-            include_title_bar.tv_title.text = title ?: ""
+            mDataBinding.includeTitleBar.tvTitle.text = title ?: ""
         }
     }
 

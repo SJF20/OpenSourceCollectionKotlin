@@ -3,8 +3,6 @@ package com.shijingfeng.wan_android.ui.activity
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +10,12 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -41,8 +36,6 @@ import com.shijingfeng.wan_android.source.local.getSearchLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getSearchNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSearchRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SearchViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_search.*
-import java.util.ArrayList
 
 /**
  * Function: 搜索 Activity
@@ -106,18 +99,18 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
             .addCallback(SearchHistoryLoadFailCallback())
             .build()
 
-        mSearchHotWordLoadService = loadSir.register(ll_hot_word, mViewModel?.mOnSearchHotWordReloadListener)
+        mSearchHotWordLoadService = loadSir.register(mDataBinding.llHotWord, mViewModel?.mOnSearchHotWordReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showSearchHotWordCallback(LOAD_SERVICE_SEARCH_HOT_WORD_LOADING)
         }
-        mSearchHistoryLoadService = loadSir.register(rv_history, mViewModel?.mOnSearchHistoryReloadListener)
+        mSearchHistoryLoadService = loadSir.register(mDataBinding.rvHistory, mViewModel?.mOnSearchHistoryReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showSearchHistoryCallback(LOAD_SERVICE_SEARCH_HISTORY_LOADING)
         }
 
         mSearchHistoryAdapter = SearchHistoryAdapter(this, mViewModel?.mSearchHistoryList)
-        rv_history.layoutManager = LinearLayoutManager(this)
-        rv_history.adapter = mSearchHistoryAdapter
+        mDataBinding.rvHistory.layoutManager = LinearLayoutManager(this)
+        mDataBinding.rvHistory.adapter = mSearchHistoryAdapter
     }
 
     /**
@@ -171,10 +164,8 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
                         }
                     })
                 }
-                if (ll_hot_word != null) {
-                    // 对 知识标签控件 进行整体布局 (按控件宽度逐行排列，没有固定列数)
-                    layout(ll_hot_word, viewList, totalWidth, ConvertUtils.dp2px(10F), Gravity.START)
-                }
+                // 对 知识标签控件 进行整体布局 (按控件宽度逐行排列，没有固定列数)
+                layout(mDataBinding.llHotWord, viewList, totalWidth, ConvertUtils.dp2px(10F), Gravity.START)
             }
         })
         // 搜索历史 列表 Observer

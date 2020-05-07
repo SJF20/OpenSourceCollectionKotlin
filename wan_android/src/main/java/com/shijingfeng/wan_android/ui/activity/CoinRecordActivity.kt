@@ -24,8 +24,6 @@ import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInst
 import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.view_model.CoinRecordViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_coin_record.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 积分记录 Activity
@@ -74,29 +72,29 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getStringById(R.string.积分记录)
-        include_title_bar.iv_operate.setImageResource(R.drawable.ic_question)
-        include_title_bar.iv_operate.visibility = VISIBLE
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.积分记录)
+        mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_question)
+        mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
 
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 
         // 设置个人积分数量
         CoinUtil.coinInfo?.let { coinInfo ->
-            tv_coin_quantity.text = coinInfo.coinCount.toString()
+            mDataBinding.tvCoinQuantity.text = coinInfo.coinCount.toString()
         }
 
         mCoinRecordAdapter = CoinRecordAdapter(
             this,
             mViewModel?.mCoinRecordItemList
         )
-        rv_content.layoutManager = LinearLayoutManager(this)
-        rv_content.adapter = mCoinRecordAdapter
+        mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
+        mDataBinding.rvContent.adapter = mCoinRecordAdapter
     }
 
     /**
@@ -105,7 +103,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
     override fun initAction() {
         super.initAction()
         // RecyclerView滑动监听
-        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -124,7 +122,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
 
         })
         // 置顶
-        ClickUtils.applySingleDebouncing(fab_to_top) {
+        ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
         mCoinRecordAdapter?.setOnItemEventListener { _: View?, _: Any?, _: Int, _: String? -> }
@@ -173,25 +171,25 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
      * @param visibility 可见性
      */
     private fun setToTopButtonVisibility(visibility: Int) {
-        if (fab_to_top.tag == null) {
-            fab_to_top.tag = View.VISIBLE
+        if (mDataBinding.fabToTop.tag == null) {
+            mDataBinding.fabToTop.tag = View.VISIBLE
         }
         if (visibility == View.VISIBLE) {
             //设置为可见
-            if (fab_to_top.tag as Int != View.VISIBLE) {
-                fab_to_top.tag = View.VISIBLE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != View.VISIBLE) {
+                mDataBinding.fabToTop.tag = View.VISIBLE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = true
+                            mDataBinding.fabToTop.isEnabled = true
                         }
 
                     })
@@ -201,20 +199,20 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
             }
         } else if (visibility == View.GONE) {
             //设置为不可见
-            if (fab_to_top.tag as Int != View.GONE) {
-                fab_to_top.tag = View.GONE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != View.GONE) {
+                mDataBinding.fabToTop.tag = View.GONE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                     })
@@ -231,7 +229,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
     private fun scrollToTop() {
         mViewModel?.run {
             if (mCoinRecordItemList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

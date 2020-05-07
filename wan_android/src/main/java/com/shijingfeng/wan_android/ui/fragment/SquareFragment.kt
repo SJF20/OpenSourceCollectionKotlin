@@ -1,6 +1,7 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
+import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -30,7 +32,6 @@ import com.shijingfeng.wan_android.entity.network.SquareItem
 import com.shijingfeng.wan_android.source.network.getSquareNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSquareRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SquareViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_square.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -86,19 +87,19 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
      */
     override fun initData() {
         super.initData()
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 
         activity?.run {
             mSquareAdapter = SquareAdapter(this, mViewModel?.mSquareItemList)
-            rv_content.layoutManager = LinearLayoutManager(this)
-            rv_content.adapter = mSquareAdapter
-            rv_content.addItemDecoration(LinearDividerItemDecoration())
+            mDataBinding.rvContent.adapter = mSquareAdapter
+            mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
+            mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
     }
 
@@ -213,7 +214,7 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
         super.scrollToTop()
         mViewModel?.run {
             if (mSquareItemList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }
@@ -224,7 +225,7 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getUserInfoEvent(event: UserInfoEvent) {
         // 自动刷新
-        srl_refresh.autoRefresh()
+        mDataBinding.srlRefresh.autoRefresh()
     }
 
     /**

@@ -9,8 +9,6 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidUserInfoBinding
 import com.shijingfeng.wan_android.view_model.UserInfoViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_user_info.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 用户信息 Activity
@@ -47,6 +45,6 @@ internal class UserInfoActivity : WanAndroidBaseActivity<ActivityWanAndroidUserI
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getStringById(R.string.用户信息)
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.用户信息)
     }
 }

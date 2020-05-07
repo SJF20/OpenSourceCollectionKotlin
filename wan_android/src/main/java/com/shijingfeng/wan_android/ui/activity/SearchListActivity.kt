@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.util.SparseArray
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ClickUtils
-import com.blankj.utilcode.util.ConvertUtils
 import com.google.gson.reflect.TypeToken
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH_LIST
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
@@ -30,16 +28,10 @@ import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
-import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeArticleItem
 import com.shijingfeng.wan_android.entity.network.SearchListItem
 import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSearchListRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SearchListViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_main.*
-import kotlinx.android.synthetic.main.activity_wan_android_search_list.*
-import kotlinx.android.synthetic.main.activity_wan_android_search_list.fab_to_top
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 搜索列表 Activity
@@ -102,16 +94,16 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
      */
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = mViewModel?.mSearchHotWord ?: ""
+        mDataBinding.includeTitleBar.tvTitle.text = mViewModel?.mSearchHotWord ?: ""
 
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
 
         mSearchListAdapter = SearchListAdapter(this, mViewModel?.mSearchList)
-        rv_content.layoutManager = LinearLayoutManager(this)
-        rv_content.adapter = mSearchListAdapter
-        rv_content.addItemDecoration(LinearDividerItemDecoration())
+        mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
+        mDataBinding.rvContent.adapter = mSearchListAdapter
+        mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
     }
 
     /**
@@ -120,7 +112,7 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
     override fun initAction() {
         super.initAction()
         // RecyclerView滑动监听
-        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -139,7 +131,7 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
 
         })
         // 置顶
-        ClickUtils.applySingleDebouncing(fab_to_top) {
+        ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
         mSearchListAdapter?.setOnItemEventListener { _, data, position, flag ->
@@ -228,25 +220,25 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
      * @param visibility 可见性
      */
     private fun setToTopButtonVisibility(visibility: Int) {
-        if (fab_to_top.tag == null) {
-            fab_to_top.tag = VISIBLE
+        if (mDataBinding.fabToTop.tag == null) {
+            mDataBinding.fabToTop.tag = VISIBLE
         }
         if (visibility == VISIBLE) {
             //设置为可见
-            if (fab_to_top.tag as Int != VISIBLE) {
-                fab_to_top.tag = VISIBLE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != VISIBLE) {
+                mDataBinding.fabToTop.tag = VISIBLE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = true
+                            mDataBinding.fabToTop.isEnabled = true
                         }
 
                     })
@@ -256,20 +248,20 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
             }
         } else if (visibility == GONE) {
             //设置为不可见
-            if (fab_to_top.tag as Int != GONE) {
-                fab_to_top.tag = GONE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != GONE) {
+                mDataBinding.fabToTop.tag = GONE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                     })
@@ -286,7 +278,7 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
     private fun scrollToTop() {
         mViewModel?.run {
             if (mSearchList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

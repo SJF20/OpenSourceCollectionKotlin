@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.ClickUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
@@ -26,7 +25,6 @@ import com.shijingfeng.wan_android.source.network.getPersonalCollectionNetworkSo
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.view_model.PersonalCollectionViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_personal_collection.*
 
 /** 我的收藏 -> 文章 */
 internal const val PERSONAL_COLLECTION_ARTICLE = 0
@@ -88,16 +86,16 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
             fragmentManager = supportFragmentManager,
             onFragmentCreate = { _, _ -> }
         )
-        vp_content.setCanScroll(false)
-        vp_content.offscreenPageLimit = 1
-        vp_content.adapter = mPersonalCollectionFragmentPagerAdapter
+        mDataBinding.vpContent.setCanScroll(false)
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mPersonalCollectionFragmentPagerAdapter
 
-        tl_tabs.run {
+        mDataBinding.tlTabs.run {
             // 文章
             addTab(newTab(), true)
             // 网站
             addTab(newTab())
-            setupWithViewPager(vp_content)
+            setupWithViewPager(mDataBinding.vpContent)
             // 文章
             getTabAt(PERSONAL_COLLECTION_ARTICLE)?.customView = getTabView(PERSONAL_COLLECTION_ARTICLE)
             // 网站
@@ -111,7 +109,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
     override fun initAction() {
         super.initAction()
         //TabLayout Item 事件
-        tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 (tab.customView as? TextView)?.run {
@@ -131,7 +129,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
 
         })
         //ViewPager Item 事件
-        vp_content.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

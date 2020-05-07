@@ -11,8 +11,6 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidAboutUsBinding
 import com.shijingfeng.wan_android.view_model.AboutUsViewModel
-import kotlinx.android.synthetic.main.activity_wan_android_about_us.*
-import kotlinx.android.synthetic.main.layout_wan_android_title_bar.view.*
 
 /**
  * Function: 主页 -> 侧边栏 -> 关于我们 Activity
@@ -50,9 +48,9 @@ internal class AboutUsActivity : WanAndroidBaseActivity<ActivityWanAndroidAboutU
     @SuppressLint("SetTextI18n")
     override fun initData() {
         super.initData()
-        include_title_bar.tv_title.text = getStringById(R.string.关于我们)
-        tv_version_name.text = getStringById(R.string.wan_android_name) + " v" + AppUtils.getAppVersionName()
-        tv_content.run {
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.关于我们)
+        mDataBinding.tvVersionName.text = getStringById(R.string.wan_android_name) + " v" + AppUtils.getAppVersionName()
+        mDataBinding.tvContent.run {
             richText = getStringById(R.string.about_us_content)
         }
     }
