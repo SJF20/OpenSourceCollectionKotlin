@@ -33,7 +33,6 @@ import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleItem
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionArticleNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionArticleRepositoryInstance
 import com.shijingfeng.wan_android.view_model.PersonalCollectionArticleViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_personal_collection_article.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -89,10 +88,10 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
      */
     override fun initData() {
         super.initData()
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
@@ -102,9 +101,9 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
                 activity,
                 mViewModel?.mArticleCollectedListItemList
             )
-            rv_content.layoutManager = LinearLayoutManager(activity)
-            rv_content.adapter = mPersonalCollectionArticleAdapter
-            rv_content.addItemDecoration(LinearDividerItemDecoration())
+            mDataBinding.rvContent.layoutManager = LinearLayoutManager(activity)
+            mDataBinding.rvContent.adapter = mPersonalCollectionArticleAdapter
+            mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
     }
 
@@ -114,7 +113,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
     override fun initAction() {
         super.initAction()
         // RecyclerView滑动监听
-        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -133,7 +132,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
 
         })
         // 置顶
-        ClickUtils.applySingleDebouncing(fab_to_top) {
+        ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
         mPersonalCollectionArticleAdapter?.setOnItemEventListener { _, data, _, flag ->
@@ -231,25 +230,25 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
      * @param visibility 可见性
      */
     private fun setToTopButtonVisibility(visibility: Int) {
-        if (fab_to_top.tag == null) {
-            fab_to_top.tag = View.VISIBLE
+        if (mDataBinding.fabToTop.tag == null) {
+            mDataBinding.fabToTop.tag = View.VISIBLE
         }
         if (visibility == View.VISIBLE) {
             //设置为可见
-            if (fab_to_top.tag as Int != View.VISIBLE) {
-                fab_to_top.tag = View.VISIBLE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != View.VISIBLE) {
+                mDataBinding.fabToTop.tag = View.VISIBLE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = true
+                            mDataBinding.fabToTop.isEnabled = true
                         }
 
                     })
@@ -259,20 +258,20 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
             }
         } else if (visibility == View.GONE) {
             //设置为不可见
-            if (fab_to_top.tag as Int != View.GONE) {
-                fab_to_top.tag = View.GONE
-                fab_to_top
+            if (mDataBinding.fabToTop.tag as Int != View.GONE) {
+                mDataBinding.fabToTop.tag = View.GONE
+                mDataBinding.fabToTop
                     .animate()
                     .setListener(object : AnimatorListenerAdapter() {
 
                         override fun onAnimationStart(animation: Animator) {
                             super.onAnimationStart(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
-                            fab_to_top.isEnabled = false
+                            mDataBinding.fabToTop.isEnabled = false
                         }
 
                     })
@@ -296,7 +295,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
         super.scrollToTop()
         mViewModel?.run {
             if (mArticleCollectedListItemList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

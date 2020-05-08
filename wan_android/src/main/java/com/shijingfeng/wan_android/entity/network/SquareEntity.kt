@@ -151,7 +151,7 @@ internal data class SquareItem(
      * @return ID
      */
     override fun getId(): String {
-        return super.getId()
+        return identity
     }
 }
 

@@ -21,7 +21,6 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.OfficialAccountChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
@@ -38,7 +37,6 @@ import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.network.getOfficialAccountChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getOfficialAccountChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountChildViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -263,7 +261,7 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
         super.scrollToTop()
         mViewModel?.run {
             if (mOfficialAccountChildItemList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

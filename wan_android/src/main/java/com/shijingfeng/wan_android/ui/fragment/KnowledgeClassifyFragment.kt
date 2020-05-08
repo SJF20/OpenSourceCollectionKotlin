@@ -26,7 +26,6 @@ import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_knowledge_classify.*
 
 /**
  * 创建 KnowledgeClassifyFragment 实例
@@ -78,10 +77,10 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
      */
     override fun initData() {
         super.initData()
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
@@ -91,8 +90,8 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
                 this,
                 mViewModel?.mKnowledgeClassifyList
             )
-            rv_content.layoutManager = LinearLayoutManager(this)
-            rv_content.adapter = mKnowledgeClassifyAdapter
+            mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
+            mDataBinding.rvContent.adapter = mKnowledgeClassifyAdapter
         }
     }
 
@@ -101,7 +100,7 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
      */
     override fun initAction() {
         super.initAction()
-        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -196,7 +195,7 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
         super.scrollToTop()
         mViewModel?.run {
             if (mKnowledgeClassifyList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.Observer
@@ -22,7 +21,6 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.ProjectChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
@@ -39,7 +37,6 @@ import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
 import com.shijingfeng.wan_android.source.network.getProjectChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getProjectChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.ProjectChildViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -264,7 +261,7 @@ internal class ProjectChildFragment : WanAndroidBaseFragment<FragmentWanAndroidP
         super.scrollToTop()
         mViewModel?.run {
             if (mProjectChildItemList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }

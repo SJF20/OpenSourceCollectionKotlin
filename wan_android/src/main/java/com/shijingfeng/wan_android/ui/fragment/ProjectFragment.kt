@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.Gravity
@@ -25,12 +24,10 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.PROJECT_INDEX_STR
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidProjectBinding
-import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
 import com.shijingfeng.wan_android.source.network.getProjectNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getProjectRepositoryInstance
 import com.shijingfeng.wan_android.view_model.ProjectViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_project.*
 
 /**
  * 创建 ProjectFragment 实例
@@ -83,7 +80,7 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
      */
     override fun initData() {
         super.initData()
-        mLoadService = LoadSir.getDefault().register(ll_content, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.llContent, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
@@ -123,21 +120,21 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
                 }
             }
         )
-        vp_content.offscreenPageLimit = 1
-        vp_content.adapter = mProjectFragmentPagerAdapter
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mProjectFragmentPagerAdapter
 
         mViewModel?.mProjectIndexList?.forEachIndexed { index, _ ->
             if (index == 0) {
-                tl_tabs.addTab(tl_tabs.newTab(), true)
+                mDataBinding.tlTabs.addTab(mDataBinding.tlTabs.newTab(), true)
             } else {
-                tl_tabs.addTab(tl_tabs.newTab())
+                mDataBinding.tlTabs.addTab(mDataBinding.tlTabs.newTab())
             }
         }
 
-        tl_tabs.setupWithViewPager(vp_content)
+        mDataBinding.tlTabs.setupWithViewPager(mDataBinding.vpContent)
 
         mViewModel?.mProjectIndexList?.forEachIndexed { index, officialAccountIndex ->
-            tl_tabs.getTabAt(index)?.customView = getTabView(index, officialAccountIndex)
+            mDataBinding.tlTabs.getTabAt(index)?.customView = getTabView(index, officialAccountIndex)
         }
     }
 
@@ -145,7 +142,7 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
      * 等获取完 索引数据 后初始化事件
      */
     private fun lazyInitAction() {
-        tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 (tab?.customView as TextView?)?.run {
@@ -165,7 +162,7 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
 
         })
         //ViewPager Item 事件
-        vp_content.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 

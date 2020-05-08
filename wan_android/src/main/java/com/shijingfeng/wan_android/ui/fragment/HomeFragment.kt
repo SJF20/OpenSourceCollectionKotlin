@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -36,7 +35,6 @@ import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_home.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -92,10 +90,10 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
      */
     override fun initData() {
         super.initData()
-        mSmartRefreshLayout = srl_refresh
+        mSmartRefreshLayout = mDataBinding.srlRefresh
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
-        mLoadService = LoadSir.getDefault().register(srl_refresh, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
@@ -132,9 +130,9 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                     override fun getItemViewType(position: Int, data: HomeItem) = data.getType()
 
             })
-            rv_content.adapter = mHomeAdapter
-            rv_content.layoutManager = LinearLayoutManager(activity)
-            rv_content.addItemDecoration(LinearDividerItemDecoration())
+            mDataBinding.rvContent.adapter = mHomeAdapter
+            mDataBinding.rvContent.layoutManager = LinearLayoutManager(activity)
+            mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
     }
 
@@ -143,7 +141,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
      */
     override fun initAction() {
         super.initAction()
-        rv_content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -310,7 +308,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
     }
 
     override fun onPause() {
-        val viewHolder = rv_content.findViewHolderForAdapterPosition(0)
+        val viewHolder = mDataBinding.rvContent.findViewHolderForAdapterPosition(0)
 
         if (viewHolder != null) {
             val commonViewHolder = viewHolder as CommonViewHolder
@@ -324,7 +322,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
 
     override fun onResume() {
         super.onResume()
-        val viewHolder = rv_content.findViewHolderForAdapterPosition(0)
+        val viewHolder = mDataBinding.rvContent.findViewHolderForAdapterPosition(0)
 
         if (viewHolder != null) {
             val commonViewHolder = viewHolder as CommonViewHolder
@@ -349,7 +347,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
         super.scrollToTop()
         mViewModel?.run {
             if (mHomeItemDataList.isNotEmpty()) {
-                rv_content.smoothScrollToPosition(0)
+                mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
     }
@@ -360,7 +358,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getUserInfoEvent(event: UserInfoEvent) {
         // 自动刷新
-        srl_refresh.autoRefresh()
+        mDataBinding.srlRefresh.autoRefresh()
     }
 
     /**

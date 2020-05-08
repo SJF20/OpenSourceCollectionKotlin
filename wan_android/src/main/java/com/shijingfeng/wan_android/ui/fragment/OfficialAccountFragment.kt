@@ -18,20 +18,17 @@ import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.OFFICIAL_ACCOUNT_INDEX_STR
-import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountBinding
 import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.network.getOfficialAccountNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getOfficialAccountRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_official_account.*
 
 /**
  * 创建 OfficialAccountFragment 实例
@@ -84,7 +81,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
      */
     override fun initData() {
         super.initData()
-        mLoadService = LoadSir.getDefault().register(ll_content, mViewModel?.mReloadListener)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.llContent, mViewModel?.mReloadListener)
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
@@ -124,21 +121,21 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
                 }
             }
         )
-        vp_content.offscreenPageLimit = 1
-        vp_content.adapter = mOfficialAccountFragmentPagerAdapter
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mOfficialAccountFragmentPagerAdapter
 
         mViewModel?.mOfficialAccountIndexList?.forEachIndexed { index, _ ->
             if (index == 0) {
-                tl_tabs.addTab(tl_tabs.newTab(), true)
+                mDataBinding.tlTabs.addTab(mDataBinding.tlTabs.newTab(), true)
             } else {
-                tl_tabs.addTab(tl_tabs.newTab())
+                mDataBinding.tlTabs.addTab(mDataBinding.tlTabs.newTab())
             }
         }
 
-        tl_tabs.setupWithViewPager(vp_content)
+        mDataBinding.tlTabs.setupWithViewPager(mDataBinding.vpContent)
 
         mViewModel?.mOfficialAccountIndexList?.forEachIndexed { index, officialAccountIndex ->
-            tl_tabs.getTabAt(index)?.customView = getTabView(index, officialAccountIndex)
+            mDataBinding.tlTabs.getTabAt(index)?.customView = getTabView(index, officialAccountIndex)
         }
     }
 
@@ -146,7 +143,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
      * 等获取完 索引数据 后初始化事件
      */
     private fun lazyInitAction() {
-        tl_tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 (tab?.customView as TextView?)?.run {
@@ -166,7 +163,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
 
         })
         //ViewPager Item 事件
-        vp_content.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 

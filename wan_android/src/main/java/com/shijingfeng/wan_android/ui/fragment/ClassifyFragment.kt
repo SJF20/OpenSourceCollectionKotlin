@@ -1,6 +1,5 @@
 package com.shijingfeng.wan_android.ui.fragment
 
-import android.os.Handler
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -21,7 +20,6 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidClassifyBinding
 import com.shijingfeng.wan_android.view_model.ClassifyViewModel
-import kotlinx.android.synthetic.main.fragment_wan_android_classify.*
 
 /**
  * 创建 ClassifyFragment 实例
@@ -82,17 +80,17 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
                 mOnItemEvent?.invoke(view, data, position, flag)
             }
         })
-        vp_content.offscreenPageLimit = 1
-        vp_content.adapter = mClassifyFragmentPagerAdapter
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mClassifyFragmentPagerAdapter
 
-        tl_tabs.run {
+        mDataBinding.tlTabs.run {
             //知识体系
             addTab(newTab(), true)
             //导航分类
             addTab(newTab())
 
             /// TabLayout 和 ViewPager 协同
-            setupWithViewPager(vp_content)
+            setupWithViewPager(mDataBinding.vpContent)
 
             //知识体系
             getTabAt(CLASSIFY_KNOWLEDGE)?.customView = getTabView(CLASSIFY_KNOWLEDGE)
@@ -107,7 +105,7 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
     override fun initAction() {
         super.initAction()
         //TabLayout Item 事件
-        tl_tabs.addOnTabSelectedListener(object : OnTabSelectedListener {
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 (tab?.customView as TextView?)?.run {
@@ -127,7 +125,7 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
 
         })
         // ViewPager Item 事件
-        vp_content.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {}
 

@@ -1,10 +1,11 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
@@ -14,7 +15,6 @@ import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
-import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -108,6 +108,29 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
      */
     override fun initAction() {
         super.initAction()
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    //滑倒最底部，隐藏
+                    mOnItemEvent?.invoke(recyclerView, null, View.GONE, TAB_LAYOUT_VISIBILITY)
+                    return
+                }
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //滑倒顶部，显示
+                    mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE, TAB_LAYOUT_VISIBILITY)
+                    return
+                }
+                mOnItemEvent?.invoke(
+                    recyclerView,
+                    null,
+                    if (dy > 0) View.GONE else View.VISIBLE,
+                    TAB_LAYOUT_VISIBILITY
+                )
+            }
+
+        })
         mSquareAdapter?.setOnItemEventListener { _, data, position, flag ->
             when (flag) {
                 //查看文章详情
