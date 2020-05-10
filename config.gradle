@@ -31,6 +31,7 @@ ext {
             "lifecycle"                           : "2.2.0-rc03",
             "navigation"                          : "2.3.0-alpha01",
             "paging"                              : "2.1.1",
+            "room"                                : "2.2.3",
             "leakcanary"                          : "2.2",
             "leakcanary-no-op"                    : "1.6.3",
             "material"                            : "1.0.0",
@@ -55,6 +56,7 @@ ext {
             "smartrefresh"                        : "1.1.0",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
+            "objectbox"                           : "2.5.1",
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -84,9 +86,17 @@ ext {
             "navigation-fragment-ktx"              : "androidx.navigation:navigation-fragment-ktx:${versions["navigation"]}",
             "navigation-ui-ktx"                    : "androidx.navigation:navigation-ui-ktx:${versions["navigation"]}",
             "navigation-dynamic-features-fragment" : "androidx.navigation:navigation-dynamic-features-fragment:${versions["navigation"]}",
-            //Paging
+            // Paging
             "paging-runtime"                       : "androidx.paging:paging-runtime:${versions["paging"]}",
-            "paging-common"                        : "androidx.paging:paging-common:${versions["paging"]}"
+            "paging-common"                        : "androidx.paging:paging-common:${versions["paging"]}",
+            // Room runtime
+            "room-runtime"                         : "androidx.room:room-runtime:${versions["room"]}",
+            // optional - Kotlin Extensions and Coroutines support for Room
+            "room-ktx"                             : "androidx.room:room-ktx:${versions["room"]}",
+            // optional - RxJava support for Room
+            "room-rxjava2"                         : "androidx.room:room-rxjava2:${versions["room"]}",
+            // optional - Guava support for Room, including Optional and ListenableFuture
+            "room-guava"                           : "androidx.room:room-guava:${versions["room"]}",
     ]
     //依赖第三方配置
     dependencies = [
@@ -147,12 +157,16 @@ ext {
             "smartrefresh-header"                 : "com.scwang.smartrefresh:SmartRefreshHeader:${versions["smartrefresh"]}",
             //ARouter 路由框架
             "arouter"                             : "com.alibaba:arouter-api:${versions["arouter"]}",
+            //ObjectBox Kotlin 扩展
+            "objectbox-kotlin"                    : "io.objectbox:objectbox-kotlin:${versions["objectbox"]}",
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [
-            //Glide 图片加载框架 注解执行器
+            // Glide 图片加载框架 注解执行器
             "glide"                          : "com.github.bumptech.glide:compiler:${versions["glide"]}",
-            //ARouter 路由框架注解执行器
-            "arouter"                        : "com.alibaba:arouter-compiler:${versions["arouter-compiler"]}"
+            // Room 数据库存储 注解执行器
+            "room"                           : "androidx.room:room-compiler:${versions["room"]}",
+            // ARouter 路由框架注解执行器
+            "arouter"                        : "com.alibaba:arouter-compiler:${versions["arouter-compiler"]}",
     ]
 }

@@ -7,7 +7,7 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.network.NavigationClassifyEntity
+import com.shijingfeng.wan_android.entity.NavigationClassifyEntity
 import com.shijingfeng.wan_android.source.repository.NavigationClassifyRepository
 
 /**

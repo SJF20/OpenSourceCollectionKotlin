@@ -1,10 +1,12 @@
 package com.shijingfeng.wan_android.source.repository
 
+import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.base.repository.BaseRepository
-import com.shijingfeng.base.base.source.BaseLocalSource
+import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.wan_android.entity.network.HomeDataEntity
+import com.shijingfeng.wan_android.entity.HomeDataEntity
+import com.shijingfeng.wan_android.source.local.HomeLocalSource
 import com.shijingfeng.wan_android.source.network.HomeNetworkSource
 import com.shijingfeng.wan_android.view_model.HOME_FIRST_PAGE
 
@@ -17,12 +19,16 @@ private var sInstance: HomeRepository? = null
  * @return 实例
  */
 internal fun getHomeRepositoryInstance(
+    localSource: HomeLocalSource? = null,
     networkSource: HomeNetworkSource? = null
 ): HomeRepository {
     if (sInstance == null) {
         synchronized(HomeRepository::class.java) {
             if (sInstance == null) {
-                sInstance = HomeRepository(networkSource = networkSource)
+                sInstance = HomeRepository(
+                    localSource = localSource,
+                    networkSource = networkSource
+                )
             }
         }
     }
@@ -36,19 +42,39 @@ internal fun getHomeRepositoryInstance(
  * @author ShiJingFeng
  */
 internal class HomeRepository(
+    localSource: HomeLocalSource? = null,
     networkSource: HomeNetworkSource? = null
-) : BaseRepository<BaseLocalSource, HomeNetworkSource>(
+) : BaseRepository<HomeLocalSource, HomeNetworkSource>(
+    mLocalSource = localSource,
     mNetworkSource = networkSource
 ) {
 
     /**
      * 获取首页数据
+     * @param pageOperateType 页面操作类型
      * @param page 页码 (从 [HOME_FIRST_PAGE] 开始，为了兼容以前的)
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun getHomeDataList(page: Int, onSuccess: onSuccess<HomeDataEntity?>, onFailure: onFailure) {
-        mNetworkSource?.getHomeDataList(page, onSuccess, onFailure)
+    fun getHomeDataList(
+        @PageOperateType pageOperateType: Int,
+        page: Int,
+        onSuccess: onSuccess<HomeDataEntity?>,
+        onFailure: onFailure
+    ) {
+        when (pageOperateType) {
+            // 页面操作类型：加载数据
+            PAGE_OPERATE_TYPE_LOAD -> {
+                mNetworkSource?.getHomeDataList(page, onSuccess, onFailure = { exception ->
+                    mLocalSource?.getHomeDataList(onSuccess, onFailure = {
+                        onFailure(exception)
+                    })
+                })
+            }
+            else -> {
+                mNetworkSource?.getHomeDataList(page, onSuccess, onFailure)
+            }
+        }
     }
 
     /**

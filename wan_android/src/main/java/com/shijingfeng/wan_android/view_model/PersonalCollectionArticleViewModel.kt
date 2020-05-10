@@ -13,7 +13,7 @@ import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleItem
+import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionArticleRepository
 import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionArticleFragment
 import okhttp3.internal.immutableListOf

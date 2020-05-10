@@ -8,7 +8,7 @@ import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.constant.COIN_INFO
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
+import com.shijingfeng.wan_android.entity.CoinInfoEntity
 import org.greenrobot.eventbus.EventBus
 
 /**

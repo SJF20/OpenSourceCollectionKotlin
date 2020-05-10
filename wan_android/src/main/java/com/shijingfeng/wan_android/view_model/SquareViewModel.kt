@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.view_model
 
 import android.util.SparseArray
-import android.view.View.OnClickListener
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
@@ -16,9 +15,8 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.SquareItem
+import com.shijingfeng.wan_android.entity.SquareItem
 import com.shijingfeng.wan_android.source.repository.SquareRepository
-import com.shijingfeng.wan_android.ui.fragment.HomeFragment
 import com.shijingfeng.wan_android.ui.fragment.SquareFragment
 import org.greenrobot.eventbus.EventBus
 

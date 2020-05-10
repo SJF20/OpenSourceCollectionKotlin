@@ -15,8 +15,8 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.OfficialAccountChildItem
-import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
+import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.repository.OfficialAccountChildRepository
 import com.shijingfeng.wan_android.ui.fragment.OfficialAccountChildFragment
 import org.greenrobot.eventbus.EventBus

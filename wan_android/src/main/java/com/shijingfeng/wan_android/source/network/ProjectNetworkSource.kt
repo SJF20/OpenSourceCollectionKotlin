@@ -4,8 +4,7 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
-import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
+import com.shijingfeng.wan_android.entity.ProjectIndexEntity
 import com.shijingfeng.wan_android.source.network.api.ProjectApi
 import com.shijingfeng.wan_android.utils.apiRequest
 

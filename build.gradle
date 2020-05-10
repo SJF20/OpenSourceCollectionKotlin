@@ -2,7 +2,11 @@
 apply from: "config.gradle"
 
 buildscript {
+    // Kotlin 版本
     ext.kotlin_version = '1.3.72'
+    // ObjectBox 版本
+    ext.objectboxVersion = '2.5.1'
+
     // gradle脚本执行所需依赖仓库
     repositories {
         google()
@@ -12,11 +16,13 @@ buildscript {
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0-beta05'
+        classpath 'com.android.tools.build:gradle:4.0.0-beta02'
+        // Kotlin 插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
-        //ARouter 使用 Gradle 插件实现路由表的自动加载
+        // ARouter 使用 Gradle 插件实现路由表的自动加载
         classpath "com.alibaba:arouter-register:1.0.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // ObjectBox 插件
+        classpath "io.objectbox:objectbox-gradle-plugin:${objectboxVersion}"
     }
 }
 

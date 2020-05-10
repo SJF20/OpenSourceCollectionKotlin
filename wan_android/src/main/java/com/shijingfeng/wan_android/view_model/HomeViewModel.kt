@@ -97,7 +97,7 @@ internal class HomeViewModel(
      * @param page 页码 (从 [HOME_FIRST_PAGE] 开始, 为了兼容以前)
      */
     private fun getHomeData(page: Int) {
-        mRepository?.getHomeDataList(page, onSuccess = { homeData ->
+        mRepository?.getHomeDataList(mPageOperateType, page, onSuccess = { homeData ->
             val homeBannerListItem = homeData?.homeBannerListItem
             val homeTopArticleItemList = homeData?.homeTopArticleItemList
             val homeArticle = homeData?.homeArticle

@@ -15,7 +15,7 @@ import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.*
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.*
-import com.shijingfeng.wan_android.entity.network.OfficialAccountChildItem
+import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
 import java.util.*
 
 /**

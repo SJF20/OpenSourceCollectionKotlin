@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem

@@ -36,8 +36,8 @@ import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildItem
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyChildViewModel

@@ -1,16 +1,21 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
-import java.util.ArrayList
+import com.shijingfeng.wan_android.entity.adapter.HomeItem
+import java.util.*
 
 /**
- * Function: 广场 实体类
- * Date: 2020/5/7 14:57
+ * Function: 首页 文章 实体类 集合
+ * Date: 2020/2/3 19:33
  * Description:
  * @author ShiJingFeng
  */
-internal data class SquareEntity(
+
+/**
+ * 首页 -> 文章 实体类
+ */
+internal data class HomeArticleEntity(
 
     /** 当前页码  */
     @SerializedName("curPage")
@@ -37,17 +42,17 @@ internal data class SquareEntity(
 
     /** 当前 页 的 条 列表数据  */
     @SerializedName("datas")
-    var dataList: List<SquareItem> = ArrayList()
+    var dataList: MutableList<HomeArticleItem> = mutableListOf()
 
 ) : BaseEntity()
 
 /**
- * 广场 Item 实体类
+ * 首页 -> 文章 -> Item 实体类
  */
-internal data class SquareItem(
+internal data class HomeArticleItem(
 
     @SerializedName("id")
-    var identity: String = "",
+    var identity: Int = 0,
 
     @SerializedName("apkLink")
     var apkLink: String = "",
@@ -126,7 +131,7 @@ internal data class SquareItem(
 
     /** 标签列表 (例如: 问答, 导航, 公众号) */
     @SerializedName("tags")
-    var tagList: List<SquareItemTag> = ArrayList(),
+    var tagList: List<HomeArticleItemTag> = ArrayList(),
 
     /** 文章标题  */
     @SerializedName("title")
@@ -144,21 +149,20 @@ internal data class SquareItem(
     @SerializedName("zan")
     var zan: Int = 0
 
-) : BaseEntity() {
+) : HomeItem() {
 
     /**
      * 获取ID
      * @return ID
      */
-    override fun getId(): String {
-        return identity
-    }
+    override fun getId() = identity.toString()
+
 }
 
 /**
- * 首页 广场 Item 标签 实体类
+ * 首页 -> 文章 -> Item -> 标签 实体类
  */
-internal data class SquareItemTag(
+internal data class HomeArticleItemTag(
 
     @SerializedName("name")
     var name: String? = "",

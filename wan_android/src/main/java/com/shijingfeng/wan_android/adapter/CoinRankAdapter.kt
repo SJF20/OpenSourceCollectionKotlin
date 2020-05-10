@@ -4,7 +4,7 @@ import android.content.Context
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.entity.network.CoinRankItem
+import com.shijingfeng.wan_android.entity.CoinRankItem
 
 /**
  * Function: 积分排行榜 列表适配器

@@ -1,3 +1,4 @@
+@file:JvmName("EntityUtil")
 package com.shijingfeng.base.util
 
 import android.text.TextUtils

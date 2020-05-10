@@ -2,27 +2,17 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.text.TextUtils
-import android.view.Gravity
-import android.view.View
 import android.view.View.OnClickListener
 import android.widget.CompoundButton
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.cast
-import com.shijingfeng.base.util.getColorById
-import com.shijingfeng.base.util.layout
-import com.shijingfeng.base.util.measureTotalWidth
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
-import com.shijingfeng.wan_android.entity.network.ProjectChildItem
-import java.util.ArrayList
+import com.shijingfeng.wan_android.entity.ProjectChildItem
 
 /**
  * Function: 项目 二级数据 列表适配器

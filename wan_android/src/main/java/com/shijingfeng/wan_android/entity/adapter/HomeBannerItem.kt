@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
 
 /**
- * Function: 首页Banner数据
+ * Function: 首页Banner数据 实体类
  * Date: 2020/2/3 19:17
  * Description:
  * @author ShiJingFeng
@@ -13,7 +13,7 @@ internal data class HomeBannerItem(
 
     /** ID  */
     @SerializedName("id")
-    var identity: String = "",
+    var identity: Int = 0,
 
     /** 描述  */
     @SerializedName("desc")
@@ -49,6 +49,6 @@ internal data class HomeBannerItem(
      * 获取ID
      * @return ID
      */
-    override fun getId() = identity
+    override fun getId() = identity.toString()
 
 }

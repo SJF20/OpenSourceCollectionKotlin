@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.VIEW_WEBSITE_DETAIL
 import com.shijingfeng.wan_android.constant.WEBSITE_ITEM_EDIT
 import com.shijingfeng.wan_android.constant.WEBSITE_ITEM_UNCOLLECTED
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 
 /**
  * Function: 我的收藏 -> 收藏网站列表 适配器

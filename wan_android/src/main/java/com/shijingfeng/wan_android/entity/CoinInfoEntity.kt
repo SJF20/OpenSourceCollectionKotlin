@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity

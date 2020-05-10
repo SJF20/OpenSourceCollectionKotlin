@@ -12,7 +12,7 @@ import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildItem
 
 /**
  * Function: 知识体系 二级数据 RecyclerView 适配器

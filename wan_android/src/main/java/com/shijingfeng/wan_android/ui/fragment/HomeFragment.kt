@@ -29,9 +29,10 @@ import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.HomeArticleItem
+import com.shijingfeng.wan_android.entity.HomeArticleItem
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
+import com.shijingfeng.wan_android.source.local.getHomeLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
@@ -68,6 +69,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
      */
     override fun getViewModel(): HomeViewModel? {
         val homeRepository = getHomeRepositoryInstance(
+            localSource = getHomeLocalSourceInstance(),
             networkSource = getHomeNetworkSourceInstance()
         )
         val factory = createCommonViewModelFactory(

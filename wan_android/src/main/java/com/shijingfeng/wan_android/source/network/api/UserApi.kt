@@ -2,12 +2,9 @@ package com.shijingfeng.wan_android.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.wan_android.entity.network.ResultEntity
-import com.shijingfeng.wan_android.entity.network.UserInfoEntity
+import com.shijingfeng.wan_android.entity.ResultEntity
+import com.shijingfeng.wan_android.entity.UserInfoEntity
 import io.reactivex.Single
-import kotlinx.coroutines.Deferred
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.http.*
 
 /**

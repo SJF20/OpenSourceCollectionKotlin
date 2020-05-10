@@ -2,9 +2,9 @@ package com.shijingfeng.wan_android.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleEntity
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
-import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionArticleEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.entity.ResultEntity
 import com.shijingfeng.wan_android.view_model.PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
 import io.reactivex.Single
 import retrofit2.http.*

@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionArticleEntity
 import com.shijingfeng.wan_android.source.network.PersonalCollectionArticleNetworkSource
 import com.shijingfeng.wan_android.view_model.PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
 

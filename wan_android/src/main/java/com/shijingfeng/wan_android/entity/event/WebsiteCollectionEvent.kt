@@ -1,7 +1,7 @@
 package com.shijingfeng.wan_android.entity.event
 
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 
 /**
  * Function: 网站收藏相关 Event

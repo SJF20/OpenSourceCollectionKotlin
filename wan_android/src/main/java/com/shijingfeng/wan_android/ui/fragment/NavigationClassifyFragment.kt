@@ -20,7 +20,7 @@ import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.wan_android.adapter.NavigationClassifyAdapter
 import com.shijingfeng.wan_android.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidNavigationClassifyBinding
-import com.shijingfeng.wan_android.entity.network.NavigationClassifyArticle
+import com.shijingfeng.wan_android.entity.NavigationClassifyArticle
 import com.shijingfeng.wan_android.source.network.getNavigationClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getNavigationClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.NavigationClassifyViewModel

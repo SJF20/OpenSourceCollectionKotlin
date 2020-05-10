@@ -2,10 +2,10 @@ package com.shijingfeng.wan_android.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
-import com.shijingfeng.wan_android.entity.network.CoinRankEntity
-import com.shijingfeng.wan_android.entity.network.CoinRecordEntity
-import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.entity.CoinInfoEntity
+import com.shijingfeng.wan_android.entity.CoinRankEntity
+import com.shijingfeng.wan_android.entity.CoinRecordEntity
+import com.shijingfeng.wan_android.entity.ResultEntity
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers

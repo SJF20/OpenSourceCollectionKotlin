@@ -9,9 +9,9 @@ import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeArticleEntity
-import com.shijingfeng.wan_android.entity.network.HomeDataEntity
-import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.entity.HomeArticleEntity
+import com.shijingfeng.wan_android.entity.HomeDataEntity
+import com.shijingfeng.wan_android.entity.ResultEntity
 import com.shijingfeng.wan_android.source.network.api.ArticleApi
 import com.shijingfeng.wan_android.source.network.api.BannerApi
 import com.shijingfeng.wan_android.source.network.api.CollectionApi
@@ -73,17 +73,18 @@ internal class HomeNetworkSource : BaseNetworkSource() {
                     mArticleApi.getHomeTopArticleList(),
                     mArticleApi.getHomeArticleList(page),
                     Function3<
-                      ResultEntity<List<HomeBannerItem>>,
-                      ResultEntity<List<HomeTopArticleItem>>,
-                      ResultEntity<HomeArticleEntity>,
-                      ResultEntity<HomeDataEntity>
+                            ResultEntity<List<HomeBannerItem>>,
+                            ResultEntity<List<HomeTopArticleItem>>,
+                            ResultEntity<HomeArticleEntity>,
+                            ResultEntity<HomeDataEntity>
                     > { homeBannerListResult,
                         homeSetToTopItemListResult,
                         homeArticleResult ->
 
                         val code: Int
                         var msg = ""
-                        val homeData = HomeDataEntity()
+                        val homeData =
+                            HomeDataEntity()
 
                         homeBannerListResult.data?.let { homeBannerList ->
                             homeData.homeBannerListItem = HomeBannerListItem(homeBannerList)
@@ -107,7 +108,11 @@ internal class HomeNetworkSource : BaseNetworkSource() {
                             }
                         }
 
-                        return@Function3 ResultEntity(code, msg, homeData)
+                        return@Function3 ResultEntity(
+                            code,
+                            msg,
+                            homeData
+                        )
                     }
                 ),
                 onSuccess = onSuccess,
@@ -118,7 +123,9 @@ internal class HomeNetworkSource : BaseNetworkSource() {
             disposable = apiRequest(
                 single = mArticleApi.getHomeArticleList(page),
                 onSuccess = { data ->
-                    onSuccess(HomeDataEntity().also { homeData ->
+                    onSuccess(
+                        HomeDataEntity()
+                            .also { homeData ->
                         data?.let { homeArticle ->
                             homeData.homeArticle = homeArticle
                         }

@@ -15,8 +15,8 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildItem
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildItem
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.source.repository.KnowledgeClassifyChildRepository
 import com.shijingfeng.wan_android.ui.fragment.KnowledgeClassifyChildFragment
 import org.greenrobot.eventbus.EventBus

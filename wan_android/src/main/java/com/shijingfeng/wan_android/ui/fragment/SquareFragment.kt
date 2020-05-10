@@ -28,7 +28,7 @@ import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidSquareBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.entity.network.SquareItem
+import com.shijingfeng.wan_android.entity.SquareItem
 import com.shijingfeng.wan_android.source.network.getSquareNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSquareRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SquareViewModel

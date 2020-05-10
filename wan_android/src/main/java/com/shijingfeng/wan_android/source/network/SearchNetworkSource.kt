@@ -4,8 +4,8 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.entity.network.SearchHotWordEntity
-import com.shijingfeng.wan_android.entity.network.SearchListEntity
+import com.shijingfeng.wan_android.entity.SearchHotWordEntity
+import com.shijingfeng.wan_android.entity.SearchListEntity
 import com.shijingfeng.wan_android.source.network.api.SearchApi
 import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.view_model.SEARCH_LIST_FIRST_PAGE

@@ -13,7 +13,7 @@ import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import java.util.*
 
 /**

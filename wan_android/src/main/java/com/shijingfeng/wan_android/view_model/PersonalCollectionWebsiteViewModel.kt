@@ -10,7 +10,7 @@ import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionWebsiteRepository
 import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionWebsiteFragment
 import okhttp3.internal.immutableListOf

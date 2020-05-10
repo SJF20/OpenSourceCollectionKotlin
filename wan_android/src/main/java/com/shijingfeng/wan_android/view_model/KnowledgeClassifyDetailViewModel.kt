@@ -3,7 +3,7 @@ package com.shijingfeng.wan_android.view_model
 import android.view.View.OnClickListener
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 
 /**
  * Function: 知识体系 详细数据 ViewModel

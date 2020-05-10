@@ -4,7 +4,7 @@ import android.content.Context
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.entity.network.CoinRecordItem
+import com.shijingfeng.wan_android.entity.CoinRecordItem
 
 /**
  * Function: 积分记录 Adapter

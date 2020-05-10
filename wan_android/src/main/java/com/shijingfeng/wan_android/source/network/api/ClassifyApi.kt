@@ -2,10 +2,10 @@ package com.shijingfeng.wan_android.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildEntity
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
-import com.shijingfeng.wan_android.entity.network.NavigationClassifyEntity
-import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.NavigationClassifyEntity
+import com.shijingfeng.wan_android.entity.ResultEntity
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers

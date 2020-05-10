@@ -1,15 +1,15 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
 
 /**
- * Function: 公众号 二级数据 实体类
- * Date: 2020/4/30 13:02
+ * Function: 项目二级数据 实体类
+ * Date: 20-4-29 下午9:12
  * Description:
- * @author ShiJingFeng
+ * @author shijingfeng
  */
-internal data class OfficialAccountChildEntity(
+internal data class ProjectChildEntity(
 
     /** 此页开始的下标  */
     @SerializedName("offset")
@@ -36,14 +36,14 @@ internal data class OfficialAccountChildEntity(
     var total: Int = 0,
 
     @SerializedName("datas")
-    var officialAccountChildItemList: List<OfficialAccountChildItem> = mutableListOf()
+    var projectChildItemList: List<ProjectChildItem> = mutableListOf()
 
 ) : BaseEntity()
 
 /**
- * 公众号 二级数据 Item 实体类
+ * 项目二级数据 Item 实体类
  */
-internal data class OfficialAccountChildItem(
+internal data class ProjectChildItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -76,6 +76,7 @@ internal data class OfficialAccountChildItem(
     @SerializedName("courseId")
     var courseId: Int = 0,
 
+    /** 简介 */
     @SerializedName("desc")
     var desc: String = "",
 
@@ -132,7 +133,7 @@ internal data class OfficialAccountChildItem(
 
     /** 标签列表 (例如: 问答, 导航, 公众号) */
     @SerializedName("tags")
-    var tagList: List<OfficialAccountChildTag> = ArrayList(),
+    var tagList: List<ProjectChildTag> = ArrayList(),
 
     /** 文章标题  */
     @SerializedName("title")
@@ -162,9 +163,9 @@ internal data class OfficialAccountChildItem(
 }
 
 /**
- * 公众号 二级数据 Item 标签 实体类
+ * 项目二级数据 标签 实体类
  */
-internal data class OfficialAccountChildTag(
+internal data class ProjectChildTag(
 
     @SerializedName("name")
     var name: String? = "",

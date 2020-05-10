@@ -4,9 +4,8 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.network.api.ClassifyApi
-import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.utils.apiRequest
 
 /** 单例实例 */

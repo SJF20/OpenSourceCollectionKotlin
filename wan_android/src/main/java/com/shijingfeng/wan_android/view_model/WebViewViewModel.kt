@@ -1,16 +1,11 @@
 package com.shijingfeng.wan_android.view_model
 
-import android.util.SparseArray
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.common.constant.ADD
-import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
-import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.repository.WebViewRepository
 import com.shijingfeng.wan_android.ui.activity.WebViewActivity
 import org.greenrobot.eventbus.EventBus

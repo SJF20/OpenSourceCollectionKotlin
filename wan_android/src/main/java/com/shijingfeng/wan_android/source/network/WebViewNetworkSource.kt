@@ -1,11 +1,9 @@
 package com.shijingfeng.wan_android.source.network
 
 import com.shijingfeng.base.base.source.BaseNetworkSource
-import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.base.util.e
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.network.api.CollectionApi
 import com.shijingfeng.wan_android.utils.apiRequest
 

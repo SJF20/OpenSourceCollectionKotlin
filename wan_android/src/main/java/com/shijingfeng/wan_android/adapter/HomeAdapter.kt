@@ -26,7 +26,7 @@ import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeArticleItem
+import com.shijingfeng.wan_android.entity.HomeArticleItem
 import java.util.*
 
 

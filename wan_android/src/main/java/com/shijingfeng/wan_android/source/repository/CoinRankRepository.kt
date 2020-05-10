@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.wan_android.entity.network.CoinRankEntity
+import com.shijingfeng.wan_android.entity.CoinRankEntity
 import com.shijingfeng.wan_android.source.network.CoinRankNetworkSource
 import com.shijingfeng.wan_android.view_model.COIN_RANK_FIRST_PAGE
 

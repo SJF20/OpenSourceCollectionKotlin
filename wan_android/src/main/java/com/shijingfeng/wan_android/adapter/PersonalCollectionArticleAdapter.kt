@@ -10,7 +10,7 @@ import com.shijingfeng.library.SwipeRemoveLayout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleItem
+import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
 
 /**
  * Function: 我的收藏 -> 收藏文章列表 适配器

@@ -6,7 +6,7 @@ import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.source.repository.ProjectRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
-import com.shijingfeng.wan_android.entity.network.ProjectIndexEntity
+import com.shijingfeng.wan_android.entity.ProjectIndexEntity
 
 /**
  * Function: 项目 ViewModel

@@ -29,7 +29,7 @@ import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionArticleBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionArticleItem
+import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionArticleNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionArticleRepositoryInstance
 import com.shijingfeng.wan_android.view_model.PersonalCollectionArticleViewModel

@@ -20,10 +20,7 @@ import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
-import com.shijingfeng.wan_android.entity.adapter.HomeItem
-import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeArticleItem
-import com.shijingfeng.wan_android.entity.network.SearchListItem
+import com.shijingfeng.wan_android.entity.SearchListItem
 import java.util.ArrayList
 
 /**

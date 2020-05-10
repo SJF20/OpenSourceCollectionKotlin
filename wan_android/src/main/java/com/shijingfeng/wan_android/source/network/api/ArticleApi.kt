@@ -3,9 +3,9 @@ package com.shijingfeng.wan_android.source.network.api
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
-import com.shijingfeng.wan_android.entity.network.HomeArticleEntity
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildEntity
-import com.shijingfeng.wan_android.entity.network.ResultEntity
+import com.shijingfeng.wan_android.entity.HomeArticleEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildEntity
+import com.shijingfeng.wan_android.entity.ResultEntity
 import com.shijingfeng.wan_android.view_model.HOME_FIRST_PAGE
 import io.reactivex.Single
 import retrofit2.http.GET

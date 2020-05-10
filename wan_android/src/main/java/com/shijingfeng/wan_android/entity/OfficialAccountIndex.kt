@@ -1,21 +1,21 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
 
 /**
- * Function: 项目 索引数据 实体类
- * Date: 20-4-29 下午8:43
+ * Function: 公众号 索引数据 实体类
+ * Date: 2020/4/29 17:01
  * Description:
- * @author shijingfeng
+ * @author ShiJingFeng
  */
-internal data class ProjectIndexEntity(
-
-    @SerializedName("courseId")
-    var courseId: String = "",
+internal data class OfficialAccountIndexEntity(
 
     @SerializedName("id")
     var identity: String = "",
+
+    @SerializedName("courseId")
+    var courseId: String = "",
 
     @SerializedName("name")
     var name: String = "",
@@ -33,7 +33,7 @@ internal data class ProjectIndexEntity(
     var visible: Int = 0,
 
     @SerializedName("children")
-    var children: List<ProjectIndexChildren> = mutableListOf()
+    var children: List<OfficialAccountIndexChildren> = mutableListOf()
 
 ) : BaseEntity() {
 
@@ -48,6 +48,6 @@ internal data class ProjectIndexEntity(
 }
 
 /**
- * 项目 索引数据 Children 实体类
+ * 公众号 索引数据 Children 实体类
  */
-internal class ProjectIndexChildren : BaseEntity()
+internal class OfficialAccountIndexChildren : BaseEntity()

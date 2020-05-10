@@ -32,8 +32,8 @@ import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountChildBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.entity.network.OfficialAccountChildItem
-import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
+import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.network.getOfficialAccountChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getOfficialAccountChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountChildViewModel

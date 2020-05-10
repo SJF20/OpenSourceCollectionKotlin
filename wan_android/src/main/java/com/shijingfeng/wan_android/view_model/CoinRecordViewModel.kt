@@ -13,7 +13,7 @@ import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.network.CoinRecordItem
+import com.shijingfeng.wan_android.entity.CoinRecordItem
 import com.shijingfeng.wan_android.source.repository.CoinRecordRepository
 
 /** 第一页 页码  */

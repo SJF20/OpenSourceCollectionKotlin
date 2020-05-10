@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.constant.LOGIN
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
 import com.shijingfeng.wan_android.constant.USER_INFO
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.entity.network.UserInfoEntity
+import com.shijingfeng.wan_android.entity.UserInfoEntity
 import org.greenrobot.eventbus.EventBus
 
 /**

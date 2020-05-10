@@ -1,55 +1,48 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import java.util.*
 
 /**
- * Function: 首页 文章 实体类 集合
- * Date: 2020/2/3 19:33
+ * Function: 知识体系 二级数据 实体类 集合
+ * Date: 2020/2/4 13:56
  * Description:
  * @author ShiJingFeng
  */
 
 /**
- * 首页 -> 文章 实体类
+ * 知识体系 二级数据 实体类
  */
-internal data class HomeArticleEntity(
+internal data class KnowledgeClassifyChildEntity(
 
-    /** 当前页码  */
     @SerializedName("curPage")
     var curPage: Int = 1,
 
-    /** 当前 条 位置（从0开始） */
     @SerializedName("offset")
     var offset: Int = 0,
 
     @SerializedName("over")
     var over: Boolean = false,
 
-    /** 全部 页 数量  */
     @SerializedName("pageCount")
     var pageCount: Int = 0,
 
-    /** 当前 页 有多少 条  */
     @SerializedName("size")
     var size: Int = 0,
 
-    /** 全部 条 数量  */
     @SerializedName("total")
     var total: Int = 0,
 
-    /** 当前 页 的 条 列表数据  */
     @SerializedName("datas")
-    var dataList: List<HomeArticleItem> = ArrayList()
+    var dataList: List<KnowledgeClassifyChildItem> = ArrayList()
 
 ) : BaseEntity()
 
 /**
- * 首页 -> 文章 -> Item 实体类
+ * 知识体系 二级数据 Item 实体类
  */
-internal data class HomeArticleItem(
+internal data class KnowledgeClassifyChildItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -131,14 +124,14 @@ internal data class HomeArticleItem(
 
     /** 标签列表 (例如: 问答, 导航, 公众号) */
     @SerializedName("tags")
-    var tagList: List<HomeArticleItemTag> = ArrayList(),
+    var tagList: List<KnowledgeClassifyChildItemTag> = ArrayList(),
 
-    /** 文章标题  */
+    /** 文章标题 */
     @SerializedName("title")
     var title: String = "",
 
     @SerializedName("type")
-    var itemType: Int = 0,
+    var type: Int = 0,
 
     @SerializedName("userId")
     var userId: Int = 0,
@@ -149,7 +142,7 @@ internal data class HomeArticleItem(
     @SerializedName("zan")
     var zan: Int = 0
 
-) : HomeItem() {
+) : BaseEntity() {
 
     /**
      * 获取ID
@@ -160,12 +153,12 @@ internal data class HomeArticleItem(
 }
 
 /**
- * 首页 -> 文章 -> Item -> 标签 实体类
+ * 知识体系 二级数据  Item Tag 实体类
  */
-internal data class HomeArticleItemTag(
+internal data class KnowledgeClassifyChildItemTag(
 
     @SerializedName("name")
-    var name: String? = "",
+    var name: String = "",
 
     @SerializedName("url")
     var url: String = ""

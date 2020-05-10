@@ -28,7 +28,7 @@ import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
-import com.shijingfeng.wan_android.entity.network.SearchListItem
+import com.shijingfeng.wan_android.entity.SearchListItem
 import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSearchListRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SearchListViewModel

@@ -3,7 +3,7 @@ package com.shijingfeng.wan_android.view_model
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.repository.OfficialAccountRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.shijingfeng.base.common.constant.*

@@ -25,7 +25,7 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.OFFICIAL_ACCOUNT_INDEX_STR
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountBinding
-import com.shijingfeng.wan_android.entity.network.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.network.getOfficialAccountNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getOfficialAccountRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel

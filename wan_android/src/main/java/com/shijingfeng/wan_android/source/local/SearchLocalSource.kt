@@ -3,32 +3,18 @@ package com.shijingfeng.wan_android.source.local
 import android.os.Handler
 import android.os.Looper
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.SpanUtils
-import com.blankj.utilcode.util.ThreadUtils
 import com.google.gson.reflect.TypeToken
 import com.shijingfeng.base.base.source.BaseLocalSource
-import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
-import com.shijingfeng.base.common.constant.EMPTY_OBJECT
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.HttpException
-import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.base.util.deserialize
-import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
-import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.constant.SEARCH_HISTORY_LIST
 import com.shijingfeng.wan_android.constant.SP_APP_NAME
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
-import com.shijingfeng.wan_android.entity.network.SearchHotWordEntity
-import com.shijingfeng.wan_android.entity.network.SearchListEntity
-import com.shijingfeng.wan_android.source.network.api.SearchApi
-import com.shijingfeng.wan_android.utils.apiRequest
-import com.shijingfeng.wan_android.view_model.SEARCH_LIST_FIRST_PAGE
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import java.util.concurrent.ThreadPoolExecutor
 
 @Volatile
 private var sInstance: SearchLocalSource? = null

@@ -4,8 +4,8 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.entity.network.CoinInfoEntity
-import com.shijingfeng.wan_android.entity.network.UserInfoEntity
+import com.shijingfeng.wan_android.entity.CoinInfoEntity
+import com.shijingfeng.wan_android.entity.UserInfoEntity
 import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.source.network.api.UserApi
 import com.shijingfeng.wan_android.utils.apiRequest

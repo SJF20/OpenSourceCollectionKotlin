@@ -5,7 +5,7 @@ import com.shijingfeng.wan_android.constant.HOME_ARTICLE
 import com.shijingfeng.wan_android.constant.HOME_BANNER
 import com.shijingfeng.wan_android.constant.HOME_TOP_ARTICLE
 import com.shijingfeng.base.common.constant.ADAPTER_TYPE_UNKNOWN
-import com.shijingfeng.wan_android.entity.network.HomeArticleItem
+import com.shijingfeng.wan_android.entity.HomeArticleItem
 
 /**
  * Function: 首页 适配器Item 实体抽象类

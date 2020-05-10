@@ -23,8 +23,8 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
 import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_STR
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidKnowledgeClassifyDetailBinding
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyChildren
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildren
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.ui.fragment.createKnowledgeClassifyChildFragment
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyDetailViewModel
 

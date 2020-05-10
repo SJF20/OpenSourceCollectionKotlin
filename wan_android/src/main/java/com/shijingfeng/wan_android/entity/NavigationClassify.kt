@@ -1,48 +1,43 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
-import java.util.*
 
 /**
- * Function: 知识体系 二级数据 实体类 集合
- * Date: 2020/2/4 13:56
+ * Function: 导航数据 实体类 集合
+ * Date: 2020/2/4 15:29
  * Description:
  * @author ShiJingFeng
  */
 
 /**
- * 知识体系 二级数据 实体类
+ * 导航数据 实体类
  */
-internal data class KnowledgeClassifyChildEntity(
+internal data class NavigationClassifyEntity(
 
-    @SerializedName("curPage")
-    var curPage: Int = 1,
+    @SerializedName("cid")
+    var cid: String = "",
 
-    @SerializedName("offset")
-    var offset: Int = 0,
+    @SerializedName("name")
+    var name: String = "",
 
-    @SerializedName("over")
-    var over: Boolean = false,
+    @SerializedName("articles")
+    var articleList: List<NavigationClassifyArticle> = ArrayList()
 
-    @SerializedName("pageCount")
-    var pageCount: Int = 0,
+) : BaseEntity() {
 
-    @SerializedName("size")
-    var size: Int = 0,
+    /**
+     * 获取ID
+     * @return ID
+     */
+    override fun getId() = cid
 
-    @SerializedName("total")
-    var total: Int = 0,
-
-    @SerializedName("datas")
-    var dataList: List<KnowledgeClassifyChildItem> = ArrayList()
-
-) : BaseEntity()
+}
 
 /**
- * 知识体系 二级数据 Item 实体类
+ * 导航数据 文章 实体类
  */
-internal data class KnowledgeClassifyChildItem(
+internal data class NavigationClassifyArticle(
 
     @SerializedName("id")
     var identity: String = "",
@@ -124,9 +119,9 @@ internal data class KnowledgeClassifyChildItem(
 
     /** 标签列表 (例如: 问答, 导航, 公众号) */
     @SerializedName("tags")
-    var tagList: List<KnowledgeClassifyChildItemTag> = ArrayList(),
+    var tagList: List<NavigationClassifyArticleTag> = ArrayList(),
 
-    /** 文章标题 */
+    /** 文章标题  */
     @SerializedName("title")
     var title: String = "",
 
@@ -153,14 +148,6 @@ internal data class KnowledgeClassifyChildItem(
 }
 
 /**
- * 知识体系 二级数据  Item Tag 实体类
+ * 导航数据 文章 标签 实体类
  */
-internal data class KnowledgeClassifyChildItemTag(
-
-    @SerializedName("name")
-    var name: String = "",
-
-    @SerializedName("url")
-    var url: String = ""
-
-) : BaseEntity()
+internal class NavigationClassifyArticleTag : BaseEntity()

@@ -1,7 +1,7 @@
 package com.shijingfeng.wan_android.entity.adapter
 
 import com.google.gson.annotations.SerializedName
-import com.shijingfeng.wan_android.entity.network.HomeArticleItemTag
+import com.shijingfeng.wan_android.entity.HomeArticleItemTag
 import java.util.*
 
 /**
@@ -12,8 +12,9 @@ import java.util.*
  */
 internal class HomeTopArticleItem(
 
+    /** ID  */
     @SerializedName("id")
-    var identity: String = "",
+    var identity: Int = 0,
 
     @SerializedName("apkLink")
     var apkLink: String = "",
@@ -117,6 +118,6 @@ internal class HomeTopArticleItem(
      * @return ID
      */
     override fun getId(): String {
-        return identity
+        return identity.toString()
     }
 }

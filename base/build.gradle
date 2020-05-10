@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// ObjectBox plugin
+apply plugin: 'io.objectbox'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -20,7 +22,16 @@ android {
         //配置阿里 ARouter 路由
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments = [
+                   // 配置 ARouter Module 名称
+                   AROUTER_MODULE_NAME     : project.getName(),
+                   // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
+                   "room.schemaLocation"   : "$projectDir/schemas".toString(),
+                   // Room 启用 Gradle 增量注释处理器  true:启用  false:关闭
+                   "room.incremental"      : "true",
+                   // Room 配置 Room 以重新编写查询，使其顶部星形投影在展开后仅包含 DAO 方法返回类型中定义的列。
+                   "room.expandProjection" : "true",
+                ]
             }
         }
 
@@ -239,6 +250,20 @@ dependencies {
     api rootProject.ext.dependencies["utilcodex"]
     //ARouter 路由框架
     api rootProject.ext.dependencies["arouter"]
+    //ObjectBox Kotlin 扩展
+    api rootProject.ext.dependencies["objectbox-kotlin"]
+
+    //Room runtime
+    api rootProject.ext.androidx["room-runtime"]
+    //optional - Kotlin Extensions and Coroutines support for Room
+    api rootProject.ext.androidx["room-ktx"]
+    //optional - RxJava support for Room
+    api rootProject.ext.androidx["room-rxjava2"]
+    //optional - Guava support for Room, including Optional and ListenableFuture
+    api rootProject.ext.androidx["room-guava"]
+
+    //Room 数据库存储 注解执行器
+    kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }

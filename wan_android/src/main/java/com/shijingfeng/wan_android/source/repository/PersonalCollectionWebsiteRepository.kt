@@ -4,9 +4,8 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.wan_android.entity.network.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.network.PersonalCollectionWebsiteNetworkSource
-import com.shijingfeng.wan_android.utils.apiRequest
 
 /** 单例实例 */
 @Volatile

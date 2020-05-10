@@ -3,10 +3,7 @@ package com.shijingfeng.wan_android.view_model
 import android.util.SparseArray
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
-import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener
-import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
@@ -15,9 +12,8 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.constant.KEY_COLLECTED
-import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
-import com.shijingfeng.wan_android.entity.network.SearchListItem
+import com.shijingfeng.wan_android.entity.SearchListItem
 import com.shijingfeng.wan_android.source.repository.SearchListRepository
 import com.shijingfeng.wan_android.ui.activity.SearchListActivity
 import org.greenrobot.eventbus.EventBus

@@ -4,8 +4,8 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
-import com.shijingfeng.wan_android.entity.network.SearchHotWordEntity
-import com.shijingfeng.wan_android.entity.network.SearchListEntity
+import com.shijingfeng.wan_android.entity.SearchHotWordEntity
+import com.shijingfeng.wan_android.entity.SearchListEntity
 import com.shijingfeng.wan_android.source.local.SearchLocalSource
 import com.shijingfeng.wan_android.source.network.SearchNetworkSource
 

@@ -21,7 +21,7 @@ import com.shijingfeng.wan_android.annotation.define.SearchHotWordLoadServiceSta
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
-import com.shijingfeng.wan_android.entity.network.SearchHotWordEntity
+import com.shijingfeng.wan_android.entity.SearchHotWordEntity
 import com.shijingfeng.wan_android.source.repository.SearchRepository
 import okhttp3.internal.immutableListOf
 import java.util.*

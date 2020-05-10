@@ -1,43 +1,50 @@
-package com.shijingfeng.wan_android.entity.network
+package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
+import java.util.ArrayList
 
 /**
- * Function: 导航数据 实体类 集合
- * Date: 2020/2/4 15:29
+ * Function: 广场 实体类
+ * Date: 2020/5/7 14:57
  * Description:
  * @author ShiJingFeng
  */
+internal data class SquareEntity(
+
+    /** 当前页码  */
+    @SerializedName("curPage")
+    var curPage: Int = 1,
+
+    /** 当前 条 位置（从0开始） */
+    @SerializedName("offset")
+    var offset: Int = 0,
+
+    @SerializedName("over")
+    var over: Boolean = false,
+
+    /** 全部 页 数量  */
+    @SerializedName("pageCount")
+    var pageCount: Int = 0,
+
+    /** 当前 页 有多少 条  */
+    @SerializedName("size")
+    var size: Int = 0,
+
+    /** 全部 条 数量  */
+    @SerializedName("total")
+    var total: Int = 0,
+
+    /** 当前 页 的 条 列表数据  */
+    @SerializedName("datas")
+    var dataList: List<SquareItem> = ArrayList()
+
+) : BaseEntity()
 
 /**
- * 导航数据 实体类
+ * 广场 Item 实体类
  */
-internal data class NavigationClassifyEntity(
-
-    @SerializedName("cid")
-    var cid: String = "",
-
-    @SerializedName("name")
-    var name: String = "",
-
-    @SerializedName("articles")
-    var articleList: List<NavigationClassifyArticle> = ArrayList()
-
-) : BaseEntity() {
-
-    /**
-     * 获取ID
-     * @return ID
-     */
-    override fun getId() = cid
-
-}
-
-/**
- * 导航数据 文章 实体类
- */
-internal data class NavigationClassifyArticle(
+internal data class SquareItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -119,14 +126,14 @@ internal data class NavigationClassifyArticle(
 
     /** 标签列表 (例如: 问答, 导航, 公众号) */
     @SerializedName("tags")
-    var tagList: List<NavigationClassifyArticleTag> = ArrayList(),
+    var tagList: List<SquareItemTag> = ArrayList(),
 
     /** 文章标题  */
     @SerializedName("title")
     var title: String = "",
 
     @SerializedName("type")
-    var type: Int = 0,
+    var itemType: Int = 0,
 
     @SerializedName("userId")
     var userId: Int = 0,
@@ -143,11 +150,20 @@ internal data class NavigationClassifyArticle(
      * 获取ID
      * @return ID
      */
-    override fun getId() = identity
-
+    override fun getId(): String {
+        return identity
+    }
 }
 
 /**
- * 导航数据 文章 标签 实体类
+ * 首页 广场 Item 标签 实体类
  */
-internal class NavigationClassifyArticleTag : BaseEntity()
+internal data class SquareItemTag(
+
+    @SerializedName("name")
+    var name: String? = "",
+
+    @SerializedName("url")
+    var url: String = ""
+
+) : BaseEntity()

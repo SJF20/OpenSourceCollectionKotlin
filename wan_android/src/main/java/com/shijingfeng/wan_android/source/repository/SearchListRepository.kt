@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.wan_android.entity.network.SearchListEntity
+import com.shijingfeng.wan_android.entity.SearchListEntity
 import com.shijingfeng.wan_android.source.network.SearchListNetworkSource
 
 /** 单例实例 */

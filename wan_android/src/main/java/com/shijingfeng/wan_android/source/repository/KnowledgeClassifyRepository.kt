@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.network.KnowledgeClassifyNetworkSource
 
 /** 单例实例 */

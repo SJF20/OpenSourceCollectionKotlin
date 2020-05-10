@@ -22,7 +22,7 @@ import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_STR
 import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyBinding
-import com.shijingfeng.wan_android.entity.network.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyViewModel
