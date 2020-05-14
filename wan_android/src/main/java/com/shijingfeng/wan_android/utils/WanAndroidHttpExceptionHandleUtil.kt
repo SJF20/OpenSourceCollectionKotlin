@@ -11,7 +11,7 @@ import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.common.constant.NETWORK_EXCEPTION
 import com.shijingfeng.base.common.constant.PARSE_EXCEPTION
 import com.shijingfeng.base.common.constant.UNKNOWN_EXCEPTION
-import com.shijingfeng.base.http.exception.HttpException
+import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
@@ -33,13 +33,13 @@ import java.net.UnknownHostException
  * @param e 异常
  * @return 转换后的异常
  */
-internal fun handle(e: Throwable): HttpException {
-    val exception: HttpException
+internal fun handle(e: Throwable): E {
+    val exception: E
 
     when(e) {
         //服务器异常
         is ServerException -> {
-            exception = HttpException(e.errorCode, throwable = e)
+            exception = E(e.errorCode, throwable = e)
             //服务器异常
             if (e.errorCode == SERVER_NEED_LOGIN) {
                 exception.errorMsg = getStringById(R.string.需要登录)
@@ -55,19 +55,19 @@ internal fun handle(e: Throwable): HttpException {
         }
         //网络请求异常 (比如常见404 500之类的等)
         is retrofit2.HttpException -> {
-            exception = HttpException(e.code(), getStringById(R.string.网络请求错误) + e.code(), e)
+            exception = E(e.code(), getStringById(R.string.网络请求错误) + e.code(), e)
         }
         //解析异常
         is JsonParseException, is JSONException, is ParseException -> {
-            exception = HttpException(PARSE_EXCEPTION, getStringById(R.string.解析错误), e)
+            exception = E(PARSE_EXCEPTION, getStringById(R.string.解析错误), e)
         }
         //网络连接异常
         is ConnectException, is UnknownHostException, is SocketTimeoutException -> {
-            exception = HttpException(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), e)
+            exception = E(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), e)
         }
         //未知异常
         else -> {
-            exception = HttpException(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), e)
+            exception = E(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), e)
         }
     }
     if (!TextUtils.isEmpty(exception.errorMsg)) {

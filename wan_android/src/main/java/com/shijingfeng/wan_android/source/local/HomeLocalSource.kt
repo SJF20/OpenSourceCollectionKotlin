@@ -3,7 +3,6 @@ package com.shijingfeng.wan_android.source.local
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.base.http.exception.HttpException
 import com.shijingfeng.wan_android.database.room.WanAndroidDatabase
 import com.shijingfeng.wan_android.database.room.getWanAndroidDataBase
 import com.shijingfeng.wan_android.entity.HomeArticleEntity
@@ -167,7 +166,7 @@ internal class HomeLocalSource : BaseLocalSource() {
                     homeDataNetwork.homeArticle = homeArticle
                     onSuccess(homeDataNetwork)
                 }
-            } catch (e: Exception) {
+            } catch (e: java.lang.Exception) {
                 e.printStackTrace()
                 onFailure(null)
             }

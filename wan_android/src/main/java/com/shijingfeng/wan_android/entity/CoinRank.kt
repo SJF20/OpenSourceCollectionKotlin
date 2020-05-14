@@ -23,7 +23,7 @@ internal data class CoinRankEntity(
     @SerializedName("over")
     var over: Boolean = false,
 
-    /** 当前页面的页码  */
+    /** 当前页面的页码 (-1 代表全部 Item)  */
     @SerializedName("curPage")
     var curPage: Int = 1,
 
@@ -40,7 +40,7 @@ internal data class CoinRankEntity(
     var total: Int = 0,
 
     @SerializedName("datas")
-    var coinRankItemList: List<CoinRankItem> = ArrayList()
+    var coinRankItemList: MutableList<CoinRankItem> = ArrayList()
 
 ) : BaseEntity()
 

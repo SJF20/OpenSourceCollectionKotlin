@@ -4,7 +4,7 @@ package com.shijingfeng.base.common.extension
 
 import android.view.View
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.shijingfeng.base.http.exception.HttpException
+import com.shijingfeng.base.http.exception.E
 import kotlinx.coroutines.Job
 import kotlin.coroutines.coroutineContext
 
@@ -19,7 +19,7 @@ import kotlin.coroutines.coroutineContext
 typealias onSuccess<T> = (data: T) -> Unit
 
 /** 失败回调 */
-typealias onFailure = (e: HttpException?) -> Unit
+typealias onFailure = (e: E?) -> Unit
 
 /** 适配器事件监听回调 */
 typealias onItemEvent = (view: View?, data: Any?, position: Int, flag: String) -> Unit

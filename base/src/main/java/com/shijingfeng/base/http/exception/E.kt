@@ -1,5 +1,6 @@
 package com.shijingfeng.base.http.exception
 
+import com.shijingfeng.base.common.constant.UNKNOWN_EXCEPTION
 import kotlin.Exception
 
 /**
@@ -9,10 +10,10 @@ import kotlin.Exception
  *
  * @author ShiJingFeng
  */
-class HttpException(
+class E(
 
     /** 错误代码 */
-    val errorCode: Int,
+    val errorCode: Int = UNKNOWN_EXCEPTION,
     /** 错误内容 */
     var errorMsg: String = "",
     /** 错误异常 */

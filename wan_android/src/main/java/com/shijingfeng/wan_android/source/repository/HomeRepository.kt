@@ -62,19 +62,20 @@ internal class HomeRepository(
         onSuccess: onSuccess<HomeDataEntity?>,
         onFailure: onFailure
     ) {
-        when (pageOperateType) {
-            // 页面操作类型：加载数据
-            PAGE_OPERATE_TYPE_LOAD -> {
-                mNetworkSource?.getHomeDataList(page, onSuccess, onFailure = { exception ->
-                    mLocalSource?.getHomeDataList(onSuccess, onFailure = {
-                        onFailure(exception)
-                    })
-                })
-            }
-            else -> {
-                mNetworkSource?.getHomeDataList(page, onSuccess, onFailure)
-            }
-        }
+//        when (pageOperateType) {
+//            // 页面操作类型：加载数据
+//            PAGE_OPERATE_TYPE_LOAD -> {
+//                mNetworkSource?.getHomeDataList(page, onSuccess, onFailure = { exception ->
+//                    mLocalSource?.getHomeDataList(onSuccess, onFailure = {
+//                        onFailure(exception)
+//                    })
+//                })
+//            }
+//            else -> {
+//                mNetworkSource?.getHomeDataList(page, onSuccess, onFailure)
+//            }
+//        }
+        mNetworkSource?.getHomeDataList(page, onSuccess, onFailure)
     }
 
     /**

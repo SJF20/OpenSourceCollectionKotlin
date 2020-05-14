@@ -8,7 +8,8 @@ import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.base.http.exception.HttpException
+import com.shijingfeng.base.global.runOnUiThread
+import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.constant.SEARCH_HISTORY_LIST
@@ -42,8 +43,6 @@ internal fun getSearchLocalSourceInstance(): SearchLocalSource {
  */
 internal class SearchLocalSource : BaseLocalSource() {
 
-    /** 用于 切换到主线程 */
-    private val mHandler = Handler(Looper.getMainLooper())
     /** 线程池 */
     private var mExecutorService = Executors.newCachedThreadPool()
 
@@ -58,16 +57,18 @@ internal class SearchLocalSource : BaseLocalSource() {
                 val searchHistoryListStr = SPUtils.getInstance(SP_APP_NAME).getString(SEARCH_HISTORY_LIST, EMPTY_ARRAY)
                 val searchHistoryList = deserialize<List<SearchHistoryItem>>(searchHistoryListStr, object : TypeToken<List<SearchHistoryItem>>() {}.type)
 
-                mHandler.post {
+                runOnUiThread {
                     onSuccess(searchHistoryList)
                 }
-            } catch (e: Exception) {
-                mHandler.post {
-                    onFailure(HttpException(
-                        errorCode = -1,
-                        errorMsg = e.message ?: "",
-                        throwable = e
-                    ))
+            } catch (e: java.lang.Exception) {
+                runOnUiThread {
+                    onFailure(
+                        E(
+                            errorCode = -1,
+                            errorMsg = e.message ?: "",
+                            throwable = e
+                        )
+                    )
                 }
             }
         }
@@ -87,16 +88,18 @@ internal class SearchLocalSource : BaseLocalSource() {
                 } else {
                     SPUtils.getInstance(SP_APP_NAME).put(SEARCH_HISTORY_LIST, serialize(searchHistoryList), true)
                 }
-                mHandler.post {
+                runOnUiThread {
                     onSuccess(searchHistoryList)
                 }
-            } catch (e: Exception) {
-                mHandler.post {
-                    onFailure(HttpException(
-                        errorCode = -1,
-                        errorMsg = e.message ?: "",
-                        throwable = e
-                    ))
+            } catch (e: java.lang.Exception) {
+                runOnUiThread {
+                    onFailure(
+                        E(
+                            errorCode = -1,
+                            errorMsg = e.message ?: "",
+                            throwable = e
+                        )
+                    )
                 }
             }
         }

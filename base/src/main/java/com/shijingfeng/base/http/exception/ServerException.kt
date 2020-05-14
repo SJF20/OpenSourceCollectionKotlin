@@ -1,5 +1,7 @@
 package com.shijingfeng.base.http.exception
 
+import kotlin.Exception
+
 /**
  * Function: 服务器 异常
  * Date: 2020/1/22 20:34

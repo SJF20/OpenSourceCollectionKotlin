@@ -18,12 +18,18 @@ import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.BASE_URL_VALUE_WAN_ANDROID
 import com.shijingfeng.base.common.constant.PERSONAL_CACHE_DIR
 import com.shijingfeng.base.common.constant.PERSONAL_GLIDE_CACHE_DIR
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
 
 /** Application实例 */
 lateinit var application: Application
+
+/** Realm 数据库 实例 */
+lateinit var realm: Realm
 
 /**
  * Function:  Application基类
@@ -64,12 +70,27 @@ abstract class BaseApplication : Application() {
         initLoadSir()
         //初始化 RetrofitUrlManager
         initRetrofitUrlManager()
+        //初始化 Realm 数据库
+        initRealm()
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         //初始化MultiDex
         MultiDex.install(this)
+    }
+
+    /**
+     * 创建目录
+     */
+    private fun createDirectory() {
+        val personalCacheDir = File(PERSONAL_CACHE_DIR)
+        val personalGlideCacheDir = File(PERSONAL_GLIDE_CACHE_DIR)
+
+        //创建 cache 私有目录
+        if (!personalCacheDir.exists()) personalCacheDir.mkdirs()
+        //创建 glide 私有目录
+        if (!personalGlideCacheDir.exists()) personalGlideCacheDir.mkdirs()
     }
 
     /**
@@ -121,16 +142,21 @@ abstract class BaseApplication : Application() {
     }
 
     /**
-     * 创建目录
+     * 初始化 Realm 数据库
      */
-    private fun createDirectory() {
-        val personalCacheDir = File(PERSONAL_CACHE_DIR)
-        val personalGlideCacheDir = File(PERSONAL_GLIDE_CACHE_DIR)
+    private fun initRealm() {
+        // 初始化 Realm 数据库
+        Realm.init(this)
 
-        //创建 cache 私有目录
-        if (!personalCacheDir.exists()) personalCacheDir.mkdirs()
-        //创建 glide 私有目录
-        if (!personalGlideCacheDir.exists()) personalGlideCacheDir.mkdirs()
+        // Realm 数据库 配置
+        val realmConfiguration = RealmConfiguration.Builder()
+            .name("wan_android.realm")
+            .schemaVersion(0L)
+            .build()
+
+        realm = Realm.getInstance(realmConfiguration)
+
+        e("测试", "Realm路径: ${realm.path}")
     }
 
 }

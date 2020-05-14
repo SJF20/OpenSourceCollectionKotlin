@@ -7,6 +7,8 @@ if (rootProject.ext.isApplication && rootProject.ext.isWanAndroidApplication) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// Realm 数据库 插件
+apply plugin: 'realm-android'
 
 android {
     //签名
@@ -136,6 +138,10 @@ android {
     //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
     androidExtensions {
         experimental = true
+    }
+    //Realm 开启 Kotlin 支持
+    realm {
+        kotlinExtensionsEnabled = true
     }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {

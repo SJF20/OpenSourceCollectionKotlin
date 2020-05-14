@@ -1,10 +1,13 @@
 package com.shijingfeng.wan_android.source.repository
 
+import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
+import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.CoinRankEntity
+import com.shijingfeng.wan_android.source.local.CoinRankLocalSource
 import com.shijingfeng.wan_android.source.network.CoinRankNetworkSource
 import com.shijingfeng.wan_android.view_model.COIN_RANK_FIRST_PAGE
 
@@ -17,12 +20,16 @@ private var sInstance: CoinRankRepository? = null
  * @return 实例
  */
 internal fun getCoinRankRepositoryInstance(
+    localSource: CoinRankLocalSource? = null,
     networkSource: CoinRankNetworkSource? = null
 ): CoinRankRepository {
     if (sInstance == null) {
         synchronized(CoinRankRepository::class.java) {
             if (sInstance == null) {
-                sInstance = CoinRankRepository(networkSource = networkSource)
+                sInstance = CoinRankRepository(
+                    localSource = localSource,
+                    networkSource = networkSource
+                )
             }
         }
     }
@@ -36,8 +43,10 @@ internal fun getCoinRankRepositoryInstance(
  * @author ShiJingFeng
  */
 internal class CoinRankRepository(
+    localSource: CoinRankLocalSource? = null,
     networkSource: CoinRankNetworkSource? = null
-) : BaseRepository<BaseLocalSource, CoinRankNetworkSource>(
+) : BaseRepository<CoinRankLocalSource, CoinRankNetworkSource>(
+    mLocalSource = localSource,
     mNetworkSource = networkSource
 ) {
 
@@ -48,8 +57,21 @@ internal class CoinRankRepository(
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun getCoinRankList(page: Int, onSuccess: onSuccess<CoinRankEntity?>, onFailure: onFailure) {
-        mNetworkSource?.getCoinRankList(page, onSuccess, onFailure)
+    fun getCoinRankList(
+        @PageOperateType type: Int,
+        page: Int,
+        onSuccess: onSuccess<CoinRankEntity?>,
+        onFailure: onFailure
+    ) {
+        if (type == PAGE_OPERATE_TYPE_LOAD) {
+            mNetworkSource?.getCoinRankList(page, onSuccess, onFailure = { httpException ->
+                mLocalSource?.getCoinRankList(onSuccess, onFailure = {
+                    onFailure(httpException)
+                })
+            })
+        } else {
+            mNetworkSource?.getCoinRankList(page, onSuccess, onFailure)
+        }
     }
 
     /**

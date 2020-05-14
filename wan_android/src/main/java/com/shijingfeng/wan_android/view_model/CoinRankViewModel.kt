@@ -91,7 +91,7 @@ internal class CoinRankViewModel(
      * @param page 页码 (从 [COIN_RANK_FIRST_PAGE] 开始)
      */
     private fun getCoinRankList(page: Int) {
-        mRepository?.getCoinRankList(page, onSuccess = onSuccessLabel@{ coinRank ->
+        mRepository?.getCoinRankList(mPageOperateType, page, onSuccess = onSuccessLabel@{ coinRank ->
             val coinRankItemList = coinRank?.coinRankItemList
             val event = ListDataChangeEvent<CoinRankItem>()
 
