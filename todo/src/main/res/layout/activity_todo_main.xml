@@ -1,21 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.shijingfeng.todo.view_model.MainViewModel" />
 
+        <variable
+            name="mainViewModel"
+            type= "MainViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_skip_to_wan_android_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="跳转到wan_android模块主页"/>
+        <include
+            android:id="@+id/sbv_status_bar1"
+            layout="@layout/layout_status_bar"
+            app:backgroundDrawable="@{@color/red}" />
 
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/include_title_bar"
+                    layout="@layout/layout_todo_title_bar"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:ivBackClick="@{mainViewModel.mBackClickListener}"/>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/srl_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@drawable/shape_tab_layout_shadow" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    app:tabBackground="@null"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@null" />
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_to_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="95dp"
+                android:src="@drawable/ic_edit"
+                app:backgroundTint="@color/red"
+                app:fabSize="mini" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
 </layout>

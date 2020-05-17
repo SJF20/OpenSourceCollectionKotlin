@@ -1,7 +1,8 @@
 package com.shijingfeng.todo.view_model
 
-import com.shijingfeng.base.base.repository.BaseRepository
+import android.view.View
 import com.shijingfeng.todo.base.TodoBaseViewModel
+import com.shijingfeng.todo.source.repository.MainRepository
 
 /**
  * Function: 主页 ViewModel
@@ -9,4 +10,9 @@ import com.shijingfeng.todo.base.TodoBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-internal class MainViewModel : TodoBaseViewModel<BaseRepository<*, *>>()
+internal class MainViewModel : TodoBaseViewModel<MainRepository>() {
+
+    /** 返回  */
+    val mBackClickListener = View.OnClickListener { finish() }
+
+}

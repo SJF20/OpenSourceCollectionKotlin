@@ -202,8 +202,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    //依赖 common 模块
-    implementation project(path: ':common')
     //依赖 base 模块
     implementation project(path: ':base')
     //ARouter 路由框架 注解执行器
