@@ -44,7 +44,11 @@ internal class NavigationClassifyNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getNavigationClassifyList(onSuccess: onSuccess<List<NavigationClassifyEntity>?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mClassifyApi.getNavigationClassifyList(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mClassifyApi.getNavigationClassifyList(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

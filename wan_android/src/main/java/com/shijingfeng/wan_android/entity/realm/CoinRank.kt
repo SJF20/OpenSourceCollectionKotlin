@@ -1,6 +1,7 @@
 package com.shijingfeng.wan_android.entity.realm
 
 import com.shijingfeng.base.base.entity.BaseRealmEntity
+import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
 import io.realm.annotations.RealmField
@@ -20,7 +21,6 @@ internal open class CoinRankRealm(
     @RealmField(name = "userId")
     var userId: String = "",
 
-    @Required
     @RealmField(name = "username")
     var username: String = "",
 
@@ -33,4 +33,4 @@ internal open class CoinRankRealm(
     @RealmField(name = "coinCount")
     var coinCount: Int = 0
 
-) : BaseRealmEntity()
+) : RealmModel

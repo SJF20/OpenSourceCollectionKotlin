@@ -3,8 +3,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-// ObjectBox plugin
-apply plugin: 'io.objectbox'
 // Realm 数据库 插件
 apply plugin: 'realm-android'
 
@@ -256,8 +254,6 @@ dependencies {
     api rootProject.ext.dependencies["utilcodex"]
     //ARouter 路由框架
     api rootProject.ext.dependencies["arouter"]
-    //ObjectBox Kotlin 扩展
-    api rootProject.ext.dependencies["objectbox-kotlin"]
 
     //Room runtime
     api rootProject.ext.androidx["room-runtime"]

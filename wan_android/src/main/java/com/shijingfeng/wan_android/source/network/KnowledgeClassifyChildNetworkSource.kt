@@ -50,7 +50,11 @@ internal class KnowledgeClassifyChildNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getKnowledgeClassifyChild(page: Int, id: String, onSuccess: onSuccess<KnowledgeClassifyChildEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mClassifyApi.getKnowledgeClassifyChild(page, id), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mClassifyApi.getKnowledgeClassifyChild(page, id),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**
@@ -59,7 +63,10 @@ internal class KnowledgeClassifyChildNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调
      */
     fun collected(articleId: String, onSuccess: onSuccess<Any?>) {
-        addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.collectedInSitesArticle(articleId),
+            onSuccess = onSuccess
+        ))
     }
 
     /**
@@ -68,7 +75,10 @@ internal class KnowledgeClassifyChildNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调
      */
     fun uncollected(articleId: String, onSuccess: onSuccess<Any?>) {
-        addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.uncollectedInArticleList(articleId),
+            onSuccess = onSuccess
+        ))
     }
 
     /**

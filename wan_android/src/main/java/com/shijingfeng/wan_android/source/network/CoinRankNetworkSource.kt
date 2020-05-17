@@ -42,11 +42,22 @@ internal class CoinRankNetworkSource : BaseNetworkSource() {
      * 获取 积分排行榜 列表
      *
      * @param page     页码 (从 [COIN_RANK_FIRST_PAGE] 开始)
+     * @param customHandleException true 自定义控制异常  false 统一处理
      * @param onSuccess 成功回调函数
      * @param onFailure 失败回调函数
      */
-    fun getCoinRankList(page: Int, onSuccess: onSuccess<CoinRankEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCoinApi.getCoinRankList(page), onSuccess, onFailure))
+    fun getCoinRankList(
+        page: Int,
+        customHandleException: Boolean = false,
+        onSuccess: onSuccess<CoinRankEntity?>,
+        onFailure: onFailure
+    ) {
+        addDisposable(apiRequest(
+            single = mCoinApi.getCoinRankList(page),
+            customHandleException = customHandleException,
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

@@ -56,7 +56,6 @@ ext {
             "smartrefresh"                        : "1.1.0",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
-            "objectbox"                           : "2.5.1",
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -157,8 +156,6 @@ ext {
             "smartrefresh-header"                 : "com.scwang.smartrefresh:SmartRefreshHeader:${versions["smartrefresh"]}",
             //ARouter 路由框架
             "arouter"                             : "com.alibaba:arouter-api:${versions["arouter"]}",
-            //ObjectBox Kotlin 扩展
-            "objectbox-kotlin"                    : "io.objectbox:objectbox-kotlin:${versions["objectbox"]}",
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [

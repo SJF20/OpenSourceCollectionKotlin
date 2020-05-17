@@ -77,7 +77,11 @@ internal class LoginNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mCoinApi.getCoinInfo(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

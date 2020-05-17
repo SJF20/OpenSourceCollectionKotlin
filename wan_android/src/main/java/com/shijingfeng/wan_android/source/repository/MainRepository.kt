@@ -4,6 +4,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
+import com.shijingfeng.wan_android.source.local.MainLocalSource
 import com.shijingfeng.wan_android.source.network.MainNetworkSource
 
 /** 单例实例 */
@@ -15,12 +16,14 @@ private var sInstance: MainRepository? = null
  * @return 实例
  */
 internal fun getMainRepositoryInstance(
+    localSource: MainLocalSource? = null,
     networkSource: MainNetworkSource? = null
 ): MainRepository {
     if (sInstance == null) {
         synchronized(MainRepository::class.java) {
             if (sInstance == null) {
                 sInstance = MainRepository(
+                    localSource = localSource,
                     networkSource = networkSource
                 )
             }
@@ -36,8 +39,10 @@ internal fun getMainRepositoryInstance(
  * @author ShiJingFeng
  */
 internal class MainRepository(
+    localSource: MainLocalSource? = null,
     networkSource: MainNetworkSource? = null
-) : BaseRepository<BaseLocalSource, MainNetworkSource>(
+) : BaseRepository<MainLocalSource, MainNetworkSource>(
+    mLocalSource = localSource,
     mNetworkSource = networkSource
 ) {
 
@@ -48,6 +53,7 @@ internal class MainRepository(
      */
     fun logout(onSuccess: onSuccess<Any?>, onFailure: onFailure) {
         mNetworkSource?.logout(onSuccess, onFailure)
+        mLocalSource?.logout()
     }
 
     /**

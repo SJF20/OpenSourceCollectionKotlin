@@ -43,7 +43,10 @@ internal class WebViewNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      */
     fun collectedWebsite(dataMap: Map<String, Any>, onSuccess: onSuccess<PersonalCollectionWebsiteEntity?>) {
-        addDisposable(apiRequest(mCollectionApi.collectedWebsite(dataMap), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.collectedWebsite(dataMap),
+            onSuccess = onSuccess
+        ))
     }
 
     /**

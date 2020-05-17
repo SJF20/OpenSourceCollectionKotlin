@@ -10,13 +10,13 @@ import kotlin.Exception
  *
  * @author ShiJingFeng
  */
-class E(
+open class E(
 
     /** 错误代码 */
     val errorCode: Int = UNKNOWN_EXCEPTION,
     /** 错误内容 */
     var errorMsg: String = "",
     /** 错误异常 */
-    throwable: Throwable? = null
+    val error: Throwable? = null
 
-) : Exception(throwable)
+) : Exception(error)

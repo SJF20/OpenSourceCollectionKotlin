@@ -100,5 +100,10 @@ const val PAGE_OPERATE_TYPE_REFRESH = 2
 /** 页面操作类型：上拉加载更多  */
 const val PAGE_OPERATE_TYPE_LOAD_MORE = 3
 
+/** 数据来源: 网络 */
+const val DATA_SOURCE_NETWORK = 1
+/** 数据来源: 本地 */
+const val DATA_SOURCE_LOCAL = 2
+
 /** Adapter Item 未知类型 */
 const val ADAPTER_TYPE_UNKNOWN = 0

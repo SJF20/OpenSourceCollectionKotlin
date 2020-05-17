@@ -8,6 +8,7 @@ import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.CoinRankItem
 import com.shijingfeng.wan_android.source.repository.CoinRankRepository
@@ -15,6 +16,8 @@ import java.util.*
 
 /** 第一页 页码  */
 const val COIN_RANK_FIRST_PAGE = 1
+/** 每页数量 */
+const val COIN_RANK_EACH_PAGE_COUNT = 30
 
 /**
  * Function: 积分排行榜 ViewModel
@@ -98,7 +101,27 @@ internal class CoinRankViewModel(
             when (mPageOperateType) {
                 // 加载数据
                 PAGE_OPERATE_TYPE_LOAD -> {
-                    mPage = COIN_RANK_FIRST_PAGE
+                    when (coinRank?.dataSource) {
+                        // 从网络获取的数据
+                        DATA_SOURCE_NETWORK -> {
+                            mPage = COIN_RANK_FIRST_PAGE
+                            // 更新本地数据库数据
+                            mRepository?.clear(onSuccess = {
+                                if (!coinRankItemList.isNullOrEmpty()) {
+                                    mRepository?.addCoinRankList(coinRankItemList)
+                                }
+                            })
+                        }
+                        // 从本地获取的数据
+                        DATA_SOURCE_LOCAL -> {
+                            mPage = if (!coinRankItemList.isNullOrEmpty()) {
+                                coinRankItemList.size / (COIN_RANK_EACH_PAGE_COUNT + 1) + COIN_RANK_FIRST_PAGE
+                            } else {
+                                COIN_RANK_FIRST_PAGE
+                            }
+                        }
+                        else -> {}
+                    }
                     mCoinRankItemList.clear()
                     if (!coinRankItemList.isNullOrEmpty()) {
                         mCoinRankItemList.addAll(coinRankItemList)
@@ -127,6 +150,12 @@ internal class CoinRankViewModel(
                     if (mCoinRankItemList.isEmpty()) {
                         showCallback(LOAD_SERVICE_EMPTY)
                     }
+                    // 更新本地数据库数据
+                    mRepository?.clear(onSuccess = {
+                        if (!coinRankItemList.isNullOrEmpty()) {
+                            mRepository?.addCoinRankList(coinRankItemList)
+                        }
+                    })
                 }
                 // 上拉加载
                 PAGE_OPERATE_TYPE_LOAD_MORE -> {
@@ -143,6 +172,10 @@ internal class CoinRankViewModel(
                     mCoinRankItemList.addAll(coinRankItemList)
                     mListDataChangeEvent.value = event
                     updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
+                    // 更新本地数据库数据
+                    if (!coinRankItemList.isNullOrEmpty()) {
+                        mRepository?.addCoinRankList(coinRankItemList)
+                    }
                 }
                 else -> {}
             }

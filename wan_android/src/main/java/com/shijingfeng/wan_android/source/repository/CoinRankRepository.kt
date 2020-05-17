@@ -7,8 +7,10 @@ import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.wan_android.entity.CoinRankEntity
+import com.shijingfeng.wan_android.entity.CoinRankItem
 import com.shijingfeng.wan_android.source.local.CoinRankLocalSource
 import com.shijingfeng.wan_android.source.network.CoinRankNetworkSource
+import com.shijingfeng.wan_android.utils.handle
 import com.shijingfeng.wan_android.view_model.COIN_RANK_FIRST_PAGE
 
 /** 单例实例 */
@@ -64,14 +66,50 @@ internal class CoinRankRepository(
         onFailure: onFailure
     ) {
         if (type == PAGE_OPERATE_TYPE_LOAD) {
-            mNetworkSource?.getCoinRankList(page, onSuccess, onFailure = { httpException ->
-                mLocalSource?.getCoinRankList(onSuccess, onFailure = {
-                    onFailure(httpException)
-                })
-            })
+            mNetworkSource?.getCoinRankList(
+                page = page,
+                customHandleException = true,
+                onSuccess = onSuccess,
+                onFailure = { e ->
+                    mLocalSource?.getCoinRankList(onSuccess, onFailure = {
+                        onFailure(handle(e))
+                    })
+                }
+            )
         } else {
-            mNetworkSource?.getCoinRankList(page, onSuccess, onFailure)
+            mNetworkSource?.getCoinRankList(
+                page = page,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
         }
+    }
+
+    /**
+     * 添加 积分排行榜 列表
+     *
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
+    fun addCoinRankList(
+        coinRankList: List<CoinRankItem>,
+        onSuccess: onSuccess<List<CoinRankItem>>? = null,
+        onFailure: onFailure? = null
+    ) {
+        mLocalSource?.addCoinRankList(coinRankList, onSuccess, onFailure)
+    }
+
+    /**
+     * 清空
+     *
+     * @param onSuccess 成功回调函数
+     * @param onFailure 失败回调函数
+     */
+    fun clear(
+        onSuccess: onSuccess<Any?>? = null,
+        onFailure: onFailure? = null
+    ) {
+        mLocalSource?.clear(onSuccess, onFailure)
     }
 
     /**

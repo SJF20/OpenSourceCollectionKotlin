@@ -4,6 +4,7 @@ package com.shijingfeng.base.util
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.shijingfeng.base.gson.TypeHandleAdapterFactory
 import java.lang.reflect.Type
 
 /**
@@ -21,12 +22,19 @@ val gson = initGson()
  * @return 获得 Gson
  */
 private fun initGson(): Gson {
-    return GsonBuilder() //允许超长字符串
-        .setLenient() //禁止转码
-        .disableHtmlEscaping() //支持Map的key为复杂对象的形式
-        .enableComplexMapKeySerialization() //智能解决 NULL
-        .serializeNulls() //美化格式打印
+    return GsonBuilder()
+        //允许超长字符串
+        .setLenient()
+        //禁止转码
+        .disableHtmlEscaping()
+        //支持Map的key为复杂对象的形式
+        .enableComplexMapKeySerialization()
+        //智能解决 NULL
+        .serializeNulls()
+        //美化格式打印
         .setPrettyPrinting()
+        //Gson 类型处理 Factory (用于空处理，类型纠正)
+        .registerTypeAdapterFactory(TypeHandleAdapterFactory())
         .create()
 }
 

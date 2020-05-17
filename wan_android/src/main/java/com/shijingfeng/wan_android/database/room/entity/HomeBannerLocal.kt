@@ -12,7 +12,7 @@ import com.shijingfeng.wan_android.constant.*
  * Description:
  * @author ShiJingFeng
  */
-@Entity(tableName = HOME_BANNER_TABLE_NAME)
+//@Entity(tableName = HOME_BANNER_TABLE_NAME)
 internal data class HomeBannerLocal (
 
     /** ID  */

@@ -144,7 +144,10 @@ internal class HomeNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      */
     fun collected(articleId: String, onSuccess: onSuccess<Any?>) {
-        addDisposable(apiRequest(mCollectionApi.collectedInSitesArticle(articleId), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.collectedInSitesArticle(articleId),
+            onSuccess = onSuccess
+        ))
     }
 
     /**
@@ -153,7 +156,10 @@ internal class HomeNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      */
     fun uncollected(articleId: String, onSuccess: onSuccess<Any?>) {
-        addDisposable(apiRequest(mCollectionApi.uncollectedInArticleList(articleId), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.uncollectedInArticleList(articleId),
+            onSuccess = onSuccess
+        ))
     }
 
     /**

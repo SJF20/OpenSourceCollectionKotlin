@@ -19,7 +19,7 @@ import com.shijingfeng.wan_android.database.room.entity.HomeTopArticleTagLocal
  * Description:
  * @author ShiJingFeng
  */
-@Dao
+//@Dao
 internal interface HomeTopArticleDao {
 
     /**

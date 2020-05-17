@@ -4,6 +4,7 @@ package com.shijingfeng.wan_android.utils
 
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
+import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.ResultEntity
@@ -22,10 +23,16 @@ import io.reactivex.schedulers.Schedulers
 /**
  * 网络请求
  * @param single 被观察的网络资源
+ * @param customHandleException true 自定义控制异常  false 统一处理
  * @param onSuccess 成功函数回调
  * @param onFailure 失败函数回调
  */
-internal fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: onSuccess<D?>? = null, onFailure: onFailure? = null): Disposable {
+internal fun <D, R : ResultEntity<D>> apiRequest(
+    single: Single<R>,
+    customHandleException: Boolean = false,
+    onSuccess: onSuccess<D?>? = null,
+    onFailure: onFailure? = null
+): Disposable {
     return single
         .subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
@@ -34,13 +41,21 @@ internal fun <D, R : ResultEntity<D>> apiRequest(single: Single<R>, onSuccess: o
             if (result.code == SERVER_SUCCESS) {
                 onSuccess?.invoke(result.data)
             } else {
-                val httpException = handle(ServerException(result.code, result.msg))
+                val exception = if (customHandleException) {
+                    E(error = ServerException(result.code, result.msg))
+                } else{
+                    handle(ServerException(result.code, result.msg))
+                }
 
-                onFailure?.invoke(httpException)
+                onFailure?.invoke(exception)
             }
         }, { throwable ->
-            val httpException = handle(throwable)
+            val exception = if (customHandleException) {
+                E(error = throwable)
+            } else {
+                handle(throwable)
+            }
 
-            onFailure?.invoke(httpException)
+            onFailure?.invoke(exception)
         })
 }

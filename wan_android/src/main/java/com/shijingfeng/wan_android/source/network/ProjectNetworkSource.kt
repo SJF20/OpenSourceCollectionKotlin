@@ -45,7 +45,11 @@ internal class ProjectNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getProjectIndex(onSuccess: onSuccess<List<ProjectIndexEntity>?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mProjectApi.getProjectIndex(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mProjectApi.getProjectIndex(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

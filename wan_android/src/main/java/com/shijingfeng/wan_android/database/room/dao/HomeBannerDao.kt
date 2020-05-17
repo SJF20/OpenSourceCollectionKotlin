@@ -14,7 +14,7 @@ import com.shijingfeng.wan_android.database.room.entity.HomeBannerLocal
  * Description:
  * @author ShiJingFeng
  */
-@Dao
+//@Dao
 internal interface HomeBannerDao {
 
     /**

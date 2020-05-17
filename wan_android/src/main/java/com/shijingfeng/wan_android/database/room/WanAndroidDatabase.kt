@@ -47,17 +47,17 @@ private fun init(): WanAndroidDatabase {
  * Description:
  * @author ShiJingFeng
  */
-@Database(
-    entities = [
-        // 首页 轮播图
-        HomeBannerLocal::class,
-        // 首页 置顶文章
-        HomeTopArticleLocal::class,
-        // 首页 文章
-        HomeArticleCombineLocal::class
-    ],
-    version = 1
-)
+//@Database(
+//    entities = [
+//        // 首页 轮播图
+//        HomeBannerLocal::class,
+//        // 首页 置顶文章
+//        HomeTopArticleLocal::class,
+//        // 首页 文章
+//        HomeArticleCombineLocal::class
+//    ],
+//    version = 1
+//)
 internal abstract class WanAndroidDatabase : RoomDatabase() {
 
     /**

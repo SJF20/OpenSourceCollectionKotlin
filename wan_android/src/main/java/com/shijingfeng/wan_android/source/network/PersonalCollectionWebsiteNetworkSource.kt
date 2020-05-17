@@ -44,7 +44,11 @@ internal class PersonalCollectionWebsiteNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getWebsiteCollectedList(onSuccess: onSuccess<List<PersonalCollectionWebsiteEntity>?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCollectionApi.getWebsiteCollectedList(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mCollectionApi.getWebsiteCollectedList(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**
@@ -54,7 +58,11 @@ internal class PersonalCollectionWebsiteNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun updateWebsite(dataMap: Map<String, Any>, onSuccess: onSuccess<PersonalCollectionWebsiteEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCollectionApi.updateWebsite(dataMap), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mCollectionApi.updateWebsite(dataMap),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**
@@ -63,7 +71,10 @@ internal class PersonalCollectionWebsiteNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      */
     fun deleteWebsite(id: String, onSuccess: onSuccess<Any?>) {
-        addDisposable(apiRequest(mCollectionApi.deleteWebsite(id), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.deleteWebsite(id),
+            onSuccess = onSuccess
+        ))
     }
 
     /**

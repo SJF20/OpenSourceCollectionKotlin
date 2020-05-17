@@ -46,7 +46,11 @@ internal class PersonalCollectionArticleNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getArticleCollectedList(page: Int, onSuccess: onSuccess<PersonalCollectionArticleEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCollectionApi.getArticleCollectedList(page), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mCollectionApi.getArticleCollectedList(page),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**
@@ -56,7 +60,10 @@ internal class PersonalCollectionArticleNetworkSource : BaseNetworkSource() {
      * @param onSuccess 成功回调函数
      */
     fun uncollectedInCollectedList(articleId: String, originId: String, onSuccess: onSuccess<Any?>) {
-        addDisposable(apiRequest(mCollectionApi.uncollectedInCollectedList(articleId,originId), onSuccess))
+        addDisposable(apiRequest(
+            single = mCollectionApi.uncollectedInCollectedList(articleId,originId),
+            onSuccess = onSuccess
+        ))
     }
 
     /**

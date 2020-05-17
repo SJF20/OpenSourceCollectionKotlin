@@ -76,8 +76,8 @@ internal object UserUtil {
         mLogin = true
         mUserInfo = userInfoEntity
 
-        SPUtils.getInstance(SP_APP_NAME).put(LOGIN, true, true)
-        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), true)
+        SPUtils.getInstance(SP_APP_NAME).put(LOGIN, true, false)
+        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), false)
 
         //通知其他页面更新用户数据
         EventBus.getDefault().post(UserInfoEvent())

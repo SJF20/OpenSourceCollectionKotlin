@@ -49,7 +49,11 @@ internal class RegisterNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun register(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mUserApi.register(postMap), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mUserApi.register(postMap),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**
@@ -58,7 +62,11 @@ internal class RegisterNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinInfo(onSuccess: onSuccess<CoinInfoEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCoinApi.getCoinInfo(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mCoinApi.getCoinInfo(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

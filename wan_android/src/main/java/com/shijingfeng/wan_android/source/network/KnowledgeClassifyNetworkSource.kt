@@ -44,7 +44,11 @@ internal class KnowledgeClassifyNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getKnowledgeClassifyList(onSuccess: onSuccess<List<KnowledgeClassifyEntity>?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mClassifyApi.getKnowledgeClassifyList(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mClassifyApi.getKnowledgeClassifyList(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

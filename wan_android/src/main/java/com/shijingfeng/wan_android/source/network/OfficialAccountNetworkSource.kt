@@ -45,7 +45,11 @@ internal class OfficialAccountNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getOfficialAccountIndex(onSuccess: onSuccess<List<OfficialAccountIndexEntity>?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mOfficialAccountApi.getOfficialAccountIndex(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mOfficialAccountApi.getOfficialAccountIndex(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

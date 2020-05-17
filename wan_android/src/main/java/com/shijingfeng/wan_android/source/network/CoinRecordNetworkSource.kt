@@ -46,7 +46,11 @@ internal class CoinRecordNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinRecordList(page: Int, onSuccess: onSuccess<CoinRecordEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mCoinApi.getCoinRecordList(page), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mCoinApi.getCoinRecordList(page),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

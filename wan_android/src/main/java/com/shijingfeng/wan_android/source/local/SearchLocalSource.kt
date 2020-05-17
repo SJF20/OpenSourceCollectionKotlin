@@ -1,7 +1,5 @@
 package com.shijingfeng.wan_android.source.local
 
-import android.os.Handler
-import android.os.Looper
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.reflect.TypeToken
 import com.shijingfeng.base.base.source.BaseLocalSource
@@ -66,7 +64,7 @@ internal class SearchLocalSource : BaseLocalSource() {
                         E(
                             errorCode = -1,
                             errorMsg = e.message ?: "",
-                            throwable = e
+                            error = e
                         )
                     )
                 }
@@ -97,7 +95,7 @@ internal class SearchLocalSource : BaseLocalSource() {
                         E(
                             errorCode = -1,
                             errorMsg = e.message ?: "",
-                            throwable = e
+                            error = e
                         )
                     )
                 }

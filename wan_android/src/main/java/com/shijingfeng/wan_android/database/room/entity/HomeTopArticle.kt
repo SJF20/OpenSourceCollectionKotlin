@@ -40,7 +40,7 @@ internal data class HomeTopArticleCombineLocal(
 /**
  * 首页 置顶文章 本地实体类
  */
-@Entity(tableName = HOME_TOP_ARTICLE_TABLE_NAME)
+//@Entity(tableName = HOME_TOP_ARTICLE_TABLE_NAME)
 internal data class HomeTopArticleLocal(
 
     /** ID  */
@@ -173,7 +173,7 @@ internal data class HomeTopArticleLocal(
 /**
  * 首页 置顶文章 标签 本地实体类
  */
-@Entity(tableName = HOME_TOP_ARTICLE_TAG_TABLE_NAME)
+//@Entity(tableName = HOME_TOP_ARTICLE_TAG_TABLE_NAME)
 internal data class HomeTopArticleTagLocal(
 
     /** 用于关联 */

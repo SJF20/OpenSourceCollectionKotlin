@@ -1,7 +1,9 @@
 package com.shijingfeng.wan_android.entity
 
 import com.google.gson.annotations.SerializedName
+import com.shijingfeng.base.annotation.define.DataSource
 import com.shijingfeng.base.base.entity.BaseEntity
+import com.shijingfeng.base.common.constant.DATA_SOURCE_NETWORK
 
 /**
  * Function: 积分排行榜 实体类 集合
@@ -15,6 +17,9 @@ import com.shijingfeng.base.base.entity.BaseEntity
  */
 internal data class CoinRankEntity(
 
+    /** 数据来源 默认 [DATA_SOURCE_NETWORK] */
+    @DataSource var dataSource: Int = DATA_SOURCE_NETWORK,
+
     /** 此页开始的下标  */
     @SerializedName("offset")
     var offset: Int = 0,
@@ -23,9 +28,9 @@ internal data class CoinRankEntity(
     @SerializedName("over")
     var over: Boolean = false,
 
-    /** 当前页面的页码 (-1 代表全部 Item)  */
+    /** 当前页面的页码 (-1 代表从本地获取的 全部 Item)  */
     @SerializedName("curPage")
-    var curPage: Int = 1,
+    var curPage: Int = -1,
 
     /** 页面的数量  */
     @SerializedName("pageCount")

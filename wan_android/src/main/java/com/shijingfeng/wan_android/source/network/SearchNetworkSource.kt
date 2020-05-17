@@ -45,7 +45,11 @@ internal class SearchNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun getSearchHotWordList(onSuccess: onSuccess<List<SearchHotWordEntity>?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mSearchApi.getSearchHotWordList(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mSearchApi.getSearchHotWordList(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**
@@ -55,7 +59,11 @@ internal class SearchNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调
      */
     fun search(keyword: String, onSuccess: onSuccess<SearchListEntity?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mSearchApi.getSearchList(SEARCH_LIST_FIRST_PAGE, keyword), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mSearchApi.getSearchList(SEARCH_LIST_FIRST_PAGE, keyword),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

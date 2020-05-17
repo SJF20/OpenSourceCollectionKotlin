@@ -36,9 +36,9 @@ internal object CoinUtil {
         mCoinInfo = coinInfo
 
         if (coinInfo == null) {
-            SPUtils.getInstance(SP_APP_NAME).remove(COIN_INFO, true)
+            SPUtils.getInstance(SP_APP_NAME).remove(COIN_INFO, false)
         } else {
-            SPUtils.getInstance(SP_APP_NAME).put(COIN_INFO, encrypt(serialize(mCoinInfo)), true)
+            SPUtils.getInstance(SP_APP_NAME).put(COIN_INFO, encrypt(serialize(mCoinInfo)), false)
         }
 
         // 通知 积分信息数据 改变

@@ -42,7 +42,11 @@ internal class MainNetworkSource : BaseNetworkSource() {
      * @param onFailure 失败回调函数
      */
     fun logout(onSuccess: onSuccess<Any?>, onFailure: onFailure) {
-        addDisposable(apiRequest(mUserApi.logout(), onSuccess, onFailure))
+        addDisposable(apiRequest(
+            single = mUserApi.logout(),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
     }
 
     /**

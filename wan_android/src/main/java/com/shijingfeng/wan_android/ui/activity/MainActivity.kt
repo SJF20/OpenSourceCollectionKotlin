@@ -45,6 +45,7 @@ import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
+import com.shijingfeng.wan_android.source.local.getMainLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.*
@@ -103,6 +104,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     override fun getViewModel(): MainViewModel? {
         val mainRepository = getMainRepositoryInstance(
+            localSource = getMainLocalSourceInstance(),
             networkSource = getMainNetworkSourceInstance()
         )
         val factory = createCommonViewModelFactory(

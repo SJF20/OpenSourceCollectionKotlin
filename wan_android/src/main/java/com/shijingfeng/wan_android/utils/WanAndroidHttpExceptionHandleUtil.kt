@@ -33,15 +33,16 @@ import java.net.UnknownHostException
  * @param e 异常
  * @return 转换后的异常
  */
-internal fun handle(e: Throwable): E {
+internal fun handle(e: Throwable?): E {
+    val throwable = if (e is E) e.error else e
     val exception: E
 
-    when(e) {
+    when(throwable) {
         //服务器异常
         is ServerException -> {
-            exception = E(e.errorCode, throwable = e)
+            exception = E(throwable.errorCode, error = throwable)
             //服务器异常
-            if (e.errorCode == SERVER_NEED_LOGIN) {
+            if (throwable.errorCode == SERVER_NEED_LOGIN) {
                 exception.errorMsg = getStringById(R.string.需要登录)
                 ToastUtils.showShort(exception.errorMsg)
                 //需要登录, 跳转到登录页面
@@ -50,24 +51,24 @@ internal fun handle(e: Throwable): E {
                 )
                 return exception
             } else {
-                exception.errorMsg = e.errorMsg
+                exception.errorMsg = throwable.errorMsg
             }
         }
         //网络请求异常 (比如常见404 500之类的等)
         is retrofit2.HttpException -> {
-            exception = E(e.code(), getStringById(R.string.网络请求错误) + e.code(), e)
+            exception = E(throwable.code(), getStringById(R.string.网络请求错误) + throwable.code(), throwable)
         }
         //解析异常
         is JsonParseException, is JSONException, is ParseException -> {
-            exception = E(PARSE_EXCEPTION, getStringById(R.string.解析错误), e)
+            exception = E(PARSE_EXCEPTION, getStringById(R.string.解析错误), throwable)
         }
         //网络连接异常
         is ConnectException, is UnknownHostException, is SocketTimeoutException -> {
-            exception = E(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), e)
+            exception = E(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), throwable)
         }
         //未知异常
         else -> {
-            exception = E(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), e)
+            exception = E(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), throwable)
         }
     }
     if (!TextUtils.isEmpty(exception.errorMsg)) {

@@ -28,9 +28,6 @@ import java.io.File
 /** Application实例 */
 lateinit var application: Application
 
-/** Realm 数据库 实例 */
-lateinit var realm: Realm
-
 /**
  * Function:  Application基类
  * Date: 2020/1/18 16:38
@@ -147,16 +144,6 @@ abstract class BaseApplication : Application() {
     private fun initRealm() {
         // 初始化 Realm 数据库
         Realm.init(this)
-
-        // Realm 数据库 配置
-        val realmConfiguration = RealmConfiguration.Builder()
-            .name("wan_android.realm")
-            .schemaVersion(0L)
-            .build()
-
-        realm = Realm.getInstance(realmConfiguration)
-
-        e("测试", "Realm路径: ${realm.path}")
     }
 
 }
