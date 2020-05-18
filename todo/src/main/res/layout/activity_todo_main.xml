@@ -35,21 +35,14 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/srl_refresh"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fadingEdge="none"
-                    android:overScrollMode="never"
-                    android:scrollbars="none" />
-
-            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <LinearLayout
                 android:id="@+id/ll_tabs"

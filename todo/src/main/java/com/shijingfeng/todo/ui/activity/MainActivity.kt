@@ -7,25 +7,34 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
+import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseActivity
+import com.shijingfeng.todo.base.TodoBaseFragment
 import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
 import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
 import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainRepositoryInstance
+import com.shijingfeng.todo.ui.fragment.createEmptyFragment
 import com.shijingfeng.todo.view_model.MainViewModel
 
 /** 主页 -> 待办 */
 internal const val MAIN_TODO = 0
+
 /** 主页 -> 已完成 */
 internal const val MAIN_DONE = 1
+
+/** Fragment 数量 */
+private const val FRAGMENT_COUNT = 2
 
 /**
  * Function: 主页 Activity
@@ -76,6 +85,19 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_switch)
         mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
         mDataBinding.tlTabs.run {
+            // 待办
+            addTab(newTab(), true)
+            // 已完成
+            addTab(newTab())
+
+            // TabLayout 和 ViewPager 协同
+            setupWithViewPager(mDataBinding.vpContent)
+
+            // 待办
+            getTabAt(MAIN_TODO)?.customView = getTabView(MAIN_TODO)
+            // 已完成
+            getTabAt(MAIN_DONE)?.customView = getTabView(MAIN_DONE)
+
             addTab(newTab().setCustomView(getTabView(MAIN_TODO)), true)
             addTab(newTab().setCustomView(getTabView(MAIN_DONE)))
         }
@@ -148,5 +170,33 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
 
         return view
     }
+
+}
+
+internal class MainAdapter(
+    fragmentManager: FragmentManager,
+    onFragmentCreate: OnFragmentCreate<TodoBaseFragment<*, *>>
+) : BaseFragmentPagerAdapter<TodoBaseFragment<*, *>>(
+    fragmentManager = fragmentManager,
+    mBanDestroyed = true,
+    mOnFragmentCreate = onFragmentCreate
+) {
+
+    /**
+     * 创建 Fragment Item
+     * @param position 下标
+     * @return 创建好的 Fragment
+     */
+    override fun createItem(position: Int) = when (position) {
+        MAIN_TODO -> null
+        MAIN_DONE -> null
+        else -> createEmptyFragment()
+    }
+
+    /**
+     * 获取 Fragment List Count
+     * @return Fragment List Count
+     */
+    override fun getCount() = FRAGMENT_COUNT
 
 }

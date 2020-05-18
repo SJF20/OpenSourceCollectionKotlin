@@ -157,7 +157,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             //项目
             addTab(newTab())
 
-            /// TabLayout 和 ViewPager 协同
+            // TabLayout 和 ViewPager 协同
             setupWithViewPager(mDataBinding.vpContent)
 
             //首页
