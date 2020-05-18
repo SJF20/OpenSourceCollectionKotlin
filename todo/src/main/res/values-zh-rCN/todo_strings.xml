@@ -4,4 +4,6 @@
     <string name="工作">工作</string>
     <string name="学习">学习</string>
     <string name="生活">生活</string>
+    <string name="待办">待办</string>
+    <string name="已完成">已完成</string>
 </resources>

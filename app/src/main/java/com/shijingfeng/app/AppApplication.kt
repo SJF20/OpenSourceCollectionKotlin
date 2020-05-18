@@ -20,7 +20,7 @@ internal class AppApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        //初始化腾讯X5
+        // 初始化腾讯X5
         initX5()
     }
 

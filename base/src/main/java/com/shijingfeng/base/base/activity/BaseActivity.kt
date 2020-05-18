@@ -29,6 +29,9 @@ abstract class BaseActivity : AppCompatActivity() {
     /** 前一个 Activity 是否销毁  */
     private var mIsPreActivityFinished = false
 
+    /** 是否是第一次完成进入动画  true 是  false 否 */
+    private var mIsFistEnterCompleted = true
+
     /**
      * 禁止子类覆盖，初始化操作请覆盖 [init]
      */
@@ -42,19 +45,22 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
-        mDataBundle?.run {
-            val finishPrevious = getBoolean(FINISH_PREVIOUS_ACTIVITY, false)
-            val finishFrontAll = getBoolean(FINISH_FRONT_ALL_ACTIVITY, false)
+        if (mIsFistEnterCompleted) {
+            mIsFistEnterCompleted = false
+            mDataBundle?.run {
+                val finishPrevious = getBoolean(FINISH_PREVIOUS_ACTIVITY, false)
+                val finishFrontAll = getBoolean(FINISH_FRONT_ALL_ACTIVITY, false)
 
-            //销毁前一个Activity
-            if (finishPrevious && !mIsPreActivityFinished) {
-                finishPreviousActivity(this@BaseActivity)
-                mIsPreActivityFinished = true
-            }
-            //销毁前面所有的Activity
-            if (finishFrontAll) {
-                // FIXME 万能工具类升级为 1.27.1 此处会有bug (for循环条件有问题，具体查看源码)
-                ActivityUtils.finishAllActivitiesExceptNewest(false)
+                //销毁前一个Activity
+                if (finishPrevious && !mIsPreActivityFinished) {
+                    finishPreviousActivity(this@BaseActivity)
+                    mIsPreActivityFinished = true
+                }
+                //销毁前面所有的Activity
+                if (finishFrontAll) {
+                    // FIXME 万能工具类升级为 1.27.1 此处会有bug (for循环条件有问题，具体查看源码)
+                    ActivityUtils.finishAllActivitiesExceptNewest(false)
+                }
             }
         }
     }

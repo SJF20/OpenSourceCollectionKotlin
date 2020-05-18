@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:ignore="UseCompoundDrawables"
     tools:layout_gravity="center">
 
     <ImageView
-        android:id="@+id/iv_indicator_home"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="6dp"
-        android:src="@drawable/ic_home"
-        android:tint="@color/red"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/tv_indicator_home"
+        android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/首页"
-        android:textColor="@color/red"
-        android:textSize="10sp" />
+        android:layout_marginBottom="6dp"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_todo"
+        tools:tint="@color/grey"/>
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="10sp"
+        tools:textColor="@color/grey"
+        tools:text="@string/待办"/>
 
 </LinearLayout>

@@ -1,10 +1,17 @@
 package com.shijingfeng.todo.ui.activity
 
+import android.annotation.SuppressLint
 import android.util.SparseArray
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.VISIBLE
+import android.widget.ImageView
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
@@ -66,10 +73,11 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
     override fun initData() {
         super.initData()
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.无分类)
+        mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_switch)
+        mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
         mDataBinding.tlTabs.run {
-            newTab().customView =
-            addTab(newTab(), true)
-            addTab(newTab())
+            addTab(newTab().setCustomView(getTabView(MAIN_TODO)), true)
+            addTab(newTab().setCustomView(getTabView(MAIN_DONE)))
         }
     }
 
@@ -78,7 +86,34 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
      */
     override fun initAction() {
         super.initAction()
-        // 跳转到 wan_android 模块 主页
+        // 切换类型
+        mDataBinding.includeTitleBar.ivOperate.setOnClickListener { v ->
+
+        }
+        // 切换状态
+        mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val view = tab.customView
+                val ivImage = view?.findViewById<ImageView>(R.id.iv_image)
+                val tvText = view?.findViewById<TextView>(R.id.tv_text)
+
+                ivImage?.setColorFilter(getColorById(R.color.red))
+                tvText?.setTextColor(getColorById(R.color.red))
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                val view = tab.customView
+                val ivImage = view?.findViewById<ImageView>(R.id.iv_image)
+                val tvText = view?.findViewById<TextView>(R.id.tv_text)
+
+                ivImage?.setColorFilter(getColorById(R.color.grey))
+                tvText?.setTextColor(getColorById(R.color.grey))
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+
+        })
     }
 
     /**
@@ -87,12 +122,31 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
      */
     override fun isSetCustomStatusBar() = true
 
-    fun getTabView(position: Int) = when (position) {
-        // 待办
-        MAIN_TODO -> LayoutInflater.from(this).inflate()
-        // 已完成
-        MAIN_DONE -> {}
-        else -> {}
+    @SuppressLint("InflateParams")
+    private fun getTabView(position: Int): View {
+        val view = LayoutInflater.from(this).inflate(R.layout.layout_todo_indicator_main, null)
+        val ivImage = view.findViewById<ImageView>(R.id.iv_image)
+        val tvText = view.findViewById<TextView>(R.id.tv_text)
+
+        when (position) {
+            // 待办
+            MAIN_TODO -> {
+                ivImage.setImageResource(R.drawable.ic_todo)
+                ivImage.setColorFilter(getColorById(R.color.red))
+                tvText.text = getStringById(R.string.待办)
+                tvText.setTextColor(getColorById(R.color.red))
+            }
+            // 已完成
+            MAIN_DONE -> {
+                ivImage.setImageResource(R.drawable.ic_done)
+                ivImage.setColorFilter(getColorById(R.color.grey))
+                tvText.text = getStringById(R.string.已完成)
+                tvText.setTextColor(getColorById(R.color.grey))
+            }
+            else -> {}
+        }
+
+        return view
     }
 
 }
