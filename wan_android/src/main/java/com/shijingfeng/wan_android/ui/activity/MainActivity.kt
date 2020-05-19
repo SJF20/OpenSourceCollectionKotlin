@@ -454,8 +454,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                     mDataBinding.dwlDrawer.closeDrawer(GravityCompat.START)
                 }
             }
-            else -> {
-            }
+            else -> {}
         }
     }
 

@@ -1,5 +1,7 @@
 package com.shijingfeng.todo.ui.activity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ConvertUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
@@ -20,6 +23,7 @@ import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseActivity
 import com.shijingfeng.todo.base.TodoBaseFragment
+import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
 import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
 import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
@@ -95,7 +99,13 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         mMainFragmentPagerAdapter = MainFragmentPagerAdapter(
             fragmentManager = supportFragmentManager,
             onFragmentCreate = { _, fragment ->
-                fragment.setOnItemEventListener { view, data, position, flag ->  }
+                fragment.setOnItemEventListener { _, _, visibility, flag ->
+                    when (flag) {
+                        //TabLayout 设置可见性
+                        TAB_LAYOUT_VISIBILITY -> setTabLayoutVisibility(visibility)
+                        else -> {}
+                    }
+                }
             }
         )
         mDataBinding.vpContent.offscreenPageLimit = 1
@@ -114,9 +124,6 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             getTabAt(MAIN_TODO)?.customView = getTabView(MAIN_TODO)
             // 已完成
             getTabAt(MAIN_DONE)?.customView = getTabView(MAIN_DONE)
-
-            addTab(newTab().setCustomView(getTabView(MAIN_TODO)), true)
-            addTab(newTab().setCustomView(getTabView(MAIN_DONE)))
         }
     }
 
@@ -156,10 +163,69 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
     }
 
     /**
-     * 是否自定义设置状态栏
-     * @return true 自定义设置  false 默认设置
+     * 设置 TabLayout 和 置顶按钮 的可见性
+     * @param visibility 可见性
      */
-    override fun isSetCustomStatusBar() = true
+    private fun setTabLayoutVisibility(visibility: Int) {
+        if (mDataBinding.llTabs.tag == null) {
+            mDataBinding.llTabs.tag = VISIBLE
+        }
+        if (visibility == VISIBLE) {
+            //设置为可见
+            if (mDataBinding.llTabs.tag as Int != VISIBLE) {
+                mDataBinding.llTabs.tag = VISIBLE
+                mDataBinding.llTabs
+                    .animate()
+                    .setDuration(400)
+                    .translationY(0f)
+                mDataBinding.fabAdd
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            mDataBinding.fabAdd.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            mDataBinding.fabAdd.isEnabled = true
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+            }
+        } else if (visibility == View.GONE) {
+            //设置为不可见
+            if (mDataBinding.llTabs.tag as Int != View.GONE) {
+                mDataBinding.llTabs.tag = View.GONE
+                mDataBinding.llTabs
+                    .animate()
+                    .setDuration(400)
+                    .translationY(ConvertUtils.dp2px(70f).toFloat())
+                mDataBinding.fabAdd
+                    .animate()
+                    .setListener(object : AnimatorListenerAdapter() {
+
+                        override fun onAnimationStart(animation: Animator) {
+                            super.onAnimationStart(animation)
+                            mDataBinding.fabAdd.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            super.onAnimationEnd(animation)
+                            mDataBinding.fabAdd.isEnabled = false
+                        }
+
+                    })
+                    .setDuration(400)
+                    .scaleX(0f)
+                    .scaleY(0f)
+            }
+        }
+    }
 
     @SuppressLint("InflateParams")
     private fun getTabView(position: Int): View {

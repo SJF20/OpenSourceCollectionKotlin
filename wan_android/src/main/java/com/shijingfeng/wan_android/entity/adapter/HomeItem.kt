@@ -19,15 +19,13 @@ internal abstract class HomeItem : BaseEntity() {
      * 获取类型
      * @return 类型
      */
-    fun getType(): Int {
-        return when(this) {
-            // 轮播图
-            is HomeBannerListItem -> HOME_BANNER
-            // 置顶文章
-            is HomeTopArticleItem -> HOME_TOP_ARTICLE
-            // 文章
-            is HomeArticleItem -> HOME_ARTICLE
-            else -> ADAPTER_TYPE_UNKNOWN
-        }
+    fun getType() = when(this) {
+        // 轮播图
+        is HomeBannerListItem -> HOME_BANNER
+        // 置顶文章
+        is HomeTopArticleItem -> HOME_TOP_ARTICLE
+        // 文章
+        is HomeArticleItem -> HOME_ARTICLE
+        else -> ADAPTER_TYPE_UNKNOWN
     }
 }
