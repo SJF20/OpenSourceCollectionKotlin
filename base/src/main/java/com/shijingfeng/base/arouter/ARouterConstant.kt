@@ -97,6 +97,12 @@ const val FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE = "/wan_android/fragm
 
 // todo模块 Activity
 /** 主页 Activity */
-const val ACTIVITY_TODO_MAIN = "/todo/activity/TodoMainActivity"
+const val ACTIVITY_TODO_MAIN = "/todo/activity/MainActivity"
+
+// todo模块 Fragment
+/** 主页 -> 待办 Fragment */
+const val FRAGMENT_TODO_TODO = "/todo/fragment/TodoFragment"
+/** 主页 -> 已完成 Fragment */
+const val FRAGMENT_TODO_DONE = "/todo/fragment/DoneFragment"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

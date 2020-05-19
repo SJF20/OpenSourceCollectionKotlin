@@ -24,7 +24,9 @@ import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
 import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
 import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainRepositoryInstance
+import com.shijingfeng.todo.ui.fragment.createDoneFragment
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
+import com.shijingfeng.todo.ui.fragment.createTodoFragment
 import com.shijingfeng.todo.view_model.MainViewModel
 
 /** 主页 -> 待办 */
@@ -44,6 +46,9 @@ private const val FRAGMENT_COUNT = 2
  */
 @Route(path = ACTIVITY_TODO_MAIN)
 internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainViewModel>() {
+
+    /** 主页 ViewPager Fragment 适配器 */
+    private var mMainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
 
     /**
      * 获取视图ID
@@ -84,6 +89,18 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.无分类)
         mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_switch)
         mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
+
+        mViewModel?.mCurPosition = MAIN_TODO
+
+        mMainFragmentPagerAdapter = MainFragmentPagerAdapter(
+            fragmentManager = supportFragmentManager,
+            onFragmentCreate = { _, fragment ->
+                fragment.setOnItemEventListener { view, data, position, flag ->  }
+            }
+        )
+        mDataBinding.vpContent.offscreenPageLimit = 1
+        mDataBinding.vpContent.adapter = mMainFragmentPagerAdapter
+
         mDataBinding.tlTabs.run {
             // 待办
             addTab(newTab(), true)
@@ -173,7 +190,10 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
 
 }
 
-internal class MainAdapter(
+/**
+ * 主页 ViewPager Fragment 适配器
+ */
+internal class MainFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     onFragmentCreate: OnFragmentCreate<TodoBaseFragment<*, *>>
 ) : BaseFragmentPagerAdapter<TodoBaseFragment<*, *>>(
@@ -187,10 +207,12 @@ internal class MainAdapter(
      * @param position 下标
      * @return 创建好的 Fragment
      */
-    override fun createItem(position: Int) = when (position) {
-        MAIN_TODO -> null
-        MAIN_DONE -> null
-        else -> createEmptyFragment()
+    override fun createItem(position: Int): TodoBaseFragment<*, *> {
+        return when (position) {
+            MAIN_TODO -> createTodoFragment()
+            MAIN_DONE -> createDoneFragment()
+            else -> createEmptyFragment()
+        }
     }
 
     /**
