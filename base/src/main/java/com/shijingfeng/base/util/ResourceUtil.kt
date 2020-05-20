@@ -55,3 +55,10 @@ fun getDrawableById(@DrawableRes drawableId: Int): Drawable? = ResourceUtils.get
  * @return 字符串
  */
 fun getStringById(@StringRes stringId: Int) = application.resources.getString(stringId)
+
+/**
+ * 获取 尺寸
+ * @param dimenId 尺寸 Id
+ * @return 尺寸
+ */
+fun getDimensionById(@DimenRes dimenId: Int) = application.resources.getDimension(dimenId)

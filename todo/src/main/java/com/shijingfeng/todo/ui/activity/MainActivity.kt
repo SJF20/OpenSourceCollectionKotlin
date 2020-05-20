@@ -4,13 +4,16 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.util.SparseArray
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
@@ -18,7 +21,10 @@ import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getDimensionById
+import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseActivity
@@ -32,6 +38,7 @@ import com.shijingfeng.todo.ui.fragment.createDoneFragment
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
 import com.shijingfeng.todo.ui.fragment.createTodoFragment
 import com.shijingfeng.todo.view_model.MainViewModel
+import java.math.MathContext
 
 /** 主页 -> 待办 */
 internal const val MAIN_TODO = 0
@@ -53,6 +60,9 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
 
     /** 主页 ViewPager Fragment 适配器 */
     private var mMainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
+
+    /** 类型切换 Dialog */
+    private var mTypeSwitchDialog: CommonDialog? = null
 
     /**
      * 获取视图ID
@@ -133,8 +143,10 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
     override fun initAction() {
         super.initAction()
         // 切换类型
-        mDataBinding.includeTitleBar.ivOperate.setOnClickListener { v ->
-
+        ClickUtils.applySingleDebouncing(
+            mDataBinding.includeTitleBar.ivOperate
+        ) {
+            showTypeSwitchDialog()
         }
         // 切换状态
         mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -161,6 +173,12 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
 
         })
     }
+
+    /**
+     * 是否自定义设置状态栏
+     * @return true 自定义设置  false 默认设置
+     */
+    override fun isSetCustomStatusBar() = true
 
     /**
      * 设置 TabLayout 和 置顶按钮 的可见性
@@ -227,6 +245,10 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         }
     }
 
+    /**
+     * 根据 下标 生成 TabLayout Tab View
+     * @param position
+     */
     @SuppressLint("InflateParams")
     private fun getTabView(position: Int): View {
         val view = LayoutInflater.from(this).inflate(R.layout.layout_todo_indicator_main, null)
@@ -252,6 +274,59 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         }
 
         return view
+    }
+
+    /**
+     * 显示 类型切换 Dialog
+     */
+    @SuppressLint("InflateParams")
+    private fun showTypeSwitchDialog() {
+        mTypeSwitchDialog?.run {
+            if (!isShowing) {
+                show()
+            }
+            return
+        }
+
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_type_option, null)
+
+        mTypeSwitchDialog = CommonDialog.Builder(this)
+            .setContentView(view)
+            .setGravity(
+                Gravity.TOP or Gravity.END,
+                0,
+                getStatusBarHeight() + getDimensionById(R.dimen.title_bar_height).toInt()
+            )
+            .setCancelable(true)
+            .show()
+
+        // 无分类
+        ClickUtils.applySingleDebouncing(
+            view.findViewById<View>(R.id.tv_no_classify)
+        ) {
+            mTypeSwitchDialog?.hide()
+        }
+
+        // 工作
+        ClickUtils.applySingleDebouncing(
+            view.findViewById<View>(R.id.tv_work)
+        ) {
+            mTypeSwitchDialog?.hide()
+        }
+
+        // 学习
+        ClickUtils.applySingleDebouncing(
+            view.findViewById<View>(R.id.tv_study)
+        ) {
+            mTypeSwitchDialog?.hide()
+        }
+
+        // 生活
+        ClickUtils.applySingleDebouncing(
+            view.findViewById<View>(R.id.tv_life)
+        ) {
+            mTypeSwitchDialog?.hide()
+        }
     }
 
 }

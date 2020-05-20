@@ -26,7 +26,7 @@
     <FrameLayout
         android:id="@+id/fl_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/title_bar_height"
         android:background="@color/red">
 
         <ImageView
