@@ -8,7 +8,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
@@ -38,7 +37,6 @@ import com.shijingfeng.todo.ui.fragment.createDoneFragment
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
 import com.shijingfeng.todo.ui.fragment.createTodoFragment
 import com.shijingfeng.todo.view_model.MainViewModel
-import java.math.MathContext
 
 /** 主页 -> 待办 */
 internal const val MAIN_TODO = 0
@@ -288,7 +286,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             return
         }
 
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_type_option, null)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_todo_type_option, null)
 
         mTypeSwitchDialog = CommonDialog.Builder(this)
             .setContentView(view)

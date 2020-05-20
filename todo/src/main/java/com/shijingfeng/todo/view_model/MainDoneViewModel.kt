@@ -9,4 +9,4 @@ import com.shijingfeng.todo.base.TodoBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-internal class DoneViewModel : TodoBaseViewModel<BaseRepository<*, *>>()
+internal class MainDoneViewModel : TodoBaseViewModel<BaseRepository<*, *>>()
