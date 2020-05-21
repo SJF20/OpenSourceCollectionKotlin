@@ -40,6 +40,13 @@ internal class MainTodoViewModel(
     /** 待办列表 */
     val mMainTodoItemList = mutableListOf<MainTodoItem>()
 
+    /**
+     * 待办 Map 列表
+     * Key: 毫秒值 (以天为单位)
+     * Value: [mMainTodoItemList] 下标
+     */
+    val mMainTodoItemMapList = mutableMapOf<Long, Int>()
+
     /** 列表数据改变 LiveData Event  */
     var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<MainTodoItem>>()
 
@@ -208,7 +215,7 @@ internal class MainTodoViewModel(
             }
         }
         mainTodoItemMap.forEach { entry ->
-            
+
         }
     }
 
