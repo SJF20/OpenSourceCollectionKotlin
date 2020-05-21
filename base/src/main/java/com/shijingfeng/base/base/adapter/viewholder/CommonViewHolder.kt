@@ -16,6 +16,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.blankj.utilcode.util.ClickUtils
 import com.shijingfeng.base.R
 import com.shijingfeng.base.base.adapter.BaseAdapter
@@ -184,7 +185,7 @@ class CommonViewHolder constructor (
     fun <T : BaseEntity> setLinearAdapter(
         @IdRes viewId: Int,
         adapter: BaseAdapter<T>,
-        @RecyclerView.Orientation orientation: Int
+        @RecyclerView.Orientation orientation: Int = VERTICAL
     ): CommonViewHolder {
         getView<RecyclerView>(viewId)?.let { recyclerView ->
             recyclerView.adapter = adapter
@@ -240,7 +241,7 @@ class CommonViewHolder constructor (
      */
     fun setOnClickListener(
         view: View,
-        @IntRange(from = 0) duration: Long = 0,
+        @IntRange(from = 0) duration: Long = 200,
         listener: View.OnClickListener?
     ): CommonViewHolder? {
         ClickUtils.applySingleDebouncing(view, duration, listener)

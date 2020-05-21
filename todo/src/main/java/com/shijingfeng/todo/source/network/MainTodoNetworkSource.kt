@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.todo.entity.Todo
+import com.shijingfeng.todo.entity.MainTodo
 import com.shijingfeng.todo.source.network.api.TodoApi
 import com.shijingfeng.todo.util.apiRequest
 
@@ -49,7 +49,7 @@ internal class MainTodoNetworkSource : BaseNetworkSource() {
     fun getTodoData(
         page: Int,
         postMap: Map<String, Any>,
-        onSuccess: onSuccess<Todo?>,
+        onSuccess: onSuccess<MainTodo?>,
         onFailure: onFailure
     ) {
         addDisposable(apiRequest(

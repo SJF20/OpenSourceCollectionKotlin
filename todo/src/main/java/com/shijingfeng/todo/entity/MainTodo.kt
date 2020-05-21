@@ -2,7 +2,6 @@ package com.shijingfeng.todo.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.todo.entity.adapter.TodoGroupItem
 
 /**
  * Function: 主页 -> 待办 实体类
@@ -14,7 +13,7 @@ import com.shijingfeng.todo.entity.adapter.TodoGroupItem
 /**
  * 主页 -> 待办 实体类
  */
-internal data class Todo (
+internal data class MainTodo (
 
     /** 此页开始的下标  */
     @SerializedName("offset")
@@ -41,14 +40,14 @@ internal data class Todo (
     var total: Int = 0,
 
     @SerializedName("datas")
-    var todoItemList: MutableList<TodoItem> = ArrayList()
+    var todoItemList: MutableList<MainTodoGroupItem> = ArrayList()
 
 ) : BaseEntity()
 
 /**
- * 主页 -> 待办 实体类 Item
+ * 主页 -> 待办 分组后的 实体类 Item
  */
-internal data class TodoItem(
+internal data class MainTodoGroupItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -92,7 +91,7 @@ internal data class TodoItem(
     @SerializedName("type")
     var todoType: Int = 0
 
-) : TodoGroupItem() {
+) : BaseEntity() {
 
     /**
      * 获取ID

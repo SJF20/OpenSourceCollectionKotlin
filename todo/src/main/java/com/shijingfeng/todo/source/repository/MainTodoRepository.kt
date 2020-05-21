@@ -4,11 +4,8 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.todo.entity.Todo
-import com.shijingfeng.todo.source.local.MainLocalSource
-import com.shijingfeng.todo.source.network.MainNetworkSource
+import com.shijingfeng.todo.entity.MainTodo
 import com.shijingfeng.todo.source.network.MainTodoNetworkSource
-import com.shijingfeng.todo.util.apiRequest
 
 /** 单例实例 */
 @Volatile
@@ -56,7 +53,7 @@ internal class MainTodoRepository(
     fun getTodoData(
         page: Int,
         postMap: Map<String, Any>,
-        onSuccess: onSuccess<Todo?>,
+        onSuccess: onSuccess<MainTodo?>,
         onFailure: onFailure
     ) {
         mNetworkSource?.getTodoData(page, postMap, onSuccess, onFailure)
