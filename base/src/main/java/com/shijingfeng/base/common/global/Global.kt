@@ -1,4 +1,4 @@
-package com.shijingfeng.base.global
+package com.shijingfeng.base.common.global
 
 import android.os.Handler
 import android.os.Looper

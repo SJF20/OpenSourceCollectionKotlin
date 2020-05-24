@@ -503,9 +503,9 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
     override fun onDestroy() {
         mMoreDialog?.hide()
         mMoreDialog = null
-        mDataBinding.wvContent?.clearHistory()
+        mDataBinding.wvContent.clearHistory()
         (mDataBinding.root as ViewGroup).removeView(mDataBinding.wvContent)
-        mDataBinding.wvContent?.destroy()
+        mDataBinding.wvContent.destroy()
         super.onDestroy()
     }
 

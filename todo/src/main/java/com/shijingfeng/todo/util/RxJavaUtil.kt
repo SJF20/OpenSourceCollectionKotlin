@@ -6,6 +6,8 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.http.exception.ServerException
+import com.shijingfeng.base.http.exception.handle
+import com.shijingfeng.todo.constant.SERVER_SUCCESS
 import com.shijingfeng.todo.entity.ResultEntity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

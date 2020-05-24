@@ -32,6 +32,7 @@ ext {
             "navigation"                          : "2.3.0-alpha01",
             "paging"                              : "2.1.1",
             "room"                                : "2.2.3",
+            "work-manager"                        : "2.3.1",
             "leakcanary"                          : "2.2",
             "leakcanary-no-op"                    : "1.6.3",
             "material"                            : "1.0.0",
@@ -56,6 +57,7 @@ ext {
             "smartrefresh"                        : "1.1.0",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
+            "bmob"                                : "3.7.8",
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -73,6 +75,7 @@ ext {
             "constraintlayout"                     : "androidx.constraintlayout:constraintlayout:${versions["constraintlayout"]}",
             //MultiDex支持
             "multidex"                             : "androidx.multidex:multidex:${versions["multidex"]}",
+
             // ViewModel and LiveData
             "lifecycle-extensions"                 : "androidx.lifecycle:lifecycle-extensions:${versions["lifecycle"]}",
             // For Kotlin use kapt instead of annotationProcessor
@@ -81,13 +84,16 @@ ext {
             "lifecycle-common-java8"               : "androidx.lifecycle:lifecycle-common-java8:${versions["lifecycle"]}",
             // optional - ReactiveStreams support for LiveData
             "lifecycle-reactivestreams"            : "androidx.lifecycle:lifecycle-reactivestreams:${versions["lifecycle"]}",
+
             // Navigation (Fragment导航)
             "navigation-fragment-ktx"              : "androidx.navigation:navigation-fragment-ktx:${versions["navigation"]}",
             "navigation-ui-ktx"                    : "androidx.navigation:navigation-ui-ktx:${versions["navigation"]}",
             "navigation-dynamic-features-fragment" : "androidx.navigation:navigation-dynamic-features-fragment:${versions["navigation"]}",
+
             // Paging
             "paging-runtime"                       : "androidx.paging:paging-runtime:${versions["paging"]}",
             "paging-common"                        : "androidx.paging:paging-common:${versions["paging"]}",
+
             // Room runtime
             "room-runtime"                         : "androidx.room:room-runtime:${versions["room"]}",
             // optional - Kotlin Extensions and Coroutines support for Room
@@ -96,6 +102,15 @@ ext {
             "room-rxjava2"                         : "androidx.room:room-rxjava2:${versions["room"]}",
             // optional - Guava support for Room, including Optional and ListenableFuture
             "room-guava"                           : "androidx.room:room-guava:${versions["room"]}",
+
+            // WorkManager Kotlin + coroutines
+            "work-runtime-ktx"                     : "androidx.work:work-runtime-ktx:${versions["work-manager"]}",
+            // WorkManager optional - RxJava2 support
+            "work-rxjava2"                         : "androidx.work:work-rxjava2:${versions["work-manager"]}",
+            // WorkManager optional - GCMNetworkManager support
+            "work-gcm"                             : "androidx.work:work-gcm:${versions["work-manager"]}",
+            // WorkManager optional - Test helpers
+            "work-testing"                         : "androidx.work:work-testing:${versions["work-manager"]}"
     ]
     //依赖第三方配置
     dependencies = [
@@ -156,6 +171,8 @@ ext {
             "smartrefresh-header"                 : "com.scwang.smartrefresh:SmartRefreshHeader:${versions["smartrefresh"]}",
             //ARouter 路由框架
             "arouter"                             : "com.alibaba:arouter-api:${versions["arouter"]}",
+            // Bmob 后端
+            "bmob-sdk"                            : "cn.bmob.android:bmob-sdk:${versions["bmob"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [

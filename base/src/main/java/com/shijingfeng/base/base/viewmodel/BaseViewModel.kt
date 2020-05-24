@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.SparseArray
 import android.util.SparseIntArray
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -12,15 +13,18 @@ import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.Utils
+import com.shijingfeng.base.R.string.再按一次退出应用
 import com.shijingfeng.base.annotation.BindEventBus
+import com.shijingfeng.base.annotation.define.LoadServiceStatus
+import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
+import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.util.exitApp
 import com.shijingfeng.base.util.getStringById
-import com.shijingfeng.base.R.string.再按一次退出应用
-import com.shijingfeng.base.annotation.define.LoadServiceStatus
-import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import org.greenrobot.eventbus.EventBus
@@ -223,8 +227,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      */
     fun doubleDownExitApp() {
         if (mExitApp) {
-            //关闭所有的Activity
-            ActivityUtils.finishAllActivities()
+            exitApp()
         } else {
             mExitApp = true
             ToastUtils.showShort(getStringById(再按一次退出应用))

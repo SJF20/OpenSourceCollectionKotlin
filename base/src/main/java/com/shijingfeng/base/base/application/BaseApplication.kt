@@ -14,14 +14,9 @@ import com.shijingfeng.base.BuildConfig.DEBUG
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
-import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
-import com.shijingfeng.base.common.constant.BASE_URL_VALUE_WAN_ANDROID
-import com.shijingfeng.base.common.constant.PERSONAL_CACHE_DIR
-import com.shijingfeng.base.common.constant.PERSONAL_GLIDE_CACHE_DIR
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.enable
 import io.realm.Realm
-import io.realm.RealmConfiguration
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
 
@@ -57,6 +52,10 @@ abstract class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
+
+        //注册广播
+        registerGlobalReceiver()
+
         //创建目录
         createDirectory()
         //初始化 ARouter 路由框架
@@ -75,6 +74,13 @@ abstract class BaseApplication : Application() {
         super.attachBaseContext(base)
         //初始化MultiDex
         MultiDex.install(this)
+    }
+
+    /**
+     * 注册全局广播 (注意如果可以在 Activity 或 Service 中注册(可以取消注册), 那么就不要注册全局广播)
+     */
+    private fun registerGlobalReceiver() {
+
     }
 
     /**
@@ -130,12 +136,15 @@ abstract class BaseApplication : Application() {
      * 初始化 RetrofitUrlManager
      */
     private fun initRetrofitUrlManager() {
-        RetrofitUrlManager.getInstance().setDebug(true)
-        //将每个 BaseUrl 进行初始化,运行时可以随时改变 DOMAIN_NAME 对应的值,从而达到切换 BaseUrl 的效果
-        RetrofitUrlManager.getInstance().putDomain(
-            BASE_URL_NAME_WAN_ANDROID,
-            BASE_URL_VALUE_WAN_ANDROID
-        )
+        RetrofitUrlManager.getInstance().run {
+            // 设置是否开启Debug调试  true:开启  false:关闭
+            setDebug(true)
+            //将每个 BaseUrl 进行初始化,运行时可以随时改变 DOMAIN_NAME 对应的值,从而达到切换 BaseUrl 的效果
+            // 玩安卓 BaseUrl
+            putDomain(BASE_URL_NAME_WAN_ANDROID, BASE_URL_VALUE_WAN_ANDROID)
+            // 蒲公英 (用于检测版本更新 和 下载应用) BaseUrl
+            putDomain(BASE_URL_NAME_PGYER, BASE_URL_VALUE_PGYER)
+        }
     }
 
     /**

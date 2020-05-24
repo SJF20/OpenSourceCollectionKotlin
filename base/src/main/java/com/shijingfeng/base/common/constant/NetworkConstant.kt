@@ -11,7 +11,13 @@ package com.shijingfeng.base.common.constant
 
 /** BaseUrl动态替换 Header Name  */
 const val DOMAIN_HEADER = "Domain-Name:"
+
 /** 玩安卓 BaseUrl Name  */
 const val BASE_URL_NAME_WAN_ANDROID = "wan_android"
 /** 玩安卓 BaseUrl Value  */
 const val BASE_URL_VALUE_WAN_ANDROID = "https://www.wanandroid.com/"
+
+/** 蒲公英 (用于检测版本更新 和 下载应用) BaseUrl Name */
+const val BASE_URL_NAME_PGYER = "payer"
+/** 蒲公英 (用于检测版本更新 和 下载应用) BaseUrl Value */
+const val BASE_URL_VALUE_PGYER = "https://www.pgyer.com/"

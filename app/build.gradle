@@ -127,23 +127,22 @@ android {
     //注：最重要的就是.9图要严格要求做好。禁止Gradle检查PNG的合法性
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
-
     //lint配置信息，这里主要是设置自定义lint检测后报告路径，LintOptions类型
     //命令行：gradlew lint      注意，studio自带lint检查，setting——> Inspection
-//    lintOptions {
+    lintOptions {
 //        println("开始执行lint检测代码逻辑")
 //        // 设置为 true，则当 Lint 发现错误时停止 Gradle 构建
 //        //移除lint检测的error
 //        abortOnError false
-//        // 设置为 true，则当有错误时会显示文件的全路径或绝对路径 (默认情况下为true)
+        // 设置为 true，则当有错误时会显示文件的全路径或绝对路径 (默认情况下为true)
 //        absolutePaths true
 //        // 仅检查指定的问题（根据 id 指定）
 //        check 'NewApi', 'InlinedApi'
 //        // 设置为 true 则检查所有的问题，包括默认不检查问题
 //        checkAllWarnings true
 //        // 设置为 true 后，release 构建都会以 Fatal 的设置来运行 Lint。
-//        // 如果构建时发现了致命（Fatal）的问题，会中止构建（具体由 abortOnError 控制）
-//        checkReleaseBuilds true
+        // 如果构建时发现了致命（Fatal）的问题，会中止构建（具体由 abortOnError 控制）
+        checkReleaseBuilds false
 //        // 不检查指定的问题（根据问题 id 指定）
 //        disable 'TypographyFractions','TypographyQuotes'
 //        // 检查指定的问题（根据 id 指定）
@@ -182,7 +181,10 @@ android {
 //        warning 'ResourceAsColor'
 //        // 将指定问题（根据 id 指定）的严重级别（severity）设置为 ignore
 //        ignore 'TypographyQuotes'
-//    }
+    }
+
+    // 使用 Apache http网络请求库
+    useLibrary 'org.apache.http.legacy'
 
     //android studio默认so文件加载目录为:src/main/jniLibs
     //如在module的build.gradle按照如下方式,自定义了so文件加载目录请确保对应目录下只有armeabi目录
@@ -196,6 +198,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
+    // 依赖 app_update 模块
+    implementation project(path: ':app_update')
     // 依赖 tencent_x5 模块
     implementation project(path: ':tencent_x5')
     // 依赖 common 模块
@@ -210,6 +214,9 @@ dependencies {
     if (!rootProject.ext.isTodoApplication) {
         implementation project(path: ':todo')
     }
+
+    // Bmob后端 SDK
+    implementation rootProject.ext.dependencies["bmob-sdk"]
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]

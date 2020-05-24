@@ -10,10 +10,7 @@ import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
 import com.shijingfeng.todo.databinding.FragmentTodoMainTodoBinding
-import com.shijingfeng.todo.entity.adapter.MAIN_TODO_GROUP_ITEM
-import com.shijingfeng.todo.entity.adapter.MAIN_TODO_GROUP_TITLE_ITEM
 import com.shijingfeng.todo.entity.adapter.MainTodoAdapter
-import com.shijingfeng.todo.entity.adapter.TodoGroupItem
 import com.shijingfeng.todo.source.network.getMainTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainTodoRepositoryInstance
 import com.shijingfeng.todo.view_model.MainTodoViewModel

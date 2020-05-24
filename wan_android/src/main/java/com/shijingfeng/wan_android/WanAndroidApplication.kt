@@ -1,11 +1,16 @@
 package com.shijingfeng.wan_android
 
+import android.util.Log
+import androidx.work.Configuration
+import cn.bmob.v3.Bmob
+import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
 import org.greenrobot.eventbus.EventBus
+import java.util.concurrent.Executors
 
 /**
  * Function: 玩Android Application (只有设置为 application 单独调试时，才会调用)
@@ -13,15 +18,34 @@ import org.greenrobot.eventbus.EventBus
  * Description:
  * @author ShiJingFeng
  */
-internal class WanAndroidApplication : BaseApplication() {
+internal class WanAndroidApplication : BaseApplication(), Configuration.Provider {
 
     /** X5内核是否初始化成功  true:成功 false:失败  */
     private var mX5InitSuccess = false
 
     override fun onCreate() {
         super.onCreate()
+        // 初始化 Bmob 后端
+        initBmob()
         // 初始化腾讯X5
         initX5()
+    }
+
+    /**
+     * 初始化 Bmob 后端
+     */
+    private fun initBmob() {
+        Bmob.initialize(
+            BmobConfig.Builder(this)
+                .setApplicationId("5e9829fbc3f5928d5fdbee8c67eba7c6")
+                //请求超时时间（单位为秒）：默认15s
+                .setConnectTimeout(20)
+                //文件分片上传时每片的大小（单位字节），默认512 * 1024
+                .setUploadBlockSize(512 * 1024)
+                //文件的过期时间(单位为秒)：默认1800s
+                .setFileExpiration(1800)
+                .build()
+        )
     }
 
     /**
@@ -58,4 +82,15 @@ internal class WanAndroidApplication : BaseApplication() {
         QbSdk.initX5Environment(this, cb)
     }
 
+    /**
+     * 获取 WorkManager 初始化配置
+     *
+     * @return WorkManager 初始化配置
+     */
+    override fun getWorkManagerConfiguration() = Configuration.Builder()
+        // 如需同步调用，则需使用 Executors.newSingleThreadPool()
+        .setExecutor(Executors.newCachedThreadPool())
+        // 设置日志打印级别
+        .setMinimumLoggingLevel(Log.INFO)
+        .build()
 }

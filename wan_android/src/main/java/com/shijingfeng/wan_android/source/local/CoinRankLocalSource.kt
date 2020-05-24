@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.constant.DATA_SOURCE_LOCAL
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.base.global.runOnUiThread
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.util.closeRealmInstance
 import com.shijingfeng.base.util.e

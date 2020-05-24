@@ -48,7 +48,7 @@ internal class CoinRecordViewModel(
 
     /** 查看规则 */
     val mTextOperateClickListener = View.OnClickListener {
-        val url = BASE_URL_VALUE_WAN_ANDROID.toString() + "blog/show/2653"
+        val url = BASE_URL_VALUE_WAN_ANDROID + "blog/show/2653"
         val title = getStringById(R.string.积分规则)
 
         navigation(

@@ -186,27 +186,36 @@ dependencies {
 
     //MultiDex支持
     api rootProject.ext.androidx["multidex"]
+
     //ConstraintLayout约束布局
     api rootProject.ext.androidx["constraintlayout"]
+
     //Leak Canary 内存泄漏检测框架
     debugApi rootProject.ext.dependencies["leakcanary-android"]
     releaseApi rootProject.ext.dependencies["leakcanary-android-no-op"]
+
     //Design设计库
     api rootProject.ext.dependencies["material"]
+
     //Glide图片加载框架
     api rootProject.ext.dependencies["glide"]
     //Glide图片加载框架 注解执行器
     kapt rootProject.ext.annotationProcessor["glide"]
+
     //圆形图片加载框架
     api rootProject.ext.dependencies["circleimageview"]
+
     //查看大图框架
     api rootProject.ext.dependencies["PhotoView"]
+
     //LoadSir
     api rootProject.ext.dependencies["loadsir"]
+
     //SmartRefreshLayout
     api rootProject.ext.dependencies["smartrefresh"]
     //SmartRefreshLayout 特殊Header
     api rootProject.ext.dependencies["smartrefresh-header"]
+
     // ViewModel and LiveData
     api rootProject.ext.androidx["lifecycle-extensions"]
     // For Kotlin use kapt instead of annotationProcessor
@@ -215,23 +224,30 @@ dependencies {
     api rootProject.ext.androidx["lifecycle-common-java8"]
     // optional - ReactiveStreams support for LiveData
     api rootProject.ext.androidx["lifecycle-reactivestreams"]
+
     // Navigation (Fragment导航)
     api rootProject.ext.androidx["navigation-fragment-ktx"]
     api rootProject.ext.androidx["navigation-ui-ktx"]
     api rootProject.ext.androidx["navigation-dynamic-features-fragment"]
+
     //Paging 分页加载
     api rootProject.ext.androidx["paging-runtime"]
     api rootProject.ext.androidx["paging-common"]
+
     //Gson  Json解析框架
     api rootProject.ext.dependencies["gson"]
+
     //OkHttp3 网络加载框架
     api rootProject.ext.dependencies["okhttp3"]
     //OkHttp3 日志插值器
     api rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+
     //RxBinding JakeWharton响应式框架
     api rootProject.ext.dependencies["rxbinding3"]
+
     //RxPermission 响应式权限请求框架
     api rootProject.ext.dependencies["rxpermissions"]
+
     //动态切换 Retrofit BaseUrl 框架
     api rootProject.ext.dependencies["retrofit-url-manager"]
     //Retrofit2 OkHttp封装库
@@ -244,14 +260,18 @@ dependencies {
     api rootProject.ext.dependencies["retrofit2-kotlin-coroutines-adapter"]
     //Retrofit2 协程转换器 的补充
     api rootProject.ext.dependencies["kotlin-coroutines-retrofit"]
+
     //RxJava2 异步加载框架
     api rootProject.ext.dependencies["rxjava2"]
     //RxAndroid 异步加载框架
     api rootProject.ext.dependencies["rxjava2-android"]
+
     //EventBus
     api rootProject.ext.dependencies["eventbus"]
+
     //万能工具类
     api rootProject.ext.dependencies["utilcodex"]
+
     //ARouter 路由框架
     api rootProject.ext.dependencies["arouter"]
 

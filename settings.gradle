@@ -1,4 +1,4 @@
-// app 模块 (空壳架子)
+include ':app_update'// app 模块 (空壳架子)
 include ':app'
 
 // 可作为 Application 的模块

@@ -19,3 +19,6 @@ const val RESULT_CLIP = 3
 const val PERMISSION_CAMERA = 1
 /** Permission Code: 读写外部存储权限  */
 const val PERMISSION_EXTERNAL_STORAGE = 2
+
+/** PendingIntent 请求码: 检查更新 */
+const val PENDING_CODE_CHECK_FOR_UPDATE = 1

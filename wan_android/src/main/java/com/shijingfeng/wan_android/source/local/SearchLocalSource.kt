@@ -6,7 +6,7 @@ import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.base.global.runOnUiThread
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.serialize

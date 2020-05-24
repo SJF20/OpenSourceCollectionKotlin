@@ -1,5 +1,7 @@
 package com.shijingfeng.todo.view_model
 
+import android.util.SparseArray
+import android.util.SparseIntArray
 import com.kingja.loadsir.callback.Callback
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -9,10 +11,8 @@ import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.todo.base.TodoBaseViewModel
 import com.shijingfeng.todo.constant.TYPE_ALL
-import com.shijingfeng.todo.constant.TYPE_NO_CLASSIFY
 import com.shijingfeng.todo.entity.MainTodoGroupItem
 import com.shijingfeng.todo.entity.adapter.MainTodoItem
-import com.shijingfeng.todo.entity.adapter.TodoGroupItem
 import com.shijingfeng.todo.source.repository.MainTodoRepository
 import com.shijingfeng.todo.ui.activity.MAIN_TODO
 
@@ -116,54 +116,54 @@ internal class MainTodoViewModel(
                 when (mPageOperateType) {
                     // 加载数据 或 重新加载
                     PAGE_OPERATE_TYPE_LOAD -> {
-                        mPage = MAIN_TODO_FIRST_PAGE
-                        mMainTodoItemList.clear()
-                        if (!todoItemList.isNullOrEmpty()) {
-                            //分组
-
-                            mMainTodoItemList.addAll(todoItemList)
-                        }
-
-                        event.type = LOAD
-                        event.dataList = todoItemList
-
-                        mListDataChangeEvent.value = event
-                        showCallback(if (mMainTodoItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
+//                        mPage = MAIN_TODO_FIRST_PAGE
+//                        mMainTodoItemList.clear()
+//                        if (!todoItemList.isNullOrEmpty()) {
+//                            //分组
+//
+//                            mMainTodoItemList.addAll(todoItemList)
+//                        }
+//
+//                        event.type = LOAD
+//                        event.dataList = todoItemList
+//
+//                        mListDataChangeEvent.value = event
+//                        showCallback(if (mMainTodoItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                     }
                     // 下拉刷新
                     PAGE_OPERATE_TYPE_REFRESH -> {
-                        mPage = MAIN_TODO_FIRST_PAGE
-                        mMainTodoItemList.clear()
-                        if (!todoItemList.isNullOrEmpty()) {
-                            mMainTodoItemList.addAll(todoItemList)
-                        }
-
-                        event.type = REFRESH
-                        event.dataList = todoItemList
-
-                        mListDataChangeEvent.value = event
-                        updateRefreshLoadMoreStatus(REFRESH_SUCCESS)
-                        // 数据为空
-                        if (mMainTodoItemList.isEmpty()) {
-                            showCallback(LOAD_SERVICE_EMPTY)
-                        }
+//                        mPage = MAIN_TODO_FIRST_PAGE
+//                        mMainTodoItemList.clear()
+//                        if (!todoItemList.isNullOrEmpty()) {
+//                            mMainTodoItemList.addAll(todoItemList)
+//                        }
+//
+//                        event.type = REFRESH
+//                        event.dataList = todoItemList
+//
+//                        mListDataChangeEvent.value = event
+//                        updateRefreshLoadMoreStatus(REFRESH_SUCCESS)
+//                        // 数据为空
+//                        if (mMainTodoItemList.isEmpty()) {
+//                            showCallback(LOAD_SERVICE_EMPTY)
+//                        }
                     }
                     // 上拉加载
                     PAGE_OPERATE_TYPE_LOAD_MORE -> {
-                        if (todoItemList.isNullOrEmpty()) {
-                            updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
-                            return@onSuccessLabel
-                        }
-                        ++mPage
-
-                        event.type = ADD
-                        event.dataList = todoItemList
-                        event.extraData = mMainTodoItemList.size
-
-                        //添加数据
-                        mMainTodoItemList.addAll(todoItemList)
-                        mListDataChangeEvent.value = event
-                        updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
+//                        if (todoItemList.isNullOrEmpty()) {
+//                            updateRefreshLoadMoreStatus(LOAD_MORE_ALL)
+//                            return@onSuccessLabel
+//                        }
+//                        ++mPage
+//
+//                        event.type = ADD
+//                        event.dataList = todoItemList
+//                        event.extraData = mMainTodoItemList.size
+//
+//                        //添加数据
+//                        mMainTodoItemList.addAll(todoItemList)
+//                        mListDataChangeEvent.value = event
+//                        updateRefreshLoadMoreStatus(LOAD_MORE_SUCCESS)
                     }
                     else -> {}
                 }
@@ -190,6 +190,30 @@ internal class MainTodoViewModel(
     private fun groupByDate(todoItemList: List<MainTodoGroupItem>) {
         if (todoItemList.isNullOrEmpty()) {
             return
+        }
+
+        when (mPageOperateType) {
+            PAGE_OPERATE_TYPE_LOAD,
+            PAGE_OPERATE_TYPE_REFRESH -> {
+                mMainTodoItemList.clear()
+                mMainTodoItemMapList.clear()
+
+                todoItemList.forEach { todoItem ->
+                    val dayMs = todoItem.date / 86400000L
+                    val position = mMainTodoItemMapList[dayMs]
+
+                    if (position != null && position < mMainTodoItemList.size) {
+                        val mainTodoItem = mMainTodoItemList[position]
+
+                        mainTodoItem.todoItemList.add(todoItem)
+                    } else {
+
+                    }
+                }
+            }
+            PAGE_OPERATE_TYPE_LOAD_MORE -> {
+
+            }
         }
 
         val mainTodoItemMap = LinkedHashMap<Long, MainTodoItem>()

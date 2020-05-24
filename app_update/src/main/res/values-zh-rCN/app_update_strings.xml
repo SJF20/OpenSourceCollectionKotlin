@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_update_name">app_update</string>
+
+    <string name="开源集合有新版本了">开源集合有新版本了~</string>
+    <string name="暂无详细描述">暂无详细描述</string>
+    <string name="是">是</string>
+    <string name="否">否</string>
+</resources>
