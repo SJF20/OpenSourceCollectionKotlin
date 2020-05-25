@@ -6,11 +6,9 @@ import com.alibaba.android.arouter.facade.annotation.Interceptor
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback
 import com.alibaba.android.arouter.facade.template.IInterceptor
 import com.alibaba.android.arouter.launcher.ARouter
-import com.shijingfeng.base.R
 import com.shijingfeng.base.arouter.service.LoginInterceptProvider
 import com.shijingfeng.base.common.constant.GROUP_APP
 import com.shijingfeng.base.common.constant.GROUP_WAN_ANDROID
-import com.shijingfeng.base.util.getStringById
 
 /**
  * Function: 登录拦截器

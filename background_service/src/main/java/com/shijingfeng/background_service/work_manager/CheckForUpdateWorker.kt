@@ -1,4 +1,4 @@
-package com.shijingfeng.app_update.work_manager
+package com.shijingfeng.background_service.work_manager
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.text.TextUtils
 import androidx.annotation.WorkerThread
@@ -15,18 +14,16 @@ import androidx.core.app.NotificationCompat.PRIORITY_HIGH
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.*
 import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.ProcessUtils
-import com.shijingfeng.app_update.R
-import com.shijingfeng.app_update.api.AppApi
-import com.shijingfeng.app_update.constant.NEWEST_APP_VERSION_STR
-import com.shijingfeng.app_update.entity.NewestAppVersionEntity
-import com.shijingfeng.app_update.entity.ResultEntity
-import com.shijingfeng.app_update.receiver.CheckForUpdateReceiver
-import com.shijingfeng.app_update.receiver.registerCheckForUpdateReceiver
+import com.shijingfeng.background_service.R
+import com.shijingfeng.background_service.api.AppApi
+import com.shijingfeng.background_service.constant.NEWEST_APP_VERSION_STR
+import com.shijingfeng.background_service.entity.NewestAppVersionEntity
+import com.shijingfeng.background_service.entity.ResultEntity
+import com.shijingfeng.background_service.receiver.CheckForUpdateReceiver
+import com.shijingfeng.background_service.receiver.registerCheckForUpdateReceiver
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
 

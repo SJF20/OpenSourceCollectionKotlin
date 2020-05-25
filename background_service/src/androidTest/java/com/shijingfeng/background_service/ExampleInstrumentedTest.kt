@@ -1,4 +1,4 @@
-package com.shijingfeng.app_update
+package com.shijingfeng.background_service
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.shijingfeng.app_update.test", appContext.packageName)
+        assertEquals("com.shijingfeng.background_service.test", appContext.packageName)
     }
 }

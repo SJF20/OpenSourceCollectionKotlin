@@ -1,4 +1,4 @@
-package com.shijingfeng.app_update.entity
+package com.shijingfeng.background_service.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity

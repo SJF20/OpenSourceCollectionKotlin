@@ -65,9 +65,9 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
             override fun onViewInitFinished(success: Boolean) {
                 mX5InitSuccess = success
                 if (success) {
-                    e("测试", "腾讯X5内核加载成功")
+                    e("开源集合", "腾讯X5内核加载成功")
                 } else {
-                    e("测试", "腾讯X5内核加载失败")
+                    e("开源集合", "腾讯X5内核加载失败")
                 }
             }
 
@@ -75,7 +75,7 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
              * x5內核初始化完成回调
              */
             override fun onCoreInitFinished() {
-                e("测试", "腾讯X5内核初始化完毕")
+                e("开源集合", "腾讯X5内核初始化完毕")
                 isX5Inited = true
                 EventBus.getDefault().post(X5InitedEvent(mX5InitSuccess))
             }

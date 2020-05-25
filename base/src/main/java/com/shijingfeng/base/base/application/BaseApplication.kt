@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
@@ -15,10 +16,23 @@ import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
 import io.realm.Realm
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
+import kotlin.Exception
+
+/** 应用初始化类 全限定类名 列表 */
+val sAppInitList = arrayOf(
+    APP_INIT_APP,
+    APP_INIT_WAN_ANDROID,
+    APP_INIT_TODO,
+    APP_INIT_TENCENT_X5,
+    APP_INIT_BACKGROUND_SERVICE,
+    APP_INIT_COMMON
+)
 
 /** Application实例 */
 lateinit var application: Application
@@ -30,6 +44,9 @@ lateinit var application: Application
  * @author ShiJingFeng
  */
 abstract class BaseApplication : Application() {
+
+    /** 应用初始化类 列表 */
+    private val mAppInitClassList = mutableListOf<AppInit>()
 
     companion object {
         //static 代码段可以防止内存泄露
@@ -59,7 +76,7 @@ abstract class BaseApplication : Application() {
         //创建目录
         createDirectory()
         //初始化 ARouter 路由框架
-        initArouter()
+        initARouter()
         //初始化万能工具类
         initUtils()
         //初始化 LoadSir
@@ -68,12 +85,37 @@ abstract class BaseApplication : Application() {
         initRetrofitUrlManager()
         //初始化 Realm 数据库
         initRealm()
+
+        //开始 其他 module App 初始化
+        startAppInit()
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         //初始化MultiDex
         MultiDex.install(this)
+    }
+
+    /**
+     * 开始 其他 module App 初始化
+     */
+    private fun startAppInit() {
+        mAppInitClassList.clear()
+        e("开源集合", "sAppInitList: " + sAppInitList.joinToString(","))
+        sAppInitList.forEach { className ->
+            try {
+                val cls = Class.forName(className)
+                val appInit = cls.newInstance() as AppInit
+
+                e("开源集合", "appInit: " + appInit::class.java.name)
+
+                mAppInitClassList.add(appInit)
+                appInit.onCreate()
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                e("开源集合", "BaseApplication startAppInit() $className 反射创建类失败")
+            }
+        }
     }
 
     /**
@@ -99,7 +141,7 @@ abstract class BaseApplication : Application() {
     /**
      * 初始化 ARouter 路由框架
      */
-    private fun initArouter() {
+    private fun initARouter() {
         if (DEBUG) {
             // 这两行必须写在init之前，否则这些配置在init过程中将无效
             // 打印日志

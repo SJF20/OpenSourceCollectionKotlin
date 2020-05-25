@@ -9,19 +9,6 @@ package com.shijingfeng.base.common.constant
  * @author ShiJingFeng
  */
 
-/** app Group 名字  */
-const val GROUP_APP = "app"
-/** wan_android Group 名字  */
-const val GROUP_WAN_ANDROID = "wan_android"
-/** todo模块 Group名字 */
-const val GROUP_TODO = "todo"
-/** tencent_x5 Group名字 */
-const val TENCENT_X5 = "tencent_x5"
-/** common Group 名字 */
-const val GROUP_COMMON = "common"
-/** base Group 名字  */
-const val GROUP_BASE = "base"
-
 /** SparseArray Key(int) Value(Integer) Activity setResult中的resultCode  */
 const val KEY_RESULT_CODE = 1
 /** SparseArray Key(int) Value(Intent) Activity setResult中的data  */

@@ -1,5 +1,5 @@
 @file:JvmName("FlagConstant")
-package com.shijingfeng.app_update.constant
+package com.shijingfeng.background_service.constant
 
 /**
  * Function: 标志 相关 静态字符串

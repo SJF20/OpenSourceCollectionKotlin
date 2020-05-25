@@ -1,4 +1,4 @@
-package com.shijingfeng.app_update
+package com.shijingfeng.background_service
 
 import org.junit.Test
 

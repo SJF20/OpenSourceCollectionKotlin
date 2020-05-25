@@ -5,6 +5,7 @@ import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
+import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
@@ -37,7 +38,7 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
     private fun initBmob() {
         Bmob.initialize(
             BmobConfig.Builder(this)
-                .setApplicationId("5e9829fbc3f5928d5fdbee8c67eba7c6")
+                .setApplicationId(BMOB_APP_KEY)
                 //请求超时时间（单位为秒）：默认15s
                 .setConnectTimeout(20)
                 //文件分片上传时每片的大小（单位字节），默认512 * 1024
@@ -62,9 +63,9 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
             override fun onViewInitFinished(success: Boolean) {
                 mX5InitSuccess = success
                 if (success) {
-                    e("测试", "腾讯X5内核加载成功")
+                    e("开源集合", "腾讯X5内核加载成功")
                 } else {
-                    e("测试", "腾讯X5内核加载失败")
+                    e("开源集合", "腾讯X5内核加载失败")
                 }
             }
 
@@ -72,7 +73,7 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
              * x5內核初始化完成回调
              */
             override fun onCoreInitFinished() {
-                e("测试", "腾讯X5内核初始化完毕")
+                e("开源集合", "腾讯X5内核初始化完毕")
                 isX5Inited = true
                 EventBus.getDefault().post(X5InitedEvent(mX5InitSuccess))
             }

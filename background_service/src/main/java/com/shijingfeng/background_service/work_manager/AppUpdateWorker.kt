@@ -1,4 +1,4 @@
-package com.shijingfeng.app_update.work_manager
+package com.shijingfeng.background_service.work_manager
 
 import android.content.Context
 import androidx.work.*

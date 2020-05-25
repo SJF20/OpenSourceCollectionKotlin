@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.shijingfeng.app.base.AppBaseViewModel
 import com.shijingfeng.app.source.repository.SplashRepository
-import com.shijingfeng.app_update.work_manager.startCheckForUpdateWorker
+import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 

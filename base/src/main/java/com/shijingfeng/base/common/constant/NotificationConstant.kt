@@ -11,12 +11,12 @@ package com.shijingfeng.base.common.constant
 /** 通知渠道 ID: 应用更新提示 */
 const val NOTIFICATION_CHANNEL_ID_APP_UPDATE_HINT = "app_update_hint"
 /** 通知渠道 ID: 应用更新 */
-const val NOTIFICATION_CHANNEL_ID_APP_UPDATE = "app_update"
+const val NOTIFICATION_CHANNEL_ID_APP_UPDATE = "background_service"
 
 /** 通知渠道名称: 应用更新提示 */
 const val NOTIFICATION_CHANNEL_NAME_APP_UPDATE_HINT = "app_update_hint"
 /** 通知渠道名称: 应用更新 */
-const val NOTIFICATION_CHANNEL_NAME_APP_UPDATE = "app_update"
+const val NOTIFICATION_CHANNEL_NAME_APP_UPDATE = "background_service"
 
 /** 通知 ID: 应用更新提示 */
 const val NOTIFICATION_ID_APP_UPDATE_HINT = 100

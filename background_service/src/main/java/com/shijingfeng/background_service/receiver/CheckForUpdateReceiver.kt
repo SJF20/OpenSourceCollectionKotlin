@@ -1,4 +1,4 @@
-package com.shijingfeng.app_update.receiver
+package com.shijingfeng.background_service.receiver
 
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
@@ -9,13 +9,12 @@ import android.os.Handler
 import android.text.TextUtils
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
-import com.shijingfeng.app_update.R
-import com.shijingfeng.app_update.constant.NEWEST_APP_VERSION_STR
-import com.shijingfeng.app_update.entity.NewestAppVersionEntity
+import com.shijingfeng.background_service.R
+import com.shijingfeng.background_service.constant.NEWEST_APP_VERSION_STR
+import com.shijingfeng.background_service.entity.NewestAppVersionEntity
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
 import com.shijingfeng.base.util.deserialize
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 
 /** 检查更新 Broadcast Receiver */

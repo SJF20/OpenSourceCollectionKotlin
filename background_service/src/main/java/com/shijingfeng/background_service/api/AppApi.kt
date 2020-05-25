@@ -1,10 +1,10 @@
-package com.shijingfeng.app_update.api
+package com.shijingfeng.background_service.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_PGYER
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.app_update.constant.PGYER_APP_KEY
-import com.shijingfeng.app_update.entity.NewestAppVersionEntity
-import com.shijingfeng.app_update.entity.ResultEntity
+import com.shijingfeng.base.common.constant.PGYER_APP_KEY
+import com.shijingfeng.background_service.entity.NewestAppVersionEntity
+import com.shijingfeng.background_service.entity.ResultEntity
 import retrofit2.Call
 import retrofit2.http.*
 
