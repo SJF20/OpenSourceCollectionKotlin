@@ -1,7 +1,5 @@
 package com.shijingfeng.todo.view_model
 
-import android.util.SparseArray
-import android.util.SparseIntArray
 import com.kingja.loadsir.callback.Callback
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener

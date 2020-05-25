@@ -228,7 +228,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
     // 依赖 app_update 模块
-    implementation project(path: ':app_update')
+    implementation project(path: ':background_service')
     // 依赖 tencent_x5 模块
     implementation project(path: ':tencent_x5')
     // 依赖 common 模块

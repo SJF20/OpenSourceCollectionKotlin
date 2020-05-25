@@ -11,8 +11,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.constant.*
 import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.ui.activity.MAIN_HOME
-import com.shijingfeng.wan_android.utils.CoinUtil
-import com.shijingfeng.wan_android.utils.UserUtil
+import com.shijingfeng.wan_android.utils.localLogout
 
 /**
  * Function: 主页 ViewModel
@@ -92,9 +91,7 @@ internal class MainViewModel(
         showLoadingDialog(getStringById(R.string.退出登录中))
         mRepository?.logout(onSuccess = {
             // 本地退出登录
-            UserUtil.logout()
-            // 删除积分信息
-            CoinUtil.coinInfo = null
+            localLogout()
             // 关闭加载中弹框
             hideLoadingDialog()
         }, onFailure = {

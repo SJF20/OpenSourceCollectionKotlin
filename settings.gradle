@@ -1,4 +1,4 @@
-include ':app_update'// app 模块 (空壳架子)
+// app 模块 (空壳架子)
 include ':app'
 
 // 可作为 Application 的模块
@@ -10,6 +10,8 @@ include ':todo'
 // 库模块
 // 腾讯X5 模块
 include ':tencent_x5'
+// 后台服务 模块
+include ':background_service'
 // 通用 模块 (提供通用功能组件)
 include ':common'
 // 基础 模块 (第三方依赖，和一些基类)

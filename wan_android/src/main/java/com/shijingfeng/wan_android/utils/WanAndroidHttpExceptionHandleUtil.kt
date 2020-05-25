@@ -44,6 +44,8 @@ internal fun handle(e: Throwable?): E {
             //服务器异常
             if (throwable.errorCode == SERVER_NEED_LOGIN) {
                 exception.errorMsg = getStringById(R.string.需要登录)
+                //本地退出登录
+                localLogout()
                 ToastUtils.showShort(exception.errorMsg)
                 //需要登录, 跳转到登录页面
                 navigation(

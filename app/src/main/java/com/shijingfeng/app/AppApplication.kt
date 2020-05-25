@@ -5,10 +5,13 @@ import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
+import com.shijingfeng.base.common.constant.BASE_URL_VALUE_WAN_ANDROID
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
+import com.shijingfeng.base.http.cookie.store.PersistentCookieStore
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
+import okhttp3.Request
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Executors
 

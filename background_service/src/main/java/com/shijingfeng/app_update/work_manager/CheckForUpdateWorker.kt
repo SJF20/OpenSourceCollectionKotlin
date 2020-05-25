@@ -97,21 +97,25 @@ internal class CheckForUpdateWorker(
 
         val appApi = RetrofitUtil.create(AppApi::class.java)
 
-        val response = appApi.getNewestAppVersionFromServer(
-            versionName = AppUtils.getAppVersionName()
-        ).execute()
+        try {
+            val response = appApi.getNewestAppVersionFromServer(
+                versionName = AppUtils.getAppVersionName()
+            ).execute()
 
-        if (response.isSuccessful) {
-            val result: ResultEntity<NewestAppVersionEntity?>? = response.body()
+            if (response.isSuccessful) {
+                val result: ResultEntity<NewestAppVersionEntity?>? = response.body()
 
-            result?.run {
-                data?.run {
-                    if (buildHaveNewVersion) {
-                        // 有新版本
-                        makeAppUpdateNotification(data)
+                result?.run {
+                    data?.run {
+                        if (buildHaveNewVersion) {
+                            // 有新版本
+                            makeAppUpdateNotification(data)
+                        }
                     }
                 }
             }
+        } catch (e: java.io.IOException) {
+
         }
     }
 
