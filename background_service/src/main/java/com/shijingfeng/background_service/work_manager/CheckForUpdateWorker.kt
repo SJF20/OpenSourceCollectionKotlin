@@ -21,6 +21,7 @@ import com.shijingfeng.background_service.entity.NewestAppVersionEntity
 import com.shijingfeng.background_service.entity.ResultEntity
 import com.shijingfeng.background_service.receiver.CheckForUpdateReceiver
 import com.shijingfeng.background_service.receiver.registerCheckForUpdateReceiver
+import com.shijingfeng.background_service.receiver.unregisterCheckForUpdateReceiver
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.RetrofitUtil
@@ -85,6 +86,14 @@ internal class CheckForUpdateWorker(
     }
 
     /**
+     * Worker停止 (通常是遇见异常)
+     */
+    override fun onStopped() {
+        super.onStopped()
+        unregisterCheckForUpdateReceiver()
+    }
+
+    /**
      * 从服务器上获取最新 App 版本
      */
     @WorkerThread
@@ -112,7 +121,7 @@ internal class CheckForUpdateWorker(
                 }
             }
         } catch (e: java.io.IOException) {
-
+            e.printStackTrace()
         }
     }
 
@@ -132,15 +141,13 @@ internal class CheckForUpdateWorker(
             notificationManager?.createNotificationChannel(notificationChannel)
         }
 
-        val checkForUpdateIntent = Intent()
-
-        checkForUpdateIntent.action = CheckForUpdateReceiver::class.java.name
-        checkForUpdateIntent.putExtra(NEWEST_APP_VERSION_STR, serialize(newestAppVersion))
-
         val checkForUpdatePendingIntent = PendingIntent.getBroadcast(
             applicationContext,
             PENDING_CODE_CHECK_FOR_UPDATE,
-            checkForUpdateIntent,
+            Intent().apply {
+                action = CheckForUpdateReceiver::class.java.name
+                putExtra(NEWEST_APP_VERSION_STR, serialize(newestAppVersion))
+            },
             FLAG_UPDATE_CURRENT
         )
 

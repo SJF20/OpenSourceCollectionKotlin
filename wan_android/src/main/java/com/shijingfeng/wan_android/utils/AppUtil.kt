@@ -12,9 +12,11 @@ package com.shijingfeng.wan_android.utils
 /**
  * 本地退出登录
  */
-fun localLogout() {
+internal fun localLogout() {
     // 本地退出登录
     UserUtil.logout()
     // 删除积分信息
     CoinUtil.coinInfo = null
+    // 停止 检查 玩Android Token 是否过期 定时器
+    stopTokenExpireAlarm()
 }

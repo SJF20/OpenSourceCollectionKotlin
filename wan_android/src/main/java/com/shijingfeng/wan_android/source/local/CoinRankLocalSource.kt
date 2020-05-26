@@ -7,13 +7,11 @@ import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.util.closeRealmInstance
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getRealmInstance
 import com.shijingfeng.wan_android.entity.CoinRankEntity
 import com.shijingfeng.wan_android.entity.CoinRankItem
 import com.shijingfeng.wan_android.entity.realm.CoinRankRealm
 import io.realm.kotlin.where
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /** 单例实例 */
