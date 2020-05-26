@@ -16,6 +16,7 @@ internal class ModuleAppInit : AppInit {
      */
     override fun onCreate() {
         super.onCreate()
+        e("开源集合", "tencent_x5 ModuleAppInit onCreate")
     }
 
 }

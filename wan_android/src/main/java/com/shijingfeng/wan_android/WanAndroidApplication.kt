@@ -10,6 +10,7 @@ import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
+import io.realm.Realm
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Executors
 
@@ -30,6 +31,8 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
         initBmob()
         // 初始化腾讯X5
         initX5()
+        //初始化 Realm 数据库
+        initRealm()
     }
 
     /**
@@ -81,6 +84,14 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
         }
         //x5内核初始化接口
         QbSdk.initX5Environment(this, cb)
+    }
+
+    /**
+     * 初始化 Realm 数据库
+     */
+    private fun initRealm() {
+        // 初始化 Realm 数据库
+        Realm.init(this)
     }
 
     /**

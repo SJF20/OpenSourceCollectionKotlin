@@ -1,5 +1,5 @@
 @file:JvmName("RealmUtil")
-package com.shijingfeng.base.util
+package com.shijingfeng.wan_android.utils
 
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -21,7 +21,8 @@ private var realm: Realm? = null
  */
 fun getRealmInstance(): Realm {
     if (realm == null) {
-        realm = createRealmInstance()
+        realm =
+            createRealmInstance()
     }
     return realm!!
 }

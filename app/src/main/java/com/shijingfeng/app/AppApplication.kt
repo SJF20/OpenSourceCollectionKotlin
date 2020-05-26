@@ -5,13 +5,12 @@ import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
-import com.shijingfeng.base.common.constant.BASE_URL_VALUE_WAN_ANDROID
+import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
-import com.shijingfeng.base.http.cookie.store.PersistentCookieStore
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
-import okhttp3.Request
+import io.realm.Realm
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Executors
 
@@ -32,6 +31,8 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         initBmob()
         // 初始化腾讯X5
         initX5()
+        //初始化 Realm 数据库
+        initRealm()
     }
 
     /**
@@ -40,7 +41,7 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
     private fun initBmob() {
         Bmob.initialize(
             BmobConfig.Builder(this)
-                .setApplicationId("5e9829fbc3f5928d5fdbee8c67eba7c6")
+                .setApplicationId(BMOB_APP_KEY)
                 //请求超时时间（单位为秒）：默认15s
                 .setConnectTimeout(20)
                 //文件分片上传时每片的大小（单位字节），默认512 * 1024
@@ -83,6 +84,14 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         }
         //x5内核初始化接口
         QbSdk.initX5Environment(this, cb)
+    }
+
+    /**
+     * 初始化 Realm 数据库
+     */
+    private fun initRealm() {
+        // 初始化 Realm 数据库
+        Realm.init(this)
     }
 
     /**

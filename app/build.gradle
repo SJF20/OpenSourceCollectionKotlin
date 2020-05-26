@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// Realm 数据库 插件
+apply plugin: 'realm-android'
 
 android {
     //签名
@@ -57,9 +59,11 @@ android {
 
         // 腾讯X5 必须显式指定 armeabi so库
         // 大厂APP一般只有一个 armeabi so库文件
-//        ndk {
-//            abiFilters "armeabi"
-//        }
+        // Realm 不支持 armeabi, 故改为添加 armeabi架构 armeabi-v7a
+        // 注意: 不能使用 arm64-v8a, 否则腾讯x5会初始化失败 (腾讯x5为了兼容, 只支持armeabi架构)
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
     }
     buildTypes {
         //正式模式
@@ -118,6 +122,10 @@ android {
     //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
     androidExtensions {
         experimental = true
+    }
+    //Realm 开启 Kotlin 支持
+    realm {
+        kotlinExtensionsEnabled = true
     }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {

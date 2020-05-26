@@ -1,6 +1,5 @@
 package com.shijingfeng.wan_android.entity.realm
 
-import com.shijingfeng.base.base.entity.BaseRealmEntity
 import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass

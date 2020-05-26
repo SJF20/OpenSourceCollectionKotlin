@@ -16,7 +16,7 @@ internal class ModuleAppInit : AppInit {
      */
     override fun onCreate() {
         super.onCreate()
-        e("开源集合", "app ModuleAppInit")
+        e("开源集合", "app ModuleAppInit onCreate")
     }
 
 }

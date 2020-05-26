@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
@@ -17,9 +16,7 @@ import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
-import io.realm.Realm
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
 import kotlin.Exception
@@ -83,8 +80,6 @@ abstract class BaseApplication : Application() {
         initLoadSir()
         //初始化 RetrofitUrlManager
         initRetrofitUrlManager()
-        //初始化 Realm 数据库
-        initRealm()
 
         //开始 其他 module App 初始化
         startAppInit()
@@ -101,19 +96,15 @@ abstract class BaseApplication : Application() {
      */
     private fun startAppInit() {
         mAppInitClassList.clear()
-        e("开源集合", "sAppInitList: " + sAppInitList.joinToString(","))
         sAppInitList.forEach { className ->
             try {
                 val cls = Class.forName(className)
                 val appInit = cls.newInstance() as AppInit
 
-                e("开源集合", "appInit: " + appInit::class.java.name)
-
                 mAppInitClassList.add(appInit)
                 appInit.onCreate()
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                e("开源集合", "BaseApplication startAppInit() $className 反射创建类失败")
             }
         }
     }
@@ -187,14 +178,6 @@ abstract class BaseApplication : Application() {
             // 蒲公英 (用于检测版本更新 和 下载应用) BaseUrl
             putDomain(BASE_URL_NAME_PGYER, BASE_URL_VALUE_PGYER)
         }
-    }
-
-    /**
-     * 初始化 Realm 数据库
-     */
-    private fun initRealm() {
-        // 初始化 Realm 数据库
-        Realm.init(this)
     }
 
 }

@@ -6,8 +6,8 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.E
-import com.shijingfeng.base.util.closeRealmInstance
-import com.shijingfeng.base.util.getRealmInstance
+import com.shijingfeng.wan_android.utils.closeRealmInstance
+import com.shijingfeng.wan_android.utils.getRealmInstance
 import com.shijingfeng.wan_android.entity.CoinRankEntity
 import com.shijingfeng.wan_android.entity.CoinRankItem
 import com.shijingfeng.wan_android.entity.realm.CoinRankRealm
@@ -51,7 +51,8 @@ internal class CoinRankLocalSource : BaseLocalSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinRankList(onSuccess: onSuccess<CoinRankEntity?>, onFailure: onFailure) {
-        getRealmInstance().executeTransactionAsync { realm ->
+        getRealmInstance()
+            .executeTransactionAsync { realm ->
             try {
                 val results = realm.where<CoinRankRealm>().findAll()
                 val coinRank = CoinRankEntity()
@@ -89,7 +90,8 @@ internal class CoinRankLocalSource : BaseLocalSource() {
         onSuccess: onSuccess<List<CoinRankItem>>? = null,
         onFailure: onFailure? = null
     ) {
-        getRealmInstance().executeTransactionAsync({ realm ->
+        getRealmInstance()
+            .executeTransactionAsync({ realm ->
             val coinRankRealmList = coinRankList.map { coinRankItem ->
                 CoinRankRealm().apply {
                     userId = coinRankItem.userId
@@ -120,7 +122,8 @@ internal class CoinRankLocalSource : BaseLocalSource() {
         onSuccess: onSuccess<Any?>? = null,
         onFailure: onFailure? = null
     ) {
-        getRealmInstance().executeTransactionAsync({ realm ->
+        getRealmInstance()
+            .executeTransactionAsync({ realm ->
             realm
                 .where<CoinRankRealm>()
                 .findAll()
