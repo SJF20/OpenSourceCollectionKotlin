@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
+import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
@@ -31,8 +32,10 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         initBmob()
         // 初始化腾讯X5
         initX5()
-        //初始化 Realm 数据库
+        // 初始化 Realm 数据库
         initRealm()
+        // 开启 检查更新 Worker
+        startCheckForUpdateWorker()
     }
 
     /**

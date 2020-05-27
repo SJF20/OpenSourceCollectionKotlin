@@ -67,19 +67,19 @@ abstract class BaseApplication : Application() {
         super.onCreate()
         application = this
 
-        //注册广播
-        registerGlobalReceiver()
-
+        //初始化万能工具类
+        initUtils()
         //创建目录
         createDirectory()
         //初始化 ARouter 路由框架
         initARouter()
-        //初始化万能工具类
-        initUtils()
         //初始化 LoadSir
         initLoadSir()
         //初始化 RetrofitUrlManager
         initRetrofitUrlManager()
+
+        //注册广播
+        registerGlobalReceiver()
 
         //开始 其他 module App 初始化
         startAppInit()

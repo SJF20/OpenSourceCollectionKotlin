@@ -18,14 +18,14 @@ fun startUpdate() {
         .build()
     val inputData = Data.Builder()
         .build()
-    val request = OneTimeWorkRequest.Builder(CheckForUpdateWorker::class.java)
-        .addTag(WORKER_NAME_CHECK_FOR_UPDATE)
+    val request = OneTimeWorkRequest.Builder(AppUpdateWorker::class.java)
+        .addTag(WORKER_NAME_APP_UPDATE)
         .setInputData(inputData)
         .setConstraints(constraints)
         .build()
 
     WorkManager.getInstance(application).enqueueUniqueWork(
-        WORKER_NAME_CHECK_FOR_UPDATE,
+        WORKER_NAME_APP_UPDATE,
         ExistingWorkPolicy.KEEP,
         request
     )
