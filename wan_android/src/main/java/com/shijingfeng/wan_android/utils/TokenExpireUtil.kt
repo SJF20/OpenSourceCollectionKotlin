@@ -11,9 +11,8 @@ import android.os.Build
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.BASE_URL_VALUE_WAN_ANDROID
 import com.shijingfeng.base.common.constant.PENDING_CODE_TOKEN_EXPIRE
-import com.shijingfeng.base.common.global.getMainHandler
-import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.cookie.store.PersistentCookieStore
+import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.receiver.WanAndroidTokenExpiredReceiver
 import com.shijingfeng.wan_android.receiver.registerWanAndroidTokenExpiredReceiver
 import com.shijingfeng.wan_android.receiver.unregisterWanAndroidTokenExpiredReceiver
@@ -38,12 +37,15 @@ private var mIsTokenExpireAlarmStarted = false
  * 检查 玩安卓 Token 是否过期
  */
 internal fun checkTokenExpire() {
+    e("测试", "checkTokenExpire() 开始检查Token是否过期...")
     if (UserUtil.isLogin()) {
-        mExpireDateTime = null
+        e("测试", "UserUtil.isLogin() true 已登录")
         if (isTokenExpired()) {
+            e("测试", "Token已过期")
             // 玩安卓 Token已过期，本地退出登录
             localLogout()
         } else {
+            e("测试", "Token未过期")
             // 开启 检查 玩Android Token 是否过期 定时器
             startTokenExpireAlarm()
         }
@@ -59,6 +61,8 @@ private fun isTokenExpired(): Boolean {
         .build()
     val cookieList = PersistentCookieStore(application).getCookieList(request.url)
 
+    e("测试", "isTokenExpired() Token是否过期")
+    mExpireDateTime = null
     cookieList?.forEach { cookie ->
         val cookieName = cookie.name
 
@@ -81,6 +85,10 @@ private fun isTokenExpired(): Boolean {
  * 开启 检查 玩Android Token 是否过期 定时器
  */
 internal fun startTokenExpireAlarm() {
+    if (mIsTokenExpireAlarmStarted) {
+        return
+    }
+
     val expireDateTime = mExpireDateTime ?: return
     val alarmManager = application.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
@@ -89,11 +97,10 @@ internal fun startTokenExpireAlarm() {
     // RTC 或 ELAPSED_REALTIME 以 WAKEUP 结尾的类型能够唤醒设备，其他的类型不能唤醒设备，直到设备被唤醒才能出发警报提醒
     // 关于 AlarmManager详情请看: https://www.jianshu.com/p/8a2ce9d02640
     alarmManager?.run {
-        mIsTokenExpireAlarmStarted = true
-
         // 注册 玩Android Token失效 Broadcast Receiver
         registerWanAndroidTokenExpiredReceiver()
 
+        mIsTokenExpireAlarmStarted = true
         mTokenExpirePendingIntent = PendingIntent.getBroadcast(
             application,
             PENDING_CODE_TOKEN_EXPIRE,
@@ -110,6 +117,7 @@ internal fun startTokenExpireAlarm() {
             // Android 4.4 及以上版本 为了省电, 合并相似时间的Alarm进行批量执行, 使用精确时间应使用 setExact()
             setExact(AlarmManager.RTC_WAKEUP, expireDateTime, mTokenExpirePendingIntent)
         }
+        e("测试", "startTokenExpireAlarm() 已开启Token过期定时器")
     }
 }
 
@@ -117,14 +125,16 @@ internal fun startTokenExpireAlarm() {
  * 停止 检查 玩Android Token 是否过期 定时器
  */
 internal fun stopTokenExpireAlarm() {
-    mIsTokenExpireAlarmStarted ?: return
-    val tokenExpirePendingIntent = mTokenExpirePendingIntent ?: return
-    val alarmManager = application.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
-
+    if (!mIsTokenExpireAlarmStarted) {
+        return
+    }
     mIsTokenExpireAlarmStarted = false
+
+    val alarmManager = application.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
     // 取消注册 玩Android Token失效 Broadcast Receiver
     unregisterWanAndroidTokenExpiredReceiver()
 
-    alarmManager?.cancel(tokenExpirePendingIntent)
+    alarmManager?.cancel(mTokenExpirePendingIntent)
+    e("测试", "stopTokenExpireAlarm() 已停止Token过期定时器")
 }

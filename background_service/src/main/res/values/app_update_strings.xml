@@ -6,4 +6,6 @@
     <string name="暂无详细描述">暂无详细描述</string>
     <string name="是">是</string>
     <string name="否">否</string>
+    <string name="文件已存在">文件已存在</string>
+    <string name="下载失败">下载失败</string>
 </resources>

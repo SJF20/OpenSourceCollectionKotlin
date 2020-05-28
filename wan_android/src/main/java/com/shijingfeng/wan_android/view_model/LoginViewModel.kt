@@ -19,6 +19,7 @@ import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
+import com.shijingfeng.wan_android.utils.startTokenExpireAlarm
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -104,8 +105,10 @@ internal class LoginViewModel(
             put("password", mPassword.get() ?: "")
         }, onSuccess = onSuccessCompleted@{ userInfo ->
             if (userInfo != null) {
-                //登录信息存储到本地
+                // 登录信息存储到本地
                 UserUtil.login(userInfo)
+                // 开启 检查 玩Android Token 是否过期 定时器
+                startTokenExpireAlarm()
                 // 登录完成后 获取 积分信息
                 getCoinInfo()
             } else {
