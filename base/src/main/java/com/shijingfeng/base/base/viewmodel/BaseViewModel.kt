@@ -22,6 +22,7 @@ import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.exitApp
 import com.shijingfeng.base.util.getStringById
@@ -232,7 +233,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
             mExitApp = true
             ToastUtils.showShort(getStringById(再按一次退出应用))
             //超过两秒没有再次点击，则不退出App
-            Handler().postDelayed({ mExitApp = false }, 2000)
+            runOnUiThread(2000) {
+                mExitApp = false
+            }
         }
     }
 

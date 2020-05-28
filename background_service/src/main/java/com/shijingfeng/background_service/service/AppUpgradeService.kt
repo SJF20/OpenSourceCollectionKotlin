@@ -2,8 +2,6 @@ package com.shijingfeng.background_service.service
 
 import android.app.Service
 import android.content.Intent
-import com.shijingfeng.background_service.manager.DownloadManager
-import java.util.concurrent.Executors
 
 /**
  * Function: 应用升级 Service

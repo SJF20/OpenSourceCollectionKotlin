@@ -14,6 +14,7 @@ import com.shijingfeng.background_service.constant.NEWEST_APP_VERSION_STR
 import com.shijingfeng.background_service.entity.NewestAppVersionEntity
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getStringById
 
@@ -52,7 +53,8 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val bundle = intent?.extras
-        val newestAppVersionStr = bundle?.getString(NEWEST_APP_VERSION_STR, EMPTY_OBJECT) ?: EMPTY_OBJECT
+        val newestAppVersionStr =
+            bundle?.getString(NEWEST_APP_VERSION_STR, EMPTY_OBJECT) ?: EMPTY_OBJECT
         val newestAppVersion = deserialize(newestAppVersionStr, NewestAppVersionEntity::class.java)
         val description = newestAppVersion.buildUpdateDescription
 
@@ -68,18 +70,17 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
                     .setTitle(getStringById(R.string.开源集合有新版本了))
                     .setMessage(if (TextUtils.isEmpty(description)) getStringById(R.string.暂无详细描述) else description)
                     .setCancelable(false)
-                    .setPositiveButton(getStringById(R.string.是), { dialog, which ->
-
-                    })
+                    .setPositiveButton(getStringById(R.string.是)) { _, _ ->
+                        checkLocalApk()
+                    }
                     .setNegativeButton(getStringById(R.string.否), null)
                     .show()
             }
         } else {
-            // 应用处于后台时，直接更新
             // 从后台切换到前台
             AppUtils.launchApp(AppUtils.getAppPackageName())
 
-            Handler().postDelayed({
+            runOnUiThread(200) {
                 //应用处于前台，弹框展示详情，由用户决定是否更新
                 val curActivity = ActivityUtils.getTopActivity()
 
@@ -88,13 +89,21 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
                         .setTitle(getStringById(R.string.开源集合有新版本了))
                         .setMessage(if (TextUtils.isEmpty(description)) getStringById(R.string.暂无详细描述) else description)
                         .setCancelable(false)
-                        .setPositiveButton(getStringById(R.string.是), { dialog, which ->
-
-                        })
+                        .setPositiveButton(getStringById(R.string.是)) { _, _ ->
+                            checkLocalApk()
+                        }
                         .setNegativeButton(getStringById(R.string.否), null)
                         .show()
                 }
-            }, 200)
+            }
         }
     }
+
+    /**
+     * 检查本地是否有下载完毕的应用包
+     */
+    private fun checkLocalApk() {
+
+    }
+
 }

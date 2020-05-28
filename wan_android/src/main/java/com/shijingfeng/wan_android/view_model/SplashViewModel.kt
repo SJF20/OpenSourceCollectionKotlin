@@ -5,6 +5,7 @@ import android.os.Handler
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 
 /**
@@ -22,7 +23,7 @@ internal class SplashViewModel(
      */
     override fun init() {
         super.init()
-        Handler().postDelayed({
+        runOnUiThread(1500) {
             //跳转到首页
             navigation(
                 path = ACTIVITY_WAN_ANDROID_MAIN,
@@ -30,6 +31,6 @@ internal class SplashViewModel(
                     putBoolean(FINISH_PREVIOUS_ACTIVITY, true)
                 }
             )
-        }, 1500)
+        }
     }
 }

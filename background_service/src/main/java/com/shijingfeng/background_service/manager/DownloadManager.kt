@@ -28,13 +28,14 @@ class DownloadManager(
     /** 下载大小进度 回调函数 [0, totalSize] */
     private var onSize: ((id: String?, curSize: Long, totalSize: Long) -> Unit)? = null,
     /** 下载成功 回调函数 */
-    private var onSuccess: ((id: String?, data: String?) -> Unit)? = null,
+    private var onSuccess: ((id: String?, filePath: String?) -> Unit)? = null,
     /** 下载失败 回调函数 */
-    private var onFailure: ((id: String?, data: String?, throwable: Throwable?) -> Unit)? = null,
+    private var onFailure: ((id: String?, msg: String?, throwable: Throwable?) -> Unit)? = null,
     /** 下载取消 回调函数  isCanceled:  true:已被取消  false:该任务已经完成, 未被取消, 或其他特殊情况 */
     private var onCancel: ((id: String?, isCanceled: Boolean) -> Unit)? = null
 ) {
 
+    /** Future Map */
     private val mFutureMap = mutableMapOf<String, Future<String>>()
 
     /**
@@ -82,9 +83,9 @@ class DownloadManager(
                 var bufferedInputStream: BufferedInputStream? = null
                 var fileOutputStream: FileOutputStream? = null
                 //完整文件 总字节数
-                val contentLength: Long
+                var contentLength = 0L
                 //当前下载的字节数
-                var sumLength: Long = 0
+                var sumLength = 0L
 
                 try {
                     //后台下载
@@ -108,22 +109,34 @@ class DownloadManager(
                         val bytes = ByteArray(1024)
                         var length: Int
 
-                        while ((length = bufferedInputStream.read(bytes)) != -1) {
+                        length = bufferedInputStream.read(bytes)
+
+                        while (length != -1) {
                             fileOutputStream.write(bytes, 0, length)
                             sumLength += length
                             val currentLength: Long = sumLength
 
                             //通知监听器 下载进度
                             onSize?.invoke(id, currentLength, contentLength)
+                            onProgress?.invoke(id, (sumLength * 100L / contentLength).toInt())
+
+                            length = bufferedInputStream.read(bytes)
                         }
                     } else {
-                        onFailure?.invoke(id, getStringById(R.string.下载失败), e)
+                        onFailure?.invoke(
+                            id,
+                            getStringById(R.string.下载失败),
+                            IllegalAccessException(getStringById(R.string.没有数据))
+                        )
                     }
                 } catch (e: Exception) {
                     onFailure?.invoke(id, getStringById(R.string.下载失败), e)
                     throw e
                 } finally {
                     releaseResource(bufferedInputStream, fileOutputStream)
+                }
+                if (contentLength == sumLength) {
+                    onSuccess?.invoke(id, filePath)
                 }
                 return url
             }

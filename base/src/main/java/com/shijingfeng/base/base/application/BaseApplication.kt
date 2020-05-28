@@ -2,6 +2,7 @@ package com.shijingfeng.base.base.application
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
@@ -16,6 +17,7 @@ import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
@@ -69,8 +71,6 @@ abstract class BaseApplication : Application() {
 
         //初始化万能工具类
         initUtils()
-        //创建目录
-        createDirectory()
         //初始化 ARouter 路由框架
         initARouter()
         //初始化 LoadSir
@@ -114,19 +114,6 @@ abstract class BaseApplication : Application() {
      */
     private fun registerGlobalReceiver() {
 
-    }
-
-    /**
-     * 创建目录
-     */
-    private fun createDirectory() {
-        val personalCacheDir = File(PERSONAL_CACHE_DIR)
-        val personalGlideCacheDir = File(PERSONAL_GLIDE_CACHE_DIR)
-
-        //创建 cache 私有目录
-        if (!personalCacheDir.exists()) personalCacheDir.mkdirs()
-        //创建 glide 私有目录
-        if (!personalGlideCacheDir.exists()) personalGlideCacheDir.mkdirs()
     }
 
     /**

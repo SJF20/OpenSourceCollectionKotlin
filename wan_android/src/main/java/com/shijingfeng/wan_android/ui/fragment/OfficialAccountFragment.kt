@@ -18,6 +18,7 @@ import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.BR
@@ -179,7 +180,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
         })
         // Fragment事件
         // 延迟 500 毫秒, 防止 getFragmentByPosition() 获取 Fragment 为 null
-        Handler().postDelayed({
+        runOnUiThread(500) {
             val size = mViewModel?.mOfficialAccountIndexList?.size ?: 0
 
             for (index in 0 until size) {
@@ -187,7 +188,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
                     mOnItemEvent?.invoke(view, data, visibility, flag)
                 }
             }
-        }, 500)
+        }
     }
 
     /**

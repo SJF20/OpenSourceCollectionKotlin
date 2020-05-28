@@ -6,6 +6,7 @@ import com.shijingfeng.app.base.AppBaseViewModel
 import com.shijingfeng.app.source.repository.SplashRepository
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
+import com.shijingfeng.base.common.global.runOnUiThread
 
 /**
  * Function: 启动页 ViewModel
@@ -31,12 +32,12 @@ internal class SplashViewModel(
      * 跳转到 首页
      */
     private fun redirectToMain() {
-        Handler().postDelayed({
+        runOnUiThread(1500) {
             //跳转到首页
             navigation(path = ACTIVITY_APP_MAIN, bundle = Bundle().apply {
                 putBoolean(FINISH_PREVIOUS_ACTIVITY, true)
             })
-        }, 1500)
+        }
     }
 
 }
