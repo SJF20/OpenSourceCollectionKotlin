@@ -9,4 +9,5 @@
     <string name="文件已存在">文件已存在</string>
     <string name="下载失败">下载失败</string>
     <string name="没有数据">没有数据</string>
+    <string name="应用下载中" tools:ignore="TypographyEllipsis">应用下载中...</string>
 </resources>

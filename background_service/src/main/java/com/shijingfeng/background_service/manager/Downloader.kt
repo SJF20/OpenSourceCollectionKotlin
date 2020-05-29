@@ -1,7 +1,5 @@
 package com.shijingfeng.background_service.manager
 
-import android.os.Handler
-import android.os.Looper
 import com.shijingfeng.background_service.R
 import com.shijingfeng.base.util.getStringById
 import okhttp3.OkHttpClient
@@ -20,19 +18,9 @@ import java.util.concurrent.*
  * Description:
  * @author ShiJingFeng
  */
-class DownloadManager(
-    /** 下载线程执行器 */
-    private var executorService: ExecutorService = Executors.newCachedThreadPool(),
-    /** 下载进度 回调函数 [0, 100] */
-    private var onProgress: ((id: String?, progress: Int) -> Unit)? = null,
-    /** 下载大小进度 回调函数 [0, totalSize] */
-    private var onSize: ((id: String?, curSize: Long, totalSize: Long) -> Unit)? = null,
-    /** 下载成功 回调函数 */
-    private var onSuccess: ((id: String?, filePath: String?) -> Unit)? = null,
-    /** 下载失败 回调函数 */
-    private var onFailure: ((id: String?, msg: String?, throwable: Throwable?) -> Unit)? = null,
-    /** 下载取消 回调函数  isCanceled:  true:已被取消  false:该任务已经完成, 未被取消, 或其他特殊情况 */
-    private var onCancel: ((id: String?, isCanceled: Boolean) -> Unit)? = null
+class Downloader private constructor(
+    /** 构建器 */
+    private val builder: Builder
 ) {
 
     /** Future Map */
@@ -54,7 +42,7 @@ class DownloadManager(
         replace: Boolean = false
     ) {
         // 注意只能使用 Callable 而不能使用 Runnable (虽然也返回 Future 但调用 cancel 无效)
-        val future = executorService.submit(object : Callable<String> {
+        val future = builder.executorService.submit(object : Callable<String> {
 
             override fun call(): String {
                 val file = File(filePath)
@@ -63,7 +51,7 @@ class DownloadManager(
                     if (replace) {
                         file.deleteOnExit()
                     } else {
-                        onFailure?.invoke(
+                        builder.onFailure?.invoke(
                             id,
                             getStringById(R.string.文件已存在),
                             SecurityException(getStringById(R.string.文件已存在))
@@ -117,26 +105,26 @@ class DownloadManager(
                             val currentLength: Long = sumLength
 
                             //通知监听器 下载进度
-                            onSize?.invoke(id, currentLength, contentLength)
-                            onProgress?.invoke(id, (sumLength * 100L / contentLength).toInt())
+                            builder.onSize?.invoke(id, currentLength, contentLength)
+                            builder.onProgress?.invoke(id, (sumLength * 100L / contentLength).toInt())
 
                             length = bufferedInputStream.read(bytes)
                         }
                     } else {
-                        onFailure?.invoke(
+                        builder.onFailure?.invoke(
                             id,
                             getStringById(R.string.下载失败),
                             IllegalAccessException(getStringById(R.string.没有数据))
                         )
                     }
                 } catch (e: Exception) {
-                    onFailure?.invoke(id, getStringById(R.string.下载失败), e)
+                    builder.onFailure?.invoke(id, getStringById(R.string.下载失败), e)
                     throw e
                 } finally {
                     releaseResource(bufferedInputStream, fileOutputStream)
                 }
                 if (contentLength == sumLength) {
-                    onSuccess?.invoke(id, filePath)
+                    builder.onSuccess?.invoke(id, filePath)
                 }
                 return url
             }
@@ -172,7 +160,7 @@ class DownloadManager(
 
             mFutureMap.remove(id)
             // canceled:  true:已被取消  false:该任务已经完成, 未被取消, 或其他特殊情况
-            onCancel?.invoke(id, canceled)
+            builder.onCancel?.invoke(id, canceled)
         }
     }
 
@@ -180,61 +168,91 @@ class DownloadManager(
      * 注意一定要在 onDestroy 中调用 destroy 否则会导致内存泄漏
      */
     fun destory() {
-        executorService.shutdownNow()
+        builder.executorService.shutdownNow()
     }
 
     /**
-     * 设置 下载线程执行器
-     * @param executorService 下载线程执行器
+     * 构建器
      */
-    fun setExecutorService(executorService: ExecutorService): DownloadManager {
-        this.executorService = executorService
-        return this
-    }
+    class Builder {
 
-    /**
-     * 设置 下载进度 回调函数 [0, 100]
-     * @param onProgress 下载进度 回调函数 [0, 100]
-     */
-    fun setOnProgress(onProgress: (id: String?, progress: Int) -> Unit): DownloadManager {
-        this.onProgress = onProgress
-        return this
-    }
+        /** 下载线程执行器 */
+        var executorService: ExecutorService = Executors.newCachedThreadPool()
 
-    /**
-     * 设置 下载大小进度 回调函数 [0, totalSize]
-     * @param onSize 下载大小进度 回调函数 [0, totalSize]
-     */
-    fun setOnSize(onSize: (id: String?, curSize: Long, totalSize: Long) -> Unit): DownloadManager {
-        this.onSize = onSize
-        return this
-    }
+        /** 下载进度 回调函数 [0, 100] */
+        var onProgress: ((id: String?, progress: Int) -> Unit)? = null
 
-    /**
-     * 设置 下载成功 回调函数
-     * @param onSuccess 下载成功 回调函数
-     */
-    fun setOnSuccess(onSuccess: (id: String?, data: String?) -> Unit): DownloadManager {
-        this.onSuccess = onSuccess
-        return this
-    }
+        /** 下载大小进度 回调函数 [0, totalSize] */
+        var onSize: ((id: String?, curSize: Long, totalSize: Long) -> Unit)? = null
 
-    /**
-     * 设置 下载失败 回调函数
-     * @param onFailure 下载失败 回调函数
-     */
-    fun setOnFailure(onFailure: (id: String?, data: String?, throwable: Throwable?) -> Unit): DownloadManager {
-        this.onFailure = onFailure
-        return this
-    }
+        /** 下载成功 回调函数 */
+        var onSuccess: ((id: String?, filePath: String?) -> Unit)? = null
 
-    /**
-     * 设置 下载取消 回调函数
-     * @param onCancel 下载取消 回调函数 isCanceled:  true:已被取消  false:该任务已经完成, 未被取消, 或其他特殊情况
-     */
-    fun setOnCancel(onCancel: (id: String?, isCanceled: Boolean) -> Unit): DownloadManager {
-        this.onCancel = onCancel
-        return this
+        /** 下载失败 回调函数 */
+        var onFailure: ((id: String?, msg: String?, throwable: Throwable?) -> Unit)? = null
+
+        /** 下载取消 回调函数  isCanceled:  true:已被取消  false:该任务已经完成, 未被取消, 或其他特殊情况 */
+        var onCancel: ((id: String?, isCanceled: Boolean) -> Unit)? = null
+
+        /**
+         * 设置 下载线程执行器
+         * @param executorService 下载线程执行器
+         */
+        fun setExecutorService(executorService: ExecutorService): Builder {
+            this.executorService = executorService
+            return this
+        }
+
+        /**
+         * 设置 下载进度 回调函数 [0, 100]
+         * @param onProgress 下载进度 回调函数 [0, 100]
+         */
+        fun setOnProgress(onProgress: (id: String?, progress: Int) -> Unit): Builder {
+            this.onProgress = onProgress
+            return this
+        }
+
+        /**
+         * 设置 下载大小进度 回调函数 [0, totalSize]
+         * @param onSize 下载大小进度 回调函数 [0, totalSize]
+         */
+        fun setOnSize(onSize: (id: String?, curSize: Long, totalSize: Long) -> Unit): Builder {
+            this.onSize = onSize
+            return this
+        }
+
+        /**
+         * 设置 下载成功 回调函数
+         * @param onSuccess 下载成功 回调函数
+         */
+        fun setOnSuccess(onSuccess: (id: String?, data: String?) -> Unit): Builder {
+            this.onSuccess = onSuccess
+            return this
+        }
+
+        /**
+         * 设置 下载失败 回调函数
+         * @param onFailure 下载失败 回调函数
+         */
+        fun setOnFailure(onFailure: (id: String?, data: String?, throwable: Throwable?) -> Unit): Builder {
+            this.onFailure = onFailure
+            return this
+        }
+
+        /**
+         * 设置 下载取消 回调函数
+         * @param onCancel 下载取消 回调函数 isCanceled:  true:已被取消  false:该任务已经完成, 未被取消, 或其他特殊情况
+         */
+        fun setOnCancel(onCancel: (id: String?, isCanceled: Boolean) -> Unit): Builder {
+            this.onCancel = onCancel
+            return this
+        }
+
+        /**
+         * 构建 DownloadManager
+         */
+        fun build() = Downloader(this)
+
     }
 
 }

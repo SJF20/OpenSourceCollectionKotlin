@@ -22,5 +22,7 @@ const val PERMISSION_EXTERNAL_STORAGE = 2
 
 /** PendingIntent 请求码: 检查更新 */
 const val PENDING_CODE_CHECK_FOR_UPDATE = 1
+/** PendingIntent 请求码: 取消应用更新 */
+const val PENDING_CODE_CANCEL_APP_UPDATE = 2
 /** PendingIntent 请求码: 玩Android Token 过期验证 */
-const val PENDING_CODE_TOKEN_EXPIRE = 2
+const val PENDING_CODE_TOKEN_EXPIRE = 3

@@ -5,18 +5,21 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Handler
+import android.os.Bundle
 import android.text.TextUtils
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.shijingfeng.background_service.R
-import com.shijingfeng.background_service.constant.NEWEST_APP_VERSION_STR
-import com.shijingfeng.background_service.entity.NewestAppVersionEntity
+import com.shijingfeng.background_service.constant.NEWEST_APP_INFO_STR
+import com.shijingfeng.background_service.entity.NewestAppInfoEntity
+import com.shijingfeng.background_service.service.startAppUpgradeService
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
+import com.shijingfeng.base.common.constant.PERSONAL_APK_FILE_DIR
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getStringById
+import java.io.File
 
 /** 检查更新 Broadcast Receiver */
 private var mCheckForUpdateReceiver: CheckForUpdateReceiver? = null
@@ -53,10 +56,9 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val bundle = intent?.extras
-        val newestAppVersionStr =
-            bundle?.getString(NEWEST_APP_VERSION_STR, EMPTY_OBJECT) ?: EMPTY_OBJECT
-        val newestAppVersion = deserialize(newestAppVersionStr, NewestAppVersionEntity::class.java)
-        val description = newestAppVersion.buildUpdateDescription
+        val newestAppInfoStr = bundle?.getString(NEWEST_APP_INFO_STR, EMPTY_OBJECT) ?: EMPTY_OBJECT
+        val newestAppInfo = deserialize(newestAppInfoStr, NewestAppInfoEntity::class.java)
+        val description = newestAppInfo.buildUpdateDescription
 
         // 取消注册 检查更新 Broadcast Receiver
         unregisterCheckForUpdateReceiver()
@@ -71,7 +73,9 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
                     .setMessage(if (TextUtils.isEmpty(description)) getStringById(R.string.暂无详细描述) else description)
                     .setCancelable(false)
                     .setPositiveButton(getStringById(R.string.是)) { _, _ ->
-                        checkLocalApk()
+                        startAppUpgradeService(bundle = Bundle().apply {
+                            putString(NEWEST_APP_INFO_STR, newestAppInfoStr)
+                        })
                     }
                     .setNegativeButton(getStringById(R.string.否), null)
                     .show()
@@ -90,7 +94,9 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
                         .setMessage(if (TextUtils.isEmpty(description)) getStringById(R.string.暂无详细描述) else description)
                         .setCancelable(false)
                         .setPositiveButton(getStringById(R.string.是)) { _, _ ->
-                            checkLocalApk()
+                            startAppUpgradeService(bundle = Bundle().apply {
+                                putString(NEWEST_APP_INFO_STR, newestAppInfoStr)
+                            })
                         }
                         .setNegativeButton(getStringById(R.string.否), null)
                         .show()
@@ -98,12 +104,4 @@ internal class CheckForUpdateReceiver : BroadcastReceiver() {
             }
         }
     }
-
-    /**
-     * 检查本地是否有下载完毕的应用包
-     */
-    private fun checkLocalApk() {
-
-    }
-
 }

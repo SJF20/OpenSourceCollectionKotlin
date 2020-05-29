@@ -16,8 +16,8 @@ import androidx.work.*
 import com.blankj.utilcode.util.AppUtils
 import com.shijingfeng.background_service.R
 import com.shijingfeng.background_service.api.AppApi
-import com.shijingfeng.background_service.constant.NEWEST_APP_VERSION_STR
-import com.shijingfeng.background_service.entity.NewestAppVersionEntity
+import com.shijingfeng.background_service.constant.NEWEST_APP_INFO_STR
+import com.shijingfeng.background_service.entity.NewestAppInfoEntity
 import com.shijingfeng.background_service.entity.ResultEntity
 import com.shijingfeng.background_service.receiver.CheckForUpdateReceiver
 import com.shijingfeng.background_service.receiver.registerCheckForUpdateReceiver
@@ -81,7 +81,7 @@ internal class CheckForUpdateWorker(
     override fun doWork(): Result {
         val outputData = Data.Builder().build()
 
-        getNewestAppVersionFromServer()
+        getNewestAppInfoFromServer()
         return Result.success(outputData)
     }
 
@@ -94,28 +94,28 @@ internal class CheckForUpdateWorker(
     }
 
     /**
-     * 从服务器上获取最新 App 版本
+     * 从服务器上获取最新 App 版本信息
      */
     @WorkerThread
-    private fun getNewestAppVersionFromServer() {
+    private fun getNewestAppInfoFromServer() {
         // 注册 检查更新 广播
         registerCheckForUpdateReceiver()
 
         val appApi = RetrofitUtil.create(AppApi::class.java)
 
         try {
-            val response = appApi.getNewestAppVersionFromServer(
+            val response = appApi.getNewestAppInfoFromServer(
                 versionName = AppUtils.getAppVersionName()
             ).execute()
 
             if (response.isSuccessful) {
-                val result: ResultEntity<NewestAppVersionEntity?>? = response.body()
+                val result: ResultEntity<NewestAppInfoEntity?>? = response.body()
 
                 result?.run {
                     data?.run {
                         if (buildHaveNewVersion) {
                             // 有新版本
-                            makeAppUpdateNotification(data)
+                            showAppUpdateNotification(data)
                         }
                     }
                 }
@@ -126,9 +126,9 @@ internal class CheckForUpdateWorker(
     }
 
     /**
-     * 弹出应用更新通知
+     * 显示应用更新通知
      */
-    private fun makeAppUpdateNotification(newestAppVersion: NewestAppVersionEntity) {
+    private fun showAppUpdateNotification(newestAppInfo: NewestAppInfoEntity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //添加通知渠道
             val notificationChannel = NotificationChannel(
@@ -146,18 +146,19 @@ internal class CheckForUpdateWorker(
             PENDING_CODE_CHECK_FOR_UPDATE,
             Intent().apply {
                 action = CheckForUpdateReceiver::class.java.name
-                putExtra(NEWEST_APP_VERSION_STR, serialize(newestAppVersion))
+                putExtra(NEWEST_APP_INFO_STR, serialize(newestAppInfo))
             },
             FLAG_UPDATE_CURRENT
         )
 
-        val description = newestAppVersion.buildUpdateDescription
+        val description = newestAppInfo.buildUpdateDescription
         val notificationManagerCompat = NotificationManagerCompat.from(applicationContext)
         val notificationCompatBuilder = NotificationCompat.Builder(
             applicationContext,
             NOTIFICATION_CHANNEL_ID_APP_UPDATE_HINT
-        )   // 设置文本标题
+        )   // 设置优先级
             .setPriority(PRIORITY_HIGH)
+            // 设置文本标题
             .setContentTitle(getStringById(R.string.开源集合有新版本了))
             // 设置文本内容
             .setContentText(if (TextUtils.isEmpty(description)) getStringById(R.string.暂无详细描述) else description)

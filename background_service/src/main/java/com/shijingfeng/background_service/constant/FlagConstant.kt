@@ -8,5 +8,5 @@ package com.shijingfeng.background_service.constant
  * @author ShiJingFeng
  */
 
-/** Bundle Key(String) Value(String)  获取最新版本 实体类 序列化字符串 */
-internal const val NEWEST_APP_VERSION_STR = "newest_app_version_str"
+/** Bundle Key(String) Value(String)  获取最新版本信息 实体类 序列化字符串 */
+internal const val NEWEST_APP_INFO_STR = "newest_app_info_str"
