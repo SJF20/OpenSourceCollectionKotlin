@@ -10,4 +10,6 @@
     <string name="下载失败">下载失败</string>
     <string name="没有数据">没有数据</string>
     <string name="应用下载中" tools:ignore="TypographyEllipsis">应用下载中...</string>
+    <string name="应用安装失败">应用安装失败</string>
+    <string name="安装包下载失败">安装包下载失败</string>
 </resources>

@@ -14,11 +14,11 @@
     networkSecurityConfig: Android 10 (API 29)以上默认仅支持 HTTPS 链接, 所以要想使用 HTTP 则需要此配置
     requestLegacyExternalStorage: 设置外部存储访问模式, 分为 Filtered View(默认) 和 Legacy View, Filtered View模式规定只能自由访问外部存储 APP 私有目录, 访问其他目录需要 MediaStore 或 SAF, Legacy View模式兼容以前版本, 无限制, 参考 https://mp.weixin.qq.com/s/aiDMyAfAZvaYIHuIMLAlcg
     -->
-    <!-- 应用Icon 在Android8.0及以上 显示制作好的 Icon, 否则显示Android原生机器人调试图标 (不会使用PS, 未来可能会制作 png 图标) -->
+    <!-- 应用Icon 在Android8.0及以上 显示制作好的 Icon, 否则显示Android原生机器人调试图标 -->
     <application
         android:name=".AppApplication"
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
 
@@ -41,6 +41,17 @@
         <!-- 主页 -->
         <activity android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
+
+        <!-- 移除 WorkManger默认使用ContentProvider初始化, 使用自定义初始化
+         (采用ContentProvider初始化, 就不用在 Application中初始化和传入Context了)
+        -->
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:directBootAware="false"
+            android:exported="false"
+            android:multiprocess="true"
+            tools:node="remove" />
 
     </application>
 

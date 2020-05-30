@@ -25,8 +25,11 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
     /** X5内核是否初始化成功  true:成功 false:失败  */
     private var mX5InitSuccess = false
 
-    override fun onCreate() {
-        super.onCreate()
+    /**
+     * 主进程初始化
+     */
+    override fun mainProcessInit() {
+        super.mainProcessInit()
         // 初始化 Bmob 后端
         initBmob()
         // 初始化腾讯X5

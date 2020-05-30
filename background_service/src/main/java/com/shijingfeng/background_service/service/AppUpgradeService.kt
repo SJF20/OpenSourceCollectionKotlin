@@ -1,8 +1,6 @@
 package com.shijingfeng.background_service.service
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -10,17 +8,28 @@ import android.os.Bundle
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.background_service.R
+import com.shijingfeng.background_service.constant.CANCEL_APP_DOWNLOAD
 import com.shijingfeng.background_service.constant.NEWEST_APP_INFO_STR
+import com.shijingfeng.background_service.constant.RECEIVER_FLAG
 import com.shijingfeng.background_service.entity.NewestAppInfoEntity
 import com.shijingfeng.background_service.manager.Downloader
+import com.shijingfeng.background_service.receiver.AppUpgradeReceiver
+import com.shijingfeng.background_service.receiver.CheckForUpdateReceiver
+import com.shijingfeng.background_service.receiver.registerAppUpgradeReceiver
+import com.shijingfeng.background_service.receiver.unregisterAppUpgradeReceiver
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
+import com.shijingfeng.base.util.getStringById
 import java.io.File
 
 /** 应用下载 更新间隔时间 (毫秒值)  */
-private val APP_UPGRADE_UPDATE_INTERVAL_TIME = 500
+private const val APP_UPGRADE_UPDATE_INTERVAL_TIME = 500
+
+/** 开源集合 本地下载的 apk 路径 */
+private val OPEN_SOURCE_COLLECTION_KOTLIN_APK_PATH = "${PERSONAL_APK_FILE_DIR}open_source_collection_kotlin.apk"
 
 /**
  * 开启 应用升级 服务
@@ -39,6 +48,15 @@ fun startAppUpgradeService(
 }
 
 /**
+ * 关闭应用升级 服务
+ */
+fun stopAppUpgradeService() {
+    val intent = Intent(application, AppUpgradeService::class.java)
+
+    application.stopService(intent)
+}
+
+/**
  * Function: 应用升级 Service
  * Date: 2020/5/27 20:32
  * Description:
@@ -51,8 +69,25 @@ internal class AppUpgradeService : Service() {
 
     /** 下载器 */
     private var mDownloader: Downloader? = null
+
+    /** 通知管理器 */
+    private var mNotificationManager: NotificationManager? = null
+    /** 应用下载 通知 */
+    private var mAppDownloadNotification: Notification? = null
     /** 应用下载 RemoteViews */
     private var mAppDownloadRemoteViews: RemoteViews? = null
+
+    /** 用于防止频繁跨进程更新导致卡顿 */
+    private var mPreTimestamp = 0L
+
+    /**
+     * Called by the system when the service is first created.  Do not call this method directly.
+     */
+    override fun onCreate() {
+        super.onCreate()
+        // 注册 应用升级 Broadcast Receiver (在哪个进程中注册, onReceiver会执行在哪个进程, 可以同时在多个进程中注册)
+        registerAppUpgradeReceiver()
+    }
 
     /**
     返回值:
@@ -84,13 +119,14 @@ internal class AppUpgradeService : Service() {
      * 检查本地是否有下载完毕的应用包
      */
     private fun checkLocalApk() {
-        val apkFilePath = PERSONAL_APK_FILE_DIR + "wan_android.apk"
-        val apkFile = File(apkFilePath)
+        val apkFile = File(OPEN_SOURCE_COLLECTION_KOTLIN_APK_PATH)
 
         if (apkFile.exists()) {
             val apkAppInfo = AppUtils.getApkInfo(apkFile)
 
             if (apkAppInfo == null) {
+                // 本地 apk 文件不完整，或损坏
+                apkFile.deleteOnExit()
                 startDownloadApk()
                 return
             }
@@ -104,7 +140,8 @@ internal class AppUpgradeService : Service() {
                 // 本地有 开源集合 apk 文件
                 if (apkVersionCode == newestAppVersionCode) {
                     // 本地有最新版的 开源集合 apk 文件，更新之
-                    AppUtils.installApp(apkFile)
+                    installApp()
+                    stopSelf()
                 } else {
                     // 本地 apk 文件不是最新的
                     apkFile.deleteOnExit()
@@ -122,6 +159,19 @@ internal class AppUpgradeService : Service() {
     }
 
     /**
+     * 安装新版应用
+     */
+    private fun installApp() {
+        val apkFile = File(OPEN_SOURCE_COLLECTION_KOTLIN_APK_PATH)
+
+        if (!apkFile.exists()) {
+            ToastUtils.showShort(getStringById(R.string.应用安装失败))
+            return
+        }
+        AppUtils.installApp(apkFile)
+    }
+
+    /**
      * 开始下载更新安装包
      */
     private fun startDownloadApk() {
@@ -129,18 +179,37 @@ internal class AppUpgradeService : Service() {
         showDownloadNotification()
         // 开始下载
         mDownloader = Downloader.Builder()
-            .setOnProgress { id, progress ->
+            .setOnProgress { _, progress ->
+                val curTimestamp = System.currentTimeMillis()
 
+                if (curTimestamp - mPreTimestamp >= APP_UPGRADE_UPDATE_INTERVAL_TIME) {
+                    mPreTimestamp = curTimestamp
+                    //跨进程通知 Notification 更新进度
+                    mAppDownloadRemoteViews?.setProgressBar(R.id.pb_progress, 100, progress, false)
+                    mAppDownloadRemoteViews?.setTextViewText(R.id.tv_progress, "$progress%")
+                    mNotificationManager?.notify(NOTIFICATION_ID_APP_UPDATE, mAppDownloadNotification)
+                }
             }
-            .setOnSuccess { id, data ->
-
+            .setOnSuccess { _, _ ->
+                // 安装应用
+                installApp()
+                // 销毁前台服务
+                stopForeground(true)
+                // 销毁Service自身
+                stopSelf()
             }
-            .setOnFailure { id, data, throwable ->
-
+            .setOnFailure { _, _, _ ->
+                ToastUtils.showShort(getStringById(R.string.安装包下载失败))
+                // 销毁前台服务
+                stopForeground(true)
+                // 销毁Service自身
+                stopSelf()
             }
             .build()
-        mDownloader.execute(
-            url = mNewestAppInfo.downloadURL
+        mDownloader?.execute(
+            url = mNewestAppInfo.downloadURL,
+            filePath = OPEN_SOURCE_COLLECTION_KOTLIN_APK_PATH,
+            replace = true
         )
     }
 
@@ -148,6 +217,9 @@ internal class AppUpgradeService : Service() {
      * 显示下载通知
      */
     private fun showDownloadNotification() {
+        mNotificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+        mAppDownloadRemoteViews = RemoteViews(packageName, R.layout.layout_notification_app_update)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //添加通知渠道
             val notificationChannel = NotificationChannel(
@@ -155,33 +227,42 @@ internal class AppUpgradeService : Service() {
                 NOTIFICATION_CHANNEL_NAME_APP_UPDATE,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
 
-            notificationManager?.createNotificationChannel(notificationChannel)
+            mNotificationManager?.createNotificationChannel(notificationChannel)
         }
 
-        mAppDownloadRemoteViews = RemoteViews(packageName, R.layout.layout_notification_app_update)
-
-        val notificationCompatBuilder = NotificationCompat.Builder(
-            applicationContext,
-            NOTIFICATION_CHANNEL_ID_APP_UPDATE
-        )   // 设置优先级
+        mAppDownloadNotification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID_APP_UPDATE)
+            // 设置优先级
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             // 设置小图标
             .setSmallIcon(R.mipmap.ic_launcher_round)
             // 设置自定义视图
             .setCustomContentView(mAppDownloadRemoteViews)
-            // 设置时间毫秒值
-            .setWhen(System.currentTimeMillis())
-            // 设置点击通知会取消  true:是  false:否
-            .setAutoCancel(false)
+            .build()
+
+        val cancelAppDownloadPendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            PENDING_CODE_CANCEL_APP_UPDATE,
+            Intent().apply {
+                action = AppUpgradeReceiver::class.java.name
+                putExtra(RECEIVER_FLAG, CANCEL_APP_DOWNLOAD)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        mAppDownloadRemoteViews?.setOnClickPendingIntent(R.id.iv_cancel, cancelAppDownloadPendingIntent)
 
         //开启前台服务 (Android8.0及以上版本 开启服务5秒后未开启前台通知会 ANR)
-        startForeground(NOTIFICATION_ID_APP_UPDATE, notificationCompatBuilder.build());
+        startForeground(NOTIFICATION_ID_APP_UPDATE, mAppDownloadNotification);
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        // 销毁 下载器
         mDownloader?.destory()
+        // 取消注册 应用升级 Broadcast Receiver
+        unregisterAppUpgradeReceiver()
+        // 关闭下载通知
+        mNotificationManager?.cancel(NOTIFICATION_ID_APP_UPDATE)
+        super.onDestroy()
     }
 }

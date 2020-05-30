@@ -29,17 +29,6 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <!-- 移除 WorkManger默认使用ContentProvider初始化, 使用自定义初始化
-         (采用ContentProvider初始化, 就不用在 Application中初始化和传入Context了)
-        -->
-        <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            android:directBootAware="false"
-            android:exported="false"
-            android:multiprocess="true"
-            tools:node="remove" />
-
         <!-- 配置 Glide 自定义 Module -->
         <meta-data
             android:name="com.shijingfeng.base.util.image_load.CustomGlide"

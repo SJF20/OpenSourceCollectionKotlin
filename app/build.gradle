@@ -150,7 +150,7 @@ android {
 //        checkAllWarnings true
 //        // 设置为 true 后，release 构建都会以 Fatal 的设置来运行 Lint。
         // 如果构建时发现了致命（Fatal）的问题，会中止构建（具体由 abortOnError 控制）
-        checkReleaseBuilds false
+//        checkReleaseBuilds false
 //        // 不检查指定的问题（根据问题 id 指定）
 //        disable 'TypographyFractions','TypographyQuotes'
 //        // 检查指定的问题（根据 id 指定）

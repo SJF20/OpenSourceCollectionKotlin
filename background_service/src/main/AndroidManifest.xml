@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shijingfeng.background_service">
 
-    /
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application>
+        <!-- 应用更新服务 -->
+        <service android:name=".service.AppUpgradeService" />
+    </application>
 </manifest>

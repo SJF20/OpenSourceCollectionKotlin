@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
@@ -19,6 +21,7 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
+import com.shijingfeng.base.util.isMainProcess
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
 import kotlin.Exception
@@ -65,23 +68,36 @@ abstract class BaseApplication : Application() {
         }
     }
 
-    override fun onCreate() {
+    /**
+     * 注意 多进程 会创建多个Application对象，则 onCreate() 会执行多次
+     * 多进程中 变量在相应的进程内存中
+     */
+    final override fun onCreate() {
         super.onCreate()
+        // 每个进程都有单独的内存区域, application不相同，也不会覆盖
         application = this
+        if (isMainProcess()) {
+            mainProcessInit()
+        }
+    }
 
-        //初始化万能工具类
+    /**
+     * 主进程初始化
+     */
+    protected open fun mainProcessInit() {
+        // 初始化万能工具类
         initUtils()
-        //初始化 ARouter 路由框架
+        // 初始化 ARouter 路由框架
         initARouter()
-        //初始化 LoadSir
+        // 初始化 LoadSir
         initLoadSir()
-        //初始化 RetrofitUrlManager
+        // 初始化 RetrofitUrlManager
         initRetrofitUrlManager()
 
-        //注册广播
+        // 注册广播
         registerGlobalReceiver()
 
-        //开始 其他 module App 初始化
+        // 开始 其他 module App 初始化
         startAppInit()
     }
 

@@ -17,6 +17,8 @@ import com.blankj.utilcode.util.AppUtils
 import com.shijingfeng.background_service.R
 import com.shijingfeng.background_service.api.AppApi
 import com.shijingfeng.background_service.constant.NEWEST_APP_INFO_STR
+import com.shijingfeng.background_service.constant.RECEIVER_FLAG
+import com.shijingfeng.background_service.constant.SHOW_APP_UPDATE_HINT_DIALOG
 import com.shijingfeng.background_service.entity.NewestAppInfoEntity
 import com.shijingfeng.background_service.entity.ResultEntity
 import com.shijingfeng.background_service.receiver.CheckForUpdateReceiver
@@ -146,6 +148,7 @@ internal class CheckForUpdateWorker(
             PENDING_CODE_CHECK_FOR_UPDATE,
             Intent().apply {
                 action = CheckForUpdateReceiver::class.java.name
+                putExtra(RECEIVER_FLAG, SHOW_APP_UPDATE_HINT_DIALOG)
                 putExtra(NEWEST_APP_INFO_STR, serialize(newestAppInfo))
             },
             FLAG_UPDATE_CURRENT

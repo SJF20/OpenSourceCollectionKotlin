@@ -9,6 +9,7 @@ import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.isMainProcess
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
 import io.realm.Realm
@@ -26,8 +27,11 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
     /** X5内核是否初始化成功  true:成功 false:失败  */
     private var mX5InitSuccess = false
 
-    override fun onCreate() {
-        super.onCreate()
+    /**
+     * 主进程初始化
+     */
+    override fun mainProcessInit() {
+        super.mainProcessInit()
         // 初始化 Bmob 后端
         initBmob()
         // 初始化腾讯X5
