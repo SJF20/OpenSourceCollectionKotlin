@@ -5,10 +5,10 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static com.shijingfeng.wan_android.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_EMPTY;
-import static com.shijingfeng.wan_android.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_LOADING;
-import static com.shijingfeng.wan_android.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_LOAD_FAIL;
-import static com.shijingfeng.wan_android.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_SUCCESS;
+import static com.shijingfeng.wan_android.common.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_EMPTY;
+import static com.shijingfeng.wan_android.common.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_LOADING;
+import static com.shijingfeng.wan_android.common.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_LOAD_FAIL;
+import static com.shijingfeng.wan_android.common.constant.StatusConstant.LOAD_SERVICE_SEARCH_HISTORY_SUCCESS;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 import static java.lang.annotation.ElementType.PARAMETER;

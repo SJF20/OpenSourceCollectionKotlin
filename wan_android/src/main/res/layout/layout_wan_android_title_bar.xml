@@ -27,7 +27,7 @@
         android:id="@+id/fl_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/red">
+        android:background="@color/wan_android_theme_color">
 
         <ImageView
             android:id="@+id/iv_back"

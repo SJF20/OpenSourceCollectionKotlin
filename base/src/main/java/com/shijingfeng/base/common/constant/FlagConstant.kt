@@ -52,6 +52,11 @@ const val CLICK = "click"
 /** OnItemEventListener 长按  */
 const val LONG_CLICK = "long_click"
 
+/** 单选 选择 */
+const val SELECTED = "selected"
+/** 多选 选择 */
+const val CHECKED = "checked"
+
 /** HTTP协议前缀  */
 const val PROTOCOL_HTTP = "http://"
 /** HTTPS协议前缀  */

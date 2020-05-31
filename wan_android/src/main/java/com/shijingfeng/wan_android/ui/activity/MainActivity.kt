@@ -39,9 +39,9 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.RESULT_ARTICLE_COLLECTED_LIST
-import com.shijingfeng.wan_android.constant.RESULT_COIN_RECORD
-import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.wan_android.common.constant.RESULT_ARTICLE_COLLECTED_LIST
+import com.shijingfeng.wan_android.common.constant.RESULT_COIN_RECORD
+import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
@@ -222,28 +222,28 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                 when (tab.position) {
                     //首页
                     MAIN_HOME -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_home)?.setTextColor(getColorById(R.color.red))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_home)?.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_home)?.setTextColor(getColorById(R.color.wan_android_theme_color))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_home)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
                     }
                     //分类
                     MAIN_CLASSIFY -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_classify)?.setTextColor(getColorById(R.color.red))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_classify)?.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_classify)?.setTextColor(getColorById(R.color.wan_android_theme_color))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_classify)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
                     }
                     //公众号
                     MAIN_OFFICIAL_ACCOUNT -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_official_account)?.setTextColor(getColorById(R.color.red))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_official_account)?.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_official_account)?.setTextColor(getColorById(R.color.wan_android_theme_color))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_official_account)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
                     }
                     //广场
                     MAIN_SQUARE -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_square)?.setTextColor(getColorById(R.color.red))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_square)?.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_square)?.setTextColor(getColorById(R.color.wan_android_theme_color))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_square)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
                     }
                     //项目
                     MAIN_PROJECT -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_project)?.setTextColor(getColorById(R.color.red))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_project)?.setColorFilter(getColorById(R.color.red))
+                        view?.findViewById<TextView>(R.id.tv_indicator_project)?.setTextColor(getColorById(R.color.wan_android_theme_color))
+                        view?.findViewById<ImageView>(R.id.iv_indicator_project)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
                     }
                     else -> {}
                 }

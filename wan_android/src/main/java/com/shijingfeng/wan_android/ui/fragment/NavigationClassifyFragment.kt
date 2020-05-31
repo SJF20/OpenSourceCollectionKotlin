@@ -13,12 +13,12 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
 import androidx.lifecycle.Observer
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.wan_android.adapter.NavigationClassifyAdapter
-import com.shijingfeng.wan_android.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
+import com.shijingfeng.wan_android.common.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidNavigationClassifyBinding
 import com.shijingfeng.wan_android.entity.NavigationClassifyArticle
 import com.shijingfeng.wan_android.source.network.getNavigationClassifyNetworkSourceInstance
@@ -104,12 +104,16 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     //滑倒最底部，隐藏
-                    mOnItemEvent?.invoke(recyclerView, null, View.GONE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, View.GONE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
                     return
                 }
                 if (!recyclerView.canScrollVertically(-1)) {
                     //滑倒顶部，显示
-                    mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
                     return
                 }
                 mOnItemEvent?.invoke(

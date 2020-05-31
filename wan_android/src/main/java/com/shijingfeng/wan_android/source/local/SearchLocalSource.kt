@@ -10,8 +10,8 @@ import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.serialize
-import com.shijingfeng.wan_android.constant.SEARCH_HISTORY_LIST
-import com.shijingfeng.wan_android.constant.SP_APP_NAME
+import com.shijingfeng.wan_android.common.constant.SEARCH_HISTORY_LIST
+import com.shijingfeng.wan_android.common.constant.SP_WAN_ANDROID_APP_NAME
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import java.util.concurrent.Executors
 
@@ -52,7 +52,8 @@ internal class SearchLocalSource : BaseLocalSource() {
     fun getSearchHistoryList(onSuccess: onSuccess<List<SearchHistoryItem>?>, onFailure: onFailure) {
         mExecutorService?.execute {
             try {
-                val searchHistoryListStr = SPUtils.getInstance(SP_APP_NAME).getString(SEARCH_HISTORY_LIST, EMPTY_ARRAY)
+                val searchHistoryListStr = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(
+                    SEARCH_HISTORY_LIST, EMPTY_ARRAY)
                 val searchHistoryList = deserialize<List<SearchHistoryItem>>(searchHistoryListStr, object : TypeToken<List<SearchHistoryItem>>() {}.type)
 
                 runOnUiThread {
@@ -82,9 +83,9 @@ internal class SearchLocalSource : BaseLocalSource() {
         mExecutorService?.execute {
             try {
                 if (searchHistoryList.isNullOrEmpty()) {
-                    SPUtils.getInstance(SP_APP_NAME).remove(SEARCH_HISTORY_LIST, true)
+                    SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).remove(SEARCH_HISTORY_LIST, true)
                 } else {
-                    SPUtils.getInstance(SP_APP_NAME).put(SEARCH_HISTORY_LIST, serialize(searchHistoryList), true)
+                    SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).put(SEARCH_HISTORY_LIST, serialize(searchHistoryList), true)
                 }
                 runOnUiThread {
                     onSuccess(searchHistoryList)

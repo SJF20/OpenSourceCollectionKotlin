@@ -2,10 +2,15 @@ package com.shijingfeng.base.base.activity
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.SkinAppCompatDelegateImpl
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.R
 import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
@@ -14,6 +19,8 @@ import com.shijingfeng.base.util.finishPreviousActivity
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.setStatusBarColor
 import com.shijingfeng.base.util.setStatusBarContentColor
+import skin.support.content.res.SkinCompatUserThemeManager
+
 
 /**
  * Function: Activity 基类
@@ -112,10 +119,16 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open fun isSetStatusBarContentDark() = false
 
     /**
-     * 获取状态栏背景
+     * 获取 状态栏 背景Drawable (不支持换肤)
      * @return 背景 Drawable
      */
-    protected open fun getStatusBarBackground() = getDrawableById(R.color.project_status_bar_default_color)
+    protected open fun getStatusBarBackgroundDrawable(): Drawable? = null
+
+    /**
+     * 获取 状态栏 背景资源 (支持换肤)
+     */
+    @DrawableRes
+    protected open fun getStatusBarBackgroundResource(): Int = R.color.project_status_bar_default_color
 
     /**
      * 获取屏幕方向
@@ -155,4 +168,10 @@ abstract class BaseActivity : AppCompatActivity() {
         overridePendingTransition(enterAnim, exitAnim)
     }
 
+    /**
+     * 设置 皮肤切换框架 委托器
+     */
+    override fun getDelegate(): AppCompatDelegate {
+        return SkinAppCompatDelegateImpl.get(this, this)
+    }
 }

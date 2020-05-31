@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("DataConstant")
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 import com.blankj.utilcode.util.ConvertUtils
 

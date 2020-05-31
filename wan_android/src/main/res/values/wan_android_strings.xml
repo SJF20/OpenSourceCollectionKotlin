@@ -73,6 +73,10 @@
     <string name="获取搜索历史中" tools:ignore="TypographyEllipsis">获取历史搜索中...</string>
     <string name="暂无搜索历史">暂无搜索历史</string>
     <string name="获取搜索历史失败">获取搜索历史失败</string>
+    <string name="主题颜色">主题颜色</string>
+    <string name="自定义主题颜色">自定义主题颜色</string>
+    <string name="确认">确认</string>
+    <string name="取消">取消</string>
 
     <string name="about_us_content" translatable="false"><![CDATA[
         <h2>网站内容</h2>

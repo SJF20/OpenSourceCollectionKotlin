@@ -29,7 +29,9 @@ import com.shijingfeng.wan_android.callback.SearchHistoryLoadingCallback
 import com.shijingfeng.wan_android.callback.SearchHotWordEmptyCallback
 import com.shijingfeng.wan_android.callback.SearchHotWordLoadFailCallback
 import com.shijingfeng.wan_android.callback.SearchHotWordLoadingCallback
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.*
+import com.shijingfeng.wan_android.common.constant.REMOVE_SEARCH_HISTORY_ITEM
+import com.shijingfeng.wan_android.common.constant.SEARCH
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchBinding
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.source.local.getSearchLocalSourceInstance

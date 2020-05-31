@@ -8,7 +8,8 @@ import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.RESULT_ARTICLE_COLLECTED_LIST
+import com.shijingfeng.wan_android.common.constant.RESULT_COIN_RECORD
 import com.shijingfeng.wan_android.source.repository.MainRepository
 import com.shijingfeng.wan_android.ui.activity.MAIN_HOME
 import com.shijingfeng.wan_android.utils.localLogout
@@ -72,7 +73,11 @@ internal class MainViewModel(
         )
     }
     /** 跳转到 系统设置页面  */
-    val mSettingClickListener = OnClickListener {}
+    val mSettingClickListener = OnClickListener {
+        navigation(
+            path = ACTIVITY_WAN_ANDROID_SETTING
+        )
+    }
     /** 跳转到 关于我们页面  */
     val mAboutClickListener = OnClickListener {
         navigation(

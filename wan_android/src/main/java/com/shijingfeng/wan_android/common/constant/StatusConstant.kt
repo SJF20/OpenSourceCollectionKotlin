@@ -1,5 +1,5 @@
 @file:JvmName("StatusConstant")
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 /**
  * Function: 状态 静态常量

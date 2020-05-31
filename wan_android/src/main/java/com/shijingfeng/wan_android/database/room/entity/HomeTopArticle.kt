@@ -2,7 +2,7 @@ package com.shijingfeng.wan_android.database.room.entity
 
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.*
 
 /**
  * Function: 首页 文章 Item 本地 实体类

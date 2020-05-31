@@ -26,6 +26,12 @@
         <item name="android:windowExitAnimation">@anim/anim_top_dialog_hide</item>
     </style>
 
+    <!-- 从中间弹出的Dialog 动画 -->
+    <style name="center_dialog_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_center_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_center_dialog_hide</item>
+    </style>
+
     <!-- 全局Activity动画 -->
     <style name="GlobalActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/anim_activity_open_enter</item>

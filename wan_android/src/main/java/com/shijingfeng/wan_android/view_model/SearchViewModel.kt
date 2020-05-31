@@ -19,7 +19,9 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.annotation.define.SearchHistoryLoadServiceStatus
 import com.shijingfeng.wan_android.annotation.define.SearchHotWordLoadServiceStatus
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.*
+import com.shijingfeng.wan_android.common.constant.SEARCH_HOT_WORD
+import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.entity.SearchHotWordEntity
 import com.shijingfeng.wan_android.source.repository.SearchRepository

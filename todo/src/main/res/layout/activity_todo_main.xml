@@ -14,10 +14,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
+        <com.shijingfeng.base.widget.StatusBarView
             android:id="@+id/sbv_status_bar1"
-            layout="@layout/layout_status_bar"
-            app:backgroundDrawable="@{@color/red}" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"

@@ -5,7 +5,11 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application>
-        <!-- 应用更新服务 -->
-        <service android:name=".service.AppUpgradeService" />
+        <!-- 应用更新服务 虽然是单独的进程，但杀死App时该进程也会被杀死
+         格式 :app_update (进程名: applicationId:app_update)
+             .app_update (必须加.) (进程名: .app_update)
+         -->
+        <service android:name=".service.AppUpgradeService"
+            android:process=".app_upgrade"/>
     </application>
 </manifest>

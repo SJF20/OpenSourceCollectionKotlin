@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="app_theme_color">@color/red</color>
-    <color name="app_status_bar_default_color">@color/red</color>
 </resources>

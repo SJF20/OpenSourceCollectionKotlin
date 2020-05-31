@@ -5,7 +5,7 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
+import com.shijingfeng.wan_android.common.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem

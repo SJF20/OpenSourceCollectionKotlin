@@ -106,9 +106,14 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
         if (!isSetCustomStatusBar()) {
             val contentView = getContentView()
             val statusBarView = StatusBarView(this)
+            val statusBarBackgroundDrawable = getStatusBarBackgroundDrawable()
 
             statusBarView.id = R.id.status_bar_view
-            statusBarView.background = getStatusBarBackground()
+            if (statusBarBackgroundDrawable != null) {
+                statusBarView.background = statusBarBackgroundDrawable
+            } else {
+                statusBarView.setBackgroundResource(getStatusBarBackgroundResource())
+            }
 
             if (contentView.childCount > 0) {
                 when (val userContentView = contentView.getChildAt(0)) {

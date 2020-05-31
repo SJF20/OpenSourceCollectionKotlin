@@ -228,6 +228,15 @@ dependencies {
     api rootProject.ext.androidx["paging-runtime"]
     api rootProject.ext.androidx["paging-common"]
 
+    //Room runtime
+    api rootProject.ext.androidx["room-runtime"]
+    //optional - Kotlin Extensions and Coroutines support for Room
+    api rootProject.ext.androidx["room-ktx"]
+    //optional - RxJava support for Room
+    api rootProject.ext.androidx["room-rxjava2"]
+    //optional - Guava support for Room, including Optional and ListenableFuture
+    api rootProject.ext.androidx["room-guava"]
+
     //Gson  Json解析框架
     api rootProject.ext.dependencies["gson"]
 
@@ -269,14 +278,17 @@ dependencies {
     //ARouter 路由框架
     api rootProject.ext.dependencies["arouter"]
 
-    //Room runtime
-    api rootProject.ext.androidx["room-runtime"]
-    //optional - Kotlin Extensions and Coroutines support for Room
-    api rootProject.ext.androidx["room-ktx"]
-    //optional - RxJava support for Room
-    api rootProject.ext.androidx["room-rxjava2"]
-    //optional - Guava support for Room, including Optional and ListenableFuture
-    api rootProject.ext.androidx["room-guava"]
+    //换肤框架
+    // skin-support
+    api 'skin.support:skin-support:4.0.5'
+    // skin-support 基础控件支持
+    api 'skin.support:skin-support-appcompat:4.0.5'
+    // skin-support-design material design 控件支持[可选]
+    api 'skin.support:skin-support-design:4.0.5'
+    // skin-support-cardview CardView 控件支持[可选]
+    api 'skin.support:skin-support-cardview:4.0.5'
+    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
+    api 'skin.support:skin-support-constraint-layout:4.0.5'
 
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]

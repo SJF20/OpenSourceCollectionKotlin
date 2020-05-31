@@ -1,6 +1,7 @@
 package com.shijingfeng.base.base.adapter.viewholder
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -107,6 +108,48 @@ class CommonViewHolder constructor (
     }
 
     /**
+     * ImageView 设置 Drawable
+     * @param viewId ImageView Id
+     * @param drawable Drawable
+     * @return CommonViewHolder
+     */
+    fun setImageDrawable(
+        @IdRes viewId: Int,
+        drawable: Drawable
+    ): CommonViewHolder {
+        getView<ImageView>(viewId)?.setImageDrawable(drawable)
+        return this
+    }
+
+    /**
+     * ImageView 背景 Drawable (不支持换肤)
+     * @param viewId View Id
+     * @param drawable Drawable
+     * @return CommonViewHolder
+     */
+    fun setBackground(
+        @IdRes viewId: Int,
+        drawable: Drawable
+    ): CommonViewHolder {
+        getView<View>(viewId)?.background = drawable
+        return this
+    }
+
+    /**
+     * ImageView 背景 资源 (支持换肤)
+     * @param viewId View Id
+     * @param drawableRes Drawable
+     * @return CommonViewHolder
+     */
+    fun setBackgroundResource(
+        @IdRes viewId: Int,
+        @DrawableRes drawableRes: Int
+    ): CommonViewHolder {
+        getView<View>(viewId)?.setBackgroundResource(drawableRes)
+        return this
+    }
+
+    /**
      * ImageView 设置 本地路径或网络路径资源
      * @param viewId ImageView Id
      * @param path 本地路径或网络路径
@@ -157,6 +200,20 @@ class CommonViewHolder constructor (
         @DrawableRes drawableRes: Int
     ): CommonViewHolder {
         getView<CompoundButton>(viewId)?.setButtonDrawable(drawableRes)
+        return this
+    }
+
+    /**
+     * 设置 CompoundButton 背景图
+     * @param viewId View ID
+     * @param drawable Drawable
+     * @return CommonViewHolder
+     */
+    fun setButtonDrawable(
+        @IdRes viewId: Int,
+        drawable: Drawable
+    ): CommonViewHolder {
+        getView<CompoundButton>(viewId)?.buttonDrawable = drawable
         return this
     }
 

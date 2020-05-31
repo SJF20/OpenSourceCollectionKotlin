@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 import com.shijingfeng.sjf_banner.library.banner.adapter.BaseBannerPagerAdapter
-import com.shijingfeng.wan_android.constant.VIEW_BANNER_DETAIL
+import com.shijingfeng.wan_android.common.constant.VIEW_BANNER_DETAIL
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 
 /**
@@ -40,7 +40,9 @@ internal class HomeBannerPagerAdapter(
 
         // 查看详情
         ClickUtils.applySingleDebouncing(imageView) { v ->
-            mOnItemEventListener?.onItemEvent(v, homeBanner, realPosition, VIEW_BANNER_DETAIL)
+            mOnItemEventListener?.onItemEvent(v, homeBanner, realPosition,
+                VIEW_BANNER_DETAIL
+            )
         }
 
         return imageView

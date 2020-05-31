@@ -12,7 +12,7 @@ import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
+import com.shijingfeng.wan_android.common.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import java.util.*
 
@@ -44,7 +44,9 @@ internal class KnowledgeClassifyAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = View.OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, 0, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
+                    mOnItemEvent?.invoke(v, data, 0,
+                        VIEW_KNOWLEDGE_CLASSIFY_DETAIL
+                    )
                 }
             )
         }
@@ -66,7 +68,9 @@ internal class KnowledgeClassifyAdapter(
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
                     // 查看 知识标签 详情
                     ClickUtils.applySingleDebouncing(this) {
-                        mOnItemEvent?.invoke(this, data, i, VIEW_KNOWLEDGE_CLASSIFY_DETAIL)
+                        mOnItemEvent?.invoke(this, data, i,
+                            VIEW_KNOWLEDGE_CLASSIFY_DETAIL
+                        )
                     }
                 })
             }

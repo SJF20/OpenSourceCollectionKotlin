@@ -75,7 +75,7 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:text="确认"
-            android:textColor="@color/red"
+            android:textColor="@color/wan_android_theme_color"
             android:textSize="18sp" />
 
     </LinearLayout>

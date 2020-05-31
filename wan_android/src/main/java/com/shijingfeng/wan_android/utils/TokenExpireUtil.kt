@@ -37,15 +37,11 @@ private var mIsTokenExpireAlarmStarted = false
  * 检查 玩安卓 Token 是否过期
  */
 internal fun checkTokenExpire() {
-    e("测试", "checkTokenExpire() 开始检查Token是否过期...")
     if (UserUtil.isLogin()) {
-        e("测试", "UserUtil.isLogin() true 已登录")
         if (isTokenExpired()) {
-            e("测试", "Token已过期")
             // 玩安卓 Token已过期，本地退出登录
             localLogout()
         } else {
-            e("测试", "Token未过期")
             // 开启 检查 玩Android Token 是否过期 定时器
             startTokenExpireAlarm()
         }
@@ -61,7 +57,6 @@ private fun isTokenExpired(): Boolean {
         .build()
     val cookieList = PersistentCookieStore(application).getCookieList(request.url)
 
-    e("测试", "isTokenExpired() Token是否过期")
     mExpireDateTime = null
     cookieList?.forEach { cookie ->
         val cookieName = cookie.name
@@ -117,7 +112,6 @@ internal fun startTokenExpireAlarm() {
             // Android 4.4 及以上版本 为了省电, 合并相似时间的Alarm进行批量执行, 使用精确时间应使用 setExact()
             setExact(AlarmManager.RTC_WAKEUP, expireDateTime, mTokenExpirePendingIntent)
         }
-        e("测试", "startTokenExpireAlarm() 已开启Token过期定时器")
     }
 }
 
@@ -136,5 +130,4 @@ internal fun stopTokenExpireAlarm() {
     unregisterWanAndroidTokenExpiredReceiver()
 
     alarmManager?.cancel(mTokenExpirePendingIntent)
-    e("测试", "stopTokenExpireAlarm() 已停止Token过期定时器")
 }

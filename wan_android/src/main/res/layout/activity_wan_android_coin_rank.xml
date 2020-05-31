@@ -53,7 +53,7 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="95dp"
                 android:src="@drawable/ic_top"
-                app:backgroundTint="@color/red"
+                app:backgroundTint="@color/wan_android_theme_color"
                 app:fabSize="mini" />
 
         </FrameLayout>

@@ -5,10 +5,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.shijingfeng.wan_android.constant.HOME_TOP_ARTICLE_FOREIGN_ID
-import com.shijingfeng.wan_android.constant.HOME_TOP_ARTICLE_ID
-import com.shijingfeng.wan_android.constant.HOME_TOP_ARTICLE_TABLE_NAME
-import com.shijingfeng.wan_android.constant.HOME_TOP_ARTICLE_TAG_TABLE_NAME
+import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE_FOREIGN_ID
+import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE_ID
+import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE_TABLE_NAME
+import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE_TAG_TABLE_NAME
 import com.shijingfeng.wan_android.database.room.entity.HomeTopArticleCombineLocal
 import com.shijingfeng.wan_android.database.room.entity.HomeTopArticleLocal
 import com.shijingfeng.wan_android.database.room.entity.HomeTopArticleTagLocal

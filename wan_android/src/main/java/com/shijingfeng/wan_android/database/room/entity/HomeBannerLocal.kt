@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.*
 
 /**
  * Function: 首页 轮播图 Item 本地 实体类

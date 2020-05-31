@@ -5,8 +5,8 @@ import com.shijingfeng.base.util.decrypt
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.encrypt
 import com.shijingfeng.base.util.serialize
-import com.shijingfeng.wan_android.constant.COIN_INFO
-import com.shijingfeng.wan_android.constant.SP_APP_NAME
+import com.shijingfeng.wan_android.common.constant.COIN_INFO
+import com.shijingfeng.wan_android.common.constant.SP_WAN_ANDROID_APP_NAME
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.CoinInfoEntity
 import org.greenrobot.eventbus.EventBus
@@ -25,7 +25,7 @@ internal object CoinUtil {
     var coinInfo: CoinInfoEntity?
     get() {
         if (mCoinInfo == null) {
-            val encryptCoinInfoStr = SPUtils.getInstance(SP_APP_NAME).getString(COIN_INFO, "")
+            val encryptCoinInfoStr = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(COIN_INFO, "")
             val coinInfoStr: String = decrypt(encryptCoinInfoStr)
 
             mCoinInfo = deserialize(coinInfoStr, CoinInfoEntity::class.java)
@@ -36,9 +36,9 @@ internal object CoinUtil {
         mCoinInfo = coinInfo
 
         if (coinInfo == null) {
-            SPUtils.getInstance(SP_APP_NAME).remove(COIN_INFO, false)
+            SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).remove(COIN_INFO, false)
         } else {
-            SPUtils.getInstance(SP_APP_NAME).put(COIN_INFO, encrypt(serialize(mCoinInfo)), false)
+            SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).put(COIN_INFO, encrypt(serialize(mCoinInfo)), false)
         }
 
         // 通知 积分信息数据 改变

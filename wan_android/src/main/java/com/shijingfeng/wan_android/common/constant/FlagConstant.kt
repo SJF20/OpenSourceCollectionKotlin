@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("FlagConstant")
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 /**
  * Function: 标志 静态常量

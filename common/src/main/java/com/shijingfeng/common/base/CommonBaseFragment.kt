@@ -22,11 +22,4 @@ internal abstract class CommonBaseFragment<V : ViewDataBinding, VM : CommonBaseV
         super.init(savedInstanceState)
     }
 
-    /**
-     * 获取状态栏背景
-     *
-     * @return 背景 Drawable
-     */
-    override fun getStatusBarBackground(): Drawable? = null
-
 }

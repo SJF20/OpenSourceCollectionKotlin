@@ -5,9 +5,9 @@ import com.shijingfeng.base.util.decrypt
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.encrypt
 import com.shijingfeng.base.util.serialize
-import com.shijingfeng.wan_android.constant.LOGIN
-import com.shijingfeng.wan_android.constant.SP_APP_NAME
-import com.shijingfeng.wan_android.constant.USER_INFO
+import com.shijingfeng.wan_android.common.constant.LOGIN
+import com.shijingfeng.wan_android.common.constant.SP_WAN_ANDROID_APP_NAME
+import com.shijingfeng.wan_android.common.constant.USER_INFO
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.UserInfoEntity
 import org.greenrobot.eventbus.EventBus
@@ -28,7 +28,7 @@ internal object UserUtil {
     var userInfo: UserInfoEntity?
     get() {
         if (mUserInfo == null) {
-            val encryptLoginDataStr = SPUtils.getInstance(SP_APP_NAME).getString(USER_INFO, "")
+            val encryptLoginDataStr = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(USER_INFO, "")
             val loginDataStr: String = decrypt(encryptLoginDataStr)
 
             mUserInfo = deserialize(loginDataStr, UserInfoEntity::class.java)
@@ -40,9 +40,9 @@ internal object UserUtil {
         mUserInfo = userInfo
 
         if (userInfo == null) {
-            SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO, true)
+            SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).remove(USER_INFO, true)
         } else {
-            SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfo)), true)
+            SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).put(USER_INFO, encrypt(serialize(userInfo)), true)
         }
 
         //通知其他页面更新用户数据
@@ -55,7 +55,7 @@ internal object UserUtil {
      */
     fun isLogin(): Boolean {
         if (!mLogin) {
-            mLogin = SPUtils.getInstance(SP_APP_NAME).getBoolean(LOGIN, false)
+            mLogin = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getBoolean(LOGIN, false)
         }
         return mLogin
     }
@@ -76,8 +76,8 @@ internal object UserUtil {
         mLogin = true
         mUserInfo = userInfoEntity
 
-        SPUtils.getInstance(SP_APP_NAME).put(LOGIN, true, false)
-        SPUtils.getInstance(SP_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), false)
+        SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).put(LOGIN, true, false)
+        SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).put(USER_INFO, encrypt(serialize(userInfoEntity)), false)
 
         //通知其他页面更新用户数据
         EventBus.getDefault().post(UserInfoEvent())
@@ -90,8 +90,8 @@ internal object UserUtil {
         mLogin = false
         mUserInfo = null
 
-        SPUtils.getInstance(SP_APP_NAME).remove(LOGIN, true)
-        SPUtils.getInstance(SP_APP_NAME).remove(USER_INFO, true)
+        SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).remove(LOGIN, true)
+        SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).remove(USER_INFO, true)
 
         //通知其他页面更新用户数据
         EventBus.getDefault().post(UserInfoEvent())

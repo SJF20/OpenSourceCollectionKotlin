@@ -37,7 +37,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/red"
+        android:textColor="@color/wan_android_theme_color"
         android:textSize="16sp"
         tools:text="+9999999"/>
 

@@ -5,7 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.HOME_BANNER_ID
+import com.shijingfeng.wan_android.common.constant.HOME_BANNER_TABLE_NAME
 import com.shijingfeng.wan_android.database.room.entity.HomeBannerLocal
 
 /**

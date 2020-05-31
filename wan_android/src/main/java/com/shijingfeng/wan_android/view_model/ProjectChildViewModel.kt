@@ -14,8 +14,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
-import com.shijingfeng.wan_android.constant.KEY_COLLECTED
+import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
+import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.ProjectIndexEntity
 import com.shijingfeng.wan_android.ui.fragment.ProjectChildFragment

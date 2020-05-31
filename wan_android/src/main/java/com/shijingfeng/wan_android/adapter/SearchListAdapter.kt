@@ -16,10 +16,10 @@ import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.base.util.measureTotalWidth
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
-import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
-import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
-import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.entity.SearchListItem
 import java.util.ArrayList
 
@@ -76,7 +76,9 @@ internal class SearchListAdapter(
             setOnClickListener(
                 viewId = R.id.ll_article_content,
                 listener = View.OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, holder.adapterPosition, VIEW_ARTICLE_DETAIL)
+                    mOnItemEvent?.invoke(v, data, holder.adapterPosition,
+                        VIEW_ARTICLE_DETAIL
+                    )
                 }
             )
             //收藏或取消收藏
@@ -85,7 +87,9 @@ internal class SearchListAdapter(
                 listener = View.OnClickListener { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition, ARTICLE_ITEM_COLLECTION)
+                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition,
+                        ARTICLE_ITEM_COLLECTION
+                    )
                 }
             )
         }
@@ -167,7 +171,9 @@ internal class SearchListAdapter(
                                 listener = View.OnClickListener { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEvent?.invoke(v, isChecked, position, ARTICLE_ITEM_COLLECTION)
+                                    mOnItemEvent?.invoke(v, isChecked, position,
+                                        ARTICLE_ITEM_COLLECTION
+                                    )
                                 }
                             )
                         }

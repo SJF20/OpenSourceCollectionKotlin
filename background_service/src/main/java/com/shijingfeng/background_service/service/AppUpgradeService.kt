@@ -16,7 +16,6 @@ import com.shijingfeng.background_service.constant.RECEIVER_FLAG
 import com.shijingfeng.background_service.entity.NewestAppInfoEntity
 import com.shijingfeng.background_service.manager.Downloader
 import com.shijingfeng.background_service.receiver.AppUpgradeReceiver
-import com.shijingfeng.background_service.receiver.CheckForUpdateReceiver
 import com.shijingfeng.background_service.receiver.registerAppUpgradeReceiver
 import com.shijingfeng.background_service.receiver.unregisterAppUpgradeReceiver
 import com.shijingfeng.base.base.application.application

@@ -25,8 +25,8 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.PersonalCollectionArticleAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_UNCOLLECTED
-import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_UNCOLLECTED
+import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionArticleBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem

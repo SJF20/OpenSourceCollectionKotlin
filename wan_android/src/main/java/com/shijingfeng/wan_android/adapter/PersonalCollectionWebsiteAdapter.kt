@@ -5,9 +5,9 @@ import android.view.View.OnClickListener
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.VIEW_WEBSITE_DETAIL
-import com.shijingfeng.wan_android.constant.WEBSITE_ITEM_EDIT
-import com.shijingfeng.wan_android.constant.WEBSITE_ITEM_UNCOLLECTED
+import com.shijingfeng.wan_android.common.constant.VIEW_WEBSITE_DETAIL
+import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_EDIT
+import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 
 /**
@@ -42,21 +42,27 @@ internal class PersonalCollectionWebsiteAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position, VIEW_WEBSITE_DETAIL)
+                    mOnItemEvent?.invoke(v, data, position,
+                        VIEW_WEBSITE_DETAIL
+                    )
                 }
             )
             // 编辑
             setOnClickListener(
                 viewId = R.id.btn_edit,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position, WEBSITE_ITEM_EDIT)
+                    mOnItemEvent?.invoke(v, data, position,
+                        WEBSITE_ITEM_EDIT
+                    )
                 }
             )
             // 取消收藏
             setOnClickListener(
                 viewId = R.id.btn_uncollected,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data.getId(), position, WEBSITE_ITEM_UNCOLLECTED)
+                    mOnItemEvent?.invoke(v, data.getId(), position,
+                        WEBSITE_ITEM_UNCOLLECTED
+                    )
                 }
             )
         }

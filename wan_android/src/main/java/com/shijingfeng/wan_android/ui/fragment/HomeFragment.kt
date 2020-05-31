@@ -24,7 +24,17 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.HomeAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.*
+import com.shijingfeng.wan_android.common.constant.*
+import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
+import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE
+import com.shijingfeng.wan_android.common.constant.HOME_BANNER
+import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE
+import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
+import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
@@ -149,12 +159,16 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     //滑倒最底部，隐藏
-                    mOnItemEvent?.invoke(recyclerView, null, GONE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, GONE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
                     return
                 }
                 if (!recyclerView.canScrollVertically(-1)) {
                     //滑倒顶部，显示
-                    mOnItemEvent?.invoke(recyclerView, null, VISIBLE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, VISIBLE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
                     return
                 }
                 mOnItemEvent?.invoke(

@@ -31,9 +31,9 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.PersonalCollectionWebsiteAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.VIEW_WEBSITE_DETAIL
-import com.shijingfeng.wan_android.constant.WEBSITE_ITEM_EDIT
-import com.shijingfeng.wan_android.constant.WEBSITE_ITEM_UNCOLLECTED
+import com.shijingfeng.wan_android.common.constant.VIEW_WEBSITE_DETAIL
+import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_EDIT
+import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionWebsiteBinding
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionWebsiteNetworkSourceInstance

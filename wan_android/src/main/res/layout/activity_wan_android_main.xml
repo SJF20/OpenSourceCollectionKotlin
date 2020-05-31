@@ -24,10 +24,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
+            <com.shijingfeng.base.widget.StatusBarView
                 android:id="@+id/sbv_status_bar1"
-                layout="@layout/layout_status_bar"
-                app:backgroundDrawable="@{@color/red}" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/wan_android_theme_color"/>
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:background="@color/red"
+                        android:background="@color/wan_android_theme_color"
                         android:orientation="horizontal"
                         app:layout_scrollFlags="scroll|enterAlways">
 
@@ -120,7 +121,7 @@
                     android:layout_marginEnd="25dp"
                     android:layout_marginBottom="95dp"
                     android:src="@drawable/ic_top"
-                    app:backgroundTint="@color/red"
+                    app:backgroundTint="@color/wan_android_theme_color"
                     app:fabSize="mini" />
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -180,7 +180,7 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
      * 获取状态栏背景
      * @return 背景 Drawable
      */
-    override fun getStatusBarBackground() = getDrawableById(R.color.black)
+    override fun getStatusBarBackgroundDrawable() = getDrawableById(R.color.black)
 
     /**
      * 显示长按 Dialog

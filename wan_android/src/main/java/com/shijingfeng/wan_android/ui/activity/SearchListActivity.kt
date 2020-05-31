@@ -24,9 +24,14 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.SearchListAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.constant.*
-import com.shijingfeng.wan_android.constant.SEARCH_HOT_WORD
-import com.shijingfeng.wan_android.constant.SEARCH_LIST_STR
+import com.shijingfeng.wan_android.common.constant.*
+import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
+import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
+import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.SEARCH_HOT_WORD
+import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
 import com.shijingfeng.wan_android.entity.SearchListItem
 import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
@@ -209,7 +214,10 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
 
                 searchItem.collected = collected
                 mSearchListAdapter?.notifyItemChanged(position, mutableMapOf<String, Any>().apply {
-                    put(PART_UPDATE_FLAG, PART_UPDATE_COLLECTION_STATUS)
+                    put(
+                        PART_UPDATE_FLAG,
+                        PART_UPDATE_COLLECTION_STATUS
+                    )
                 })
             }
         })

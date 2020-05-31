@@ -2,10 +2,10 @@ package com.shijingfeng.wan_android.database.room.dao
 
 import android.database.Cursor
 import androidx.room.*
-import com.shijingfeng.wan_android.constant.HOME_ARTICLE_FOREIGN_ID
-import com.shijingfeng.wan_android.constant.HOME_ARTICLE_ID
-import com.shijingfeng.wan_android.constant.HOME_ARTICLE_TABLE_NAME
-import com.shijingfeng.wan_android.constant.HOME_ARTICLE_TAG_TABLE_NAME
+import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE_FOREIGN_ID
+import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE_ID
+import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE_TABLE_NAME
+import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE_TAG_TABLE_NAME
 import com.shijingfeng.wan_android.database.room.entity.HomeArticleCombineLocal
 import com.shijingfeng.wan_android.database.room.entity.HomeArticleLocal
 import com.shijingfeng.wan_android.database.room.entity.HomeArticleTagLocal

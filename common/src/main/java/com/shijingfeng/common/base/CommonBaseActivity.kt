@@ -32,11 +32,4 @@ internal abstract class CommonBaseActivity<V : ViewDataBinding, VM : CommonBaseV
         getContentView().setBackgroundResource(R.color.white)
     }
 
-    /**
-     * 获取状态栏背景
-     *
-     * @return 背景 Drawable
-     */
-    override fun getStatusBarBackground(): Drawable? = null
-
 }

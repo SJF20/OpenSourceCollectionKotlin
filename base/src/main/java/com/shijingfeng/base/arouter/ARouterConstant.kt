@@ -58,6 +58,8 @@ const val ACTIVITY_WAN_ANDROID_COIN_RANK = "/wan_android/activity/CoinRankActivi
 const val ACTIVITY_WAN_ANDROID_COIN_RECORD = "/wan_android/activity/CoinRecordActivity"
 /** 我的收藏 Activity  */
 const val ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION = "/wan_android/activity/PersonalCollectionActivity"
+/** 系统设置 Activity */
+const val ACTIVITY_WAN_ANDROID_SETTING = "/wan_android/activity/SettingActivity"
 /** 关于我们 Activity */
 const val ACTIVITY_WAN_ANDROID_ABOUT_US = "/wan_android/activity/AboutUsActivity"
 /** 知识体系详情 Activity  */

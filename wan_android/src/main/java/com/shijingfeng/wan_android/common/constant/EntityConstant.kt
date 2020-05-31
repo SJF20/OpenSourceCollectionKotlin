@@ -1,4 +1,4 @@
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 /**
  * Function: 实体类 常量

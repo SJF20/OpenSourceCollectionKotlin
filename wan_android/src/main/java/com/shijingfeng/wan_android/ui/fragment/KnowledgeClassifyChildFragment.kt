@@ -26,13 +26,13 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_COLLECTION
-import com.shijingfeng.wan_android.constant.KEY_ARTICLE_ID
-import com.shijingfeng.wan_android.constant.KEY_COLLECTED
-import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
-import com.shijingfeng.wan_android.constant.PART_UPDATE_COLLECTION_STATUS
-import com.shijingfeng.wan_android.constant.PART_UPDATE_FLAG
-import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
+import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
+import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
+import com.shijingfeng.wan_android.common.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
@@ -245,7 +245,10 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
 
                 knowledgeClassifyChildItem.collected = collected
                 mKnowledgeClassifyChildAdapter?.notifyItemChanged(position, mutableMapOf<String, Any>().apply {
-                    put(PART_UPDATE_FLAG, PART_UPDATE_COLLECTION_STATUS)
+                    put(
+                        PART_UPDATE_FLAG,
+                        PART_UPDATE_COLLECTION_STATUS
+                    )
                 })
             }
         })

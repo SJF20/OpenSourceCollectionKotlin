@@ -3,6 +3,7 @@ package com.shijingfeng.base.base.fragment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.provider.Settings
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -164,9 +166,14 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         if (!isSetCustomStatusBar() && activity != null && mRootView != null) {
             val contentView = mRootView!!
             val statusBarView = StatusBarView(activity!!)
+            val statusBarBackgroundDrawable = getStatusBarBackgroundDrawable()
 
             statusBarView.id = R.id.status_bar_view
-            statusBarView.background = getStatusBarBackground()
+            if (statusBarBackgroundDrawable != null) {
+                statusBarView.background = statusBarBackgroundDrawable
+            } else {
+                statusBarView.setBackgroundResource(getStatusBarBackgroundResource())
+            }
 
             when (contentView) {
                 is LinearLayout -> contentView.addView(statusBarView, 0)
@@ -237,10 +244,16 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     protected open fun isSetStatusBarContentDark() = false
 
     /**
-     * 获取状态栏背景
+     * 获取 状态栏 背景Drawable (不支持换肤)
      * @return 背景 Drawable
      */
-    protected open fun getStatusBarBackground() = getDrawableById(R.color.project_status_bar_default_color)
+    protected open fun getStatusBarBackgroundDrawable(): Drawable? = null
+
+    /**
+     * 获取 状态栏 背景资源 (支持换肤)
+     */
+    @DrawableRes
+    protected open fun getStatusBarBackgroundResource(): Int = R.color.project_status_bar_default_color
 
     /**
      * LoadSir 切换状态

@@ -15,7 +15,7 @@ import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.SERVER_NEED_LOGIN
+import com.shijingfeng.wan_android.common.constant.SERVER_NEED_LOGIN
 import org.json.JSONException
 import java.net.ConnectException
 import java.net.SocketTimeoutException

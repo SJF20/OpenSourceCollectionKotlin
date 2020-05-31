@@ -1,9 +1,9 @@
 package com.shijingfeng.wan_android.entity.adapter
 
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.wan_android.constant.HOME_ARTICLE
-import com.shijingfeng.wan_android.constant.HOME_BANNER
-import com.shijingfeng.wan_android.constant.HOME_TOP_ARTICLE
+import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE
+import com.shijingfeng.wan_android.common.constant.HOME_BANNER
+import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE
 import com.shijingfeng.base.common.constant.ADAPTER_TYPE_UNKNOWN
 import com.shijingfeng.wan_android.entity.HomeArticleItem
 

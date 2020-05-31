@@ -12,7 +12,7 @@ import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
+import com.shijingfeng.wan_android.common.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.entity.NavigationClassifyEntity
 import java.util.*
 
@@ -61,7 +61,9 @@ internal class NavigationClassifyAdapter(
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
                     // 查看 导航标签 详情
                     ClickUtils.applySingleDebouncing(this) {
-                        mOnItemEvent?.invoke(this, navigationClassifyArticle, position, VIEW_NAVIGATION_CLASSIFY_DETAIL)
+                        mOnItemEvent?.invoke(this, navigationClassifyArticle, position,
+                            VIEW_NAVIGATION_CLASSIFY_DETAIL
+                        )
                     }
                 })
             }

@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("ApiConstant")
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 /**
  * Function: Api 相关 静态字符串

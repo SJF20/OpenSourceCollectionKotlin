@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("CodeConstant")
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 /**
  * Function: 代码 静态常量

@@ -5,7 +5,7 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.wan_android.constant.SERVER_SUCCESS
+import com.shijingfeng.wan_android.common.constant.SERVER_SUCCESS
 import com.shijingfeng.wan_android.entity.CoinInfoEntity
 import com.shijingfeng.wan_android.entity.UserInfoEntity
 import com.shijingfeng.wan_android.source.network.api.CoinApi

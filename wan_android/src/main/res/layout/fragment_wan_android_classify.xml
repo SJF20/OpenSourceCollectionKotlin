@@ -20,7 +20,7 @@
             android:id="@+id/tl_tabs"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/red"
+            android:background="@color/wan_android_theme_color"
             app:tabBackground="@null"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:fadingEdge="none"
             android:overScrollMode="never"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
 
     </LinearLayout>
 

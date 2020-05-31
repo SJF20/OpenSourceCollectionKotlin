@@ -33,10 +33,8 @@ internal abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewM
     }
 
     /**
-     * 获取状态栏背景
-     *
-     * @return 背景 Drawable
+     * 获取 状态栏 背景资源 (支持换肤)
      */
-    override fun getStatusBarBackground() = getDrawableById(R.color.todo_status_bar_default_color)
+    override fun getStatusBarBackgroundResource() = R.color.todo_theme_color
 
 }

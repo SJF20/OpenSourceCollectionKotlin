@@ -22,7 +22,7 @@ import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.PROJECT_INDEX_STR
+import com.shijingfeng.wan_android.common.constant.PROJECT_INDEX_STR
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidProjectBinding
 import com.shijingfeng.wan_android.entity.ProjectIndexEntity
 import com.shijingfeng.wan_android.source.network.getProjectNetworkSourceInstance

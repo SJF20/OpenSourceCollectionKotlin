@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("ServerConstant")
-package com.shijingfeng.wan_android.constant
+package com.shijingfeng.wan_android.common.constant
 
 /**
  * Function: 服务端状态码 静态常量

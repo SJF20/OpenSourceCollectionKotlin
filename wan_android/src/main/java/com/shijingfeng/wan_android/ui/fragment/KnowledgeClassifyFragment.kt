@@ -18,9 +18,9 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.constant.KNOWLEDGE_CLASSIFY_STR
-import com.shijingfeng.wan_android.constant.TAB_LAYOUT_VISIBILITY
-import com.shijingfeng.wan_android.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
+import com.shijingfeng.wan_android.common.constant.KNOWLEDGE_CLASSIFY_STR
+import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.wan_android.common.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyBinding
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyNetworkSourceInstance
@@ -106,12 +106,16 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     //滑倒最底部，隐藏
-                    mOnItemEvent?.invoke(recyclerView, null, View.GONE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, View.GONE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
                     return
                 }
                 if (!recyclerView.canScrollVertically(-1)) {
                     //滑倒顶部，显示
-                    mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE, TAB_LAYOUT_VISIBILITY)
+                    mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
                     return
                 }
                 mOnItemEvent?.invoke(

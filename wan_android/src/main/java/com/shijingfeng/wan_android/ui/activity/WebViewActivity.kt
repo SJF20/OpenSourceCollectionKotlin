@@ -40,9 +40,9 @@ import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.constant.SCROLL_TO_DOWN
-import com.shijingfeng.wan_android.constant.SCROLL_TO_UP
-import com.shijingfeng.wan_android.constant.TITLE_BAR_HEIGHT
+import com.shijingfeng.wan_android.common.constant.SCROLL_TO_DOWN
+import com.shijingfeng.wan_android.common.constant.SCROLL_TO_UP
+import com.shijingfeng.wan_android.common.constant.TITLE_BAR_HEIGHT
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidWebViewBinding
 import com.shijingfeng.wan_android.source.network.getWebViewNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getWebViewRepositoryInstance
@@ -199,7 +199,8 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
                     }
                 } else {
                     mYScrollDistance = newScrollY - oldScrollY
-                    mYScrollDirection = SCROLL_TO_DOWN
+                    mYScrollDirection =
+                        SCROLL_TO_DOWN
                 }
             } else if (newScrollY < oldScrollY) {
                 //触控点想下走，视图向上滚动，即手指向下滑动
@@ -212,7 +213,8 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
                     }
                 } else {
                     mYScrollDistance = oldScrollY - newScrollY
-                    mYScrollDirection = SCROLL_TO_UP
+                    mYScrollDirection =
+                        SCROLL_TO_UP
                 }
             }
         }
@@ -253,7 +255,9 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         mIsTitleBarVisible = true
 
         val animatorSet = AnimatorSet()
-        val translationValueAnimator = ValueAnimator.ofInt(0, TITLE_BAR_HEIGHT)
+        val translationValueAnimator = ValueAnimator.ofInt(0,
+            TITLE_BAR_HEIGHT
+        )
         val scaleValueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
 
         translationValueAnimator.addUpdateListener { animation ->

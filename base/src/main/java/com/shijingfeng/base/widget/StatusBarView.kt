@@ -5,10 +5,12 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 
 import com.shijingfeng.base.util.*
+import skin.support.widget.SkinCompatViewGroup
 
 /**
  * Function: 自定义动态状态栏布局
  *
+ * SkinCompatViewGroup: 换肤框架需处理自定义View 详情: https://github.com/ximsfei/Android-skin-support
  * @author shijingfeng
  * @date 19-1-22
  */
@@ -16,9 +18,8 @@ class StatusBarView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
-) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
+    defStyleAttr: Int = 0
+) : SkinCompatViewGroup(context, attrs, defStyleAttr) {
 
     /** 背景颜色资源ID  */
     private val mColorRes: Int = 0

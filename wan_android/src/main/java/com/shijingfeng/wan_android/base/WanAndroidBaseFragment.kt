@@ -24,11 +24,9 @@ internal abstract class WanAndroidBaseFragment<V : ViewDataBinding, VM : WanAndr
     }
 
     /**
-     * 获取状态栏背景
-     *
-     * @return 背景 Drawable
+     * 获取 状态栏 背景资源 (支持换肤)
      */
-    override fun getStatusBarBackground() = getDrawableById(R.color.wan_android_status_bar_default_color)
+    override fun getStatusBarBackgroundResource() = R.color.wan_android_theme_color
 
     /**
      * 滑动到顶部

@@ -8,8 +8,8 @@ import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.library.SwipeRemoveLayout
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.constant.ARTICLE_ITEM_UNCOLLECTED
-import com.shijingfeng.wan_android.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_UNCOLLECTED
+import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
 
 /**
@@ -55,7 +55,9 @@ internal class PersonalCollectionArticleAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position, VIEW_ARTICLE_DETAIL)
+                    mOnItemEvent?.invoke(v, data, position,
+                        VIEW_ARTICLE_DETAIL
+                    )
                 }
             )
             // 取消收藏
@@ -63,7 +65,9 @@ internal class PersonalCollectionArticleAdapter(
                 viewId = R.id.btn_uncollected,
                 listener = OnClickListener{ v ->
                     swipeRemoveLayout?.close()
-                    mOnItemEvent?.invoke(v, data, position, ARTICLE_ITEM_UNCOLLECTED)
+                    mOnItemEvent?.invoke(v, data, position,
+                        ARTICLE_ITEM_UNCOLLECTED
+                    )
                 }
             )
         }
