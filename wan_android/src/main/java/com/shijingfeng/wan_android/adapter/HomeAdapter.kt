@@ -330,7 +330,15 @@ internal class HomeAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
-            setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+            if (isCollected) {
+                setThemeButtonDrawable(
+                    getView<CheckBox>(R.id.ckb_collection)!!,
+                    resName = getStringById(R.string.drawable_id_ic_collected),
+                    resType = RESOURCE_TYPE_DRAWABLE
+                )
+            } else {
+                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+            }
 
             //查看详情
             setOnClickListener(

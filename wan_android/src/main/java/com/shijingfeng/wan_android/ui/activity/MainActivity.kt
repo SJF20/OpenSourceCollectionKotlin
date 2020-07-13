@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.TextUtils
+import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -35,6 +36,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
@@ -281,27 +283,27 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
                     //首页
                     MAIN_HOME -> {
                         view.findViewById<TextView>(R.id.tv_indicator_home).setTextColor(getColorById(R.color.grey))
-                        view.findViewById<ImageView>(R.id.iv_indicator_home).setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_home).imageTintList = ColorStateList.valueOf(getColorById(R.color.grey))
                     }
                     //分类
                     MAIN_CLASSIFY -> {
                         view.findViewById<TextView>(R.id.tv_indicator_classify).setTextColor(getColorById(R.color.grey))
-                        view.findViewById<ImageView>(R.id.iv_indicator_classify).setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_classify).imageTintList = ColorStateList.valueOf(getColorById(R.color.grey))
                     }
                     //公众号
                     MAIN_OFFICIAL_ACCOUNT -> {
                         view.findViewById<TextView>(R.id.tv_indicator_official_account).setTextColor(getColorById(R.color.grey))
-                        view.findViewById<ImageView>(R.id.iv_indicator_official_account).setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_official_account).imageTintList = ColorStateList.valueOf(getColorById(R.color.grey))
                     }
                     //广场
                     MAIN_SQUARE -> {
                         view.findViewById<TextView>(R.id.tv_indicator_square).setTextColor(getColorById(R.color.grey))
-                        view.findViewById<ImageView>(R.id.iv_indicator_square).setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_square).imageTintList = ColorStateList.valueOf(getColorById(R.color.grey))
                     }
                     //项目
                     MAIN_PROJECT -> {
                         view.findViewById<TextView>(R.id.tv_indicator_project).setTextColor(getColorById(R.color.grey))
-                        view.findViewById<ImageView>(R.id.iv_indicator_project).setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_project).imageTintList = ColorStateList.valueOf(getColorById(R.color.grey))
                     }
                     else -> {}
                 }
