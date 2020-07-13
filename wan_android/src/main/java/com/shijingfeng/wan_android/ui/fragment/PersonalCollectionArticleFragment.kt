@@ -27,6 +27,7 @@ import com.shijingfeng.wan_android.adapter.PersonalCollectionArticleAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionArticleBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
@@ -105,6 +106,10 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
             mDataBinding.rvContent.adapter = mPersonalCollectionArticleAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
+
+        setThemeBackgroundTintList(
+            mDataBinding.fabToTop
+        )
     }
 
     /**

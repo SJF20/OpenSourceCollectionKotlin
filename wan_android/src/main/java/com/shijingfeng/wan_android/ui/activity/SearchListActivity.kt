@@ -32,6 +32,8 @@ import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
 import com.shijingfeng.wan_android.entity.SearchListItem
 import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
@@ -109,6 +111,10 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
         mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvContent.adapter = mSearchListAdapter
         mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
+
+        setThemeBackgroundTintList(
+            mDataBinding.fabToTop
+        )
     }
 
     /**

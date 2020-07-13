@@ -19,11 +19,15 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.ThemeColorAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.global.skinManager
 import com.shijingfeng.wan_android.common.global.themeColorNameList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSettingBinding
 import com.shijingfeng.wan_android.entity.adapter.ThemeColorItem
+import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.view_model.SettingViewModel
+import com.zhy.changeskin.SkinManager
+import org.greenrobot.eventbus.EventBus
 import skin.support.SkinCompatManager
 
 /**
@@ -120,12 +124,14 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
         tvEnsure.setOnClickListener {
             chooseThemeColorDialog?.hide()
             ThemeUtil.curThemeColor = mViewModel!!.mCurThemeRGBColorStr
+            ThemeUtil.curThemeName = themeColorNameList[mViewModel!!.mCurThemeColorNamePosition]
             mDataBinding.civThemeColor.setImageDrawable(ColorDrawable().apply {
                 color = Color.parseColor(ThemeUtil.curThemeColor)
             })
-            // 取消换肤, 目前已知: TabLayout shape标签 无法换肤
-            // 后缀加载皮肤
-//            SkinCompatManager.getInstance().loadSkin(themeColorNameList[mViewModel!!.mCurThemeColorNamePosition], SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
+            skinManager.changeSkin(ThemeUtil.curThemeName)
+            // AndroidChangeskin切换主题有缺陷性: 只能切换静态的部分 和 不会延时加载的部分
+            // 对于其他情况只能使用 EventBus 通知更新UI了
+            EventBus.getDefault().post(ThemeEvent())
         }
     }
 }

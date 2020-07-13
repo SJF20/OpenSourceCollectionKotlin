@@ -1,11 +1,19 @@
 package com.shijingfeng.wan_android.base
 
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
 import com.shijingfeng.base.base.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.wan_android.R
+import com.shijingfeng.wan_android.common.global.skinManager
+import com.zhy.changeskin.SkinManager
 
 /**
  * Function: wan_android 模块 Activity 基类
@@ -19,8 +27,9 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      * 初始化
      */
     override fun init(savedInstanceState: Bundle?) {
-        d("页面", "wan_android 模块: " + this.javaClass.simpleName)
         super.init(savedInstanceState)
+        d("页面", "wan_android 模块: " + this.javaClass.simpleName)
+        skinManager.register(this)
     }
 
     /**
@@ -30,11 +39,49 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
         super.initData()
         //Activity默认背景为白色
         getContentView().setBackgroundResource(R.color.white)
+        //设置状态栏背景色和高度
+        if (!isSetCustomStatusBar()) {
+            val contentView = getContentView()
+            val statusBarView = StatusBarView(this).apply {
+                id = R.id.status_bar_view
+                tag = getStringById(R.string.wan_android_theme_color_background)
+            }
+
+            if (contentView.childCount > 0) {
+                when (val userContentView = contentView.getChildAt(0)) {
+                    is LinearLayout -> userContentView.addView(statusBarView, 0)
+                    is FrameLayout -> {
+                        userContentView.addView(statusBarView)
+                        statusBarView.layoutParams = (statusBarView.layoutParams as FrameLayout.LayoutParams).apply {
+                            gravity = Gravity.TOP
+                        }
+                    }
+                    else -> {
+                        contentView.removeAllViews()
+                        LinearLayout(this).run {
+                            orientation = LinearLayout.VERTICAL
+                            addView(statusBarView)
+                            addView(userContentView)
+                            contentView.addView(this)
+                            layoutParams = layoutParams.apply {
+                                width = ViewGroup.LayoutParams.MATCH_PARENT
+                                height = ViewGroup.LayoutParams.MATCH_PARENT
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
-     * 获取 状态栏 背景资源 (支持换肤)
+     * 是否自定义设置状态栏
+     * @return true 自定义设置  false 默认设置
      */
-    override fun getStatusBarBackgroundResource() = R.color.wan_android_theme_color
+    protected open fun isSetCustomStatusBar() = false
 
+    override fun onDestroy() {
+        super.onDestroy()
+        skinManager.unregister(this)
+    }
 }

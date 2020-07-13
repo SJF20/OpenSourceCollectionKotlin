@@ -58,6 +58,7 @@ ext {
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
             "bmob"                                : "3.7.8",
+            "changeskin"                          : "4.0.2"
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -171,8 +172,10 @@ ext {
             "smartrefresh-header"                 : "com.scwang.smartrefresh:SmartRefreshHeader:${versions["smartrefresh"]}",
             //ARouter 路由框架
             "arouter"                             : "com.alibaba:arouter-api:${versions["arouter"]}",
-            // Bmob 后端
-            "bmob-sdk"                            : "cn.bmob.android:bmob-sdk:${versions["bmob"]}"
+            //Bmob 后端
+            "bmob-sdk"                            : "cn.bmob.android:bmob-sdk:${versions["bmob"]}",
+            //换肤框架 (张鸿洋)
+            "changeskin"                          : "com.zhy:changeskin:${versions["changeskin"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [

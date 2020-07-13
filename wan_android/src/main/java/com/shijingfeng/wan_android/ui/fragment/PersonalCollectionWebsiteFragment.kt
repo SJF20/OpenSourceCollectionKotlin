@@ -34,6 +34,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.VIEW_WEBSITE_DETAIL
 import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_EDIT
 import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_UNCOLLECTED
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionWebsiteBinding
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionWebsiteNetworkSourceInstance
@@ -120,6 +121,10 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
             mDataBinding.rvContent.adapter = mPersonalCollectionWebsiteAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
+
+        setThemeBackgroundTintList(
+            mDataBinding.fabToTop
+        )
     }
 
     /**

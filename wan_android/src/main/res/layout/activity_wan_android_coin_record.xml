@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 积分记录 页面 -->
+<?xml version="1.0" encoding="utf-8"?><!-- 积分记录 页面 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.shijingfeng.wan_android.view_model.CoinRecordViewModel" />
 
         <variable
@@ -18,10 +18,12 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/wan_android_theme_color">
+            android:tag="@string/wan_android_theme_color_background"
+            tools:background="@color/wan_android_theme_color">
 
             <include
                 android:id="@+id/include_title_bar"
@@ -51,10 +53,10 @@
                 android:id="@+id/srl_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srlEnableRefresh="true"
-                app:srlEnableLoadMore="true"
+                app:onLoadMoreListener="@{coinRecordViewModel.mOnLoadMoreListener}"
                 app:onRefreshListener="@{coinRecordViewModel.mOnRefreshListener}"
-                app:onLoadMoreListener="@{coinRecordViewModel.mOnLoadMoreListener}">
+                app:srlEnableLoadMore="true"
+                app:srlEnableRefresh="true">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_content"
@@ -63,7 +65,7 @@
                     android:fadingEdge="none"
                     android:overScrollMode="never"
                     android:scrollbars="none"
-                    tools:listitem=""/>
+                    tools:listitem="" />
 
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
@@ -75,8 +77,9 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="95dp"
                 android:src="@drawable/ic_top"
-                app:backgroundTint="@color/wan_android_theme_color"
-                app:fabSize="mini" />
+                android:tag="@string/wan_android_theme_color_backgroundTint"
+                app:fabSize="mini"
+                tools:backgroundTint="@color/wan_android_theme_color" />
 
         </FrameLayout>
 

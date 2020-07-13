@@ -173,12 +173,6 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
     }
 
     /**
-     * 是否自定义设置状态栏
-     * @return true 自定义设置  false 默认设置
-     */
-    override fun isSetCustomStatusBar() = true
-
-    /**
      * 设置 TabLayout 和 置顶按钮 的可见性
      * @param visibility 可见性
      */

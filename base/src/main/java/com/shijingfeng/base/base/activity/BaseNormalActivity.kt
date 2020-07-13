@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -38,6 +39,8 @@ import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
+import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.getStringById
 
 /**
@@ -102,51 +105,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
         }
         //设置屏幕方向
         requestedOrientation = getScreenOrientation()
-        //设置状态栏背景色和高度
-        if (!isSetCustomStatusBar()) {
-            val contentView = getContentView()
-            val statusBarView = StatusBarView(this)
-            val statusBarBackgroundDrawable = getStatusBarBackgroundDrawable()
-
-            statusBarView.id = R.id.status_bar_view
-            if (statusBarBackgroundDrawable != null) {
-                statusBarView.background = statusBarBackgroundDrawable
-            } else {
-                statusBarView.setBackgroundResource(getStatusBarBackgroundResource())
-            }
-
-            if (contentView.childCount > 0) {
-                when (val userContentView = contentView.getChildAt(0)) {
-                    is LinearLayout -> userContentView.addView(statusBarView, 0)
-                    is FrameLayout -> {
-                        userContentView.addView(statusBarView)
-                        statusBarView.layoutParams = (statusBarView.layoutParams as FrameLayout.LayoutParams).apply {
-                            gravity = Gravity.TOP
-                        }
-                    }
-                    else -> {
-                        contentView.removeAllViews()
-                        LinearLayout(this@BaseNormalActivity).run {
-                            orientation = LinearLayout.VERTICAL
-                            addView(statusBarView)
-                            addView(userContentView)
-                            contentView.addView(this)
-                            layoutParams = layoutParams.apply {
-                                width = ViewGroup.LayoutParams.MATCH_PARENT
-                                height = ViewGroup.LayoutParams.MATCH_PARENT
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
-
-    /**
-     * 是否自定义设置状态栏
-     * @return true 自定义设置  false 默认设置
-     */
-    protected open fun isSetCustomStatusBar() = false
 
     /**
      * LoadSir 切换状态

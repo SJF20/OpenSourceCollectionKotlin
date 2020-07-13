@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.shijingfeng.wan_android.view_model.ClassifyViewModel" />
 
         <variable
@@ -20,12 +21,13 @@
             android:id="@+id/tl_tabs"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/wan_android_theme_color"
+            android:tag="@string/wan_android_theme_color_background"
             app:tabBackground="@null"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
-            app:tabRippleColor="@null" />
+            app:tabRippleColor="@null"
+            tools:background="@color/wan_android_theme_color" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_content"

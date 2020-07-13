@@ -2,8 +2,10 @@
 @file:JvmName("ResourceUtil")
 package com.shijingfeng.base.util
 
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.*
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ResourceUtils
 import com.shijingfeng.base.base.application.application
 
@@ -13,6 +15,20 @@ import com.shijingfeng.base.base.application.application
  * Description:
  * @author ShiJingFeng
  */
+
+/** 资源类型: Color(颜色) */
+const val RESOURCE_TYPE_COLOR = "color"
+/** 资源类型: Drawable(图片) */
+const val RESOURCE_TYPE_DRAWABLE = "drawable"
+/** 资源类型: Mipmap(图标) */
+const val RESOURCE_TYPE_MIPMAP = "mipmap"
+/** 资源类型: String(字符串文本) */
+const val RESOURCE_TYPE_STRING = "string"
+/** 资源名称: Dimen(尺寸) */
+const val RESOURCE_TYPE_DIMEN = "dimen"
+
+/** 没有资源 */
+const val RESOURCE_NONE = 0
 
 /**
  * 通过发射获取资源ID
@@ -27,15 +43,15 @@ fun getResId(variableName: String, cls: Class<*>): Int {
         idField.getInt(idField)
     } catch (e: NoSuchFieldException) {
         e.printStackTrace()
-        0
+        RESOURCE_NONE
     } catch (e: IllegalAccessException) {
         e.printStackTrace()
-        0
+        RESOURCE_NONE
     }
 }
 
 /**
- * 获取 ColorInt
+ * 通过 资源ID 获取 ColorInt
  * @param color Color Id
  * @return ColorInt
  */
@@ -43,22 +59,98 @@ fun getResId(variableName: String, cls: Class<*>): Int {
 fun getColorById(@ColorRes color: Int) = application.resources.getColor(color)
 
 /**
- * 获取 Drawable
+ * 通过 资源名称 获取 ColorInt
+ * @param colorResName 资源名称
+ */
+@ColorInt
+fun getColorByIdName(colorResName: String): Int {
+    try {
+        @ColorRes val colorId = application.resources.getIdentifier(colorResName, RESOURCE_TYPE_COLOR, application.packageName)
+
+        return getColorById(colorId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return RESOURCE_NONE
+}
+
+/**
+ * 通过 资源ID 获取 Drawable
  * @param drawableId Drawable Id
  * @return Drawable
  */
 fun getDrawableById(@DrawableRes drawableId: Int): Drawable? = ResourceUtils.getDrawable(drawableId)
 
 /**
- * 获取 String字符串
+ * 通过 资源名称 获取 Drawable
+ * @param drawableResName 资源名称
+ */
+fun getDrawableByIdName(drawableResName: String): Drawable? {
+    try {
+        @DrawableRes val drawableId = application.resources.getIdentifier(drawableResName, RESOURCE_TYPE_DRAWABLE, application.packageName)
+
+        return getDrawableById(drawableId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return null
+}
+
+/**
+ * 通过 资源名称 获取 Drawable (mipmap文件夹内)
+ * @param mipmapResName 资源名称
+ */
+fun getMipmapByIdName(mipmapResName: String): Drawable? {
+    try {
+        @DrawableRes val drawableId = application.resources.getIdentifier(mipmapResName, RESOURCE_TYPE_MIPMAP, application.packageName)
+
+        return getDrawableById(drawableId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return null
+}
+
+/**
+ * 通过 资源ID 获取 String字符串
  * @param stringId 字符串 Id
  * @return 字符串
  */
 fun getStringById(@StringRes stringId: Int) = application.resources.getString(stringId)
 
 /**
- * 获取 尺寸
+ * 通过 资源名称 获取 String字符串
+ * @param stringResName
+ */
+fun getStringByIdName(stringResName: String): String {
+    try {
+        @StringRes val stringId = application.resources.getIdentifier(stringResName, RESOURCE_TYPE_STRING, application.packageName)
+
+        return getStringById(stringId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return ""
+}
+
+/**
+ * 通过 资源ID 获取 尺寸
  * @param dimenId 尺寸 Id
  * @return 尺寸
  */
 fun getDimensionById(@DimenRes dimenId: Int) = application.resources.getDimension(dimenId)
+
+/**
+ * 通过 资源名称 获取 尺寸
+ * @param dimenResName
+ */
+fun getDimensionByIdName(dimenResName: String): Float {
+    try {
+        @StringRes val dimenId = application.resources.getIdentifier(dimenResName, RESOURCE_TYPE_DIMEN, application.packageName)
+
+        return getDimensionById(dimenId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return 0F
+}

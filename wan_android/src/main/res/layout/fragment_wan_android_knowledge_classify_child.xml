@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="com.shijingfeng.wan_android.view_model.KnowledgeClassifyChildViewModel" />
 
         <variable
@@ -17,8 +20,8 @@
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:onRefreshListener="@{knowledgeClassifyChildViewModel.mOnRefreshListener}"
-            app:onLoadMoreListener="@{knowledgeClassifyChildViewModel.mOnLoadMoreListener}">
+            app:onLoadMoreListener="@{knowledgeClassifyChildViewModel.mOnLoadMoreListener}"
+            app:onRefreshListener="@{knowledgeClassifyChildViewModel.mOnRefreshListener}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_content"
@@ -26,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:fadingEdge="none"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
+                android:scrollbars="none" />
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
@@ -38,8 +41,9 @@
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="95dp"
             android:src="@drawable/ic_top"
-            app:backgroundTint="@color/wan_android_theme_color"
-            app:fabSize="mini" />
+            android:tag="@string/wan_android_theme_color_backgroundTint"
+            app:fabSize="mini"
+            tools:backgroundTint="@color/wan_android_theme_color" />
 
     </FrameLayout>
 

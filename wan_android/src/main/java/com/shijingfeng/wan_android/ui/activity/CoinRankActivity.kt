@@ -2,6 +2,8 @@ package com.shijingfeng.wan_android.ui.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.Observer
@@ -18,10 +20,12 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRankAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRankBinding
 import com.shijingfeng.wan_android.source.local.getCoinRankLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
+import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.view_model.CoinRankViewModel
 
 /**
@@ -84,6 +88,8 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
         mCoinRankAdapter = CoinRankAdapter(this, mViewModel?.mCoinRankItemList)
         mDataBinding.rvList.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvList.adapter = mCoinRankAdapter
+
+        setThemeBackgroundTintList(mDataBinding.fabToTop)
     }
 
     /**

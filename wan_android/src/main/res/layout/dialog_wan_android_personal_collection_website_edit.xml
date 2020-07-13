@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal|top"
     android:orientation="vertical"
-    tools:background="@drawable/shape_website_edit_bg">
+    android:background="@drawable/shape_website_edit_bg">
 
     <TextView
         android:layout_width="wrap_content"

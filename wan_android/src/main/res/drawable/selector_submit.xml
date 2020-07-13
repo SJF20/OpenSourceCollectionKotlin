@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/shape_submit_disenable" android:state_enabled="false" />
-    <item android:drawable="@drawable/shape_submit_enable" android:state_enabled="true" />
+    <item android:state_enabled="false">
+        <shape>
+            <corners android:radius="100dp" />
+            <solid android:color="@color/grey" />
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <shape>
+            <corners android:radius="100dp" />
+            <solid android:color="@color/wan_android_theme_color" />
+        </shape>
+    </item>
 </selector>

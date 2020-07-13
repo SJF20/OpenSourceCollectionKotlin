@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.shijingfeng.wan_android.view_model.PersonalCollectionViewModel" />
@@ -16,9 +16,11 @@
         android:orientation="vertical">
 
         <FrameLayout
+            android:id="@+id/fl_title_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/wan_android_theme_color">
+            android:tag="@string/wan_android_theme_color_background"
+            tools:background="@color/wan_android_theme_color">
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -35,7 +37,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/wan_android_theme_color"
                 app:tabBackground="@null"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
@@ -50,7 +51,7 @@
             android:layout_height="match_parent"
             android:fadingEdge="none"
             android:overScrollMode="never"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
 
     </LinearLayout>
 

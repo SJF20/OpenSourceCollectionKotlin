@@ -237,9 +237,14 @@ dependencies {
     implementation project(path: ':common')
     // 依赖 base 模块
     implementation project(path: ':base')
+    // 更换皮肤框架 (张鸿洋) 模块
+    implementation project(path: ':change_skin')
 
     // Bmob后端 SDK
     implementation rootProject.ext.dependencies["bmob-sdk"]
+
+//    //换肤框架 (张鸿洋)
+//    implementation rootProject.ext.dependencies["changeskin"]
 
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]

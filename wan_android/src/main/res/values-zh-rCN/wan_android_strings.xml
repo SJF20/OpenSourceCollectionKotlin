@@ -1,6 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="wan_android_name">玩Android</string>
 
+    <!-- AndroidChangeSkin换肤框架 tag -->
+    <!-- 主题颜色 -->
+    <string name="wan_android_theme_color_background">skin:wan_android_theme_color:background</string>
+    <string name="wan_android_theme_color_backgroundTint">skin:wan_android_theme_color:backgroundTint</string>
+    <string name="wan_android_theme_color_textColor">skin:wan_android_theme_color:textColor</string>
+    <string name="wan_android_theme_color_src">skin:wan_android_theme_color:src</string>
+    <string name="wan_android_theme_color_tint">skin:wan_android_theme_color:tint</string>
+    <!-- 主题Drawable -->
+    <string name="selector_submit_background">skin:selector_submit:background</string>
+    <string name="ic_collected_buttonDrawable">skin:ic_collected:buttonDrawable</string>
+
+    <!-- Drawable 资源ID -->
+    <string name="drawable_id_selector_submit">selector_submit</string>
+    <string name="drawable_id_ic_collected">ic_collected</string>
+
     <string name="三杠占位符">---</string>
     <string name="请输入用户名">请输入用户名</string>
     <string name="请输入密码">请输入密码</string>

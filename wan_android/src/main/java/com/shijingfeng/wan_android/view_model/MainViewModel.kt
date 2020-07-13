@@ -24,7 +24,7 @@ internal class MainViewModel(
     repository: MainRepository? = null
 ) : WanAndroidBaseViewModel<MainRepository>(repository) {
 
-    /** 当前 ViewPager 下标  */
+    /** 当前 TabLayout 和 ViewPager 下标  */
     var mCurPosition = MAIN_HOME
 
     /** 显示 退出登录确认对话框 Event */

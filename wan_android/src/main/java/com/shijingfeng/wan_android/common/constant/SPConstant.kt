@@ -2,6 +2,8 @@
 @file:JvmName("SPConstant")
 package com.shijingfeng.wan_android.common.constant
 
+import com.shijingfeng.wan_android.common.global.RED_ACCENT_NAME
+
 /**
  * Function: SharePreference 键 静态常量
  * Date: 2020/2/3 15:54
@@ -19,6 +21,8 @@ internal const val USER_INFO = "login_info"
 internal const val FIRST_USE = "first_use"
 /** SP key: 当前主题颜色, value(String) RGB字符串 例如: "#FFFFFF" */
 internal const val THEME_COLOR = "theme_color"
+/** SP key: 当前主题名称, value(String) 字符串 例如: red_accent [RED_ACCENT_NAME] */
+internal const val THEME_NAME = "theme_name"
 /** SP key: 积分信息, value(String: 序列化后加密字符串)  */
 internal const val COIN_INFO = "coin_info"
 /** SP key: 搜索历史列表, value(String: 序列化字符串) */

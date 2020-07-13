@@ -14,8 +14,8 @@
         android:layout_gravity="center"
         android:layout_marginBottom="6dp"
         android:src="@drawable/ic_home"
-        android:tint="@color/wan_android_theme_color"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:tint="@color/wan_android_theme_color" />
 
     <TextView
         android:id="@+id/tv_indicator_home"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/首页"
-        android:textColor="@color/wan_android_theme_color"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        tools:textColor="@color/wan_android_theme_color" />
 
 </LinearLayout>

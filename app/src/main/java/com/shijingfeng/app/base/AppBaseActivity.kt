@@ -32,9 +32,4 @@ internal abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewMod
         getContentView().setBackgroundResource(R.color.white)
     }
 
-    /**
-     * 获取 状态栏 背景资源 (支持换肤)
-     */
-    override fun getStatusBarBackgroundResource() = R.color.app_theme_color
-
 }

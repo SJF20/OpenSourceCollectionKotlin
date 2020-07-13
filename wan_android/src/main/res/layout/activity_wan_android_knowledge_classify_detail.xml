@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.shijingfeng.wan_android.view_model.KnowledgeClassifyDetailViewModel" />
 
         <variable
@@ -33,7 +35,7 @@
                     <include
                         android:id="@+id/include_title_bar"
                         layout="@layout/layout_wan_android_title_bar"
-                        app:ivBackClick="@{knowledgeClassifyDetailViewModel.mBackListener}"/>
+                        app:ivBackClick="@{knowledgeClassifyDetailViewModel.mBackListener}" />
 
                 </LinearLayout>
 
@@ -49,14 +51,15 @@
                     android:id="@+id/tl_tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/wan_android_theme_color"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
+                    android:tag="@string/wan_android_theme_color_background"
                     app:tabBackground="@null"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp"
                     app:tabMode="scrollable"
-                    app:tabRippleColor="@null" />
+                    app:tabRippleColor="@null"
+                    tools:background="@color/wan_android_theme_color" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_content"

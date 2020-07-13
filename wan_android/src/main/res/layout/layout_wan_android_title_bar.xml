@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View.OnClickListener" />
 
         <variable
@@ -27,7 +28,8 @@
         android:id="@+id/fl_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/wan_android_theme_color">
+        android:tag="@string/wan_android_theme_color_background"
+        tools:background="@color/wan_android_theme_color">
 
         <ImageView
             android:id="@+id/iv_back"

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 主页侧边栏 -->
+<?xml version="1.0" encoding="utf-8"?><!-- 主页侧边栏 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.shijingfeng.wan_android.view_model.MainViewModel" />
 
         <variable
@@ -28,25 +28,27 @@
             android:id="@+id/ll_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/wan_android_theme_color"
             android:orientation="vertical"
             android:padding="20dp"
-            app:onClick="@{mainViewModel.mHeaderClickListener}">
+            android:tag="@string/wan_android_theme_color_background"
+            app:onClick="@{mainViewModel.mHeaderClickListener}"
+            tools:background="@color/wan_android_theme_color">
 
             <com.shijingfeng.base.widget.StatusBarView
-                android:id="@+id/sbv_status_bar2"
+                android:id="@+id/sbv_status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/wan_android_theme_color"/>
+                android:tag="@string/wan_android_theme_color_background"
+                tools:background="@color/wan_android_theme_color" />
 
             <ImageView
                 android:id="@+id/iv_rank"
-                tools:ignore="ContentDescription"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
                 android:src="@drawable/ic_rank"
-                app:onClick="@{mainViewModel.mRankClickListener}" />
+                app:onClick="@{mainViewModel.mRankClickListener}"
+                tools:ignore="ContentDescription" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_portrait"
@@ -166,11 +168,11 @@
 
                     <ImageView
                         android:id="@+id/iv_coin"
-                        tools:ignore="ContentDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_coin" />
+                        android:src="@drawable/ic_coin"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_coin"
@@ -189,34 +191,34 @@
 
                     <TextView
                         android:id="@+id/tv_coin_quantity"
-                        tools:text="0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="15dp"
                         android:maxLines="1"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="0" />
 
                 </LinearLayout>
 
                 <!-- 我的收藏 -->
                 <LinearLayout
                     android:id="@+id/ll_collection"
-                    tools:ignore="UseCompoundDrawables"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
-                    app:onClick="@{mainViewModel.mCollectionClickListener}">
+                    app:onClick="@{mainViewModel.mCollectionClickListener}"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:id="@+id/iv_collection"
-                        tools:ignore="ContentDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_collection" />
+                        android:src="@drawable/ic_collection"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_collection"
@@ -233,20 +235,20 @@
                 <!-- 待办事项 -->
                 <LinearLayout
                     android:id="@+id/ll_todo"
-                    tools:ignore="UseCompoundDrawables"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
-                    app:onClick="@{mainViewModel.mTodoClickListener}">
+                    app:onClick="@{mainViewModel.mTodoClickListener}"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:id="@+id/iv_todo"
-                        tools:ignore="ContentDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_todo" />
+                        android:src="@drawable/ic_todo"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_todo"
@@ -263,20 +265,20 @@
                 <!-- 系统设置 -->
                 <LinearLayout
                     android:id="@+id/ll_setting"
-                    tools:ignore="UseCompoundDrawables"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
-                    app:onClick="@{mainViewModel.mSettingClickListener}">
+                    app:onClick="@{mainViewModel.mSettingClickListener}"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:id="@+id/iv_setting"
-                        tools:ignore="ContentDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_setting" />
+                        android:src="@drawable/ic_setting"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_setting"
@@ -293,20 +295,20 @@
                 <!-- 关于我们 -->
                 <LinearLayout
                     android:id="@+id/ll_about"
-                    tools:ignore="UseCompoundDrawables"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
-                    app:onClick="@{mainViewModel.mAboutClickListener}">
+                    app:onClick="@{mainViewModel.mAboutClickListener}"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:id="@+id/iv_about"
-                        tools:ignore="ContentDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_about" />
+                        android:src="@drawable/ic_about"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_about"
@@ -323,22 +325,22 @@
                 <!-- 注销登录 -->
                 <LinearLayout
                     android:id="@+id/ll_logout"
-                    tools:ignore="UseCompoundDrawables"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="15dp"
                     android:visibility="gone"
                     app:onClick="@{mainViewModel.mLogoutClickListener}"
+                    tools:ignore="UseCompoundDrawables"
                     tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/iv_logout"
-                        tools:ignore="ContentDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_logout" />
+                        android:src="@drawable/ic_logout"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_logout"

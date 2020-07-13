@@ -32,6 +32,7 @@ import com.shijingfeng.wan_android.callback.SearchHotWordLoadingCallback
 import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.REMOVE_SEARCH_HISTORY_ITEM
 import com.shijingfeng.wan_android.common.constant.SEARCH
+import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchBinding
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.source.local.getSearchLocalSourceInstance
@@ -113,6 +114,10 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
         mSearchHistoryAdapter = SearchHistoryAdapter(this, mViewModel?.mSearchHistoryList)
         mDataBinding.rvHistory.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvHistory.adapter = mSearchHistoryAdapter
+
+        setThemeBackground(
+            mDataBinding.llTitleBar
+        )
     }
 
     /**

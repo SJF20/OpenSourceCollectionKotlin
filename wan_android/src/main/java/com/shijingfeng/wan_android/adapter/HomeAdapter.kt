@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -29,6 +30,7 @@ import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
@@ -106,7 +108,16 @@ internal class HomeAdapter(
 
                         holder.run {
                             setChecked(R.id.ckb_collection, collected)
-                            setButtonDrawable(R.id.ckb_collection, if (collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+                            if (collected) {
+                                setThemeButtonDrawable(
+                                    getView<CheckBox>(R.id.ckb_collection)!!,
+                                    resName = getStringById(R.string.drawable_id_ic_collected),
+                                    resType = RESOURCE_TYPE_DRAWABLE
+                                )
+                            } else {
+                                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+                            }
 
                             //收藏 或 取消收藏
                             setOnClickListener(
@@ -213,7 +224,15 @@ internal class HomeAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
-            setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+            if (isCollected) {
+                setThemeButtonDrawable(
+                    getView<CheckBox>(R.id.ckb_collection)!!,
+                    resName = getStringById(R.string.drawable_id_ic_collected),
+                    resType = RESOURCE_TYPE_DRAWABLE
+                )
+            } else {
+                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+            }
 
             //查看详情
             setOnClickListener(

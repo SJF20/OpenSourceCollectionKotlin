@@ -4,10 +4,12 @@ import android.util.SparseArray
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidRegisterBinding
 import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
@@ -59,6 +61,11 @@ internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegist
     override fun initData() {
         super.initData()
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.注册)
+        setThemeBackground(
+            mDataBinding.tvRegister,
+            resName = getStringById(R.string.drawable_id_selector_submit),
+            resType = RESOURCE_TYPE_DRAWABLE
+        )
     }
 
 }

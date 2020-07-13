@@ -20,6 +20,7 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
+import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidPersonalCollectionBinding
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionRepositoryInstance
@@ -101,6 +102,10 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
             // 网站
             getTabAt(PERSONAL_COLLECTION_WEBSITE)?.customView = getTabView(PERSONAL_COLLECTION_WEBSITE)
         }
+
+        setThemeBackground(
+            mDataBinding.flTitleBar
+        )
     }
 
     /**

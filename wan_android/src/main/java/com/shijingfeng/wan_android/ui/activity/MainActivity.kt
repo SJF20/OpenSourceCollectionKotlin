@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.text.TextUtils
 import android.util.SparseArray
 import android.view.KeyEvent
@@ -42,8 +44,13 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.RESULT_ARTICLE_COLLECTED_LIST
 import com.shijingfeng.wan_android.common.constant.RESULT_COIN_RECORD
 import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
+import com.shijingfeng.wan_android.common.global.setThemeTextColor
+import com.shijingfeng.wan_android.common.global.setThemeTint
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
+import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.local.getMainLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
@@ -55,6 +62,7 @@ import com.shijingfeng.wan_android.ui.fragment.createOfficialAccountFragment
 import com.shijingfeng.wan_android.ui.fragment.createProjectFragment
 import com.shijingfeng.wan_android.ui.fragment.createSquareFragment
 import com.shijingfeng.wan_android.utils.CoinUtil
+import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.view_model.MainViewModel
 import org.greenrobot.eventbus.Subscribe
@@ -90,6 +98,11 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
 
     /** 主页 ViewPager Fragment 适配器 */
     private var mMainFragmentPagerAdapter: MainFragmentPagerAdapter? = null
+
+    /** 当前 TabLayout指示器 TextView */
+    private lateinit var mCurIndicatorTextView: TextView
+    /** 当前 TabLayout指示器 ImageView */
+    private lateinit var mCurIndicatorImageView: ImageView
 
     /**
      * 获取视图ID
@@ -189,6 +202,16 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             // 显示注销登录
             mDataBinding.includeDrawer.llLogout.visibility = VISIBLE
         }
+
+        setThemeBackground(
+            mDataBinding.llTitleBar,
+            mDataBinding.sbvStatusBar,
+            mDataBinding.includeDrawer.llHeader,
+            mDataBinding.includeDrawer.sbvStatusBar
+        )
+        setThemeBackgroundTintList(
+            mDataBinding.fabToTop
+        )
     }
 
     /**
@@ -217,66 +240,68 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         mDataBinding.tlTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val view = tab.customView
+                val view = tab.customView ?: return
 
                 when (tab.position) {
                     //首页
                     MAIN_HOME -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_home)?.setTextColor(getColorById(R.color.wan_android_theme_color))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_home)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
+                        mCurIndicatorTextView = view.findViewById(R.id.tv_indicator_home)
+                        mCurIndicatorImageView = view.findViewById(R.id.iv_indicator_home)
                     }
                     //分类
                     MAIN_CLASSIFY -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_classify)?.setTextColor(getColorById(R.color.wan_android_theme_color))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_classify)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
+                        mCurIndicatorTextView = view.findViewById(R.id.tv_indicator_classify)
+                        mCurIndicatorImageView = view.findViewById(R.id.iv_indicator_classify)
                     }
                     //公众号
                     MAIN_OFFICIAL_ACCOUNT -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_official_account)?.setTextColor(getColorById(R.color.wan_android_theme_color))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_official_account)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
+                        mCurIndicatorTextView = view.findViewById(R.id.tv_indicator_official_account)
+                        mCurIndicatorImageView = view.findViewById(R.id.iv_indicator_official_account)
                     }
                     //广场
                     MAIN_SQUARE -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_square)?.setTextColor(getColorById(R.color.wan_android_theme_color))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_square)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
+                        mCurIndicatorTextView = view.findViewById(R.id.tv_indicator_square)
+                        mCurIndicatorImageView = view.findViewById(R.id.iv_indicator_square)
                     }
                     //项目
                     MAIN_PROJECT -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_project)?.setTextColor(getColorById(R.color.wan_android_theme_color))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_project)?.setColorFilter(getColorById(R.color.wan_android_theme_color))
+                        mCurIndicatorTextView = view.findViewById(R.id.tv_indicator_project)
+                        mCurIndicatorImageView = view.findViewById(R.id.iv_indicator_project)
                     }
                     else -> {}
                 }
+                setThemeTextColor(mCurIndicatorTextView)
+                setThemeTint(mCurIndicatorImageView)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                val view = tab.customView
+                val view = tab.customView ?: return
 
                 when (tab.position) {
                     //首页
                     MAIN_HOME -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_home)?.setTextColor(getColorById(R.color.grey))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_home)?.setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<TextView>(R.id.tv_indicator_home).setTextColor(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_home).setColorFilter(getColorById(R.color.grey))
                     }
                     //分类
                     MAIN_CLASSIFY -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_classify)?.setTextColor(getColorById(R.color.grey))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_classify)?.setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<TextView>(R.id.tv_indicator_classify).setTextColor(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_classify).setColorFilter(getColorById(R.color.grey))
                     }
                     //公众号
                     MAIN_OFFICIAL_ACCOUNT -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_official_account)?.setTextColor(getColorById(R.color.grey))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_official_account)?.setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<TextView>(R.id.tv_indicator_official_account).setTextColor(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_official_account).setColorFilter(getColorById(R.color.grey))
                     }
                     //广场
                     MAIN_SQUARE -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_square)?.setTextColor(getColorById(R.color.grey))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_square)?.setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<TextView>(R.id.tv_indicator_square).setTextColor(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_square).setColorFilter(getColorById(R.color.grey))
                     }
                     //项目
                     MAIN_PROJECT -> {
-                        view?.findViewById<TextView>(R.id.tv_indicator_project)?.setTextColor(getColorById(R.color.grey))
-                        view?.findViewById<ImageView>(R.id.iv_indicator_project)?.setColorFilter(getColorById(R.color.grey))
+                        view.findViewById<TextView>(R.id.tv_indicator_project).setTextColor(getColorById(R.color.grey))
+                        view.findViewById<ImageView>(R.id.iv_indicator_project).setColorFilter(getColorById(R.color.grey))
                     }
                     else -> {}
                 }
@@ -415,8 +440,17 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     @SuppressLint("InflateParams")
     private fun getTabView(position: Int) = when (position) {
-        //首页
-        MAIN_HOME -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_home, null)
+        //首页 (默认选中)
+        MAIN_HOME -> {
+            val mainHomeView = LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_home, null)
+
+            mCurIndicatorTextView = mainHomeView.findViewById(R.id.tv_indicator_home)
+            mCurIndicatorImageView = mainHomeView.findViewById(R.id.iv_indicator_home)
+
+            setThemeTextColor(mCurIndicatorTextView)
+            setThemeTint(mCurIndicatorImageView)
+            mainHomeView
+        }
         //分类
         MAIN_CLASSIFY -> LayoutInflater.from(this).inflate(R.layout.layout_wan_android_indicator_main_classify, null)
         //公众号
@@ -536,6 +570,22 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         // 积分数量
         if (mDataBinding.includeDrawer.tvCoinQuantity.text.toString() != coinCount) {
             mDataBinding.includeDrawer.tvCoinQuantity.text = if (!TextUtils.isEmpty(coinCount)) coinCount else "0"
+        }
+    }
+
+    /**
+     * 切换主题 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getThemeEvent(event: ThemeEvent) {
+        val curThemeColor = Color.parseColor(ThemeUtil.curThemeColor)
+        val curThemeColorStateList = ColorStateList.valueOf(curThemeColor)
+
+        if (this::mCurIndicatorTextView.isInitialized) {
+            mCurIndicatorImageView.imageTintList = curThemeColorStateList
+        }
+        if (this::mCurIndicatorImageView.isInitialized) {
+            mCurIndicatorTextView.setTextColor(curThemeColorStateList)
         }
     }
 

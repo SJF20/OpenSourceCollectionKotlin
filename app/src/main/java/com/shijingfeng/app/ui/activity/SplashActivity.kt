@@ -53,10 +53,4 @@ internal class SplashActivity : AppBaseActivity<ActivityAppSplashBinding, Splash
         put(BR.splashViewModel, mViewModel)
     }
 
-    /**
-     * 是否自定义设置状态栏
-     * @return true 自定义设置  false 默认设置
-     */
-    override fun isSetCustomStatusBar() = true
-
 }

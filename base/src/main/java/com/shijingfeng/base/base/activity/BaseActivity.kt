@@ -119,18 +119,6 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open fun isSetStatusBarContentDark() = false
 
     /**
-     * 获取 状态栏 背景Drawable (不支持换肤)
-     * @return 背景 Drawable
-     */
-    protected open fun getStatusBarBackgroundDrawable(): Drawable? = null
-
-    /**
-     * 获取 状态栏 背景资源 (支持换肤)
-     */
-    @DrawableRes
-    protected open fun getStatusBarBackgroundResource(): Int = R.color.project_status_bar_default_color
-
-    /**
      * 获取屏幕方向
      * @return 屏幕方向 (默认竖屏)
      */

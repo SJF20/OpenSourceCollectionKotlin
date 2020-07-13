@@ -258,7 +258,7 @@ dependencies {
     //Retrofit2 Gson转换器
     api rootProject.ext.dependencies["retrofit2-converter-gson"]
     //Retrofit2 RxJava2转换器
-    api "com.squareup.retrofit2:adapter-rxjava2:2.7.1"
+    api rootProject.ext.dependencies["retrofit2-adapter-rxjava2"]
     //Retrofit2 协程转换器
     api rootProject.ext.dependencies["retrofit2-kotlin-coroutines-adapter"]
     //Retrofit2 协程转换器 的补充

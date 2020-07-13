@@ -20,11 +20,13 @@ import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.OFFICIAL_ACCOUNT_INDEX_STR
+import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountBinding
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.network.getOfficialAccountNetworkSourceInstance
@@ -138,6 +140,10 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
         mViewModel?.mOfficialAccountIndexList?.forEachIndexed { index, officialAccountIndex ->
             mDataBinding.tlTabs.getTabAt(index)?.customView = getTabView(index, officialAccountIndex)
         }
+
+        setThemeBackground(
+            mDataBinding.tlTabs
+        )
     }
 
     /**

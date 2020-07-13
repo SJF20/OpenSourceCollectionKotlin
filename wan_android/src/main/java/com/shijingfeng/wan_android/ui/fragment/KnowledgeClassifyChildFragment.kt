@@ -33,6 +33,7 @@ import com.shijingfeng.wan_android.common.constant.KNOWLEDGE_CLASSIFY_CHILDREN_S
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
@@ -129,6 +130,10 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
             mDataBinding.rvContent.adapter = mKnowledgeClassifyChildAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
+
+        setThemeBackgroundTintList(
+            mDataBinding.fabToTop
+        )
     }
 
     /**

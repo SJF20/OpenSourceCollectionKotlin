@@ -18,6 +18,7 @@ import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
+import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidClassifyBinding
 import com.shijingfeng.wan_android.view_model.ClassifyViewModel
 
@@ -97,6 +98,10 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
             //导航分类
             getTabAt(CLASSIFY_NAVIGATION)?.customView = getTabView(CLASSIFY_NAVIGATION)
         }
+
+        setThemeBackground(
+            mDataBinding.tlTabs
+        )
     }
 
     /**

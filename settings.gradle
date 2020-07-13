@@ -16,6 +16,8 @@ include ':background_service'
 include ':common'
 // 基础 模块 (第三方依赖，和一些基类)
 include ':base'
+// 更换皮肤框架 (张鸿洋) 模块
+include ':change_skin'
 
 // 工程名称
 rootProject.name='OpenSourceCollectionKotlin'

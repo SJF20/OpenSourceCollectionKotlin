@@ -72,12 +72,6 @@ internal class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewMo
         CookieSyncManager.getInstance().sync()
     }
 
-    /**
-     * 是否自定义设置状态栏
-     * @return true 自定义设置  false 默认设置
-     */
-    override fun isSetCustomStatusBar() = true
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {

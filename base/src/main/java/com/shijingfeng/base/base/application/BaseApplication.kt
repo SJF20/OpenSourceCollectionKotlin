@@ -2,11 +2,8 @@ package com.shijingfeng.base.base.application
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
@@ -19,18 +16,14 @@ import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.enable
-import com.shijingfeng.base.util.getCurrentProcessName
 import com.shijingfeng.base.util.isMainProcess
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import skin.support.SkinCompatManager
 import skin.support.app.SkinAppCompatViewInflater
 import skin.support.app.SkinCardViewInflater
-import skin.support.app.SkinCompatViewInflater
 import skin.support.constraint.app.SkinConstraintViewInflater
 import skin.support.design.app.SkinMaterialViewInflater
-import java.io.File
 import kotlin.Exception
 
 /** 应用初始化类 全限定类名 列表 */

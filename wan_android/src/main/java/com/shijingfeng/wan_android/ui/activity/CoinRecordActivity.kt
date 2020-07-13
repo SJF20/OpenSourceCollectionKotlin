@@ -19,6 +19,8 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRecordAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRecordBinding
 import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
@@ -95,6 +97,11 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
         )
         mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvContent.adapter = mCoinRecordAdapter
+
+        setThemeBackground(
+            mDataBinding.llHeader
+        )
+        setThemeBackgroundTintList(mDataBinding.fabToTop)
     }
 
     /**
