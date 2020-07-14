@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
+import androidx.annotation.*
 import androidx.annotation.IntRange
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -269,6 +267,27 @@ class CommonViewHolder constructor (
             recyclerView.layoutManager = GridLayoutManager(mContext, spanCount)
         }
         return this
+    }
+
+    /**
+     * 设置标签
+     * @param viewId
+     * @param key
+     * @param tag
+     * @return CommonViewHolder
+     */
+    fun setTag(
+        @IdRes viewId: Int,
+        key: Int? = null,
+        tag: Any? = null
+    ) {
+        getView<View>(viewId)?.let { view ->
+            if (key == null) {
+                view.tag = tag
+            } else {
+                view.setTag(key, tag)
+            }
+        }
     }
 
     /**

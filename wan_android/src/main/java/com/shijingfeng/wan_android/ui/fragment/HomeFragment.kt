@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.SparseArray
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.CheckBox
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,9 @@ import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.getPositionById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
@@ -35,17 +38,22 @@ import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
+import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.HomeArticleItem
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
+import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.local.getHomeLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
+import okhttp3.internal.notify
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -347,6 +355,18 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             // 恢复轮播图自动轮播
             bannerView?.resume()
         }
+
+        if (mViewModel?.mNeedUpdateTheme == true) {
+            val size = mViewModel!!.mHomeItemDataList.size
+
+            mViewModel?.mNeedUpdateTheme = false
+            if (size > 0) {
+                // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+                mHomeAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+                })
+            }
+        }
     }
 
     /**
@@ -378,7 +398,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
     }
 
     /**
-     * 更新 首页收藏
+     * 获取 首页收藏更新 Event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getCollectionEvent(event: ArticleCollectionEvent) {
@@ -418,6 +438,25 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
 //                return
 //            }
 //        }
+    }
+
+    /**
+     * 获取 主题更新 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getThemeEvent(event: ThemeEvent) {
+        val size = mViewModel!!.mHomeItemDataList.size
+
+        if (size > 0) {
+            if (mIsVisible) {
+                // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+                mHomeAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+                })
+            } else {
+                mViewModel?.mNeedUpdateTheme = true
+            }
+        }
     }
 
 }

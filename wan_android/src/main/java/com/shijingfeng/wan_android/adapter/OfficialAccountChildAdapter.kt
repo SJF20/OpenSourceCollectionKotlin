@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,11 +15,18 @@ import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.*
 import com.shijingfeng.wan_android.R
+import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
+import com.shijingfeng.wan_android.common.global.setThemeTextColor
+import com.shijingfeng.wan_android.entity.HomeArticleItem
 import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 import java.util.*
 
 /**
@@ -56,6 +64,10 @@ internal class OfficialAccountChildAdapter(
         holder.run {
             // "新"
             setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
+            setTag(
+                viewId = R.id.tv_latest,
+                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+            )
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
             // 文章日期 或 转载日期
@@ -68,7 +80,24 @@ internal class OfficialAccountChildAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
-            setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+            setThemeBackground(
+                getView(R.id.tv_latest)!!,
+                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
+                resType = RESOURCE_TYPE_DRAWABLE
+            )
+            setThemeTextColor(
+                getView(R.id.tv_latest)!!
+            )
+            if (isCollected) {
+                setThemeButtonDrawable(
+                    getView<CheckBox>(R.id.ckb_collection)!!,
+                    resName = getStringById(R.string.drawable_id_ic_collected),
+                    resType = RESOURCE_TYPE_DRAWABLE
+                )
+            } else {
+                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+            }
 
             //查看详情
             setOnClickListener(
@@ -161,7 +190,16 @@ internal class OfficialAccountChildAdapter(
 
                         holder.run {
                             setChecked(R.id.ckb_collection, collected)
-                            setButtonDrawable(R.id.ckb_collection, if (collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+                            if (collected) {
+                                setThemeButtonDrawable(
+                                    getView<CheckBox>(R.id.ckb_collection)!!,
+                                    resName = getStringById(R.string.drawable_id_ic_collected),
+                                    resType = RESOURCE_TYPE_DRAWABLE
+                                )
+                            } else {
+                                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+                            }
 
                             //收藏 或 取消收藏
                             setOnClickListener(
@@ -174,6 +212,26 @@ internal class OfficialAccountChildAdapter(
                                     )
                                 }
                             )
+                        }
+                    }
+                    // 更新主题
+                    PART_UPDATE_THEME -> {
+                        setThemeBackground(
+                            holder.getView(R.id.tv_latest)!!,
+                            resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
+                            resType = RESOURCE_TYPE_DRAWABLE
+                        )
+                        setThemeTextColor(
+                            holder.getView(R.id.tv_latest)!!
+                        )
+                        if (data.collected) {
+                            setThemeButtonDrawable(
+                                holder.getView<CheckBox>(R.id.ckb_collection)!!,
+                                resName = getStringById(R.string.drawable_id_ic_collected),
+                                resType = RESOURCE_TYPE_DRAWABLE
+                            )
+                        } else {
+                            holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
                         }
                     }
                     else -> {}

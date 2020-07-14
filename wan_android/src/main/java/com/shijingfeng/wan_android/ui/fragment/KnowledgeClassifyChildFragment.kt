@@ -26,12 +26,14 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.KnowledgeClassifyChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
+import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.common.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyChildBinding
@@ -39,6 +41,7 @@ import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildItem
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildren
+import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyChildViewModel
@@ -358,6 +361,21 @@ internal class KnowledgeClassifyChildFragment : WanAndroidBaseFragment<FragmentW
 
         //因为服务器返回字段设计问题，导致 收藏列表中被收藏的文章 的 id 和 收藏列表以外的文章的 id 不相等, 故采用全局刷新的方式
         mViewModel?.refresh()
+    }
+
+    /**
+     * 获取 主题更新 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getThemeEvent(event: ThemeEvent) {
+        val size = mViewModel!!.mKnowledgeClassifyChildItemList.size
+
+        if (size > 0) {
+            // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+            mKnowledgeClassifyChildAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+            })
+        }
     }
 
 }

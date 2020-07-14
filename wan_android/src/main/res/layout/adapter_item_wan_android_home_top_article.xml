@@ -31,36 +31,36 @@
             android:layout_height="23dp"
             android:layout_gravity="top"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_set_to_top_bg"
             android:gravity="center"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:text="@string/新"
-            android:textColor="@color/wan_android_theme_color"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            tools:background="@drawable/shape_set_to_top_bg"
+            tools:textColor="@color/wan_android_theme_color" />
 
         <TextView
             android:id="@+id/tv_author"
             android:layout_width="wrap_content"
-            android:maxWidth="80dp"
             android:layout_height="23dp"
             android:layout_gravity="top"
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:maxWidth="80dp"
             android:maxLines="1"
+            android:singleLine="true"
             tools:text="shdghlghlahghdoghohdg" />
 
         <LinearLayout
             android:id="@+id/ll_tag_list"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
             android:layout_marginEnd="10dp"
+            android:layout_weight="1"
             android:minHeight="23dp"
-            android:orientation="vertical"
-            android:layout_gravity="start|top" />
+            android:orientation="vertical" />
 
         <TextView
             android:id="@+id/tv_date_time"
@@ -79,11 +79,11 @@
         android:layout_gravity="start"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:maxLines="2"
         android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="18sp"
-        tools:text="韶关好lgha杀伤力slghlh 韶关好-oho上了干lshghhash是啥联合国是两个哈喽上海分公司了哈干哈shghahh"/>
+        tools:text="韶关好lgha杀伤力slghlh 韶关好-oho上了干lshghhash是啥联合国是两个哈喽上海分公司了哈干哈shghahh" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,26 +95,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:text="跨平台 / "/>
+            tools:text="跨平台 / " />
 
         <TextView
             android:id="@+id/tv_second_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:text="Flutter"/>
+            tools:text="Flutter" />
 
         <View
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <CheckBox
             android:id="@+id/ckb_collection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/ic_uncollected"
-            android:checked="false"/>
+            android:checked="false" />
 
     </LinearLayout>
 

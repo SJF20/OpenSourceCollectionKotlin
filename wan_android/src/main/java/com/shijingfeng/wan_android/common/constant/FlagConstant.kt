@@ -30,6 +30,8 @@ internal const val ARTICLE_COLLECTED = "article_collected"
 internal const val PART_UPDATE_FLAG = "part_update_flag"
 /** RecyclerView适配器局部更新: 更新收藏状态  */
 internal const val PART_UPDATE_COLLECTION_STATUS = "part_update_collection_status"
+/** RecyclerView适配器局部更新: 更新主题 */
+internal const val PART_UPDATE_THEME = "part_update_theme"
 
 /** SparseArray Key(int) Value(Boolean) 收藏或取消收藏  true: 收藏  false: 取消收藏  */
 internal const val KEY_COLLECTED = 1

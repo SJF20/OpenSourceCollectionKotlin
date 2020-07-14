@@ -51,6 +51,9 @@ internal class OfficialAccountChildViewModel(
     /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
     val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
 
+    /** 是否需要更新主题(当Fragment在没有显示的情况下，RecyclerView更新Adapter无反应)  true: 需要  false: 不需要 */
+    var mNeedUpdateTheme = false
+
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {
         if (mLoadServiceStatus == LOAD_SERVICE_LOADING) {

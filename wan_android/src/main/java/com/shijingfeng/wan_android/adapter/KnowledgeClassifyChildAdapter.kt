@@ -3,16 +3,26 @@ package com.shijingfeng.wan_android.adapter
 import android.content.Context
 import android.text.TextUtils
 import android.view.View.OnClickListener
+import android.widget.CheckBox
 import android.widget.CompoundButton
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.cast
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
+import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
+import com.shijingfeng.wan_android.common.global.setThemeTextColor
+import com.shijingfeng.wan_android.entity.HomeArticleItem
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildItem
+import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
 
 /**
  * Function: 知识体系 二级数据 RecyclerView 适配器
@@ -53,6 +63,16 @@ internal class KnowledgeClassifyChildAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
+
+            if (isCollected) {
+                setThemeButtonDrawable(
+                    getView<CheckBox>(R.id.ckb_collection)!!,
+                    resName = getStringById(R.string.drawable_id_ic_collected),
+                    resType = RESOURCE_TYPE_DRAWABLE
+                )
+            } else {
+                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+            }
 
             //查看文章详情
             setOnClickListener(
@@ -105,7 +125,15 @@ internal class KnowledgeClassifyChildAdapter(
 
                         holder.run {
                             setChecked(R.id.ckb_collection, collected)
-                            setButtonDrawable(R.id.ckb_collection, if (collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+                            if (collected) {
+                                setThemeButtonDrawable(
+                                    getView<CheckBox>(R.id.ckb_collection)!!,
+                                    resName = getStringById(R.string.drawable_id_ic_collected),
+                                    resType = RESOURCE_TYPE_DRAWABLE
+                                )
+                            } else {
+                                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+                            }
 
                             //收藏 或 取消收藏
                             setOnClickListener(
@@ -118,6 +146,18 @@ internal class KnowledgeClassifyChildAdapter(
                                     )
                                 }
                             )
+                        }
+                    }
+                    // 更新主题
+                    PART_UPDATE_THEME -> {
+                        if (data.collected) {
+                            setThemeButtonDrawable(
+                                holder.getView<CheckBox>(R.id.ckb_collection)!!,
+                                resName = getStringById(R.string.drawable_id_ic_collected),
+                                resType = RESOURCE_TYPE_DRAWABLE
+                            )
+                        } else {
+                            holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
                         }
                     }
                     else -> {}

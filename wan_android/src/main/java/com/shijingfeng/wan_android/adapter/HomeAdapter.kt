@@ -2,6 +2,7 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.text.TextUtils
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
@@ -23,14 +24,18 @@ import com.shijingfeng.sjf_banner.library.banner.entity.ShapeIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.entity.TitleIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.R
+import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE
 import com.shijingfeng.wan_android.common.constant.HOME_BANNER
 import com.shijingfeng.wan_android.common.constant.HOME_TOP_ARTICLE
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
+import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerListItem
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
@@ -132,6 +137,54 @@ internal class HomeAdapter(
                             )
                         }
                     }
+                    // 更新主题
+                    PART_UPDATE_THEME -> {
+                        when (data) {
+                            // 置顶文章
+                            is HomeTopArticleItem -> {
+                                setThemeBackground(
+                                    holder.getView(R.id.tv_set_to_top)!!,
+                                    holder.getView(R.id.tv_latest)!!,
+                                    resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
+                                    resType = RESOURCE_TYPE_DRAWABLE
+                                )
+                                setThemeTextColor(
+                                    holder.getView(R.id.tv_set_to_top)!!,
+                                    holder.getView(R.id.tv_latest)!!
+                                )
+                                if (data.collected) {
+                                    setThemeButtonDrawable(
+                                        holder.getView<CheckBox>(R.id.ckb_collection)!!,
+                                        resName = getStringById(R.string.drawable_id_ic_collected),
+                                        resType = RESOURCE_TYPE_DRAWABLE
+                                    )
+                                } else {
+                                    holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+                                }
+                            }
+                            // 文章
+                            is HomeArticleItem -> {
+                                setThemeBackground(
+                                    holder.getView(R.id.tv_latest)!!,
+                                    resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
+                                    resType = RESOURCE_TYPE_DRAWABLE
+                                )
+                                setThemeTextColor(
+                                    holder.getView(R.id.tv_latest)!!
+                                )
+                                if (data.collected) {
+                                    setThemeButtonDrawable(
+                                        holder.getView<CheckBox>(R.id.ckb_collection)!!,
+                                        resName = getStringById(R.string.drawable_id_ic_collected),
+                                        resType = RESOURCE_TYPE_DRAWABLE
+                                    )
+                                } else {
+                                    holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+                                }
+                            }
+                            else -> {}
+                        }
+                    }
                     else -> {}
                 }
             }
@@ -210,8 +263,17 @@ internal class HomeAdapter(
         val isCollected = homeSetToTopItem.collected
 
         holder.run {
+            // "置顶" 醒目标签
+            setTag(
+                viewId = R.id.tv_set_to_top,
+                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+            )
             // "新" 醒目标签
             setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
+            setTag(
+                viewId = R.id.tv_latest,
+                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+            )
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
             // 文章日期 或 转载日期
@@ -224,6 +286,17 @@ internal class HomeAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
+
+            setThemeBackground(
+                getView(R.id.tv_set_to_top)!!,
+                getView(R.id.tv_latest)!!,
+                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
+                resType = RESOURCE_TYPE_DRAWABLE
+            )
+            setThemeTextColor(
+                getView(R.id.tv_set_to_top)!!,
+                getView(R.id.tv_latest)!!
+            )
             if (isCollected) {
                 setThemeButtonDrawable(
                     getView<CheckBox>(R.id.ckb_collection)!!,
@@ -318,6 +391,10 @@ internal class HomeAdapter(
         holder.run {
             // "新"
             setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
+            setTag(
+                viewId = R.id.tv_latest,
+                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+            )
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
             // 文章日期 或 转载日期
@@ -330,6 +407,15 @@ internal class HomeAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
+
+            setThemeBackground(
+                getView(R.id.tv_latest)!!,
+                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
+                resType = RESOURCE_TYPE_DRAWABLE
+            )
+            setThemeTextColor(
+                getView(R.id.tv_latest)!!
+            )
             if (isCollected) {
                 setThemeButtonDrawable(
                     getView<CheckBox>(R.id.ckb_collection)!!,

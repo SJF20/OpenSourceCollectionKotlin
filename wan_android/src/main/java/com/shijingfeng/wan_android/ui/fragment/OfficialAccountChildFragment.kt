@@ -1,6 +1,7 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.Observer
@@ -15,18 +16,21 @@ import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.OfficialAccountChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
+import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.common.constant.OFFICIAL_ACCOUNT_INDEX_STR
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountChildBinding
@@ -34,6 +38,7 @@ import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.source.network.getOfficialAccountChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getOfficialAccountChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountChildViewModel
@@ -58,7 +63,7 @@ internal fun createOfficialAccountChildFragment(bundle: Bundle) = OfficialAccoun
 internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWanAndroidOfficialAccountChildBinding, OfficialAccountChildViewModel>() {
 
     /** 公众号 二级数据 列表适配器 */
-    private var mOfficialAccountChildAdapter: OfficialAccountChildAdapter? = null;
+    private var mOfficialAccountChildAdapter: OfficialAccountChildAdapter? = null
 
     /**
      * 获取ViewModel
@@ -255,6 +260,24 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
     }
 
     /**
+     * 页面可见
+     */
+    override fun onResume() {
+        super.onResume()
+        if (mViewModel?.mNeedUpdateTheme == true) {
+            val size = mViewModel!!.mOfficialAccountChildItemList.size
+
+            mViewModel?.mNeedUpdateTheme = false
+            if (size > 0) {
+                // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+                mOfficialAccountChildAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+                })
+            }
+        }
+    }
+
+    /**
      * 是否开启懒加载 (用于ViewPager)
      *
      * @return true 开启  false 关闭  默认关闭
@@ -296,6 +319,25 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
 
         //因为服务器返回字段设计问题，导致 收藏列表中被收藏的文章 的 id 和 收藏列表以外的文章的 id 不相等, 故采用全局刷新的方式
         mViewModel?.refresh()
+    }
+
+    /**
+     * 获取 主题更新 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getThemeEvent(event: ThemeEvent) {
+        val size = mViewModel!!.mOfficialAccountChildItemList.size
+
+        if (size > 0) {
+            if (mIsVisible) {
+                // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+                mOfficialAccountChildAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+                })
+            } else {
+                mViewModel?.mNeedUpdateTheme = true
+            }
+        }
     }
 
 }

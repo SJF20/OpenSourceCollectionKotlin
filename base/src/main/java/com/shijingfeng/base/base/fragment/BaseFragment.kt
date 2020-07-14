@@ -82,6 +82,8 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
 
     /** Fragment View是否已创建完成   true 已创建完成  false 没有创建过 或 没有创建完成  */
     protected var mHasCreated = false
+    /** 是否可见  true: 可见  false: 不可见*/
+    protected var mIsVisible = false
 
     /**
      * 创建 Fragment Root View
@@ -119,11 +121,17 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      */
     override fun onResume() {
         super.onResume()
+        mIsVisible = true
         if (isEnableLazyLoad() && !mHasCreated) {
             init()
         }
         //初始化状态栏
         initStatusBar()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mIsVisible = false
     }
 
     /**

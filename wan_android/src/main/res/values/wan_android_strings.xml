@@ -10,10 +10,12 @@
     <string name="wan_android_theme_color_tint">skin:wan_android_theme_color:tint</string>
     <!-- 主题Drawable -->
     <string name="selector_submit_background">skin:selector_submit:background</string>
+    <string name="shape_set_to_top_bg_background">skin:shape_set_to_top_bg:background</string>
     <string name="ic_collected_buttonDrawable">skin:ic_collected:buttonDrawable</string>
 
     <!-- Drawable 资源ID -->
     <string name="drawable_id_selector_submit">selector_submit</string>
+    <string name="drawable_id_shape_set_to_top_bg">shape_set_to_top_bg</string>
     <string name="drawable_id_ic_collected">ic_collected</string>
 
     <string name="三杠占位符">---</string>
