@@ -122,12 +122,12 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
         tvEnsure.setOnClickListener {
             chooseThemeColorDialog?.hide()
             ThemeUtil.curThemeColor = mViewModel!!.mCurThemeRGBColorStr
-            ThemeUtil.curThemeName = themeColorNameList[mViewModel!!.mCurThemeColorNamePosition]
+            ThemeUtil.curThemeName = themeColorNameList!![mViewModel!!.mCurThemeColorNamePosition]
             mDataBinding.civThemeColor.setImageDrawable(ColorDrawable().apply {
                 color = Color.parseColor(ThemeUtil.curThemeColor)
             })
             skinManager.changeSkin(ThemeUtil.curThemeName)
-            // AndroidChangeskin切换主题有缺陷性: 只能切换静态的部分 和 不会延时加载的部分
+            // AndroidChangeSkin切换主题有缺陷性: 只能切换静态的部分 和 不会延时加载的部分
             // 对于其他情况只能使用 EventBus 通知更新UI了
             EventBus.getDefault().post(ThemeEvent())
         }

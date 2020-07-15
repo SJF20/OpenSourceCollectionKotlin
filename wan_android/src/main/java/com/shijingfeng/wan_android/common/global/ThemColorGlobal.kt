@@ -4,23 +4,19 @@
 package com.shijingfeng.wan_android.common.global
 
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.text.TextUtils
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import com.blankj.utilcode.util.ResourceUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.util.*
+import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.zhy.changeskin.SkinManager
-import okhttp3.internal.immutableListOf
+import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Function: 主题颜色 全局类
@@ -29,51 +25,11 @@ import okhttp3.internal.immutableListOf
  * @author ShiJingFeng
  */
 
-internal const val RED_ACCENT = "#FF5252"
-internal const val ORANGE = "#FF9800"
-internal const val GREEN = "#4CAF50"
-internal const val CYAN = "#00BCD4"
-internal const val BLUE = "#2196F3"
-internal const val PURPLE = "#9C27B0"
-internal const val PINK = "#E91E63"
-internal const val PINK_ACCENT = "#FF4081"
-internal const val BLACK = "#000000"
-
-internal const val RED_ACCENT_NAME = "red_accent"
-internal const val ORANGE_NAME = "orange"
-internal const val GREEN_NAME = "green"
-internal const val CYAN_NAME = "cyan"
-internal const val BLUE_NAME = "blue"
-internal const val PURPLE_NAME = "purple"
-internal const val PINK_NAME = "pink"
-internal const val PINK_ACCENT_NAME = "pink_accent"
-internal const val BLACK_NAME = "black"
-
 /** 主题颜色 列表 */
-internal val themeColorList = immutableListOf(
-    RED_ACCENT,
-    ORANGE,
-    GREEN,
-    CYAN,
-    BLUE,
-    PURPLE,
-    PINK,
-    PINK_ACCENT,
-    BLACK
-)
+internal val themeColorList by lazy { getStringArrayById(R.array.themeColorArray) }
 
 /** 主题颜色名称 列表 */
-internal val themeColorNameList = immutableListOf(
-    RED_ACCENT_NAME,
-    ORANGE_NAME,
-    GREEN_NAME,
-    CYAN_NAME,
-    BLUE_NAME,
-    PURPLE_NAME,
-    PINK_NAME,
-    PINK_ACCENT_NAME,
-    BLACK_NAME
-)
+internal val themeColorNameList by lazy { getStringArrayById(R.array.themeColorNameArray) }
 
 /**
  * 换肤框架实例
@@ -195,6 +151,49 @@ fun <T : TextView> setThemeTextColor(vararg textViews: T) {
 
     textViews.forEach { textView ->
         textView.setTextColor(curThemeColorStateList)
+    }
+}
+
+/**
+ * ImageView 批量设置 主题图片
+ *
+ * @param imageViews ImageView数组
+ * @param resName 资源ID 名称
+ * @param resType 资源类型 (Drawable)
+ */
+fun <T : ImageView> setThemeSrc(
+    vararg imageViews: T,
+    resName: String = "",
+    resType: String = ""
+) {
+    when (resType) {
+        // Drawable(图片)
+        RESOURCE_TYPE_DRAWABLE -> {
+            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
+            val drawable = getDrawableByIdName(curThemeResName)
+
+            if (drawable != null) {
+                for (view in imageViews) {
+                    if (view is CircleImageView) {
+                        (view as CircleImageView).setImageDrawable(drawable)
+                    }
+                }
+            }
+        }
+        // Mipmap(图标)
+        RESOURCE_TYPE_MIPMAP -> {
+            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
+            val drawable = getMipmapByIdName(curThemeResName)
+
+            if (drawable != null) {
+                for (view in imageViews) {
+                    if (view is CircleImageView) {
+                        (view as CircleImageView).setImageDrawable(drawable)
+                    }
+                }
+            }
+        }
+        else -> {}
     }
 }
 

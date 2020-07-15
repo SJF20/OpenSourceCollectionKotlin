@@ -33,7 +33,7 @@ internal class ThemeColorAdapter(
     private var mPreChoosePosition = -1
 
     init {
-        mDataList = themeColorList.mapIndexed { index, rgbColorStr ->
+        mDataList = themeColorList!!.mapIndexed { index, rgbColorStr ->
             var isSelected = false
 
             if (!isSelected) {

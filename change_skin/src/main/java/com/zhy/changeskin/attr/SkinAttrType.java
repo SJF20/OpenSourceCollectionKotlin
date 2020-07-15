@@ -1,11 +1,8 @@
 package com.zhy.changeskin.attr;
 
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +10,6 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.zhy.changeskin.ResourceManager;
 import com.zhy.changeskin.SkinManager;
-
 
 /**
  * Created by zhy on 15/9/28.

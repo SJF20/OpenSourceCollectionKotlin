@@ -5,10 +5,12 @@ import android.util.SparseArray
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.AppUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_ABOUT_US
+import com.shijingfeng.base.util.RESOURCE_TYPE_MIPMAP
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.global.setThemeSrc
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidAboutUsBinding
 import com.shijingfeng.wan_android.view_model.AboutUsViewModel
 
@@ -53,5 +55,11 @@ internal class AboutUsActivity : WanAndroidBaseActivity<ActivityWanAndroidAboutU
         mDataBinding.tvContent.run {
             richText = getStringById(R.string.about_us_content)
         }
+
+        setThemeSrc(
+            mDataBinding.civLogo,
+            resName = getStringById(R.string.drawable_id_ic_wan_android_launcher_round),
+            resType = RESOURCE_TYPE_MIPMAP
+        )
     }
 }

@@ -3,8 +3,12 @@ package com.shijingfeng.wan_android.ui.activity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.RESOURCE_TYPE_MIPMAP
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeSrc
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSplashBinding
 import com.shijingfeng.wan_android.view_model.SplashViewModel
 
@@ -36,6 +40,18 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
      * @return DataBinding 变量SparseArray
      */
     override fun getVariableSparseArray(): Nothing? = null
+
+    /**
+     * 初始化数据
+     */
+    override fun initData() {
+        super.initData()
+        setThemeSrc(
+            mDataBinding.civLogo,
+            resName = getStringById(R.string.drawable_id_ic_wan_android_launcher_round),
+            resType = RESOURCE_TYPE_MIPMAP
+        )
+    }
 
     /**
      * 是否自定义设置状态栏

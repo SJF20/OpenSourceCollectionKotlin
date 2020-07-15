@@ -21,7 +21,7 @@ internal object ThemeUtil {
     var curThemeColor: String
     get() {
         if (mCurThemeColor == null) {
-            mCurThemeColor = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(THEME_COLOR, themeColorList[0])
+            mCurThemeColor = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(THEME_COLOR, themeColorList!![0])
         }
         return mCurThemeColor!!
     }
@@ -41,7 +41,7 @@ internal object ThemeUtil {
     var curThemeName: String
     get() {
         if (mCurThemeName == null) {
-            mCurThemeName = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(THEME_NAME, themeColorNameList[0])
+            mCurThemeName = SPUtils.getInstance(SP_WAN_ANDROID_APP_NAME).getString(THEME_NAME, themeColorNameList!![0])
         }
         return mCurThemeName!!
     }

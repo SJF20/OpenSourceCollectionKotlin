@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.shijingfeng.wan_android.view_model.AboutUsViewModel" />
 
         <variable
@@ -19,14 +20,14 @@
         <include
             android:id="@+id/include_title_bar"
             layout="@layout/layout_wan_android_title_bar"
-            app:ivBackClick="@{aboutUsViewModel.mBackClickListener}"/>
+            app:ivBackClick="@{aboutUsViewModel.mBackClickListener}" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="15dp"
             android:fadingEdge="none"
             android:overScrollMode="never"
+            android:padding="15dp"
             android:scrollbars="none">
 
             <LinearLayout
@@ -38,9 +39,9 @@
                     android:id="@+id/civ_logo"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="30dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_wan_android_launcher_round" />
+                    android:layout_marginTop="30dp"
+                    tools:src="@mipmap/ic_wan_android_launcher_round" />
 
                 <TextView
                     android:id="@+id/tv_version_name"
@@ -49,15 +50,15 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    tools:text="玩Android v1.0"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="玩Android v1.0" />
 
                 <com.shijingfeng.base.widget.rich_text.RichTextView
                     android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
-                    tools:text="@string/about_us_content"/>
+                    tools:text="@string/about_us_content" />
 
             </LinearLayout>
 

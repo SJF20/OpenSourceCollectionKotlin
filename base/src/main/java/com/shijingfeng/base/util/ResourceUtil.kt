@@ -26,6 +26,8 @@ const val RESOURCE_TYPE_MIPMAP = "mipmap"
 const val RESOURCE_TYPE_STRING = "string"
 /** 资源名称: Dimen(尺寸) */
 const val RESOURCE_TYPE_DIMEN = "dimen"
+/** 资源名称: Array(数组) */
+const val RESOURCE_TYPE_ARRAY = "array"
 
 /** 没有资源 */
 const val RESOURCE_NONE = 0
@@ -153,4 +155,50 @@ fun getDimensionByIdName(dimenResName: String): Float {
         e.printStackTrace()
     }
     return 0F
+}
+
+/**
+ * 通过 资源ID 获取 字符串数组
+ * @param arrayId 字符串数组资源 ID
+ * @return 字符串数组资源
+ */
+fun getStringArrayById(@ArrayRes arrayId: Int): Array<String>? = application.resources.getStringArray(arrayId)
+
+/**
+ * 通过 资源名称 获取 字符串数组
+ * @param arrayResName 字符串数组 资源名称
+ * @return 字符串数组资源
+ */
+fun getStringArrayByIdName(arrayResName: String): Array<String>? {
+    try {
+        @ArrayRes val arrayId = application.resources.getIdentifier(arrayResName, RESOURCE_TYPE_ARRAY, application.packageName)
+
+        return getStringArrayById(arrayId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return null
+}
+
+/**
+ * 通过 资源ID 获取 整数数组
+ * @param arrayId 整数数组 ID
+ * @return 整数数组
+ */
+fun getIntArrayById(@ArrayRes arrayId: Int): IntArray? = application.resources.getIntArray(arrayId)
+
+/**
+ * 通过 资源名称 获取 整数数组
+ * @param arrayResName 整数数组 资源名称
+ * @return 整数数组资源
+ */
+fun getIntArrayByIdName(arrayResName: String): IntArray? {
+    try {
+        @ArrayRes val arrayId = application.resources.getIdentifier(arrayResName, RESOURCE_TYPE_ARRAY, application.packageName)
+
+        return getIntArrayById(arrayId)
+    } catch (e: Resources.NotFoundException) {
+        e.printStackTrace()
+    }
+    return null
 }
