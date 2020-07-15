@@ -3,15 +3,23 @@ package com.shijingfeng.wan_android.adapter
 import android.content.Context
 import android.text.TextUtils
 import android.view.View.OnClickListener
+import android.widget.CheckBox
 import android.widget.CompoundButton
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.cast
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
+import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
+import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
+import com.shijingfeng.wan_android.common.global.setThemeBackground
+import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
+import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.entity.ProjectChildItem
 
 /**
@@ -33,8 +41,6 @@ internal class ProjectChildAdapter(
      */
     override fun convert(holder: CommonViewHolder, data: ProjectChildItem, position: Int) {
         val imagePath = data.envelopePic
-//        val isFresh = data.fresh
-//        val tagList = data.tagList
         val author = data.author
         val shareUser = data.shareUser
         val niceDate = data.niceDate
@@ -47,8 +53,6 @@ internal class ProjectChildAdapter(
         holder.run {
             // 图片
             setImagePath(R.id.iv_image, imagePath)
-            // "新"
-//            setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
             // 文章日期 或 转载日期
@@ -63,7 +67,16 @@ internal class ProjectChildAdapter(
             setText(R.id.tv_second_type, if (TextUtils.isEmpty(secondType)) "" else " / $secondType")
             // 是否已收藏
             setChecked(R.id.ckb_collection, isCollected)
-            setButtonDrawable(R.id.ckb_collection, if (isCollected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+            if (isCollected) {
+                setThemeButtonDrawable(
+                    getView<CheckBox>(R.id.ckb_collection)!!,
+                    resName = getStringById(R.string.drawable_id_ic_collected),
+                    resType = RESOURCE_TYPE_DRAWABLE
+                )
+            } else {
+                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+            }
 
             //查看详情
             setOnClickListener(
@@ -86,44 +99,6 @@ internal class ProjectChildAdapter(
                 }
             )
         }
-
-//        // 普通标签 View 列表 容器
-//        val llTagList = holder.getView<LinearLayout>(R.id.ll_tag_list)
-//        // 普通标签 View 列表 容器
-//        val tagViewList = ArrayList<View>()
-//
-//        //清空子View
-//        llTagList?.removeAllViews()
-//        // 添加 普通标签TextView 列表
-//        for (tag in tagList) {
-//            tagViewList.add(TextView(mContext).apply {
-//                height = ConvertUtils.dp2px(23f)
-//                setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
-//                gravity = Gravity.CENTER
-//                setBackgroundResource(R.drawable.shape_tag)
-//                text = tag.name
-//                setTextColor(getColorById(R.color.dodger_blue))
-//            })
-//        }
-//
-//        // 测量得到 标签列表 可容纳的最大宽度
-//        val tagListMaxWidth = ScreenUtils.getScreenWidth() - 2 * ConvertUtils.dp2px(15f) - measureTotalWidth(
-//            // 图片
-//            holder.getView(R.id.iv_image),
-//            // "新" 醒目标签
-//            holder.getView(R.id.tv_latest)
-//        )
-//
-//        if (llTagList != null) {
-//            // 对 普通标签TextView 进行整体布局 (按控件宽度逐行排列，没有固定列数)
-//            layout(
-//                llTagList,
-//                tagViewList,
-//                tagListMaxWidth,
-//                ConvertUtils.dp2px(10f),
-//                Gravity.START
-//            )
-//        }
     }
 
     /**
@@ -154,7 +129,16 @@ internal class ProjectChildAdapter(
 
                         holder.run {
                             setChecked(R.id.ckb_collection, collected)
-                            setButtonDrawable(R.id.ckb_collection, if (collected) R.drawable.ic_collected else R.drawable.ic_uncollected)
+
+                            if (collected) {
+                                setThemeButtonDrawable(
+                                    getView<CheckBox>(R.id.ckb_collection)!!,
+                                    resName = getStringById(R.string.drawable_id_ic_collected),
+                                    resType = RESOURCE_TYPE_DRAWABLE
+                                )
+                            } else {
+                                setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
+                            }
 
                             //收藏 或 取消收藏
                             setOnClickListener(
@@ -167,6 +151,18 @@ internal class ProjectChildAdapter(
                                     )
                                 }
                             )
+                        }
+                    }
+                    // 更新主题
+                    PART_UPDATE_THEME -> {
+                        if (data.collected) {
+                            setThemeButtonDrawable(
+                                holder.getView<CheckBox>(R.id.ckb_collection)!!,
+                                resName = getStringById(R.string.drawable_id_ic_collected),
+                                resType = RESOURCE_TYPE_DRAWABLE
+                            )
+                        } else {
+                            holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
                         }
                     }
                     else -> {}

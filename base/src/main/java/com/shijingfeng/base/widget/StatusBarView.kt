@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 
 import com.shijingfeng.base.util.*
-import skin.support.widget.SkinCompatViewGroup
 
 /**
  * Function: 自定义动态状态栏布局
@@ -19,7 +18,7 @@ class StatusBarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : SkinCompatViewGroup(context, attrs, defStyleAttr) {
+) : ViewGroup(context, attrs, defStyleAttr) {
 
     /** 背景颜色资源ID  */
     private val mColorRes: Int = 0

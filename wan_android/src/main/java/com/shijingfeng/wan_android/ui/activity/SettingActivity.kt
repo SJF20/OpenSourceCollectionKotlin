@@ -26,9 +26,7 @@ import com.shijingfeng.wan_android.entity.adapter.ThemeColorItem
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.view_model.SettingViewModel
-import com.zhy.changeskin.SkinManager
 import org.greenrobot.eventbus.EventBus
-import skin.support.SkinCompatManager
 
 /**
  * Function: 系统设置 Activity

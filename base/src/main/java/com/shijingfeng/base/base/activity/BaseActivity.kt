@@ -2,25 +2,18 @@ package com.shijingfeng.base.base.activity
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.SkinAppCompatDelegateImpl
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.R
 import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.util.finishPreviousActivity
-import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.setStatusBarColor
 import com.shijingfeng.base.util.setStatusBarContentColor
-import skin.support.content.res.SkinCompatUserThemeManager
-
 
 /**
  * Function: Activity 基类
@@ -156,10 +149,4 @@ abstract class BaseActivity : AppCompatActivity() {
         overridePendingTransition(enterAnim, exitAnim)
     }
 
-    /**
-     * 设置 皮肤切换框架 委托器
-     */
-    override fun getDelegate(): AppCompatDelegate {
-        return SkinAppCompatDelegateImpl.get(this, this)
-    }
 }

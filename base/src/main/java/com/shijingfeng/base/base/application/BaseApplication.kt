@@ -19,11 +19,6 @@ import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.enable
 import com.shijingfeng.base.util.isMainProcess
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
-import skin.support.SkinCompatManager
-import skin.support.app.SkinAppCompatViewInflater
-import skin.support.app.SkinCardViewInflater
-import skin.support.constraint.app.SkinConstraintViewInflater
-import skin.support.design.app.SkinMaterialViewInflater
 import kotlin.Exception
 
 /** 应用初始化类 全限定类名 列表 */
@@ -93,8 +88,6 @@ abstract class BaseApplication : Application() {
         initLoadSir()
         // 初始化 RetrofitUrlManager
         initRetrofitUrlManager()
-        // 初始化换肤框架
-        initSkinCompatManager()
 
         // 注册广播
         registerGlobalReceiver()
@@ -125,22 +118,6 @@ abstract class BaseApplication : Application() {
                 exception.printStackTrace()
             }
         }
-    }
-
-    /**
-     * 初始化换肤框架
-     */
-    private fun initSkinCompatManager() {
-        SkinCompatManager.withoutActivity(this)
-            // 基础控件换肤初始化
-            .addInflater(SkinAppCompatViewInflater())
-            // material design 控件换肤初始化[可选]
-            .addInflater(SkinMaterialViewInflater())
-            // ConstraintLayout 控件换肤初始化[可选]
-            .addInflater(SkinConstraintViewInflater())
-            // CardView v7 控件换肤初始化[可选]
-            .addInflater(SkinCardViewInflater())
-            .loadSkin()
     }
 
     /**

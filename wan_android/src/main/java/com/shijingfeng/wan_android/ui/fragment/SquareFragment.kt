@@ -31,6 +31,7 @@ import com.shijingfeng.wan_android.databinding.FragmentWanAndroidSquareBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.SquareItem
+import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.source.network.getSquareNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getSquareRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SquareViewModel
@@ -230,6 +231,24 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
     }
 
     /**
+     * 页面可见
+     */
+    override fun onResume() {
+        super.onResume()
+        if (mViewModel?.mNeedUpdateTheme == true) {
+            val size = mViewModel!!.mSquareItemList.size
+
+            mViewModel?.mNeedUpdateTheme = false
+            if (size > 0) {
+                // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+                mSquareAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+                })
+            }
+        }
+    }
+
+    /**
      * 是否开启懒加载 (用于ViewPager)
      *
      * @return true 开启  false 关闭  默认关闭
@@ -271,6 +290,25 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
 
         //因为服务器返回字段设计问题，导致 收藏列表中被收藏的文章 的 id 和 收藏列表以外的文章的 id 不相等, 故采用全局刷新的方式
         mViewModel?.refresh()
+    }
+
+    /**
+     * 获取 主题更新 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getThemeEvent(event: ThemeEvent) {
+        val size = mViewModel!!.mSquareItemList.size
+
+        if (size > 0) {
+            if (mIsVisible) {
+                // 考虑到 RecyclerView 的缓存问题，故使用 notifyItemRangeChanged 全局刷新
+                mSquareAdapter?.notifyItemRangeChanged(0, size, mutableMapOf<String, Any>().apply {
+                    put(PART_UPDATE_FLAG, PART_UPDATE_THEME)
+                })
+            } else {
+                mViewModel?.mNeedUpdateTheme = true
+            }
+        }
     }
 
 }
