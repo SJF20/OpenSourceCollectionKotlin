@@ -16,8 +16,7 @@ import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
-import com.shijingfeng.base.util.enable
-import com.shijingfeng.base.util.isMainProcess
+import com.shijingfeng.base.util.*
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import kotlin.Exception
 
@@ -32,7 +31,7 @@ val sAppInitList = arrayOf(
 )
 
 /** Application实例 */
-lateinit var application: Application
+lateinit var application: BaseApplication
 
 /**
  * Function:  Application基类
@@ -71,6 +70,7 @@ abstract class BaseApplication : Application() {
         super.onCreate()
         // 每个进程都有单独的内存区域, application不相同，也不会覆盖
         application = this
+        // 主进程初始化
         if (isMainProcess()) {
             mainProcessInit()
         }
@@ -98,8 +98,9 @@ abstract class BaseApplication : Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        //初始化MultiDex
-        MultiDex.install(this)
+        // 因为 SophixStubApplication 中调用了 MultiDex.install(this) 为了防止重复调用，故注释之
+        // 初始化MultiDex
+//        MultiDex.install(this)
     }
 
     /**

@@ -15,7 +15,7 @@ import java.lang.reflect.Type
  */
 
 /** Gson实例  */
-val gson = initGson()
+val gson by lazy { initGson() }
 
 /**
  * 初始化 Gson
@@ -44,7 +44,10 @@ private fun initGson(): Gson {
  * @param <T> 对象类型
  * @return Json序列化字符串
  */
-fun <T> serialize(any: T): String {
+fun <T> serialize(any: T?): String {
+    if (any == null) {
+        return ""
+    }
     return gson.toJson(any)
 }
 

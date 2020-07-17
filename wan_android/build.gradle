@@ -1,6 +1,8 @@
 //控制组件模式和集成模式
 if (rootProject.ext.isApplication && rootProject.ext.isWanAndroidApplication) {
     apply plugin: 'com.android.application'
+    // 阿里云 EMAS 插件
+    apply plugin: 'com.aliyun.ams.emas-services'
 } else {
     apply plugin: 'com.android.library'
 }
@@ -11,37 +13,36 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 android {
-    //签名
+    //签名配置
     signingConfigs {
         debug {
-            v1SigningEnabled true
-            v2SigningEnabled true
-            try {
-                def signP = getSigningProperties(true)
+            final Properties properties = getKeyStoreProperties()
 
-                storeFile file(signP[0])
-                storePassword signP[1]
-                keyAlias signP[2]
-                keyPassword signP[3]
-            } catch (ex) {
-                ex.printStackTrace()
+            if (properties != null && !properties.isEmpty()) {
+                storeFile file(properties.getProperty("DEBUG_KEY_STORE_FILE"))
+                storePassword properties.getProperty("DEBUG_KEY_STORE_PASSWORD")
+                keyAlias properties.getProperty("DEBUG_KEY_ALIAS")
+                keyPassword properties.getProperty("DEBUG_KEY_PASSWORD")
+            } else {
+                // gradle run 控制台 打印 ERROR级别 日志
+                project.logger.log(LogLevel.ERROR, "wan_android模块 Debug签名配置文件未发现!")
             }
         }
         release {
-            v1SigningEnabled true
-            v2SigningEnabled true
-            try {
-                def signP = getSigningProperties(false)
+            final Properties properties = getKeyStoreProperties()
 
-                storeFile file(signP[0])
-                storePassword signP[1]
-                keyAlias signP[2]
-                keyPassword signP[3]
-            } catch (ex) {
-                ex.printStackTrace()
+            if (properties != null && !properties.isEmpty()) {
+                storeFile file(properties["RELEASE_KEY_STORE_FILE"])
+                storePassword properties["RELEASE_KEY_STORE_PASSWORD"]
+                keyAlias properties["RELEASE_KEY_ALIAS"]
+                keyPassword properties["RELEASE_KEY_PASSWORD"]
+            } else {
+                // gradle run 控制台 打印 ERROR级别 日志
+                project.logger.log(LogLevel.ERROR, "wan_android模块 Release签名配置文件未发现!")
             }
         }
     }
+
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
@@ -253,30 +254,17 @@ dependencies {
 }
 
 //获取实时时间
-static def getRealTime() {
+private static def getRealTime() {
     return new Date().format("MMddHHmmss", TimeZone.getTimeZone("Asia/Beijing"))
 }
 
 //读取项目中的keystore.properties签名文件，安全
-static String[] getSigningProperties(boolean isDebug) {
-    File propFile = new File('keystore.properties')
-    if (propFile.exists()) {
-        Properties props = new Properties()
-        props.load(new FileInputStream(propFile))
-        if (isDebug) {
-            def signP = new String[4]
-            signP[0] = props['DEBUG_STORE_FILE']
-            signP[1] = props['STORE_PASSWORD']
-            signP[2] = props['KEY_ALIAS']
-            signP[3] = props['KEY_PASSWORD']
-            return signP
-        } else {
-            def signP = new String[4]
-            signP[0] = props['STORE_FILE']
-            signP[1] = props['STORE_PASSWORD']
-            signP[2] = props['KEY_ALIAS']
-            signP[3] = props['KEY_PASSWORD']
-            return signP
-        }
+private static Properties getKeyStoreProperties() {
+    final File propertiesFile = new File("..\\keystore.properties")
+    final Properties properties = new Properties()
+
+    if (propertiesFile.exists()) {
+        properties.load(new FileInputStream(propertiesFile))
     }
+    return properties
 }

@@ -12,6 +12,11 @@ import android.util.Log
 
 private var sEnable = false
 
+/** 测试相关日志 */
+const val LOG_TEST = "log_test"
+/** Sophix 热修复相关日志 */
+const val LOG_SOPHIX = "log_sophix"
+
 /**
  * 是否开启日志
  * @param enable true 开启  false 关闭

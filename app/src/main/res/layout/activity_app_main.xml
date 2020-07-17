@@ -19,7 +19,7 @@
             android:id="@+id/btn_wan_android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="玩Android模块"
+            android:text="点击跳转到玩Android模块"
             android:visibility="visible"
             app:onClick="@{mainViewModel.mWanAndroidMainListener}"/>
 

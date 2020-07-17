@@ -13,6 +13,8 @@ import com.shijingfeng.app.base.AppBaseActivity
 import com.shijingfeng.app.databinding.ActivityAppMainBinding
 import com.shijingfeng.app.view_model.MainViewModel
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
+import com.shijingfeng.base.util.LOG_TEST
+import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
@@ -55,6 +57,7 @@ internal class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewMo
      */
     override fun initData() {
         super.initData()
+        e(LOG_TEST, "阿里云热修复成功")
 //        Handler().postDelayed({
 //            initX5WebView()
 //        }, 500)

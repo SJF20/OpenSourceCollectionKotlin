@@ -61,6 +61,8 @@
         <!-- 启动页 -->
         <activity
             android:name=".ui.activity.SplashActivity"
+            android:enabled="false"
+            android:launchMode="singleInstance"
             android:theme="@style/ProjectTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,6 +70,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity-alias-->
+<!--            android:name="launcher_default"-->
+<!--            android:enabled="true"-->
+<!--            android:icon="@mipmap/ic_wan_android_launcher"-->
+<!--            android:label="@string/wan_android_name"-->
+<!--            android:roundIcon="@mipmap/ic_wan_android_launcher_round"-->
+<!--            android:targetActivity=".ui.activity.SplashActivity" />-->
+
+<!--        <activity-alias-->
+<!--            android:name="launcher_default"-->
+<!--            android:enabled="true"-->
+<!--            android:icon="@mipmap/ic_wan_android_launcher"-->
+<!--            android:label="@string/wan_android_name"-->
+<!--            android:roundIcon="@mipmap/ic_wan_android_launcher_round"-->
+<!--            android:targetActivity=".ui.activity.SplashActivity" />-->
+
         <!-- 登录 Activity -->
         <activity android:name=".ui.activity.LoginActivity" />
         <!-- 注册 Activity -->

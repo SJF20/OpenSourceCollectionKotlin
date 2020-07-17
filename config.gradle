@@ -3,19 +3,26 @@ ext {
     //false:作为Lib组件存在， true:作为application存在, 用于全局控制 (总开关)
     isApplication = true
     //玩Android模块开关，false:作为Lib组件存在， true:作为application存在
-    isWanAndroidApplication = true
+    isWanAndroidApplication = false
     //TODO模块开关,  false: 作为Lib组件存在,  true:作为application存在
     isTodoApplication = false
 
     //android开发版本配置
     android = [
-            compileSdkVersion : 29,
-            buildToolsVersion : "29.0.3",
-            applicationId     : "com.shijingfeng.open_source_collection_kotlin",
-            minSdkVersion     : 21,
-            targetSdkVersion  : 29,
-            versionCode       : 1,
-            versionName       : "0.9",
+            // 编译SDK版本
+            compileSdkVersion : COMPILE_SDK_VERSION as int,
+            // 构建工具版本 (默认是 String 类型，所以 as String 可以去掉)
+            buildToolsVersion : BUILD_TOOLS_VERSION as String,
+            // 应用唯一ID (默认是 String 类型，所以 as String 可以去掉)
+            applicationId     : APPLICATION_ID as String,
+            // 最小支持SDK版本 (int 或 Integer 都可以)
+            minSdkVersion     : MIN_SDK_VERSION as int,
+            // 目标支持SDK版本 (int 或 Integer 都可以)
+            targetSdkVersion  : TARGET_SDK_VERSION as int,
+            // 应用版本号 (int 或 Integer 都可以)
+            versionCode       : VERSION_CODE as int,
+            // 应用版本名 (默认是 String 类型，所以 as String 可以去掉)
+            versionName       : VERSION_NAME as String,
     ]
     //version配置
     versions = [
