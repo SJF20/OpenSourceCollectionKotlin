@@ -1,8 +1,6 @@
 //控制组件模式和集成模式
 if (rootProject.ext.isApplication && rootProject.ext.isWanAndroidApplication) {
     apply plugin: 'com.android.application'
-    // 阿里云 EMAS 插件
-    apply plugin: 'com.aliyun.ams.emas-services'
 } else {
     apply plugin: 'com.android.library'
 }

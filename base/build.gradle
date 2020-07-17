@@ -278,7 +278,8 @@ dependencies {
     //ARouter 路由框架
     api rootProject.ext.dependencies["arouter"]
 
-    api "com.aliyun.ams:alicloud-android-hotfix:3.2.14"
+    //阿里 sophix 热修复
+    api rootProject.ext.dependencies["sophix"]
 
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]
@@ -287,7 +288,7 @@ dependencies {
 }
 
 //获取实时时间
-static def getRealTime() {
+private static def getRealTime() {
     return new Date().format("MMddHHmmss", TimeZone.getTimeZone("Asia/Beijing"))
 }
 

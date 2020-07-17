@@ -25,3 +25,6 @@ fun runOnUiThread(
     delay: Long = 0L,
     action: () -> Unit
 ) = mainHandler.postDelayed(action, delay)
+
+/** 阿里 Sophix 热修复 是否已经初始化 (用于单模块调试时, 不需要初始化 Sophix, 调用 killProcessSafely 闪退问题) */
+var sophixHasInitialized = false

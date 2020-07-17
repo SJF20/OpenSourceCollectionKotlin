@@ -1,5 +1,7 @@
 package com.shijingfeng.todo
 
+import android.content.Context
+import androidx.multidex.MultiDex
 import com.shijingfeng.base.base.application.BaseApplication
 
 /**
@@ -8,4 +10,16 @@ import com.shijingfeng.base.base.application.BaseApplication
  * Description:
  * @author ShiJingFeng
  */
-internal class TodoApplication : BaseApplication()
+internal class TodoApplication : BaseApplication() {
+
+    /**
+     * 绑定Context, 先于 onCreate 执行
+     */
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        // 因为 SophixStubApplication 中调用了 MultiDex.install(this) 为了防止重复调用，故从 BaseApplication 移到此处
+        // 初始化MultiDex
+        MultiDex.install(this)
+    }
+
+}

@@ -38,4 +38,4 @@
     public <init>();
 }
 # 如果不使用 androidx.annotation.Keep 则需加上此行
-#-keep class com.shijingfeng.app.SophixStubApplication$RealApplicationStub
+#-keep class com.shijingfeng.app.AppSophixStubApplication$RealApplicationStub

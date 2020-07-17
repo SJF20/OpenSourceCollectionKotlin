@@ -4,12 +4,13 @@ import android.util.Log
 import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
+import com.shijingfeng.background_service.work_manager.startCheckForHotfixPatchWorker
 import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
+import com.shijingfeng.base.util.LOG_TENCENT_X5
 import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.isMainProcess
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
 import io.realm.Realm
@@ -40,6 +41,8 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         initRealm()
         // 开启 检查更新 Worker
         startCheckForUpdateWorker()
+        // 开启 检查更新热修复补丁 Worker
+        startCheckForHotfixPatchWorker()
     }
 
     /**
@@ -73,9 +76,9 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
             override fun onViewInitFinished(success: Boolean) {
                 mX5InitSuccess = success
                 if (success) {
-                    e("开源集合", "腾讯X5内核加载成功")
+                    e(LOG_TENCENT_X5, "腾讯X5内核加载成功")
                 } else {
-                    e("开源集合", "腾讯X5内核加载失败")
+                    e(LOG_TENCENT_X5, "腾讯X5内核加载失败")
                 }
             }
 
@@ -83,7 +86,7 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
              * x5內核初始化完成回调
              */
             override fun onCoreInitFinished() {
-                e("开源集合", "腾讯X5内核初始化完毕")
+                e(LOG_TENCENT_X5, "腾讯X5内核初始化完毕")
                 isX5Inited = true
                 EventBus.getDefault().post(X5InitedEvent(mX5InitSuccess))
             }

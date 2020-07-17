@@ -14,6 +14,10 @@ private var sEnable = false
 
 /** 测试相关日志 */
 const val LOG_TEST = "log_test"
+/** 腾讯X5相关日志 */
+const val LOG_TENCENT_X5 = "log_tencent_x5"
+/** 生命周期函数相关日志 */
+const val LOG_LIFECYCLE = "log_lifecycle"
 /** Sophix 热修复相关日志 */
 const val LOG_SOPHIX = "log_sophix"
 

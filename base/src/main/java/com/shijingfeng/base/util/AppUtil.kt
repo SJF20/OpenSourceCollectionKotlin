@@ -2,12 +2,12 @@
 @file:JvmName("AppUtil")
 package com.shijingfeng.base.util
 
-import android.os.Process
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.NOTIFICATION_ID_APP_UPDATE_HINT
+import com.shijingfeng.base.common.global.sophixHasInitialized
+import com.taobao.sophix.SophixManager
 import kotlin.system.exitProcess
 
 /**
@@ -25,6 +25,10 @@ fun exitApp() {
     ActivityUtils.finishAllActivities()
     // 关闭 更新提示 通知
     NotificationManagerCompat.from(application).cancel(NOTIFICATION_ID_APP_UPDATE_HINT)
+    // 关闭热修复进程
+    if (sophixHasInitialized) {
+        SophixManager.getInstance().killProcessSafely()
+    }
 }
 
 /**
@@ -35,6 +39,10 @@ fun killApp() {
     ActivityUtils.finishAllActivities()
     // 关闭 更新提示 通知
     NotificationManagerCompat.from(application).cancel(NOTIFICATION_ID_APP_UPDATE_HINT)
+    // 关闭热修复进程
+    if (sophixHasInitialized) {
+        SophixManager.getInstance().killProcessSafely()
+    }
     // 退出当前进程
     exitProcess(0)
 }

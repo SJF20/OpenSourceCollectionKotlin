@@ -3,6 +3,7 @@ package com.shijingfeng.wan_android
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.common.global.skinManager
 import com.shijingfeng.wan_android.utils.checkTokenExpire
@@ -21,7 +22,7 @@ internal class ModuleAppInit : AppInit {
      */
     override fun onCreate() {
         super.onCreate()
-        e("开源集合", "wan_android ModuleAppInit onCreate")
+        e(LOG_LIFECYCLE, "wan_android ModuleAppInit onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()
         // 初始化换肤框架

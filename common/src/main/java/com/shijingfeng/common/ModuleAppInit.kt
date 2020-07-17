@@ -1,6 +1,7 @@
 package com.shijingfeng.common
 
 import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
 
 /**
@@ -16,6 +17,6 @@ internal class ModuleAppInit : AppInit {
      */
     override fun onCreate() {
         super.onCreate()
-        e("开源集合", "common ModuleAppInit onCreate")
+        e(LOG_LIFECYCLE, "common ModuleAppInit onCreate")
     }
 }

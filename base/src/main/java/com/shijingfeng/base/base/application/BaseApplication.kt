@@ -96,13 +96,6 @@ abstract class BaseApplication : Application() {
         startAppInit()
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        // 因为 SophixStubApplication 中调用了 MultiDex.install(this) 为了防止重复调用，故注释之
-        // 初始化MultiDex
-//        MultiDex.install(this)
-    }
-
     /**
      * 开始 其他 module App 初始化
      */

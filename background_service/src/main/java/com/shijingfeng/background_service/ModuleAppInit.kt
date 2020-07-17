@@ -1,6 +1,7 @@
 package com.shijingfeng.background_service
 
 import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
 
 /**
@@ -16,7 +17,7 @@ internal class ModuleAppInit : AppInit {
      */
     override fun onCreate() {
         super.onCreate()
-        e("开源集合", "background_service ModuleAppInit onCreate")
+        e(LOG_LIFECYCLE, "background_service ModuleAppInit onCreate")
     }
 
 }
