@@ -21,21 +21,21 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                   // 配置 ARouter Module 名称
-                   AROUTER_MODULE_NAME     : project.getName(),
-                   // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
-                   "room.schemaLocation"   : "$projectDir/schemas".toString(),
-                   // Room 启用 Gradle 增量注释处理器  true:启用  false:关闭
-                   "room.incremental"      : "true",
-                   // Room 配置 Room 以重新编写查询，使其顶部星形投影在展开后仅包含 DAO 方法返回类型中定义的列。
-                   "room.expandProjection" : "true",
+                        // 配置 ARouter Module 名称
+                        AROUTER_MODULE_NAME    : project.getName(),
+                        // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        // Room 启用 Gradle 增量注释处理器  true:启用  false:关闭
+                        "room.incremental"     : "true",
+                        // Room 配置 Room 以重新编写查询，使其顶部星形投影在展开后仅包含 DAO 方法返回类型中定义的列。
+                        "room.expandProjection": "true",
                 ]
             }
         }
-
-//        ndk {
-//            abiFilters "armeabi"
-//        }
+        // 开启MultiDex
+        multiDexEnabled = true
+        // base模块 独立混淆
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
@@ -47,7 +47,7 @@ android {
             buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
 
             //是否开启混淆
-            minifyEnabled false
+            minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
@@ -73,7 +73,7 @@ android {
         }
     }
     //开启DataBinding (注意每个用到DataBinding的Module都需要打开) (用于 gradle tool 4.0 以上)
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
     }
     //Android Studio 4.0 以下 使用

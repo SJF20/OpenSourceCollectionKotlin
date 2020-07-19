@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题颜色 数组 -->
+    <string-array name="themeColorArray">
+        <!-- red_accent -->
+        <item>#FF5252</item>
+        <!-- orange -->
+        <item>#FF9800</item>
+        <!-- green -->
+        <item>#4CAF50</item>
+        <!-- cyan -->
+        <item>#00BCD4</item>
+        <!-- blue -->
+        <item>#2196F3</item>
+        <!-- purple -->
+        <item>#9C27B0</item>
+        <!-- pink -->
+        <item>#E91E63</item>
+        <!-- pink_accent -->
+        <item>#FF4081</item>
+        <!-- black -->
+        <item>#000000</item>
+    </string-array>
+
+    <!-- 主题颜色名字 数组 -->
+    <string-array name="themeColorNameArray">
+        <item>red_accent</item>
+        <item>orange</item>
+        <item>green</item>
+        <item>cyan</item>
+        <item>blue</item>
+        <item>purple</item>
+        <item>pink</item>
+        <item>pink_accent</item>
+        <item>black</item>
+    </string-array>
+</resources>

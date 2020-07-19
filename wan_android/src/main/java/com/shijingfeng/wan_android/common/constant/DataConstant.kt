@@ -13,3 +13,5 @@ import com.blankj.utilcode.util.ConvertUtils
 
 /** 标题栏高度  */
 internal val TITLE_BAR_HEIGHT = ConvertUtils.dp2px(55F)
+/** 玩Android 皮肤包 包名 */
+internal val WAN_ANDROID_SKIN_PACKAGE = "com.shijingfeng.wan_android_skin"

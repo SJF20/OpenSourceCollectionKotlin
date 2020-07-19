@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
+import androidx.annotation.ArrayRes;
 import androidx.annotation.DrawableRes;
 
 import com.zhy.changeskin.utils.L;
@@ -19,10 +20,10 @@ public class ResourceManager {
     private static final String DEFTYPE_DRAWABLE = "drawable";
     private static final String DEFTYPE_MIPMAP = "mipmap";
     private static final String DEFTYPE_COLOR = "color";
+    private static final String DEFTYPE_ARRAY = "array";
     private Resources mResources;
     private String mPluginPackageName;
     private String mSuffix;
-
 
     public ResourceManager(Resources res, String pluginPackageName, String suffix) {
         mResources = res;
@@ -33,6 +34,13 @@ public class ResourceManager {
         }
         mSuffix = suffix;
 
+    }
+
+    private String appendSuffix(String name) {
+        if (!TextUtils.isEmpty(mSuffix)){
+            return name + ("_" + mSuffix);
+        }
+        return name;
     }
 
     public Drawable getDrawableByName(String name) {
@@ -88,11 +96,15 @@ public class ResourceManager {
 
     }
 
-    private String appendSuffix(String name) {
-        if (!TextUtils.isEmpty(mSuffix)){
-            return name + ("_" + mSuffix);
+    public String[] getStringArrayByName(String arrayResName) {
+        try {
+            @ArrayRes int arrayId = mResources.getIdentifier(arrayResName, DEFTYPE_ARRAY, mPluginPackageName);
+
+            return mResources.getStringArray(arrayId);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
         }
-        return name;
+        return null;
     }
 
 }

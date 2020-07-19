@@ -19,5 +19,8 @@ include ':base'
 // 更换皮肤框架 (张鸿洋) 模块
 include ':change_skin'
 
+// 皮肤资源模块
+include ':skin'
+
 // 工程名称
 rootProject.name='OpenSourceCollectionKotlin'

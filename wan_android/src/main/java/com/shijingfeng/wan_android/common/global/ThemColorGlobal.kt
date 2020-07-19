@@ -25,11 +25,14 @@ import de.hdodenhof.circleimageview.CircleImageView
  * @author ShiJingFeng
  */
 
+internal const val defaultThemeColor = "#FF5252"
+internal const val defaultThemeColorName = ""
+
 /** 主题颜色 列表 */
-internal val themeColorList by lazy { getStringArrayById(R.array.themeColorArray) }
+internal val themeColorList by lazy { skinManager.resourceManager.getStringArrayByName(getStringById(R.string.array_id_themeColorArray)) }
 
 /** 主题颜色名称 列表 */
-internal val themeColorNameList by lazy { getStringArrayById(R.array.themeColorNameArray) }
+internal val themeColorNameList by lazy { skinManager.resourceManager.getStringArrayByName(getStringById(R.string.array_id_themeColorNameArray)) }
 
 /**
  * 换肤框架实例
@@ -44,8 +47,8 @@ internal val skinManager: SkinManager by lazy {
         }
     } catch (e: Exception) {
         e.printStackTrace()
+        SkinManager.getInstance()
     }
-    SkinManager.getInstance()
 }
 
 /**

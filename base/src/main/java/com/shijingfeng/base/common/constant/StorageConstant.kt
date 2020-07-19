@@ -11,8 +11,13 @@ import java.io.File
  * @author ShiJingFeng
  */
 
+/** 内部存储 -> 应用私有目录 -> file目录  /data/data/<application package>/files/ */
+val PERSONAL_INTERNAL_FILE_DIR: String by lazy {
+    application.filesDir.absolutePath + File.separator
+}
+
 /** 外部存储 -> 应用私有目录 -> cache目录  /storage/emulated/0/Android/data/<application package>/cache/ */
-val PERSONAL_CACHE_DIR: String by lazy {
+val PERSONAL_EXTERNAL_CACHE_DIR: String by lazy {
     var file = application.externalCacheDir
 
     if (file == null) {
@@ -27,7 +32,7 @@ val PERSONAL_CACHE_DIR: String by lazy {
 }
 
 /** 外部存储 -> 应用私有目录 -> files 内 apk 目录  /storage/emulated/0/Android/data/<application package>/files/apk/ */
-val PERSONAL_APK_FILE_DIR: String by lazy {
+val PERSONAL_EXTERNAL_APK_FILE_DIR: String by lazy {
     var file = application.getExternalFilesDir("apk")
 
     if (file == null) {
@@ -41,11 +46,12 @@ val PERSONAL_APK_FILE_DIR: String by lazy {
     file.absolutePath + File.separator
 }
 
-/** 外部存储 -> 应用私有目录 -> glide目录 /storage/emulated/0/Android/data/<application package>/cache/glide/
- *  如果外部存储不存在, 则是: /data/data/<application package>/cache/glide/
-*/
-val PERSONAL_GLIDE_CACHE_DIR: String by lazy {
-    val glidePath = PERSONAL_CACHE_DIR + "glide"
+/**
+ * 外部存储 -> 应用私有目录 -> glide目录 /storage/emulated/0/Android/data/<application package>/cache/glide/
+ * 如果外部存储不存在, 则是: /data/data/<application package>/cache/glide/
+ */
+val PERSONAL_EXTERNAL_GLIDE_CACHE_DIR: String by lazy {
+    val glidePath = PERSONAL_EXTERNAL_CACHE_DIR + "glide"
     val glideFile = File(glidePath)
 
     if (!glideFile.exists()) {

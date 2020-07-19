@@ -8,6 +8,8 @@ package com.shijingfeng.base.common.constant
  * @author ShiJingFeng
  */
 
+/** 注意: 这是通过名称反射得到类实例，故应防混淆 (使用@Keep注解 或 混淆文件中防混淆) */
+
 /** 初始化的类名 */
 private const val CLASS_SIMPLE_NAME = "ModuleAppInit"
 

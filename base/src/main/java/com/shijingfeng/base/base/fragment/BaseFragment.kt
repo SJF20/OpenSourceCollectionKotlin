@@ -328,7 +328,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         activity?.let { activity ->
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 //权限已授予，执行打开相机操作
-                val saveFile = File(PERSONAL_CACHE_DIR, "shoot_" + System.currentTimeMillis() + ".jpg")
+                val saveFile = File(PERSONAL_EXTERNAL_CACHE_DIR, "shoot_" + System.currentTimeMillis() + ".jpg")
 
                 mCameraTempFilePath = saveFile.absolutePath
 
@@ -433,7 +433,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      */
     protected fun startImageClip(data: Uri?) {
         val intent = Intent("com.android.camera.action.CROP")
-        val saveClipImageFile = File(PERSONAL_CACHE_DIR, "clip_" + System.currentTimeMillis() + ".jpg")
+        val saveClipImageFile = File(PERSONAL_EXTERNAL_CACHE_DIR, "clip_" + System.currentTimeMillis() + ".jpg")
 
         mClipTempFilePath = saveClipImageFile.absolutePath
         startActivityForResult(Intent().apply {

@@ -8,11 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -23,7 +18,6 @@ import com.shijingfeng.base.R
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.annotation.NeedPermissions
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
@@ -39,8 +33,6 @@ import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
-import com.shijingfeng.base.util.getColorById
-import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.getStringById
 
 /**
@@ -154,7 +146,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
     protected fun openCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             //权限已授予，执行打开相机操作
-            val saveFile = File(PERSONAL_CACHE_DIR, "shoot_" + System.currentTimeMillis() + ".jpg")
+            val saveFile = File(PERSONAL_EXTERNAL_CACHE_DIR, "shoot_" + System.currentTimeMillis() + ".jpg")
 
             mCameraTempFilePath = saveFile.absolutePath
 
@@ -261,7 +253,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * @param data 原始图片URI
      */
     protected fun startImageClip(data: Uri?) {
-        val saveClipImageFile = File(PERSONAL_CACHE_DIR, "clip_" + System.currentTimeMillis() + ".jpg")
+        val saveClipImageFile = File(PERSONAL_EXTERNAL_CACHE_DIR, "clip_" + System.currentTimeMillis() + ".jpg")
 
         mClipTempFilePath = saveClipImageFile.absolutePath
         startActivityForResult(Intent().apply {

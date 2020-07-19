@@ -65,6 +65,10 @@ android {
         ndk {
             abiFilters "armeabi-v7a"
         }
+
+        // 开启MultiDex
+        multiDexEnabled = true
+//        consumerProguardFiles 'proguard-rules.pro'
     }
     buildTypes {
         //正式模式
@@ -74,10 +78,11 @@ android {
             //正式版构建时间
             buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
 
-            //是否开启混淆
-            minifyEnabled false
             //使用正式版签名配置签名
             signingConfig signingConfigs.release
+
+            //是否开启混淆
+            minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
@@ -91,10 +96,11 @@ android {
             //调试版构建时间
             buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
 
-            //是否开启混淆，开启之后不能debug
-            minifyEnabled false
             //使用调试版签名配置签名
             signingConfig signingConfigs.debug
+
+            //是否开启混淆，开启之后不能debug
+            minifyEnabled false
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))

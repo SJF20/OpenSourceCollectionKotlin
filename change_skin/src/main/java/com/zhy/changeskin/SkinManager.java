@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.zhy.changeskin.attr.SkinAttrSupport;
 import com.zhy.changeskin.attr.SkinView;
 import com.zhy.changeskin.callback.ISkinChangingCallback;
@@ -36,6 +38,7 @@ public class SkinManager {
     private String mCurPluginPath;
     private String mCurPluginPkg;
 
+    private String mChannel = "";
 
     private List<Activity> mActivities = new ArrayList<Activity>();
 
@@ -54,6 +57,29 @@ public class SkinManager {
     public void init(Context context) {
         mContext = context.getApplicationContext();
         mPrefUtils = new PrefUtils(mContext);
+
+        String skinPluginPath = mPrefUtils.getPluginPath();
+        String skinPluginPkg = mPrefUtils.getPluginPkgName();
+        mSuffix = mPrefUtils.getSuffix();
+
+        if (!validPluginParams(skinPluginPath, skinPluginPkg)) {
+            return;
+        }
+
+        try {
+            loadPlugin(skinPluginPath, skinPluginPkg, mSuffix);
+            mCurPluginPath = skinPluginPath;
+            mCurPluginPkg = skinPluginPkg;
+        } catch (Exception e) {
+            mPrefUtils.clear();
+            e.printStackTrace();
+        }
+    }
+
+    public void init(Context context, @NonNull String channel) {
+        mContext = context.getApplicationContext();
+        mPrefUtils = new PrefUtils(mContext, channel);
+        mChannel = channel;
 
         String skinPluginPath = mPrefUtils.getPluginPath();
         String skinPluginPkg = mPrefUtils.getPluginPkgName();

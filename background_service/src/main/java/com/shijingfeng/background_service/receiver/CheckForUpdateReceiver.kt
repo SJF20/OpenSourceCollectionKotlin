@@ -17,11 +17,9 @@ import com.shijingfeng.background_service.entity.NewestAppInfoEntity
 import com.shijingfeng.background_service.service.startAppUpgradeService
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
-import com.shijingfeng.base.common.constant.PERSONAL_APK_FILE_DIR
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getStringById
-import java.io.File
 
 /** 检查更新 Broadcast Receiver (每个进程都有独立的内存, 所以 mCheckForUpdateReceiver 每个进程都有一份, 各不相同) */
 private var mCheckForUpdateReceiver: CheckForUpdateReceiver? = null

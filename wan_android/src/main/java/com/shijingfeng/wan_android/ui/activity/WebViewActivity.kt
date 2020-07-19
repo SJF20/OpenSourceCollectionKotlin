@@ -40,6 +40,7 @@ import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.constant.IMAGE_CLICK_JS_ASSETS_FILE
 import com.shijingfeng.wan_android.common.constant.SCROLL_TO_DOWN
 import com.shijingfeng.wan_android.common.constant.SCROLL_TO_UP
 import com.shijingfeng.wan_android.common.constant.TITLE_BAR_HEIGHT
@@ -444,7 +445,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
     private fun addImageClickJs() {
         var imageClickJs: String? = null
 
-        application.assets.open("js/image_click.js").use { inputStream ->
+        application.assets.open(IMAGE_CLICK_JS_ASSETS_FILE).use { inputStream ->
             ByteArrayOutputStream().use { outputStream ->
                 val byteArray = ByteArray(1024)
                 var length: Int

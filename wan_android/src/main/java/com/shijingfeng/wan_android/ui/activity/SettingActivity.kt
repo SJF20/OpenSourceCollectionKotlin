@@ -13,12 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SETTING
 import com.shijingfeng.base.common.constant.SELECTED
+import com.shijingfeng.base.util.LOG_WAN_ANDROID_SKIN
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.ThemeColorAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
+import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_FILE
+import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_PACKAGE
 import com.shijingfeng.wan_android.common.global.skinManager
 import com.shijingfeng.wan_android.common.global.themeColorNameList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSettingBinding
@@ -26,7 +30,9 @@ import com.shijingfeng.wan_android.entity.adapter.ThemeColorItem
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.view_model.SettingViewModel
+import com.zhy.changeskin.callback.ISkinChangingCallback
 import org.greenrobot.eventbus.EventBus
+import java.lang.Exception
 
 /**
  * Function: 系统设置 Activity
@@ -126,7 +132,29 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
             mDataBinding.civThemeColor.setImageDrawable(ColorDrawable().apply {
                 color = Color.parseColor(ThemeUtil.curThemeColor)
             })
-            skinManager.changeSkin(ThemeUtil.curThemeName)
+//            skinManager.changeSkin(ThemeUtil.curThemeName)
+            skinManager.changeSkin(
+                WAN_ANDROID_SKIN_FILE,
+                WAN_ANDROID_SKIN_PACKAGE,
+                ThemeUtil.curThemeName,
+                object : ISkinChangingCallback {
+                    override fun onStart() {
+                        e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤开始")
+                    }
+
+                    override fun onError(exception: Exception?) {
+                        if (exception != null) {
+                            e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败:  msg: ${exception.message}  cause: ${exception.cause}")
+                        } else {
+                            e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败")
+                        }
+                    }
+
+                    override fun onComplete() {
+                        e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤成功")
+                    }
+                }
+            )
             // AndroidChangeSkin切换主题有缺陷性: 只能切换静态的部分 和 不会延时加载的部分
             // 对于其他情况只能使用 EventBus 通知更新UI了
             EventBus.getDefault().post(ThemeEvent())

@@ -28,7 +28,7 @@ import java.io.File
 private const val APP_UPGRADE_UPDATE_INTERVAL_TIME = 500
 
 /** 开源集合 本地下载的 apk 路径 */
-private val OPEN_SOURCE_COLLECTION_KOTLIN_APK_PATH = "${PERSONAL_APK_FILE_DIR}open_source_collection_kotlin.apk"
+private val OPEN_SOURCE_COLLECTION_KOTLIN_APK_PATH = "${PERSONAL_EXTERNAL_APK_FILE_DIR}open_source_collection_kotlin.apk"
 
 /**
  * 开启 应用升级 服务

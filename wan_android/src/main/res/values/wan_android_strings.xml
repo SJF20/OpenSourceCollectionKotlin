@@ -19,6 +19,9 @@
     <string name="drawable_id_selector_submit">selector_submit</string>
     <string name="drawable_id_shape_set_to_top_bg">shape_set_to_top_bg</string>
     <string name="drawable_id_ic_collected">ic_collected</string>
+    <!-- Array 资源ID -->
+    <string name="array_id_themeColorArray">themeColorArray</string>
+    <string name="array_id_themeColorNameArray">themeColorNameArray</string>
 
     <string name="三杠占位符">---</string>
     <string name="请输入用户名">请输入用户名</string>

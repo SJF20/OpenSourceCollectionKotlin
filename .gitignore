@@ -13,5 +13,7 @@
 .externalNativeBuild
 .cxx
 /keystore.properties
-/open_source_collection_kotlin.jks
-/open_source_collection_kotlin.png
+/open_source_collection_kotlin_release.jks
+/open_source_collection_kotlin_release.png
+/open_source_collection_kotlin_debug.jks
+/open_source_collection_kotlin_debug.png

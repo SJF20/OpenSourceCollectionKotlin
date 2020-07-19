@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
-            //组件模式下设置applicationId
+            //Application模式下 设置applicationId
             applicationId rootProject.ext.android.applicationId
         }
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -53,7 +53,6 @@ android {
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
 
         //配置阿里 ARouter 路由
         javaCompileOptions {
@@ -61,6 +60,16 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        // 腾讯X5 必须显式指定 armeabi so库
+        // 大厂APP一般只有一个 armeabi so库文件
+        // Realm 不支持 armeabi, 故改为添加 armeabi架构 armeabi-v7a
+        // 注意: 不能使用 arm64-v8a, 否则腾讯x5会初始化失败 (腾讯x5为了兼容, 只支持armeabi架构)
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        // 开启MultiDex
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -72,14 +81,21 @@ android {
             buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
 
             //是否开启混淆
-            minifyEnabled false
-            //使用正式版签名配置签名
-            signingConfig signingConfigs.release
+            minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 判断是 应用模式 还是 库模式
+            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+                // 使用应用模式混淆文件
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                // 使用正式版签名配置签名
+                signingConfig signingConfigs.release
+            } else {
+                // 使用库模式混淆文件
+                consumerProguardFiles 'consumer-rules.pro'
+            }
         }
         //调试模式
         debug {
@@ -90,8 +106,10 @@ android {
 
             //是否开启混淆，开启之后不能debug
             minifyEnabled false
-            //使用调试版签名配置签名
-            signingConfig signingConfigs.debug
+            //应用模式下, 使用调试版签名配置签名
+            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+                signingConfig signingConfigs.debug
+            }
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))

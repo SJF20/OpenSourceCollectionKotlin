@@ -23,6 +23,11 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        // 开启MultiDex
+        multiDexEnabled = true
+        // common模块 独立混淆
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
@@ -34,7 +39,7 @@ android {
             buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
 
             //是否开启混淆
-            minifyEnabled false
+            minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
@@ -164,6 +169,6 @@ dependencies {
 }
 
 //获取实时时间
-static def getRealTime() {
+private static def getRealTime() {
     return new Date().format("MMddHHmmss", TimeZone.getTimeZone("Asia/Beijing"))
 }
