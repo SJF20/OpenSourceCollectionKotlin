@@ -48,8 +48,7 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
         super.initData()
         setThemeSrc(
             mDataBinding.civLogo,
-            resName = getStringById(R.string.drawable_id_ic_wan_android_launcher_round),
-            resType = RESOURCE_TYPE_MIPMAP
+            resName = getStringById(R.string.drawable_id_ic_wan_android_launcher_round)
         )
     }
 

@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.activity
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.SparseArray
 import android.view.Gravity
@@ -11,28 +10,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SETTING
 import com.shijingfeng.base.common.constant.SELECTED
 import com.shijingfeng.base.util.LOG_WAN_ANDROID_SKIN
 import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.dialog.CommonDialog
+import com.shijingfeng.skin_changer.listener.SkinChangingCallback
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.ThemeColorAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_PACKAGE
-import com.shijingfeng.wan_android.common.global.skinManager
+import com.shijingfeng.wan_android.common.global.skinChangerManager
 import com.shijingfeng.wan_android.common.global.themeColorNameList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSettingBinding
 import com.shijingfeng.wan_android.entity.adapter.ThemeColorItem
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.view_model.SettingViewModel
-import com.zhy.changeskin.callback.ISkinChangingCallback
 import org.greenrobot.eventbus.EventBus
-import java.lang.Exception
 
 /**
  * Function: 系统设置 Activity
@@ -71,7 +70,7 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
         super.initData()
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.系统设置)
         mDataBinding.civThemeColor.setImageDrawable(ColorDrawable().apply {
-            color = Color.parseColor(ThemeUtil.curThemeColor)
+            color = ThemeUtil.curThemeColor
         })
     }
 
@@ -81,7 +80,11 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
     override fun initAction() {
         super.initAction()
         mDataBinding.llThemeColor.setOnClickListener {
-            showChooseThemeColorDialog()
+            if (themeColorNameList.isNotEmpty()) {
+                showChooseThemeColorDialog()
+            } else {
+                ToastUtils.showShort("暂无主题可供选择")
+            }
         }
     }
 
@@ -114,7 +117,7 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
                 SELECTED -> {
                     val themeColorItem = data as ThemeColorItem
 
-                    mViewModel?.mCurThemeRGBColorStr = themeColorItem.rgbColor
+                    mViewModel?.mCurThemeColor = themeColorItem.color
                     mViewModel?.mCurThemeColorNamePosition = position
                 }
                 else -> {}
@@ -127,30 +130,32 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
         // 确认
         tvEnsure.setOnClickListener {
             chooseThemeColorDialog?.hide()
-            ThemeUtil.curThemeColor = mViewModel!!.mCurThemeRGBColorStr
-            ThemeUtil.curThemeName = themeColorNameList!![mViewModel!!.mCurThemeColorNamePosition]
+            ThemeUtil.curThemeColor = mViewModel!!.mCurThemeColor
+            ThemeUtil.curThemeName = themeColorNameList[mViewModel!!.mCurThemeColorNamePosition]
             mDataBinding.civThemeColor.setImageDrawable(ColorDrawable().apply {
-                color = Color.parseColor(ThemeUtil.curThemeColor)
+                color = ThemeUtil.curThemeColor
             })
-//            skinManager.changeSkin(ThemeUtil.curThemeName)
-            skinManager.changeSkin(
-                WAN_ANDROID_SKIN_FILE,
-                WAN_ANDROID_SKIN_PACKAGE,
-                ThemeUtil.curThemeName,
-                object : ISkinChangingCallback {
+            skinChangerManager.changeSkinByPlugin(
+                skinSuffix = ThemeUtil.curThemeName,
+                skinPluginPath = WAN_ANDROID_SKIN_FILE,
+                skinPluginPackageName = WAN_ANDROID_SKIN_PACKAGE,
+                skinChangingCallback = object : SkinChangingCallback {
                     override fun onStart() {
+                        super.onStart()
                         e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤开始")
                     }
 
-                    override fun onError(exception: Exception?) {
-                        if (exception != null) {
-                            e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败:  msg: ${exception.message}  cause: ${exception.cause}")
+                    override fun onError(e: Throwable?) {
+                        super.onError(e)
+                        if (e != null) {
+                            e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败:  msg: ${e.message}  cause: ${e.cause}")
                         } else {
                             e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败")
                         }
                     }
 
-                    override fun onComplete() {
+                    override fun onCompleted() {
+                        super.onCompleted()
                         e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤成功")
                     }
                 }

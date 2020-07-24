@@ -16,8 +16,8 @@ include ':background_service'
 include ':common'
 // 基础 模块 (第三方依赖，和一些基类)
 include ':base'
-// 更换皮肤框架 (张鸿洋) 模块
-include ':change_skin'
+// 换肤框架模块 (基于张鸿洋的版本的优化版)
+include ':skin_changer'
 
 // 皮肤资源模块
 include ':skin'

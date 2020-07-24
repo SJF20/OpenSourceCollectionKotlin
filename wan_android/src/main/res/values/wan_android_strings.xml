@@ -2,23 +2,25 @@
     <string name="wan_android_name">玩Android</string>
 
     <!-- AndroidChangeSkin换肤框架 tag -->
+
     <!-- 主题颜色 -->
-    <string name="wan_android_theme_color_background">skin:wan_android_theme_color:background</string>
-    <string name="wan_android_theme_color_backgroundTint">skin:wan_android_theme_color:backgroundTint</string>
-    <string name="wan_android_theme_color_textColor">skin:wan_android_theme_color:textColor</string>
-    <string name="wan_android_theme_color_src">skin:wan_android_theme_color:src</string>
-    <string name="wan_android_theme_color_tint">skin:wan_android_theme_color:tint</string>
+    <string name="wan_android_theme_color_background">{"background": "wan_android_theme_color"}</string>
+    <string name="wan_android_theme_color_backgroundTint">{"backgroundTint": "wan_android_theme_color"}</string>
+    <string name="wan_android_theme_color_textColor">{"textColor": "wan_android_theme_color"}</string>
+    <string name="wan_android_theme_color_src">{"src": "wan_android_theme_color"}</string>
+    <string name="wan_android_theme_color_tint">{"tint": "wan_android_theme_color"}</string>
+
     <!-- 主题Drawable -->
-    <string name="ic_wan_android_launcher_round_background">skin:ic_wan_android_launcher_round:background</string>
-    <string name="selector_submit_background">skin:selector_submit:background</string>
-    <string name="shape_set_to_top_bg_background">skin:shape_set_to_top_bg:background</string>
-    <string name="ic_collected_buttonDrawable">skin:ic_collected:buttonDrawable</string>
+    <string name="应用图标背景TAG">{"background": "ic_wan_android_launcher_round"}</string>
+    <string name="登录注册页面TAG">{"background": "selector_submit"}</string>
+    <string name="置顶标签或新标签TAG">{"background": "shape_set_to_top_bg", "textColor": "wan_android_theme_color"}</string>
 
     <!-- Drawable 资源ID -->
     <string name="drawable_id_ic_wan_android_launcher_round">ic_wan_android_launcher_round</string>
     <string name="drawable_id_selector_submit">selector_submit</string>
     <string name="drawable_id_shape_set_to_top_bg">shape_set_to_top_bg</string>
     <string name="drawable_id_ic_collected">ic_collected</string>
+
     <!-- Array 资源ID -->
     <string name="array_id_themeColorArray">themeColorArray</string>
     <string name="array_id_themeColorNameArray">themeColorNameArray</string>

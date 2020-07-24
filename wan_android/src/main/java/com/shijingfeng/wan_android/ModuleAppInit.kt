@@ -1,13 +1,20 @@
 package com.shijingfeng.wan_android
 
+import android.view.View
 import androidx.annotation.Keep
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.skin_changer.entity.SkinAttribute
+import com.shijingfeng.skin_changer.listener.ExecuteListener
+import com.shijingfeng.skin_changer.listener.ParseListener
+import com.shijingfeng.skin_changer.manager.SkinChangerManager
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_ASSETS_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_FILE
-import com.shijingfeng.wan_android.common.global.skinManager
+import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_PACKAGE
+import com.shijingfeng.wan_android.common.global.skinChangerManager
 import com.shijingfeng.wan_android.utils.checkTokenExpire
 import java.io.File
 import java.io.FileOutputStream
@@ -29,17 +36,30 @@ internal class ModuleAppInit : AppInit {
         e(LOG_LIFECYCLE, "wan_android ModuleAppInit onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()
-        // 初始化换肤框架
-        initSkinManager()
         // 复制 asset目录中 玩Android skin文件 到本地内部存储目录中
         copySkinFileToLocal()
+        // 初始化换肤框架
+        initSkinChanger()
     }
 
     /**
      * 初始化换肤框架
      */
-    private fun initSkinManager() {
-        skinManager.init(application, "wan_android")
+    private fun initSkinChanger() {
+        skinChangerManager = SkinChangerManager.Builder(application, "wan_android")
+            .setDefaultSkinPluginPath(WAN_ANDROID_SKIN_FILE)
+            .setDefaultSkinPluginPackageName(WAN_ANDROID_SKIN_PACKAGE)
+            .setParseListener(object : ParseListener {
+                override fun onParse(view: View, name: String): Any? {
+                    return null
+                }
+            })
+            .setExecuteListener(object : ExecuteListener {
+                override fun onExecute(view: View, skinAttribute: SkinAttribute): Boolean {
+                    return false
+                }
+            })
+            .build()
     }
 
     /**

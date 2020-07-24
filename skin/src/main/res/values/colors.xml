@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="grey">#BEBEBE</color>
 
     <!-- 主题颜色 换肤框架切换的皮肤 -->
@@ -12,4 +12,5 @@
     <color name="wan_android_theme_color_pink">#E91E63</color>
     <color name="wan_android_theme_color_pink_accent">#FF4081</color>
     <color name="wan_android_theme_color_black">#000000</color>
+
 </resources>

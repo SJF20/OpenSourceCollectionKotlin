@@ -1,5 +1,6 @@
 package com.shijingfeng.wan_android.entity.adapter
 
+import androidx.annotation.ColorInt
 import com.shijingfeng.base.base.entity.BaseEntity
 
 /**
@@ -9,8 +10,8 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * @author ShiJingFeng
  */
 internal data class ThemeColorItem(
-    // RGB颜色值 例如: #FFFFFF
-    val rgbColor: String = "#00000000",
+    // 颜色值
+    @ColorInt val color: Int = 0,
     // 是否被选择
     var isSelected: Boolean = false
 ) : BaseEntity()

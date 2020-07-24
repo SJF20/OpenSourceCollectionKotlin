@@ -70,8 +70,7 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
 
         setThemeBackground(
             mDataBinding.tvLogin,
-            resName = getStringById(R.string.drawable_id_selector_submit),
-            resType = RESOURCE_TYPE_DRAWABLE
+            resName = getStringById(R.string.drawable_id_selector_submit)
         )
         setThemeTextColor(
             mDataBinding.tvRetrievePassword

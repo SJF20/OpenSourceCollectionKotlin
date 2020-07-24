@@ -6,6 +6,7 @@ package com.shijingfeng.wan_android.common.global
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.ImageView
@@ -13,9 +14,9 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shijingfeng.base.util.*
+import com.shijingfeng.skin_changer.manager.SkinChangerManager
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.utils.ThemeUtil
-import com.zhy.changeskin.SkinManager
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -25,103 +26,37 @@ import de.hdodenhof.circleimageview.CircleImageView
  * @author ShiJingFeng
  */
 
-internal const val defaultThemeColor = "#FF5252"
-internal const val defaultThemeColorName = ""
-
 /** 主题颜色 列表 */
-internal val themeColorList by lazy { skinManager.resourceManager.getStringArrayByName(getStringById(R.string.array_id_themeColorArray)) }
+internal val themeColorList by lazy {
+    skinChangerManager.getResourcesManager().getStringArrayByName(getStringById(R.string.array_id_themeColorArray))?.map { rgbStr ->
+        Color.parseColor(rgbStr)
+    }?.toIntArray() ?: intArrayOf()
+}
 
 /** 主题颜色名称 列表 */
-internal val themeColorNameList by lazy { skinManager.resourceManager.getStringArrayByName(getStringById(R.string.array_id_themeColorNameArray)) }
+internal val themeColorNameList by lazy { skinChangerManager.getResourcesManager().getStringArrayByName(getStringById(R.string.array_id_themeColorNameArray)) ?: arrayOf() }
 
-/**
- * 换肤框架实例
- *
- * 使用创建对象的方式而不使用单例的原因: 每个模块都可以独立的更换主题
- */
-internal val skinManager: SkinManager by lazy {
-    try {
-        SkinManager::class.java.getDeclaredConstructor().run {
-            isAccessible = true
-            newInstance()
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        SkinManager.getInstance()
-    }
-}
+/** 换肤框架实例 (每个模块都可以独立的更换主题) */
+internal lateinit var skinChangerManager: SkinChangerManager
 
 /**
  * View 背景 批量设置 主题背景颜色
  *
  * @param views View数组
  * @param resName 资源ID 名称
- * @param resType 资源类型 (Color, Drawable)
  */
 fun <T : View> setThemeBackground(
     vararg views: T,
-    resName: String = "",
-    resType: String = ""
+    resName: String = ""
 ) {
-    when (resType) {
-        // Color(颜色)
-        RESOURCE_TYPE_COLOR -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            @ColorInt val color = getColorByIdName(curThemeResName)
+    @ColorInt val color = ThemeUtil.curThemeColor
+    val drawable = if (resName.isNotEmpty()) skinChangerManager.getResourcesManager().getRealDrawableByResName(resName) else null
 
-            if (color != 0) {
-                for (view in views) {
-                    val drawable = view.background
-
-                    if (drawable is ColorDrawable && drawable.color == color) {
-                        continue
-                    }
-                    view.background = ColorDrawable(color)
-                }
-            }
-        }
-        // Drawable(图片)
-        RESOURCE_TYPE_DRAWABLE -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getDrawableByIdName(curThemeResName)
-
-            if (drawable != null) {
-                for (view in views) {
-                    val oldDrawable = view.background
-
-                    if (drawable != oldDrawable) {
-                        view.background = drawable
-                    }
-                }
-            }
-        }
-        // Mipmap(图标)
-        RESOURCE_TYPE_MIPMAP -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getMipmapByIdName(curThemeResName)
-
-            if (drawable != null) {
-                for (view in views) {
-                    val oldDrawable = view.background
-
-                    if (drawable != oldDrawable) {
-                        view.background = drawable
-                    }
-                }
-            }
-        }
-        // 默认设置主题颜色
-        else -> {
-            @ColorInt val color = Color.parseColor(ThemeUtil.curThemeColor)
-
-            for (view in views) {
-                val drawable = view.background
-
-                if (drawable is ColorDrawable && drawable.color == color) {
-                    continue
-                }
-                view.background = ColorDrawable(color)
-            }
+    for (view in views) {
+        if (drawable != null) {
+            view.background = drawable
+        } else {
+            view.setBackgroundColor(color)
         }
     }
 }
@@ -132,8 +67,7 @@ fun <T : View> setThemeBackground(
  * @param views View数组
  */
 fun <T : View> setThemeBackgroundTintList(vararg views: T) {
-    @ColorInt val curThemeColor = Color.parseColor(ThemeUtil.curThemeColor)
-    val curThemeColorStateList = ColorStateList.valueOf(curThemeColor)
+    val curThemeColorStateList = ColorStateList.valueOf(ThemeUtil.curThemeColor)
 
     for (view in views) {
         when (view) {
@@ -149,8 +83,7 @@ fun <T : View> setThemeBackgroundTintList(vararg views: T) {
  * @param textViews TextView数组
  */
 fun <T : TextView> setThemeTextColor(vararg textViews: T) {
-    @ColorInt val curThemeColor = Color.parseColor(ThemeUtil.curThemeColor)
-    val curThemeColorStateList = ColorStateList.valueOf(curThemeColor)
+    val curThemeColorStateList = ColorStateList.valueOf(ThemeUtil.curThemeColor)
 
     textViews.forEach { textView ->
         textView.setTextColor(curThemeColorStateList)
@@ -162,41 +95,21 @@ fun <T : TextView> setThemeTextColor(vararg textViews: T) {
  *
  * @param imageViews ImageView数组
  * @param resName 资源ID 名称
- * @param resType 资源类型 (Drawable)
  */
 fun <T : ImageView> setThemeSrc(
     vararg imageViews: T,
-    resName: String = "",
-    resType: String = ""
+    resName: String
 ) {
-    when (resType) {
-        // Drawable(图片)
-        RESOURCE_TYPE_DRAWABLE -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getDrawableByIdName(curThemeResName)
+    val drawable = skinChangerManager.getResourcesManager().getRealDrawableByResName(resName)
 
-            if (drawable != null) {
-                for (view in imageViews) {
-                    if (view is CircleImageView) {
-                        (view as CircleImageView).setImageDrawable(drawable)
-                    }
-                }
+    if (drawable != null) {
+        for (view in imageViews) {
+            if (view is CircleImageView) {
+                (view as CircleImageView).setImageDrawable(drawable)
+            } else {
+                view.setImageDrawable(drawable)
             }
         }
-        // Mipmap(图标)
-        RESOURCE_TYPE_MIPMAP -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getMipmapByIdName(curThemeResName)
-
-            if (drawable != null) {
-                for (view in imageViews) {
-                    if (view is CircleImageView) {
-                        (view as CircleImageView).setImageDrawable(drawable)
-                    }
-                }
-            }
-        }
-        else -> {}
     }
 }
 
@@ -206,8 +119,7 @@ fun <T : ImageView> setThemeSrc(
  * @param imageViews ImageView数组
  */
 fun <T : ImageView> setThemeTint(vararg imageViews: T) {
-    @ColorInt val curThemeColor = Color.parseColor(ThemeUtil.curThemeColor)
-    val curThemeColorStateList = ColorStateList.valueOf(curThemeColor)
+    val curThemeColorStateList = ColorStateList.valueOf(ThemeUtil.curThemeColor)
 
     imageViews.forEach { imageView ->
         imageView.imageTintList = curThemeColorStateList
@@ -223,41 +135,13 @@ fun <T : ImageView> setThemeTint(vararg imageViews: T) {
  */
 fun <T : CompoundButton> setThemeButtonDrawable(
     vararg views: T,
-    resName: String = "",
-    resType: String = ""
+    resName: String
 ) {
-    when (resType) {
-        // Drawable(图片)
-        RESOURCE_TYPE_DRAWABLE -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getDrawableByIdName(curThemeResName)
+    val drawable = skinChangerManager.getResourcesManager().getRealDrawableByResName(resName)
 
-            if (drawable != null) {
-                for (view in views) {
-                    view.buttonDrawable = drawable
-                }
-            }
-        }
-        // Mipmap(图标)
-        RESOURCE_TYPE_MIPMAP -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getMipmapByIdName(curThemeResName)
-
-            if (drawable != null) {
-                for (view in views) {
-                    view.buttonDrawable = drawable
-                }
-            }
-        }
-        else -> {
-            val curThemeResName = resName + "_" + ThemeUtil.curThemeName
-            val drawable = getDrawableByIdName(curThemeResName)
-
-            if (drawable != null) {
-                for (view in views) {
-                    view.buttonDrawable = drawable
-                }
-            }
+    if (drawable != null) {
+        for (view in views) {
+            view.buttonDrawable = drawable
         }
     }
 }

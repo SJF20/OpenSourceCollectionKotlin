@@ -2,7 +2,6 @@ package com.shijingfeng.wan_android.base
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -12,8 +11,7 @@ import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.common.global.skinManager
-import com.zhy.changeskin.SkinManager
+import com.shijingfeng.wan_android.common.global.skinChangerManager
 
 /**
  * Function: wan_android 模块 Activity 基类
@@ -29,7 +27,7 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
     override fun init(savedInstanceState: Bundle?) {
         super.init(savedInstanceState)
         d("页面", "wan_android 模块: " + this.javaClass.simpleName)
-        skinManager.register(this)
+        skinChangerManager.register(this)
     }
 
     /**
@@ -80,8 +78,11 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      */
     protected open fun isSetCustomStatusBar() = false
 
+    /**
+     * Activity销毁回调
+     */
     override fun onDestroy() {
+        skinChangerManager.unregister(this)
         super.onDestroy()
-        skinManager.unregister(this)
     }
 }

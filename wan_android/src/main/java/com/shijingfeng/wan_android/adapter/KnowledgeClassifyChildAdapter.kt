@@ -67,8 +67,7 @@ internal class KnowledgeClassifyChildAdapter(
             if (isCollected) {
                 setThemeButtonDrawable(
                     getView<CheckBox>(R.id.ckb_collection)!!,
-                    resName = getStringById(R.string.drawable_id_ic_collected),
-                    resType = RESOURCE_TYPE_DRAWABLE
+                    resName = getStringById(R.string.drawable_id_ic_collected)
                 )
             } else {
                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -128,8 +127,7 @@ internal class KnowledgeClassifyChildAdapter(
                             if (collected) {
                                 setThemeButtonDrawable(
                                     getView<CheckBox>(R.id.ckb_collection)!!,
-                                    resName = getStringById(R.string.drawable_id_ic_collected),
-                                    resType = RESOURCE_TYPE_DRAWABLE
+                                    resName = getStringById(R.string.drawable_id_ic_collected)
                                 )
                             } else {
                                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -153,8 +151,7 @@ internal class KnowledgeClassifyChildAdapter(
                         if (data.collected) {
                             setThemeButtonDrawable(
                                 holder.getView<CheckBox>(R.id.ckb_collection)!!,
-                                resName = getStringById(R.string.drawable_id_ic_collected),
-                                resType = RESOURCE_TYPE_DRAWABLE
+                                resName = getStringById(R.string.drawable_id_ic_collected)
                             )
                         } else {
                             holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)

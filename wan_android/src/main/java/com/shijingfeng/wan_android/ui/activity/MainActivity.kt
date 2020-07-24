@@ -17,6 +17,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -580,8 +581,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getThemeEvent(event: ThemeEvent) {
-        val curThemeColor = Color.parseColor(ThemeUtil.curThemeColor)
-        val curThemeColorStateList = ColorStateList.valueOf(curThemeColor)
+        val curThemeColorStateList = ColorStateList.valueOf(ThemeUtil.curThemeColor)
 
         if (this::mCurIndicatorTextView.isInitialized) {
             mCurIndicatorImageView.imageTintList = curThemeColorStateList

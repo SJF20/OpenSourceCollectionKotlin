@@ -63,8 +63,7 @@ internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegist
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.注册)
         setThemeBackground(
             mDataBinding.tvRegister,
-            resName = getStringById(R.string.drawable_id_selector_submit),
-            resType = RESOURCE_TYPE_DRAWABLE
+            resName = getStringById(R.string.drawable_id_selector_submit)
         )
     }
 

@@ -15,7 +15,6 @@ import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.*
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
@@ -64,7 +63,7 @@ internal class SquareAdapter(
             setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
             setTag(
                 viewId = R.id.tv_latest,
-                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+                tag = getStringById(R.string.置顶标签或新标签TAG)
             )
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
@@ -81,8 +80,7 @@ internal class SquareAdapter(
 
             setThemeBackground(
                 getView(R.id.tv_latest)!!,
-                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
-                resType = RESOURCE_TYPE_DRAWABLE
+                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg)
             )
             setThemeTextColor(
                 getView(R.id.tv_latest)!!
@@ -90,8 +88,7 @@ internal class SquareAdapter(
             if (isCollected) {
                 setThemeButtonDrawable(
                     getView<CheckBox>(R.id.ckb_collection)!!,
-                    resName = getStringById(R.string.drawable_id_ic_collected),
-                    resType = RESOURCE_TYPE_DRAWABLE
+                    resName = getStringById(R.string.drawable_id_ic_collected)
                 )
             } else {
                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -192,8 +189,7 @@ internal class SquareAdapter(
                             if (collected) {
                                 setThemeButtonDrawable(
                                     getView<CheckBox>(R.id.ckb_collection)!!,
-                                    resName = getStringById(R.string.drawable_id_ic_collected),
-                                    resType = RESOURCE_TYPE_DRAWABLE
+                                    resName = getStringById(R.string.drawable_id_ic_collected)
                                 )
                             } else {
                                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -216,8 +212,7 @@ internal class SquareAdapter(
                     PART_UPDATE_THEME -> {
                         setThemeBackground(
                             holder.getView(R.id.tv_latest)!!,
-                            resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
-                            resType = RESOURCE_TYPE_DRAWABLE
+                            resName = getStringById(R.string.drawable_id_shape_set_to_top_bg)
                         )
                         setThemeTextColor(
                             holder.getView(R.id.tv_latest)!!
@@ -225,8 +220,7 @@ internal class SquareAdapter(
                         if (data.collected) {
                             setThemeButtonDrawable(
                                 holder.getView<CheckBox>(R.id.ckb_collection)!!,
-                                resName = getStringById(R.string.drawable_id_ic_collected),
-                                resType = RESOURCE_TYPE_DRAWABLE
+                                resName = getStringById(R.string.drawable_id_ic_collected)
                             )
                         } else {
                             holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)

@@ -2,7 +2,6 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
@@ -24,7 +23,6 @@ import com.shijingfeng.sjf_banner.library.banner.entity.ShapeIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.entity.TitleIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE
 import com.shijingfeng.wan_android.common.constant.HOME_BANNER
@@ -117,8 +115,7 @@ internal class HomeAdapter(
                             if (collected) {
                                 setThemeButtonDrawable(
                                     getView<CheckBox>(R.id.ckb_collection)!!,
-                                    resName = getStringById(R.string.drawable_id_ic_collected),
-                                    resType = RESOURCE_TYPE_DRAWABLE
+                                    resName = getStringById(R.string.drawable_id_ic_collected)
                                 )
                             } else {
                                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -145,8 +142,7 @@ internal class HomeAdapter(
                                 setThemeBackground(
                                     holder.getView(R.id.tv_set_to_top)!!,
                                     holder.getView(R.id.tv_latest)!!,
-                                    resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
-                                    resType = RESOURCE_TYPE_DRAWABLE
+                                    resName = getStringById(R.string.drawable_id_shape_set_to_top_bg)
                                 )
                                 setThemeTextColor(
                                     holder.getView(R.id.tv_set_to_top)!!,
@@ -155,8 +151,7 @@ internal class HomeAdapter(
                                 if (data.collected) {
                                     setThemeButtonDrawable(
                                         holder.getView<CheckBox>(R.id.ckb_collection)!!,
-                                        resName = getStringById(R.string.drawable_id_ic_collected),
-                                        resType = RESOURCE_TYPE_DRAWABLE
+                                        resName = getStringById(R.string.drawable_id_ic_collected)
                                     )
                                 } else {
                                     holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -166,8 +161,7 @@ internal class HomeAdapter(
                             is HomeArticleItem -> {
                                 setThemeBackground(
                                     holder.getView(R.id.tv_latest)!!,
-                                    resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
-                                    resType = RESOURCE_TYPE_DRAWABLE
+                                    resName = getStringById(R.string.drawable_id_shape_set_to_top_bg)
                                 )
                                 setThemeTextColor(
                                     holder.getView(R.id.tv_latest)!!
@@ -175,8 +169,7 @@ internal class HomeAdapter(
                                 if (data.collected) {
                                     setThemeButtonDrawable(
                                         holder.getView<CheckBox>(R.id.ckb_collection)!!,
-                                        resName = getStringById(R.string.drawable_id_ic_collected),
-                                        resType = RESOURCE_TYPE_DRAWABLE
+                                        resName = getStringById(R.string.drawable_id_ic_collected)
                                     )
                                 } else {
                                     holder.setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -266,13 +259,13 @@ internal class HomeAdapter(
             // "置顶" 醒目标签
             setTag(
                 viewId = R.id.tv_set_to_top,
-                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+                tag = getStringById(R.string.置顶标签或新标签TAG)
             )
             // "新" 醒目标签
             setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
             setTag(
                 viewId = R.id.tv_latest,
-                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+                tag = getStringById(R.string.置顶标签或新标签TAG)
             )
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
@@ -290,8 +283,7 @@ internal class HomeAdapter(
             setThemeBackground(
                 getView(R.id.tv_set_to_top)!!,
                 getView(R.id.tv_latest)!!,
-                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
-                resType = RESOURCE_TYPE_DRAWABLE
+                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg)
             )
             setThemeTextColor(
                 getView(R.id.tv_set_to_top)!!,
@@ -300,8 +292,7 @@ internal class HomeAdapter(
             if (isCollected) {
                 setThemeButtonDrawable(
                     getView<CheckBox>(R.id.ckb_collection)!!,
-                    resName = getStringById(R.string.drawable_id_ic_collected),
-                    resType = RESOURCE_TYPE_DRAWABLE
+                    resName = getStringById(R.string.drawable_id_ic_collected)
                 )
             } else {
                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)
@@ -393,7 +384,7 @@ internal class HomeAdapter(
             setVisibility(R.id.tv_latest, if (isFresh) View.VISIBLE else View.GONE)
             setTag(
                 viewId = R.id.tv_latest,
-                tag = "${getStringById(R.string.shape_set_to_top_bg_background)}|${getStringById(R.string.wan_android_theme_color_textColor)}"
+                tag = getStringById(R.string.置顶标签或新标签TAG)
             )
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
@@ -410,8 +401,7 @@ internal class HomeAdapter(
 
             setThemeBackground(
                 getView(R.id.tv_latest)!!,
-                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg),
-                resType = RESOURCE_TYPE_DRAWABLE
+                resName = getStringById(R.string.drawable_id_shape_set_to_top_bg)
             )
             setThemeTextColor(
                 getView(R.id.tv_latest)!!
@@ -419,8 +409,7 @@ internal class HomeAdapter(
             if (isCollected) {
                 setThemeButtonDrawable(
                     getView<CheckBox>(R.id.ckb_collection)!!,
-                    resName = getStringById(R.string.drawable_id_ic_collected),
-                    resType = RESOURCE_TYPE_DRAWABLE
+                    resName = getStringById(R.string.drawable_id_ic_collected)
                 )
             } else {
                 setButtonDrawable(R.id.ckb_collection, R.drawable.ic_uncollected)

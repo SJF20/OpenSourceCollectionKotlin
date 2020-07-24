@@ -251,8 +251,8 @@ dependencies {
     implementation project(path: ':common')
     // 依赖 base 模块
     implementation project(path: ':base')
-    // 更换皮肤框架 (张鸿洋) 模块
-    implementation project(path: ':change_skin')
+    // 换肤框架模块 (基于张鸿洋的版本的优化版)
+    implementation project(path: ':skin_changer')
 
     // Bmob后端 SDK
     implementation rootProject.ext.dependencies["bmob-sdk"]
