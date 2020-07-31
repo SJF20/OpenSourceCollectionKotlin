@@ -6,6 +6,8 @@ import androidx.multidex.MultiDex
 import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
+import com.shijingfeng.background_service.work_manager.startCheckForHotfixPatchWorker
+import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
@@ -49,6 +51,10 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
         initX5()
         //初始化 Realm 数据库
         initRealm()
+//        // 开启 检查更新 Worker
+//        startCheckForUpdateWorker()
+//        // 开启 检查更新热修复补丁 Worker
+//        startCheckForHotfixPatchWorker()
     }
 
     /**

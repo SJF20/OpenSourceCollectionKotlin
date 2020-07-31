@@ -281,6 +281,9 @@ dependencies {
     //阿里 sophix 热修复
     api rootProject.ext.dependencies["sophix"]
 
+    //Android AspectJ
+    api rootProject.ext.dependencies["aspectJ"]
+
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器

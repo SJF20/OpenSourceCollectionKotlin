@@ -21,8 +21,7 @@ private var realm: Realm? = null
  */
 fun getRealmInstance(): Realm {
     if (realm == null) {
-        realm =
-            createRealmInstance()
+        realm = createRealmInstance()
     }
     return realm!!
 }
