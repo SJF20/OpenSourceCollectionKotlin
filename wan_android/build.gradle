@@ -245,7 +245,17 @@ android {
                 manifest.srcFile 'src/main/manifest/library/AndroidManifest.xml'
             }
             jniLibs.srcDirs = ['libs']
+            java {
+                srcDirs('src/main/java', 'src/main/kotlin')
+            }
+            resources {
+                srcDirs('src/main/res')
+            }
         }
+    }
+
+    sourceSets.all { set ->
+        println "${set.name} 的文件是 ${set.java.srcDirs}"
     }
 
 }
@@ -275,7 +285,7 @@ dependencies {
 
 //获取实时时间
 private static def getRealTime() {
-    return new Date().format("MMddHHmmss", TimeZone.getTimeZone("Asia/Beijing"))
+    return System.currentTimeMillis().toString()
 }
 
 //读取项目中的keystore.properties签名文件，安全

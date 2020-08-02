@@ -29,7 +29,10 @@ buildscript {
     }
 }
 
-allprojects {
+// 会遍历所有的 Module(概念对应Gradle的 project)
+subprojects {
+//    logger.quiet("子模块名称: " + project.getClass().getName() + " | " + project.name)
+
     // 项目本身需要的依赖仓库
     repositories {
         google()
@@ -43,6 +46,9 @@ allprojects {
         maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
     }
 }
+
+// 会执行 Project(概念对应Gradle的 rootProject) 和 遍历所有的 Module(概念对应Gradle的 project)
+allprojects {}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

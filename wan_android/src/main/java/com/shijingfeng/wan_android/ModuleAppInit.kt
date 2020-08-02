@@ -6,7 +6,6 @@ import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.skin_changer.listener.ExecuteListener
 import com.shijingfeng.skin_changer.listener.ParseListener

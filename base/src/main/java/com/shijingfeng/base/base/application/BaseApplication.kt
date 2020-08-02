@@ -1,8 +1,6 @@
 package com.shijingfeng.base.base.application
 
 import android.app.Application
-import android.content.Context
-import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
@@ -18,10 +16,11 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.*
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
+import java.util.*
 import kotlin.Exception
 
 /** 应用初始化类 全限定类名 列表 */
-val sAppInitList = arrayOf(
+private val appInitClassNameList = arrayOf(
     APP_INIT_APP,
     APP_INIT_WAN_ANDROID,
     APP_INIT_TODO,
@@ -29,6 +28,8 @@ val sAppInitList = arrayOf(
     APP_INIT_BACKGROUND_SERVICE,
     APP_INIT_COMMON
 )
+/** 应用初始化类 列表 */
+private val appInitInstanceList = mutableListOf<AppInit>()
 
 /** Application实例 */
 lateinit var application: BaseApplication
@@ -40,9 +41,6 @@ lateinit var application: BaseApplication
  * @author ShiJingFeng
  */
 abstract class BaseApplication : Application() {
-
-    /** 应用初始化类 列表 */
-    private val mAppInitClassList = mutableListOf<AppInit>()
 
     companion object {
         //static 代码段可以防止内存泄露
@@ -100,17 +98,28 @@ abstract class BaseApplication : Application() {
      * 开始 其他 module App 初始化
      */
     private fun startAppInit() {
-        mAppInitClassList.clear()
-        sAppInitList.forEach { className ->
+        // 生成实例列表
+        appInitClassNameList.forEach { className ->
             try {
                 val cls = Class.forName(className)
                 val appInit = cls.newInstance() as AppInit
 
-                mAppInitClassList.add(appInit)
-                appInit.onCreate()
+                appInitInstanceList.add(appInit)
             } catch (exception: Exception) {
                 exception.printStackTrace()
             }
+        }
+        // 按照优先级排列 (从高到低)
+        appInitInstanceList.sortWith(Comparator { o1, o2 ->
+            when {
+                o1.getPriority() < o2.getPriority() -> { 1 }
+                o1.getPriority() > o2.getPriority() -> { -1 }
+                else -> { 0 }
+            }
+        })
+        // 调用 onCreate方法，开始初始化
+        appInitInstanceList.forEach { instance ->
+            instance.onCreate()
         }
     }
 
