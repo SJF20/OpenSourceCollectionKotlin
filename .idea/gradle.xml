@@ -11,15 +11,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/background_service" />
-            <option value="$PROJECT_DIR$/base" />
-            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/app_module/app" />
+            <option value="$PROJECT_DIR$/app_module/todo" />
+            <option value="$PROJECT_DIR$/app_module/wan_android" />
+            <option value="$PROJECT_DIR$/library_module/background_service" />
+            <option value="$PROJECT_DIR$/library_module/base" />
+            <option value="$PROJECT_DIR$/library_module/common" />
+            <option value="$PROJECT_DIR$/library_module/skin_changer" />
+            <option value="$PROJECT_DIR$/library_module/tencent_x5" />
             <option value="$PROJECT_DIR$/skin" />
-            <option value="$PROJECT_DIR$/skin_changer" />
-            <option value="$PROJECT_DIR$/tencent_x5" />
-            <option value="$PROJECT_DIR$/todo" />
-            <option value="$PROJECT_DIR$/wan_android" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

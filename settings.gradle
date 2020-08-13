@@ -1,31 +1,31 @@
 // app 模块 (空壳架子)
 include ':app'
-project(':app').projectDir = new File(rootDir, 'app')
+project(':app').projectDir = new File("${rootDir.getAbsolutePath()}/app_module", 'app')
 
 // 可作为 Application 的模块
 // 玩Android 模块
 include ':wan_android'
-project(':wan_android').projectDir = new File(rootDir, 'wan_android')
+project(':wan_android').projectDir = new File("${rootDir.getAbsolutePath()}/app_module", 'wan_android')
 // 记事本 模块
 include ':todo'
-project(':todo').projectDir = new File(rootDir, 'todo')
+project(':todo').projectDir = new File("${rootDir.getAbsolutePath()}/app_module", 'todo')
 
 // 库模块
 // 腾讯X5 模块
 include ':tencent_x5'
-project(':tencent_x5').projectDir = new File(rootDir, 'tencent_x5')
+project(':tencent_x5').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'tencent_x5')
 // 后台服务 模块
 include ':background_service'
-project(':background_service').projectDir = new File(rootDir, 'background_service')
+project(':background_service').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'background_service')
 // 通用 模块 (提供通用功能组件)
 include ':common'
-project(':common').projectDir = new File(rootDir, 'common')
+project(':common').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'common')
 // 基础 模块 (第三方依赖，和一些基类)
 include ':base'
-project(':base').projectDir = new File(rootDir, 'base')
+project(':base').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'base')
 // 换肤框架模块 (基于张鸿洋的版本的优化版)
 include ':skin_changer'
-project(':skin_changer').projectDir = new File(rootDir, 'skin_changer')
+project(':skin_changer').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'skin_changer')
 
 // 皮肤资源模块
 include ':skin'

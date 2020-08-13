@@ -106,15 +106,19 @@ android {
 
             //是否开启混淆，开启之后不能debug
             minifyEnabled false
-            //应用模式下, 使用调试版签名配置签名
-            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
-                signingConfig signingConfigs.debug
-            }
             //Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //应用模式下, 使用调试版签名配置签名
+            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+                // 使用应用模式混淆文件
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.debug
+            } else {
+                // 使用库模式混淆文件
+                consumerProguardFiles 'consumer-rules.pro'
+            }
         }
     }
     //开启DataBinding (注意每个用到DataBinding的Module都需要打开) (用于 gradle tool 4.0 以上)
@@ -212,22 +216,34 @@ android {
                 manifest.srcFile 'src/main/manifest/library/AndroidManifest.xml'
             }
             jniLibs.srcDirs = ['libs']
+            java {
+                srcDirs('src/main/java', 'src/main/kotlin')
+            }
+            resources {
+                srcDirs('src/main/res')
+            }
         }
+    }
+
+    sourceSets.all { set ->
+        println "${set.name} 的文件是 ${set.java.srcDirs}"
     }
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
     //依赖 base 模块
     implementation project(path: ':base')
+
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }
 
 //获取实时时间
 private static def getRealTime() {
-    return new Date().format("MMddHHmmss", TimeZone.getTimeZone("Asia/Beijing"))
+    return System.currentTimeMillis().toString()
 }
 
 //读取项目中的keystore.properties签名文件，安全
