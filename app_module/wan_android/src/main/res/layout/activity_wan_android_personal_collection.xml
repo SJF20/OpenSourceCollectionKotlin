@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="15dp"
-                android:src="@drawable/ic_back"
+                android:src="@drawable/ic_wan_android_back"
                 app:onClick="@{personalCollectionViewModel.mBackClickListener}"
                 tools:ignore="ContentDescription" />
 

@@ -11,7 +11,9 @@ import com.shijingfeng.todo.ui.activity.MAIN_TODO
  * Description:
  * @author ShiJingFeng
  */
-internal class MainViewModel : TodoBaseViewModel<MainRepository>() {
+internal class MainViewModel(
+    repository: MainRepository? = null
+) : TodoBaseViewModel<MainRepository>() {
 
     /** 当前 ViewPager 下标  */
     var mCurPosition = MAIN_TODO

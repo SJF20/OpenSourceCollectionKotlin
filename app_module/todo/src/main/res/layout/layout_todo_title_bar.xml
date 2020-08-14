@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_todo_back"
             app:onClick="@{ivBackClick}" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="15dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_more"
+            android:src="@drawable/ic_todo_more"
             android:visibility="gone"
             app:onClick="@{ivOperateClick}" />
 

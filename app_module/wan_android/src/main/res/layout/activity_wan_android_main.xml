@@ -102,7 +102,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
-                        android:background="@drawable/shape_tab_layout_shadow" />
+                        android:background="@drawable/shape_wan_android_tab_layout_shadow" />
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tl_tabs"

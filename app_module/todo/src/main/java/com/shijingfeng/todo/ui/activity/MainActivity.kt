@@ -98,7 +98,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
      */
     override fun initData() {
         super.initData()
-        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.无分类)
+        mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.全部)
         mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_switch)
         mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
 
@@ -292,9 +292,9 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             .setCancelable(true)
             .show()
 
-        // 无分类
+        // 全部
         ClickUtils.applySingleDebouncing(
-            view.findViewById<View>(R.id.tv_no_classify)
+            view.findViewById<View>(R.id.tv_all)
         ) {
             mTypeSwitchDialog?.hide()
         }

@@ -144,7 +144,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         mAnimLoadFinish = true
 
         mDataBinding.includeTitleBar.tvTitle.text = mViewModel?.mTitle
-        mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_more)
+        mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_wan_android_more)
         mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
 
         mLoadService = LoadSir.getDefault().register(mDataBinding.wvContent) {
@@ -558,7 +558,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             mLoading = false
-            mDataBinding.includeTitleBar.ivBack.setImageResource(R.drawable.ic_back)
+            mDataBinding.includeTitleBar.ivBack.setImageResource(R.drawable.ic_wan_android_back)
             mDataBinding.pbProgress.visibility = GONE
             showCallback(LOAD_SERVICE_SUCCESS)
             //在 HTML 标签加载完成之后开始加载图片内容

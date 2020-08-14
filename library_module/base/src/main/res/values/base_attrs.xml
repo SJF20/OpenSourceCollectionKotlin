@@ -3,4 +3,14 @@
     <declare-styleable name="StatusBarView">
         <attr name="customBackgroundResource" format="integer" />
     </declare-styleable>
+    <declare-styleable name="MarkView">
+        <!-- 文本 -->
+        <attr name="text" format="string" />
+        <!-- 文本颜色 -->
+        <attr name="textColor" format="color" />
+        <!-- 文本大小 -->
+        <attr name="textSize" format="dimension" />
+        <!-- 三角背景颜色 -->
+        <attr name="bgColor" format="color" />
+    </declare-styleable>
 </resources>

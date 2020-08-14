@@ -21,6 +21,18 @@
             layout="@layout/layout_wan_android_title_bar"
             app:ivBackClick="@{userInfoViewModel.mBackClickListener}" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.shijingfeng.base.widget.MarkView
+                android:id="@+id/mark_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:text="重要" />
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </layout>

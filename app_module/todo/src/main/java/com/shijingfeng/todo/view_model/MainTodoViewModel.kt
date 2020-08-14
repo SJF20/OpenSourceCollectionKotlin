@@ -68,7 +68,7 @@ internal class MainTodoViewModel(
      */
     override fun init() {
         super.init()
-        load()
+//        load()
     }
 
     /**

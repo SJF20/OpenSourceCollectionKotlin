@@ -16,11 +16,11 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_no_classify"
+            android:id="@+id/tv_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="@string/无分类"
+            android:text="@string/全部"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
