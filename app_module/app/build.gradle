@@ -78,7 +78,7 @@ android {
             //正式模式
             buildConfigField "boolean", "IS_DEBUG", "false"
             //正式版构建时间
-            buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
+            buildConfigField "String", "buildTime", "\"" + System.currentTimeMillis() + "\""
 
             //使用正式版签名配置签名
             signingConfig signingConfigs.release
@@ -96,7 +96,7 @@ android {
             //调试模式
             buildConfigField "boolean", "IS_DEBUG", "true"
             //调试版构建时间
-            buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
+            buildConfigField "String", "buildTime", "\"" + System.currentTimeMillis() + "\""
 
             //使用调试版签名配置签名
             signingConfig signingConfigs.debug
@@ -214,6 +214,15 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    // 重命名生成的apk名称
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (output.outputFile != null && outputFileName.endsWith(".apk")) {
+                outputFileName = "open_source_collection_kotlin_v${variant.versionName}_${getBuildDate()}.apk"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -243,9 +252,9 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["arouter"]
 }
 
-//获取实时时间
-private static def getRealTime() {
-    return new Date().format("MMddHHmmss", TimeZone.getTimeZone("Asia/Beijing"))
+//获取构建时间
+private static def getBuildDate() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("Asia/Beijing"))
 }
 
 //读取项目中的keystore.properties签名文件，安全

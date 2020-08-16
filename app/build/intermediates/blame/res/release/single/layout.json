@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\Projects\\AndroidProjects\\Personal\\OpenSourceCollectionKotlin\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\stripped.dir\\layout\\activity_app_splash.xml",
+        "source": "D:\\Projects\\AndroidProjects\\Personal\\OpenSourceCollectionKotlin\\app\\src\\main\\res\\layout\\activity_app_splash.xml"
+    },
+    {
+        "merged": "D:\\Projects\\AndroidProjects\\Personal\\OpenSourceCollectionKotlin\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\stripped.dir\\layout\\activity_app_main.xml",
+        "source": "D:\\Projects\\AndroidProjects\\Personal\\OpenSourceCollectionKotlin\\app\\src\\main\\res\\layout\\activity_app_main.xml"
+    }
+]

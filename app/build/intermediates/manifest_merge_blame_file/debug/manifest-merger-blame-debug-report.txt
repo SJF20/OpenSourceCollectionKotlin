@@ -1,0 +1,688 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:dist="http://schemas.android.com/apk/distribution"
+4    package="com.shijingfeng.open_source_collection_kotlin"
+5    android:versionCode="1"
+6    android:versionName="1.0.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml
+10        android:targetSdkVersion="29" />
+10-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml
+11
+12    <dist:module dist:instant="true" />
+12-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:7:5-40
+12-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:7:18-37
+13
+14    <!-- 网络权限 -->
+15    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络状态权限 -->
+15-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:5-67
+15-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:22-64
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- WIFI状态权限 -->
+16-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:5-79
+16-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:22-76
+17    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 读取外部存储权限 -->
+17-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:5-76
+17-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:22-73
+18    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 写入外部存储权限 -->
+18-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:5-80
+18-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:22-77
+19    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读取手机状态权限 -->
+19-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:5-81
+19-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:22-78
+20    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 读取设置权限 -->
+20-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:5-75
+20-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:22-72
+21    <uses-permission android:name="android.permission.READ_SETTINGS" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+21-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:5-72
+21-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:22-69
+22    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 写入设置权限 -->
+22-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:5-68
+22-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:22-65
+23    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- 挂载外部存储权限 -->
+23-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:31:5-33:47
+23-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:9-57
+24    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+24-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:5-37:47
+24-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-68
+25    <uses-permission android:name="android.permission.GET_TASKS" />
+25-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:5-68
+25-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:22-65
+26    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 相机权限 -->
+26-->[:background_service] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-83
+26-->[:background_service] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:22-80
+27    <uses-permission android:name="android.permission.CAMERA" />
+27-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:5-65
+27-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:22-62
+28    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+28-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:27:5-81
+28-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:27:22-78
+29    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Required by older versions of Google Play services to create GCM registration tokens -->
+29-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:28:5-77
+29-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:28:22-74
+30    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+30-->[com.google.android.gms:play-services-gcm:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\2f37ac3ca27a69830d66fdb9f6d07a2b\jetified-play-services-gcm-17.0.0\AndroidManifest.xml:23:5-82
+30-->[com.google.android.gms:play-services-gcm:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\2f37ac3ca27a69830d66fdb9f6d07a2b\jetified-play-services-gcm-17.0.0\AndroidManifest.xml:23:22-79
+31    <uses-permission android:name="android.permission.REORDER_TASKS" />
+31-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:24:5-72
+31-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:24:22-69
+32    <!--
+33    allowBackup: 是否开启应用备份功能(有安全漏洞，建议关闭) (true<默认>: 开启  false: 关闭)
+34    supportsRtl: true: Api17及以上使用系统设置的方向 RTL 或 LTR  false<默认>: 使用从左到右的方向(LTR)
+35    hardwareAccelerated: true: 开启硬件加速(使用GPU解码)  false<默认>: 关闭硬件加速(使用CPU解码)
+36    hasFragileUserData: 卸载APP时 是否保留 用户外部私有目录数据 (true: 保留  false<默认>: 不保留)
+37    networkSecurityConfig: Android 10 (API 29)以上默认仅支持 HTTPS 链接, 所以要想使用 HTTP 则需要此配置
+38    requestLegacyExternalStorage: 设置外部存储访问模式, 分为 Filtered View(默认) 和 Legacy View, Filtered View模式规定只能自由访问外部存储 APP 私有目录, 访问其他目录需要 MediaStore 或 SAF, Legacy View模式兼容以前版本, 无限制, 参考 https://mp.weixin.qq.com/s/aiDMyAfAZvaYIHuIMLAlcg
+39    -->
+40    <!-- 应用Icon 在Android8.0及以上 显示制作好的 Icon, 否则显示Android原生机器人调试图标 -->
+41    <application
+41-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:18:5-57:19
+42        android:name="com.shijingfeng.app.AppSophixStubApplication"
+42-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:19:9-49
+43        android:allowBackup="false"
+43-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:25:9-36
+44        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+44-->[androidx.core:core:1.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\339e836d9ef825e277de0d9b1f61319f\core-1.3.1\AndroidManifest.xml:24:18-86
+45        android:debuggable="true"
+46        android:hardwareAccelerated="true"
+46-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:27:9-43
+47        android:hasFragileUserData="true"
+47-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:28:9-42
+48        android:icon="@mipmap/ic_launcher"
+48-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:21:9-43
+49        android:label="@string/app_name"
+49-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:20:9-41
+50        android:networkSecurityConfig="@xml/network_security_config"
+50-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:29:9-69
+51        android:roundIcon="@mipmap/ic_launcher_round"
+51-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:22:9-54
+52        android:supportsRtl="true"
+52-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:26:9-35
+53        android:testOnly="true"
+54        android:theme="@style/AppTheme" >
+54-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:23:9-40
+55
+56        <!-- 启动页 -->
+57        <activity
+57-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:34:9-41:20
+58            android:name="com.shijingfeng.app.ui.activity.SplashActivity"
+58-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:34:19-61
+59            android:theme="@style/ProjectTheme.Launcher" >
+59-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:35:13-57
+60            <intent-filter>
+60-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:36:13-40:29
+61                <action android:name="android.intent.action.MAIN" />
+61-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:17-69
+61-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:25-66
+62
+63                <category android:name="android.intent.category.LAUNCHER" />
+63-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:39:17-77
+63-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:39:27-74
+64            </intent-filter>
+65        </activity>
+66        <!-- 主页 -->
+67        <activity
+67-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:43:9-44:47
+68            android:name="com.shijingfeng.app.ui.activity.MainActivity"
+68-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:43:19-59
+69            android:launchMode="singleTask" />
+69-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:44:13-44
+70
+71        <!-- 启动页 -->
+72        <activity android:name="com.shijingfeng.wan_android.ui.activity.SplashActivity" /> <!-- 登录 Activity -->
+72-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:62:9-91
+72-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:62:19-88
+73        <activity android:name="com.shijingfeng.wan_android.ui.activity.LoginActivity" /> <!-- 注册 Activity -->
+73-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:64:9-90
+73-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:64:19-87
+74        <activity android:name="com.shijingfeng.wan_android.ui.activity.RegisterActivity" /> <!-- 首页 Activity -->
+74-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:66:9-93
+74-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:66:19-90
+75        <activity
+75-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:68:9-70:47
+76            android:name="com.shijingfeng.wan_android.ui.activity.MainActivity"
+76-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:69:13-80
+77            android:launchMode="singleTask" /> <!-- 用户信息 Activity -->
+77-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:70:13-44
+78        <activity android:name="com.shijingfeng.wan_android.ui.activity.UserInfoActivity" /> <!-- 通用WebView页面 -->
+78-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:72:9-93
+78-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:72:19-90
+79        <activity
+79-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:74:9-76:62
+80            android:name="com.shijingfeng.wan_android.ui.activity.WebViewActivity"
+80-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:75:13-83
+81            android:configChanges="orientation|screenSize" /> <!-- 积分排行榜 Activity -->
+81-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:76:13-59
+82        <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRankActivity" /> <!-- 积分记录 Activity -->
+82-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:78:9-93
+82-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:78:19-90
+83        <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRecordActivity" /> <!-- 我的收藏 Activity -->
+83-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:80:9-95
+83-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:80:19-92
+84        <activity android:name="com.shijingfeng.wan_android.ui.activity.PersonalCollectionActivity" /> <!-- 系统设置页面 -->
+84-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:82:9-103
+84-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:82:19-100
+85        <activity android:name="com.shijingfeng.wan_android.ui.activity.SettingActivity" /> <!-- 关于我们 Activity -->
+85-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:84:9-92
+85-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:84:19-89
+86        <activity android:name="com.shijingfeng.wan_android.ui.activity.AboutUsActivity" /> <!-- 知识体系 详细数据 Activity -->
+86-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:86:9-92
+86-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:86:19-89
+87        <activity android:name="com.shijingfeng.wan_android.ui.activity.KnowledgeClassifyDetailActivity" /> <!-- 搜索 Activity -->
+87-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:88:9-108
+87-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:88:19-105
+88        <activity android:name="com.shijingfeng.wan_android.ui.activity.SearchActivity" /> <!-- 搜索列表 Activity -->
+88-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:90:9-91
+88-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:90:19-88
+89        <activity android:name="com.shijingfeng.wan_android.ui.activity.SearchListActivity" />
+89-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:92:9-95
+89-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:92:19-92
+90        <activity android:name="com.shijingfeng.wan_android.ui.activity.BmobTestActivity" /> <!-- Bmob内容提供器 -->
+90-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:93:9-93
+90-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:93:19-90
+91        <provider
+91-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:96:9-99:40
+92            android:name="cn.bmob.v3.util.BmobContentProvider"
+92-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:97:13-63
+93            android:authorities="com.shijingfeng.open_source_collection_kotlin.BmobContentProvider"
+93-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:98:13-71
+94            android:exported="false" />
+94-->[:wan_android] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\wan_android\build\intermediates\library_manifest\debug\AndroidManifest.xml:99:13-37
+95        <!--
+96         应用更新服务 虽然是单独的进程，但杀死App时该进程也会被杀死
+97         格式 :app_update (进程名: applicationId:app_update)
+98             .app_update (必须加.) (进程名: .app_update)
+99        -->
+100        <service
+100-->[:background_service] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:9-23:46
+101            android:name="com.shijingfeng.background_service.service.AppUpgradeService"
+101-->[:background_service] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:13-88
+102            android:process=".app_upgrade" /> <!-- 查看大图 Activity -->
+102-->[:background_service] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-43
+103        <activity android:name="com.shijingfeng.common.ui.activity.ViewOriginalImageActivity" /> <!-- 主页 -->
+103-->[:common] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\common\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:9-97
+103-->[:common] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\common\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:19-94
+104        <activity
+104-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:9-34:47
+105            android:name="com.shijingfeng.todo.ui.activity.MainActivity"
+105-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:33:13-73
+106            android:launchMode="singleTask" /> <!-- 添加 待办事项 Activity -->
+106-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:13-44
+107        <activity android:name="com.shijingfeng.todo.ui.activity.AddTodoActivity" /> <!-- 更新 待办事项 Activity -->
+107-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-85
+107-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:19-82
+108        <activity android:name="com.shijingfeng.todo.ui.activity.UpdateTodoActivity" /> <!-- 查看 待办事项 Activity -->
+108-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:9-88
+108-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:19-85
+109        <activity android:name="com.shijingfeng.todo.ui.activity.ViewTodoActivity" /> <!-- 访问本地文件 Provider -->
+109-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:9-86
+109-->[:todo] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:19-83
+110        <provider
+110-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:31:9-39:20
+111            android:name="androidx.core.content.FileProvider"
+111-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:13-62
+112            android:authorities="com.shijingfeng.open_source_collection_kotlin.FileProvider"
+112-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:33:13-64
+113            android:exported="false"
+113-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:13-37
+114            android:grantUriPermissions="true" >
+114-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:13-47
+115            <meta-data
+115-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:13-38:53
+116                android:name="android.support.FILE_PROVIDER_PATHS"
+116-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:17-67
+117                android:resource="@xml/file_path" />
+117-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:17-50
+118        </provider> <!-- 配置 Glide 自定义 Module -->
+119        <meta-data
+119-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:42:9-44:43
+120            android:name="com.shijingfeng.base.util.image_load.CustomGlide"
+120-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:13-76
+121            android:value="CustomGlide" />
+121-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:44:13-40
+122
+123        <service
+123-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:16:9-24:19
+124            android:name="com.taobao.sophix.aidl.DownloadService"
+124-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:17:13-66
+125            android:exported="true" >
+125-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:18:13-36
+126            <intent-filter>
+126-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:19:13-23:29
+127                <action android:name="com.taobao.hotfix.action" />
+127-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:20:17-67
+127-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:20:25-64
+128
+129                <category android:name="android.intent.category.DEFAULT" />
+129-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:22:17-76
+129-->[com.aliyun.ams:alicloud-android-hotfix:3.2.14] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\5c6090eacfa0196ef0471ede6c1bab2a\jetified-alicloud-android-hotfix-3.2.14\AndroidManifest.xml:22:27-73
+130            </intent-filter>
+131        </service>
+132
+133        <activity
+133-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:10:9-15:75
+134            android:name="com.blankj.utilcode.util.Utils$TransActivity"
+134-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:11:13-72
+135            android:configChanges="orientation|keyboardHidden|screenSize"
+135-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:12:13-74
+136            android:multiprocess="true"
+136-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:13:13-40
+137            android:theme="@style/ActivityTranslucent"
+137-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:14:13-55
+138            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+138-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:15:13-72
+139
+140        <provider
+140-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:17:9-26:20
+141            android:name="com.blankj.utilcode.util.Utils$FileProvider4UtilCode"
+141-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:18:13-80
+142            android:authorities="com.shijingfeng.open_source_collection_kotlin.utilcode.provider"
+142-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:19:13-69
+143            android:exported="false"
+143-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:20:13-37
+144            android:grantUriPermissions="true"
+144-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:21:13-47
+145            android:multiprocess="true" >
+145-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:22:13-40
+146            <meta-data
+146-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:13-38:53
+147                android:name="android.support.FILE_PROVIDER_PATHS"
+147-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:17-67
+148                android:resource="@xml/util_code_provider_paths" />
+148-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:17-50
+149        </provider>
+150
+151        <service android:name="com.blankj.utilcode.util.MessengerUtils$ServerService" >
+151-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:28:9-32:19
+151-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:28:18-86
+152            <intent-filter>
+152-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:29:13-31:29
+153                <action android:name="com.shijingfeng.open_source_collection_kotlin.messenger" />
+153-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:30:17-69
+153-->[com.blankj:utilcodex:1.26.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\16702d88379138fe464a8562e1b24f8e\jetified-utilcodex-1.26.0\AndroidManifest.xml:30:25-66
+154            </intent-filter>
+155        </service>
+156
+157        <provider
+157-->[androidx.lifecycle:lifecycle-process:2.2.0-rc03] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2afdddd99e8c950ffa17d3926af82aa\jetified-lifecycle-process-2.2.0-rc03\AndroidManifest.xml:25:9-29:43
+158            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+158-->[androidx.lifecycle:lifecycle-process:2.2.0-rc03] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2afdddd99e8c950ffa17d3926af82aa\jetified-lifecycle-process-2.2.0-rc03\AndroidManifest.xml:26:13-79
+159            android:authorities="com.shijingfeng.open_source_collection_kotlin.lifecycle-process"
+159-->[androidx.lifecycle:lifecycle-process:2.2.0-rc03] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2afdddd99e8c950ffa17d3926af82aa\jetified-lifecycle-process-2.2.0-rc03\AndroidManifest.xml:27:13-69
+160            android:exported="false"
+160-->[androidx.lifecycle:lifecycle-process:2.2.0-rc03] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2afdddd99e8c950ffa17d3926af82aa\jetified-lifecycle-process-2.2.0-rc03\AndroidManifest.xml:28:13-37
+161            android:multiprocess="true" />
+161-->[androidx.lifecycle:lifecycle-process:2.2.0-rc03] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2afdddd99e8c950ffa17d3926af82aa\jetified-lifecycle-process-2.2.0-rc03\AndroidManifest.xml:29:13-40
+162
+163        <service
+163-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:26:9-35:19
+164            android:name="androidx.work.impl.background.gcm.WorkManagerGcmService"
+164-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:27:13-83
+165            android:directBootAware="false"
+165-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:28:13-44
+166            android:exported="@bool/enable_gcm_scheduler_default"
+166-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:29:13-66
+167            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE" >
+167-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:30:13-93
+168            <intent-filter>
+168-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:32:13-34:29
+169                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+169-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:33:17-87
+169-->[androidx.work:work-gcm:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\70cfe63526de04ffd5c46dc14f1d8d47\jetified-work-gcm-2.3.1\AndroidManifest.xml:33:25-84
+170            </intent-filter>
+171        </service>
+172        <service
+172-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:39:9-44:35
+173            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+173-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:40:13-88
+174            android:directBootAware="false"
+174-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:41:13-44
+175            android:enabled="@bool/enable_system_alarm_service_default"
+175-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:42:13-72
+176            android:exported="false" />
+176-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:43:13-37
+177        <service
+177-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:45:9-51:35
+178            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+178-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:46:13-84
+179            android:directBootAware="false"
+179-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:47:13-44
+180            android:enabled="@bool/enable_system_job_service_default"
+180-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:48:13-70
+181            android:exported="true"
+181-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:49:13-36
+182            android:permission="android.permission.BIND_JOB_SERVICE" />
+182-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:50:13-69
+183        <service
+183-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:52:9-57:35
+184            android:name="androidx.work.impl.foreground.SystemForegroundService"
+184-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:53:13-81
+185            android:directBootAware="false"
+185-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:54:13-44
+186            android:enabled="@bool/enable_system_foreground_service_default"
+186-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:55:13-77
+187            android:exported="false" />
+187-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:56:13-37
+188
+189        <receiver
+189-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:59:9-64:35
+190            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+190-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:60:13-88
+191            android:directBootAware="false"
+191-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:61:13-44
+192            android:enabled="true"
+192-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:62:13-35
+193            android:exported="false" />
+193-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:63:13-37
+194        <receiver
+194-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:65:9-75:20
+195            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+195-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:66:13-106
+196            android:directBootAware="false"
+196-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:67:13-44
+197            android:enabled="false"
+197-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:68:13-36
+198            android:exported="false" >
+198-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:69:13-37
+199            <intent-filter>
+199-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:71:13-74:29
+200                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+200-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:72:17-87
+200-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:72:25-84
+201                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+201-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:73:17-90
+201-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:73:25-87
+202            </intent-filter>
+203        </receiver>
+204        <receiver
+204-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:76:9-86:20
+205            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+205-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:77:13-104
+206            android:directBootAware="false"
+206-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:78:13-44
+207            android:enabled="false"
+207-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:79:13-36
+208            android:exported="false" >
+208-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:80:13-37
+209            <intent-filter>
+209-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:82:13-85:29
+210                <action android:name="android.intent.action.BATTERY_OKAY" />
+210-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:83:17-77
+210-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:83:25-74
+211                <action android:name="android.intent.action.BATTERY_LOW" />
+211-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:84:17-76
+211-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:84:25-73
+212            </intent-filter>
+213        </receiver>
+214        <receiver
+214-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:87:9-97:20
+215            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+215-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:88:13-104
+216            android:directBootAware="false"
+216-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:89:13-44
+217            android:enabled="false"
+217-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:90:13-36
+218            android:exported="false" >
+218-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:91:13-37
+219            <intent-filter>
+219-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:93:13-96:29
+220                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+220-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:94:17-83
+220-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:94:25-80
+221                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+221-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:95:17-82
+221-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:95:25-79
+222            </intent-filter>
+223        </receiver>
+224        <receiver
+224-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:98:9-107:20
+225            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+225-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:99:13-103
+226            android:directBootAware="false"
+226-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:100:13-44
+227            android:enabled="false"
+227-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:101:13-36
+228            android:exported="false" >
+228-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:102:13-37
+229            <intent-filter>
+229-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:104:13-106:29
+230                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+230-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:105:17-79
+230-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:105:25-76
+231            </intent-filter>
+232        </receiver>
+233        <receiver
+233-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:108:9-119:20
+234            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+234-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:109:13-88
+235            android:directBootAware="false"
+235-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:110:13-44
+236            android:enabled="false"
+236-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:111:13-36
+237            android:exported="false" >
+237-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:112:13-37
+238            <intent-filter>
+238-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:114:13-118:29
+239                <action android:name="android.intent.action.BOOT_COMPLETED" />
+239-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:115:17-79
+239-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:115:25-76
+240                <action android:name="android.intent.action.TIME_SET" />
+240-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:116:17-73
+240-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:116:25-70
+241                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+241-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:117:17-81
+241-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:117:25-78
+242            </intent-filter>
+243        </receiver>
+244        <receiver
+244-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:120:9-129:20
+245            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+245-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:121:13-99
+246            android:directBootAware="false"
+246-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:122:13-44
+247            android:enabled="@bool/enable_system_alarm_service_default"
+247-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:123:13-72
+248            android:exported="false" >
+248-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:124:13-37
+249            <intent-filter>
+249-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:126:13-128:29
+250                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+250-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:127:17-98
+250-->[androidx.work:work-runtime:2.3.1] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\0f50df5ee2da137d15e403f86e0d04a8\work-runtime-2.3.1\AndroidManifest.xml:127:25-95
+251            </intent-filter>
+252        </receiver>
+253
+254        <activity
+254-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2c0588ce9c4c8a98ae9ba4f3e9a296e\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+255            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+255-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2c0588ce9c4c8a98ae9ba4f3e9a296e\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+256            android:exported="false"
+256-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2c0588ce9c4c8a98ae9ba4f3e9a296e\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+257            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+257-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\e2c0588ce9c4c8a98ae9ba4f3e9a296e\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+258
+259        <meta-data
+259-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dbd6d1a3b0b49c3310b4c15cce0851c7\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+260            android:name="com.google.android.gms.version"
+260-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dbd6d1a3b0b49c3310b4c15cce0851c7\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+261            android:value="@integer/google_play_services_version" />
+261-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dbd6d1a3b0b49c3310b4c15cce0851c7\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+262
+263        <service
+263-->[com.squareup.leakcanary:leakcanary-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\a9bfe810123c940a739a529a84288c2e\jetified-leakcanary-android-2.2\AndroidManifest.xml:23:9-25:40
+264            android:name="leakcanary.internal.HeapAnalyzerService"
+264-->[com.squareup.leakcanary:leakcanary-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\a9bfe810123c940a739a529a84288c2e\jetified-leakcanary-android-2.2\AndroidManifest.xml:24:13-67
+265            android:exported="false" />
+265-->[com.squareup.leakcanary:leakcanary-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\a9bfe810123c940a739a529a84288c2e\jetified-leakcanary-android-2.2\AndroidManifest.xml:25:13-37
+266
+267        <provider
+267-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:29:9-37:20
+268            android:name="leakcanary.internal.LeakCanaryFileProvider"
+268-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:30:13-70
+269            android:authorities="com.squareup.leakcanary.fileprovider.com.shijingfeng.open_source_collection_kotlin"
+269-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:31:13-88
+270            android:exported="false"
+270-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:32:13-37
+271            android:grantUriPermissions="true" >
+271-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:33:13-47
+272            <meta-data
+272-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:13-38:53
+273                android:name="android.support.FILE_PROVIDER_PATHS"
+273-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:17-67
+274                android:resource="@xml/leak_canary_file_paths" />
+274-->[:base] D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:17-50
+275        </provider>
+276
+277        <activity
+277-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:39:9-44:66
+278            android:name="leakcanary.internal.activity.LeakActivity"
+278-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:40:13-69
+279            android:icon="@mipmap/leak_canary_icon"
+279-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:41:13-52
+280            android:label="@string/leak_canary_display_activity_label"
+280-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:42:13-71
+281            android:taskAffinity="com.squareup.leakcanary.com.shijingfeng.open_source_collection_kotlin"
+281-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:43:13-76
+282            android:theme="@style/leak_canary_LeakCanary.Base" />
+282-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:44:13-63
+283
+284        <activity-alias
+284-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:46:9-62:26
+285            android:name="leakcanary.internal.activity.LeakLauncherActivity"
+285-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:47:13-77
+286            android:banner="@drawable/leak_canary_tv_icon"
+286-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:48:13-59
+287            android:enabled="@bool/leak_canary_add_launcher_icon"
+287-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:49:13-66
+288            android:icon="@mipmap/leak_canary_icon"
+288-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:50:13-52
+289            android:label="@string/leak_canary_display_activity_label"
+289-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:51:13-71
+290            android:targetActivity="leakcanary.internal.activity.LeakActivity"
+290-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:52:13-79
+291            android:taskAffinity="com.squareup.leakcanary.com.shijingfeng.open_source_collection_kotlin"
+291-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:53:13-76
+292            android:theme="@style/leak_canary_LeakCanary.Base" >
+292-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:54:13-63
+293            <intent-filter>
+293-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:55:13-61:29
+294                <action android:name="android.intent.action.MAIN" />
+294-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:17-69
+294-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:25-66
+295
+296                <category android:name="android.intent.category.LAUNCHER" />
+296-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:39:17-77
+296-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:39:27-74
+297                <!-- Android TV launcher intent -->
+298                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+298-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:60:17-86
+298-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:60:27-83
+299            </intent-filter>
+300        </activity-alias>
+301
+302        <activity
+302-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:64:9-70:68
+303            android:name="leakcanary.internal.RequestStoragePermissionActivity"
+303-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:65:13-80
+304            android:excludeFromRecents="true"
+304-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:66:13-46
+305            android:icon="@mipmap/leak_canary_icon"
+305-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:67:13-52
+306            android:label="@string/leak_canary_storage_permission_activity_label"
+306-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:68:13-82
+307            android:taskAffinity="com.squareup.leakcanary.com.shijingfeng.open_source_collection_kotlin"
+307-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:69:13-76
+308            android:theme="@style/leak_canary_Theme.Transparent" />
+308-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:70:13-65
+309
+310        <receiver android:name="leakcanary.internal.NotificationReceiver" />
+310-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:72:9-77
+310-->[com.squareup.leakcanary:leakcanary-android-core:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\dc4eb0c7a50386711464d7b435dee719\jetified-leakcanary-android-core-2.2\AndroidManifest.xml:72:19-74
+311
+312        <provider
+312-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\59cdf679ff28b797b29d325bab40b78c\jetified-leakcanary-object-watcher-android-2.2\AndroidManifest.xml:8:9-11:40
+313            android:name="leakcanary.internal.AppWatcherInstaller$MainProcess"
+313-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\59cdf679ff28b797b29d325bab40b78c\jetified-leakcanary-object-watcher-android-2.2\AndroidManifest.xml:9:13-79
+314            android:authorities="com.shijingfeng.open_source_collection_kotlin.leakcanary-installer"
+314-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\59cdf679ff28b797b29d325bab40b78c\jetified-leakcanary-object-watcher-android-2.2\AndroidManifest.xml:10:13-72
+315            android:exported="false" />
+315-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.2] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\59cdf679ff28b797b29d325bab40b78c\jetified-leakcanary-object-watcher-android-2.2\AndroidManifest.xml:11:13-37
+316
+317        <service
+317-->[androidx.room:room-runtime:2.2.3] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\3d3cfd3f0b88c42fee520d61dec1cb5a\room-runtime-2.2.3\AndroidManifest.xml:25:9-27:40
+318            android:name="androidx.room.MultiInstanceInvalidationService"
+318-->[androidx.room:room-runtime:2.2.3] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\3d3cfd3f0b88c42fee520d61dec1cb5a\room-runtime-2.2.3\AndroidManifest.xml:26:13-74
+319            android:exported="false" />
+319-->[androidx.room:room-runtime:2.2.3] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\3d3cfd3f0b88c42fee520d61dec1cb5a\room-runtime-2.2.3\AndroidManifest.xml:27:13-37
+320
+321        <activity
+321-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:27:9-33:20
+322            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+322-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:28:13-99
+323            android:theme="@android:style/Theme" >
+323-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:29:13-49
+324            <intent-filter>
+324-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:30:13-32:29
+325                <action android:name="android.intent.action.MAIN" />
+325-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:17-69
+325-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:25-66
+326            </intent-filter>
+327        </activity>
+328        <activity
+328-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:34:9-40:20
+329            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+329-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:35:13-95
+330            android:theme="@android:style/Theme" >
+330-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:36:13-49
+331            <intent-filter>
+331-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:30:13-32:29
+332                <action android:name="android.intent.action.MAIN" />
+332-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:17-69
+332-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:25-66
+333            </intent-filter>
+334        </activity>
+335        <activity
+335-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:41:9-47:20
+336            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+336-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:42:13-103
+337            android:theme="@android:style/Theme.Dialog" >
+337-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:43:13-56
+338            <intent-filter>
+338-->[androidx.test:core:1.2.0] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\1182ac9ed9996b0c0cb6aa20eddde02b\jetified-core-1.2.0\AndroidManifest.xml:30:13-32:29
+339                <action android:name="android.intent.action.MAIN" />
+339-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:17-69
+339-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\app\src\main\AndroidManifest.xml:37:25-66
+340            </intent-filter>
+341        </activity> <!-- The activity will be merged into the manifest of the hosting app. -->
+342        <activity
+342-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:5-271
+343            android:name="com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity"
+343-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:15-102
+344            android:enabled="false"
+344-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:103-126
+345            android:exported="false"
+345-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:127-151
+346            android:launchMode="singleInstance"
+346-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:204-239
+347            android:process=":playcore_missing_splits_activity"
+347-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:152-203
+348            android:stateNotNeeded="true" />
+348-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:8:240-269
+349        <activity
+349-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:5-278
+350            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+350-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:15-95
+351            android:enabled="false"
+351-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:96-119
+352            android:exported="false"
+352-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:120-144
+353            android:process=":playcore_dialog_wrapper_activity"
+353-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:175-226
+354            android:stateNotNeeded="true"
+354-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:145-174
+355            android:theme="@style/Theme.PlayCore.Transparent" />
+355-->[com.google.android.play:core:1.6.4] C:\Users\ShiJingFeng\.gradle\caches\transforms-2\files-2.1\21794a973165b992002b2974c7e7dc2e\jetified-core-1.6.4\AndroidManifest.xml:9:227-276
+356    </application>
+357
+358</manifest>

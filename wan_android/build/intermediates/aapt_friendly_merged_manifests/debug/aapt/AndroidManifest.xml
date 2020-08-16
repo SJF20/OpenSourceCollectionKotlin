@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.shijingfeng.wan_android"
+    android:versionCode="1"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="29" />
+
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 网络状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- WIFI状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 读取外部存储权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 写入外部存储权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取手机状态权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 读取设置权限 -->
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- 写入设置权限 -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <!-- 挂载外部存储权限 -->
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <dist:module dist:instant="true" />
+
+    <!--
+    allowBackup: 是否开启应用备份功能(有安全漏洞，建议关闭) (true<默认>: 开启  false: 关闭)
+    supportsRtl: true: Api17及以上使用系统设置的方向 RTL 或 LTR  false<默认>: 使用从左到右的方向(LTR)
+    hardwareAccelerated: true: 开启硬件加速(使用GPU解码)  false<默认>: 关闭硬件加速(使用CPU解码)
+    hasFragileUserData: 卸载APP时 是否保留 用户外部私有目录数据 (true: 保留  false<默认>: 不保留)
+    networkSecurityConfig: Android 10 (API 29)以上默认仅支持 HTTPS 链接, 所以要想使用 HTTP 则需要此配置
+    requestLegacyExternalStorage: 设置外部存储访问模式, 分为 Filtered View(默认) 和 Legacy View, Filtered View模式规定只能自由访问外部存储 APP 私有目录, 访问其他目录需要 MediaStore 或 SAF, Legacy View模式兼容以前版本, 无限制, 参考 https://mp.weixin.qq.com/s/aiDMyAfAZvaYIHuIMLAlcg
+    -->
+    <application
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
+        android:hasFragileUserData="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        tools:replace="android:allowBackup" >
+
+        <!-- 启动页 -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SplashActivity" />
+        <!-- 登录 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.LoginActivity" />
+        <!-- 注册 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.RegisterActivity" />
+        <!-- 首页 Activity -->
+        <activity
+            android:name="com.shijingfeng.wan_android.ui.activity.MainActivity"
+            android:launchMode="singleTask" />
+        <!-- 用户信息 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.UserInfoActivity" />
+        <!-- 通用WebView页面 -->
+        <activity
+            android:name="com.shijingfeng.wan_android.ui.activity.WebViewActivity"
+            android:configChanges="orientation|screenSize" />
+        <!-- 积分排行榜 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRankActivity" />
+        <!-- 积分记录 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRecordActivity" />
+        <!-- 我的收藏 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.PersonalCollectionActivity" />
+        <!-- 系统设置页面 -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SettingActivity" />
+        <!-- 关于我们 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.AboutUsActivity" />
+        <!-- 知识体系 详细数据 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.KnowledgeClassifyDetailActivity" />
+        <!-- 搜索 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SearchActivity" />
+        <!-- 搜索列表 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SearchListActivity" />
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.BmobTestActivity" />
+
+        <!-- Bmob内容提供器 -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="dollar_openBracket_applicationId_closeBracket.BmobContentProvider"
+            android:exported="false" />
+
+        <!--
+         移除 WorkManger默认使用ContentProvider初始化, 使用自定义初始化
+         (采用ContentProvider初始化, 就不用在 Application中初始化和传入Context了)
+        -->
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="dollar_openBracket_applicationId_closeBracket.workmanager-init"
+            android:directBootAware="false"
+            android:exported="false"
+            android:multiprocess="true"
+            tools:node="remove" />
+    </application>
+
+</manifest>

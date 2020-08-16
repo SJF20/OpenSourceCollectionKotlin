@@ -1,0 +1,76 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.shijingfeng.base"
+5    android:versionCode="1"
+6    android:versionName="1.0.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml
+10        android:targetSdkVersion="29" />
+10-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml
+11
+12    <!-- 网络权限 -->
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:6:5-67
+13-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:6:22-64
+14    <!-- 网络状态权限 -->
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:8:5-79
+15-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:8:22-76
+16    <!-- WIFI网络状态权限 -->
+17    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+17-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:10:5-76
+17-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:10:22-73
+18    <!-- 相机权限 -->
+19    <uses-permission android:name="android.permission.CAMERA" />
+19-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:12:5-65
+19-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:12:22-62
+20    <!-- 读外部存储权限 -->
+21    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+21-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:14:5-81
+21-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:14:22-78
+22    <!-- 写外部存储权限 -->
+23    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+23-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:16:5-80
+23-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:16:22-77
+24
+25    <application
+25-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:18:5-39:19
+26        android:allowBackup="false"
+26-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:19:9-36
+27        android:networkSecurityConfig="@xml/network_security_config"
+27-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:20:9-69
+28        tools:ignore="UnusedAttribute" >
+28-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:21:9-39
+29
+30        <!-- 访问本地文件 Provider -->
+31        <provider
+31-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:24:9-32:20
+32            android:name="androidx.core.content.FileProvider"
+32-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:25:13-62
+33            android:authorities="${applicationId}.FileProvider"
+33-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:26:13-64
+34            android:exported="false"
+34-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:27:13-37
+35            android:grantUriPermissions="true" >
+35-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:28:13-47
+36            <meta-data
+36-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:29:13-31:53
+37                android:name="android.support.FILE_PROVIDER_PATHS"
+37-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:30:17-67
+38                android:resource="@xml/file_path" />
+38-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:31:17-50
+39        </provider>
+40
+41        <!-- 配置 Glide 自定义 Module -->
+42        <meta-data
+42-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:35:9-37:43
+43            android:name="com.shijingfeng.base.util.image_load.CustomGlide"
+43-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:36:13-76
+44            android:value="CustomGlide" />
+44-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\base\src\main\AndroidManifest.xml:37:13-40
+45    </application>
+46
+47</manifest>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.shijingfeng.wan_android.view_model.ProjectViewModel" />
+
+        <variable
+            name="projectViewModel"
+            type="ProjectViewModel" />
+    </data>
+
+    <!-- LoadService 不能 register 根布局, 故需要嵌套一层 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:tag="@string/wan_android_theme_color_background"
+                app:tabBackground="@null"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@null"
+                tools:background="@color/wan_android_theme_color" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

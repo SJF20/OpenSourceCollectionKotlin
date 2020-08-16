@@ -1,0 +1,36 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.shijingfeng.background_service"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:4:5-67
+11-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+12-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:5:5-83
+12-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:5:22-80
+13
+14    <application>
+14-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:7:5-14:19
+15
+16        <!--
+17         应用更新服务 虽然是单独的进程，但杀死App时该进程也会被杀死
+18         格式 :app_update (进程名: applicationId:app_update)
+19             .app_update (必须加.) (进程名: .app_update)
+20        -->
+21        <service
+21-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:12:9-13:45
+22            android:name="com.shijingfeng.background_service.service.AppUpgradeService"
+22-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:12:18-59
+23            android:process=".app_upgrade" />
+23-->D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\background_service\src\main\AndroidManifest.xml:13:13-43
+24    </application>
+25
+26</manifest>

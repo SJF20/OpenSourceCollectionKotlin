@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+
+    
+
+                                                                                
+
+                 
+                                  
+                                     
+           
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" android:tag="layout/activity_wan_android_search_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+        <LinearLayout
+            android:id="@+id/ll_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:tag="@string/wan_android_theme_color_background"
+            tools:background="@color/wan_android_theme_color">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_back"
+                android:tag="binding_1"                             />
+
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/请输入搜索关键词"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:tag="binding_2"                        
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                                          />
+
+            <ImageView
+                android:id="@+id/iv_clear_input"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_cancel"
+                android:tag="binding_3"                                            
+                                                                                />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_search"
+                android:tag="binding_4"                               />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/热门搜索"
+                    android:textColor="@color/dodger_blue"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_hot_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/搜索历史"
+                        android:textColor="@color/dodger_blue"
+                        android:textSize="17sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/tv_clear_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/清空"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"
+                        android:tag="binding_5"                                     />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+         

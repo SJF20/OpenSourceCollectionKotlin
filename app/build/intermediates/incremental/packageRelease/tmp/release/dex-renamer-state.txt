@@ -1,0 +1,7 @@
+#Sun Aug 09 17:21:33 CST 2020
+base.0=D\:\\Projects\\AndroidProjects\\Personal\\OpenSourceCollectionKotlin\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=D\:\\Projects\\AndroidProjects\\Personal\\OpenSourceCollectionKotlin\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes2.dex

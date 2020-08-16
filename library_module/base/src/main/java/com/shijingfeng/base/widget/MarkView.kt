@@ -67,9 +67,11 @@ class MarkView(
         val h = if (height != 0) height else SizeUtils.dp2px(30F)
         val size = if (w > h) h.toFloat() else w.toFloat()
 
-        mStyle = STYLE_LEFT_BOTTOM
-        mTextSize = SizeUtils.sp2px(100F).toFloat()
-        mTextColor = Color.BLACK
+        // 测试使用
+//        mStyle = STYLE_RIGHT_BOTTOM
+//        mTextSize = SizeUtils.sp2px(100F).toFloat()
+//        mTextColor = Color.BLACK
+//        mText = "重要"
 
         mBgPaint.run {
             color = mBgColor
@@ -115,8 +117,6 @@ class MarkView(
             textSize = mTextSize
         }
 
-        text = "重要"
-
         val textWidth = mTextPaint.measureText(text)
         val textHeight = measureTextHeight(mTextPaint)
 
@@ -124,31 +124,39 @@ class MarkView(
         when (mStyle) {
             // 左上角
             STYLE_LEFT_TOP -> {
-                val x = size / 4F - textWidth / 2F
-                val y = size / 4F + textHeight / 2F
                 val textX = 0F - textWidth / 2F
-                val textY = sqrt(x.pow(2) + y.pow(2)) + textHeight / 2F
+                // 注意: 此处如果不 "+ textHeight / 2F", 那么以45度直角三角形平分线作为Text基准线会偏向直角那个方向，会看起来不居中
+                val textY = sqrt(2F * size.pow(2)) / 4F + textHeight / 2F
 
                 canvas?.rotate(-45F)
                 canvas?.drawText(text, textX, textY, mTextPaint)
             }
             // 左下角
             STYLE_LEFT_BOTTOM -> {
-                val x = size / 4F - textWidth / 2F
-                val y = size / 4F * 3F + textHeight / 2F
-                val textX = 0F - textWidth / 2F
-                val textY = sqrt(x.pow(2) + y.pow(2)) + textHeight / 2F
+                // 此处用size原因: 控件宽和高相等
+                val textX = sqrt(2F * size.pow(2)) / 2F - textWidth / 2F
+                // 注意: 此处为什么不 "+ textHeight / 2F", 因为以45度直角三角形平分线作为Text基准线会偏向直角那个方向，会看起来不居中
+                val textY = sqrt(2F * size.pow(2)) / 4F
 
-//                canvas?.rotate(45F)
-                canvas?.drawText(text, x, y, mTextPaint)
+                canvas?.rotate(45F)
+                canvas?.drawText(text, textX, textY, mTextPaint)
             }
             // 右上角
             STYLE_RIGHT_TOP -> {
+                val textX = sqrt(2F * size.pow(2)) / 2F - textWidth / 2F
+                val textY = - size / 2F + textHeight
 
+                canvas?.rotate(45F)
+                canvas?.drawText(text, textX, textY, mTextPaint)
             }
             // 右下角
             STYLE_RIGHT_BOTTOM -> {
+                val textX = 0 - textWidth / 2F
+                // 注意: 此处为什么不 "+ textHeight / 2F", 因为以45度直角三角形平分线作为Text基准线会偏向直角那个方向，会看起来不居中
+                val textY = sqrt(2F * size.pow(2)) * 3F / 4F
 
+                canvas?.rotate(-45F)
+                canvas?.drawText(text, textX, textY, mTextPaint)
             }
             else -> {}
         }

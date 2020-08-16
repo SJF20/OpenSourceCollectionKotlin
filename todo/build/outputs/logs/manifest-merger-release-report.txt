@@ -1,0 +1,77 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+	package
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:4:5-35
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:2:5-51
+	xmlns:dist
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:3:5-61
+	android:versionCode
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:1-36:12
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:1:11-69
+dist:module
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:6:5-40
+	dist:instant
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:6:18-37
+application
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:16:5-34:19
+	android:supportsRtl
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:18:9-35
+	android:hardwareAccelerated
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:19:9-43
+	tools:ignore
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:22:9-64
+	android:allowBackup
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:17:9-36
+	android:networkSecurityConfig
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:21:9-69
+	android:hasFragileUserData
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:20:9-42
+activity#com.shijingfeng.todo.ui.activity.MainActivity
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:25:9-26:46
+	android:launchMode
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:26:13-44
+	android:name
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:25:19-59
+activity#com.shijingfeng.todo.ui.activity.AddTodoActivity
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:28:9-65
+	android:name
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:28:19-62
+activity#com.shijingfeng.todo.ui.activity.UpdateTodoActivity
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:30:9-68
+	android:name
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:30:19-65
+activity#com.shijingfeng.todo.ui.activity.ViewTodoActivity
+ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:32:9-66
+	android:name
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml:32:19-63
+uses-sdk
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		ADDED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml
+		INJECTED from D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\todo\src\main\manifest\library\AndroidManifest.xml

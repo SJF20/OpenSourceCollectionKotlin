@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="titleBarHeight"
+            type="float" />
+        <!-- 返回点击 -->
+        <variable
+            name="ivBackClick"
+            type="OnClickListener" />
+        <!-- 文本操作点击 -->
+        <variable
+            name="tvOperateClick"
+            type="OnClickListener" />
+        <!-- 图片操作点击 -->
+        <variable
+            name="ivOperateClick"
+            type="OnClickListener" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/fl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:tag="@string/wan_android_theme_color_background"
+        tools:background="@color/wan_android_theme_color">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/ic_back"
+            app:onClick="@{ivBackClick}" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:ellipsize="end"
+            android:maxWidth="250dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:text="是个大公流逝关个ssghshl顺利回归到萨格sghs置" />
+
+        <ImageView
+            android:id="@+id/iv_operate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_more"
+            android:visibility="gone"
+            app:onClick="@{ivOperateClick}" />
+
+        <TextView
+            android:id="@+id/tv_operate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="15dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:onClick="@{tvOperateClick}"
+            tools:text="好友" />
+
+    </FrameLayout>
+
+</layout>

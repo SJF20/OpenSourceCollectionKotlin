@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 积分排行榜 页面 -->
+                                                       
+
+    
+
+                                                                                  
+
+                 
+                                    
+                                       
+
+           
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" android:tag="layout/activity_wan_android_coin_rank_0" xmlns:tools="http://schemas.android.com/tools">
+
+        <include
+            android:id="@+id/include_title_bar"
+            layout="@layout/layout_wan_android_title_bar"
+                                                                      />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/srl_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="binding_1"                                          
+                                                                               
+                app:srlEnableLoadMore="true"
+                app:srlEnableRefresh="true">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_to_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="95dp"
+                android:src="@drawable/ic_top"
+                android:tag="@string/wan_android_theme_color_backgroundTint"
+                app:fabSize="mini"
+                tools:backgroundTint="@color/wan_android_theme_color" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+         

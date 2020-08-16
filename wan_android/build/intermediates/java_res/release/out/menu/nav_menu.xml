@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_coin"
+            android:icon="@drawable/ic_coin"
+            android:title="@string/我的积分" />
+        <item
+            android:id="@+id/item_collection"
+            android:icon="@drawable/ic_collection"
+            android:title="@string/我的收藏" />
+        <item
+            android:id="@+id/item_todo"
+            android:icon="@drawable/ic_todo"
+            android:title="@string/待办事项" />
+        <item
+            android:id="@+id/item_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/系统设置" />
+        <item
+            android:id="@+id/item_about"
+            android:icon="@drawable/ic_about"
+            android:title="@string/关于我们" />
+    </group>
+</menu>

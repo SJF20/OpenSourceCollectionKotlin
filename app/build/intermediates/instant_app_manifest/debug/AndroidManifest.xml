@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.shijingfeng.open_source_collection_kotlin"
+    android:targetSandboxVersion="2"
+    android:versionCode="1"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="29" />
+
+    <dist:module dist:instant="true" />
+
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- WIFI状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 读取外部存储权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 写入外部存储权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读取手机状态权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 读取设置权限 -->
+    <uses-permission android:name="android.permission.READ_SETTINGS" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 写入设置权限 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- 挂载外部存储权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Required by older versions of Google Play services to create GCM registration tokens -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <!--
+    allowBackup: 是否开启应用备份功能(有安全漏洞，建议关闭) (true<默认>: 开启  false: 关闭)
+    supportsRtl: true: Api17及以上使用系统设置的方向 RTL 或 LTR  false<默认>: 使用从左到右的方向(LTR)
+    hardwareAccelerated: true: 开启硬件加速(使用GPU解码)  false<默认>: 关闭硬件加速(使用CPU解码)
+    hasFragileUserData: 卸载APP时 是否保留 用户外部私有目录数据 (true: 保留  false<默认>: 不保留)
+    networkSecurityConfig: Android 10 (API 29)以上默认仅支持 HTTPS 链接, 所以要想使用 HTTP 则需要此配置
+    requestLegacyExternalStorage: 设置外部存储访问模式, 分为 Filtered View(默认) 和 Legacy View, Filtered View模式规定只能自由访问外部存储 APP 私有目录, 访问其他目录需要 MediaStore 或 SAF, Legacy View模式兼容以前版本, 无限制, 参考 https://mp.weixin.qq.com/s/aiDMyAfAZvaYIHuIMLAlcg
+    -->
+    <!-- 应用Icon 在Android8.0及以上 显示制作好的 Icon, 否则显示Android原生机器人调试图标 -->
+    <application
+        android:name="com.shijingfeng.app.AppSophixStubApplication"
+        android:allowBackup="false"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:hardwareAccelerated="true"
+        android:hasFragileUserData="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+
+        <!-- 启动页 -->
+        <activity
+            android:name="com.shijingfeng.app.ui.activity.SplashActivity"
+            android:theme="@style/ProjectTheme.Launcher" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 主页 -->
+        <activity
+            android:name="com.shijingfeng.app.ui.activity.MainActivity"
+            android:launchMode="singleTask" />
+
+        <!-- 启动页 -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SplashActivity" /> <!-- 登录 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.LoginActivity" /> <!-- 注册 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.RegisterActivity" /> <!-- 首页 Activity -->
+        <activity
+            android:name="com.shijingfeng.wan_android.ui.activity.MainActivity"
+            android:launchMode="singleTask" /> <!-- 用户信息 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.UserInfoActivity" /> <!-- 通用WebView页面 -->
+        <activity
+            android:name="com.shijingfeng.wan_android.ui.activity.WebViewActivity"
+            android:configChanges="orientation|screenSize" /> <!-- 积分排行榜 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRankActivity" /> <!-- 积分记录 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.CoinRecordActivity" /> <!-- 我的收藏 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.PersonalCollectionActivity" /> <!-- 系统设置页面 -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SettingActivity" /> <!-- 关于我们 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.AboutUsActivity" /> <!-- 知识体系 详细数据 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.KnowledgeClassifyDetailActivity" /> <!-- 搜索 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SearchActivity" /> <!-- 搜索列表 Activity -->
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.SearchListActivity" />
+        <activity android:name="com.shijingfeng.wan_android.ui.activity.BmobTestActivity" /> <!-- Bmob内容提供器 -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.shijingfeng.open_source_collection_kotlin.BmobContentProvider"
+            android:exported="false" />
+        <!--
+         应用更新服务 虽然是单独的进程，但杀死App时该进程也会被杀死
+         格式 :app_update (进程名: applicationId:app_update)
+             .app_update (必须加.) (进程名: .app_update)
+        -->
+        <service
+            android:name="com.shijingfeng.background_service.service.AppUpgradeService"
+            android:process=".app_upgrade" /> <!-- 查看大图 Activity -->
+        <activity android:name="com.shijingfeng.common.ui.activity.ViewOriginalImageActivity" /> <!-- 主页 -->
+        <activity
+            android:name="com.shijingfeng.todo.ui.activity.MainActivity"
+            android:launchMode="singleTask" /> <!-- 添加 待办事项 Activity -->
+        <activity android:name="com.shijingfeng.todo.ui.activity.AddTodoActivity" /> <!-- 更新 待办事项 Activity -->
+        <activity android:name="com.shijingfeng.todo.ui.activity.UpdateTodoActivity" /> <!-- 查看 待办事项 Activity -->
+        <activity android:name="com.shijingfeng.todo.ui.activity.ViewTodoActivity" /> <!-- 访问本地文件 Provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.shijingfeng.open_source_collection_kotlin.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+        </provider> <!-- 配置 Glide 自定义 Module -->
+        <meta-data
+            android:name="com.shijingfeng.base.util.image_load.CustomGlide"
+            android:value="CustomGlide" />
+
+        <service
+            android:name="com.taobao.sophix.aidl.DownloadService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.taobao.hotfix.action" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.blankj.utilcode.util.Utils$TransActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:multiprocess="true"
+            android:theme="@style/ActivityTranslucent"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+
+        <provider
+            android:name="com.blankj.utilcode.util.Utils$FileProvider4UtilCode"
+            android:authorities="com.shijingfeng.open_source_collection_kotlin.utilcode.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:multiprocess="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/util_code_provider_paths" />
+        </provider>
+
+        <service android:name="com.blankj.utilcode.util.MessengerUtils$ServerService" >
+            <intent-filter>
+                <action android:name="com.shijingfeng.open_source_collection_kotlin.messenger" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+            android:authorities="com.shijingfeng.open_source_collection_kotlin.lifecycle-process"
+            android:exported="false"
+            android:multiprocess="true" />
+
+        <service
+            android:name="androidx.work.impl.background.gcm.WorkManagerGcmService"
+            android:directBootAware="false"
+            android:exported="@bool/enable_gcm_scheduler_default"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_alarm_service_default"
+            android:exported="false" />
+        <service
+            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_job_service_default"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_foreground_service_default"
+            android:exported="false" />
+
+        <receiver
+            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_alarm_service_default"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service
+            android:name="leakcanary.internal.HeapAnalyzerService"
+            android:exported="false" />
+
+        <provider
+            android:name="leakcanary.internal.LeakCanaryFileProvider"
+            android:authorities="com.squareup.leakcanary.fileprovider.com.shijingfeng.open_source_collection_kotlin"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/leak_canary_file_paths" />
+        </provider>
+
+        <activity
+            android:name="leakcanary.internal.activity.LeakActivity"
+            android:icon="@mipmap/leak_canary_icon"
+            android:label="@string/leak_canary_display_activity_label"
+            android:taskAffinity="com.squareup.leakcanary.com.shijingfeng.open_source_collection_kotlin"
+            android:theme="@style/leak_canary_LeakCanary.Base" />
+
+        <activity-alias
+            android:name="leakcanary.internal.activity.LeakLauncherActivity"
+            android:banner="@drawable/leak_canary_tv_icon"
+            android:enabled="@bool/leak_canary_add_launcher_icon"
+            android:icon="@mipmap/leak_canary_icon"
+            android:label="@string/leak_canary_display_activity_label"
+            android:targetActivity="leakcanary.internal.activity.LeakActivity"
+            android:taskAffinity="com.squareup.leakcanary.com.shijingfeng.open_source_collection_kotlin"
+            android:theme="@style/leak_canary_LeakCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- Android TV launcher intent -->
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
+            android:name="leakcanary.internal.RequestStoragePermissionActivity"
+            android:excludeFromRecents="true"
+            android:icon="@mipmap/leak_canary_icon"
+            android:label="@string/leak_canary_storage_permission_activity_label"
+            android:taskAffinity="com.squareup.leakcanary.com.shijingfeng.open_source_collection_kotlin"
+            android:theme="@style/leak_canary_Theme.Transparent" />
+
+        <receiver android:name="leakcanary.internal.NotificationReceiver" />
+
+        <provider
+            android:name="leakcanary.internal.AppWatcherInstaller$MainProcess"
+            android:authorities="com.shijingfeng.open_source_collection_kotlin.leakcanary-installer"
+            android:exported="false" />
+
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:exported="false" />
+
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+            android:theme="@android:style/Theme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+            android:theme="@android:style/Theme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity> <!-- The activity will be merged into the manifest of the hosting app. -->
+        <activity
+            android:name="com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity"
+            android:enabled="false"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:process=":playcore_missing_splits_activity"
+            android:stateNotNeeded="true" />
+        <activity
+            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+            android:enabled="false"
+            android:exported="false"
+            android:process=":playcore_dialog_wrapper_activity"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.PlayCore.Transparent" />
+    </application>
+
+</manifest>

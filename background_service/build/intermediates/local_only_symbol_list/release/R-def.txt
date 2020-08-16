@@ -1,0 +1,19 @@
+R_DEF: Internal format may change without notice
+local
+drawable ic_cancel
+id iv_cancel
+id iv_icon
+id pb_progress
+id tv_progress
+layout layout_notification_app_update
+string app_update_name
+string 下载失败
+string 否
+string 安装包下载失败
+string 应用下载中
+string 应用安装失败
+string 开源集合有新版本了
+string 文件已存在
+string 是
+string 暂无详细描述
+string 没有数据
