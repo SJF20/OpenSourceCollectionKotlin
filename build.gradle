@@ -15,7 +15,7 @@ buildscript {
         maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.1.0-rc01'
         // Kotlin 插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
         // ARouter 使用 Gradle 插件实现路由表的自动加载
