@@ -40,14 +40,14 @@ internal data class MainTodo (
     var total: Int = 0,
 
     @SerializedName("datas")
-    var todoItemList: MutableList<MainTodoGroupItem> = ArrayList()
+    var todoItemList: MutableList<MainTodoItem> = ArrayList()
 
 ) : BaseEntity()
 
 /**
  * 主页 -> 待办 分组后的 实体类 Item
  */
-internal data class MainTodoGroupItem(
+internal data class MainTodoItem(
 
     @SerializedName("id")
     var identity: String = "",

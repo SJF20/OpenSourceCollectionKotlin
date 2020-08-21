@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- 主题颜色 默认皮肤 -->
-    <color name="wan_android_theme_color">#FF5252</color>
-    <!-- 首页 轮播图底部标题 背景色 -->
-    <color name="home_banner_title_bg">#44aaaaaa</color>
-</resources>

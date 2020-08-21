@@ -1,26 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_date"
+    <com.shijingfeng.base.widget.MarkView
+        android:id="@+id/mv_important"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|start"
+        app:bgColor="@color/red"
+        app:text="重要"
+        app:style="left_top" />
+
+    <com.shijingfeng.base.widget.MarkView
+        android:id="@+id/mv_urgency"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|end"
+        app:bgColor="@color/orange"
+        app:text="紧急"
+        app:style="right_top"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical|start"
-        android:padding="15dp"
-        android:background="@color/light_grey"
-        android:textColor="@color/black"
-        tools:text="2019年12月12日" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="15dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fadingEdge="none"
-        android:overScrollMode="never"
-        android:scrollbars="none" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="这是标题soghao;gh两个哈利和啥搞好闪光灯sghaogh身高干啥暗哨igha" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="14sp"
+            tools:text="这是内容shgaosgha啥搞好闪是的噶话大概很高很高第哦啊很高的sghoaghidaoighapoghdapsoghisaosghaogihaogha光灯安哥拉杀害高会感到会感到和哇嘎东欧还是是过得好过得好尬刚好是感到sghasoghao" />
+
+    </LinearLayout>
+
+</FrameLayout>

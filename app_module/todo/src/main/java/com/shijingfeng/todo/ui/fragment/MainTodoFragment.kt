@@ -10,7 +10,7 @@ import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
 import com.shijingfeng.todo.databinding.FragmentTodoMainTodoBinding
-import com.shijingfeng.todo.entity.adapter.MainTodoAdapter
+import com.shijingfeng.todo.adapter.MainTodoGroupAdapter
 import com.shijingfeng.todo.source.network.getMainTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainTodoRepositoryInstance
 import com.shijingfeng.todo.view_model.MainTodoViewModel
@@ -30,7 +30,7 @@ internal fun createTodoFragment() = TodoFragment()
 internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, MainTodoViewModel>() {
 
     /** 待办 分组 适配器 */
-    private var mMainTodoAdapter: MainTodoAdapter? = null
+    private var mMainTodoGroupAdapter: MainTodoGroupAdapter? = null
 
     /**
      * 获取视图ID
@@ -67,8 +67,8 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
     override fun initData() {
         super.initData()
         activity?.run {
-            mMainTodoAdapter = MainTodoAdapter(this, mViewModel?.mMainTodoItemList)
-            mDataBinding.rvContent.adapter = mMainTodoAdapter
+            mMainTodoGroupAdapter = MainTodoGroupAdapter(this, mViewModel?.mMainTodoItemList)
+            mDataBinding.rvContent.adapter = mMainTodoGroupAdapter
             mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
         }
     }
@@ -78,7 +78,7 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
      */
     override fun initAction() {
         super.initAction()
-        mMainTodoAdapter?.setOnItemEventListener { view, data, position, flag ->
+        mMainTodoGroupAdapter?.setOnItemEventListener { view, data, position, flag ->
             when (flag) {
                 // 查看 待办事项 详情
                 VIEW_TODO_DETAIL -> {

@@ -3,28 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="15dp">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|start"
+        android:padding="15dp"
+        android:background="@color/light_grey"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:ellipsize="end"
-        tools:text="这是标题soghao;gh两个哈利和啥搞好闪光灯sghaogh身高干啥暗哨igha" />
+        tools:text="2019年12月12日" />
 
-    <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="14sp"
-        tools:text="这是内容shgaosgha啥搞好闪是的噶话大概很高很高第哦啊很高的sghoaghidaoighapoghdapsoghisaosghaogihaogha光灯安哥拉杀害高会感到会感到和哇嘎东欧还是是过得好过得好尬刚好是感到sghasoghao" />
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 
 </LinearLayout>

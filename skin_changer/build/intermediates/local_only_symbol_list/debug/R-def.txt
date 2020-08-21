@@ -1,3 +1,0 @@
-R_DEF: Internal format may change without notice
-local
-id skin_changer_tag_id

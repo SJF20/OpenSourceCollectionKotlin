@@ -12,5 +12,15 @@
         <attr name="textSize" format="dimension" />
         <!-- 三角背景颜色 -->
         <attr name="bgColor" format="color" />
+        <attr name="style" format="enum">
+            <!-- 处于左上角位置 -->
+            <enum name="left_top" value="0" />
+            <!-- 处于左下角位置 -->
+            <enum name="left_bottom" value="1" />
+            <!-- 处于右上角位置 -->
+            <enum name="right_top" value="2" />
+            <!-- 处于右下角位置 -->
+            <enum name="right_bottom" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

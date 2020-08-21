@@ -9,8 +9,8 @@ import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.todo.base.TodoBaseViewModel
 import com.shijingfeng.todo.constant.TYPE_ALL
-import com.shijingfeng.todo.entity.MainTodoGroupItem
-import com.shijingfeng.todo.entity.adapter.MainTodoItem
+import com.shijingfeng.todo.entity.MainTodoItem
+import com.shijingfeng.todo.entity.adapter.MainTodoGroupItem
 import com.shijingfeng.todo.source.repository.MainTodoRepository
 import com.shijingfeng.todo.ui.activity.MAIN_TODO
 
@@ -35,18 +35,11 @@ internal class MainTodoViewModel(
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
 
-    /** 待办列表 */
-    val mMainTodoItemList = mutableListOf<MainTodoItem>()
-
-    /**
-     * 待办 Map 列表
-     * Key: 毫秒值 (以天为单位)
-     * Value: [mMainTodoItemList] 下标
-     */
-    val mMainTodoItemMapList = mutableMapOf<Long, Int>()
+    /** 待办列表 (性能优化技巧: 因为以天为单位的毫秒值是从小到大的顺序，故可以使用二分查找) */
+    val mMainTodoItemList = mutableListOf<MainTodoGroupItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<MainTodoItem>>()
+    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<MainTodoGroupItem>>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = Callback.OnReloadListener {
@@ -109,7 +102,7 @@ internal class MainTodoViewModel(
             },
             onSuccess = onSuccessLabel@{ todo ->
                 val todoItemList = todo?.todoItemList
-                val event = ListDataChangeEvent<MainTodoItem>()
+                val event = ListDataChangeEvent<MainTodoGroupItem>()
 
                 when (mPageOperateType) {
                     // 加载数据 或 重新加载
@@ -185,60 +178,43 @@ internal class MainTodoViewModel(
      *
      * @param todoItemList 要分组的列表
      */
-    private fun groupByDate(todoItemList: List<MainTodoGroupItem>) {
+    private fun groupByDate(todoItemList: List<MainTodoItem>) {
         if (todoItemList.isNullOrEmpty()) {
             return
         }
 
-        when (mPageOperateType) {
-            PAGE_OPERATE_TYPE_LOAD,
-            PAGE_OPERATE_TYPE_REFRESH -> {
-                mMainTodoItemList.clear()
-                mMainTodoItemMapList.clear()
+        val firstTodoItem = todoItemList[0]
+        val firstTodoItemDayMs = firstTodoItem.date / 86400000L
+        // 使用二分查找算法查到 position
+        val firstTodoItemPosition = binarySearch(0, mMainTodoItemList.size - 1, firstTodoItemDayMs)
 
-                todoItemList.forEach { todoItem ->
-                    val dayMs = todoItem.date / 86400000L
-                    val position = mMainTodoItemMapList[dayMs]
+        if (firstTodoItemPosition != -1) {
+            // 列表中存在此日期子列表
+            val resultTodoItem = mMainTodoItemList[firstTodoItemPosition]
 
-                    if (position != null && position < mMainTodoItemList.size) {
-                        val mainTodoItem = mMainTodoItemList[position]
-
-                        mainTodoItem.todoItemList.add(todoItem)
-                    } else {
-
-                    }
-                }
-            }
-            PAGE_OPERATE_TYPE_LOAD_MORE -> {
-
-            }
+            resultTodoItem.todoItemList.add(firstTodoItem)
+            // 更新适配器
+        } else {
+            // 列表中不存在此日期子列表
         }
-
-        val mainTodoItemMap = LinkedHashMap<Long, MainTodoItem>()
-
-        mMainTodoItemList.forEach { mainTodoItem ->
-            mainTodoItemMap[mainTodoItem.identity] = mainTodoItem
-        }
-
-        todoItemList.forEach { todoItem ->
+        // 剩下的列表数据肯定在列表第一个数据附近
+        for (index in 1 until todoItemList.size) {
+            val todoItem = todoItemList[index]
             val dayMs = todoItem.date / 86400000L
-            val mainTodoItem = mainTodoItemMap[dayMs]
 
-            if (mainTodoItem != null) {
-                mainTodoItem.todoItemList.add(todoItem)
-            } else {
-                mainTodoItemMap[dayMs] = MainTodoItem(
-                    identity = dayMs,
-                    date = todoItem.dateStr,
-                    todoItemList = mutableListOf<MainTodoGroupItem>().apply {
-                        add(todoItem)
-                    }
-                )
-            }
-        }
-        mainTodoItemMap.forEach { entry ->
 
         }
+    }
+
+    /**
+     * 二分查找 适配器列表 position
+     */
+    private fun binarySearch(
+        startPosition: Int,
+        endPosition: Int,
+        target: Long
+    ): Int {
+        return 0
     }
 
 }

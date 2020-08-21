@@ -56,6 +56,7 @@ class MarkView(
             mTextSize = getDimension(R.styleable.MarkView_textSize, SizeUtils.sp2px(8F).toFloat())
             mTextColor = getColor(R.styleable.MarkView_textColor, Color.WHITE)
             mBgColor = getColor(R.styleable.MarkView_bgColor, Color.RED)
+            mStyle = getInt(R.styleable.MarkView_style, STYLE_LEFT_TOP)
             //一定要回收，否则会内存泄漏
             recycle()
         }

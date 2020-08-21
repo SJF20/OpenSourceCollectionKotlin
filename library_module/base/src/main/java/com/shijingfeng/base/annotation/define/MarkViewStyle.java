@@ -38,11 +38,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 public @interface MarkViewStyle {
     /** 样式: 左上角 */
-    int STYLE_LEFT_TOP = 1;
+    int STYLE_LEFT_TOP = 0;
     /** 样式: 左下角 */
-    int STYLE_LEFT_BOTTOM = 2;
+    int STYLE_LEFT_BOTTOM = 1;
     /** 样式: 右上角 */
-    int STYLE_RIGHT_TOP = 3;
+    int STYLE_RIGHT_TOP = 2;
     /** 样式: 右下角 */
-    int STYLE_RIGHT_BOTTOM = 4;
+    int STYLE_RIGHT_BOTTOM = 3;
 }
