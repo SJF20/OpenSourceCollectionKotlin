@@ -71,11 +71,11 @@ internal data class MainTodoItem(
     @SerializedName("completeDateStr")
     var completeDateStr: String = "",
 
-    /** 日期 */
+    /** 创建日期 */
     @SerializedName("date")
     var date: Long = 0L,
 
-    /** 日期字符串 */
+    /** 创建日期字符串 */
     @SerializedName("dateStr")
     var dateStr: String = "",
 

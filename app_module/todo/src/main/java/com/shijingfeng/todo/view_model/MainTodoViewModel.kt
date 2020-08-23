@@ -1,5 +1,6 @@
 package com.shijingfeng.todo.view_model
 
+import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.callback.Callback
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -186,17 +187,26 @@ internal class MainTodoViewModel(
         val firstTodoItem = todoItemList[0]
         val firstTodoItemDayMs = firstTodoItem.date / 86400000L
         // 使用二分查找算法查到 position
-        val firstTodoItemPosition = binarySearch(0, mMainTodoItemList.size - 1, firstTodoItemDayMs)
+        val resultMap = binarySearch(0, mMainTodoItemList.size - 1, firstTodoItemDayMs)
+        val find = resultMap["find"] as Boolean
+        val position = resultMap["position"] as Int
 
-        if (firstTodoItemPosition != -1) {
-            // 列表中存在此日期子列表
-            val resultTodoItem = mMainTodoItemList[firstTodoItemPosition]
-
-            resultTodoItem.todoItemList.add(firstTodoItem)
-            // 更新适配器
+        if (find) {
+            // 查找到了
         } else {
-            // 列表中不存在此日期子列表
+            if (position != mMainTodoItemList.size - 1) {
+                // 要归到的分组 在 已加载的列表中
+                val locationTodoItem = mMainTodoItemList[position]
+
+                // position: 在该 定位Item 之前    position + 1: 在该 定位Item 之后
+                mMainTodoItemList.add(if (firstTodoItemDayMs > locationTodoItem.identity) position else (position + 1), MainTodoGroupItem(
+                    identity = firstTodoItemDayMs,
+                    completeDateStr = TimeUtils.millis2String(firstTodoItem.date, "yyyy/MM/dd"),
+                    todoItemList = mutableListOf(firstTodoItem)
+                ))
+            }
         }
+
         // 剩下的列表数据肯定在列表第一个数据附近
         for (index in 1 until todoItemList.size) {
             val todoItem = todoItemList[index]
@@ -213,8 +223,30 @@ internal class MainTodoViewModel(
         startPosition: Int,
         endPosition: Int,
         target: Long
-    ): Int {
-        return 0
+    ): Map<String, Any> {
+        var low = startPosition
+        var high = endPosition
+
+        while (low <= high) {
+            val mid = low + (high - low).shr(1)
+            val todoItem = mMainTodoItemList[mid]
+
+            when {
+                // 向列表头部方向查找
+                todoItem.identity < target -> high = mid - 1
+                // 向列表尾部方向查找
+                todoItem.identity > target -> low = mid + 1
+                // 命中
+                else -> return hashMapOf<String, Any>().apply {
+                    put("find", true)
+                    put("position", mid)
+                }
+            }
+        }
+        return hashMapOf<String, Any>().apply {
+            put("find", false)
+            put("position", low)
+        }
     }
 
 }

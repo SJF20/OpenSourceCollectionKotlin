@@ -2,20 +2,25 @@ package com.shijingfeng.base.widget
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.animation.LinearInterpolator
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import com.shijingfeng.base.R
 
 /**
- * Function:
+ * Function: Loading View
  * Date: 2020/8/22 10:24
  * Description:
  * @author ShiJingFeng
  */
-class LoadingView(
+class LoadingView private constructor(
     private val mAttr: Attr
 ) {
 
@@ -25,18 +30,20 @@ class LoadingView(
     }
 
     /** LoadingView内容布局View */
-    private val mContentView: View? = null
+    private lateinit var mContentView: View
     /** 动画 */
     private var mAnimator: ObjectAnimator? = null
 
-    /** 当前控件是否显示 true: 显示  false: 不显示 */
-    private val mIsShowing = false
+    /** LoadingView是否正在显示  true: 显示  false: 不显示 */
+    private var mIsShowing = false
+    /** LoadingView是否已销毁  true: 已销毁  false: 未销毁 */
+    private var mIsDestroyed = true
 
     /**
      * 开始旋转动画
      */
     private fun startAnimator() {
-        val ivLoading: ImageView = mContentView?.findViewById(R.id.iv_loading) ?: return
+        val ivLoading = mContentView.findViewById<ImageView>(R.id.iv_loading)
 
         mAnimator = ObjectAnimator.ofFloat(
             ivLoading,
@@ -64,45 +71,78 @@ class LoadingView(
     }
 
     /**
-     * 当前控件是否正在显示
+     * LoadingView 是否正在显示
      * @return true: 显示状态  false: 隐藏状态
      */
     fun isShowing() = mIsShowing
 
     /**
+     * LoadingView 是否已经销毁
+     * @return true: 已销毁  false: 未销毁
+     */
+    fun isDestroyed() = mIsDestroyed
+
+    /**
      * 显示
      */
+    @SuppressLint("InflateParams")
     fun show() {
+        if (isShowing()) {
+            // 如果LoadingView正在显示, 则只更新提示文本
+            mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
+            return
+        }
 
+        if (mIsDestroyed) {
+            mContentView = LayoutInflater.from(mAttr.activity).inflate(R.layout.dialog_loading, null)
+            mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
+            startAnimator()
+            mAttr.parentViewGroup?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+            mIsDestroyed = false
+        } else {
+            mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
+            startAnimator()
+            mContentView.visibility = View.VISIBLE
+        }
+        mIsShowing = true
     }
 
     /**
      * 隐藏
      */
     fun hide() {
+        if (!isShowing()) {
+            // 如果已经隐藏, 则无效操作
+            return
+        }
+        mContentView.visibility = View.GONE
+        destroyAnimator()
+        mIsShowing = false
+    }
 
+    /**
+     * 销毁
+     */
+    fun destroy() {
+        hide()
+        if (this::mContentView.isInitialized) {
+            mAttr.parentViewGroup?.removeView(mContentView)
+        }
+        mIsDestroyed = true
     }
 
     /**
      * 构建器
      */
     class Builder(
-        activity: Activity
+        activity: Activity,
+        parentViewGroup: ViewGroup
     ) {
         private val mAttr = Attr()
 
         init {
             mAttr.activity = activity
-        }
-
-        /**
-         * 设置 父容器
-         * @param parentViewGroup 父容器
-         * @return Builder
-         */
-        fun setParentViewGroup(parentViewGroup: ViewGroup): Builder {
             mAttr.parentViewGroup = parentViewGroup
-            return this
         }
 
         /**
@@ -111,9 +151,7 @@ class LoadingView(
          * @return Builder
          */
         fun setHintText(hintText: String?): Builder {
-            if (hintText.isNullOrEmpty()) {
-                mAttr.hintText = DEFAULT_HINT_TEXT
-            } else {
+            if (!hintText.isNullOrEmpty()) {
                 mAttr.hintText = hintText
             }
             return this
@@ -123,19 +161,13 @@ class LoadingView(
          * 开始构建
          * @return LoadingView
          */
-        fun build(): LoadingView {
-            return LoadingView(mAttr)
-        }
+        fun build() = LoadingView(mAttr)
 
         /**
          * 显示 LoadingView
          * @return LoadingView
          */
-        fun show(): LoadingView {
-            val loadingView = LoadingView(mAttr)
-            loadingView.show()
-            return loadingView
-        }
+        fun show() = LoadingView(mAttr).apply { show() }
 
     }
 
@@ -149,7 +181,7 @@ class LoadingView(
         /** 父容器  */
         var parentViewGroup: ViewGroup? = null
         /** 提示文本  */
-        var hintText: String? = null
+        var hintText = DEFAULT_HINT_TEXT
 
     }
 

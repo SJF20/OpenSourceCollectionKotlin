@@ -11,10 +11,10 @@ import com.shijingfeng.todo.entity.MainTodoItem
  */
 internal class MainTodoGroupItem(
 
-    /** 唯一ID (以天为单位的毫秒值) */
+    /** 唯一ID (以天为单位的毫秒值, 注意: 并不是精确到毫秒的时间戳) */
     val identity: Long = 0L,
-    /** 日期 */
-    var date: String = "",
+    /** 完成日期字符串 */
+    var completeDateStr: String = "",
     /** 分组下的列表 */
     var todoItemList: MutableList<MainTodoItem> = mutableListOf()
 
