@@ -84,7 +84,7 @@ internal data class MainTodoItem(
     var status: Int = 0,
 
     /** 优先级 */
-    @SerializedName("id")
+    @SerializedName("priority")
     var priority: Int = 0,
 
     /** 类型 */

@@ -22,12 +22,13 @@ import kotlin.math.sqrt
  * Description:
  * @author ShiJingFeng
  */
-class MarkView(
+class MarkView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : View(context, attrs, defStyleAttr, defStyleRes) {
 
     private val mBgPath = Path()
     private val mBgPaint = Paint().apply {

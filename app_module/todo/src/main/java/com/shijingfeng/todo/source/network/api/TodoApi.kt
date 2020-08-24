@@ -25,6 +25,7 @@ internal interface TodoApi {
      * @param postMap 查询携带的参数
      * @return Single<ResultEntity>
      */
+    @JvmSuppressWildcards //Java和Kotlin交互问题: 防止 Map<String, Any> 解析成 Map<String, ?>
     @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
     @GET("lg/todo/v2/list/{page}/json")
     fun getTodoData(
