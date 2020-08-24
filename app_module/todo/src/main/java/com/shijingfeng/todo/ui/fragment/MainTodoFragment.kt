@@ -1,10 +1,12 @@
 package com.shijingfeng.todo.ui.fragment
 
 import android.util.SparseArray
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.FRAGMENT_TODO_TODO
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
@@ -93,6 +95,32 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
      */
     override fun initObserver() {
         super.initObserver()
+        //RecyclerView 适配器和数据列表 LiveData 监听器
+        mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@ { (type, _, _, extraData, todoGroupItemList, _) ->
+            when (type) {
+                // 加载, 刷新
+                LOAD, REFRESH -> mMainTodoGroupAdapter?.notifyDataSetChanged()
+                // 添加
+                ADD -> {
+                    val oldSize = extraData as Int
 
+                    when {
+                        oldSize <= 0 -> mMainTodoGroupAdapter?.notifyDataSetChanged()
+                        oldSize == mViewModel!!.mMainTodoItemList.size -> mMainTodoGroupAdapter?.notifyItemChanged(mViewModel!!.mMainTodoItemList.size - 1)
+                        else -> mMainTodoGroupAdapter?.notifyItemRangeInserted(
+                            oldSize,
+                            mViewModel!!.mMainTodoItemList.size - oldSize
+                        )
+                    }
+                }
+                // 插入
+                INSERT -> {}
+                // 删除
+                REMOVE -> {}
+                // 更新
+                UPDATE -> {}
+                else -> {}
+            }
+        })
     }
 }

@@ -40,7 +40,7 @@ internal data class MainTodo (
     var total: Int = 0,
 
     @SerializedName("datas")
-    var todoItemList: MutableList<MainTodoItem> = ArrayList()
+    var todoItemList: List<MainTodoItem> = ArrayList()
 
 ) : BaseEntity()
 
@@ -89,7 +89,10 @@ internal data class MainTodoItem(
 
     /** 类型 */
     @SerializedName("type")
-    var todoType: Int = 0
+    var todoType: Int = 0,
+
+    /** 是否选中  true: 选中  false: 没有选中 */
+    var selected: Boolean = false
 
 ) : BaseEntity() {
 

@@ -12,7 +12,9 @@ import com.shijingfeng.todo.entity.MainTodoItem
 internal class MainTodoGroupItem(
 
     /** 唯一ID (以天为单位的毫秒值, 注意: 并不是精确到毫秒的时间戳) */
-    val identity: Long = 0L,
+    var identity: Long = 0L,
+    /** 该组是否选中  true: 选中  false: 没有选中 */
+    var selected: Boolean = false,
     /** 完成日期字符串 */
     var completeDateStr: String = "",
     /** 分组下的列表 */

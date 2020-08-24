@@ -24,6 +24,8 @@ internal const val TYPE_LIFE = 2
 /** 待办事项类型: 工作 */
 internal const val TYPE_WORK = 3
 
+/** 优先级: 所有 */
+internal const val PRIORITY_ALL = 0
 /** 优先级: 重要 紧急 */
 internal const val PRIORITY_IMPORTANT_URGENCY = 1
 /** 优先级: 重要 不紧急 */
@@ -32,3 +34,12 @@ internal const val PRIORITY_IMPORTANT_NOT_URGENCY = 2
 internal const val PRIORITY_NOT_IMPORTANT_URGENCY = 3
 /** 优先级: 不重要 不紧急 */
 internal const val PRIORITY_NOT_IMPORTANT_NOT_URGENCY = 4
+
+/** 完成日期顺序 (升序) */
+internal const val ORDER_BY_COMPLETE_DATE_ASC = 1
+/** 完成日期逆序 (降序) */
+internal const val ORDER_BY_COMPLETE_DATE_DESC = 2
+/** 创建日期顺序 (升序) */
+internal const val ORDER_BY_CREATE_DATE_ASC = 3
+/** 创建日期逆序 (降序) */
+internal const val ORDER_BY_CREATE_DATE_DESC = 4

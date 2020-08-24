@@ -35,7 +35,8 @@ internal class CoinRecordViewModel(
     private var mPage = COIN_RECORD_FIRST_PAGE
 
     /** 页面操作类型  */
-    @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
+    @PageOperateType
+    private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
 
     /** 积分记录 数据列表  */
     var mCoinRecordItemList = mutableListOf<CoinRecordItem>()
