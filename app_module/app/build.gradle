@@ -138,6 +138,9 @@ android {
     }
     // 解决 AspectJ 一系列问题
     aspectjx{
+        // 关闭AspectJX功能
+//        enabled false
+        // 排除包依赖
         exclude 'androidx', "com.google", "io.realm", "leakcanary"
     }
     //避免项目中存在相同的jar包，导致运行失败

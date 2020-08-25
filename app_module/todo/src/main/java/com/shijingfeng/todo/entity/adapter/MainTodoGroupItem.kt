@@ -15,8 +15,8 @@ internal class MainTodoGroupItem(
     var identity: Long = 0L,
     /** 该组是否选中  true: 选中  false: 没有选中 */
     var selected: Boolean = false,
-    /** 完成日期字符串 */
-    var completeDateStr: String = "",
+    /** 待办日期字符串 */
+    var dateStr: String = "",
     /** 分组下的列表 */
     var todoItemList: MutableList<MainTodoItem> = mutableListOf()
 

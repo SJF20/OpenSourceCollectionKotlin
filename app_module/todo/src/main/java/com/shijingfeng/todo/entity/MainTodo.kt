@@ -63,19 +63,19 @@ internal data class MainTodoItem(
     @SerializedName("content")
     var content: String = "",
 
-    /** 完成日期 */
+    /** 完成日期 (完成之后才会有，否则为空) */
     @SerializedName("completeDate")
-    var completeDate: Long = 0L,
+    var completeDate: Long? = 0L,
 
-    /** 完成日期字符串 */
+    /** 完成日期字符串 (完成之后才会有，否则为空字符串) */
     @SerializedName("completeDateStr")
     var completeDateStr: String = "",
 
-    /** 创建日期 */
+    /** 待办日期 */
     @SerializedName("date")
     var date: Long = 0L,
 
-    /** 创建日期字符串 */
+    /** 待办日期字符串 */
     @SerializedName("dateStr")
     var dateStr: String = "",
 

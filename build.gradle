@@ -24,7 +24,7 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:7.0.0"
         // 阿里云 emas-services插件
         classpath 'com.aliyun.ams:emas-services:1.0.1'
-        // Android AspectJ
+        // Android AspectJ (AspectJ对各个插件版本和依赖的包相关性很大，动不动就报错，生产环境的App慎用)
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
     }
 }

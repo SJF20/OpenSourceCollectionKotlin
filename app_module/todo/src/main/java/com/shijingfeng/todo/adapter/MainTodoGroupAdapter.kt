@@ -31,7 +31,7 @@ internal class MainTodoGroupAdapter(
         val adapter = MainTodoAdapter(mContext, data.todoItemList)
 
         // 设置日期
-        holder.setText(R.id.tv_date, data.completeDateStr)
+        holder.setText(R.id.tv_date, data.dateStr)
         // 设置 分组下的 列表适配器
         holder.setLinearAdapter(
             viewId = R.id.rv_list,

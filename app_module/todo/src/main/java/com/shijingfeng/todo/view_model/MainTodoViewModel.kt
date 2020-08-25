@@ -1,6 +1,5 @@
 package com.shijingfeng.todo.view_model
 
-import com.blankj.utilcode.util.TimeUtils
 import com.kingja.loadsir.callback.Callback
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -65,7 +64,7 @@ internal class MainTodoViewModel(
      */
     override fun init() {
         super.init()
-//        load()
+        load()
     }
 
     /**
@@ -188,12 +187,12 @@ internal class MainTodoViewModel(
         if (!todoItemList.isNullOrEmpty()) {
             //分组
             todoItemList.forEach { todoItem ->
-                val day = todoItem.completeDate / 86400000L
+                val day = todoItem.date / 86400000L
 
                 if (mMainTodoItemList.isEmpty()) {
                     mMainTodoItemList.add(MainTodoGroupItem(
                         identity = day,
-                        completeDateStr = todoItem.completeDateStr,
+                        dateStr = todoItem.dateStr,
                         todoItemList = mutableListOf(todoItem)
                     ))
                 } else {
@@ -204,7 +203,7 @@ internal class MainTodoViewModel(
                     } else {
                         mMainTodoItemList.add(MainTodoGroupItem(
                             identity = day,
-                            completeDateStr = todoItem.completeDateStr,
+                            dateStr = todoItem.dateStr,
                             todoItemList = mutableListOf(todoItem)
                         ))
                     }
