@@ -7,7 +7,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.base.adapter.viewholder.createCommonViewHolder
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder.Companion.createCommonViewHolder
 import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.common.extension.onItemEvent
 

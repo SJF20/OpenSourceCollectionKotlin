@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.base.adapter.viewholder.createCommonViewHolder
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder.Companion.createCommonViewHolder
 import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.base.common.extension.onItemEvent
 
@@ -15,10 +15,14 @@ import com.shijingfeng.base.common.extension.onItemEvent
  * @author ShiJingFeng
  */
 abstract class BaseAdapter<T : BaseEntity>(
-    protected val mContext: Context,
-    protected val mLayoutId: Int,
-    protected var mDataList: List<T>? = null
+    context: Context,
+    layoutId: Int,
+    dataList: List<T>? = null
 ) : RecyclerView.Adapter<CommonViewHolder>() {
+
+    protected val mContext = context
+    protected val mLayoutId = layoutId
+    protected var mDataList = dataList
 
     /** 当前操作的Item Position  */
     protected var mChoiceItemPosition = -1

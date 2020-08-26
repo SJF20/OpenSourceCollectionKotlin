@@ -13,6 +13,7 @@
         android:padding="15dp"
         android:background="@color/light_grey"
         android:textColor="@color/black"
+        android:textSize="16sp"
         tools:text="2019年12月12日" />
 
     <androidx.recyclerview.widget.RecyclerView

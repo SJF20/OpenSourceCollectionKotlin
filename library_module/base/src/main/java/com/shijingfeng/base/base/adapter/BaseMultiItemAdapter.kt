@@ -3,7 +3,7 @@ package com.shijingfeng.base.base.adapter
 import android.content.Context
 import android.view.ViewGroup
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.viewholder.createCommonViewHolder
+import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder.Companion.createCommonViewHolder
 import com.shijingfeng.base.base.entity.BaseEntity
 
 /**

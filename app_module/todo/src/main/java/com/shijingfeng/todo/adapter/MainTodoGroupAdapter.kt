@@ -1,8 +1,10 @@
 package com.shijingfeng.todo.adapter
 
 import android.content.Context
+import android.graphics.Color
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.entity.adapter.MainTodoGroupItem
 
@@ -35,7 +37,8 @@ internal class MainTodoGroupAdapter(
         // 设置 分组下的 列表适配器
         holder.setLinearAdapter(
             viewId = R.id.rv_list,
-            adapter = adapter
+            adapter = adapter,
+            itemDecorationList = listOf(LinearDividerItemDecoration())
         )
 
         adapter.setOnItemEventListener { view, childData, childPosition, flag ->

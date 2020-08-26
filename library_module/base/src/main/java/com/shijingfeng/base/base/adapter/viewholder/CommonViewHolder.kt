@@ -24,27 +24,33 @@ import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 
 /**
- * 简单工厂模式创建对象
- */
-fun createCommonViewHolder(context: Context, @LayoutRes layoutId: Int, parent: ViewGroup) : CommonViewHolder {
-    val view = LayoutInflater.from(context).inflate(layoutId, parent, false)
-
-    return CommonViewHolder(
-        context,
-        view
-    )
-}
-
-/**
  * Function: 通用ViewHolder
  * Date: 2020/1/23 21:57
  * Description:
  * @author ShiJingFeng
  */
-class CommonViewHolder constructor (
+class CommonViewHolder private constructor (
     private val mContext: Context,
     mItemView: View
 ) : RecyclerView.ViewHolder(mItemView) {
+
+    companion object {
+
+        /**
+         * 通过 layoutId 创建 CommonViewHolder
+         */
+        fun createCommonViewHolder(context: Context, @LayoutRes layoutId: Int, parent: ViewGroup) : CommonViewHolder {
+            val view = LayoutInflater.from(context).inflate(layoutId, parent, false)
+
+            return createCommonViewHolder(context, view)
+        }
+
+        /**
+         * 通过 View 创建 CommonViewHolder
+         */
+        fun createCommonViewHolder(context: Context, view: View) = CommonViewHolder(context, view)
+
+    }
 
     private val mViewSparseArray = SparseArray<View?>()
 
@@ -240,11 +246,15 @@ class CommonViewHolder constructor (
     fun <T : BaseEntity> setLinearAdapter(
         @IdRes viewId: Int,
         adapter: BaseAdapter<T>,
-        @RecyclerView.Orientation orientation: Int = VERTICAL
+        @RecyclerView.Orientation orientation: Int = VERTICAL,
+        itemDecorationList: List<RecyclerView.ItemDecoration> = listOf()
     ): CommonViewHolder {
         getView<RecyclerView>(viewId)?.let { recyclerView ->
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(mContext, orientation, false)
+            itemDecorationList.forEach { itemDecoration ->
+                recyclerView.addItemDecoration(itemDecoration)
+            }
         }
         return this
     }
