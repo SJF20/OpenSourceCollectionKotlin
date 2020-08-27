@@ -138,8 +138,9 @@ android {
     }
     // 解决 AspectJ 一系列问题
     aspectjx{
+        // 目前已知问题: kotlin-gradle-plugin 和 kotlin-stdlib-jdk7  1.4.0会报 zip is empty, 而1.3.72则没问题
         // 关闭AspectJX功能
-//        enabled false
+        enabled false
         // 排除包依赖
         exclude 'androidx', "com.google", "io.realm", "leakcanary"
     }

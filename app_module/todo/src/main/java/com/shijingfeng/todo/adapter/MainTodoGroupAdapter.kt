@@ -18,9 +18,9 @@ internal class MainTodoGroupAdapter(
     context: Context,
     dataList: List<MainTodoGroupItem>? = null
 ) : BaseAdapter<MainTodoGroupItem>(
-    mContext = context,
-    mLayoutId = R.layout.adapter_item_todo_main_todo_group,
-    mDataList = dataList
+    context = context,
+    layoutId = R.layout.adapter_item_todo_main_todo_group,
+    dataList = dataList
 ) {
 
     /**
