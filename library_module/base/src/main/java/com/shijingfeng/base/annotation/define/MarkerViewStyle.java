@@ -5,7 +5,6 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static com.shijingfeng.base.annotation.define.MarkViewStyle.*;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 import static java.lang.annotation.ElementType.METHOD;
@@ -13,17 +12,16 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Function: MarkView 样式限定注解
- * Date: 2020/8/14 17:10
+ * Function: MarkerView 样式限定注解
+ * Date: 2020/8/27 15:55
  * Description:
  *
  * @author ShiJingFeng
  */
 @IntDef({
-    STYLE_LEFT_TOP,
-    STYLE_LEFT_BOTTOM,
-    STYLE_RIGHT_TOP,
-    STYLE_RIGHT_BOTTOM
+    MarkerViewStyle.STYLE_TRIANGLE,
+    MarkerViewStyle.STYLE_CORNER_TRIANGLE,
+    MarkerViewStyle.STYLE_MISSING_TRIANGLE,
 })
 @Target({
     // 类属性
@@ -36,13 +34,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
     LOCAL_VARIABLE
 })
 @Retention(SOURCE)
-public @interface MarkViewStyle {
-    /** 样式: 左上角 */
-    int STYLE_LEFT_TOP = 0;
-    /** 样式: 左下角 */
-    int STYLE_LEFT_BOTTOM = 1;
-    /** 样式: 右上角 */
-    int STYLE_RIGHT_TOP = 2;
-    /** 样式: 右下角 */
-    int STYLE_RIGHT_BOTTOM = 3;
+public @interface MarkerViewStyle {
+
+    /** 样式: 等腰三角形 */
+    int STYLE_TRIANGLE = 0;
+    /** 样式: 圆角等腰三角形 */
+    int STYLE_CORNER_TRIANGLE = 1;
+    /** 样式: 缺失的三角形 (看起来像旋转一定角度的梯形, 缺失的三角形部分是整体的缩小版) */
+    int STYLE_MISSING_TRIANGLE = 2;
+
 }

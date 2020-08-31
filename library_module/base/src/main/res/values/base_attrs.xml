@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 文本 -->
+    <attr name="text" format="string" />
+    <!-- 文本颜色 -->
+    <attr name="textColor" format="color" />
+    <!-- 文本大小 -->
+    <attr name="textSize" format="dimension" />
+    <!-- 背景颜色 -->
+    <attr name="bgColor" format="color" />
+    <!-- 圆角半径 -->
+    <attr name="cornerRadius" format="dimension" />
+
+    <!-- StatusBarView -->
     <declare-styleable name="StatusBarView">
         <attr name="customBackgroundResource" format="integer" />
     </declare-styleable>
-    <declare-styleable name="MarkView">
+
+    <!-- MarkerView -->
+    <declare-styleable name="MarkerView">
         <!-- 文本 -->
-        <attr name="text" format="string" />
+        <attr name="text" />
         <!-- 文本颜色 -->
-        <attr name="textColor" format="color" />
+        <attr name="textColor" />
         <!-- 文本大小 -->
-        <attr name="textSize" format="dimension" />
-        <!-- 三角背景颜色 -->
-        <attr name="bgColor" format="color" />
-        <attr name="style" format="enum">
+        <attr name="textSize" />
+        <!-- 背景颜色 -->
+        <attr name="bgColor" />
+        <!-- 圆角半径 -->
+        <attr name="cornerRadius" />
+        <!-- 缺失的三角形(整体的三角形缩小版)的腰长(等腰三角形) -->
+        <attr name="missing_triangle_waist_length" format="dimension" />
+        <!-- 纵轴偏移距离 (小于0: 向上偏移  大于0: 向下偏移) -->
+        <attr name="offset" format="dimension" />
+        <!-- 位置 -->
+        <attr name="position" format="enum">
             <!-- 处于左上角位置 -->
             <enum name="left_top" value="0" />
             <!-- 处于左下角位置 -->
@@ -21,6 +42,15 @@
             <enum name="right_top" value="2" />
             <!-- 处于右下角位置 -->
             <enum name="right_bottom" value="3" />
+        </attr>
+        <!-- 样式 -->
+        <attr name="style" format="enum">
+            <!-- 等腰三角形 -->
+            <enum name="triangle" value="0" />
+            <!-- 圆角等腰三角形 -->
+            <enum name="cornerTriangle" value="1" />
+            <!-- 梯形 -->
+            <enum name="missingTriangle" value="2" />
         </attr>
     </declare-styleable>
 </resources>

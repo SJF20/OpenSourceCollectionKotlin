@@ -1,7 +1,6 @@
 package com.shijingfeng.todo.adapter
 
 import android.content.Context
-import android.graphics.Color
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
