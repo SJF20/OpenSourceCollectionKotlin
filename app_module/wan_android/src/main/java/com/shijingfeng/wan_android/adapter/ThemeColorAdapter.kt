@@ -23,8 +23,8 @@ import com.shijingfeng.wan_android.utils.ThemeUtil
 internal class ThemeColorAdapter(
     context: Context
 ) : BaseAdapter<ThemeColorItem>(
-    mContext = context,
-    mLayoutId = R.layout.adapter_item_theme_color
+    context = context,
+    layoutId = R.layout.adapter_item_theme_color
 ) {
 
     /** 前一个选中的 Position */

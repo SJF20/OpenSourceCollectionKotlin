@@ -19,9 +19,9 @@ internal class SearchHistoryAdapter(
     context: Context,
     dataList: List<SearchHistoryItem>? = null
 ) : BaseAdapter<SearchHistoryItem>(
-    mContext = context,
-    mLayoutId = R.layout.adapter_item_wan_android_search_history,
-    mDataList = dataList
+    context = context,
+    layoutId = R.layout.adapter_item_wan_android_search_history,
+    dataList = dataList
 ) {
 
     /**

@@ -183,6 +183,7 @@ dependencies {
 
     //ConstraintLayout约束布局
     api rootProject.ext.androidx["constraintlayout"]
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     //Leak Canary 内存泄漏检测框架
     debugApi rootProject.ext.dependencies["leakcanary-android"]

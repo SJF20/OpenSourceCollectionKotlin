@@ -1,7 +1,6 @@
 package com.shijingfeng.todo.adapter
 
 import android.content.Context
-import android.graphics.Color
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
@@ -18,9 +17,9 @@ internal class MainTodoGroupAdapter(
     context: Context,
     dataList: List<MainTodoGroupItem>? = null
 ) : BaseAdapter<MainTodoGroupItem>(
-    mContext = context,
-    mLayoutId = R.layout.adapter_item_todo_main_todo_group,
-    mDataList = dataList
+    context = context,
+    layoutId = R.layout.adapter_item_todo_main_todo_group,
+    dataList = dataList
 ) {
 
     /**

@@ -6,23 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.shijingfeng.base.widget.MarkView
+    <com.shijingfeng.base.widget.MarkerView
         android:id="@+id/mv_important"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="top|start"
         app:bgColor="@color/red"
         app:text="重要"
-        app:style="left_top" />
+        app:position="left_top" />
 
-    <com.shijingfeng.base.widget.MarkView
+    <com.shijingfeng.base.widget.MarkerView
         android:id="@+id/mv_urgency"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="top|end"
         app:bgColor="@color/orange"
         app:text="紧急"
-        app:style="right_top"/>
+        app:position="right_top"/>
 
     <LinearLayout
         android:layout_width="match_parent"

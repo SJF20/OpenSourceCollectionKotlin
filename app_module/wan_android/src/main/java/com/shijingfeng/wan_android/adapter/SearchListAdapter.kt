@@ -33,9 +33,9 @@ internal class SearchListAdapter(
     context: Context,
     dataList: List<SearchListItem>? = null
 ): BaseAdapter<SearchListItem>(
-    mContext = context,
-    mLayoutId = R.layout.adapter_item_wan_android_search_list,
-    mDataList = dataList
+    context = context,
+    layoutId = R.layout.adapter_item_wan_android_search_list,
+    dataList = dataList
 ) {
 
     /**

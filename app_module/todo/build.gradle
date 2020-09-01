@@ -1,12 +1,16 @@
 //控制组件模式和集成模式
 if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
     apply plugin: 'com.android.application'
+    // 应用 Android AspectJ 插件
+    apply plugin: 'android-aspectjx'
 } else {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// Realm 数据库 插件
+apply plugin: 'realm-android'
 
 android {
     //签名配置
@@ -143,6 +147,19 @@ android {
     androidExtensions {
         experimental = true
     }
+    //Realm 开启 Kotlin 支持
+    realm {
+        kotlinExtensionsEnabled = true
+    }
+    if (isApplication && isTodoApplication) {
+        // 解决 AspectJ 一系列问题
+        aspectjx{
+            // 目前已知问题: kotlin-gradle-plugin 和 kotlin-stdlib-jdk7  1.4.0会报 zip is empty, 而1.3.72则没问题
+            // 关闭AspectJX功能
+            enabled false
+            exclude 'androidx', "com.google", "io.realm", "leakcanary"
+        }
+    }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {
         preDexLibraries = false
@@ -237,6 +254,8 @@ dependencies {
     //依赖 base 模块
     implementation project(path: ':base')
 
+    //Room 数据库存储 注解执行器
+    kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }
