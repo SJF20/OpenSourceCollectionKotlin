@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 文本 -->
-    <attr name="text" format="string" />
-    <!-- 文本颜色 -->
-    <attr name="textColor" format="color" />
-    <!-- 文本大小 -->
-    <attr name="textSize" format="dimension" />
-    <!-- 背景颜色 -->
-    <attr name="bgColor" format="color" />
-    <!-- 圆角半径 -->
-    <attr name="cornerRadius" format="dimension" />
-
     <!-- StatusBarView -->
     <declare-styleable name="StatusBarView">
         <attr name="customBackgroundResource" format="integer" />
@@ -19,15 +8,15 @@
     <!-- MarkerView -->
     <declare-styleable name="MarkerView">
         <!-- 文本 -->
-        <attr name="text" />
+        <attr name="text" format="string" />
         <!-- 文本颜色 -->
-        <attr name="textColor" />
+        <attr name="textColor" format="color" />
         <!-- 文本大小 -->
-        <attr name="textSize" />
+        <attr name="textSize" format="dimension" />
         <!-- 背景颜色 -->
-        <attr name="bgColor" />
+        <attr name="bgColor" format="color" />
         <!-- 圆角半径 -->
-        <attr name="cornerRadius" />
+        <attr name="cornerRadius" format="dimension" />
         <!-- 缺失的三角形(整体的三角形缩小版)的腰长(等腰三角形) -->
         <attr name="missing_triangle_waist_length" format="dimension" />
         <!-- 纵轴偏移距离 (小于0: 向上偏移  大于0: 向下偏移) -->

@@ -2,7 +2,6 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.shijingfeng.wan_android.view_model.CoinRankViewModel" />
 
         <variable

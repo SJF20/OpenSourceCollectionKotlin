@@ -18,7 +18,7 @@ import com.shijingfeng.base.common.extension.onSwipeRefresh
  * @param swipeRefreshLayout SwipeRefreshLayout
  * @param onSwipeRefresh 刷新回调监听器
  */
-@BindingAdapter(value = ["onRefreshListener"], requireAll = false)
+@BindingAdapter(value = ["onSwipeRefreshListener"], requireAll = false)
 fun setOnRefreshListener(
     swipeRefreshLayout: SwipeRefreshLayout,
     onSwipeRefresh: onSwipeRefresh?
