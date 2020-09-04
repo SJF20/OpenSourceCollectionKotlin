@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,7 +98,7 @@ class LoadingView private constructor(
             mContentView = LayoutInflater.from(mAttr.activity).inflate(R.layout.dialog_loading, null)
             mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
             startAnimator()
-            mAttr.parentViewGroup?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+            mAttr.parent?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
             mIsDestroyed = false
         } else {
             mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
@@ -126,7 +127,7 @@ class LoadingView private constructor(
     fun destroy() {
         hide()
         if (this::mContentView.isInitialized) {
-            mAttr.parentViewGroup?.removeView(mContentView)
+            mAttr.parent?.removeView(mContentView)
         }
         mIsDestroyed = true
     }
@@ -134,15 +135,26 @@ class LoadingView private constructor(
     /**
      * 构建器
      */
-    class Builder(
-        activity: Activity,
-        parentViewGroup: ViewGroup
-    ) {
+    class Builder private constructor() {
         private val mAttr = Attr()
+
+        constructor(activity: Activity) : this() {
+            this.mAttr.parent = activity.findViewById(android.R.id.content)
+        }
+
+        constructor(view: View): this() {
+            val parent = view.parent
+
+            if (parent is FrameLayout) {
+                this.mAttr.parent = parent
+            } else if (parent is ViewGroup) {
+
+            }
+        }
 
         init {
             mAttr.activity = activity
-            mAttr.parentViewGroup = parentViewGroup
+            mAttr.parent = parentViewGroup
         }
 
         /**
@@ -176,12 +188,22 @@ class LoadingView private constructor(
      */
     class Attr {
 
-        /** Activity环境  */
-        lateinit var activity: Activity
-        /** 父容器  */
-        var parentViewGroup: ViewGroup? = null
+        lateinit var context: TargetContext
+
         /** 提示文本  */
         var hintText = DEFAULT_HINT_TEXT
+    }
+
+    class TargetContext {
+
+        /** Context 环境 */
+        lateinit var context: Context
+        /** 内容View 父View  */
+        lateinit var parent: ViewGroup
+        /** 内容View */
+        var content: View? = null
+        /** 内容View 在 父View 中 所处的位置 */
+        var childIndex: Int = 0
 
     }
 
