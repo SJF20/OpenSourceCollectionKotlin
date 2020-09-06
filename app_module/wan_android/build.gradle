@@ -242,18 +242,27 @@ android {
 
     sourceSets {
         main {
+            // 清单文件目录
             if (isApplication && isWanAndroidApplication) {
                 manifest.srcFile 'src/main/manifest/application/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/manifest/library/AndroidManifest.xml'
             }
+            // lib库目录
             jniLibs.srcDirs = ['libs']
-            java {
-                srcDirs('src/main/java', 'src/main/kotlin')
-            }
-            resources {
-                srcDirs('src/main/res')
-            }
+            // 代码目录
+            java.srcDirs = [
+                    'src/main/java',
+                    'src/main/kotlin'
+            ]
+            // 资源目录
+            res.srcDirs = [
+                    'src/main/res/activity',
+                    'src/main/res/fragment',
+                    'src/main/res/adapter',
+                    'src/main/res/common',
+                    'src/main/res',
+            ]
         }
     }
 

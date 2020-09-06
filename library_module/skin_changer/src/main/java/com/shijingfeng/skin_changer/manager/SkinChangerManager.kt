@@ -8,6 +8,7 @@ import android.content.res.AssetManager
 import android.content.res.Resources
 import android.view.View
 import androidx.annotation.WorkerThread
+import androidx.fragment.app.Fragment
 import com.shijingfeng.skin_changer.annotation.SkinType.HOST
 import com.shijingfeng.skin_changer.annotation.SkinType.PLUGIN
 import com.shijingfeng.skin_changer.processor.Processor
@@ -178,13 +179,18 @@ class SkinChangerManager private constructor(
     }
 
     /**
+     * 通知 观察者 更新 (从指定的 View 开始)
+     */
+    private fun notifyObserver(view: View) {
+        mProcessor.process(view)
+    }
+
+    /**
      * 注册当前Activity为换肤页面
      */
     fun register(activity: Activity) {
         mActivityManager.add(activity)
-        activity.findViewById<View>(android.R.id.content).post {
-            notifyObserver(activity)
-        }
+        notifyObserver(activity)
     }
 
     /**
@@ -192,6 +198,29 @@ class SkinChangerManager private constructor(
      */
     fun unregister(activity: Activity) {
         mActivityManager.remove(activity)
+    }
+
+    /**
+     * 更新 (整个 Activity)
+     */
+    fun update(activity: Activity) {
+        notifyObserver(activity)
+    }
+
+    /**
+     * 更新 (整个 Fragment)
+     */
+    fun update(fragment: Fragment) {
+        fragment.view?.run {
+            notifyObserver(this)
+        }
+    }
+
+    /**
+     * 更新 (从指定的 View 开始)
+     */
+    fun update(view: View) {
+        notifyObserver(view)
     }
 
     /**

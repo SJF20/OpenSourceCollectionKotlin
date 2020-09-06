@@ -37,7 +37,7 @@ internal class Processor(
 ) {
 
     /**
-     * 开始处理
+     * 开始处理整个Activity
      */
     @AnyThread
     fun process(activity: Activity): List<SkinElement> {
@@ -45,6 +45,17 @@ internal class Processor(
         val content = activity.findViewById<View>(android.R.id.content)
 
         recursionAddSkinView(content, skinElementList)
+        return skinElementList
+    }
+
+    /**
+     * 从给定的 View 开始处理
+     */
+    @AnyThread
+    fun process(view: View): List<SkinElement> {
+        val skinElementList = mutableListOf<SkinElement>()
+
+        recursionAddSkinView(view, skinElementList)
         return skinElementList
     }
 

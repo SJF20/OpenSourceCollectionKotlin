@@ -95,7 +95,10 @@ class LoadingView private constructor(
         }
 
         if (mIsDestroyed) {
-            mContentView = LayoutInflater.from(mAttr.activity).inflate(R.layout.dialog_loading, null)
+            mContentView = LayoutInflater.from(mAttr.context).inflate(
+                R.layout.dialog_loading,
+                null
+            )
             mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
             startAnimator()
             mAttr.parent?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
@@ -139,22 +142,60 @@ class LoadingView private constructor(
         private val mAttr = Attr()
 
         constructor(activity: Activity) : this() {
+            this.mAttr.context = activity
             this.mAttr.parent = activity.findViewById(android.R.id.content)
         }
 
         constructor(view: View): this() {
             val parent = view.parent
 
-            if (parent is FrameLayout) {
-                this.mAttr.parent = parent
-            } else if (parent is ViewGroup) {
+            // 直接继承 Activity 的 Activity 构造出来的 View.getContext() 返回的是当前 Activity。
+            // 但是当 View 的 Activity 是继承自 AppCompatActivity，并且在 5.0 以下版本的手机上，
+            // View.getContext() 得到的并非是 Activity，而是 TintContextWrapper。
+            this.mAttr.context = view.context
+            if (parent != null && parent is ViewGroup) {
+                if (parent is FrameLayout) {
+                    this.mAttr.parent = parent
+                } else {
+                    val frameLayout = FrameLayout(view.context)
+                    val layoutParam = view.layoutParams
+                    var childIndex = 0
+                    val childCount = parent.childCount
+
+                    for (i in 0 until childCount) {
+                        if (parent.getChildAt(i) === view) {
+                            childIndex = i
+                            break
+                        }
+                    }
+                    parent.removeView(view)
+                    frameLayout.addView(view)
+                    parent.addView(frameLayout, childIndex, layoutParam)
+                }
+            } else if (view is ViewGroup) {
+                if (view is FrameLayout) {
+                    this.mAttr.parent = view
+                }
+            } else {
 
             }
-        }
 
-        init {
-            mAttr.activity = activity
-            mAttr.parent = parentViewGroup
+            if (parent is FrameLayout) {
+
+            }
+            if (parent == null) {
+                if (view is FrameLayout) {
+                    this.mAttr.parent = view
+                } else {
+
+                }
+            } else {
+                if (parent is FrameLayout) {
+                    this.mAttr.parent = parent
+                } else if (parent is ViewGroup) {
+
+                }
+            }
         }
 
         /**
@@ -188,10 +229,13 @@ class LoadingView private constructor(
      */
     class Attr {
 
-        lateinit var context: TargetContext
-
+        /** Context */
+        lateinit var context: Context
+        /** 内容View 父View  */
+        var parent: ViewGroup? = null
         /** 提示文本  */
         var hintText = DEFAULT_HINT_TEXT
+
     }
 
     class TargetContext {
@@ -200,10 +244,8 @@ class LoadingView private constructor(
         lateinit var context: Context
         /** 内容View 父View  */
         lateinit var parent: ViewGroup
-        /** 内容View */
-        var content: View? = null
-        /** 内容View 在 父View 中 所处的位置 */
-        var childIndex: Int = 0
+//        /** 内容View */
+//        var content: View? = null
 
     }
 

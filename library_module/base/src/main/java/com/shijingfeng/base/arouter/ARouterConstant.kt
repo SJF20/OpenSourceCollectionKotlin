@@ -87,7 +87,7 @@ const val FRAGMENT_WAN_ANDROID_PROJECT_CHILD = "/wan_android/fragment/ProjectChi
 /** 知识体系 Fragment  */
 const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY = "/wan_android/fragment/KnowledgeClassifyFragment"
 /** 知识体系子页面 Fragment  */
-const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_CHILD = "/wan_android/fragment/KnowledgeClassifyChildFragment"
+const val FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL_CHILD = "/wan_android/fragment/KnowledgeClassifyDetailChildFragment"
 /** 导航分类 Fragment  */
 const val FRAGMENT_WAN_ANDROID_NAVIGATION_CLASSIFY = "/wan_android/fragment/NavigationClassifyFragment"
 /** 我的收藏 -> 收藏文章 Fragment */
