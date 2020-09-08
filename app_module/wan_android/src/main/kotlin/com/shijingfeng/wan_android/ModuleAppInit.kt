@@ -2,19 +2,20 @@ package com.shijingfeng.wan_android
 
 import android.view.View
 import androidx.annotation.Keep
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
-import com.shijingfeng.skin_changer.entity.SkinAttribute
-import com.shijingfeng.skin_changer.listener.ExecuteListener
-import com.shijingfeng.skin_changer.listener.ParseListener
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.constant.TINT
 import com.shijingfeng.skin_changer.manager.SkinChangerManager
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_ASSETS_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_PACKAGE
 import com.shijingfeng.wan_android.common.global.skinChangerManager
 import com.shijingfeng.wan_android.utils.checkTokenExpire
+import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 import java.io.FileOutputStream
 
@@ -48,16 +49,28 @@ internal class ModuleAppInit : AppInit {
         skinChangerManager = SkinChangerManager.Builder(application, "wan_android")
             .setDefaultSkinPluginPath(WAN_ANDROID_SKIN_FILE)
             .setDefaultSkinPluginPackageName(WAN_ANDROID_SKIN_PACKAGE)
-            .setParseListener(object : ParseListener {
-                override fun onParse(view: View, name: String): Any? {
-                    return null
+            .setExecuteListener executeListener@{ view, skinAttribute ->
+                val data = skinAttribute.data
+
+                if (data.isEmpty()) return@executeListener false
+
+                when (skinAttribute.name) {
+                    TINT -> {
+                        if (view is CircleImageView) {
+                            view.setImageDrawable(skinChangerManager.getResourcesManager().getRealDrawableByResName(data))
+                            return@executeListener true
+                        }
+                    }
+                    BACK_GROUND_TINT -> {
+                        if (view is FloatingActionButton) {
+                            view.backgroundTintList = skinChangerManager.getResourcesManager().getRealColorStateList(data)
+                            return@executeListener true
+                        }
+                    }
+                    else -> {}
                 }
-            })
-            .setExecuteListener(object : ExecuteListener {
-                override fun onExecute(view: View, skinAttribute: SkinAttribute): Boolean {
-                    return false
-                }
-            })
+                return@executeListener false
+            }
             .build()
     }
 

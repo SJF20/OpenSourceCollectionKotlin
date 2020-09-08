@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
@@ -19,7 +20,11 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.SearchListAdapter
@@ -111,10 +116,6 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
         mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvContent.adapter = mSearchListAdapter
         mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
-
-        setThemeBackgroundTintList(
-            mDataBinding.fabToTop
-        )
     }
 
     /**
@@ -295,6 +296,18 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
                 mDataBinding.rvContent.smoothScrollToPosition(0)
             }
         }
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.fabToTop] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND_TINT,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
 }

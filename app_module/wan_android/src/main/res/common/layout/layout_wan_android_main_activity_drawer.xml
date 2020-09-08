@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp"
-            android:tag="@string/wan_android_theme_color_background"
             app:onClick="@{mainViewModel.mHeaderClickListener}"
             tools:background="@color/wan_android_theme_color">
 
@@ -38,7 +37,6 @@
                 android:id="@+id/sbv_status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="@string/wan_android_theme_color_background"
                 tools:background="@color/wan_android_theme_color" />
 
             <ImageView

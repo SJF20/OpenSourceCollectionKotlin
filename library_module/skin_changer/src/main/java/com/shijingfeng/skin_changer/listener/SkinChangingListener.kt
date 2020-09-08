@@ -6,7 +6,7 @@ package com.shijingfeng.skin_changer.listener
  * Description:
  * @author ShiJingFeng
  */
-interface SkinChangingCallback {
+interface SkinChangingListener {
 
     /**
      * 皮肤开始切换

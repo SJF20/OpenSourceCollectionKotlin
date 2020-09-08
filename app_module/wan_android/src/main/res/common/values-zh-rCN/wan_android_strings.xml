@@ -15,6 +15,9 @@
     <string name="登录注册页面TAG">{"background": "selector_submit"}</string>
     <string name="置顶标签或新标签TAG">{"background": "shape_set_to_top_bg", "textColor": "wan_android_theme_color"}</string>
 
+    <!-- Color 资源ID -->
+    <string name="color_id_wan_android_theme_color">wan_android_theme_color</string>
+
     <!-- Drawable 资源ID -->
     <string name="drawable_id_ic_wan_android_launcher_round">ic_wan_android_launcher_round</string>
     <string name="drawable_id_selector_submit">selector_submit</string>

@@ -53,7 +53,6 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:tag="@string/wan_android_theme_color_background"
                     app:tabBackground="@null"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp"

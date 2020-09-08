@@ -173,7 +173,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         //设置状态栏高度
         if (!isSetCustomStatusBar() && activity != null && mRootView != null) {
             val contentView = mRootView!!
-            val statusBarView = StatusBarView(activity!!)
+            val statusBarView = StatusBarView(requireActivity())
             val statusBarBackgroundDrawable = getStatusBarBackgroundDrawable()
 
             statusBarView.id = R.id.status_bar_view

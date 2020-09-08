@@ -16,7 +16,11 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.layout
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.TEXT_COLOR
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.SearchHistoryAdapter
@@ -114,10 +118,6 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
         mSearchHistoryAdapter = SearchHistoryAdapter(this, mViewModel?.mSearchHistoryList)
         mDataBinding.rvHistory.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvHistory.adapter = mSearchHistoryAdapter
-
-        setThemeBackground(
-            mDataBinding.llTitleBar
-        )
     }
 
     /**
@@ -249,6 +249,18 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
                 else -> SuccessCallback::class.java
             })
         }
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.llTitleBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
 }

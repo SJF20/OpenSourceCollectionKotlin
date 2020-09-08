@@ -1,14 +1,14 @@
 package com.shijingfeng.wan_android.ui.activity
 
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.RESOURCE_TYPE_MIPMAP
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.skin_changer.constant.SRC
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.common.global.setThemeBackground
-import com.shijingfeng.wan_android.common.global.setThemeSrc
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSplashBinding
 import com.shijingfeng.wan_android.view_model.SplashViewModel
 
@@ -42,21 +42,21 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
     override fun getVariableSparseArray(): Nothing? = null
 
     /**
-     * 初始化数据
-     */
-    override fun initData() {
-        super.initData()
-        setThemeSrc(
-            mDataBinding.civLogo,
-            resName = getStringById(R.string.drawable_id_ic_wan_android_launcher_round)
-        )
-    }
-
-    /**
      * 是否自定义设置状态栏
      *
      * @return true 自定义设置  false 默认设置
      */
     override fun isSetCustomStatusBar() = true
 
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.civLogo] = listOf(
+            SkinAttribute(
+                name = SRC,
+                data = getStringById(R.string.drawable_id_ic_wan_android_launcher_round)
+            )
+        )
+    }
 }

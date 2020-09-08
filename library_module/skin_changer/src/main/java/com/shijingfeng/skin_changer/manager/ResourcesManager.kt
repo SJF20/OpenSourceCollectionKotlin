@@ -10,6 +10,10 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import com.shijingfeng.skin_changer.annotation.SkinType.PLUGIN
 import com.shijingfeng.skin_changer.constant.*
+import com.shijingfeng.skin_changer.constant.RESOURCE_TYPE_ARRAY
+import com.shijingfeng.skin_changer.constant.RESOURCE_TYPE_COLOR
+import com.shijingfeng.skin_changer.constant.RESOURCE_TYPE_DRAWABLE
+import com.shijingfeng.skin_changer.constant.RESOURCE_TYPE_MIPMAP
 import com.shijingfeng.skin_changer.global.appContext
 import com.shijingfeng.skin_changer.global.getSkinPluginPackageName
 import com.shijingfeng.skin_changer.global.getSkinSuffix
@@ -82,7 +86,8 @@ class ResourcesManager(
     private fun getColorIdByResName(
         colorResName: String
     ) = try {
-        mResources.getIdentifier(colorResName, RESOURCE_TYPE_COLOR, getSkinPluginPackageName(mSkinChannel))
+        mResources.getIdentifier(colorResName,
+            RESOURCE_TYPE_COLOR, getSkinPluginPackageName(mSkinChannel))
     } catch (e: NotFoundException) {
         e.printStackTrace()
         RESOURCE_NONE
@@ -97,7 +102,8 @@ class ResourcesManager(
     private fun getColorIdByResNameInHost(
         colorResName: String
     ) = try {
-        appContext.resources.getIdentifier(colorResName, RESOURCE_TYPE_COLOR, appContext.packageName)
+        appContext.resources.getIdentifier(colorResName,
+            RESOURCE_TYPE_COLOR, appContext.packageName)
     } catch (e: NotFoundException) {
         e.printStackTrace()
         RESOURCE_NONE
@@ -117,10 +123,18 @@ class ResourcesManager(
 
         for (i in 1..4) {
             when (i) {
-                1 -> drawableId = getDrawableIdByResName(realDrawableResName, RESOURCE_TYPE_DRAWABLE)
-                2 -> drawableId = getDrawableIdByResNameInHost(realDrawableResName, RESOURCE_TYPE_DRAWABLE)
-                3 -> drawableId = getDrawableIdByResName(realDrawableResName, RESOURCE_TYPE_MIPMAP)
-                4 -> drawableId = getDrawableIdByResNameInHost(realDrawableResName, RESOURCE_TYPE_MIPMAP)
+                1 -> drawableId = getDrawableIdByResName(realDrawableResName,
+                    RESOURCE_TYPE_DRAWABLE
+                )
+                2 -> drawableId = getDrawableIdByResNameInHost(realDrawableResName,
+                    RESOURCE_TYPE_DRAWABLE
+                )
+                3 -> drawableId = getDrawableIdByResName(realDrawableResName,
+                    RESOURCE_TYPE_MIPMAP
+                )
+                4 -> drawableId = getDrawableIdByResNameInHost(realDrawableResName,
+                    RESOURCE_TYPE_MIPMAP
+                )
             }
             if (drawableId != RESOURCE_NONE) {
                 return if ((i and 1) == 1) {
@@ -205,7 +219,8 @@ class ResourcesManager(
     private fun getArrayIdByResName(
         arrayResName: String
     ) = try {
-        mResources.getIdentifier(arrayResName, RESOURCE_TYPE_ARRAY, getSkinPluginPackageName(mSkinChannel))
+        mResources.getIdentifier(arrayResName,
+            RESOURCE_TYPE_ARRAY, getSkinPluginPackageName(mSkinChannel))
     } catch (e: NotFoundException) {
         e.printStackTrace()
         RESOURCE_NONE
@@ -220,7 +235,8 @@ class ResourcesManager(
     private fun getArrayIdByResNameInHost(
         arrayResName: String
     ) = try {
-        appContext.resources.getIdentifier(arrayResName, RESOURCE_TYPE_ARRAY, appContext.packageName)
+        appContext.resources.getIdentifier(arrayResName,
+            RESOURCE_TYPE_ARRAY, appContext.packageName)
     } catch (e: NotFoundException) {
         e.printStackTrace()
         RESOURCE_NONE

@@ -10,12 +10,13 @@ import androidx.annotation.AnyThread
 import androidx.annotation.ColorInt
 import androidx.core.view.forEach
 import com.shijingfeng.skin_changer.R
+import com.shijingfeng.skin_changer.global.ExecuteListener
 import com.shijingfeng.skin_changer.constant.*
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.skin_changer.entity.SkinElement
 import com.shijingfeng.skin_changer.global.runOnUiThread
-import com.shijingfeng.skin_changer.listener.ExecuteListener
-import com.shijingfeng.skin_changer.listener.ParseListener
+import com.shijingfeng.skin_changer.global.toMapObject
+import com.shijingfeng.skin_changer.global.toSkinAttributeList
 import com.shijingfeng.skin_changer.manager.ResourcesManager
 import org.json.JSONObject
 
@@ -27,14 +28,28 @@ import org.json.JSONObject
  */
 internal class Processor(
     /** 主题渠道 */
-    private val mSkinChannel: String,
+    skinChannel: String,
     /** 资源管理器 */
-    private val mResourcesManager: ResourcesManager,
-    /** 解析监听器 */
-    private val mParseListener: ParseListener? = null,
-    /** 主题切换执行监听器 */
-    private val mExecuteListener: ExecuteListener? = null
+    resourcesManager: ResourcesManager,
+    /** 主题切换执行监听器列表 (正序方向, 范围从小到大) */
+    executeListenerList: List<ExecuteListener>? = null
 ) {
+
+    /** 主题渠道 */
+    private val mSkinChannel = skinChannel
+
+    /** 资源管理器 */
+    private val mResourcesManager = resourcesManager
+
+    /** 执行监听器 */
+    private var mExecuteListenerList = executeListenerList
+
+    /** 设置 或 获取 执行监听器 */
+    var executeListenerList: List<ExecuteListener>?
+        get() = mExecuteListenerList
+        set(executeListenerList) {
+            this.mExecuteListenerList = executeListenerList
+        }
 
     /**
      * 开始处理整个Activity
@@ -62,7 +77,7 @@ internal class Processor(
     /**
      * 递归遍历 添加 SkinElement
      */
-    fun recursionAddSkinView(
+    private fun recursionAddSkinView(
         view: View,
         skinElementList: MutableList<SkinElement>
     ) {
@@ -116,33 +131,25 @@ internal class Processor(
             val jsonObject = JSONObject(tag)
 
             jsonObject.keys().forEach { key ->
-                val parseResult = mParseListener?.onParse(
-                    view = view,
-                    name = key
+                val skinAttribute = SkinAttribute(
+                    name = key,
+                    data = jsonObject.getString(key)
                 )
-                val skinAttribute = if (parseResult != null) {
-                    SkinAttribute(
-                        name = key,
-                        data = parseResult
-                    )
-                } else {
-                    SkinAttribute(
-                        name = key,
-                        data = jsonObject.getString(key)
-                    )
-                }
-                val executeResult = mExecuteListener?.onExecute(
-                    view = view,
-                    skinAttribute = skinAttribute
-                ) ?: false
+                var customExecute = false
 
-                if (!executeResult) {
+                skinAttributeList.add(skinAttribute)
+                mExecuteListenerList?.forEach executeListenerForEach@{ executeListener ->
+                    customExecute = executeListener(view, skinAttribute)
+                    if (customExecute) {
+                        return@executeListenerForEach
+                    }
+                }
+                if (!customExecute) {
                     //用户没有自定义处理，交由框架处理
                     runOnUiThread {
                         execute(view, skinAttribute)
                     }
                 }
-                skinAttributeList.add(skinAttribute)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -169,7 +176,7 @@ internal class Processor(
         skinAttribute: SkinAttribute
     ) {
         val name = skinAttribute.name
-        val data = skinAttribute.data as String
+        val data = skinAttribute.data
 
         if (name.isEmpty() || data.isEmpty()) return
 
@@ -226,10 +233,10 @@ internal class Processor(
                     view.buttonDrawable = drawable
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
 
     }
-
 }
 

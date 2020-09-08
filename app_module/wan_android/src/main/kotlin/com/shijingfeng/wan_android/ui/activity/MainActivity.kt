@@ -36,6 +36,10 @@ import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.constant.TEXT_COLOR
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -201,16 +205,6 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             // 显示注销登录
             mDataBinding.includeDrawer.llLogout.visibility = VISIBLE
         }
-
-        setThemeBackground(
-            mDataBinding.llTitleBar,
-            mDataBinding.sbvStatusBar,
-            mDataBinding.includeDrawer.llHeader,
-            mDataBinding.includeDrawer.sbvStatusBar
-        )
-        setThemeBackgroundTintList(
-            mDataBinding.fabToTop
-        )
     }
 
     /**
@@ -585,6 +579,42 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
         if (this::mCurIndicatorImageView.isInitialized) {
             mCurIndicatorTextView.setTextColor(curThemeColorStateList)
         }
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.sbvStatusBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
+        this[mDataBinding.llTitleBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
+        this[mDataBinding.includeDrawer.llHeader] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
+        this[mDataBinding.includeDrawer.sbvStatusBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
+        this[mDataBinding.fabToTop] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND_TINT,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
 }

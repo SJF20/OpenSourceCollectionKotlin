@@ -1,9 +1,13 @@
 package com.shijingfeng.wan_android.ui.activity
 
 import android.util.SparseArray
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_USER_INFO
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -47,4 +51,17 @@ internal class UserInfoActivity : WanAndroidBaseActivity<ActivityWanAndroidUserI
         super.initData()
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.用户信息)
     }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.includeTitleBar.flTitleBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
+    }
+
 }

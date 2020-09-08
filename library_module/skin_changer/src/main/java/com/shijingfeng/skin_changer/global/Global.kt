@@ -7,10 +7,10 @@ import android.os.Handler
 import android.os.Looper
 import com.shijingfeng.skin_changer.annotation.SkinType.PLUGIN
 import com.shijingfeng.skin_changer.annotation.SkinType.HOST
-import com.shijingfeng.skin_changer.constant.*
 import com.shijingfeng.skin_changer.constant.SP_KEY_SKIN_PLUGIN_PACKAGE_NAME
 import com.shijingfeng.skin_changer.constant.SP_KEY_SKIN_PLUGIN_PATH
 import com.shijingfeng.skin_changer.constant.SP_KEY_SKIN_SUFFIX
+import com.shijingfeng.skin_changer.constant.SP_KEY_SKIN_TYPE
 import com.shijingfeng.skin_changer.constant.SP_NAME
 
 /**

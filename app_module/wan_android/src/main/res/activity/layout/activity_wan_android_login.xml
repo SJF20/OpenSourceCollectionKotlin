@@ -136,7 +136,6 @@
                     android:gravity="center"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
-                    android:tag="@string/登录注册页面TAG"
                     android:text="@string/登录"
                     android:textColor="@color/white"
                     android:textSize="15sp"
@@ -162,7 +161,6 @@
                         android:id="@+id/tv_retrieve_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="@string/wan_android_theme_color_textColor"
                         android:text="@string/找回密码"
                         tools:textColor="@color/wan_android_theme_color" />
 

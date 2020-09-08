@@ -2,6 +2,7 @@ package com.shijingfeng.wan_android.ui.activity
 
 import android.util.SparseArray
 import android.view.KeyEvent
+import android.view.View
 import android.view.View.VISIBLE
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils
@@ -9,6 +10,9 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.TEXT_COLOR
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -67,14 +71,6 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.登录)
         mDataBinding.includeTitleBar.tvOperate.text = getStringById(R.string.注册)
         mDataBinding.includeTitleBar.tvOperate.visibility = VISIBLE
-
-        setThemeBackground(
-            mDataBinding.tvLogin,
-            resName = getStringById(R.string.drawable_id_selector_submit)
-        )
-        setThemeTextColor(
-            mDataBinding.tvRetrievePassword
-        )
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -92,4 +88,23 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
         }
         return super.onKeyDown(keyCode, event)
     }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.tvLogin] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.drawable_id_selector_submit)
+            )
+        )
+        this[mDataBinding.tvRetrievePassword] = listOf(
+            SkinAttribute(
+                name = TEXT_COLOR,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
+    }
+
 }

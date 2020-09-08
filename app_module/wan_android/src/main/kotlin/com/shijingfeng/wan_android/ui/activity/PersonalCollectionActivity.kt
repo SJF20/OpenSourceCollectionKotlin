@@ -16,6 +16,9 @@ import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -102,10 +105,6 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
             // 网站
             getTabAt(PERSONAL_COLLECTION_WEBSITE)?.customView = getTabView(PERSONAL_COLLECTION_WEBSITE)
         }
-
-        setThemeBackground(
-            mDataBinding.flTitleBar
-        )
     }
 
     /**
@@ -174,6 +173,18 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
         }
 
         return textView
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.flTitleBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
 }

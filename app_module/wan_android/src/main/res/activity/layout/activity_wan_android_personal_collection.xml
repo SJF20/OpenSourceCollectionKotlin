@@ -19,7 +19,6 @@
             android:id="@+id/fl_title_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:tag="@string/wan_android_theme_color_background"
             tools:background="@color/wan_android_theme_color">
 
             <ImageView

@@ -32,10 +32,14 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.getStatusBarHeight
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.shareText
 import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.common.entity.ViewOriginalImageItem
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -81,7 +85,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
     /** 动画是否加载完成  */
     private var mAnimLoadFinish = false
 
-    /** WebView Y轴滑动方向 [com.shijingfeng.wan_android.constant.SCROLL_TO_DOWN] */
+    /** WebView Y轴滑动方向 [SCROLL_TO_DOWN] */
     private var mYScrollDirection = 0
 
     /** WebView Y轴滑动距离  */
@@ -739,6 +743,18 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             }
         }
 
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.includeTitleBar.flTitleBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
 }

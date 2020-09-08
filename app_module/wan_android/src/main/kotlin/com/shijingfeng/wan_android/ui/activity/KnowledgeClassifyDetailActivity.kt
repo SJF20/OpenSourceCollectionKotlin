@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
@@ -15,7 +16,11 @@ import com.shijingfeng.base.common.constant.CURRENT_POSITION
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
@@ -99,10 +104,6 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
         mViewModel?.mKnowledgeClassify?.childrenList?.forEachIndexed { index, knowledgeClassifyChildren ->
             mDataBinding.tlTabs.getTabAt(index)?.customView = getTabView(index, knowledgeClassifyChildren)
         }
-
-        setThemeBackground(
-            mDataBinding.tlTabs
-        )
     }
 
     /**
@@ -165,6 +166,18 @@ internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<Activity
             setTextColor(getColorById(R.color.grey))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
         }
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.tlTabs] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
 }

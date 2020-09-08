@@ -9,16 +9,18 @@ import android.content.res.Resources
 import android.view.View
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
+import com.shijingfeng.skin_changer.R
 import com.shijingfeng.skin_changer.annotation.SkinType.HOST
 import com.shijingfeng.skin_changer.annotation.SkinType.PLUGIN
 import com.shijingfeng.skin_changer.processor.Processor
 import com.shijingfeng.skin_changer.constant.SP_NAME
-import com.shijingfeng.skin_changer.entity.SkinElement
+import com.shijingfeng.skin_changer.entity.SkinAttribute
+import com.shijingfeng.skin_changer.global.ExecuteListener
 import com.shijingfeng.skin_changer.global.*
 import com.shijingfeng.skin_changer.global.appContext
-import com.shijingfeng.skin_changer.listener.ExecuteListener
-import com.shijingfeng.skin_changer.listener.ParseListener
-import com.shijingfeng.skin_changer.listener.SkinChangingCallback
+import com.shijingfeng.skin_changer.interfaces.ISkinChanger
+import com.shijingfeng.skin_changer.listener.SkinChangingListener
+import org.json.JSONObject
 import java.io.File
 import java.util.concurrent.Executors
 
@@ -29,9 +31,13 @@ import java.util.concurrent.Executors
  * @author ShiJingFeng
  */
 class SkinChangerManager private constructor(
-    private val mVar: Variable,
-    private val mListener: Listener
+    variable: Variable,
+    listener: Listener
 ) {
+    /** 数据 */
+    private val mVariable = variable
+    /** 监听器 */
+    private val mListener = listener
 
     /** Activity管理器 */
     private val mActivityManager = ActivityManager()
@@ -39,17 +45,15 @@ class SkinChangerManager private constructor(
     /** 资源管理器 */
     private var mResourcesManager = ResourcesManager(
         mResources = appContext.resources,
-        mSkinChannel = mVar.skinChannel,
-        mEnableDataUnify = mVar.enableDataUnify
+        mSkinChannel = mVariable.skinChannel,
+        mEnableDataUnify = mVariable.enableDataUnify
     )
 
-    /** 处理器 */
-    private var mProcessor = Processor(
-        mSkinChannel = mVar.skinChannel,
-        mResourcesManager = mResourcesManager,
-        mParseListener = mListener.parseListener,
-        mExecuteListener = mListener.executeListener
-    )
+    /** Processor Map (Key: [Activity] Name  Value: [Processor]) */
+    private val mProcessorMap = hashMapOf<String, Processor>()
+
+    /** 执行监听回调 Map (Key: [Activity] Name  Value: [ExecuteListener]函数实现) */
+    private val mExecuteListenerMap = hashMapOf<String, ExecuteListener>()
 
     /** 单线程 线程池 (可以用于子线程顺序执行) */
     private val mSingleThreadExecutor = Executors.newSingleThreadExecutor()
@@ -58,28 +62,28 @@ class SkinChangerManager private constructor(
      * 初始化, 建议放在 Application 中初始化
      */
     private fun init() {
-        when (getSkinType(mVar.skinChannel)) {
+        when (getSkinType(mVariable.skinChannel)) {
             // 插件式换肤
             PLUGIN -> {
                 val valid = isPluginValid(
-                    skinPluginPath = getSkinPluginPath(mVar.skinChannel),
-                    skinPluginPackageName = getSkinPluginPackageName(mVar.skinChannel)
+                    skinPluginPath = getSkinPluginPath(mVariable.skinChannel),
+                    skinPluginPackageName = getSkinPluginPackageName(mVariable.skinChannel)
                 )
 
                 if (valid) {
                     mSingleThreadExecutor.execute {
                         loadSkinPlugin(
-                            skinPluginPath = getSkinPluginPath(mVar.skinChannel),
-                            skinPluginPackageName = getSkinPluginPackageName(mVar.skinChannel)
+                            skinPluginPath = getSkinPluginPath(mVariable.skinChannel),
+                            skinPluginPackageName = getSkinPluginPackageName(mVariable.skinChannel)
                         )
                     }
                 }
             }
             // 宿主内部换肤
             HOST -> {
-                removeSkinPluginPath(skinChannel = mVar.skinChannel)
+                removeSkinPluginPath(skinChannel = mVariable.skinChannel)
                 putSkinPluginPackageName(
-                    skinChannel = mVar.skinChannel,
+                    skinChannel = mVariable.skinChannel,
                     skinPluginPackageName = appContext.packageName
                 )
                 mResourcesManager.setResources(appContext.resources)
@@ -147,11 +151,11 @@ class SkinChangerManager private constructor(
             )
 
             putSkinPluginPath(
-                skinChannel = mVar.skinChannel,
+                skinChannel = mVariable.skinChannel,
                 skinPluginPath = skinPluginPath
             )
             putSkinPluginPackageName(
-                skinChannel = mVar.skinChannel,
+                skinChannel = mVariable.skinChannel,
                 skinPluginPackageName = skinPluginPackageName
             )
             mResourcesManager.setResources(resources)
@@ -172,25 +176,81 @@ class SkinChangerManager private constructor(
     }
 
     /**
-     * 通知 观察者 更新
+     * 通知 观察者 更新 (整个 Activity)
      */
     private fun notifyObserver(activity: Activity) {
-        mProcessor.process(activity)
+        val executeListenerList = mutableListOf<ExecuteListener>()
+        val partExecuteListener = mExecuteListenerMap[activity::class.java.name]
+        val globalExecuteListener = mListener.executeListener
+
+        if (partExecuteListener != null) {
+            executeListenerList.add(partExecuteListener)
+        }
+        if (globalExecuteListener != null) {
+            executeListenerList.add(globalExecuteListener)
+        }
+
+        val processor = Processor(
+            skinChannel = mVariable.skinChannel,
+            resourcesManager = mResourcesManager,
+            executeListenerList = executeListenerList
+        )
+
+        mProcessorMap[activity::class.java.name] = processor
+        processor.process(activity)
+    }
+
+    /**
+     * 通知 观察者 更新 (整个 Fragment)
+     */
+    private fun notifyObserver(fragment: Fragment) {
+        fragment.view?.run {
+            notifyObserver(this)
+        }
     }
 
     /**
      * 通知 观察者 更新 (从指定的 View 开始)
      */
     private fun notifyObserver(view: View) {
-        mProcessor.process(view)
+        // 注意 view.getContext() 不一定会返回为 Activity, 具体请看: https://www.jianshu.com/p/d48a6e723f35
+        val activity = if (view.context != null && view.context is Activity) view.context as Activity else return
+        val processor = mProcessorMap[activity::class.java.name]
+
+        processor?.process(view)
     }
 
     /**
      * 注册当前Activity为换肤页面
      */
-    fun register(activity: Activity) {
+    fun register(
+        activity: Activity,
+        executeListener: ExecuteListener? = null
+    ) {
+        if (activity is ISkinChanger) {
+            val resourceMap = activity.getResource()
+
+            if (resourceMap.isNullOrEmpty()) {
+                return
+            }
+            resourceMap.forEach { entry ->
+                val view = entry.key
+                val skinAttributeList = entry.value
+                val jsonStr = skinAttributeList.toJsonString()
+
+                view.setTag(R.id.skin_changer_tag_id, jsonStr)
+            }
+        } else {
+            throw IllegalArgumentException("Activity 必须实现 ${ISkinChanger::class.java.simpleName} 接口")
+        }
+
+        if (executeListener != null) {
+            mExecuteListenerMap[activity::class.java.name] = executeListener
+        }
         mActivityManager.add(activity)
-        notifyObserver(activity)
+        activity.findViewById<View>(android.R.id.content).post {
+            notifyObserver(activity)
+        }
     }
 
     /**
@@ -198,6 +258,8 @@ class SkinChangerManager private constructor(
      */
     fun unregister(activity: Activity) {
         mActivityManager.remove(activity)
+        mExecuteListenerMap.remove(activity::class.java.name)
+        mProcessorMap.remove(activity::class.java.name)
     }
 
     /**
@@ -211,9 +273,7 @@ class SkinChangerManager private constructor(
      * 更新 (整个 Fragment)
      */
     fun update(fragment: Fragment) {
-        fragment.view?.run {
-            notifyObserver(this)
-        }
+        notifyObserver(fragment)
     }
 
     /**
@@ -232,18 +292,18 @@ class SkinChangerManager private constructor(
         skinSuffix: String
     ) {
         putSkinType(
-            skinChannel = mVar.skinChannel,
+            skinChannel = mVariable.skinChannel,
             skinType = HOST
         )
         putSkinSuffix(
-            skinChannel = mVar.skinChannel,
+            skinChannel = mVariable.skinChannel,
             skinSuffix = skinSuffix
         )
         removeSkinPluginPath(
-            skinChannel = mVar.skinChannel
+            skinChannel = mVariable.skinChannel
         )
         putSkinPluginPackageName(
-            skinChannel = mVar.skinChannel,
+            skinChannel = mVariable.skinChannel,
             skinPluginPackageName = appContext.packageName
         )
         notifyAllObserver()
@@ -259,9 +319,9 @@ class SkinChangerManager private constructor(
      */
     fun changeSkinByPlugin(
         skinSuffix: String,
-        skinPluginPath: String = getSkinPluginPath(mVar.skinChannel),
-        skinPluginPackageName: String = getSkinPluginPackageName(mVar.skinChannel),
-        skinChangingCallback: SkinChangingCallback? = null
+        skinPluginPath: String = getSkinPluginPath(mVariable.skinChannel),
+        skinPluginPackageName: String = getSkinPluginPackageName(mVariable.skinChannel),
+        skinChangingCallback: SkinChangingListener? = null
     ) {
         val valid = isPluginValid(
             skinPluginPath = skinPluginPath,
@@ -281,11 +341,11 @@ class SkinChangerManager private constructor(
             runOnUiThread {
                 if (loadPluginSuccess) {
                     putSkinType(
-                        skinChannel = mVar.skinChannel,
+                        skinChannel = mVariable.skinChannel,
                         skinType = PLUGIN
                     )
                     putSkinSuffix(
-                        skinChannel = mVar.skinChannel,
+                        skinChannel = mVariable.skinChannel,
                         skinSuffix = skinSuffix
                     )
                     notifyAllObserver()
@@ -295,18 +355,6 @@ class SkinChangerManager private constructor(
                 }
             }
         }
-    }
-
-    /**
-     * 局部换肤
-     *
-     * @param view 当前局部换肤的View
-     */
-    fun changeSkinInPart(view: View): List<SkinElement> {
-        val skinElementList = mutableListOf<SkinElement>()
-
-        mProcessor.recursionAddSkinView(view, skinElementList)
-        return skinElementList
     }
 
     /**
@@ -388,16 +436,6 @@ class SkinChangerManager private constructor(
         }
 
         /**
-         * 设置 解析监听器
-         *
-         * @param parseListener 解析监听器
-         */
-        fun setParseListener(parseListener: ParseListener): Builder {
-            this.mListener.parseListener = parseListener
-            return this
-        }
-
-        /**
          * 设置 主题切换执行监听器
          *
          * @param executeListener 主题切换执行监听器
@@ -412,8 +450,8 @@ class SkinChangerManager private constructor(
          */
         fun build(): SkinChangerManager {
             val skinChangerManager = SkinChangerManager(
-                mVar = mVar,
-                mListener = mListener
+                variable = mVar,
+                listener = mListener
             )
 
             skinChangerManager.init()
@@ -438,9 +476,6 @@ class SkinChangerManager private constructor(
      * 回调监听器
      */
     private class Listener {
-
-        /** 解析监听器 */
-        var parseListener: ParseListener? = null
 
         /** 主题切换执行监听器 */
         var executeListener: ExecuteListener? = null

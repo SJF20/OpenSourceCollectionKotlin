@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,7 +18,9 @@ import com.shijingfeng.base.util.LOG_WAN_ANDROID_SKIN
 import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.dialog.CommonDialog
-import com.shijingfeng.skin_changer.listener.SkinChangingCallback
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.entity.SkinAttribute
+import com.shijingfeng.skin_changer.listener.SkinChangingListener
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.ThemeColorAdapter
@@ -139,7 +142,7 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
                 skinSuffix = ThemeUtil.curThemeName,
                 skinPluginPath = WAN_ANDROID_SKIN_FILE,
                 skinPluginPackageName = WAN_ANDROID_SKIN_PACKAGE,
-                skinChangingCallback = object : SkinChangingCallback {
+                skinChangingCallback = object : SkinChangingListener {
                     override fun onStart() {
                         super.onStart()
                         e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤开始")
@@ -164,5 +167,17 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
             // 对于其他情况只能使用 EventBus 通知更新UI了
             EventBus.getDefault().post(ThemeEvent())
         }
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.includeTitleBar.flTitleBar] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 }

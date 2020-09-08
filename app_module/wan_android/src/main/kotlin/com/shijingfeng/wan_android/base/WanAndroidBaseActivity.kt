@@ -2,6 +2,7 @@ package com.shijingfeng.wan_android.base
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -10,6 +11,10 @@ import com.shijingfeng.base.base.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.StatusBarView
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.entity.SkinAttribute
+import com.shijingfeng.skin_changer.interfaces.ISkinChanger
+import com.shijingfeng.skin_changer.util.setResource
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.global.skinChangerManager
 
@@ -19,7 +24,7 @@ import com.shijingfeng.wan_android.common.global.skinChangerManager
  * Description:
  * @author ShiJingFeng
  */
-internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
+internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmActivity<V, VM>(), ISkinChanger {
 
     /**
      * 初始化
@@ -41,7 +46,12 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
             val contentView = getContentView()
             val statusBarView = StatusBarView(this).apply {
                 id = R.id.status_bar_view
-                tag = getStringById(R.string.wan_android_theme_color_background)
+                setResource(this, listOf(
+                    SkinAttribute(
+                        name = BACK_GROUND,
+                        data = getStringById(R.string.color_id_wan_android_theme_color)
+                    )
+                ))
             }
 
             if (contentView.childCount > 0) {
@@ -78,6 +88,11 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      * @return true 自定义设置  false 默认设置
      */
     protected open fun isSetCustomStatusBar() = false
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource(): Map<View, List<SkinAttribute>>? = null
 
     /**
      * Activity销毁回调
