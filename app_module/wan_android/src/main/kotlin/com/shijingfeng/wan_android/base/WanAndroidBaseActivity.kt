@@ -79,6 +79,15 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
                 }
             }
         }
+        // 设置标题栏背景颜色
+        getTitleBarView()?.run {
+            setResource(this, listOf(
+                SkinAttribute(
+                    name = BACK_GROUND,
+                    data = getStringById(R.string.color_id_wan_android_theme_color)
+                )
+            ))
+        }
         // 注册皮肤更换框架
         skinChangerManager.register(this)
     }
@@ -93,6 +102,11 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      * 获取资源 (用于切换主题的资源)
      */
     override fun getResource(): Map<View, List<SkinAttribute>>? = null
+
+    /**
+     * 获取 状态栏 View (如果当前页面有状态栏则重写之)
+     */
+    open fun getTitleBarView(): View? = null
 
     /**
      * Activity销毁回调
