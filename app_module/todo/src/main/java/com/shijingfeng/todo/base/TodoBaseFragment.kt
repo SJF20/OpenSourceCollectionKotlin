@@ -23,9 +23,4 @@ internal abstract class TodoBaseFragment<V : ViewDataBinding, VM : TodoBaseViewM
         super.init(savedInstanceState)
     }
 
-    /**
-     * 获取 状态栏 背景资源 (支持换肤)
-     */
-    override fun getStatusBarBackgroundResource() = R.color.todo_theme_color
-
 }

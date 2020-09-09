@@ -17,13 +17,11 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
-import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidPersonalCollectionBinding
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getPersonalCollectionRepositoryInstance

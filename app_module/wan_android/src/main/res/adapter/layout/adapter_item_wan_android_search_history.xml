@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingStart="25dp"
     android:paddingEnd="15dp"
@@ -29,6 +30,7 @@
         android:layout_gravity="center"
         android:padding="5dp"
         android:src="@drawable/ic_cancel"
-        android:tint="@color/dim_grey" />
+        app:tint="@color/dim_grey"
+        tools:tint="@color/dim_grey" />
 
 </LinearLayout>

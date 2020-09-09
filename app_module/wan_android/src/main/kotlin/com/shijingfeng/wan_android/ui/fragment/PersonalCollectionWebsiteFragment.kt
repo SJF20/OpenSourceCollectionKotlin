@@ -27,6 +27,8 @@ import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.base.widget.dialog.CommonDialog
+import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.PersonalCollectionWebsiteAdapter
@@ -34,7 +36,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.VIEW_WEBSITE_DETAIL
 import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_EDIT
 import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_UNCOLLECTED
-import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionWebsiteBinding
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
 import com.shijingfeng.wan_android.source.network.getPersonalCollectionWebsiteNetworkSourceInstance
@@ -121,10 +122,6 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
             mDataBinding.rvContent.adapter = mPersonalCollectionWebsiteAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
-
-        setThemeBackgroundTintList(
-            mDataBinding.fabToTop
-        )
     }
 
     /**
@@ -367,6 +364,18 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
                 mDataBinding.rvContent.smoothScrollToPosition(mWebsiteCollectedListItemList.size - 1)
             }
         }
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.fabToTop] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND_TINT,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 
     /**

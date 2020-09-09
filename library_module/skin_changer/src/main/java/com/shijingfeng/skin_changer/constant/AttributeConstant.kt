@@ -17,7 +17,7 @@ const val BACK_GROUND_TINT = "backgroundTint"
 const val TEXT_COLOR = "textColor"
 /** 对应xml属性: android:src */
 const val SRC = "src"
-/** 对应xml属性: android:tint */
+/** 对应xml属性: android:tint (app:tint) */
 const val TINT = "tint"
 /** 对应xml属性: android:buttonDrawable */
 const val BUTTON_DRAWABLE = "buttonDrawable"

@@ -20,6 +20,7 @@ import com.shijingfeng.skin_changer.global.*
 import com.shijingfeng.skin_changer.global.appContext
 import com.shijingfeng.skin_changer.interfaces.ISkinChanger
 import com.shijingfeng.skin_changer.listener.SkinChangingListener
+import com.shijingfeng.skin_changer.util.setResource
 import org.json.JSONObject
 import java.io.File
 import java.util.concurrent.Executors
@@ -230,15 +231,8 @@ class SkinChangerManager private constructor(
         if (activity is ISkinChanger) {
             val resourceMap = activity.getResource()
 
-            if (resourceMap.isNullOrEmpty()) {
-                return
-            }
-            resourceMap.forEach { entry ->
-                val view = entry.key
-                val skinAttributeList = entry.value
-                val jsonStr = skinAttributeList.toJsonString()
-
-                view.setTag(R.id.skin_changer_tag_id, jsonStr)
+            if (resourceMap != null) {
+                setResource(resourceMap)
             }
         } else {
             throw IllegalArgumentException("Activity 必须实现 ${ISkinChanger::class.java.simpleName} 接口")
@@ -273,6 +267,22 @@ class SkinChangerManager private constructor(
      * 更新 (整个 Fragment)
      */
     fun update(fragment: Fragment) {
+        if (fragment is ISkinChanger) {
+            val resourceMap = fragment.getResource()
+
+            if (resourceMap.isNullOrEmpty()) {
+                return
+            }
+            resourceMap.forEach { entry ->
+                val view = entry.key
+                val skinAttributeList = entry.value
+                val jsonStr = skinAttributeList.toJsonString()
+
+                view.setTag(R.id.skin_changer_tag_id, jsonStr)
+            }
+        } else {
+            throw IllegalArgumentException("Fragment 必须实现 ${ISkinChanger::class.java.simpleName} 接口")
+        }
         notifyObserver(fragment)
     }
 

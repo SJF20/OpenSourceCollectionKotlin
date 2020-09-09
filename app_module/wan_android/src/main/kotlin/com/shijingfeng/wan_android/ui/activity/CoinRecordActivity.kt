@@ -22,8 +22,6 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRecordAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.common.global.setThemeBackground
-import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRecordBinding
 import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
@@ -256,10 +254,5 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
             )
         )
     }
-
-    /**
-     * 获取 状态栏 View (如果当前页面有状态栏则重写之)
-     */
-    override fun getTitleBarView() = mDataBinding.includeTitleBar.flTitleBar
 
 }

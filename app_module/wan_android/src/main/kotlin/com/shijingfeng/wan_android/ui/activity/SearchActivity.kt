@@ -19,7 +19,6 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
-import com.shijingfeng.skin_changer.constant.TEXT_COLOR
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -36,7 +35,6 @@ import com.shijingfeng.wan_android.callback.SearchHotWordLoadingCallback
 import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.REMOVE_SEARCH_HISTORY_ITEM
 import com.shijingfeng.wan_android.common.constant.SEARCH
-import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchBinding
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.source.local.getSearchLocalSourceInstance

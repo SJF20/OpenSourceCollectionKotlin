@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View.OnClickListener" />
 
         <variable
@@ -24,8 +23,11 @@
             type="OnClickListener" />
     </data>
 
+    <!-- 注意如果 include 使用了 id,
+    那么会覆盖掉此布局根View id (即 id fl_common_title_bar 会被覆盖掉)
+    -->
     <FrameLayout
-        android:id="@+id/fl_title_bar"
+        android:id="@+id/fl_common_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
         tools:background="@color/wan_android_theme_color">
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="15dp"
+            android:contentDescription="@string/返回"
             android:src="@drawable/ic_wan_android_back"
             app:onClick="@{ivBackClick}" />
 
@@ -62,7 +65,8 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_wan_android_more"
             android:visibility="gone"
-            app:onClick="@{ivOperateClick}" />
+            app:onClick="@{ivOperateClick}"
+            android:contentDescription="@string/更多" />
 
         <TextView
             android:id="@+id/tv_operate"

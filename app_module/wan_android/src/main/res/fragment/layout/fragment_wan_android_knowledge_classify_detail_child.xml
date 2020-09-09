@@ -41,7 +41,6 @@
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="95dp"
             android:src="@drawable/ic_top"
-            android:tag="@string/wan_android_theme_color_backgroundTint"
             app:fabSize="mini"
             tools:backgroundTint="@color/wan_android_theme_color" />
 

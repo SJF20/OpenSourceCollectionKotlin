@@ -2,8 +2,6 @@ package com.shijingfeng.wan_android.ui.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.Observer
@@ -17,18 +15,15 @@ import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
-import com.shijingfeng.skin_changer.constant.SRC
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRankAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRankBinding
 import com.shijingfeng.wan_android.source.local.getCoinRankLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
-import com.shijingfeng.wan_android.utils.ThemeUtil
 import com.shijingfeng.wan_android.view_model.CoinRankViewModel
 
 /**
@@ -241,10 +236,5 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
             )
         )
     }
-
-    /**
-     * 获取 状态栏 View (如果当前页面有状态栏则重写之)
-     */
-    override fun getTitleBarView() = mDataBinding.includeTitleBar.flTitleBar
 
 }

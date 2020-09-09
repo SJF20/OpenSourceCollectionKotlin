@@ -27,8 +27,9 @@ fun setResource(view: View, skinAttributeList: List<SkinAttribute>) {
 fun setResource(resourceMap: Map<View, List<SkinAttribute>>) {
     resourceMap.forEach { entry ->
         val view = entry.key
-        val value = entry.value
+        val skinAttributeList = entry.value
+        val jsonStr = skinAttributeList.toJsonString()
 
-        view.setTag(R.id.skin_changer_tag_id, value.toJsonString())
+        view.setTag(R.id.skin_changer_tag_id, jsonStr)
     }
 }

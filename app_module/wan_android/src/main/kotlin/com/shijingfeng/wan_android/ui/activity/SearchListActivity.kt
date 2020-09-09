@@ -22,7 +22,6 @@ import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
-import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
@@ -37,8 +36,6 @@ import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
-import com.shijingfeng.wan_android.common.global.setThemeBackground
-import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
 import com.shijingfeng.wan_android.entity.SearchListItem
 import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance

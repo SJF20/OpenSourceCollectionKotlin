@@ -38,9 +38,6 @@ import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
-import com.shijingfeng.wan_android.common.global.setThemeBackground
-import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
-import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidHomeBinding
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.adapter.HomeTopArticleItem
@@ -53,7 +50,6 @@ import com.shijingfeng.wan_android.source.local.getHomeLocalSourceInstance
 import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
-import okhttp3.internal.notify
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 

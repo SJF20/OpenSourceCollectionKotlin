@@ -267,7 +267,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
         translationValueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
-            val viewGroup = mDataBinding.includeTitleBar.flTitleBar
+            val viewGroup = mDataBinding.includeTitleBar.flCommonTitleBar
             val layoutParams = viewGroup.layoutParams
 
             layoutParams.height = value
@@ -331,7 +331,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
 
         translationValueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
-            val viewGroup = mDataBinding.includeTitleBar.flTitleBar
+            val viewGroup = mDataBinding.includeTitleBar.flCommonTitleBar
             val layoutParams = viewGroup.layoutParams
 
             layoutParams.height = value
@@ -743,18 +743,6 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             }
         }
 
-    }
-
-    /**
-     * 获取资源 (用于切换主题的资源)
-     */
-    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
-        this[mDataBinding.includeTitleBar.flTitleBar] = listOf(
-            SkinAttribute(
-                name = BACK_GROUND,
-                data = getStringById(R.string.color_id_wan_android_theme_color)
-            )
-        )
     }
 
 }

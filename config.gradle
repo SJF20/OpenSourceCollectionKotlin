@@ -60,7 +60,8 @@ ext {
             "rxlifecycle3"                        : "3.1.0",
             "eventbus"                            : "3.2.0",
             "utilcodex"                           : "1.29.0",
-            "loadsir"                             : "1.3.8",
+            // 最新版为 1.3.8, 但是有很大bug, 不予使用
+            "loadsir"                             : "1.3.6",
             // 最新版是 2.0.0, 但是改动相当大(包名也变了), 新项目中可使用
             "smartrefresh"                        : "1.1.1",
             "arouter"                             : "1.5.0",

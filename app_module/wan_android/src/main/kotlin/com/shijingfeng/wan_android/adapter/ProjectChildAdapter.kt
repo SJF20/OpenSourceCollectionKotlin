@@ -7,19 +7,15 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
-import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_FLAG
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_THEME
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
-import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.common.global.setThemeButtonDrawable
-import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.entity.ProjectChildItem
 
 /**

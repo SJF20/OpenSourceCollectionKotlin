@@ -8,7 +8,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.TEXT_COLOR
@@ -16,8 +15,6 @@ import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
-import com.shijingfeng.wan_android.common.global.setThemeBackground
-import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidLoginBinding
 import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.view_model.LoginViewModel

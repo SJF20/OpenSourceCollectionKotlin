@@ -15,10 +15,12 @@ import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidClassifyBinding
 import com.shijingfeng.wan_android.view_model.ClassifyViewModel
 
@@ -98,10 +100,6 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
             //导航分类
             getTabAt(CLASSIFY_NAVIGATION)?.customView = getTabView(CLASSIFY_NAVIGATION)
         }
-
-        setThemeBackground(
-            mDataBinding.tlTabs
-        )
     }
 
     /**
@@ -177,6 +175,18 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
     override fun scrollToTop() {
         super.scrollToTop()
         mClassifyFragmentPagerAdapter?.getFragmentByPosition(mCurPosition)?.scrollToTop()
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.tlTabs] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 }
 

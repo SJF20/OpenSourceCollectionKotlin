@@ -70,9 +70,4 @@ internal class AboutUsActivity : WanAndroidBaseActivity<ActivityWanAndroidAboutU
         )
     }
 
-    /**
-     * 获取 状态栏 View (如果当前页面有状态栏则重写之)
-     */
-    override fun getTitleBarView() = mDataBinding.includeTitleBar.flTitleBar
-
 }

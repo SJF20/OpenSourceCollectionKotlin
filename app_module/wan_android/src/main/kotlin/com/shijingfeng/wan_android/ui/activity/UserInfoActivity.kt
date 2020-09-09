@@ -52,16 +52,4 @@ internal class UserInfoActivity : WanAndroidBaseActivity<ActivityWanAndroidUserI
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.用户信息)
     }
 
-    /**
-     * 获取资源 (用于切换主题的资源)
-     */
-    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
-        this[mDataBinding.includeTitleBar.flTitleBar] = listOf(
-            SkinAttribute(
-                name = BACK_GROUND,
-                data = getStringById(R.string.color_id_wan_android_theme_color)
-            )
-        )
-    }
-
 }

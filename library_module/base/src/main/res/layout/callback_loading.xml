@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     tools:ignore="UseCompoundDrawables">
@@ -12,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_loading"
-        android:tint="@color/dim_grey"
+        app:tint="@color/dim_grey"
+        tools:tint="@color/dim_grey"
         tools:ignore="ContentDescription" />
 
     <TextView

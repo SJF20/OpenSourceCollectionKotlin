@@ -104,6 +104,8 @@
     <string name="自定义主题颜色">自定义主题颜色</string>
     <string name="确认">确认</string>
     <string name="取消">取消</string>
+    <string name="返回">返回</string>
+    <string name="更多">更多</string>
 
     <string name="about_us_content" translatable="false"><![CDATA[
         <h2>网站内容</h2>

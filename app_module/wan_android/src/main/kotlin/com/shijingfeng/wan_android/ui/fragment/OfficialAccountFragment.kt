@@ -1,10 +1,10 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -22,11 +22,12 @@ import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
+import com.shijingfeng.skin_changer.constant.BACK_GROUND
+import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.OFFICIAL_ACCOUNT_INDEX_STR
-import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountBinding
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.network.getOfficialAccountNetworkSourceInstance
@@ -140,10 +141,6 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
         mViewModel?.mOfficialAccountIndexList?.forEachIndexed { index, officialAccountIndex ->
             mDataBinding.tlTabs.getTabAt(index)?.customView = getTabView(index, officialAccountIndex)
         }
-
-        setThemeBackground(
-            mDataBinding.tlTabs
-        )
     }
 
     /**
@@ -231,6 +228,18 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
         val fragment = mOfficialAccountFragmentPagerAdapter?.getFragmentByPosition(mViewModel?.mCurrentFragmentPosition ?: 0)
 
         fragment?.scrollToTop()
+    }
+
+    /**
+     * 获取资源 (用于切换主题的资源)
+     */
+    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
+        this[mDataBinding.tlTabs] = listOf(
+            SkinAttribute(
+                name = BACK_GROUND,
+                data = getStringById(R.string.color_id_wan_android_theme_color)
+            )
+        )
     }
 }
 

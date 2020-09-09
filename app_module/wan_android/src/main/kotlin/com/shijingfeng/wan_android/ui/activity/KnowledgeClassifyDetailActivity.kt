@@ -27,7 +27,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.KNOWLEDGE_CLASSIFY_CHILDREN_STR
 import com.shijingfeng.wan_android.common.constant.KNOWLEDGE_CLASSIFY_STR
-import com.shijingfeng.wan_android.common.global.setThemeBackground
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidKnowledgeClassifyDetailBinding
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity

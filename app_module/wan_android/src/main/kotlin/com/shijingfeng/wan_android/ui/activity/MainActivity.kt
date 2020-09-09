@@ -38,7 +38,6 @@ import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
-import com.shijingfeng.skin_changer.constant.TEXT_COLOR
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -47,8 +46,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.RESULT_ARTICLE_COLLECTED_LIST
 import com.shijingfeng.wan_android.common.constant.RESULT_COIN_RECORD
 import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
-import com.shijingfeng.wan_android.common.global.setThemeBackground
-import com.shijingfeng.wan_android.common.global.setThemeBackgroundTintList
 import com.shijingfeng.wan_android.common.global.setThemeTextColor
 import com.shijingfeng.wan_android.common.global.setThemeTint
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding

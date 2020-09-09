@@ -170,50 +170,6 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         if (this.javaClass.isAnnotationPresent(BindEventBus::class.java) && !EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
-        //设置状态栏高度
-        if (!isSetCustomStatusBar() && activity != null && mRootView != null) {
-            val contentView = mRootView!!
-            val statusBarView = StatusBarView(requireActivity())
-            val statusBarBackgroundDrawable = getStatusBarBackgroundDrawable()
-
-            statusBarView.id = R.id.status_bar_view
-            if (statusBarBackgroundDrawable != null) {
-                statusBarView.background = statusBarBackgroundDrawable
-            } else {
-                statusBarView.setBackgroundResource(getStatusBarBackgroundResource())
-            }
-
-            when (contentView) {
-                is LinearLayout -> contentView.addView(statusBarView, 0)
-                is FrameLayout -> {
-                    contentView.addView(statusBarView)
-
-                    statusBarView.layoutParams =
-                        (statusBarView.layoutParams as FrameLayout.LayoutParams).apply {
-                            gravity = Gravity.TOP
-                            width = ViewGroup.LayoutParams.MATCH_PARENT
-                            height = getStatusBarHeight()
-                        }
-                }
-                else -> {
-                    val parent = contentView.parent as ViewGroup?
-
-                    if (parent != null) {
-                        parent.removeAllViews()
-                        LinearLayout(activity).run {
-                            orientation = LinearLayout.VERTICAL
-                            addView(statusBarView)
-                            addView(contentView)
-                            parent.addView(this)
-                            layoutParams = layoutParams.apply {
-                                width = ViewGroup.LayoutParams.MATCH_PARENT
-                                height = ViewGroup.LayoutParams.MATCH_PARENT
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -250,18 +206,6 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * @return true 深色  false 浅色
      */
     protected open fun isSetStatusBarContentDark() = false
-
-    /**
-     * 获取 状态栏 背景Drawable (不支持换肤)
-     * @return 背景 Drawable
-     */
-    protected open fun getStatusBarBackgroundDrawable(): Drawable? = null
-
-    /**
-     * 获取 状态栏 背景资源 (支持换肤)
-     */
-    @DrawableRes
-    protected open fun getStatusBarBackgroundResource(): Int = R.color.project_status_bar_default_color
 
     /**
      * LoadSir 切换状态
