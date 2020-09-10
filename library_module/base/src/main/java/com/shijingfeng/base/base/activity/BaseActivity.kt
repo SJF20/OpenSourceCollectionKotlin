@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.R
 import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
-import com.shijingfeng.base.util.finishPreviousActivity
+import com.shijingfeng.base.common.extension.finishPrevious
+import com.shijingfeng.base.common.extension.finishPreviousAll
 import com.shijingfeng.base.util.setStatusBarColor
 import com.shijingfeng.base.util.setStatusBarContentColor
 
@@ -53,13 +53,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
                 //销毁前一个Activity
                 if (finishPrevious && !mIsPreActivityFinished) {
-                    finishPreviousActivity(this@BaseActivity)
+                    this@BaseActivity.finishPrevious()
                     mIsPreActivityFinished = true
                 }
                 //销毁前面所有的Activity
                 if (finishFrontAll) {
-                    // FIXME 万能工具类升级为 1.27.1 以上版本 此处会有bug (for循环条件有问题，具体查看源码)
-                    ActivityUtils.finishAllActivitiesExceptNewest(false)
+                    this@BaseActivity.finishPreviousAll()
                 }
             }
         }

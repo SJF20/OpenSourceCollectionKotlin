@@ -9,12 +9,9 @@ import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
-import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
-import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 /**
@@ -104,11 +101,10 @@ internal class RegisterViewModel(
      * 关闭登录页面
      */
     private fun finishLoginActivity() {
-        val activityList = ActivityUtils.getActivityList()
-        val size = activityList.size
+        val size = ActivityUtils.getActivityList().size
 
         if (size >= 2) {
-            val loginActivity = activityList[size - 2]
+            val loginActivity = ActivityUtils.getActivityList()[size - 2]
 
             loginActivity.finish()
         }

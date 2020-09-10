@@ -1,7 +1,10 @@
 package com.shijingfeng.base.base.application
 
+import android.app.Activity
 import android.app.Application
+import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
