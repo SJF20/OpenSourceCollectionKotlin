@@ -105,7 +105,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
     }
 
     /**
-     * 开始 懒初始化数据
+     * 开始 懒初始化数据 (目的: TabLayout中的 Tab是可变的，所以需要从服务器获得Tab列表后，再进行初始化)
      */
     private fun startLazyInit() {
         lazyInitData()

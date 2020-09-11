@@ -15,7 +15,14 @@ internal const val TAB_LAYOUT_VISIBILITY = "tab_layout_visibility"
 /** 查看 待办事项 详情 */
 internal const val VIEW_TODO_DETAIL = "view_todo_detail"
 
-/** 待办事项类型: 无分类 所有 */
+/** 状态: 待办 */
+internal const val STATUS_TODO = 0
+/** 状态: 已完成 */
+internal const val STATUS_DONE = 1
+
+/** 待办事项类型: 默认不操作，为原来的 (用于EventBus Event) */
+internal const val TYPE_NONE = -1
+/** 待办事项类型: 无分类 全部 */
 internal const val TYPE_ALL = 0
 /** 待办事项类型: 学习 */
 internal const val TYPE_STUDY = 1
@@ -24,6 +31,8 @@ internal const val TYPE_LIFE = 2
 /** 待办事项类型: 工作 */
 internal const val TYPE_WORK = 3
 
+/** 优先级: 默认不操作，为原来的 (用于EventBus Event) */
+internal const val PRIORITY_NONE = -1
 /** 优先级: 所有 */
 internal const val PRIORITY_ALL = 0
 /** 优先级: 重要 紧急 */
@@ -35,11 +44,13 @@ internal const val PRIORITY_NOT_IMPORTANT_URGENCY = 3
 /** 优先级: 不重要 不紧急 */
 internal const val PRIORITY_NOT_IMPORTANT_NOT_URGENCY = 4
 
-/** 完成日期顺序 (升序) */
+/** 排序: 默认不操作，为原来的 (用于EventBus Event) */
+internal const val ORDER_BY_NONE = 0
+/** 排序: 完成日期顺序 (升序) */
 internal const val ORDER_BY_COMPLETE_DATE_ASC = 1
-/** 完成日期逆序 (降序) */
+/** 排序: 完成日期逆序 (降序) */
 internal const val ORDER_BY_COMPLETE_DATE_DESC = 2
-/** 创建日期顺序 (升序) */
+/** 排序: 创建日期顺序 (升序) */
 internal const val ORDER_BY_CREATE_DATE_ASC = 3
-/** 创建日期逆序 (降序) */
+/** 排序: 创建日期逆序 (降序) */
 internal const val ORDER_BY_CREATE_DATE_DESC = 4

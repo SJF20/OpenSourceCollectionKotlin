@@ -1,21 +1,33 @@
 package com.shijingfeng.todo.ui.fragment
 
 import android.util.SparseArray
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.kingja.loadsir.core.LoadSir
+import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.FRAGMENT_TODO_TODO
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
-import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
 import com.shijingfeng.todo.databinding.FragmentTodoMainTodoBinding
 import com.shijingfeng.todo.adapter.MainTodoGroupAdapter
+import com.shijingfeng.todo.constant.*
+import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.todo.constant.TYPE
+import com.shijingfeng.todo.constant.TYPE_NONE
+import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
+import com.shijingfeng.todo.entity.event.FilterConditionEvent
 import com.shijingfeng.todo.source.network.getMainTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainTodoRepositoryInstance
-import com.shijingfeng.todo.view_model.MainTodoViewModel
+import com.shijingfeng.todo.ui.activity.MAIN_TODO
+import com.shijingfeng.todo.view_model.TodoViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 创建 TodoFragment 实例
@@ -29,7 +41,8 @@ internal fun createTodoFragment() = TodoFragment()
  * @author ShiJingFeng
  */
 @Route(path = FRAGMENT_TODO_TODO)
-internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, MainTodoViewModel>() {
+@BindEventBus
+internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, TodoViewModel>() {
 
     /** 待办 分组 适配器 */
     private var mMainTodoGroupAdapter: MainTodoGroupAdapter? = null
@@ -44,7 +57,7 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): MainTodoViewModel? {
+    override fun getViewModel(): TodoViewModel? {
         val repository = getMainTodoRepositoryInstance(
             networkSource = getMainTodoNetworkSourceInstance()
         )
@@ -52,7 +65,7 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
         val factory = createCommonViewModelFactory(
             repository = repository
         )
-        return createViewModel(MainTodoViewModel::class.java, factory)
+        return createViewModel(TodoViewModel::class.java, factory)
     }
 
     /**
@@ -68,10 +81,22 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
      */
     override fun initData() {
         super.initData()
+        mSmartRefreshLayout = mDataBinding.srlRefresh
+        // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
+        mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
+        mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
+        if (mViewModel == null || !mViewModel!!.mHasInited) {
+            showCallback(LOAD_SERVICE_LOADING)
+        }
+
         activity?.run {
             mMainTodoGroupAdapter = MainTodoGroupAdapter(this, mViewModel?.mMainTodoItemList)
             mDataBinding.rvContent.adapter = mMainTodoGroupAdapter
             mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
+        }
+
+        if (!mDataBinding.rvContent.canScrollVertically(1)) {
+            mOnItemEvent?.invoke(mDataBinding.rvContent, null, View.VISIBLE, TAB_LAYOUT_VISIBILITY)
         }
     }
 
@@ -80,6 +105,31 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
      */
     override fun initAction() {
         super.initAction()
+        mDataBinding.rvContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+//                if (!recyclerView.canScrollVertically(1)) {
+//                    //滑倒最底部，隐藏
+//                    mOnItemEvent?.invoke(recyclerView, null, View.GONE,
+//                        TAB_LAYOUT_VISIBILITY
+//                    )
+//                    return
+//                }
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //滑倒顶部，显示
+                    mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE,
+                        TAB_LAYOUT_VISIBILITY
+                    )
+                    return
+                }
+                mOnItemEvent?.invoke(
+                    recyclerView,
+                    null,
+                    if (dy > 0) View.GONE else View.VISIBLE,
+                    TAB_LAYOUT_VISIBILITY
+                )
+            }
+        })
         mMainTodoGroupAdapter?.setOnItemEventListener { view, data, position, flag ->
             when (flag) {
                 // 查看 待办事项 详情
@@ -123,4 +173,35 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Main
             }
         })
     }
+
+    /**
+     * 是否开启懒加载 (用于ViewPager)
+     * @return true 开启  false 关闭  默认关闭
+     */
+    override fun isEnableLazyLoad() = true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getFilterConditionEvent(filterConditionEvent: FilterConditionEvent) {
+        val status = filterConditionEvent.statusType
+        val type = filterConditionEvent.type
+        val priority = filterConditionEvent.priority
+        val orderBy = filterConditionEvent.orderBy
+
+        if (status == MAIN_TODO) {
+            mViewModel?.run {
+                if (type != TYPE_NONE) {
+                    mRequestParamMap[TYPE] = type
+                }
+                if (priority != PRIORITY_NONE) {
+                    mRequestParamMap[PRIORITY] = priority
+                }
+                if (orderBy != ORDER_BY_NONE) {
+                    mRequestParamMap[ORDER_BY] = orderBy
+                }
+            }
+        }
+        showCallback(LOAD_SERVICE_LOADING)
+        mViewModel?.load()
+    }
+
 }

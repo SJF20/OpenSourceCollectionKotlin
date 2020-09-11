@@ -11,18 +11,20 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="top|start"
+        android:visibility="gone"
         app:bgColor="@color/red"
-        app:text="重要"
-        app:position="left_top" />
+        app:position="left_top"
+        app:text="重要" />
 
     <com.shijingfeng.base.widget.MarkerView
         android:id="@+id/mv_urgency"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="top|end"
+        android:visibility="gone"
         app:bgColor="@color/orange"
-        app:text="紧急"
-        app:position="right_top"/>
+        app:position="right_top"
+        app:text="紧急" />
 
     <LinearLayout
         android:layout_width="match_parent"

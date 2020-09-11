@@ -28,8 +28,14 @@ import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseActivity
 import com.shijingfeng.todo.base.TodoBaseFragment
+import com.shijingfeng.todo.constant.*
 import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
+import com.shijingfeng.todo.constant.TYPE_ALL
+import com.shijingfeng.todo.constant.TYPE_LIFE
+import com.shijingfeng.todo.constant.TYPE_STUDY
+import com.shijingfeng.todo.constant.TYPE_WORK
 import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
+import com.shijingfeng.todo.entity.event.FilterConditionEvent
 import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
 import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainRepositoryInstance
@@ -37,15 +43,15 @@ import com.shijingfeng.todo.ui.fragment.createDoneFragment
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
 import com.shijingfeng.todo.ui.fragment.createTodoFragment
 import com.shijingfeng.todo.view_model.MainViewModel
-
-/** 主页 -> 待办 */
-internal const val MAIN_TODO = 0
-
-/** 主页 -> 已完成 */
-internal const val MAIN_DONE = 1
+import org.greenrobot.eventbus.EventBus
 
 /** Fragment 数量 */
 private const val FRAGMENT_COUNT = 2
+
+/** 主页 -> 待办 */
+internal const val MAIN_TODO = 0
+/** 主页 -> 已完成 */
+internal const val MAIN_DONE = 1
 
 /**
  * Function: 主页 Activity
@@ -297,6 +303,11 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_all)
         ) {
             mTypeSwitchDialog?.hide()
+            mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.全部)
+            EventBus.getDefault().post(FilterConditionEvent(
+                statusType = mViewModel!!.mCurPosition,
+                type = TYPE_ALL
+            ))
         }
 
         // 工作
@@ -304,6 +315,11 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_work)
         ) {
             mTypeSwitchDialog?.hide()
+            mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.工作)
+            EventBus.getDefault().post(FilterConditionEvent(
+                statusType = mViewModel!!.mCurPosition,
+                type = TYPE_WORK
+            ))
         }
 
         // 学习
@@ -311,6 +327,11 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_study)
         ) {
             mTypeSwitchDialog?.hide()
+            mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.学习)
+            EventBus.getDefault().post(FilterConditionEvent(
+                statusType = mViewModel!!.mCurPosition,
+                type = TYPE_STUDY
+            ))
         }
 
         // 生活
@@ -318,6 +339,11 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_life)
         ) {
             mTypeSwitchDialog?.hide()
+            mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.生活)
+            EventBus.getDefault().post(FilterConditionEvent(
+                statusType = mViewModel!!.mCurPosition,
+                type = TYPE_LIFE
+            ))
         }
     }
 

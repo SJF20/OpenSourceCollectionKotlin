@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.shijingfeng.todo.view_model.MainDoneViewModel" />
+        <import type="com.shijingfeng.todo.view_model.DoneViewModel" />
 
         <variable
             name="doneViewModel"
-            type="MainDoneViewModel" />
+            type="DoneViewModel" />
     </data>
 
     <LinearLayout

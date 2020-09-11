@@ -8,16 +8,17 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.todo.base.TodoBaseViewModel
-import com.shijingfeng.todo.constant.ORDER_BY_COMPLETE_DATE_ASC
+import com.shijingfeng.todo.constant.*
+import com.shijingfeng.todo.constant.PRIORITY
 import com.shijingfeng.todo.constant.PRIORITY_ALL
+import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_ALL
 import com.shijingfeng.todo.entity.MainTodoItem
 import com.shijingfeng.todo.entity.adapter.MainTodoGroupItem
 import com.shijingfeng.todo.source.repository.MainTodoRepository
-import com.shijingfeng.todo.ui.activity.MAIN_TODO
 
 /** 第一页 页码  */
-const val MAIN_TODO_FIRST_PAGE = 1
+internal const val MAIN_TODO_FIRST_PAGE = 1
 
 /**
  * Function: 主页 -> 待办 ViewModel
@@ -25,7 +26,7 @@ const val MAIN_TODO_FIRST_PAGE = 1
  * Description:
  * @author ShiJingFeng
  */
-internal class MainTodoViewModel(
+internal class TodoViewModel(
     repository: MainTodoRepository? = null
 ) : TodoBaseViewModel<MainTodoRepository>(
     repository
@@ -43,6 +44,9 @@ internal class MainTodoViewModel(
 
     /** 列表数据改变 LiveData Event  */
     var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<MainTodoGroupItem>>()
+
+    /** 请求参数 Map */
+    val mRequestParamMap = hashMapOf<String, Any>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = Callback.OnReloadListener {
@@ -64,13 +68,18 @@ internal class MainTodoViewModel(
      */
     override fun init() {
         super.init()
+        mParamBundle?.run {
+            mRequestParamMap[TYPE] = getInt(TYPE, TYPE_ALL)
+            mRequestParamMap[PRIORITY] = getInt(PRIORITY, PRIORITY_ALL)
+            mRequestParamMap[ORDER_BY] = getInt(ORDER_BY, ORDER_BY_COMPLETE_DATE_ASC)
+        }
         load()
     }
 
     /**
      * 加载数据
      */
-    private fun load() {
+    fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
         getTodoData(MAIN_TODO_FIRST_PAGE)
     }
@@ -99,16 +108,7 @@ internal class MainTodoViewModel(
     private fun getTodoData(page: Int) {
         mRepository?.getTodoData(
             page = page,
-            postMap = hashMapOf<String, Any>().apply {
-                // 待办的
-                put("status", MAIN_TODO)
-                // 所有类型
-                put("type", TYPE_ALL)
-                // 所有优先级
-                put("priority", PRIORITY_ALL)
-                // 完成日期顺序
-                put("orderby", ORDER_BY_COMPLETE_DATE_ASC)
-            },
+            postMap = mRequestParamMap,
             onSuccess = onSuccessLabel@{ todo ->
                 val todoItemList = todo?.todoItemList
                 val event = ListDataChangeEvent<MainTodoGroupItem>()

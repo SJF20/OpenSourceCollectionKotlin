@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.shijingfeng.todo.view_model.MainTodoViewModel" />
+        <import type="com.shijingfeng.todo.view_model.TodoViewModel" />
 
         <variable
             name="todoViewModel"
-            type="MainTodoViewModel" />
+            type="TodoViewModel" />
     </data>
 
     <LinearLayout
@@ -27,7 +27,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:fadingEdge="none"
                 android:overScrollMode="never"
                 android:scrollbars="none"/>

@@ -7,7 +7,7 @@ import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.base.TodoBaseFragment
 import com.shijingfeng.todo.databinding.FragmentTodoMainDoneBinding
-import com.shijingfeng.todo.view_model.MainDoneViewModel
+import com.shijingfeng.todo.view_model.DoneViewModel
 
 /**
  * 创建 DoneFragment 实例
@@ -21,7 +21,7 @@ internal fun createDoneFragment() = DoneFragment()
  * @author ShiJingFeng
  */
 @Route(path = FRAGMENT_TODO_DONE)
-internal class DoneFragment : TodoBaseFragment<FragmentTodoMainDoneBinding, MainDoneViewModel>() {
+internal class DoneFragment : TodoBaseFragment<FragmentTodoMainDoneBinding, DoneViewModel>() {
 
     /**
      * 获取视图ID
@@ -33,7 +33,7 @@ internal class DoneFragment : TodoBaseFragment<FragmentTodoMainDoneBinding, Main
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(MainDoneViewModel::class.java)
+    override fun getViewModel() = createViewModel(DoneViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
@@ -42,5 +42,11 @@ internal class DoneFragment : TodoBaseFragment<FragmentTodoMainDoneBinding, Main
     override fun getVariableSparseArray() = SparseArray<Any>().apply {
         put(BR.doneViewModel, mViewModel)
     }
+
+    /**
+     * 是否开启懒加载 (用于ViewPager)
+     * @return true 开启  false 关闭  默认关闭
+     */
+    override fun isEnableLazyLoad() = true
 
 }

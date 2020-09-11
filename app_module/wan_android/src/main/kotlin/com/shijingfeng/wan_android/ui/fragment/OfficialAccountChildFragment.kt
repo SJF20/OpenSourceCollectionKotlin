@@ -131,6 +131,10 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
             mDataBinding.rvContent.adapter = mOfficialAccountChildAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
+
+        if (!mDataBinding.rvContent.canScrollVertically(1)) {
+            mOnItemEvent?.invoke(mDataBinding.rvContent, null, View.VISIBLE, TAB_LAYOUT_VISIBILITY)
+        }
     }
 
     /**
@@ -142,13 +146,13 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    //滑倒最底部，隐藏
-                    mOnItemEvent?.invoke(recyclerView, null, View.GONE,
-                        TAB_LAYOUT_VISIBILITY
-                    )
-                    return
-                }
+//                if (!recyclerView.canScrollVertically(1)) {
+//                    //滑倒最底部，隐藏
+//                    mOnItemEvent?.invoke(recyclerView, null, View.GONE,
+//                        TAB_LAYOUT_VISIBILITY
+//                    )
+//                    return
+//                }
                 if (!recyclerView.canScrollVertically(-1)) {
                     //滑倒顶部，显示
                     mOnItemEvent?.invoke(recyclerView, null, View.VISIBLE,

@@ -139,6 +139,7 @@ class LoadingView private constructor(
      * 构建器
      */
     class Builder private constructor() {
+
         private val mAttr = Attr()
 
         constructor(activity: Activity) : this() {
@@ -154,9 +155,8 @@ class LoadingView private constructor(
             // View.getContext() 得到的并非是 Activity，而是 TintContextWrapper。
             this.mAttr.context = view.context
             if (parent != null && parent is ViewGroup) {
-                if (parent is FrameLayout) {
-                    this.mAttr.parent = parent
-                } else {
+                this.mAttr.parent = parent
+                if (parent !is FrameLayout) {
                     val frameLayout = FrameLayout(view.context)
                     val layoutParam = view.layoutParams
                     var childIndex = 0
@@ -175,25 +175,6 @@ class LoadingView private constructor(
             } else if (view is ViewGroup) {
                 if (view is FrameLayout) {
                     this.mAttr.parent = view
-                }
-            } else {
-
-            }
-
-            if (parent is FrameLayout) {
-
-            }
-            if (parent == null) {
-                if (view is FrameLayout) {
-                    this.mAttr.parent = view
-                } else {
-
-                }
-            } else {
-                if (parent is FrameLayout) {
-                    this.mAttr.parent = parent
-                } else if (parent is ViewGroup) {
-
                 }
             }
         }
@@ -235,17 +216,6 @@ class LoadingView private constructor(
         var parent: ViewGroup? = null
         /** 提示文本  */
         var hintText = DEFAULT_HINT_TEXT
-
-    }
-
-    class TargetContext {
-
-        /** Context 环境 */
-        lateinit var context: Context
-        /** 内容View 父View  */
-        lateinit var parent: ViewGroup
-//        /** 内容View */
-//        var content: View? = null
 
     }
 

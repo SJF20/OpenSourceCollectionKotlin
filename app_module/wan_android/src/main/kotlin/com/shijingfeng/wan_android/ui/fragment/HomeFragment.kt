@@ -2,6 +2,7 @@ package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.CheckBox
@@ -150,6 +151,10 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             mDataBinding.rvContent.layoutManager = LinearLayoutManager(activity)
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
+
+        if (!mDataBinding.rvContent.canScrollVertically(1)) {
+            mOnItemEvent?.invoke(mDataBinding.rvContent, null, View.VISIBLE, TAB_LAYOUT_VISIBILITY)
+        }
     }
 
     /**
@@ -161,13 +166,13 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    //滑倒最底部，隐藏
-                    mOnItemEvent?.invoke(recyclerView, null, GONE,
-                        TAB_LAYOUT_VISIBILITY
-                    )
-                    return
-                }
+//                if (!recyclerView.canScrollVertically(1)) {
+//                    //滑倒最底部，隐藏
+//                    mOnItemEvent?.invoke(recyclerView, null, GONE,
+//                        TAB_LAYOUT_VISIBILITY
+//                    )
+//                    return
+//                }
                 if (!recyclerView.canScrollVertically(-1)) {
                     //滑倒顶部，显示
                     mOnItemEvent?.invoke(recyclerView, null, VISIBLE,
