@@ -4,23 +4,23 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.todo.entity.MainTodo
+import com.shijingfeng.todo.entity.TodoEntity
 import com.shijingfeng.todo.source.network.api.TodoApi
 import com.shijingfeng.todo.util.apiRequest
 
 /** 单例实例 */
 @Volatile
-private var sInstance: MainTodoNetworkSource? = null
+private var sInstance: TodoNetworkSource? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getMainTodoNetworkSourceInstance(): MainTodoNetworkSource {
+internal fun getTodoNetworkSourceInstance(): TodoNetworkSource {
     if (sInstance == null) {
-        synchronized(MainTodoNetworkSource::class.java) {
+        synchronized(TodoNetworkSource::class.java) {
             if (sInstance == null) {
-                sInstance = MainTodoNetworkSource()
+                sInstance = TodoNetworkSource()
             }
         }
     }
@@ -33,7 +33,7 @@ internal fun getMainTodoNetworkSourceInstance(): MainTodoNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-internal class MainTodoNetworkSource : BaseNetworkSource() {
+internal class TodoNetworkSource : BaseNetworkSource() {
 
     /** 待办事项 相关 Api */
     private val mTodoApi = RetrofitUtil.create(TodoApi::class.java)
@@ -49,7 +49,7 @@ internal class MainTodoNetworkSource : BaseNetworkSource() {
     fun getTodoData(
         page: Int,
         postMap: Map<String, Any>,
-        onSuccess: onSuccess<MainTodo?>,
+        onSuccess: onSuccess<TodoEntity?>,
         onFailure: onFailure
     ) {
         addDisposable(apiRequest(

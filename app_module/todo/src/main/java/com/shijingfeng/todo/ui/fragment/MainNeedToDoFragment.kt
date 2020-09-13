@@ -1,38 +1,53 @@
 package com.shijingfeng.todo.ui.fragment
 
+import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
-import com.shijingfeng.base.arouter.FRAGMENT_TODO_TODO
+import com.shijingfeng.base.arouter.FRAGMENT_TODO_NEED_TO_DO
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
-import com.shijingfeng.todo.databinding.FragmentTodoMainTodoBinding
 import com.shijingfeng.todo.adapter.MainTodoGroupAdapter
 import com.shijingfeng.todo.constant.*
 import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_NONE
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
+import com.shijingfeng.todo.databinding.FragmentTodoMainNeedToDoBinding
+import com.shijingfeng.todo.entity.event.DataUpdateEvent
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
-import com.shijingfeng.todo.source.network.getMainTodoNetworkSourceInstance
-import com.shijingfeng.todo.source.repository.getMainTodoRepositoryInstance
-import com.shijingfeng.todo.ui.activity.MAIN_TODO
-import com.shijingfeng.todo.view_model.TodoViewModel
+import com.shijingfeng.todo.source.network.getTodoNetworkSourceInstance
+import com.shijingfeng.todo.source.repository.getTodoRepositoryInstance
+import com.shijingfeng.todo.ui.activity.MAIN_ALL
+import com.shijingfeng.todo.ui.activity.MAIN_DONE
+import com.shijingfeng.todo.ui.activity.MAIN_NONE
+import com.shijingfeng.todo.view_model.MainNeedToDoViewModel
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 创建 TodoFragment 实例
+ * 创建 MainNeedToDoFragment 实例
  */
-internal fun createTodoFragment() = TodoFragment()
+internal fun createMainNeedToDoFragment(
+    bundle: Bundle? = null
+): MainNeedToDoFragment {
+    val fragment = MainNeedToDoFragment()
+
+    if (bundle != null) {
+        fragment.arguments = bundle
+    }
+    return fragment
+}
 
 /**
  * Function: 首页 -> 待办 Fragment
@@ -40,9 +55,9 @@ internal fun createTodoFragment() = TodoFragment()
  * Description:
  * @author ShiJingFeng
  */
-@Route(path = FRAGMENT_TODO_TODO)
+@Route(path = FRAGMENT_TODO_NEED_TO_DO)
 @BindEventBus
-internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, TodoViewModel>() {
+internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoBinding, MainNeedToDoViewModel>() {
 
     /** 待办 分组 适配器 */
     private var mMainTodoGroupAdapter: MainTodoGroupAdapter? = null
@@ -51,21 +66,21 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_todo_main_todo
+    override fun getLayoutId() = R.layout.fragment_todo_main_need_to_do
 
     /**
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): TodoViewModel? {
-        val repository = getMainTodoRepositoryInstance(
-            networkSource = getMainTodoNetworkSourceInstance()
+    override fun getViewModel(): MainNeedToDoViewModel? {
+        val repository = getTodoRepositoryInstance(
+            networkSource = getTodoNetworkSourceInstance()
         )
 
         val factory = createCommonViewModelFactory(
             repository = repository
         )
-        return createViewModel(TodoViewModel::class.java, factory)
+        return createViewModel(MainNeedToDoViewModel::class.java, factory)
     }
 
     /**
@@ -73,7 +88,7 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
      * @return DataBinding 变量SparseArray
      */
     override fun getVariableSparseArray() = SparseArray<Any>().apply {
-        put(BR.todoViewModel, mViewModel)
+        put(BR.mainNeedToDoViewModel, mViewModel)
     }
 
     /**
@@ -90,7 +105,7 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
         }
 
         activity?.run {
-            mMainTodoGroupAdapter = MainTodoGroupAdapter(this, mViewModel?.mMainTodoItemList)
+            mMainTodoGroupAdapter = MainTodoGroupAdapter(this, mViewModel?.mTodoGroupItemList)
             mDataBinding.rvContent.adapter = mMainTodoGroupAdapter
             mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
         }
@@ -132,6 +147,29 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
         })
         mMainTodoGroupAdapter?.setOnItemEventListener { view, data, position, flag ->
             when (flag) {
+                // 删除 Item
+                REMOVE_ITEM -> {
+                    // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
+                    ToastUtils.showShort("删除成功")
+                    EventBus.getDefault().post(DataUpdateEvent(
+                        pageType = mViewModel!!.mPageType
+                    ))
+                }
+                // 标记完成
+                TODO_COMPLETED -> {
+                    // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
+                    ToastUtils.showShort("完成成功")
+                    EventBus.getDefault().post(DataUpdateEvent(
+                        pageType = MAIN_ALL
+                    ))
+                }
+                // 撤回
+                TODO_RECALL -> {
+                    ToastUtils.showShort("撤回成功")
+                    EventBus.getDefault().post(DataUpdateEvent(
+                        pageType = MAIN_ALL
+                    ))
+                }
                 // 查看 待办事项 详情
                 VIEW_TODO_DETAIL -> {
 
@@ -156,10 +194,10 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
 
                     when {
                         oldSize <= 0 -> mMainTodoGroupAdapter?.notifyDataSetChanged()
-                        oldSize == mViewModel!!.mMainTodoItemList.size -> mMainTodoGroupAdapter?.notifyItemChanged(mViewModel!!.mMainTodoItemList.size - 1)
+                        oldSize == mViewModel!!.mTodoGroupItemList.size -> mMainTodoGroupAdapter?.notifyItemChanged(mViewModel!!.mTodoGroupItemList.size - 1)
                         else -> mMainTodoGroupAdapter?.notifyItemRangeInserted(
                             oldSize,
-                            mViewModel!!.mMainTodoItemList.size - oldSize
+                            mViewModel!!.mTodoGroupItemList.size - oldSize
                         )
                     }
                 }
@@ -180,15 +218,21 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
      */
     override fun isEnableLazyLoad() = true
 
+    /**
+     * 获取 筛选条件 Event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun getFilterConditionEvent(filterConditionEvent: FilterConditionEvent) {
-        val status = filterConditionEvent.statusType
-        val type = filterConditionEvent.type
-        val priority = filterConditionEvent.priority
-        val orderBy = filterConditionEvent.orderBy
+    fun getFilterConditionEvent(event: FilterConditionEvent) {
+        val pageType = event.pageType
+        val type = event.type
+        val priority = event.priority
+        val orderBy = event.orderBy
 
-        if (status == MAIN_TODO) {
-            mViewModel?.run {
+        if (pageType == MAIN_NONE) {
+            return
+        }
+        mViewModel?.run {
+            if (pageType == mPageType) {
                 if (type != TYPE_NONE) {
                     mRequestParamMap[TYPE] = type
                 }
@@ -198,10 +242,30 @@ internal class TodoFragment : TodoBaseFragment<FragmentTodoMainTodoBinding, Todo
                 if (orderBy != ORDER_BY_NONE) {
                     mRequestParamMap[ORDER_BY] = orderBy
                 }
+
+                showCallback(LOAD_SERVICE_LOADING)
+                load()
             }
         }
-        showCallback(LOAD_SERVICE_LOADING)
-        mViewModel?.load()
+
+    }
+
+    /**
+     * 获取 数据更新 Event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getDataUpdateEvent(event: DataUpdateEvent) {
+        val pageType = event.pageType
+
+        if (pageType == MAIN_NONE) {
+            return
+        }
+        mViewModel?.run {
+            if (pageType == MAIN_ALL || pageType == mPageType) {
+                showCallback(LOAD_SERVICE_LOADING)
+                load()
+            }
+        }
     }
 
 }

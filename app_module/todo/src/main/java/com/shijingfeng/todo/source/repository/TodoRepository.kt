@@ -4,24 +4,24 @@ import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
-import com.shijingfeng.todo.entity.MainTodo
-import com.shijingfeng.todo.source.network.MainTodoNetworkSource
+import com.shijingfeng.todo.entity.TodoEntity
+import com.shijingfeng.todo.source.network.TodoNetworkSource
 
 /** 单例实例 */
 @Volatile
-private var sInstance: MainTodoRepository? = null
+private var sInstance: TodoRepository? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getMainTodoRepositoryInstance(
-    networkSource: MainTodoNetworkSource? = null
-): MainTodoRepository {
+internal fun getTodoRepositoryInstance(
+    networkSource: TodoNetworkSource? = null
+): TodoRepository {
     if (sInstance == null) {
-        synchronized(MainTodoRepository::class.java) {
+        synchronized(TodoRepository::class.java) {
             if (sInstance == null) {
-                sInstance = MainTodoRepository(
+                sInstance = TodoRepository(
                     networkSource = networkSource
                 )
             }
@@ -36,9 +36,9 @@ internal fun getMainTodoRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-internal class MainTodoRepository(
-    networkSource: MainTodoNetworkSource? = null
-) : BaseRepository<BaseLocalSource, MainTodoNetworkSource>(
+internal class TodoRepository(
+    networkSource: TodoNetworkSource? = null
+) : BaseRepository<BaseLocalSource, TodoNetworkSource>(
     mNetworkSource = networkSource
 ) {
 
@@ -53,7 +53,7 @@ internal class MainTodoRepository(
     fun getTodoData(
         page: Int,
         postMap: Map<String, Any>,
-        onSuccess: onSuccess<MainTodo?>,
+        onSuccess: onSuccess<TodoEntity?>,
         onFailure: onFailure
     ) {
         mNetworkSource?.getTodoData(page, postMap, onSuccess, onFailure)

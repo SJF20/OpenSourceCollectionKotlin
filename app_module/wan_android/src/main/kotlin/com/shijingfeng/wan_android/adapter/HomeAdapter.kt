@@ -51,7 +51,11 @@ internal class HomeAdapter(
     context: Context,
     dataList: List<HomeItem>? = null,
     multiItemTypeSupport: MultiItemTypeSupport<HomeItem>
-) : BaseMultiItemAdapter<HomeItem>(context, dataList, multiItemTypeSupport) {
+) : BaseMultiItemAdapter<HomeItem>(
+    context = context,
+    dataList = dataList,
+    multiItemTypeSupport = multiItemTypeSupport
+) {
 
     /** 轮播图当前下标  null: 最初状态 (下标为 0)  not null: 轮播图下标 */
     private var mBannerIndex: Int? = null

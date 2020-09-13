@@ -6,4 +6,7 @@
     <string name="生活">生活</string>
     <string name="待办">待办</string>
     <string name="已完成">已完成</string>
+    <string name="删除">删除</string>
+    <string name="完成">完成</string>
+    <string name="撤回">撤回</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.shijingfeng.todo.entity.adapter
 
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.todo.entity.MainTodoItem
 
 /**
  * Function: 主页 -> 待办 实体类
@@ -9,7 +8,7 @@ import com.shijingfeng.todo.entity.MainTodoItem
  * Description:
  * @author ShiJingFeng
  */
-internal class MainTodoGroupItem(
+internal class TodoGroupItem(
 
     /** 唯一ID (以天为单位的毫秒值, 注意: 并不是精确到毫秒的时间戳) */
     var identity: Long = 0L,
@@ -18,7 +17,7 @@ internal class MainTodoGroupItem(
     /** 待办日期字符串 */
     var dateStr: String = "",
     /** 分组下的列表 */
-    var todoItemList: MutableList<MainTodoItem> = mutableListOf()
+    var todoItemList: MutableList<TodoItem> = mutableListOf()
 
 ) : BaseEntity() {
 

@@ -16,7 +16,7 @@ internal const val TAB_LAYOUT_VISIBILITY = "tab_layout_visibility"
 internal const val VIEW_TODO_DETAIL = "view_todo_detail"
 
 /** 状态: 待办 */
-internal const val STATUS_TODO = 0
+internal const val STATUS_NEED_TO_DO = 0
 /** 状态: 已完成 */
 internal const val STATUS_DONE = 1
 
@@ -54,3 +54,22 @@ internal const val ORDER_BY_COMPLETE_DATE_DESC = 2
 internal const val ORDER_BY_CREATE_DATE_ASC = 3
 /** 排序: 创建日期逆序 (降序) */
 internal const val ORDER_BY_CREATE_DATE_DESC = 4
+
+/** 页面类型 */
+internal const val PAGE_TYPE = "page_type"
+
+/** 状态 */
+internal const val STATUS = "status"
+/** 类型 */
+internal const val TYPE = "type"
+/** 优先级 */
+internal const val PRIORITY = "priority"
+/** 排序 */
+internal const val ORDER_BY = "orderby"
+
+/** 删除 Item */
+internal const val REMOVE_ITEM = "remove_item"
+/** 标记完成 */
+internal const val TODO_COMPLETED = "todo_completed"
+/** 撤回 */
+internal const val TODO_RECALL = "todo_recall"

@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.shijingfeng.todo.view_model.TodoViewModel" />
+        <import type="com.shijingfeng.todo.view_model.MainNeedToDoViewModel" />
 
         <variable
-            name="todoViewModel"
-            type="TodoViewModel" />
+            name="mainNeedToDoViewModel"
+            type="MainNeedToDoViewModel" />
     </data>
 
     <LinearLayout
@@ -19,10 +19,11 @@
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/light_grey"
             app:srlEnableRefresh="true"
             app:srlEnableLoadMore="true"
-            app:onRefreshListener="@{todoViewModel.mOnRefreshListener}"
-            app:onLoadMoreListener="@{todoViewModel.mOnLoadMoreListener}">
+            app:onRefreshListener="@{mainNeedToDoViewModel.mOnRefreshListener}"
+            app:onLoadMoreListener="@{mainNeedToDoViewModel.mOnLoadMoreListener}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_content"
@@ -35,4 +36,5 @@
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </LinearLayout>
+
 </layout>

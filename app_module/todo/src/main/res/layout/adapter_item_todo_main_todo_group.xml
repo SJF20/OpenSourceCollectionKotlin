@@ -11,15 +11,16 @@
         android:layout_height="50dp"
         android:gravity="center_vertical|start"
         android:padding="15dp"
-        android:background="@color/light_grey"
         android:textColor="@color/black"
         android:textSize="16sp"
+        tools:background="@color/light_grey"
         tools:text="2019年12月12日" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:fadingEdge="none"
         android:overScrollMode="never"
         android:scrollbars="none" />

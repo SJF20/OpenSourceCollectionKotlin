@@ -1,53 +1,17 @@
-package com.shijingfeng.todo.entity
+package com.shijingfeng.todo.entity.adapter
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
+import com.shijingfeng.todo.constant.STATUS_NEED_TO_DO
+import com.shijingfeng.todo.constant.STATUS_DONE
 
 /**
- * Function: 主页 -> 待办 实体类
- * Date: 2020/5/19 21:24
+ * Function: 主页 -> 待办 分组后的 实体类 Item
+ * Date: 2020/9/11 22:11
  * Description:
  * @author ShiJingFeng
  */
-
-/**
- * 主页 -> 待办 实体类
- */
-internal data class MainTodo (
-
-    /** 此页开始的下标  */
-    @SerializedName("offset")
-    var offset: Int = 0,
-
-    /**  */
-    @SerializedName("over")
-    var over: Boolean = false,
-
-    /** 当前页面的页码 (-1 代表从本地获取的 全部 Item)  */
-    @SerializedName("curPage")
-    var curPage: Int = -1,
-
-    /** 页面的数量  */
-    @SerializedName("pageCount")
-    var pageCount: Int = 1,
-
-    /** 当前页的Item数量  */
-    @SerializedName("size")
-    var size: Int = 0,
-
-    /** Item总数  */
-    @SerializedName("total")
-    var total: Int = 0,
-
-    @SerializedName("datas")
-    var todoItemList: List<MainTodoItem> = ArrayList()
-
-) : BaseEntity()
-
-/**
- * 主页 -> 待办 分组后的 实体类 Item
- */
-internal data class MainTodoItem(
+internal data class TodoItem(
 
     @SerializedName("id")
     var identity: String = "",
@@ -95,6 +59,11 @@ internal data class MainTodoItem(
     var selected: Boolean = false
 
 ) : BaseEntity() {
+
+    /**
+     * 获取类型 [STATUS_NEED_TO_DO] [STATUS_DONE]
+     */
+    fun getType() = status
 
     /**
      * 获取ID

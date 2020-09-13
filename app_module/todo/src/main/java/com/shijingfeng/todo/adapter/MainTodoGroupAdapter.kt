@@ -2,10 +2,17 @@ package com.shijingfeng.todo.adapter
 
 import android.content.Context
 import com.shijingfeng.base.base.adapter.BaseAdapter
+import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.todo.R
-import com.shijingfeng.todo.entity.adapter.MainTodoGroupItem
+import com.shijingfeng.todo.constant.STATUS_DONE
+import com.shijingfeng.todo.constant.STATUS_NEED_TO_DO
+import com.shijingfeng.todo.entity.adapter.TodoGroupItem
+import com.shijingfeng.todo.entity.adapter.TodoItem
+import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
+import com.shijingfeng.todo.ui.activity.MAIN_DONE
 
 /**
  * Function: 主页 -> 待办 适配器
@@ -15,8 +22,8 @@ import com.shijingfeng.todo.entity.adapter.MainTodoGroupItem
  */
 internal class MainTodoGroupAdapter(
     context: Context,
-    dataList: List<MainTodoGroupItem>? = null
-) : BaseAdapter<MainTodoGroupItem>(
+    dataList: List<TodoGroupItem>? = null,
+) : BaseAdapter<TodoGroupItem>(
     context = context,
     layoutId = R.layout.adapter_item_todo_main_todo_group,
     dataList = dataList
@@ -28,8 +35,32 @@ internal class MainTodoGroupAdapter(
      * @param data 数据
      * @param position 下标位置
      */
-    override fun convert(holder: CommonViewHolder, data: MainTodoGroupItem, position: Int) {
-        val adapter = MainTodoAdapter(mContext, data.todoItemList)
+    override fun convert(holder: CommonViewHolder, data: TodoGroupItem, position: Int) {
+        val adapter = MainTodoAdapter(mContext, data.todoItemList, object : MultiItemTypeSupport<TodoItem> {
+
+            /**
+             * 根据 Item类型 获取 Layout Id
+             * @param itemType Item类型
+             * @return Layout Id
+             */
+            override fun getLayoutId(itemType: Int) = when (itemType) {
+                // 待办
+                STATUS_NEED_TO_DO -> R.layout.adapter_item_todo_main_need_to_do
+                // 已完成
+                STATUS_DONE -> R.layout.adapter_item_todo_main_done
+                // 未知
+                else -> 0
+            }
+
+            /**
+             * 获取 Item类型
+             * @param position 下标位置
+             * @param data 数据
+             * @return Item类型
+             */
+            override fun getItemViewType(position: Int, data: TodoItem) = data.getType()
+
+        })
 
         // 设置日期
         holder.setText(R.id.tv_date, data.dateStr)

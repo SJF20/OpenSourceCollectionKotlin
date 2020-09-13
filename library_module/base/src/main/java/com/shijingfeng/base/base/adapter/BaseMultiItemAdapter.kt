@@ -13,10 +13,13 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * @author ShiJingFeng
  */
 abstract class BaseMultiItemAdapter<T : BaseEntity>(
-    mContext: Context,
-    mDataList: List<T>? = null,
-    protected val mMultiItemTypeSupport: MultiItemTypeSupport<T>
-) : BaseAdapter<T>(mContext, -1, mDataList) {
+    context: Context,
+    dataList: List<T>? = null,
+    multiItemTypeSupport: MultiItemTypeSupport<T>
+) : BaseAdapter<T>(context, -1, dataList) {
+
+    /** 多布局支持适配器 */
+    private val mMultiItemTypeSupport = multiItemTypeSupport
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         createCommonViewHolder(

@@ -3,7 +3,7 @@ package com.shijingfeng.todo.source.network.api
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
 import com.shijingfeng.todo.entity.ResultEntity
-import com.shijingfeng.todo.entity.MainTodo
+import com.shijingfeng.todo.entity.TodoEntity
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -31,6 +31,6 @@ internal interface TodoApi {
     fun getTodoData(
         @Path("page") page: Int,
         @QueryMap postMap: Map<String, Any>? = null
-    ): Single<ResultEntity<MainTodo>>
+    ): Single<ResultEntity<TodoEntity>>
 
 }

@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static com.shijingfeng.todo.constant.FlagConstant.STATUS_DONE;
-import static com.shijingfeng.todo.constant.FlagConstant.STATUS_TODO;
+import static com.shijingfeng.todo.constant.FlagConstant.STATUS_NEED_TO_DO;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 import static java.lang.annotation.ElementType.PARAMETER;
@@ -21,7 +21,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @IntDef({
     // 待办
-    STATUS_TODO,
+    STATUS_NEED_TO_DO,
     // 已完成
     STATUS_DONE,
 })

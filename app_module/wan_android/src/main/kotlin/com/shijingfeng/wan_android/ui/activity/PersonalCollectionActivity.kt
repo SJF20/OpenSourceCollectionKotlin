@@ -84,13 +84,16 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
     override fun initData() {
         super.initData()
         mViewModel?.mCurPosition = PERSONAL_COLLECTION_ARTICLE
+
         mPersonalCollectionFragmentPagerAdapter = PersonalCollectionFragmentPagerAdapter(
             fragmentManager = supportFragmentManager,
             onFragmentCreate = { _, _ -> }
         )
-        mDataBinding.vpContent.setCanScroll(false)
-        mDataBinding.vpContent.offscreenPageLimit = 1
-        mDataBinding.vpContent.adapter = mPersonalCollectionFragmentPagerAdapter
+        mDataBinding.vpContent.run {
+            canScroll = false
+            offscreenPageLimit = 1
+            adapter = mPersonalCollectionFragmentPagerAdapter
+        }
 
         mDataBinding.tlTabs.run {
             // 文章

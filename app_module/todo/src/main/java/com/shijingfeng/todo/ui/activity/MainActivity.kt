@@ -3,6 +3,7 @@ package com.shijingfeng.todo.ui.activity
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
@@ -29,6 +31,7 @@ import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseActivity
 import com.shijingfeng.todo.base.TodoBaseFragment
 import com.shijingfeng.todo.constant.*
+import com.shijingfeng.todo.constant.PAGE_TYPE
 import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.todo.constant.TYPE_ALL
 import com.shijingfeng.todo.constant.TYPE_LIFE
@@ -39,17 +42,20 @@ import com.shijingfeng.todo.entity.event.FilterConditionEvent
 import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
 import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainRepositoryInstance
-import com.shijingfeng.todo.ui.fragment.createDoneFragment
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
-import com.shijingfeng.todo.ui.fragment.createTodoFragment
+import com.shijingfeng.todo.ui.fragment.createMainNeedToDoFragment
 import com.shijingfeng.todo.view_model.MainViewModel
 import org.greenrobot.eventbus.EventBus
 
 /** Fragment 数量 */
 private const val FRAGMENT_COUNT = 2
 
+/** 主页 -> 未知 */
+internal const val MAIN_NONE = -2
+/** 主页 -> 所有 */
+internal const val MAIN_ALL = -1
 /** 主页 -> 待办 */
-internal const val MAIN_TODO = 0
+internal const val MAIN_NEED_TO_DO = 0
 /** 主页 -> 已完成 */
 internal const val MAIN_DONE = 1
 
@@ -108,7 +114,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
         mDataBinding.includeTitleBar.ivOperate.setImageResource(R.drawable.ic_switch)
         mDataBinding.includeTitleBar.ivOperate.visibility = VISIBLE
 
-        mViewModel?.mCurPosition = MAIN_TODO
+        mViewModel?.mCurPosition = MAIN_NEED_TO_DO
 
         mMainFragmentPagerAdapter = MainFragmentPagerAdapter(
             fragmentManager = supportFragmentManager,
@@ -122,8 +128,11 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
                 }
             }
         )
-        mDataBinding.vpContent.offscreenPageLimit = 1
-        mDataBinding.vpContent.adapter = mMainFragmentPagerAdapter
+        mDataBinding.vpContent.run {
+            canScroll = false
+            offscreenPageLimit = 1
+            adapter = mMainFragmentPagerAdapter
+        }
 
         mDataBinding.tlTabs.run {
             // 待办
@@ -135,7 +144,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             setupWithViewPager(mDataBinding.vpContent)
 
             // 待办
-            getTabAt(MAIN_TODO)?.customView = getTabView(MAIN_TODO)
+            getTabAt(MAIN_NEED_TO_DO)?.customView = getTabView(MAIN_NEED_TO_DO)
             // 已完成
             getTabAt(MAIN_DONE)?.customView = getTabView(MAIN_DONE)
         }
@@ -174,6 +183,14 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {}
+
+        })
+        mDataBinding.vpContent.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                mViewModel?.mCurPosition = position
+            }
 
         })
     }
@@ -255,7 +272,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
 
         when (position) {
             // 待办
-            MAIN_TODO -> {
+            MAIN_NEED_TO_DO -> {
                 ivImage.setImageResource(R.drawable.ic_todo)
                 ivImage.setColorFilter(getColorById(R.color.red))
                 tvText.text = getStringById(R.string.待办)
@@ -305,7 +322,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             mTypeSwitchDialog?.hide()
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.全部)
             EventBus.getDefault().post(FilterConditionEvent(
-                statusType = mViewModel!!.mCurPosition,
+                pageType = mViewModel!!.mCurPosition,
                 type = TYPE_ALL
             ))
         }
@@ -317,7 +334,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             mTypeSwitchDialog?.hide()
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.工作)
             EventBus.getDefault().post(FilterConditionEvent(
-                statusType = mViewModel!!.mCurPosition,
+                pageType = mViewModel!!.mCurPosition,
                 type = TYPE_WORK
             ))
         }
@@ -329,7 +346,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             mTypeSwitchDialog?.hide()
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.学习)
             EventBus.getDefault().post(FilterConditionEvent(
-                statusType = mViewModel!!.mCurPosition,
+                pageType = mViewModel!!.mCurPosition,
                 type = TYPE_STUDY
             ))
         }
@@ -341,7 +358,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             mTypeSwitchDialog?.hide()
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.生活)
             EventBus.getDefault().post(FilterConditionEvent(
-                statusType = mViewModel!!.mCurPosition,
+                pageType = mViewModel!!.mCurPosition,
                 type = TYPE_LIFE
             ))
         }
@@ -367,9 +384,21 @@ internal class MainFragmentPagerAdapter(
      * @return 创建好的 Fragment
      */
     override fun createItem(position: Int): TodoBaseFragment<*, *> {
+        val bundle = Bundle().apply {
+            putInt(TYPE, TYPE_ALL)
+            putInt(PRIORITY, PRIORITY_ALL)
+            putInt(ORDER_BY, ORDER_BY_COMPLETE_DATE_ASC)
+        }
+
         return when (position) {
-            MAIN_TODO -> createTodoFragment()
-            MAIN_DONE -> createDoneFragment()
+            // 待办
+            MAIN_NEED_TO_DO -> createMainNeedToDoFragment(bundle.apply {
+                putInt(PAGE_TYPE, MAIN_NEED_TO_DO)
+            })
+            // 已完成
+            MAIN_DONE -> createMainNeedToDoFragment(bundle.apply {
+                putInt(PAGE_TYPE, MAIN_DONE)
+            })
             else -> createEmptyFragment()
         }
     }

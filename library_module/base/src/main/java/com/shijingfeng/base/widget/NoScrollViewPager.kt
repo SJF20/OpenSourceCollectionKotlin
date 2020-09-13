@@ -20,11 +20,12 @@ class NoScrollViewPager @JvmOverloads constructor(
     private var isCanScroll = true
 
     /**
-     * 设置其是否能滑动换页
-     * @param isCanScroll false 不能换页， true 可以滑动换页
+     * 是否能滑动
      */
-    fun setCanScroll(isCanScroll: Boolean) {
-        this.isCanScroll = isCanScroll
+    var canScroll: Boolean
+    get() = isCanScroll
+    set(canScroll) {
+        this.isCanScroll = canScroll
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent) = isCanScroll && super.onInterceptTouchEvent(ev)

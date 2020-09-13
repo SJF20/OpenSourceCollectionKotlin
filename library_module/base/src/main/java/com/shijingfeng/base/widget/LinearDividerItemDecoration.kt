@@ -20,25 +20,41 @@ import com.shijingfeng.base.util.getColorById
  */
 class LinearDividerItemDecoration(
     /** 分隔线颜色 */
-    @ColorInt private val mDividerColor: Int = getColorById(R.color.white_smoke),
+    @ColorInt dividerColor: Int = getColorById(R.color.white_smoke),
     /** 分隔线高 */
-    private val mDividerHeight: Int = SizeUtils.dp2px(1F),
+    dividerHeight: Int = SizeUtils.dp2px(1F),
     /** 分割线顶部 Margin */
-    private val mDividerTopMargin: Int = 0,
+    dividerTopMargin: Int = 0,
     /** 分割线底部 Margin */
-    private val mDividerBottomMargin: Int = 0,
+    dividerBottomMargin: Int = 0,
     /** 分割线左部 Margin */
-    private val mDividerLeftMargin: Int = 0,
+    dividerLeftMargin: Int = 0,
     /** 分割线右部 Margin */
-    private val mDividerRightMargin: Int = 0
+    dividerRightMargin: Int = 0
 ) : RecyclerView.ItemDecoration() {
+
+    /** 分隔线颜色 */
+    @ColorInt private val mDividerColor = dividerColor
+    /** 分隔线高 */
+    private val mDividerHeight = dividerHeight
+    /** 分割线顶部 Margin */
+    private val mDividerTopMargin = dividerTopMargin
+    /** 分割线底部 Margin */
+    private val mDividerBottomMargin = dividerBottomMargin
+    /** 分割线左部 Margin */
+    private val mDividerLeftMargin = dividerLeftMargin
+    /** 分割线右部 Margin */
+    private val mDividerRightMargin = dividerRightMargin
 
     private val mPaint = Paint()
 
     init {
-        mPaint.color = mDividerColor
-        mPaint.strokeWidth = mDividerHeight.toFloat()
-        mPaint.strokeCap = Paint.Cap.SQUARE
+        mPaint.run {
+            reset()
+            color = mDividerColor
+            strokeWidth = mDividerHeight.toFloat()
+            isAntiAlias = true
+        }
     }
 
     override fun getItemOffsets(
@@ -66,7 +82,7 @@ class LinearDividerItemDecoration(
             val bottom = top + mDividerHeight
 
             if (index != parent.childCount - 1) {
-                // 通过Canvas绘制矩形（分割线）
+                // 通过Canvas绘制分割线
                 c.drawLine(left, top, right, bottom, mPaint)
             }
         }
