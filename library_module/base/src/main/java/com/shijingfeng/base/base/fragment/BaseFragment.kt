@@ -3,16 +3,12 @@ package com.shijingfeng.base.base.fragment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.*
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -34,7 +30,7 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.common.extension.onItemEvent
 import com.shijingfeng.base.interfaces.KeyDownMonitor
 import com.shijingfeng.base.util.*
-import com.shijingfeng.base.widget.StatusBarView
+import com.shijingfeng.base.widget.LoadingView
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
@@ -60,6 +56,8 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     protected var mRootView: View? = null
     /** LoadSir  */
     protected var mLoadService: LoadService<*>? = null
+    /** LoadingView Map */
+    protected var mLoadingViewMap = hashMapOf<View, LoadingView>()
     /** SmartRefresh */
     protected var mSmartRefreshLayout: SmartRefreshLayout? = null
 
@@ -224,6 +222,77 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
             // 默认 LoadSir 状态 成功
             else -> SuccessCallback::class.java
         })
+    }
+
+    /**
+     * 注册 LoadingView
+     */
+    protected fun registerLoadingView(
+        view: View? = null,
+        hintText: String? = null
+    ) {
+        val parentView = view ?: requireActivity().findViewById(android.R.id.content)
+
+        mLoadingViewMap[parentView] = LoadingView.Builder(parentView)
+            .setHintText(hintText)
+            .build()
+    }
+
+    /**
+     * 显示 LoadingView
+     */
+    protected fun showLoadingView(
+        view: View? = null,
+        hintText: String? = null
+    ) {
+        val loadingView: LoadingView?
+
+        if (view == null) {
+            if (mLoadingViewMap.size == 1) {
+                // 单LoadingView
+                mLoadingViewMap.forEach { entry ->
+                    entry.value.run {
+                        show(hintText)
+                    }
+                }
+            } else if (mLoadingViewMap.size > 1) {
+                // Activity根布局View
+                loadingView = mLoadingViewMap[requireActivity().findViewById(android.R.id.content)]
+
+                if (loadingView == null) {
+                    throw RuntimeException("该页面未注册LoadingView")
+                } else {
+                    loadingView.run {
+                        show(hintText)
+                    }
+                }
+            } else {
+                throw RuntimeException("该页面未注册LoadingView")
+            }
+        } else {
+            // 多LoadingView
+            loadingView = mLoadingViewMap[view]
+
+            if (loadingView == null) {
+                throw RuntimeException("该View未注册LoadingView")
+            } else {
+                loadingView.run {
+                    show(hintText)
+                }
+            }
+        }
+    }
+
+    /**
+     * 隐藏 LoadingView
+     */
+    protected fun hideLoadingView(
+        view: View? = null
+    ) {
+        // TODO 参考 showLoadingView
+//        mLoadingView?.run {
+//            hide()
+//        }
     }
 
     /**

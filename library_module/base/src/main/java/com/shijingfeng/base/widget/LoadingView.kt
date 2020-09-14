@@ -14,6 +14,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.shijingfeng.base.R
+import com.shijingfeng.base.util.getStringById
 
 /**
  * Function: Loading View
@@ -26,8 +27,10 @@ class LoadingView private constructor(
 ) {
 
     companion object {
+
         /** 默认提示 */
-        const val DEFAULT_HINT_TEXT = "提交中..."
+        val DEFAULT_HINT_TEXT = getStringById(R.string.提交中)
+
     }
 
     /** LoadingView内容布局View */
@@ -85,12 +88,16 @@ class LoadingView private constructor(
 
     /**
      * 显示
+     *
+     * @param hintText 提示文本
      */
     @SuppressLint("InflateParams")
-    fun show() {
+    fun show(
+        hintText: String? = mAttr.hintText
+    ) {
         if (isShowing()) {
             // 如果LoadingView正在显示, 则只更新提示文本
-            mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
+            mContentView.findViewById<TextView>(R.id.tv_text).text = hintText
             return
         }
 
@@ -99,12 +106,12 @@ class LoadingView private constructor(
                 R.layout.dialog_loading,
                 null
             )
-            mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
+            mContentView.findViewById<TextView>(R.id.tv_text).text = hintText
             startAnimator()
             mAttr.parent?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
             mIsDestroyed = false
         } else {
-            mContentView.findViewById<TextView>(R.id.tv_text).text = mAttr.hintText
+            mContentView.findViewById<TextView>(R.id.tv_text).text = hintText
             startAnimator()
             mContentView.visibility = View.VISIBLE
         }
