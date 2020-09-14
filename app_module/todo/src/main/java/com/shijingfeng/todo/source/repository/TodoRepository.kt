@@ -60,6 +60,32 @@ internal class TodoRepository(
     }
 
     /**
+     * 删除
+     * @param id ID
+     */
+    fun remove(
+        id: String,
+        onSuccess: onSuccess<Any?>,
+        onFailure: onFailure
+    ) {
+        mNetworkSource?.remove(id, onSuccess, onFailure)
+    }
+
+    /**
+     * 更新状态
+     * @param id ID
+     * @param status 状态 0或1，传1代表未完成到已完成，反之则反之。
+     */
+    fun updateStatus(
+        id: String,
+        status: Int,
+        onSuccess: onSuccess<Any?>,
+        onFailure: onFailure
+    ) {
+        mNetworkSource?.updateStatus(id, status, onSuccess, onFailure)
+    }
+
+    /**
      * 销毁回调
      */
     override fun onCleared() {

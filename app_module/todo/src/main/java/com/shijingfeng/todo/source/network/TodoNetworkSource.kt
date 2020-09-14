@@ -7,6 +7,7 @@ import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.todo.entity.TodoEntity
 import com.shijingfeng.todo.source.network.api.TodoApi
 import com.shijingfeng.todo.util.apiRequest
+import kotlin.math.sin
 
 /** 单例实例 */
 @Volatile
@@ -54,6 +55,40 @@ internal class TodoNetworkSource : BaseNetworkSource() {
     ) {
         addDisposable(apiRequest(
             single = mTodoApi.getTodoData(page, postMap),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
+    }
+
+    /**
+     * 删除
+     * @param id ID
+     */
+    fun remove(
+        id: String,
+        onSuccess: onSuccess<Any?>,
+        onFailure: onFailure
+    ) {
+        addDisposable(apiRequest(
+            single = mTodoApi.remove(id),
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        ))
+    }
+
+    /**
+     * 更新状态
+     * @param id ID
+     * @param status 状态 0或1，传1代表未完成到已完成，反之则反之。
+     */
+    fun updateStatus(
+        id: String,
+        status: Int,
+        onSuccess: onSuccess<Any?>,
+        onFailure: onFailure
+    ) {
+        addDisposable(apiRequest(
+            single = mTodoApi.updateStatus(id, status),
             onSuccess = onSuccess,
             onFailure = onFailure
         ))

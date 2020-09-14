@@ -1,5 +1,6 @@
 package com.shijingfeng.todo.view_model
 
+import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.Callback
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -7,6 +8,8 @@ import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.widget.dialog.LoadingDialog
+import com.shijingfeng.todo.annotation.define.TodoStatus
 import com.shijingfeng.todo.base.TodoBaseViewModel
 import com.shijingfeng.todo.constant.*
 import com.shijingfeng.todo.constant.PRIORITY
@@ -19,7 +22,10 @@ import com.shijingfeng.todo.source.repository.TodoRepository
 import com.shijingfeng.todo.ui.activity.MAIN_DONE
 import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
 import com.shijingfeng.todo.constant.PAGE_TYPE
+import com.shijingfeng.todo.entity.event.DataUpdateEvent
+import com.shijingfeng.todo.ui.activity.MAIN_ALL
 import com.shijingfeng.todo.ui.activity.MAIN_NONE
+import org.greenrobot.eventbus.EventBus
 
 /** 第一页 页码  */
 internal const val MAIN_NEED_TO_DO_FIRST_PAGE = 1
@@ -197,11 +203,46 @@ internal class MainNeedToDoViewModel(
      * @param id ID
      */
     fun remove(id: String) {
-
+        showLoadingDialog("删除中...")
+        mRepository?.remove(id, onSuccess = {
+            hideLoadingDialog()
+            ToastUtils.showShort("删除成功")
+            // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
+            EventBus.getDefault().post(DataUpdateEvent(
+                pageType = mPageType
+            ))
+        }, onFailure = {
+            hideLoadingDialog()
+        })
     }
 
-    fun updateStatus(id: String) {
-
+    /**
+     * 更新状态
+     * @param id ID
+     * @param status 状态 0或1，传1代表未完成到已完成，反之则反之。
+     */
+    fun updateStatus(
+        id: String,
+        @TodoStatus status: Int
+    ) {
+        showLoadingDialog("提交中...")
+        mRepository?.updateStatus(id, status, onSuccess = {
+            hideLoadingDialog()
+            when (status) {
+                STATUS_NEED_TO_DO -> {
+                    ToastUtils.showShort("撤回成功")
+                }
+                STATUS_DONE -> {
+                    ToastUtils.showShort("完成成功")
+                }
+            }
+            // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
+            EventBus.getDefault().post(DataUpdateEvent(
+                pageType = MAIN_ALL
+            ))
+        }, onFailure = {
+            hideLoadingDialog()
+        })
     }
 
     /**

@@ -23,12 +23,12 @@ import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_NONE
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
 import com.shijingfeng.todo.databinding.FragmentTodoMainNeedToDoBinding
+import com.shijingfeng.todo.entity.adapter.TodoItem
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
 import com.shijingfeng.todo.source.network.getTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getTodoRepositoryInstance
 import com.shijingfeng.todo.ui.activity.MAIN_ALL
-import com.shijingfeng.todo.ui.activity.MAIN_DONE
 import com.shijingfeng.todo.ui.activity.MAIN_NONE
 import com.shijingfeng.todo.view_model.MainNeedToDoViewModel
 import org.greenrobot.eventbus.EventBus
@@ -149,31 +149,20 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
             when (flag) {
                 // 删除 Item
                 REMOVE_ITEM -> {
-                    // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
-                    ToastUtils.showShort("删除成功")
-                    EventBus.getDefault().post(DataUpdateEvent(
-                        pageType = mViewModel!!.mPageType
-                    ))
+                    val todoItem = data as TodoItem
+
+                    mViewModel?.remove(todoItem.getId())
                 }
                 // 标记完成
-                TODO_COMPLETED -> {
-                    // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
-                    ToastUtils.showShort("完成成功")
-                    EventBus.getDefault().post(DataUpdateEvent(
-                        pageType = MAIN_ALL
-                    ))
-                }
+                TODO_COMPLETED,
                 // 撤回
                 TODO_RECALL -> {
-                    ToastUtils.showShort("撤回成功")
-                    EventBus.getDefault().post(DataUpdateEvent(
-                        pageType = MAIN_ALL
-                    ))
+                    val todoItem = data as TodoItem
+
+                    mViewModel?.updateStatus(todoItem.getId(), if (flag == TODO_COMPLETED) STATUS_DONE else STATUS_NEED_TO_DO)
                 }
                 // 查看 待办事项 详情
-                VIEW_TODO_DETAIL -> {
-
-                }
+                VIEW_TODO_DETAIL -> {}
             }
         }
     }
