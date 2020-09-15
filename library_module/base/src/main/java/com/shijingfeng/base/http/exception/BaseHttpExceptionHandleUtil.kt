@@ -4,6 +4,7 @@ package com.shijingfeng.base.http.exception
 
 import android.net.ParseException
 import android.text.TextUtils
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.JsonParseException
 import com.shijingfeng.base.R

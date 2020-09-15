@@ -27,7 +27,7 @@ import com.shijingfeng.todo.entity.adapter.TodoItem
  * Description:
  * @author ShiJingFeng
  */
-internal class MainTodoAdapter(
+internal class TodoListAdapter(
     context: Context,
     dataList: List<TodoItem>? = null,
     multiItemTypeSupport: MultiItemTypeSupport<TodoItem>

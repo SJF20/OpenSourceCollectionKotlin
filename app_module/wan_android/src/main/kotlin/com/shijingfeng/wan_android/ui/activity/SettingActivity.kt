@@ -86,7 +86,7 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
             if (themeColorNameList.isNotEmpty()) {
                 showChooseThemeColorDialog()
             } else {
-                ToastUtils.showShort("暂无主题可供选择")
+                ToastUtils.showShort(getStringById(R.string.暂无主题可供选择))
             }
         }
     }

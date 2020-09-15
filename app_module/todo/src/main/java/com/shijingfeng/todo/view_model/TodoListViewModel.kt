@@ -8,6 +8,8 @@ import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.todo.R
 import com.shijingfeng.todo.annotation.define.TodoStatus
 import com.shijingfeng.todo.base.TodoBaseViewModel
 import com.shijingfeng.todo.constant.*
@@ -17,7 +19,7 @@ import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_ALL
 import com.shijingfeng.todo.entity.adapter.TodoGroupItem
 import com.shijingfeng.todo.entity.adapter.TodoItem
-import com.shijingfeng.todo.source.repository.TodoRepository
+import com.shijingfeng.todo.source.repository.TodoListRepository
 import com.shijingfeng.todo.ui.activity.MAIN_DONE
 import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
 import com.shijingfeng.todo.constant.PAGE_TYPE
@@ -27,7 +29,7 @@ import com.shijingfeng.todo.ui.activity.MAIN_NONE
 import org.greenrobot.eventbus.EventBus
 
 /** 第一页 页码  */
-internal const val MAIN_NEED_TO_DO_FIRST_PAGE = 1
+internal const val TO_DO_LIST_FIRST_PAGE = 1
 
 /**
  * Function: 主页 -> 待办 ViewModel
@@ -35,14 +37,14 @@ internal const val MAIN_NEED_TO_DO_FIRST_PAGE = 1
  * Description:
  * @author ShiJingFeng
  */
-internal class MainNeedToDoViewModel(
-    repository: TodoRepository? = null
-) : TodoBaseViewModel<TodoRepository>(
+internal class TodoListViewModel(
+    repository: TodoListRepository? = null
+) : TodoBaseViewModel<TodoListRepository>(
     repository
 ) {
 
     /** 当前页码  */
-    private var mPage = MAIN_NEED_TO_DO_FIRST_PAGE
+    private var mPage = TO_DO_LIST_FIRST_PAGE
 
     /** 页面操作类型  */
     @PageOperateType
@@ -98,9 +100,9 @@ internal class MainNeedToDoViewModel(
     /**
      * 加载数据
      */
-    fun load() {
+    private fun load() {
         mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-        getTodoData(MAIN_NEED_TO_DO_FIRST_PAGE)
+        getTodoData(TO_DO_LIST_FIRST_PAGE)
     }
 
     /**
@@ -109,7 +111,7 @@ internal class MainNeedToDoViewModel(
     fun reload() {
         showLoadingView()
         mPageOperateType = PAGE_OPERATE_TYPE_RELOAD
-        getTodoData(MAIN_NEED_TO_DO_FIRST_PAGE)
+        getTodoData(TO_DO_LIST_FIRST_PAGE)
     }
 
     /**
@@ -118,7 +120,7 @@ internal class MainNeedToDoViewModel(
     private fun refresh() {
         mPageOperateType = PAGE_OPERATE_TYPE_REFRESH
         //下拉刷新 期间禁止 上拉加载
-        getTodoData(MAIN_NEED_TO_DO_FIRST_PAGE)
+        getTodoData(TO_DO_LIST_FIRST_PAGE)
     }
 
     /**
@@ -131,7 +133,7 @@ internal class MainNeedToDoViewModel(
 
     /**
      * 获取 待办 数据
-     * @param page 页码 (从 [MAIN_NEED_TO_DO_FIRST_PAGE] 开始)
+     * @param page 页码 (从 [TO_DO_LIST_FIRST_PAGE] 开始)
      */
     private fun getTodoData(page: Int) {
         mRepository?.getTodoData(
@@ -146,7 +148,7 @@ internal class MainNeedToDoViewModel(
                     PAGE_OPERATE_TYPE_LOAD,
                     // 重新加载
                     PAGE_OPERATE_TYPE_RELOAD -> {
-                        mPage = MAIN_NEED_TO_DO_FIRST_PAGE
+                        mPage = TO_DO_LIST_FIRST_PAGE
                         mTodoGroupItemList.clear()
                         // 按天进行分组
                         groupByDay(todoItemList)
@@ -160,7 +162,7 @@ internal class MainNeedToDoViewModel(
                     }
                     // 下拉刷新
                     PAGE_OPERATE_TYPE_REFRESH -> {
-                        mPage = MAIN_NEED_TO_DO_FIRST_PAGE
+                        mPage = TO_DO_LIST_FIRST_PAGE
                         mTodoGroupItemList.clear()
                         // 按天进行分组
                         groupByDay(todoItemList)
@@ -216,10 +218,10 @@ internal class MainNeedToDoViewModel(
      * @param id ID
      */
     fun remove(id: String) {
-        showLoadingDialog("删除中...")
+        showLoadingDialog(getStringById(R.string.删除中))
         mRepository?.remove(id, onSuccess = {
             hideLoadingDialog()
-            ToastUtils.showShort("删除成功")
+            ToastUtils.showShort(getStringById(R.string.删除成功))
             // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
             EventBus.getDefault().post(DataUpdateEvent(
                 pageType = mPageType
@@ -238,15 +240,15 @@ internal class MainNeedToDoViewModel(
         id: String,
         @TodoStatus status: Int
     ) {
-        showLoadingDialog("提交中...")
+        showLoadingDialog(getStringById(R.string.提交中))
         mRepository?.updateStatus(id, status, onSuccess = {
             hideLoadingDialog()
             when (status) {
                 STATUS_NEED_TO_DO -> {
-                    ToastUtils.showShort("撤回成功")
+                    ToastUtils.showShort(getStringById(R.string.撤回成功))
                 }
                 STATUS_DONE -> {
-                    ToastUtils.showShort("完成成功")
+                    ToastUtils.showShort(getStringById(R.string.完成成功))
                 }
             }
             // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据

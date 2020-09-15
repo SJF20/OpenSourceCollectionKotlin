@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.SparseArray
+import android.util.SparseIntArray
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,7 @@ import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
 import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getMainRepositoryInstance
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
-import com.shijingfeng.todo.ui.fragment.createMainNeedToDoFragment
+import com.shijingfeng.todo.ui.fragment.createTodoListFragment
 import com.shijingfeng.todo.view_model.MainViewModel
 import org.greenrobot.eventbus.EventBus
 
@@ -73,6 +74,12 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
 
     /** 类型切换 Dialog */
     private var mTypeSwitchDialog: CommonDialog? = null
+
+    /** 类型 SparseArray  Key: 页面类型  Value: 当前页面的类型 */
+    private val mTypeSparseArray = SparseIntArray().apply {
+        put(MAIN_NEED_TO_DO, TYPE_ALL)
+        put(MAIN_DONE, TYPE_ALL)
+    }
 
     /**
      * 获取视图ID
@@ -190,6 +197,17 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 mViewModel?.mCurPosition = position
+
+                when (mTypeSparseArray[position]) {
+                    // 全部
+                    TYPE_ALL -> mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.全部)
+                    // 学习
+                    TYPE_STUDY -> mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.学习)
+                    // 工作
+                    TYPE_WORK -> mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.工作)
+                    // 生活
+                    TYPE_LIFE -> mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.生活)
+                }
             }
 
         })
@@ -320,6 +338,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_all)
         ) {
             mTypeSwitchDialog?.hide()
+            mTypeSparseArray.put(mViewModel!!.mCurPosition, TYPE_ALL)
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.全部)
             EventBus.getDefault().post(FilterConditionEvent(
                 pageType = mViewModel!!.mCurPosition,
@@ -332,6 +351,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_work)
         ) {
             mTypeSwitchDialog?.hide()
+            mTypeSparseArray.put(mViewModel!!.mCurPosition, TYPE_WORK)
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.工作)
             EventBus.getDefault().post(FilterConditionEvent(
                 pageType = mViewModel!!.mCurPosition,
@@ -344,6 +364,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_study)
         ) {
             mTypeSwitchDialog?.hide()
+            mTypeSparseArray.put(mViewModel!!.mCurPosition, TYPE_STUDY)
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.学习)
             EventBus.getDefault().post(FilterConditionEvent(
                 pageType = mViewModel!!.mCurPosition,
@@ -356,6 +377,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             view.findViewById<View>(R.id.tv_life)
         ) {
             mTypeSwitchDialog?.hide()
+            mTypeSparseArray.put(mViewModel!!.mCurPosition, TYPE_LIFE)
             mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.生活)
             EventBus.getDefault().post(FilterConditionEvent(
                 pageType = mViewModel!!.mCurPosition,
@@ -392,11 +414,11 @@ internal class MainFragmentPagerAdapter(
 
         return when (position) {
             // 待办
-            MAIN_NEED_TO_DO -> createMainNeedToDoFragment(bundle.apply {
+            MAIN_NEED_TO_DO -> createTodoListFragment(bundle.apply {
                 putInt(PAGE_TYPE, MAIN_NEED_TO_DO)
             })
             // 已完成
-            MAIN_DONE -> createMainNeedToDoFragment(bundle.apply {
+            MAIN_DONE -> createTodoListFragment(bundle.apply {
                 putInt(PAGE_TYPE, MAIN_DONE)
             })
             else -> createEmptyFragment()

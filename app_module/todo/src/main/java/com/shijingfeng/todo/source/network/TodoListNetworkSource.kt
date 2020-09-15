@@ -7,21 +7,20 @@ import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.todo.entity.TodoEntity
 import com.shijingfeng.todo.source.network.api.TodoApi
 import com.shijingfeng.todo.util.apiRequest
-import kotlin.math.sin
 
 /** 单例实例 */
 @Volatile
-private var sInstance: TodoNetworkSource? = null
+private var sInstance: TodoListNetworkSource? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getTodoNetworkSourceInstance(): TodoNetworkSource {
+internal fun getTodoListNetworkSourceInstance(): TodoListNetworkSource {
     if (sInstance == null) {
-        synchronized(TodoNetworkSource::class.java) {
+        synchronized(TodoListNetworkSource::class.java) {
             if (sInstance == null) {
-                sInstance = TodoNetworkSource()
+                sInstance = TodoListNetworkSource()
             }
         }
     }
@@ -34,7 +33,7 @@ internal fun getTodoNetworkSourceInstance(): TodoNetworkSource {
  * Description:
  * @author ShiJingFeng
  */
-internal class TodoNetworkSource : BaseNetworkSource() {
+internal class TodoListNetworkSource : BaseNetworkSource() {
 
     /** 待办事项 相关 Api */
     private val mTodoApi = RetrofitUtil.create(TodoApi::class.java)

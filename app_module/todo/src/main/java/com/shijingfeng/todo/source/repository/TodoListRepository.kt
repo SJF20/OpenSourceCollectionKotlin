@@ -5,23 +5,23 @@ import com.shijingfeng.base.base.source.BaseLocalSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.todo.entity.TodoEntity
-import com.shijingfeng.todo.source.network.TodoNetworkSource
+import com.shijingfeng.todo.source.network.TodoListNetworkSource
 
 /** 单例实例 */
 @Volatile
-private var sInstance: TodoRepository? = null
+private var sInstance: TodoListRepository? = null
 
 /**
  * DCL双检 获取实例
  * @return 实例
  */
-internal fun getTodoRepositoryInstance(
-    networkSource: TodoNetworkSource? = null
-): TodoRepository {
+internal fun getTodoListRepositoryInstance(
+    networkSource: TodoListNetworkSource? = null
+): TodoListRepository {
     if (sInstance == null) {
-        synchronized(TodoRepository::class.java) {
+        synchronized(TodoListRepository::class.java) {
             if (sInstance == null) {
-                sInstance = TodoRepository(
+                sInstance = TodoListRepository(
                     networkSource = networkSource
                 )
             }
@@ -36,9 +36,9 @@ internal fun getTodoRepositoryInstance(
  * Description:
  * @author ShiJingFeng
  */
-internal class TodoRepository(
-    networkSource: TodoNetworkSource? = null
-) : BaseRepository<BaseLocalSource, TodoNetworkSource>(
+internal class TodoListRepository(
+    networkSource: TodoListNetworkSource? = null
+) : BaseRepository<BaseLocalSource, TodoListNetworkSource>(
     mNetworkSource = networkSource
 ) {
 

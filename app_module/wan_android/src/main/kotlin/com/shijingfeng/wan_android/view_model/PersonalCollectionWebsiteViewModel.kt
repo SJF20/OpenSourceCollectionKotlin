@@ -8,6 +8,8 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getPositionById
+import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent
 import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
@@ -193,7 +195,7 @@ internal class PersonalCollectionWebsiteViewModel(
                     )
                 )
             } else {
-                ToastUtils.showShort("已经取消收藏")
+                ToastUtils.showShort(getStringById(R.string.已经取消收藏))
             }
         })
     }

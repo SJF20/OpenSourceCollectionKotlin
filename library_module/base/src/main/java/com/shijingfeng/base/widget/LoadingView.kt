@@ -118,20 +118,8 @@ class LoadingView private constructor(
             mAttr.parent?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
             mIsDestroyed = false
         } else {
-            val parent = mContentView.parent as ViewGroup
-            var curIndex = 0
-
             mContentView.findViewById<TextView>(R.id.tv_text).text = hint
             startAnimator()
-            for (index in 0 until parent.childCount) {
-                if (mContentView == parent.getChildAt(index)) {
-                    curIndex = index
-                }
-            }
-            if (curIndex != 0) {
-                parent.removeViewAt(curIndex)
-                parent.addView(mContentView, 0)
-            }
             mContentView.visibility = View.VISIBLE
         }
         mIsShowing = true
@@ -174,33 +162,33 @@ class LoadingView private constructor(
         }
 
         constructor(view: View): this() {
-            val parent = view.parent
-
             // 直接继承 Activity 的 Activity 构造出来的 View.getContext() 返回的是当前 Activity。
             // 但是当 View 的 Activity 是继承自 AppCompatActivity，并且在 5.0 以下版本的手机上，
             // View.getContext() 得到的并非是 Activity，而是 TintContextWrapper。
             this.mAttr.context = view.context
-            if (parent != null && parent is ViewGroup) {
-                this.mAttr.parent = parent
-                if (parent !is FrameLayout) {
-                    val frameLayout = FrameLayout(view.context)
-                    val layoutParam = view.layoutParams
-                    var childIndex = 0
-                    val childCount = parent.childCount
+            if (view is FrameLayout) {
+                this.mAttr.parent = view
+            } else {
+                val parent = view.parent
 
-                    for (i in 0 until childCount) {
-                        if (parent.getChildAt(i) === view) {
-                            childIndex = i
-                            break
+                if (parent != null && parent is ViewGroup) {
+                    this.mAttr.parent = parent
+                    if (parent !is FrameLayout) {
+                        val frameLayout = FrameLayout(view.context)
+                        val layoutParam = view.layoutParams
+                        var childIndex = 0
+                        val childCount = parent.childCount
+
+                        for (i in 0 until childCount) {
+                            if (parent.getChildAt(i) === view) {
+                                childIndex = i
+                                break
+                            }
                         }
+                        parent.removeView(view)
+                        frameLayout.addView(view)
+                        parent.addView(frameLayout, childIndex, layoutParam)
                     }
-                    parent.removeView(view)
-                    frameLayout.addView(view)
-                    parent.addView(frameLayout, childIndex, layoutParam)
-                }
-            } else if (view is ViewGroup) {
-                if (view is FrameLayout) {
-                    this.mAttr.parent = view
                 }
             }
         }

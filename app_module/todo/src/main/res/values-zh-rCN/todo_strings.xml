@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="todo_name">待办事项</string>
     <string name="全部">全部</string>
     <string name="工作">工作</string>
@@ -9,4 +9,8 @@
     <string name="删除">删除</string>
     <string name="完成">完成</string>
     <string name="撤回">撤回</string>
+    <string name="删除中" tools:ignore="TypographyEllipsis">删除中...</string>
+    <string name="删除成功">删除成功</string>
+    <string name="撤回成功">撤回成功</string>
+    <string name="完成成功">完成成功</string>
 </resources>

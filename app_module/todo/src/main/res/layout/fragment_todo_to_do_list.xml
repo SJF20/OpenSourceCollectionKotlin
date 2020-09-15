@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-        <import type="com.shijingfeng.todo.view_model.MainDoneViewModel" />
+        <import type="com.shijingfeng.todo.view_model.TodoListViewModel" />
 
         <variable
-            name="mainDoneViewModel"
-            type="MainDoneViewModel" />
+            name="todoListViewModel"
+            type="TodoListViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,10 +20,11 @@
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/light_grey"
             app:srlEnableRefresh="true"
             app:srlEnableLoadMore="true"
-            app:onRefreshListener="@{mainDoneViewModel.mOnRefreshListener}"
-            app:onLoadMoreListener="@{mainDoneViewModel.mOnLoadMoreListener}">
+            app:onRefreshListener="@{todoListViewModel.mOnRefreshListener}"
+            app:onLoadMoreListener="@{todoListViewModel.mOnLoadMoreListener}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_content"
@@ -34,6 +36,6 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </layout>

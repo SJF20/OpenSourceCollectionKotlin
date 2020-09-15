@@ -9,38 +9,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
-import com.shijingfeng.base.arouter.FRAGMENT_TODO_NEED_TO_DO
+import com.shijingfeng.base.arouter.FRAGMENT_TODO_LIST
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
-import com.shijingfeng.todo.adapter.MainTodoGroupAdapter
+import com.shijingfeng.todo.adapter.TodoGroupListAdapter
 import com.shijingfeng.todo.constant.*
 import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_NONE
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
-import com.shijingfeng.todo.databinding.FragmentTodoMainNeedToDoBinding
+import com.shijingfeng.todo.databinding.FragmentTodoToDoListBinding
 import com.shijingfeng.todo.entity.adapter.TodoItem
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
-import com.shijingfeng.todo.source.network.getTodoNetworkSourceInstance
-import com.shijingfeng.todo.source.repository.getTodoRepositoryInstance
+import com.shijingfeng.todo.source.network.getTodoListNetworkSourceInstance
+import com.shijingfeng.todo.source.repository.getTodoListRepositoryInstance
 import com.shijingfeng.todo.ui.activity.MAIN_ALL
 import com.shijingfeng.todo.ui.activity.MAIN_NONE
-import com.shijingfeng.todo.view_model.MainNeedToDoViewModel
+import com.shijingfeng.todo.view_model.TodoListViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 创建 MainNeedToDoFragment 实例
+ * 创建 TodoListFragment 实例
  */
-internal fun createMainNeedToDoFragment(
+internal fun createTodoListFragment(
     bundle: Bundle? = null
-): MainNeedToDoFragment {
-    val fragment = MainNeedToDoFragment()
+): TodoListFragment {
+    val fragment = TodoListFragment()
 
     if (bundle != null) {
         fragment.arguments = bundle
@@ -54,32 +54,32 @@ internal fun createMainNeedToDoFragment(
  * Description:
  * @author ShiJingFeng
  */
-@Route(path = FRAGMENT_TODO_NEED_TO_DO)
+@Route(path = FRAGMENT_TODO_LIST)
 @BindEventBus
-internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoBinding, MainNeedToDoViewModel>() {
+internal class TodoListFragment : TodoBaseFragment<FragmentTodoToDoListBinding, TodoListViewModel>() {
 
     /** 待办 分组 适配器 */
-    private var mMainTodoGroupAdapter: MainTodoGroupAdapter? = null
+    private var mTodoGroupListAdapter: TodoGroupListAdapter? = null
 
     /**
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_todo_main_need_to_do
+    override fun getLayoutId() = R.layout.fragment_todo_to_do_list
 
     /**
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): MainNeedToDoViewModel? {
-        val repository = getTodoRepositoryInstance(
-            networkSource = getTodoNetworkSourceInstance()
+    override fun getViewModel(): TodoListViewModel? {
+        val repository = getTodoListRepositoryInstance(
+            networkSource = getTodoListNetworkSourceInstance()
         )
 
         val factory = createCommonViewModelFactory(
             repository = repository
         )
-        return createViewModel(MainNeedToDoViewModel::class.java, factory)
+        return createViewModel(TodoListViewModel::class.java, factory)
     }
 
     /**
@@ -87,7 +87,7 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
      * @return DataBinding 变量SparseArray
      */
     override fun getVariableSparseArray() = SparseArray<Any>().apply {
-        put(BR.mainNeedToDoViewModel, mViewModel)
+        put(BR.todoListViewModel, mViewModel)
     }
 
     /**
@@ -103,13 +103,13 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
             showCallback(LOAD_SERVICE_LOADING)
         }
         registerLoadingView(
-            view = mDataBinding.srlRefresh,
+            view = mDataBinding.flContent,
             hintText = getStringById(R.string.加载中)
         )
 
         activity?.run {
-            mMainTodoGroupAdapter = MainTodoGroupAdapter(this, mViewModel?.mTodoGroupItemList)
-            mDataBinding.rvContent.adapter = mMainTodoGroupAdapter
+            mTodoGroupListAdapter = TodoGroupListAdapter(this, mViewModel?.mTodoGroupItemList)
+            mDataBinding.rvContent.adapter = mTodoGroupListAdapter
             mDataBinding.rvContent.layoutManager = LinearLayoutManager(this)
         }
 
@@ -148,7 +148,7 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
                 )
             }
         })
-        mMainTodoGroupAdapter?.setOnItemEventListener { view, data, position, flag ->
+        mTodoGroupListAdapter?.setOnItemEventListener { view, data, position, flag ->
             when (flag) {
                 // 删除 Item
                 REMOVE_ITEM -> {
@@ -179,15 +179,15 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
         mViewModel?.mListDataChangeEvent?.observe(this, Observer ObserverLabel@ { (type, _, _, extraData, todoGroupItemList, _) ->
             when (type) {
                 // 加载, 刷新
-                LOAD, REFRESH -> mMainTodoGroupAdapter?.notifyDataSetChanged()
+                LOAD, REFRESH -> mTodoGroupListAdapter?.notifyDataSetChanged()
                 // 添加
                 ADD -> {
                     val oldSize = extraData as Int
 
                     when {
-                        oldSize <= 0 -> mMainTodoGroupAdapter?.notifyDataSetChanged()
-                        oldSize == mViewModel!!.mTodoGroupItemList.size -> mMainTodoGroupAdapter?.notifyItemChanged(mViewModel!!.mTodoGroupItemList.size - 1)
-                        else -> mMainTodoGroupAdapter?.notifyItemRangeInserted(
+                        oldSize <= 0 -> mTodoGroupListAdapter?.notifyDataSetChanged()
+                        oldSize == mViewModel!!.mTodoGroupItemList.size -> mTodoGroupListAdapter?.notifyItemChanged(mViewModel!!.mTodoGroupItemList.size - 1)
+                        else -> mTodoGroupListAdapter?.notifyItemRangeInserted(
                             oldSize,
                             mViewModel!!.mTodoGroupItemList.size - oldSize
                         )

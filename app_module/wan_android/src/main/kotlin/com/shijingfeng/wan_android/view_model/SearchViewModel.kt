@@ -81,7 +81,7 @@ internal class SearchViewModel(
         val searchText = mSearchInput.get()
 
         if (searchText.isNullOrEmpty()) {
-            ToastUtils.showShort("搜索文本不能为空")
+            ToastUtils.showShort(getStringById(R.string.搜索文本不能为空))
             return@OnClickListener
         }
         search(searchText)
@@ -248,7 +248,7 @@ internal class SearchViewModel(
      * @param searchHistoryItem 搜索历史 Item 实体类
      */
     fun removeSearchHistoryItem(searchHistoryItem: SearchHistoryItem) {
-        showLoadingDialog("删除中...")
+        showLoadingDialog(getStringById(R.string.删除中))
 
         val index = getIndexByItem(searchHistoryItem)
         val oldSize = mSearchHistoryList.size
@@ -279,7 +279,7 @@ internal class SearchViewModel(
      * 清空 搜索历史列表 数据
      */
     private fun clearSearchHistoryList() {
-        showLoadingDialog("清空中...")
+        showLoadingDialog(getStringById(R.string.清空中))
         mRepository?.updateSearchHistory(
             searchHistoryList = null,
             onSuccess = {

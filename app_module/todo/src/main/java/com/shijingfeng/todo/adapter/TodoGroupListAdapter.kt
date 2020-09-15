@@ -4,15 +4,12 @@ import android.content.Context
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.constant.STATUS_DONE
 import com.shijingfeng.todo.constant.STATUS_NEED_TO_DO
 import com.shijingfeng.todo.entity.adapter.TodoGroupItem
 import com.shijingfeng.todo.entity.adapter.TodoItem
-import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
-import com.shijingfeng.todo.ui.activity.MAIN_DONE
 
 /**
  * Function: 主页 -> 待办 适配器
@@ -20,12 +17,12 @@ import com.shijingfeng.todo.ui.activity.MAIN_DONE
  * Description:
  * @author ShiJingFeng
  */
-internal class MainTodoGroupAdapter(
+internal class TodoGroupListAdapter(
     context: Context,
     dataList: List<TodoGroupItem>? = null,
 ) : BaseAdapter<TodoGroupItem>(
     context = context,
-    layoutId = R.layout.adapter_item_todo_main_todo_group,
+    layoutId = R.layout.adapter_item_todo_todo_group_list,
     dataList = dataList
 ) {
 
@@ -36,7 +33,7 @@ internal class MainTodoGroupAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: TodoGroupItem, position: Int) {
-        val adapter = MainTodoAdapter(mContext, data.todoItemList, object : MultiItemTypeSupport<TodoItem> {
+        val adapter = TodoListAdapter(mContext, data.todoItemList, object : MultiItemTypeSupport<TodoItem> {
 
             /**
              * 根据 Item类型 获取 Layout Id
