@@ -9,6 +9,7 @@ import static com.shijingfeng.base.common.constant.FlagConstant.NONE;
 import static com.shijingfeng.base.common.constant.FlagConstant.PAGE_OPERATE_TYPE_LOAD;
 import static com.shijingfeng.base.common.constant.FlagConstant.PAGE_OPERATE_TYPE_LOAD_MORE;
 import static com.shijingfeng.base.common.constant.FlagConstant.PAGE_OPERATE_TYPE_REFRESH;
+import static com.shijingfeng.base.common.constant.FlagConstant.PAGE_OPERATE_TYPE_RELOAD;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 import static java.lang.annotation.ElementType.PARAMETER;
@@ -26,6 +27,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
     NONE,
     // 页面操作类型：加载数据
     PAGE_OPERATE_TYPE_LOAD,
+    // 页面操作类型: 重新加载数据
+    PAGE_OPERATE_TYPE_RELOAD,
     // 页面操作类型：下拉刷新
     PAGE_OPERATE_TYPE_REFRESH,
     // 页面操作类型：上拉加载更多

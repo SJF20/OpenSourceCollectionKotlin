@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.get
 import com.shijingfeng.base.R
 import com.shijingfeng.base.util.getStringById
 
@@ -93,11 +94,17 @@ class LoadingView private constructor(
      */
     @SuppressLint("InflateParams")
     fun show(
-        hintText: String? = mAttr.hintText
+        hintText: String? = null
     ) {
+        val hint = if (hintText.isNullOrEmpty()) {
+            mAttr.hintText
+        } else {
+            hintText
+        }
+
         if (isShowing()) {
             // 如果LoadingView正在显示, 则只更新提示文本
-            mContentView.findViewById<TextView>(R.id.tv_text).text = hintText
+            mContentView.findViewById<TextView>(R.id.tv_text).text = hint
             return
         }
 
@@ -106,13 +113,25 @@ class LoadingView private constructor(
                 R.layout.dialog_loading,
                 null
             )
-            mContentView.findViewById<TextView>(R.id.tv_text).text = hintText
+            mContentView.findViewById<TextView>(R.id.tv_text).text = hint
             startAnimator()
             mAttr.parent?.addView(mContentView, ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT))
             mIsDestroyed = false
         } else {
-            mContentView.findViewById<TextView>(R.id.tv_text).text = hintText
+            val parent = mContentView.parent as ViewGroup
+            var curIndex = 0
+
+            mContentView.findViewById<TextView>(R.id.tv_text).text = hint
             startAnimator()
+            for (index in 0 until parent.childCount) {
+                if (mContentView == parent.getChildAt(index)) {
+                    curIndex = index
+                }
+            }
+            if (curIndex != 0) {
+                parent.removeViewAt(curIndex)
+                parent.addView(mContentView, 0)
+            }
             mContentView.visibility = View.VISIBLE
         }
         mIsShowing = true

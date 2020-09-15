@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.SparseArray
 import android.util.SparseIntArray
+import androidx.annotation.IdRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -80,17 +81,17 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
      */
     protected open fun initObserver() {
         //显示加载中提示对话框
-        mViewModel?.getCommonEventManager()?.getShowLoadingDialogEvent()?.observe(this, Observer<String?> { hint ->
+        mViewModel?.getLiveDataEventManager()?.getShowLoadingDialogEvent()?.observe(this, Observer<String?> { hint ->
             LoadingDialog.getInstance()
                 .setHintText(hint)
                 .show(this)
         })
         //隐藏加载中提示对话框
-        mViewModel?.getCommonEventManager()?.getHideLoadingDialogEvent()?.observe(this, Observer<Any?> {
+        mViewModel?.getLiveDataEventManager()?.getHideLoadingDialogEvent()?.observe(this, Observer<Any?> {
             LoadingDialog.getInstance().hide()
         })
         //切换Activity
-        mViewModel?.getCommonEventManager()?.getStartActivityEvent()?.observe(this, Observer<SparseArray<Any?>>{ sparseArray ->
+        mViewModel?.getLiveDataEventManager()?.getStartActivityEvent()?.observe(this, Observer<SparseArray<Any?>>{ sparseArray ->
             sparseArray?.run {
                 val cls = get(KEY_CLASS) as Class<*>
                 val bundle = get(KEY_BUNDLE) as? Bundle?
@@ -100,7 +101,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
             }
         })
         //通过 ARouter 切换 Activity
-        mViewModel?.getCommonEventManager()?.getNavigationEvent()?.observe(this, Observer<SparseArray<Any?>> { sparseArray ->
+        mViewModel?.getLiveDataEventManager()?.getNavigationEvent()?.observe(this, Observer<SparseArray<Any?>> { sparseArray ->
             sparseArray?.run {
                 val path = get(KEY_PATH) as String
                 val bundle = get(KEY_BUNDLE) as? Bundle?
@@ -122,7 +123,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
             }
         })
         //关闭销毁Activity
-        mViewModel?.getCommonEventManager()?.getFinishEvent()?.observe(this, Observer<SparseArray<Any?>> { sparseArray ->
+        mViewModel?.getLiveDataEventManager()?.getFinishEvent()?.observe(this, Observer<SparseArray<Any?>> { sparseArray ->
             finish()
             sparseArray?.get(KEY_ANIM_SPARSE_ARRAY)?.run {
                 val animSparseArray: SparseIntArray = this as SparseIntArray
@@ -133,7 +134,7 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
             }
         })
         //Activity setResult设置返回响应
-        mViewModel?.getCommonEventManager()?.getSetResultEvent()?.observe(this, Observer<SparseArray<Any?>> { sparseArray ->
+        mViewModel?.getLiveDataEventManager()?.getSetResultEvent()?.observe(this, Observer<SparseArray<Any?>> { sparseArray ->
             sparseArray?.run {
                 val resultCode = get(KEY_RESULT_CODE, RESULT_CANCELED) as Int
                 val resultData = get(KEY_RESULT_DATA, null) as? Intent?
@@ -153,6 +154,14 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
                updateRefreshLoadMoreStatus(status)
             })
         }
+        // 显示 LoadingView
+        mViewModel?.liveDataEventManager1?.showLoadingViewEvent?.observe(this@BaseMvvmActivity, Observer<String?> { hintText ->
+            showLoadingView(hintText)
+        })
+        // 隐藏 LoadingView
+        mViewModel?.liveDataEventManager1?.hideLoadingViewEvent?.observe(this@BaseMvvmActivity, Observer<Any?> {
+            hideLoadingView()
+        })
     }
 
     /**

@@ -7,12 +7,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.FRAGMENT_TODO_NEED_TO_DO
 import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.base.TodoBaseFragment
@@ -31,7 +31,6 @@ import com.shijingfeng.todo.source.repository.getTodoRepositoryInstance
 import com.shijingfeng.todo.ui.activity.MAIN_ALL
 import com.shijingfeng.todo.ui.activity.MAIN_NONE
 import com.shijingfeng.todo.view_model.MainNeedToDoViewModel
-import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -103,6 +102,10 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
         if (mViewModel == null || !mViewModel!!.mHasInited) {
             showCallback(LOAD_SERVICE_LOADING)
         }
+        registerLoadingView(
+            view = mDataBinding.srlRefresh,
+            hintText = getStringById(R.string.加载中)
+        )
 
         activity?.run {
             mMainTodoGroupAdapter = MainTodoGroupAdapter(this, mViewModel?.mTodoGroupItemList)
@@ -232,8 +235,7 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
                     mRequestParamMap[ORDER_BY] = orderBy
                 }
 
-                showCallback(LOAD_SERVICE_LOADING)
-                load()
+                reload()
             }
         }
 
@@ -251,8 +253,7 @@ internal class MainNeedToDoFragment : TodoBaseFragment<FragmentTodoMainNeedToDoB
         }
         mViewModel?.run {
             if (pageType == MAIN_ALL || pageType == mPageType) {
-                showCallback(LOAD_SERVICE_LOADING)
-                load()
+                reload()
             }
         }
     }

@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.view.View
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -34,6 +36,7 @@ import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.widget.LoadingView
 
 /**
  * Function: 通用的 Activity 基类
@@ -50,6 +53,8 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
     protected var mLoadService: LoadService<*>? = null
     /** SmartRefresh */
     protected var mSmartRefreshLayout: SmartRefreshLayout? = null
+    /** LoadingView */
+    protected var mLoadingView: LoadingView? = null
 
     /** RxPermission (响应式权限申请框架)  */
     protected var mRxPermissions: RxPermissions? = null
@@ -138,6 +143,51 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
                 else -> {}
             }
         }
+    }
+
+    /**
+     * 注册 LoadingView
+     *
+     * @param view View
+     * @param hintText 文本提示
+     */
+    protected fun registerLoadingView(
+        view: View? = null,
+        hintText: String? = null
+    ) {
+        mLoadingView = if (view == null) {
+            LoadingView.Builder(this)
+                .setHintText(hintText)
+                .build()
+        } else {
+            LoadingView.Builder(view)
+                .setHintText(hintText)
+                .build()
+        }
+    }
+
+    /**
+     * 显示 LoadingView
+     *
+     * @param hintText 文本提示
+     */
+    protected fun showLoadingView(
+        hintText: String? = null
+    ) {
+        if (mLoadingView == null) {
+            throw RuntimeException("LoadingView 未注册")
+        }
+        mLoadingView?.show(hintText)
+    }
+
+    /**
+     * 隐藏 LoadingView
+     */
+    protected fun hideLoadingView() {
+        if (mLoadingView == null) {
+            throw RuntimeException("LoadingView 未注册")
+        }
+        mLoadingView?.hide()
     }
 
     /**
@@ -294,8 +344,10 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * Activity销毁回调
      */
     override fun onDestroy() {
-        //销毁加载中Dialog
+        // 销毁加载中Dialog
         LoadingDialog.getInstance().destroy()
+        // 销毁 LoadingView
+        mLoadingView?.destroy()
         //销毁权限申请框架
         mRxPermissions = null
         //清空Disposable

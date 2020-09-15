@@ -108,7 +108,7 @@ internal class HomeViewModel(
             val event = ListDataChangeEvent<HomeItem>()
 
             when (mPageOperateType) {
-                //加载数据
+                // 加载数据
                 PAGE_OPERATE_TYPE_LOAD -> {
                     mPage = HOME_FIRST_PAGE
                     mHomeItemDataList.clear()
@@ -131,7 +131,7 @@ internal class HomeViewModel(
                     mHomeDataChangeEvent.value = event
                     showCallback(if (mHomeItemDataList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
                 }
-                //下拉刷新
+                // 下拉刷新
                 PAGE_OPERATE_TYPE_REFRESH -> {
                     mPage = HOME_FIRST_PAGE
                     mHomeItemDataList.clear()
@@ -157,7 +157,7 @@ internal class HomeViewModel(
                         showCallback(LOAD_SERVICE_EMPTY)
                     }
                 }
-                //上拉加载
+                // 上拉加载
                 PAGE_OPERATE_TYPE_LOAD_MORE -> {
                     if (homeArticleItemList.isNullOrEmpty()) {
                         updateRefreshLoadMoreStatus(LOAD_MORE_ALL)

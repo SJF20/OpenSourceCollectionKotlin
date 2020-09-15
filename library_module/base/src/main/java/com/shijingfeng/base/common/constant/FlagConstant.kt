@@ -29,6 +29,10 @@ const val KEY_ENTER_ANIM = 7
 const val KEY_EXIT_ANIM = 8
 /** SparseArray Key(int) Value(SparseIntArray) SparseIntArray中携带 enterAnim 和 exitAnim  */
 const val KEY_ANIM_SPARSE_ARRAY = 9
+/** SparseArray Key(int) Value(int) LoadingView 资源ID  */
+const val KEY_LOADING_VIEW_VIEW_ID = 10
+/** SparseArray Key(int) Value(String) LoadingView 提示文本  */
+const val KEY_LOADING_VIEW_HINT_TEXT = 11
 
 /** Bundle Key(String) Value(String)  Activity跳转 上一个页面的 Activity Name  */
 const val FROM_ACTIVITY_NAME = "fromActivityName"
@@ -87,6 +91,8 @@ const val CLEAR = 7
 
 /** 页面操作类型：加载数据  */
 const val PAGE_OPERATE_TYPE_LOAD = 1
+/** 页面操作类型: 重新加载数据 */
+const val PAGE_OPERATE_TYPE_RELOAD = 4
 /** 页面操作类型：下拉刷新  */
 const val PAGE_OPERATE_TYPE_REFRESH = 2
 /** 页面操作类型：上拉加载更多  */

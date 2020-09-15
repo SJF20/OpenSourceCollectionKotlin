@@ -8,7 +8,6 @@ import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.livedata.SingleLiveEvent
-import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.todo.annotation.define.TodoStatus
 import com.shijingfeng.todo.base.TodoBaseViewModel
 import com.shijingfeng.todo.constant.*
@@ -105,6 +104,15 @@ internal class MainNeedToDoViewModel(
     }
 
     /**
+     * 重新加载数据
+     */
+    fun reload() {
+        showLoadingView()
+        mPageOperateType = PAGE_OPERATE_TYPE_RELOAD
+        getTodoData(MAIN_NEED_TO_DO_FIRST_PAGE)
+    }
+
+    /**
      * 下拉刷新
      */
     private fun refresh() {
@@ -134,8 +142,10 @@ internal class MainNeedToDoViewModel(
                 val event = ListDataChangeEvent<TodoGroupItem>()
 
                 when (mPageOperateType) {
-                    // 加载数据 或 重新加载
-                    PAGE_OPERATE_TYPE_LOAD -> {
+                    // 加载数据
+                    PAGE_OPERATE_TYPE_LOAD,
+                    // 重新加载
+                    PAGE_OPERATE_TYPE_RELOAD -> {
                         mPage = MAIN_NEED_TO_DO_FIRST_PAGE
                         mTodoGroupItemList.clear()
                         // 按天进行分组
@@ -146,6 +156,7 @@ internal class MainNeedToDoViewModel(
 
                         mListDataChangeEvent.value = event
                         showCallback(if (mTodoGroupItemList.isEmpty()) LOAD_SERVICE_EMPTY else LOAD_SERVICE_SUCCESS)
+                        hideLoadingView()
                     }
                     // 下拉刷新
                     PAGE_OPERATE_TYPE_REFRESH -> {
@@ -188,6 +199,8 @@ internal class MainNeedToDoViewModel(
                 when (mPageOperateType) {
                     // 加载数据
                     PAGE_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
+                    // 重新加载数据
+                    PAGE_OPERATE_TYPE_RELOAD -> hideLoadingDialog()
                     // 下拉刷新
                     PAGE_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                     // 上拉加载

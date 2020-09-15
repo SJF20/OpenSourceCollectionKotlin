@@ -1,5 +1,6 @@
 package com.shijingfeng.base.livedata
 
+import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -37,11 +38,18 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     }
 
     /**
-     * Used for cases where T is Void, to make calls cleaner.
+     * UI线程 无参数调用
      */
     @MainThread
     fun call() {
         value = null
     }
 
+    /**
+     * UI线程 和 异步线程 无参数调用
+     */
+    @AnyThread
+    fun postCall() {
+        postValue(null)
+    }
 }

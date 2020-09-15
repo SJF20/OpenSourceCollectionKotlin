@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.*
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -56,10 +57,10 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     protected var mRootView: View? = null
     /** LoadSir  */
     protected var mLoadService: LoadService<*>? = null
-    /** LoadingView Map */
-    protected var mLoadingViewMap = hashMapOf<View, LoadingView>()
     /** SmartRefresh */
     protected var mSmartRefreshLayout: SmartRefreshLayout? = null
+    /** LoadingView */
+    protected var mLoadingView: LoadingView? = null
 
     /** 响应式权限请求框架  */
     protected var mRxPermissions: RxPermissions? = null
@@ -225,77 +226,6 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     }
 
     /**
-     * 注册 LoadingView
-     */
-    protected fun registerLoadingView(
-        view: View? = null,
-        hintText: String? = null
-    ) {
-        val parentView = view ?: requireActivity().findViewById(android.R.id.content)
-
-        mLoadingViewMap[parentView] = LoadingView.Builder(parentView)
-            .setHintText(hintText)
-            .build()
-    }
-
-    /**
-     * 显示 LoadingView
-     */
-    protected fun showLoadingView(
-        view: View? = null,
-        hintText: String? = null
-    ) {
-        val loadingView: LoadingView?
-
-        if (view == null) {
-            if (mLoadingViewMap.size == 1) {
-                // 单LoadingView
-                mLoadingViewMap.forEach { entry ->
-                    entry.value.run {
-                        show(hintText)
-                    }
-                }
-            } else if (mLoadingViewMap.size > 1) {
-                // Activity根布局View
-                loadingView = mLoadingViewMap[requireActivity().findViewById(android.R.id.content)]
-
-                if (loadingView == null) {
-                    throw RuntimeException("该页面未注册LoadingView")
-                } else {
-                    loadingView.run {
-                        show(hintText)
-                    }
-                }
-            } else {
-                throw RuntimeException("该页面未注册LoadingView")
-            }
-        } else {
-            // 多LoadingView
-            loadingView = mLoadingViewMap[view]
-
-            if (loadingView == null) {
-                throw RuntimeException("该View未注册LoadingView")
-            } else {
-                loadingView.run {
-                    show(hintText)
-                }
-            }
-        }
-    }
-
-    /**
-     * 隐藏 LoadingView
-     */
-    protected fun hideLoadingView(
-        view: View? = null
-    ) {
-        // TODO 参考 showLoadingView
-//        mLoadingView?.run {
-//            hide()
-//        }
-    }
-
-    /**
      * 更新 下拉刷新，上拉加载 状态
      * @param status 下拉刷新 或 上拉加载 状态  默认: [REFRESH_SUCCESS]
      */
@@ -315,6 +245,51 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
                 else -> {}
             }
         }
+    }
+
+    /**
+     * 注册 LoadingView
+     *
+     * @param view View
+     * @param hintText 文本提示
+     */
+    protected fun registerLoadingView(
+        view: View? = null,
+        hintText: String? = null
+    ) {
+        mLoadingView = if (view == null) {
+            LoadingView.Builder(requireActivity())
+                .setHintText(hintText)
+                .build()
+        } else {
+            LoadingView.Builder(view)
+                .setHintText(hintText)
+                .build()
+        }
+    }
+
+    /**
+     * 显示 LoadingView
+     *
+     * @param hintText 文本提示
+     */
+    protected fun showLoadingView(
+        hintText: String? = null
+    ) {
+        if (mLoadingView == null) {
+            throw RuntimeException("LoadingView 未注册")
+        }
+        mLoadingView?.show(hintText)
+    }
+
+    /**
+     * 隐藏 LoadingView
+     */
+    protected fun hideLoadingView() {
+        if (mLoadingView == null) {
+            throw RuntimeException("LoadingView 未注册")
+        }
+        mLoadingView?.hide()
     }
 
     /**
@@ -511,8 +486,10 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     override fun onDestroyView() {
         mHasCreated = false
         mRootView = null
-        //销毁加载中Dialog
+        // 销毁 LoadingDialog
         LoadingDialog.getInstance().destroy()
+        // 销毁 LoadingView
+        mLoadingView?.destroy()
         super.onDestroyView()
     }
 

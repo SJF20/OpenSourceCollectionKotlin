@@ -2,23 +2,19 @@ package com.shijingfeng.base.base.viewmodel
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.SparseArray
 import android.util.SparseIntArray
-import androidx.core.app.NotificationManagerCompat
+import androidx.annotation.IdRes
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.Utils
 import com.shijingfeng.base.R.string.再按一次退出应用
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.annotation.define.LoadServiceStatus
 import com.shijingfeng.base.annotation.define.RefreshLoadMoreStatus
-import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.*
@@ -41,7 +37,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
 ) : ViewModel(), DefaultLifecycleObserver {
 
     /** 常用的 LiveData Event 管理器  */
-    private val mCommonEventManager by lazy { CommonEventManager() }
+    private val mLiveDataEventManager by lazy { LiveDataEventManager() }
     /** LoadService 状态 LiveData Event  */
     private val mLoadServiceStatusEvent by lazy { MutableLiveData<Int>() }
     /** 刷新 或 上拉加载 状态 LiveData Event  */
@@ -87,19 +83,22 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
 
     /**
      * 获取 常用的 LiveData Event 管理器
-     * @return U常用的 LiveData Event
      */
-    fun getCommonEventManager() = mCommonEventManager
+    fun getLiveDataEventManager() = mLiveDataEventManager
 
     /**
-     * 获取 LoadService 状态 SingleLiveEvent
-     * @return LoadService 状态 SingleLiveEvent
+     * 获取 LiveData Event 管理器
+     */
+    val liveDataEventManager1: LiveDataEventManager
+    get() = mLiveDataEventManager
+
+    /**
+     * 获取 LoadService 状态 LiveData Event
      */
     fun getLoadServiceStatusEvent() = mLoadServiceStatusEvent
 
     /**
-     * 获取 刷新 或 上拉加载 状态 SingleLiveEvent
-     * @return 刷新 或 上拉加载 状态 SingleLiveEvent
+     * 获取 刷新 或 上拉加载 状态 LiveData Event
      */
     fun getRefreshLoadMoreStatusEvent() = mRefreshLoadMoreStatusEvent
 
@@ -126,14 +125,32 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param hint 提示文本  null: 默认提示 (提交中...)
      */
     fun showLoadingDialog(hint: String? = null) {
-        getCommonEventManager().getShowLoadingDialogEvent().postValue(hint)
+        getLiveDataEventManager().getShowLoadingDialogEvent().postValue(hint)
     }
 
     /**
      * 隐藏加载中Dialog
      */
     fun hideLoadingDialog() {
-        getCommonEventManager().getHideLoadingDialogEvent().call()
+        getLiveDataEventManager().getHideLoadingDialogEvent().postCall()
+    }
+
+    /**
+     * 显示 LoadingView
+     *
+     * @param hintText 提示文本
+     */
+    fun showLoadingView(
+        hintText: String? = null
+    ) {
+        liveDataEventManager1.showLoadingViewEvent.postValue(hintText)
+    }
+
+    /**
+     * 隐藏 LoadingView
+     */
+    fun hideLoadingView() {
+        liveDataEventManager1.hideLoadingViewEvent.postCall()
     }
 
     /**
@@ -142,8 +159,12 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param bundle 携带的数据
      * @param requestCode 请求码
      */
-    fun startActivity(cls: Class<*>, bundle: Bundle? = null, requestCode: Int = -1) {
-        getCommonEventManager().getStartActivityEvent().postValue(SparseArray<Any?>(3).apply {
+    fun startActivity(
+        cls: Class<*>,
+        bundle: Bundle? = null,
+        requestCode: Int = -1
+    ) {
+        getLiveDataEventManager().getStartActivityEvent().postValue(SparseArray<Any?>(3).apply {
             put(KEY_CLASS, cls)
             put(KEY_BUNDLE, bundle)
             put(KEY_REQUEST_CODE, requestCode)
@@ -165,7 +186,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
         animSparseArray: SparseIntArray? = null,
         callback : NavigationCallback? = null
     ) {
-        getCommonEventManager().getNavigationEvent().postValue(SparseArray<Any?>(5).apply {
+        getLiveDataEventManager().getNavigationEvent().postValue(SparseArray<Any?>(5).apply {
             put(KEY_PATH, path)
             put(KEY_BUNDLE, bundle)
             put(KEY_REQUEST_CODE, requestCode)
@@ -179,7 +200,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param animSparseArray key: KEY_ENTER_ANIM(进入动画), KEY_EXIT_ANIM(退出动画)
      */
     fun finish(animSparseArray: SparseIntArray? = null) {
-        getCommonEventManager().getFinishEvent().value = SparseArray<Any?>(1).apply {
+        getLiveDataEventManager().getFinishEvent().value = SparseArray<Any?>(1).apply {
             put(KEY_ANIM_SPARSE_ARRAY, animSparseArray)
         }
     }
@@ -188,7 +209,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * 销毁Activity (没有动画)
      */
     fun finishNoAnim() {
-        getCommonEventManager().getFinishEvent().value = SparseArray<Any?>(1).apply {
+        getLiveDataEventManager().getFinishEvent().value = SparseArray<Any?>(1).apply {
             put(KEY_ANIM_SPARSE_ARRAY, SparseIntArray(2).apply {
                 put(KEY_ENTER_ANIM, 0)
                 put(KEY_EXIT_ANIM, 0)
@@ -202,7 +223,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * @param data 返回响应数据
      */
     fun setResult(resultCode: Int, data: Intent? = null) {
-        getCommonEventManager().getSetResultEvent().value = SparseArray<Any?>().apply {
+        getLiveDataEventManager().getSetResultEvent().value = SparseArray<Any?>().apply {
             put(KEY_RESULT_CODE, resultCode)
             put(KEY_RESULT_DATA, data)
         }
@@ -271,12 +292,16 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     /**
      * 常用的 LiveData Event 管理器
      */
-    class CommonEventManager {
+    class LiveDataEventManager {
 
         /** 显示加载中 Dialog  */
         private val mShowLoadingDialogEvent by lazy { SingleLiveEvent<String?>() }
         /** 隐藏加载中 Dialog  */
         private val mHideLoadingDialogEvent by lazy { SingleLiveEvent<Any?>() }
+        /** 显示 LoadingView */
+        private val mShowLoadingViewEvent by lazy { SingleLiveEvent<String?>() }
+        /** 隐藏 LoadingView */
+        private val mHideLoadingViewEvent by lazy { SingleLiveEvent<Any?>() }
         /** 跳转 Activity  */
         private val mStartActivityEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
         /** 页面跳转  */
@@ -299,6 +324,18 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
          * @return 隐藏加载中Dialog SingleLiveEvent
          */
         fun getHideLoadingDialogEvent() = mHideLoadingDialogEvent
+
+        /**
+         * 获取 显示 LoadingView SingleLiveEvent
+         */
+        val showLoadingViewEvent: SingleLiveEvent<String?>
+        get() = mShowLoadingViewEvent
+
+        /**
+         * 获取 隐藏 LoadingView SingleLiveEvent
+         */
+        val hideLoadingViewEvent: SingleLiveEvent<Any?>
+        get() = mHideLoadingViewEvent
 
         /**
          * 获取 跳转 Activity SingleLiveEvent
