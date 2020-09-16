@@ -27,8 +27,9 @@ class MarkerView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : View(context, attrs, defStyleAttr, defStyleRes) {
 
     private val mBgPath = Path()
     private val mBgPaint = Paint().apply {
@@ -120,12 +121,9 @@ class MarkerView @JvmOverloads constructor(
 
         val totalWidth = if (width != 0) width else SizeUtils.dp2px(30F)
         val totalHeight = if (height != 0) height else SizeUtils.dp2px(30F)
-        val totalSize =
-            if (totalWidth > totalHeight) totalHeight.toFloat() else totalWidth.toFloat()
-        val realWidth =
-            if (totalWidth - paddingStart - paddingEnd < 0) 0F else totalWidth - paddingStart - paddingEnd
-        val realHeight =
-            if (totalHeight - paddingTop - paddingBottom < 0) 0F else totalHeight - paddingTop - paddingBottom
+        val totalSize = if (totalWidth > totalHeight) totalHeight.toFloat() else totalWidth.toFloat()
+        val realWidth = if (totalWidth - paddingStart - paddingEnd < 0) 0F else totalWidth - paddingStart - paddingEnd
+        val realHeight = if (totalHeight - paddingTop - paddingBottom < 0) 0F else totalHeight - paddingTop - paddingBottom
         val realSize = if (realWidth > realHeight) realHeight else realWidth
 
         val top = paddingTop
