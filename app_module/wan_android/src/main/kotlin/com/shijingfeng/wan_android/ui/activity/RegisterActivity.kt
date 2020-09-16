@@ -62,6 +62,11 @@ internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegist
     override fun initData() {
         super.initData()
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.注册)
+
+        registerLoadingView(
+            view = mDataBinding.svContent,
+            hintText = getStringById(R.string.注册中)
+        )
     }
 
     /**

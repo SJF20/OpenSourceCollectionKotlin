@@ -202,7 +202,7 @@ internal class TodoListViewModel(
                     // 加载数据
                     PAGE_OPERATE_TYPE_LOAD -> showCallback(LOAD_SERVICE_LOAD_FAIL)
                     // 重新加载数据
-                    PAGE_OPERATE_TYPE_RELOAD -> hideLoadingDialog()
+                    PAGE_OPERATE_TYPE_RELOAD -> hideLoadingView()
                     // 下拉刷新
                     PAGE_OPERATE_TYPE_REFRESH -> updateRefreshLoadMoreStatus(REFRESH_FAIL)
                     // 上拉加载
@@ -218,16 +218,16 @@ internal class TodoListViewModel(
      * @param id ID
      */
     fun remove(id: String) {
-        showLoadingDialog(getStringById(R.string.删除中))
+        showLoadingView(getStringById(R.string.删除中))
         mRepository?.remove(id, onSuccess = {
-            hideLoadingDialog()
+            hideLoadingView()
             ToastUtils.showShort(getStringById(R.string.删除成功))
             // 因为接口问题 (因为有删除，而返回的条数不确定)，所以只能重新请求数据
             EventBus.getDefault().post(DataUpdateEvent(
                 pageType = mPageType
             ))
         }, onFailure = {
-            hideLoadingDialog()
+            hideLoadingView()
         })
     }
 
@@ -240,9 +240,9 @@ internal class TodoListViewModel(
         id: String,
         @TodoStatus status: Int
     ) {
-        showLoadingDialog(getStringById(R.string.提交中))
+        showLoadingView(getStringById(R.string.提交中))
         mRepository?.updateStatus(id, status, onSuccess = {
-            hideLoadingDialog()
+            hideLoadingView()
             when (status) {
                 STATUS_NEED_TO_DO -> {
                     ToastUtils.showShort(getStringById(R.string.撤回成功))
@@ -256,7 +256,7 @@ internal class TodoListViewModel(
                 pageType = MAIN_ALL
             ))
         }, onFailure = {
-            hideLoadingDialog()
+            hideLoadingView()
         })
     }
 

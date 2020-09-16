@@ -126,6 +126,10 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
             ).also { mViewOriginalImageAdapter = it }
             vp_image.setCurrentItem(viewModel.mCurrentPosition, false)
         }
+
+        registerLoadingView(
+            hintText = getStringById(R.string.保存中)
+        )
     }
 
     /**
@@ -161,15 +165,22 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
             }
 
         })
+    }
+
+    /**
+     * 初始化 LiveData Observer
+     */
+    override fun initObserver() {
+        super.initObserver()
         mViewModel?.mSaveImageLiveEvent?.observe(this, Observer { responseBody ->
             if (responseBody == null || !saveImage(responseBody.byteStream())) {
-                Handler(Looper.getMainLooper()).post {
-                    LoadingDialog.getInstance().hide()
+                runOnUiThread {
+                    hideLoadingView()
                     ToastUtils.showShort(getStringById(R.string.保存失败))
                 }
             } else {
-                Handler(Looper.getMainLooper()).post {
-                    LoadingDialog.getInstance().hide()
+                runOnUiThread {
+                    hideLoadingView()
                     ToastUtils.showShort(getStringById(R.string.保存成功))
                 }
             }

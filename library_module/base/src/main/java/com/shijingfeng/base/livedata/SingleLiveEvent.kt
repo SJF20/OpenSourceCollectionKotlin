@@ -1,10 +1,13 @@
 package com.shijingfeng.base.livedata
 
+import android.annotation.SuppressLint
 import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.ThreadUtils
+import com.shijingfeng.base.util.v
 import com.shijingfeng.base.util.w
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -31,25 +34,33 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         })
     }
 
-    @MainThread
+    /**
+     * 有参数调用
+     *
+     * @param value 参数
+     */
+    @SuppressLint("WrongThread")
+    @AnyThread
     override fun setValue(value: T?) {
         mPending.set(true)
-        super.setValue(value)
+        if (ThreadUtils.isMainThread()) {
+            super.setValue(value)
+        } else {
+            postValue(value)
+        }
     }
 
     /**
-     * UI线程 无参数调用
-     */
-    @MainThread
-    fun call() {
-        value = null
-    }
-
-    /**
-     * UI线程 和 异步线程 无参数调用
+     * 无参数调用
      */
     @AnyThread
-    fun postCall() {
-        postValue(null)
+    fun call() {
+        mPending.set(true)
+        if (ThreadUtils.isMainThread()) {
+            value = null
+        } else {
+            postValue(null)
+        }
     }
+
 }

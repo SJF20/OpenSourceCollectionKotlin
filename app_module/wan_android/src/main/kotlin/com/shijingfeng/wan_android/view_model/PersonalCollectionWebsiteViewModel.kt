@@ -128,7 +128,7 @@ internal class PersonalCollectionWebsiteViewModel(
      * @param dataMap 请求携带的数据 (id, name, link)
      */
     fun updateWebsite(dataMap: Map<String, Any>) {
-        showLoadingDialog()
+        showLoadingView()
         mRepository?.updateWebsite(dataMap, onSuccess = OnSuccess@{ personalCollectionWebsite ->
             if (personalCollectionWebsite == null) {
                 return@OnSuccess
@@ -148,7 +148,7 @@ internal class PersonalCollectionWebsiteViewModel(
             mWebsiteCollectedListItemList[position] = personalCollectionWebsite
             mListDataChangeEvent.value = event
 
-            hideLoadingDialog()
+            hideLoadingView()
 
             // 更新此网站收藏
             EventBus.getDefault().post(
@@ -159,7 +159,7 @@ internal class PersonalCollectionWebsiteViewModel(
                 )
             )
         }, onFailure = {
-            hideLoadingDialog()
+            hideLoadingView()
         })
     }
 

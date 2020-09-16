@@ -122,6 +122,10 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
             mDataBinding.rvContent.adapter = mPersonalCollectionWebsiteAdapter
             mDataBinding.rvContent.addItemDecoration(LinearDividerItemDecoration())
         }
+
+        registerLoadingView(
+            view = mDataBinding.flContent,
+        )
     }
 
     /**

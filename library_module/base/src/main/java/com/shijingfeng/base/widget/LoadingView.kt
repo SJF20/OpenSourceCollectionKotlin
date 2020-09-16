@@ -10,10 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.animation.LinearInterpolator
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.get
+import androidx.core.widget.NestedScrollView
 import com.shijingfeng.base.R
 import com.shijingfeng.base.util.getStringById
 
@@ -166,14 +165,15 @@ class LoadingView private constructor(
             // 但是当 View 的 Activity 是继承自 AppCompatActivity，并且在 5.0 以下版本的手机上，
             // View.getContext() 得到的并非是 Activity，而是 TintContextWrapper。
             this.mAttr.context = view.context
-            if (view is FrameLayout) {
-                this.mAttr.parent = view
+            if (view::class.java === FrameLayout::class.java) {
+                this.mAttr.parent = view as ViewGroup
             } else {
                 val parent = view.parent
 
                 if (parent != null && parent is ViewGroup) {
-                    this.mAttr.parent = parent
-                    if (parent !is FrameLayout) {
+                    if (parent::class.java === FrameLayout::class.java) {
+                        this.mAttr.parent = parent
+                    } else {
                         val frameLayout = FrameLayout(view.context)
                         val layoutParam = view.layoutParams
                         var childIndex = 0
@@ -188,6 +188,7 @@ class LoadingView private constructor(
                         parent.removeView(view)
                         frameLayout.addView(view)
                         parent.addView(frameLayout, childIndex, layoutParam)
+                        this.mAttr.parent = frameLayout
                     }
                 }
             }

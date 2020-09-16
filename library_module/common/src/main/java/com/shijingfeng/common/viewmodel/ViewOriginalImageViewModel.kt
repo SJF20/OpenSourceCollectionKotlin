@@ -33,18 +33,18 @@ internal class ViewOriginalImageViewModel(
     var mCurrentPosition = 0
 
     /** 保存图片 LiveEvent */
-    val mSaveImageLiveEvent: SingleLiveEvent<ResponseBody?> = SingleLiveEvent()
+    val mSaveImageLiveEvent = SingleLiveEvent<ResponseBody?>()
 
     /**
      * 下载图片
      */
     fun downloadImage(imageUrl: String) {
-        showLoadingDialog(getStringById(R.string.保存中))
+        showLoadingView()
 
         mRepository?.downloadImage(imageUrl, onSuccess = { responseBody ->
-            mSaveImageLiveEvent.postValue(responseBody)
+            mSaveImageLiveEvent.value = responseBody
         }, onFailure = {
-            LoadingDialog.getInstance().hide()
+            hideLoadingView()
         })
     }
 

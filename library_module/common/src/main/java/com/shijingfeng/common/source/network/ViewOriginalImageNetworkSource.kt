@@ -5,6 +5,7 @@ import android.os.Looper
 import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
+import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.handle
 import com.shijingfeng.common.source.network.api.Api
 import com.shijingfeng.base.util.RetrofitUtil
@@ -70,7 +71,7 @@ internal class ViewOriginalImageNetworkSource : BaseNetworkSource() {
                     call: Call<ResponseBody?>,
                     throwable: Throwable
                 ) {
-                    Handler(Looper.getMainLooper()).post {
+                    runOnUiThread {
                         onFailure(handle(throwable))
                     }
                 }

@@ -93,15 +93,15 @@ internal class MainViewModel(
      * 退出登录
      */
     fun logout() {
-        showLoadingDialog(getStringById(R.string.退出登录中))
+        showLoadingView()
         mRepository?.logout(onSuccess = {
             // 本地退出登录
             localLogout()
             // 关闭加载中弹框
-            hideLoadingDialog()
+            hideLoadingView()
         }, onFailure = {
             // 关闭加载中弹框
-            hideLoadingDialog()
+            hideLoadingView()
         })
     }
 

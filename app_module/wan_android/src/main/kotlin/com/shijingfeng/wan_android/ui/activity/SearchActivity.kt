@@ -116,6 +116,10 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
         mSearchHistoryAdapter = SearchHistoryAdapter(this, mViewModel?.mSearchHistoryList)
         mDataBinding.rvHistory.layoutManager = LinearLayoutManager(this)
         mDataBinding.rvHistory.adapter = mSearchHistoryAdapter
+
+        registerLoadingView(
+            view = mDataBinding.nsvContent
+        )
     }
 
     /**
@@ -126,7 +130,14 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
         mSearchHistoryAdapter?.setOnItemEventListener { _, data, _, flag ->
             when (flag) {
                 // 搜索
-                SEARCH -> mViewModel?.search(data as String)
+                SEARCH -> {
+                    mDataBinding.ivSearch.isEnabled = false
+                    mViewModel!!.search(data as String, onSuccess = {
+                        mDataBinding.ivSearch.isEnabled = true
+                    }, onFailure = {
+                        mDataBinding.ivSearch.isEnabled = true
+                    })
+                }
                 // 删除 某条 搜索历史
                 REMOVE_SEARCH_HISTORY_ITEM -> mViewModel?.removeSearchHistoryItem(data as SearchHistoryItem)
             }
@@ -165,7 +176,12 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
                         setBackgroundResource(R.drawable.shape_search_hot_word_bg)
                         // 搜索
                         ClickUtils.applySingleDebouncing(this) {
-                            mViewModel?.search(searchHotWord.name)
+                            mDataBinding.ivSearch.isEnabled = false
+                            mViewModel?.search(searchHotWord.name, onSuccess = {
+                                mDataBinding.ivSearch.isEnabled = true
+                            }, onFailure = {
+                                mDataBinding.ivSearch.isEnabled = true
+                            })
                         }
                     })
                 }

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
@@ -276,20 +277,15 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
     protected fun showLoadingView(
         hintText: String? = null
     ) {
-        if (mLoadingView == null) {
-            throw RuntimeException("LoadingView 未注册")
-        }
-        mLoadingView?.show(hintText)
+        KeyboardUtils.hideSoftInput(requireActivity())
+        mLoadingView?.show(hintText) ?: throw RuntimeException("LoadingView 未注册")
     }
 
     /**
      * 隐藏 LoadingView
      */
     protected fun hideLoadingView() {
-        if (mLoadingView == null) {
-            throw RuntimeException("LoadingView 未注册")
-        }
-        mLoadingView?.hide()
+        mLoadingView?.hide() ?: throw RuntimeException("LoadingView 未注册")
     }
 
     /**

@@ -202,6 +202,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             // 显示注销登录
             mDataBinding.includeDrawer.llLogout.visibility = VISIBLE
         }
+
+        registerLoadingView(
+            hintText = getStringById(R.string.退出登录中)
+        )
     }
 
     /**

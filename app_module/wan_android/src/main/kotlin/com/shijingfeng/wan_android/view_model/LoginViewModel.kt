@@ -98,7 +98,7 @@ internal class LoginViewModel(
      * 登录
      */
     private fun login() {
-        showLoadingDialog(getStringById(R.string.登录中))
+        showLoadingView()
 
         mRepository?.login(HashMap<String, Any>(2).apply {
             put("username", mUsername.get() ?: "")
@@ -113,12 +113,12 @@ internal class LoginViewModel(
                 getCoinInfo()
             } else {
                 //关闭加载中弹框
-                hideLoadingDialog()
+                hideLoadingView()
                 ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
             }
         }, onFailure = {
             //关闭加载中弹框
-            hideLoadingDialog()
+            hideLoadingView()
         })
     }
 
@@ -130,12 +130,12 @@ internal class LoginViewModel(
             //积分信息存储到本地
             CoinUtil.coinInfo = coinInfo
             //关闭加载中弹框
-            hideLoadingDialog()
+            hideLoadingView()
             // 关闭登录页面
             finish()
         }, onFailure = {
             //关闭加载中弹框
-            hideLoadingDialog()
+            hideLoadingView()
             // 关闭登录页面
             finish()
         })

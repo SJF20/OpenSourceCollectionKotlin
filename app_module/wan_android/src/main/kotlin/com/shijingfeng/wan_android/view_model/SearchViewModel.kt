@@ -24,6 +24,7 @@ import com.shijingfeng.wan_android.common.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.entity.SearchHotWordEntity
+import com.shijingfeng.wan_android.entity.SearchListEntity
 import com.shijingfeng.wan_android.source.repository.SearchRepository
 import okhttp3.internal.immutableListOf
 import java.util.*
@@ -77,14 +78,19 @@ internal class SearchViewModel(
     }
 
     /** 搜索 */
-    val mSearchClickListener = View.OnClickListener {
+    val mSearchClickListener = View.OnClickListener { view ->
         val searchText = mSearchInput.get()
 
         if (searchText.isNullOrEmpty()) {
             ToastUtils.showShort(getStringById(R.string.搜索文本不能为空))
             return@OnClickListener
         }
-        search(searchText)
+        view.isEnabled = false
+        search(searchText, onSuccess = {
+            view.isEnabled = true
+        }, onFailure = {
+            view.isEnabled = true
+        })
     }
 
     /** 清空 搜索历史 */
@@ -124,9 +130,15 @@ internal class SearchViewModel(
     /**
      * 搜索
      * @param keyword 搜索关键词
+     * @param onSuccess 成功回调
+     * @param onFailure 失败回调
      */
-    fun search(keyword: String) {
-        showLoadingDialog(getStringById(R.string.搜索中))
+    fun search(
+        keyword: String,
+        onSuccess: onSuccess<SearchListEntity?>? = null,
+        onFailure: onFailure? = null
+    ) {
+        showLoadingView(getStringById(R.string.搜索中))
         mRepository?.search(keyword, onSuccess = { searchList ->
             val searchItemList = searchList?.searchItemList
 
@@ -134,7 +146,7 @@ internal class SearchViewModel(
                 addSearchHistoryItem(
                     searchHistoryItem = SearchHistoryItem(keyword),
                     onSuccess = {
-                        hideLoadingDialog()
+                        hideLoadingView()
                         navigation(
                             path = ACTIVITY_WAN_ANDROID_SEARCH_LIST,
                             bundle = Bundle().apply {
@@ -144,7 +156,7 @@ internal class SearchViewModel(
                         )
                     },
                     onFailure = {
-                        hideLoadingDialog()
+                        hideLoadingView()
                         navigation(
                             path = ACTIVITY_WAN_ANDROID_SEARCH_LIST,
                             bundle = Bundle().apply {
@@ -157,9 +169,11 @@ internal class SearchViewModel(
             } else {
                 ToastUtils.showShort(getStringById(R.string.暂无数据))
             }
-        }, onFailure = {
-            hideLoadingDialog()
+            onSuccess?.invoke(searchList)
+        }, onFailure = { e ->
+            hideLoadingView()
             ToastUtils.showShort(getStringById(R.string.搜索失败))
+            onFailure?.invoke(e)
         })
     }
 
@@ -248,7 +262,7 @@ internal class SearchViewModel(
      * @param searchHistoryItem 搜索历史 Item 实体类
      */
     fun removeSearchHistoryItem(searchHistoryItem: SearchHistoryItem) {
-        showLoadingDialog(getStringById(R.string.删除中))
+        showLoadingView(getStringById(R.string.删除中))
 
         val index = getIndexByItem(searchHistoryItem)
         val oldSize = mSearchHistoryList.size
@@ -265,12 +279,12 @@ internal class SearchViewModel(
                     indexList = immutableListOf(index)
                     extraData = oldSize
                 }
-                hideLoadingDialog()
+                hideLoadingView()
             },
             onFailure = {
                 mSearchHistoryList.add(index, searchHistoryItem)
                 ToastUtils.showShort(getStringById(R.string.删除失败))
-                hideLoadingDialog()
+                hideLoadingView()
             }
         )
     }
@@ -279,7 +293,7 @@ internal class SearchViewModel(
      * 清空 搜索历史列表 数据
      */
     private fun clearSearchHistoryList() {
-        showLoadingDialog(getStringById(R.string.清空中))
+        showLoadingView(getStringById(R.string.清空中))
         mRepository?.updateSearchHistory(
             searchHistoryList = null,
             onSuccess = {
@@ -288,11 +302,11 @@ internal class SearchViewModel(
                 mSearchHistoryListEvent.value = ListDataChangeEvent<SearchHistoryItem>().apply {
                     type = CLEAR
                 }
-                hideLoadingDialog()
+                hideLoadingView()
             },
             onFailure = {
                 ToastUtils.showShort(getStringById(R.string.清空失败))
-                hideLoadingDialog()
+                hideLoadingView()
             }
         )
     }

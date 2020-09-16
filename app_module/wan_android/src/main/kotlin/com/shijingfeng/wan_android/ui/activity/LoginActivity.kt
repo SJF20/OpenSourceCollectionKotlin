@@ -68,6 +68,11 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
         mDataBinding.includeTitleBar.tvTitle.text = getStringById(R.string.登录)
         mDataBinding.includeTitleBar.tvOperate.text = getStringById(R.string.注册)
         mDataBinding.includeTitleBar.tvOperate.visibility = VISIBLE
+
+        registerLoadingView(
+            view = mDataBinding.svContent,
+            hintText = getStringById(R.string.登录中)
+        )
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

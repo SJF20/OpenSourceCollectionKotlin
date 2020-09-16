@@ -6,6 +6,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.shijingfeng.base.common.extension.finishPrevious
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -54,9 +55,7 @@ internal class RegisterViewModel(
             ToastUtils.showShort(getStringById(R.string.两次输入密码不一致))
             return
         }
-
-        showLoadingDialog(getStringById(R.string.注册中))
-
+        showLoadingView()
         mRepository?.register(HashMap<String, Any>(3).apply {
             put("username", mUsername.get() ?: "")
             put("password", mPassword.get() ?: "")
@@ -68,13 +67,13 @@ internal class RegisterViewModel(
                 // 登录完成后 获取 积分信息
                 getCoinInfo()
             } else {
-                //关闭加载中弹框
-                hideLoadingDialog()
+                //关闭加载中LoadingView
+                hideLoadingView()
                 ToastUtils.showShort(getStringById(R.string.服务器出错注册失败))
             }
         }, onFailure = {
-            //关闭加载中弹框
-            hideLoadingDialog()
+            //关闭加载中LoadingView
+            hideLoadingView()
         })
     }
 
@@ -85,13 +84,13 @@ internal class RegisterViewModel(
         mRepository?.getCoinInfo(onSuccess = { coinInfo ->
             //积分信息存储到本地
             CoinUtil.coinInfo = coinInfo
-            //关闭加载中弹框
-            hideLoadingDialog()
+            //关闭加载中LoadingView
+            hideLoadingView()
             finishLoginActivity()
             finish()
         }, onFailure = {
-            //关闭加载中弹框
-            hideLoadingDialog()
+            //关闭加载中LoadingView
+            hideLoadingView()
             finishLoginActivity()
             finish()
         })
@@ -101,13 +100,9 @@ internal class RegisterViewModel(
      * 关闭登录页面
      */
     private fun finishLoginActivity() {
-        val size = ActivityUtils.getActivityList().size
+        val curActivity = ActivityUtils.getTopActivity()
 
-        if (size >= 2) {
-            val loginActivity = ActivityUtils.getActivityList()[size - 2]
-
-            loginActivity.finish()
-        }
+        curActivity.finishPrevious()
     }
 
 }
