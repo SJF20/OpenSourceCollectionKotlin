@@ -92,7 +92,7 @@ class MarkerView @JvmOverloads constructor(
             )
             mOffset = getDimension(R.styleable.MarkerView_offset, 0F)
             mPosition = getInt(R.styleable.MarkerView_position, POSITION_LEFT_TOP)
-            mStyle = getInt(R.styleable.MarkerView_style, STYLE_TRIANGLE)
+            mStyle = getInt(R.styleable.MarkerView_marker_view_style, STYLE_TRIANGLE)
             //一定要回收，否则会内存泄漏
             recycle()
         }

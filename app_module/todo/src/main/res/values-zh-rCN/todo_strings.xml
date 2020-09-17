@@ -13,4 +13,14 @@
     <string name="删除成功">删除成功</string>
     <string name="撤回成功">撤回成功</string>
     <string name="完成成功">完成成功</string>
+    <string name="标题不能为空">标题不能为空</string>
+    <string name="内容不能为空">内容不能为空</string>
+    <string name="添加成功">添加成功</string>
+    <string name="编辑">编辑</string>
+    <string name="预览">预览</string>
+    <string name="请输入标题">请输入标题</string>
+    <string name="重要">重要</string>
+    <string name="紧急">紧急</string>
+    <string name="不重要">不重要</string>
+    <string name="不紧急">不紧急</string>
 </resources>

@@ -25,7 +25,7 @@
         <activity android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"/>
         <!-- 添加 待办事项 Activity -->
-        <activity android:name=".ui.activity.AddTodoActivity" />
+        <activity android:name=".ui.activity.AddUpdateTodoActivity" />
         <!-- 更新 待办事项 Activity -->
         <activity android:name=".ui.activity.UpdateTodoActivity" />
         <!-- 查看 待办事项 Activity -->

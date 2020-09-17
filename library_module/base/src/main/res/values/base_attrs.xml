@@ -33,13 +33,30 @@
             <enum name="right_bottom" value="3" />
         </attr>
         <!-- 样式 -->
-        <attr name="style" format="enum">
+        <attr name="marker_view_style" format="enum">
             <!-- 等腰三角形 -->
             <enum name="triangle" value="0" />
             <!-- 圆角等腰三角形 -->
             <enum name="cornerTriangle" value="1" />
             <!-- 梯形 -->
             <enum name="missingTriangle" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!-- IsoscelesTriangleView -->
+    <declare-styleable name="IsoscelesTriangleView">
+        <!-- 颜色 -->
+        <attr name="color" format="color" />
+        <!-- 样式 -->
+        <attr name="isosceles_triangle_style" format="enum">
+            <!-- 以两腰之间的尖端开始，从顶部到底部 (垂直方向正三角形) -->
+            <enum name="top_to_bottom" value="0" />
+            <!-- 以两腰之间的尖端开始，从底部到顶部 (垂直方向倒三角形) -->
+            <enum name="bottom_to_top" value="1" />
+            <!-- 以两腰之间的尖端开始，从左部到右部 (水平方向正三角形) -->
+            <enum name="left_to_right" value="2" />
+            <!-- 以两腰之间的尖端开始，从右部到左部 (水平方向倒三角形) -->
+            <enum name="right_to_left" value="3" />
         </attr>
     </declare-styleable>
 </resources>

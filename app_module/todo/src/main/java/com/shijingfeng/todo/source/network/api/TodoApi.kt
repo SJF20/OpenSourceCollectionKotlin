@@ -2,6 +2,7 @@ package com.shijingfeng.todo.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
+import com.shijingfeng.todo.entity.AddTodoEntity
 import com.shijingfeng.todo.entity.ResultEntity
 import com.shijingfeng.todo.entity.TodoEntity
 import io.reactivex.Single
@@ -27,7 +28,7 @@ internal interface TodoApi {
     @GET("lg/todo/v2/list/{page}/json")
     fun getTodoData(
         @Path("page") page: Int,
-        @QueryMap postMap: Map<String, Any>? = null
+        @QueryMap postMap: Map<String, Any>
     ): Single<ResultEntity<TodoEntity>>
 
     /**
@@ -39,7 +40,7 @@ internal interface TodoApi {
     @POST("lg/todo/delete/{id}/json")
     fun remove(
         @Path("id") id: String
-    ): Single<ResultEntity<Any?>>
+    ): Single<ResultEntity<Any>>
 
     /**
      * 更新状态
@@ -53,6 +54,19 @@ internal interface TodoApi {
     fun updateStatus(
         @Path("id") id: String,
         @Field("status") status: Int
-    ): Single<ResultEntity<Any?>>
+    ): Single<ResultEntity<Any>>
+
+    /**
+     * 添加 待办事项
+     *
+     * @param postMap 携带的参数
+     */
+    @JvmSuppressWildcards //Java和Kotlin交互问题: 防止 Map<String, Any> 解析成 Map<String, ?>
+    @Headers(DOMAIN_HEADER + BASE_URL_NAME_WAN_ANDROID)
+    @FormUrlEncoded
+    @POST("lg/todo/add/json")
+    fun addTodo(
+        @FieldMap postMap: Map<String, Any>
+    ): Single<ResultEntity<AddTodoEntity>>
 
 }

@@ -73,3 +73,8 @@ internal const val REMOVE_ITEM = "remove_item"
 internal const val TODO_COMPLETED = "todo_completed"
 /** 撤回 */
 internal const val TODO_RECALL = "todo_recall"
+
+/** 添加待办事项 */
+internal const val TODO_ADD = 0
+/** 更新待办事项 */
+internal const val TODO_UPDATE = 1
