@@ -1,6 +1,7 @@
 package com.shijingfeng.base.util.image_load
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
@@ -44,7 +45,7 @@ class GlideImageLoader : ImageLoader() {
     override fun displayImage(
         context: Context,
         imageView: ImageView,
-        imagePath: String,
+        imagePath: String?,
         @GlideOutputType outputType: Int,
         @DrawableRes placeholder: Int,
         @DrawableRes error: Int
@@ -83,6 +84,29 @@ class GlideImageLoader : ImageLoader() {
     ) {
         Glide.with(context)
             .load(drawableRes)
+            .placeholder(placeholder)
+            .error(error)
+            .dontAnimate()
+            .into(imageView)
+    }
+
+    /**
+     * 显示图片
+     * @param context Context
+     * @param imageView ImageView控件
+     * @param bitmap Bitmap
+     * @param placeholder 加载中 占位符
+     * @param error 加载错误 占位符
+     */
+    override fun displayImage(
+        context: Context,
+        imageView: ImageView,
+        bitmap: Bitmap?,
+        placeholder: Int,
+        error: Int
+    ) {
+        Glide.with(context)
+            .load(bitmap)
             .placeholder(placeholder)
             .error(error)
             .dontAnimate()

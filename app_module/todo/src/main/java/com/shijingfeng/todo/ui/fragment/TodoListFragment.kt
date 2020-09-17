@@ -22,7 +22,7 @@ import com.shijingfeng.todo.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_NONE
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
-import com.shijingfeng.todo.databinding.FragmentTodoToDoListBinding
+import com.shijingfeng.todo.databinding.FragmentTodoTodoListBinding
 import com.shijingfeng.todo.entity.adapter.TodoItem
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
@@ -56,7 +56,7 @@ internal fun createTodoListFragment(
  */
 @Route(path = FRAGMENT_TODO_LIST)
 @BindEventBus
-internal class TodoListFragment : TodoBaseFragment<FragmentTodoToDoListBinding, TodoListViewModel>() {
+internal class TodoListFragment : TodoBaseFragment<FragmentTodoTodoListBinding, TodoListViewModel>() {
 
     /** 待办 分组 适配器 */
     private var mTodoGroupListAdapter: TodoGroupListAdapter? = null
@@ -65,7 +65,7 @@ internal class TodoListFragment : TodoBaseFragment<FragmentTodoToDoListBinding, 
      * 获取视图ID
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.fragment_todo_to_do_list
+    override fun getLayoutId() = R.layout.fragment_todo_todo_list
 
     /**
      * 获取ViewModel

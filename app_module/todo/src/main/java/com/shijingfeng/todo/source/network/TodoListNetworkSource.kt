@@ -4,7 +4,7 @@ import com.shijingfeng.base.base.source.BaseNetworkSource
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.util.RetrofitUtil
-import com.shijingfeng.todo.entity.TodoEntity
+import com.shijingfeng.todo.entity.network.TodoEntity
 import com.shijingfeng.todo.source.network.api.TodoApi
 import com.shijingfeng.todo.util.apiRequest
 

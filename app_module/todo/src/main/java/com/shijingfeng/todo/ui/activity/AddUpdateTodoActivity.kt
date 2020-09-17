@@ -16,7 +16,7 @@ import com.shijingfeng.todo.constant.TYPE_ALL
 import com.shijingfeng.todo.constant.TYPE_LIFE
 import com.shijingfeng.todo.constant.TYPE_STUDY
 import com.shijingfeng.todo.constant.TYPE_WORK
-import com.shijingfeng.todo.databinding.ActivityAddUpdateTodoBinding
+import com.shijingfeng.todo.databinding.ActivityTodoAddUpdateTodoBinding
 import com.shijingfeng.todo.source.network.getAddUpdateTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getAddUpdateTodoRepositoryInstance
 import com.shijingfeng.todo.view_model.AddUpdateTodoViewModel
@@ -28,7 +28,7 @@ import com.shijingfeng.todo.view_model.AddUpdateTodoViewModel
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_ADD_UPDATE_TODO)
-internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityAddUpdateTodoBinding, AddUpdateTodoViewModel>() {
+internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTodoBinding, AddUpdateTodoViewModel>() {
 
     /**
      * 获取ViewModel
@@ -58,7 +58,7 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityAddUpdateTodoBin
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_add_update_todo
+    override fun getLayoutId() = R.layout.activity_todo_add_update_todo
 
     /**
      * 初始化参数

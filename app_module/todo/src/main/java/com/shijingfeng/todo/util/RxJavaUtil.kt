@@ -8,7 +8,7 @@ import com.shijingfeng.base.http.exception.E
 import com.shijingfeng.base.http.exception.ServerException
 import com.shijingfeng.base.http.exception.handle
 import com.shijingfeng.todo.constant.SERVER_SUCCESS
-import com.shijingfeng.todo.entity.ResultEntity
+import com.shijingfeng.todo.entity.network.ResultEntity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

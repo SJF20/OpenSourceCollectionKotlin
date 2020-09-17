@@ -1,4 +1,4 @@
-package com.shijingfeng.todo.entity
+package com.shijingfeng.todo.entity.network
 
 import com.google.gson.annotations.SerializedName
 

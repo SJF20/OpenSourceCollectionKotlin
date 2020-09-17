@@ -78,3 +78,6 @@ internal const val TODO_RECALL = "todo_recall"
 internal const val TODO_ADD = 0
 /** 更新待办事项 */
 internal const val TODO_UPDATE = 1
+
+/** 查看原图 */
+internal const val VIEW_ORIGINAL_IMAGE = "view_original_image"

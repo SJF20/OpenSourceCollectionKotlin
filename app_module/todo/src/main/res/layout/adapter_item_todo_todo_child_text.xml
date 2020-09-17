@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="80dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            tools:text="身高盖好改好烧杀怕狗爱好嘎嘎好干萨格豪哥豪哥哈珀规划大少啊很高很高更好欧安会高功耗高哈斯哦按国家怕会高功耗和高功耗干哈ioh高傲很高化工盖好改哈干哈爱国好i盖撒干哈干哈哈嘎苹果hi哦安排噶安徽噶破格哈珀给好改好股票哈皮好该片盖好改好给哈皮干哈哈改革还哦怕干哈干哈干哈" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_remove"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="top|center_horizontal"
+                android:padding="6.5dp"
+                android:src="@drawable/ic_remove"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/iv_move"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:padding="5dp"
+                android:src="@drawable/ic_move"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:src="@drawable/ic_add_item"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>

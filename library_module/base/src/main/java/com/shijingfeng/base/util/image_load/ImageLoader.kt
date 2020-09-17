@@ -1,6 +1,7 @@
 package com.shijingfeng.base.util.image_load
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
@@ -37,7 +38,7 @@ abstract class ImageLoader {
     abstract fun displayImage(
         context: Context,
         imageView: ImageView,
-        imagePath: String,
+        imagePath: String?,
         @GlideOutputType outputType: Int = AS_DRAWABLE,
         @DrawableRes placeholder: Int = R.drawable.ic_image,
         @DrawableRes error: Int = R.drawable.ic_image
@@ -55,6 +56,22 @@ abstract class ImageLoader {
         context: Context,
         imageView: ImageView,
         @DrawableRes drawableRes: Int,
+        @DrawableRes placeholder: Int = R.drawable.ic_image,
+        @DrawableRes error: Int = R.drawable.ic_image
+    )
+
+    /**
+     * 显示图片
+     * @param context Context
+     * @param imageView ImageView控件
+     * @param bitmap Bitmap
+     * @param placeholder 加载中 占位符
+     * @param error 加载错误 占位符
+     */
+    abstract fun displayImage(
+        context: Context,
+        imageView: ImageView,
+        bitmap: Bitmap?,
         @DrawableRes placeholder: Int = R.drawable.ic_image,
         @DrawableRes error: Int = R.drawable.ic_image
     )

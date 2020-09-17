@@ -2,9 +2,9 @@ package com.shijingfeng.todo.source.network.api
 
 import com.shijingfeng.base.common.constant.BASE_URL_NAME_WAN_ANDROID
 import com.shijingfeng.base.common.constant.DOMAIN_HEADER
-import com.shijingfeng.todo.entity.AddTodoEntity
-import com.shijingfeng.todo.entity.ResultEntity
-import com.shijingfeng.todo.entity.TodoEntity
+import com.shijingfeng.todo.entity.network.AddTodoEntity
+import com.shijingfeng.todo.entity.network.ResultEntity
+import com.shijingfeng.todo.entity.network.TodoEntity
 import io.reactivex.Single
 import retrofit2.http.*
 

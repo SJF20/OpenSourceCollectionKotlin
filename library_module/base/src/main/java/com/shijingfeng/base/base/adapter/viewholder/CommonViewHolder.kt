@@ -1,6 +1,7 @@
 package com.shijingfeng.base.base.adapter.viewholder
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -91,7 +92,7 @@ class CommonViewHolder private constructor (
      */
     fun setText(
         @IdRes viewId: Int,
-        text: String
+        text: CharSequence
     ): CommonViewHolder {
         getView<TextView>(viewId)?.text = text
         return this
@@ -122,6 +123,20 @@ class CommonViewHolder private constructor (
         drawable: Drawable
     ): CommonViewHolder {
         getView<ImageView>(viewId)?.setImageDrawable(drawable)
+        return this
+    }
+
+    /**
+     * ImageView 设置 Bitmap
+     * @param viewId ImageView Id
+     * @param bitmap Bitmap
+     * @return CommonViewHolder
+     */
+    fun setImageBitmap(
+        @IdRes viewId: Int,
+        bitmap: Bitmap
+    ): CommonViewHolder {
+        getView<ImageView>(viewId)?.setImageBitmap(bitmap)
         return this
     }
 
@@ -163,7 +178,7 @@ class CommonViewHolder private constructor (
      */
     fun setImagePath(
         @IdRes viewId: Int,
-        path: String,
+        path: String?,
         @DrawableRes placeholder: Int = R.drawable.ic_image,
         @DrawableRes error: Int = R.drawable.ic_image
     ): CommonViewHolder {
