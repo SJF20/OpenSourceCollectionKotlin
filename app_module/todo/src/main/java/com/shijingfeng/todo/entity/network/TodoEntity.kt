@@ -2,7 +2,7 @@ package com.shijingfeng.todo.entity.network
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.todo.entity.adapter.TodoItem
+import com.shijingfeng.todo.entity.adapter.TodoListItem
 
 /**
  * Function: 主页 -> 待办 实体类
@@ -41,6 +41,6 @@ internal data class TodoEntity (
     var total: Int = 0,
 
     @SerializedName("datas")
-    var todoItemList: List<TodoItem> = ArrayList()
+    var todoItemList: List<TodoListItem> = ArrayList()
 
 ) : BaseEntity()

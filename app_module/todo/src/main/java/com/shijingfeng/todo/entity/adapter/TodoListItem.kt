@@ -11,7 +11,7 @@ import com.shijingfeng.todo.constant.STATUS_DONE
  * Description:
  * @author ShiJingFeng
  */
-internal data class TodoItem(
+internal data class TodoListItem(
 
     @SerializedName("id")
     var identity: String = "",

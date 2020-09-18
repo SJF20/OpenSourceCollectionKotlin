@@ -2,8 +2,12 @@ package com.shijingfeng.todo.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import com.shijingfeng.base.base.adapter.BaseAdapter
+import com.shijingfeng.base.base.adapter.BaseMultiItemAdapter
+import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.image_load.GlideImageLoader
 import com.shijingfeng.base.util.image_load.ImageLoader
@@ -23,11 +27,12 @@ import com.shijingfeng.todo.entity.Image.Companion.IMAGE_TYPE_NETWORK
  */
 internal class TodoGrandchildImageAdapter(
     context: Context,
-    dataList: List<Image>? = null
-) : BaseAdapter<Image>(
+    dataList: List<Image>? = null,
+    multiItemTypeSupport: MultiItemTypeSupport<Image>
+) : BaseMultiItemAdapter<Image>(
     context,
-    R.layout.adapter_item_todo_todo_grandchild_image,
-    dataList
+    dataList,
+    multiItemTypeSupport
 ) {
 
     /**
@@ -46,7 +51,7 @@ internal class TodoGrandchildImageAdapter(
             )
             /** 磁盘图片文件路径 */
             IMAGE_TYPE_DISK,
-            /** 网络图片URL地址 */
+                /** 网络图片URL地址 */
             IMAGE_TYPE_NETWORK -> getImageLoaderInstance().displayImage(
                 context = mContext,
                 imageView = holder.getView(R.id.iv_image)!!,
@@ -55,7 +60,7 @@ internal class TodoGrandchildImageAdapter(
         }
         holder.setOnClickListener(
             viewId = R.id.iv_image,
-            listener = { view ->
+            listener = View.OnClickListener { view ->
                 mOnItemEvent?.invoke(view, data, position, VIEW_ORIGINAL_IMAGE)
             }
         )

@@ -8,7 +8,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Description:
  * @author ShiJingFeng
  */
-internal class TodoGroupItem(
+internal class TodoGroupListItem(
 
     /** 唯一ID (以天为单位的毫秒值, 注意: 并不是精确到毫秒的时间戳) */
     var identity: Long = 0L,
@@ -17,7 +17,7 @@ internal class TodoGroupItem(
     /** 待办日期字符串 */
     var dateStr: String = "",
     /** 分组下的列表 */
-    var todoItemList: MutableList<TodoItem> = mutableListOf()
+    var todoItemList: MutableList<TodoListItem> = mutableListOf()
 
 ) : BaseEntity() {
 

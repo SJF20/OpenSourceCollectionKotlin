@@ -1,16 +1,11 @@
 package com.shijingfeng.todo.adapter
 
 import android.content.Context
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
-import com.blankj.utilcode.util.ToastUtils
-import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.BaseMultiItemAdapter
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.common.constant.REMOVE
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.constant.*
 import com.shijingfeng.todo.constant.PRIORITY_IMPORTANT_NOT_URGENCY
@@ -19,7 +14,7 @@ import com.shijingfeng.todo.constant.PRIORITY_NOT_IMPORTANT_NOT_URGENCY
 import com.shijingfeng.todo.constant.PRIORITY_NOT_IMPORTANT_URGENCY
 import com.shijingfeng.todo.constant.STATUS_NEED_TO_DO
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
-import com.shijingfeng.todo.entity.adapter.TodoItem
+import com.shijingfeng.todo.entity.adapter.TodoListItem
 
 /**
  * Function: 主页 -> 待办 分组后的 适配器
@@ -29,9 +24,9 @@ import com.shijingfeng.todo.entity.adapter.TodoItem
  */
 internal class TodoListAdapter(
     context: Context,
-    dataList: List<TodoItem>? = null,
-    multiItemTypeSupport: MultiItemTypeSupport<TodoItem>
-) : BaseMultiItemAdapter<TodoItem>(
+    dataList: List<TodoListItem>? = null,
+    multiItemTypeSupport: MultiItemTypeSupport<TodoListItem>
+) : BaseMultiItemAdapter<TodoListItem>(
     context = context,
     dataList = dataList,
     multiItemTypeSupport = multiItemTypeSupport
@@ -43,7 +38,7 @@ internal class TodoListAdapter(
      * @param data 数据
      * @param position 下标位置
      */
-    override fun convert(holder: CommonViewHolder, data: TodoItem, position: Int) {
+    override fun convert(holder: CommonViewHolder, data: TodoListItem, position: Int) {
         // 标题
         holder.setText(R.id.tv_title, data.title)
         // 内容

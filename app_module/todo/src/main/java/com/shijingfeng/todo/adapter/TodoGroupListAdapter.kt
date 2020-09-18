@@ -8,8 +8,8 @@ import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.constant.STATUS_DONE
 import com.shijingfeng.todo.constant.STATUS_NEED_TO_DO
-import com.shijingfeng.todo.entity.adapter.TodoGroupItem
-import com.shijingfeng.todo.entity.adapter.TodoItem
+import com.shijingfeng.todo.entity.adapter.TodoGroupListItem
+import com.shijingfeng.todo.entity.adapter.TodoListItem
 
 /**
  * Function: 主页 -> 待办 适配器
@@ -19,8 +19,8 @@ import com.shijingfeng.todo.entity.adapter.TodoItem
  */
 internal class TodoGroupListAdapter(
     context: Context,
-    dataList: List<TodoGroupItem>? = null,
-) : BaseAdapter<TodoGroupItem>(
+    dataList: List<TodoGroupListItem>? = null,
+) : BaseAdapter<TodoGroupListItem>(
     context = context,
     layoutId = R.layout.adapter_item_todo_todo_group_list,
     dataList = dataList
@@ -32,8 +32,8 @@ internal class TodoGroupListAdapter(
      * @param data 数据
      * @param position 下标位置
      */
-    override fun convert(holder: CommonViewHolder, data: TodoGroupItem, position: Int) {
-        val adapter = TodoListAdapter(mContext, data.todoItemList, object : MultiItemTypeSupport<TodoItem> {
+    override fun convert(holder: CommonViewHolder, data: TodoGroupListItem, position: Int) {
+        val adapter = TodoListAdapter(mContext, data.todoItemList, object : MultiItemTypeSupport<TodoListItem> {
 
             /**
              * 根据 Item类型 获取 Layout Id
@@ -55,7 +55,7 @@ internal class TodoGroupListAdapter(
              * @param data 数据
              * @return Item类型
              */
-            override fun getItemViewType(position: Int, data: TodoItem) = data.getType()
+            override fun getItemViewType(position: Int, data: TodoListItem) = data.getType()
 
         })
 

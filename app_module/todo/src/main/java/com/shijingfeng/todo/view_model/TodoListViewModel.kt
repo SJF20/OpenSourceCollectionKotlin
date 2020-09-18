@@ -17,8 +17,8 @@ import com.shijingfeng.todo.constant.PRIORITY
 import com.shijingfeng.todo.constant.PRIORITY_ALL
 import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_ALL
-import com.shijingfeng.todo.entity.adapter.TodoGroupItem
-import com.shijingfeng.todo.entity.adapter.TodoItem
+import com.shijingfeng.todo.entity.adapter.TodoGroupListItem
+import com.shijingfeng.todo.entity.adapter.TodoListItem
 import com.shijingfeng.todo.source.repository.TodoListRepository
 import com.shijingfeng.todo.ui.activity.MAIN_DONE
 import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
@@ -54,10 +54,10 @@ internal class TodoListViewModel(
     var mPageType = MAIN_NONE
 
     /** 待办列表 (性能优化技巧: 因为以天为单位的毫秒值是从小到大的顺序，故可以使用二分查找) */
-    val mTodoGroupItemList = mutableListOf<TodoGroupItem>()
+    val mTodoGroupItemList = mutableListOf<TodoGroupListItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<TodoGroupItem>>()
+    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<TodoGroupListItem>>()
 
     /** 请求参数 Map */
     val mRequestParamMap = hashMapOf<String, Any>()
@@ -141,7 +141,7 @@ internal class TodoListViewModel(
             postMap = mRequestParamMap,
             onSuccess = onSuccessLabel@{ todo ->
                 val todoItemList = todo?.todoItemList
-                val event = ListDataChangeEvent<TodoGroupItem>()
+                val event = ListDataChangeEvent<TodoGroupListItem>()
 
                 when (mPageOperateType) {
                     // 加载数据
@@ -265,14 +265,14 @@ internal class TodoListViewModel(
      *
      * @param todoItemList
      */
-    private fun groupByDay(todoItemList: List<TodoItem>?) {
+    private fun groupByDay(todoItemList: List<TodoListItem>?) {
         if (!todoItemList.isNullOrEmpty()) {
             //分组
             todoItemList.forEach { todoItem ->
                 val day = todoItem.date / 86400000L
 
                 if (mTodoGroupItemList.isEmpty()) {
-                    mTodoGroupItemList.add(TodoGroupItem(
+                    mTodoGroupItemList.add(TodoGroupListItem(
                         identity = day,
                         dateStr = todoItem.dateStr,
                         todoItemList = mutableListOf(todoItem)
@@ -283,7 +283,7 @@ internal class TodoListViewModel(
                     if (lastTodoGroupItem.identity == day) {
                         lastTodoGroupItem.todoItemList.add(todoItem)
                     } else {
-                        mTodoGroupItemList.add(TodoGroupItem(
+                        mTodoGroupItemList.add(TodoGroupListItem(
                             identity = day,
                             dateStr = todoItem.dateStr,
                             todoItemList = mutableListOf(todoItem)

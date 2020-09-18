@@ -3,17 +3,38 @@
 package com.shijingfeng.todo.constant
 
 /**
- * Function:
+ * Function: Todo模块 全局静态常量
  * Date: 2020/5/19 21:00
  * Description:
  * @author ShiJingFeng
  */
 
-/** TabLayout可见性  */
+/** OnItemEventListener Flag: TabLayout可见性  */
 internal const val TAB_LAYOUT_VISIBILITY = "tab_layout_visibility"
-
-/** 查看 待办事项 详情 */
+/** OnItemEventListener Flag: 查看 待办事项 详情 */
 internal const val VIEW_TODO_DETAIL = "view_todo_detail"
+/** OnItemEventListener Flag: 查看原图 */
+internal const val VIEW_ORIGINAL_IMAGE = "view_original_image"
+/** OnItemEventListener Flag: 删除 Item */
+internal const val REMOVE_ITEM = "remove_item"
+/** OnItemEventListener Flag: 标记完成 */
+internal const val TODO_COMPLETED = "todo_completed"
+/** OnItemEventListener Flag: 撤回 */
+internal const val TODO_RECALL = "todo_recall"
+
+/** Bundle Key(String) Value(int) 页面类型 */
+internal const val PAGE_TYPE = "page_type"
+/** Bundle Key(String) Value(String) TodoChild列表序列化后的字符串 */
+internal const val TODO_CHILD_LIST_STR = ""
+
+/** Map Key(String) Value(int) 状态 */
+internal const val STATUS = "status"
+/** Map Key(String) Value(int) 类型 */
+internal const val TYPE = "type"
+/** Map Key(String) Value(int) 优先级 */
+internal const val PRIORITY = "priority"
+/** Map Key(String) Value(int) 排序 */
+internal const val ORDER_BY = "orderby"
 
 /** 状态: 待办 */
 internal const val STATUS_NEED_TO_DO = 0
@@ -55,29 +76,7 @@ internal const val ORDER_BY_CREATE_DATE_ASC = 3
 /** 排序: 创建日期逆序 (降序) */
 internal const val ORDER_BY_CREATE_DATE_DESC = 4
 
-/** 页面类型 */
-internal const val PAGE_TYPE = "page_type"
-
-/** 状态 */
-internal const val STATUS = "status"
-/** 类型 */
-internal const val TYPE = "type"
-/** 优先级 */
-internal const val PRIORITY = "priority"
-/** 排序 */
-internal const val ORDER_BY = "orderby"
-
-/** 删除 Item */
-internal const val REMOVE_ITEM = "remove_item"
-/** 标记完成 */
-internal const val TODO_COMPLETED = "todo_completed"
-/** 撤回 */
-internal const val TODO_RECALL = "todo_recall"
-
 /** 添加待办事项 */
 internal const val TODO_ADD = 0
 /** 更新待办事项 */
 internal const val TODO_UPDATE = 1
-
-/** 查看原图 */
-internal const val VIEW_ORIGINAL_IMAGE = "view_original_image"

@@ -10,7 +10,7 @@ import com.shijingfeng.todo.entity.Image
  */
 internal class TodoChildImageItem(
 
-    /** 图片 */
-    var imageList: List<Image>
+    /** 图片列表 */
+    var imageList: MutableList<Image> = mutableListOf()
 
 ) : TodoChildItem()

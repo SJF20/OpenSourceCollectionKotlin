@@ -1,29 +1,21 @@
 package com.shijingfeng.todo.entity.adapter
 
 import com.shijingfeng.base.base.entity.BaseEntity
+import com.shijingfeng.todo.annotation.define.TodoChildType
+import com.shijingfeng.todo.annotation.define.TodoChildType.*
 
 /**
- * Function:
+ * Function: TodoChild实体类 抽象基类
  * Date: 2020/9/17 17:27
  * Description:
  * @author ShiJingFeng
  */
 internal abstract class TodoChildItem : BaseEntity() {
 
-    companion object {
-
-        /** Item类型: 未知 */
-        const val ITEM_TYPE_UNKNOWN = 0
-        /** Item类型: 文本 */
-        const val ITEM_TYPE_TEXT = 1
-        /** Item类型: 图片 */
-        const val ITEM_TYPE_IMAGE = 2
-
-    }
-
     /**
      * 获取类型
      */
+    @TodoChildType
     fun getType() = when (this) {
         // 文本类型
         is TodoChildTextItem -> ITEM_TYPE_TEXT

@@ -23,7 +23,7 @@ import com.shijingfeng.todo.constant.TYPE
 import com.shijingfeng.todo.constant.TYPE_NONE
 import com.shijingfeng.todo.constant.VIEW_TODO_DETAIL
 import com.shijingfeng.todo.databinding.FragmentTodoTodoListBinding
-import com.shijingfeng.todo.entity.adapter.TodoItem
+import com.shijingfeng.todo.entity.adapter.TodoListItem
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
 import com.shijingfeng.todo.source.network.getTodoListNetworkSourceInstance
@@ -152,7 +152,7 @@ internal class TodoListFragment : TodoBaseFragment<FragmentTodoTodoListBinding, 
             when (flag) {
                 // 删除 Item
                 REMOVE_ITEM -> {
-                    val todoItem = data as TodoItem
+                    val todoItem = data as TodoListItem
 
                     mViewModel?.remove(todoItem.getId())
                 }
@@ -160,7 +160,7 @@ internal class TodoListFragment : TodoBaseFragment<FragmentTodoTodoListBinding, 
                 TODO_COMPLETED,
                 // 撤回
                 TODO_RECALL -> {
-                    val todoItem = data as TodoItem
+                    val todoItem = data as TodoListItem
 
                     mViewModel?.updateStatus(todoItem.getId(), if (flag == TODO_COMPLETED) STATUS_DONE else STATUS_NEED_TO_DO)
                 }
