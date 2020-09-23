@@ -6,7 +6,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.NOTIFICATION_ID_APP_UPDATE_HINT
-import com.shijingfeng.base.common.global.sophixHasInitialized
+import com.shijingfeng.base.common.global.sSophixHasInitialized
 import com.taobao.sophix.SophixManager
 import kotlin.system.exitProcess
 
@@ -26,7 +26,7 @@ fun exitApp() {
     // 关闭 更新提示 通知
     NotificationManagerCompat.from(application).cancel(NOTIFICATION_ID_APP_UPDATE_HINT)
     // 关闭热修复进程
-    if (sophixHasInitialized) {
+    if (sSophixHasInitialized) {
         SophixManager.getInstance().killProcessSafely()
     }
 }
@@ -40,7 +40,7 @@ fun killApp() {
     // 关闭 更新提示 通知
     NotificationManagerCompat.from(application).cancel(NOTIFICATION_ID_APP_UPDATE_HINT)
     // 关闭热修复进程
-    if (sophixHasInitialized) {
+    if (sSophixHasInitialized) {
         SophixManager.getInstance().killProcessSafely()
     }
     // 退出当前进程

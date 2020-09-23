@@ -8,19 +8,19 @@
     <!-- MarkerView -->
     <declare-styleable name="MarkerView">
         <!-- 文本 -->
-        <attr name="text" format="string" />
+        <attr name="text" format="string|reference" />
         <!-- 文本颜色 -->
-        <attr name="textColor" format="color" />
+        <attr name="textColor" format="color|reference" />
         <!-- 文本大小 -->
-        <attr name="textSize" format="dimension" />
+        <attr name="textSize" format="dimension|reference" />
         <!-- 背景颜色 -->
-        <attr name="bgColor" format="color" />
+        <attr name="bgColor" format="color|reference" />
         <!-- 圆角半径 -->
-        <attr name="cornerRadius" format="dimension" />
+        <attr name="cornerRadius" format="dimension|reference" />
         <!-- 缺失的三角形(整体的三角形缩小版)的腰长(等腰三角形) -->
-        <attr name="missing_triangle_waist_length" format="dimension" />
+        <attr name="missing_triangle_waist_length" format="dimension|reference" />
         <!-- 纵轴偏移距离 (小于0: 向上偏移  大于0: 向下偏移) -->
-        <attr name="offset" format="dimension" />
+        <attr name="offset" format="dimension|reference" />
         <!-- 位置 -->
         <attr name="position" format="enum">
             <!-- 处于左上角位置 -->
@@ -46,7 +46,7 @@
     <!-- IsoscelesTriangleView -->
     <declare-styleable name="IsoscelesTriangleView">
         <!-- 颜色 -->
-        <attr name="color" format="color" />
+        <attr name="color" format="color|reference" />
         <!-- 样式 -->
         <attr name="isosceles_triangle_style" format="enum">
             <!-- 以两腰之间的尖端开始，从顶部到底部 (垂直方向正三角形) -->

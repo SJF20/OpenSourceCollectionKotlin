@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.Keep
 import androidx.multidex.MultiDex
-import com.shijingfeng.base.common.global.sophixHasInitialized
+import com.shijingfeng.base.common.global.sSophixHasInitialized
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixApplication
 import com.taobao.sophix.SophixEntry
@@ -116,7 +116,7 @@ internal class WanAndroidSophixStubApplication : SophixApplication() {
 //            .setUnsupportedModel(Build.MODEL, Build.VERSION.SDK_INT)
             // <必选> 该方法主要做些必要的初始化工作以及如果本地有补丁的话会加载补丁, 但不会自动请求补丁。因此需要自行调用queryAndLoadNewPatch方法拉取补丁。这个方法调用需要尽可能的早, 必须在Application的attachBaseContext方法的最前面调用（在super.attachBaseContext之后，如果有Multidex，也需要在Multidex.install之后）, initialize()方法调用之前你需要先调用如下几个方法进行一些必要的参数设置, 方法调用方式如上
             .initialize()
-        sophixHasInitialized = true
+        sSophixHasInitialized = true
     }
 
 }
