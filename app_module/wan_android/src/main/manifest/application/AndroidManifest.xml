@@ -59,10 +59,10 @@
         tools:replace="android:allowBackup">
 
         <!-- 启动页 -->
+<!--        android:enabled="false"-->
+<!--        android:launchMode="singleInstance"-->
         <activity
             android:name=".ui.activity.SplashActivity"
-            android:enabled="false"
-            android:launchMode="singleInstance"
             android:theme="@style/ProjectTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -125,17 +125,6 @@
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="${applicationId}.BmobContentProvider"
             android:exported="false" />
-
-        <!-- 移除 WorkManger默认使用ContentProvider初始化, 使用自定义初始化
-         (采用ContentProvider初始化, 就不用在 Application中初始化和传入Context了)
-        -->
-        <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            android:directBootAware="false"
-            android:exported="false"
-            android:multiprocess="true"
-            tools:node="remove" />
 
     </application>
 

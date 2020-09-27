@@ -51,10 +51,6 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
         initX5()
         //初始化 Realm 数据库
         initRealm()
-//        // 开启 检查更新 Worker
-//        startCheckForUpdateWorker()
-//        // 开启 检查更新热修复补丁 Worker
-//        startCheckForHotfixPatchWorker()
     }
 
     /**

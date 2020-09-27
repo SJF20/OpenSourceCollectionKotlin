@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.shijingfeng.background_service">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,5 +12,18 @@
          -->
         <service android:name=".service.AppUpgradeService"
             android:process=".app_upgrade"/>
+
+        <!--
+        移除 WorkManger默认使用ContentProvider初始化, 使用自定义初始化,
+        采用ContentProvider初始化, 就不用在 Application中初始化和传入Context了
+        -->
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:directBootAware="false"
+            android:exported="false"
+            android:multiprocess="true"
+            tools:node="remove" />
+
     </application>
 </manifest>

@@ -1,9 +1,7 @@
 package com.shijingfeng.app.ui.activity
 
-import android.Manifest
 import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -14,7 +12,6 @@ import com.shijingfeng.app.R
 import com.shijingfeng.app.base.AppBaseActivity
 import com.shijingfeng.app.databinding.ActivityAppMainBinding
 import com.shijingfeng.app.view_model.MainViewModel
-import com.shijingfeng.base.annotation.RequestPermissions
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
 import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
@@ -58,15 +55,9 @@ internal class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewMo
      */
     override fun initData() {
         super.initData()
-//        test()
 //        Handler().postDelayed({
 //            initX5WebView()
 //        }, 500)
-    }
-
-    @RequestPermissions(permissions = [Manifest.permission.WRITE_EXTERNAL_STORAGE])
-    private fun test() {
-        Log.e("测试", "test()函数执行了")
     }
 
     /**

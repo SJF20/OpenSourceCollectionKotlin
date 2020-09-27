@@ -9,6 +9,9 @@ project(':wan_android').projectDir = new File("${rootDir.getAbsolutePath()}/app_
 // 记事本 模块
 include ':todo'
 project(':todo').projectDir = new File("${rootDir.getAbsolutePath()}/app_module", 'todo')
+// 天气 模块
+include ':weather'
+project(':weather').projectDir = new File("${rootDir.getAbsolutePath()}/app_module", 'weather')
 
 // 库模块
 // 腾讯X5 模块
