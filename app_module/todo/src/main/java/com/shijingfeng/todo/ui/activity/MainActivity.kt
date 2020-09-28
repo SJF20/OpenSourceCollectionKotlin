@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getDimensionById
 import com.shijingfeng.base.util.getStatusBarHeight
@@ -97,9 +97,10 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
             localSource = getMainLocalSourceInstance(),
             networkSource = getMainNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(MainViewModel::class.java, factory)
     }

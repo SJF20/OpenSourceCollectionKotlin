@@ -7,7 +7,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.e
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.CoinRankItem
@@ -40,7 +40,8 @@ internal class CoinRankViewModel(
     var mCoinRankItemList = ArrayList<CoinRankItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<CoinRankItem>>()
+    var mListDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<CoinRankItem>>()
 
     /** 返回  */
     val mBackClickListener = View.OnClickListener { finish() }

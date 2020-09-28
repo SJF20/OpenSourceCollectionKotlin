@@ -1,4 +1,4 @@
-package com.shijingfeng.base.base.fragment
+package com.shijingfeng.base.mvvm.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.shijingfeng.base.base.viewmodel.BaseViewModel
+import com.shijingfeng.base.base.fragment.BaseFragment
+import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.widget.dialog.LoadingDialog
 
@@ -72,7 +73,7 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
         initAction()
         initObserver()
         mViewModel?.let { viewModel ->
-            if (!viewModel.mHasInited) {
+            if (!viewModel.mHasInitialized) {
                 viewModel.init()
             }
         }
@@ -236,6 +237,10 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     override fun onDestroyView() {
         //销毁DataBinding
         mDataBinding.unbind()
+        //销毁Lifecycle
+        mViewModel?.run {
+            lifecycle.removeObserver(this)
+        }
         super.onDestroyView()
     }
 

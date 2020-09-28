@@ -28,18 +28,14 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.getStatusBarHeight
-import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.shareText
 import com.shijingfeng.base.widget.dialog.CommonDialog
 import com.shijingfeng.common.entity.ViewOriginalImageItem
-import com.shijingfeng.skin_changer.constant.BACK_GROUND
-import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
-import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -111,9 +107,10 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
         val webViewRepository = getWebViewRepositoryInstance(
             networkSource = getWebViewNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = webViewRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = webViewRepository
+            )
 
         return createViewModel(WebViewViewModel::class.java, factory)
     }
@@ -158,7 +155,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
             showCallback(LOAD_SERVICE_LOADING)
             mDataBinding.wvContent.loadUrl(mViewModel?.mUrl)
         }
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
         initX5WebView()

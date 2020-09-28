@@ -1,7 +1,7 @@
 package com.shijingfeng.wan_android.base
 
 import com.shijingfeng.base.base.repository.BaseRepository
-import com.shijingfeng.base.base.viewmodel.BaseViewModel
+import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 
 /**
  * Function: wan_android 模块 ViewModel 基类

@@ -11,7 +11,7 @@ import com.shijingfeng.app.source.network.getSplashNetworkSourceInstance
 import com.shijingfeng.app.source.repository.getSplashRepositoryInstance
 import com.shijingfeng.app.view_model.SplashViewModel
 import com.shijingfeng.base.arouter.ACTIVITY_APP_SPLASH
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 
 /**
  * Function: 启动页 Activity
@@ -38,9 +38,10 @@ internal class SplashActivity : AppBaseActivity<ActivityAppSplashBinding, Splash
             localSource = getSplashLocalSourceInstance(),
             networkSource = getSplashNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(SplashViewModel::class.java, factory)
     }

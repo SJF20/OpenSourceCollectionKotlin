@@ -1,4 +1,4 @@
-package com.shijingfeng.base.livedata
+package com.shijingfeng.base.mvvm.livedata
 
 import android.annotation.SuppressLint
 import androidx.annotation.AnyThread

@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("EditTextViewAdapter")
-package com.shijingfeng.base.databinding.view_adapter
+package com.shijingfeng.base.mvvm.databinding.view_adapter
 
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod

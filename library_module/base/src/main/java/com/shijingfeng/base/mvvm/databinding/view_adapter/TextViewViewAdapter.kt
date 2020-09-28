@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("TextViewViewAdapter")
-package com.shijingfeng.base.databinding.view_adapter
+package com.shijingfeng.base.mvvm.databinding.view_adapter
 
 import android.text.TextUtils
 import android.widget.TextView

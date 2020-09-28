@@ -3,7 +3,7 @@ package com.shijingfeng.wan_android.ui.activity
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.SRC
 import com.shijingfeng.skin_changer.entity.SkinAttribute
@@ -33,7 +33,9 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
      *
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(SplashViewModel::class.java, createCommonViewModelFactory())
+    override fun getViewModel() = createViewModel(SplashViewModel::class.java,
+        createCommonViewModelFactory()
+    )
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

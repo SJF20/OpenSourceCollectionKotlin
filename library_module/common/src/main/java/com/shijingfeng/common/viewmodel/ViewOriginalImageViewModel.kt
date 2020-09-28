@@ -5,7 +5,7 @@ import com.shijingfeng.base.common.constant.CURRENT_POSITION
 import com.shijingfeng.base.common.constant.DATA
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
 import com.shijingfeng.base.common.constant.FROM_ACTIVITY_NAME
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.common.source.repository.ViewOriginalImageRepository
@@ -33,7 +33,8 @@ internal class ViewOriginalImageViewModel(
     var mCurrentPosition = 0
 
     /** 保存图片 LiveEvent */
-    val mSaveImageLiveEvent = SingleLiveEvent<ResponseBody?>()
+    val mSaveImageLiveEvent =
+        SingleLiveEvent<ResponseBody?>()
 
     /**
      * 下载图片

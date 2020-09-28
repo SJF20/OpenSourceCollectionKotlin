@@ -8,7 +8,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -44,9 +44,11 @@ internal class KnowledgeClassifyDetailChildViewModel(
     var mKnowledgeClassifyChildItemList = mutableListOf<KnowledgeClassifyDetailChildItem>()
 
     /** 知识体系　二级数据 列表 改变 SingleLiveEvent  */
-    val mKnowledgeClassifyChildDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<KnowledgeClassifyDetailChildItem>>()
+    val mKnowledgeClassifyChildDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<KnowledgeClassifyDetailChildItem>>()
     /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
-    val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
+    val mCollectedStatusEvent =
+        SingleLiveEvent<SparseArray<Any?>>()
 
     /** 知识体系 二级数据 */
     var mKnowledgeClassifyChildren: KnowledgeClassifyChildren? = null

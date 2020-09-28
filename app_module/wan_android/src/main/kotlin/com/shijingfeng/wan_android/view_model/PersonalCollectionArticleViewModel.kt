@@ -7,7 +7,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
@@ -41,7 +41,8 @@ internal class PersonalCollectionArticleViewModel(
     val mArticleCollectedListItemList = ArrayList<PersonalCollectionArticleItem>()
 
     /** 列表数据改变 LiveData Event  */
-    val mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<PersonalCollectionArticleItem>>()
+    val mListDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<PersonalCollectionArticleItem>>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {

@@ -1,9 +1,8 @@
 package com.shijingfeng.common.base
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.fragment.BaseMvvmFragment
+import com.shijingfeng.base.mvvm.fragment.BaseMvvmFragment
 import com.shijingfeng.base.util.d
 
 /**

@@ -7,7 +7,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.annotation.define.TodoStatus
@@ -57,7 +57,8 @@ internal class TodoListViewModel(
     val mTodoGroupItemList = mutableListOf<TodoGroupListItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<TodoGroupListItem>>()
+    var mListDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<TodoGroupListItem>>()
 
     /** 请求参数 Map */
     val mRequestParamMap = hashMapOf<String, Any>()

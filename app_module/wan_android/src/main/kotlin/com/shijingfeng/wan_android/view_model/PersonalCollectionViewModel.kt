@@ -1,7 +1,7 @@
 package com.shijingfeng.wan_android.view_model
 
 import android.view.View.OnClickListener
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionRepository

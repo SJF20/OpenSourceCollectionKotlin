@@ -15,7 +15,7 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PROJECT
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
 import com.shijingfeng.base.util.getColorById
@@ -64,9 +64,10 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
         val repository = getProjectRepositoryInstance(
             networkSource = getProjectNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(ProjectViewModel::class.java, factory)
     }
@@ -85,7 +86,7 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
     override fun initData() {
         super.initData()
         mLoadService = LoadSir.getDefault().register(mDataBinding.llContent, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
     }

@@ -6,7 +6,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -37,9 +37,11 @@ internal class SearchListViewModel(
     var mSearchList = mutableListOf<SearchListItem>()
 
     /** 搜索列表 数据改变 SingleLiveEvent  */
-    val mSearchListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<SearchListItem>>()
+    val mSearchListDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<SearchListItem>>()
     /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
-    val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
+    val mCollectedStatusEvent =
+        SingleLiveEvent<SparseArray<Any?>>()
 
     /** 返回 */
     val mBackClickListener = View.OnClickListener { finish() }

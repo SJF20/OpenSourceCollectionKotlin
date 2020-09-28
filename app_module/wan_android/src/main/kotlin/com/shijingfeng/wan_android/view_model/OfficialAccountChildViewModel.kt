@@ -4,7 +4,7 @@ import android.util.SparseArray
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
@@ -47,9 +47,11 @@ internal class OfficialAccountChildViewModel(
     val mOfficialAccountChildItemList = mutableListOf<OfficialAccountChildItem>()
 
     /** 公众号 二级数据 列表 改变 SingleLiveEvent  */
-    val mOfficialAccountChildDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<OfficialAccountChildItem>>()
+    val mOfficialAccountChildDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<OfficialAccountChildItem>>()
     /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
-    val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
+    val mCollectedStatusEvent =
+        SingleLiveEvent<SparseArray<Any?>>()
 
     /** 是否需要更新主题(当Fragment在没有显示的情况下，RecyclerView更新Adapter无反应)  true: 需要  false: 不需要 */
     var mNeedUpdateTheme = false

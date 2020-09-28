@@ -5,7 +5,6 @@ import android.util.SparseArray
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.CheckBox
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +16,9 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.util.RESOURCE_TYPE_DRAWABLE
 import com.shijingfeng.base.util.getPositionById
-import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
@@ -87,9 +84,10 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             localSource = getHomeLocalSourceInstance(),
             networkSource = getHomeNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = homeRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = homeRepository
+            )
 
         return createViewModel(HomeViewModel::class.java, factory)
     }
@@ -111,7 +109,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

@@ -9,7 +9,7 @@ import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -42,7 +42,8 @@ internal class CoinRecordViewModel(
     var mCoinRecordItemList = mutableListOf<CoinRecordItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<CoinRecordItem>>()
+    var mListDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<CoinRecordItem>>()
 
     /** 返回 */
     val mBackClickListener = View.OnClickListener { finish() }

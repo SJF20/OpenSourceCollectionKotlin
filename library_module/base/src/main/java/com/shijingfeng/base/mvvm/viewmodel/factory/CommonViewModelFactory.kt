@@ -1,4 +1,4 @@
-package com.shijingfeng.base.base.viewmodel.factory
+package com.shijingfeng.base.mvvm.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +9,8 @@ import kotlin.Exception
 /** 简单工厂模式创建实例 */
 fun createCommonViewModelFactory(
     repository: BaseRepository<*, *>? = null
-) = CommonViewModelFactory(repository)
+) =
+    CommonViewModelFactory(repository)
 
 /**
  * Function: 通用 ViewModel 工厂

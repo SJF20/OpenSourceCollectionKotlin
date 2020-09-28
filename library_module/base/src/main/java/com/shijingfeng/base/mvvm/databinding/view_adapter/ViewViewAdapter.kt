@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("ViewViewAdapter")
-package com.shijingfeng.base.databinding.view_adapter
+package com.shijingfeng.base.mvvm.databinding.view_adapter
 
 import android.view.View
 import androidx.annotation.IntRange

@@ -5,7 +5,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
 import com.shijingfeng.wan_android.source.repository.KnowledgeClassifyRepository
@@ -28,7 +28,8 @@ internal class KnowledgeClassifyViewModel(
     var mKnowledgeClassifyList = mutableListOf<KnowledgeClassifyEntity>()
 
     /** 知识体系数据改变 SingleLiveEvent  */
-    val mKnowledgeClassifyDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<KnowledgeClassifyEntity>>()
+    val mKnowledgeClassifyDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<KnowledgeClassifyEntity>>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {

@@ -1,14 +1,13 @@
 package com.shijingfeng.wan_android.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.activity.BaseMvvmActivity
+import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.StatusBarView

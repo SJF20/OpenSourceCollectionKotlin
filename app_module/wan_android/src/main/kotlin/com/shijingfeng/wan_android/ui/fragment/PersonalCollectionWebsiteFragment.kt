@@ -21,7 +21,7 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
@@ -85,9 +85,10 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
         val personalCollectionWebsiteRepository = getPersonalCollectionWebsiteRepositoryInstance(
             networkSource = getPersonalCollectionWebsiteNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = personalCollectionWebsiteRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = personalCollectionWebsiteRepository
+            )
 
         return createViewModel(PersonalCollectionWebsiteViewModel::class.java, factory)
     }
@@ -109,7 +110,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

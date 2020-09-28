@@ -1,7 +1,7 @@
 package com.shijingfeng.wan_android.view_model
 
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.repository.OfficialAccountRepository
@@ -24,7 +24,8 @@ internal class OfficialAccountViewModel(
     val mOfficialAccountIndexList = mutableListOf<OfficialAccountIndexEntity>()
 
     /** 公众号 索引数据 列表 改变 SingleLiveEvent */
-    val mOfficialAccountIndexDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<OfficialAccountIndexEntity>>()
+    val mOfficialAccountIndexDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<OfficialAccountIndexEntity>>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {

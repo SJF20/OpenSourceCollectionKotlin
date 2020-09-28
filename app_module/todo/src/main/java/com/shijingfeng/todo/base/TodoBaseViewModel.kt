@@ -1,7 +1,7 @@
 package com.shijingfeng.todo.base
 
 import com.shijingfeng.base.base.repository.BaseRepository
-import com.shijingfeng.base.base.viewmodel.BaseViewModel
+import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 
 /**
  * Function: todo模块 ViewModel 基类

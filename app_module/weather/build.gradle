@@ -127,15 +127,10 @@ android {
             }
         }
     }
-    //开启DataBinding (注意每个用到DataBinding的Module都需要打开) (用于 gradle tool 4.0 以上)
-    buildFeatures{
-        dataBinding = true
+    // 开启ViewBinding, 注意和DataBinding做区分，DataBinding更复杂
+    viewBinding {
+        enabled = true
     }
-    //Android Studio 4.0 以下 使用
-    //开启DataBinding (注意每个用到DataBinding的Module都需要打开)
-//    dataBinding {
-//        enabled true
-//    }
     //开启Java8
     compileOptions {
         sourceCompatibility = 1.8

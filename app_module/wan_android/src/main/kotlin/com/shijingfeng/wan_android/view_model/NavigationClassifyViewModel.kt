@@ -5,7 +5,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.NavigationClassifyEntity
 import com.shijingfeng.wan_android.source.repository.NavigationClassifyRepository
@@ -28,7 +28,8 @@ internal class NavigationClassifyViewModel(
     var mNavigationClassifyList = mutableListOf<NavigationClassifyEntity>()
 
     /** 导航分类数据改变 SingleLiveEvent  */
-    val mNavigationClassifyDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<NavigationClassifyEntity>>()
+    val mNavigationClassifyDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<NavigationClassifyEntity>>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {

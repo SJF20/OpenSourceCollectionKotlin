@@ -11,7 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ClickUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_COIN_RANK
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
@@ -53,9 +53,10 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
             localSource = getCoinRankLocalSourceInstance(),
             networkSource = getCoinRankNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = coinRankRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = coinRankRepository
+            )
 
         return createViewModel(CoinRankViewModel::class.java, factory)
     }
@@ -79,7 +80,7 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

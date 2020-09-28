@@ -3,9 +3,8 @@ package com.shijingfeng.app.base
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import com.shijingfeng.app.R
-import com.shijingfeng.base.base.activity.BaseMvvmActivity
+import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
 
 /**
  * Function: app 模块 Activity 基类

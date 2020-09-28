@@ -1,7 +1,7 @@
 package com.shijingfeng.common.base
 
 import com.shijingfeng.base.base.repository.BaseRepository
-import com.shijingfeng.base.base.viewmodel.BaseViewModel
+import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 
 /**
  * Function: common 模块 ViewModel 基类

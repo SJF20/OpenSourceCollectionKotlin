@@ -12,7 +12,7 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_SQUARE
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
@@ -70,9 +70,10 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
         val repository = getSquareRepositoryInstance(
             networkSource = getSquareNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(SquareViewModel::class.java, factory)
     }
@@ -94,7 +95,7 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

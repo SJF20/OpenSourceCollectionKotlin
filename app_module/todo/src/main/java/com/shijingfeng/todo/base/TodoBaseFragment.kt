@@ -2,10 +2,8 @@ package com.shijingfeng.todo.base
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.fragment.BaseMvvmFragment
+import com.shijingfeng.base.mvvm.fragment.BaseMvvmFragment
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.todo.R
 
 /**
  * Function: todo模块 Fragment 基类

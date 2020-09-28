@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.lifecycle.Observer
@@ -13,17 +12,15 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT_CHILD
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.OfficialAccountChildAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
-import com.shijingfeng.wan_android.common.constant.*
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
@@ -73,9 +70,10 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
         val officialAccountChildRepository = getOfficialAccountChildRepositoryInstance(
             networkSource = getOfficialAccountChildNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = officialAccountChildRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = officialAccountChildRepository
+            )
 
         return createViewModel(OfficialAccountChildViewModel::class.java, factory)
     }
@@ -115,7 +113,7 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

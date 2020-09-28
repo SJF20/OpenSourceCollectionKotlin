@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -63,9 +63,10 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
         val articleCollectedListRepository = getPersonalCollectionRepositoryInstance(
             networkSource = getPersonalCollectionNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = articleCollectedListRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = articleCollectedListRepository
+            )
 
         return createViewModel(PersonalCollectionViewModel::class.java, factory)
     }

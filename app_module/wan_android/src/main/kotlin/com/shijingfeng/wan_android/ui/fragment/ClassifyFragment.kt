@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_CLASSIFY
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -62,7 +62,9 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(ClassifyViewModel::class.java, createCommonViewModelFactory())
+    override fun getViewModel() = createViewModel(ClassifyViewModel::class.java,
+        createCommonViewModelFactory()
+    )
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

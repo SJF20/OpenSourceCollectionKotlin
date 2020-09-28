@@ -8,7 +8,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -41,9 +41,11 @@ internal class SquareViewModel(
     val mSquareItemList = mutableListOf<SquareItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<SquareItem>>()
+    var mListDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<SquareItem>>()
     /** 文章收藏状态 SingleLiveEvent  true 收藏  false 取消收藏  */
-    val mCollectedStatusEvent = SingleLiveEvent<SparseArray<Any?>>()
+    val mCollectedStatusEvent =
+        SingleLiveEvent<SparseArray<Any?>>()
 
     /** 是否需要更新主题(当Fragment在没有显示的情况下，RecyclerView更新Adapter无反应)  true: 需要  false: 不需要 */
     var mNeedUpdateTheme = false

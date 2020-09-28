@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.fragment.BaseMvvmFragment
+import com.shijingfeng.base.mvvm.fragment.BaseMvvmFragment
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.skin_changer.constant.BACK_GROUND

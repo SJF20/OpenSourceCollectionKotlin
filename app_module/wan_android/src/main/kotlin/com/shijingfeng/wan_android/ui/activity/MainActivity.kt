@@ -33,7 +33,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -120,9 +120,10 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
             localSource = getMainLocalSourceInstance(),
             networkSource = getMainNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = mainRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = mainRepository
+            )
 
         return createViewModel(MainViewModel::class.java, factory)
     }

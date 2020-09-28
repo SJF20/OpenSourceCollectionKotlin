@@ -12,7 +12,7 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.R
@@ -53,13 +53,17 @@ internal class SearchViewModel(
     var mSearchHistoryLoadServiceStatus = LOAD_SERVICE_SEARCH_HISTORY_SUCCESS
 
     /** 搜索热词 LoadService LiveData Event */
-    val mSearchHotWordLoadServiceStatusEvent = SingleLiveEvent<Int>()
+    val mSearchHotWordLoadServiceStatusEvent =
+        SingleLiveEvent<Int>()
     /** 搜索历史 LoadService LiveData Event */
-    val mSearchHistoryLoadServiceStatusEvent = SingleLiveEvent<Int>()
+    val mSearchHistoryLoadServiceStatusEvent =
+        SingleLiveEvent<Int>()
     /** 搜索热词 列表数据改变 LiveData Event */
-    val mSearchHotWordListEvent = SingleLiveEvent<List<SearchHotWordEntity>>()
+    val mSearchHotWordListEvent =
+        SingleLiveEvent<List<SearchHotWordEntity>>()
     /** 搜索历史 列表数据改变 LiveData Event */
-    val mSearchHistoryListEvent = SingleLiveEvent<ListDataChangeEvent<SearchHistoryItem>>()
+    val mSearchHistoryListEvent =
+        SingleLiveEvent<ListDataChangeEvent<SearchHistoryItem>>()
 
     /** 搜索输入框 */
     val mSearchInput = ObservableField("")

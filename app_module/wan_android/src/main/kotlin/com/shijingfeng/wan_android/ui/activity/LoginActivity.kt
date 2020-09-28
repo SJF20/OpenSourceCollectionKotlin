@@ -7,7 +7,7 @@ import android.view.View.VISIBLE
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.TEXT_COLOR
@@ -45,9 +45,10 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
         val loginRepository: LoginRepository = getLoginRepositoryInstance(
             networkSource = getLoginNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = loginRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = loginRepository
+            )
 
         return createViewModel(LoginViewModel::class.java, factory)
     }

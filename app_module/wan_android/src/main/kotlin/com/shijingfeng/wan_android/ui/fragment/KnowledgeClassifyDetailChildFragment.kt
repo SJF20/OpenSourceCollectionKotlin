@@ -17,13 +17,12 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL_CHILD
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
-import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
@@ -77,9 +76,10 @@ internal class KnowledgeClassifyDetailChildFragment : WanAndroidBaseFragment<Fra
         val knowledgeClassifyChildRepository = getKnowledgeClassifyChildRepositoryInstance(
             networkSource = getKnowledgeClassifyChildNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = knowledgeClassifyChildRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = knowledgeClassifyChildRepository
+            )
 
         return createViewModel(KnowledgeClassifyDetailChildViewModel::class.java, factory)
     }
@@ -119,7 +119,7 @@ internal class KnowledgeClassifyDetailChildFragment : WanAndroidBaseFragment<Fra
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

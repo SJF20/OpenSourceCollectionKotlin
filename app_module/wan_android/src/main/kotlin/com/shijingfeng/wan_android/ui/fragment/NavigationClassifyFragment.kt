@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -49,9 +49,10 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
         val navigationClassifyRepository = getNavigationClassifyRepositoryInstance(
             networkSource = getNavigationClassifyNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = navigationClassifyRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = navigationClassifyRepository
+            )
 
         return createViewModel(NavigationClassifyViewModel::class.java, factory)
     }
@@ -79,7 +80,7 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
         // 当内容不满一页是否可以上拉加载  true: 可以  false: 不可以
         mSmartRefreshLayout?.setEnableLoadMoreWhenContentNotFull(true)
         mLoadService = LoadSir.getDefault().register(mDataBinding.srlRefresh, mViewModel?.mReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showCallback(LOAD_SERVICE_LOADING)
         }
 

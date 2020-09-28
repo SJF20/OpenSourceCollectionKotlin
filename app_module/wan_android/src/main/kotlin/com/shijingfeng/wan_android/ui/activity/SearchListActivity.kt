@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH_LIST
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
@@ -62,9 +62,10 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
         val repository = getSearchListRepositoryInstance(
             networkSource = getSearchListNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(SearchListViewModel::class.java, factory)
     }

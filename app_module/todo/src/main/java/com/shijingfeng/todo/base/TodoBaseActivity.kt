@@ -2,9 +2,8 @@ package com.shijingfeng.todo.base
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.activity.BaseMvvmActivity
+import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.todo.R
 
 /**

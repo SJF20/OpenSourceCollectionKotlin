@@ -14,7 +14,7 @@ import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.layout
@@ -68,9 +68,10 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
             localSource = getSearchLocalSourceInstance(),
             networkSource = getSearchNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(SearchViewModel::class.java, factory)
     }
@@ -105,11 +106,11 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
             .build()
 
         mSearchHotWordLoadService = loadSir.register(mDataBinding.llHotWord, mViewModel?.mOnSearchHotWordReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showSearchHotWordCallback(LOAD_SERVICE_SEARCH_HOT_WORD_LOADING)
         }
         mSearchHistoryLoadService = loadSir.register(mDataBinding.rvHistory, mViewModel?.mOnSearchHistoryReloadListener)
-        if (mViewModel == null || !mViewModel!!.mHasInited) {
+        if (mViewModel == null || !mViewModel!!.mHasInitialized) {
             showSearchHistoryCallback(LOAD_SERVICE_SEARCH_HISTORY_LOADING)
         }
 

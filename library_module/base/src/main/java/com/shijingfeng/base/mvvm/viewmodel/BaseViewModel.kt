@@ -1,4 +1,4 @@
-package com.shijingfeng.base.base.viewmodel
+package com.shijingfeng.base.mvvm.viewmodel
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +18,7 @@ import com.shijingfeng.base.base.fragment.BaseFragment
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.common.global.runOnUiThread
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.exitApp
 import com.shijingfeng.base.util.getStringById
 import io.reactivex.disposables.CompositeDisposable
@@ -54,7 +54,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     protected var mExitApp: Boolean = false
 
     /** 是否已经初始化  true 已经初始化  false 没有初始化  */
-    var mHasInited: Boolean = false
+    var mHasInitialized: Boolean = false
 
     init {
         registerEventBus()
@@ -264,14 +264,14 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * 初始化
      */
     open fun init() {
-        mHasInited = true
+        mHasInitialized = true
     }
 
     /**
      * 会在 Activity 的 onCreate 方法完全执行完后执行
      */
     override fun onCreate(owner: LifecycleOwner) {
-        if (owner !is BaseFragment && !mHasInited) {
+        if (owner !is BaseFragment && !mHasInitialized) {
             init()
         }
     }

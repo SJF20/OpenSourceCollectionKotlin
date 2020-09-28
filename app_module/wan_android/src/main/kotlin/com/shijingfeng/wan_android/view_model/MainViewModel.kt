@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View.OnClickListener
 import com.shijingfeng.base.arouter.*
 import com.shijingfeng.base.common.constant.NEED_LOGIN
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -28,7 +28,8 @@ internal class MainViewModel(
     var mCurPosition = MAIN_HOME
 
     /** 显示 退出登录确认对话框 Event */
-    val mShowLogoutDialogEvent = SingleLiveEvent<Any?>()
+    val mShowLogoutDialogEvent =
+        SingleLiveEvent<Any?>()
 
     /** 侧边栏 Header 点击事件 */
     val mHeaderClickListener = OnClickListener {

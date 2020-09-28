@@ -4,7 +4,7 @@ import android.util.SparseArray
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.entity.SkinAttribute
@@ -42,9 +42,10 @@ internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegist
         val registerRepository: RegisterRepository = getRegisterRepositoryInstance(
             networkSource = getRegisterNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = registerRepository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = registerRepository
+            )
 
         return createViewModel(RegisterViewModel::class.java, factory)
     }

@@ -1,8 +1,9 @@
 package com.shijingfeng.weather.base
 
 import android.os.Bundle
-import androidx.databinding.ViewDataBinding
-import com.shijingfeng.base.base.fragment.BaseMvvmFragment
+import androidx.viewbinding.ViewBinding
+import com.shijingfeng.base.mvp.view.BaseMvpFragment
+import com.shijingfeng.base.mvp.presenter.BasePresenter
 import com.shijingfeng.base.util.d
 
 /**
@@ -11,7 +12,7 @@ import com.shijingfeng.base.util.d
  * Description:
  * @author ShiJingFeng
  */
-internal abstract class WeatherBaseFragment<V : ViewDataBinding, VM : WeatherBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
+internal abstract class WeatherBaseFragment<V : ViewBinding, P : BasePresenter<*>> : BaseMvpFragment<V, P>() {
 
     /**
      * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法

@@ -2,10 +2,8 @@ package com.shijingfeng.app.base
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.shijingfeng.app.R
-import com.shijingfeng.base.base.fragment.BaseMvvmFragment
+import com.shijingfeng.base.mvvm.fragment.BaseMvvmFragment
 import com.shijingfeng.base.util.d
-import com.shijingfeng.base.util.getDrawableById
 
 /**
  * Function: app 模块 Fragment 基类

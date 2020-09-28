@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken
 import com.shijingfeng.common.adapter.ViewOriginalImageAdapter
 import com.shijingfeng.base.annotation.NeedPermissions
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.common.entity.ViewOriginalImageItem
@@ -77,9 +77,10 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
         val viewOriginalImageRepository = getViewOriginalImageRepositoryInstance(
             networkSource = getViewOriginalImageNetworkSourceInstance()
         )
-        val viewOriginalViewModelFactory = createCommonViewModelFactory(
-            repository = viewOriginalImageRepository
-        )
+        val viewOriginalViewModelFactory =
+            createCommonViewModelFactory(
+                repository = viewOriginalImageRepository
+            )
 
         return createViewModel(ViewOriginalImageViewModel::class.java, viewOriginalViewModelFactory)
     }

@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.GsonUtils
 import com.shijingfeng.base.arouter.ACTIVITY_ADD_UPDATE_TODO
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.BR
@@ -51,9 +51,10 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
         val repository = getAddUpdateTodoRepositoryInstance(
             networkSource = getAddUpdateTodoNetworkSourceInstance()
         )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
+        val factory =
+            createCommonViewModelFactory(
+                repository = repository
+            )
 
         return createViewModel(AddUpdateTodoViewModel::class.java, factory)
     }

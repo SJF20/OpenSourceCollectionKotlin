@@ -2,7 +2,7 @@ package com.shijingfeng.wan_android.view_model
 
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
-import com.shijingfeng.base.livedata.SingleLiveEvent
+import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.source.repository.ProjectRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
@@ -24,7 +24,8 @@ internal class ProjectViewModel(
     val mProjectIndexList = mutableListOf<ProjectIndexEntity>()
 
     /** 项目 索引数据 列表 改变 SingleLiveEvent */
-    val mProjectIndexDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<ProjectIndexEntity>>()
+    val mProjectIndexDataChangeEvent =
+        SingleLiveEvent<ListDataChangeEvent<ProjectIndexEntity>>()
 
     /** LoadService 重新加载监听器  */
     val mReloadListener = OnReloadListener {

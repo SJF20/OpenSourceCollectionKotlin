@@ -1,23 +1,25 @@
-package com.shijingfeng.weather.view_model
+package com.shijingfeng.weather.presenter
 
 import android.os.Bundle
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_MAIN
-import com.shijingfeng.base.base.repository.BaseRepository
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.common.global.runOnUiThread
-import com.shijingfeng.weather.base.WeatherBaseViewModel
+import com.shijingfeng.base.mvp.presenter.BasePresenter
+import com.shijingfeng.base.mvp.presenter.IPresenter
+import com.shijingfeng.weather.contract.SplashContract
 
 /**
- * Function: 启动页 ViewModel
- * Date: 2020/9/27 16:25
+ * Function: 启动页 Presenter
+ * Date: 2020/9/28 15:08
  * Description:
  * @author ShiJingFeng
  */
-internal class SplashViewModel(
-    repository: BaseRepository<*, *>? = null
-) : WeatherBaseViewModel<BaseRepository<*, *>>(
-    repository = repository
-) {
+internal class SplashPresenter(
+    view: SplashContract.View
+) : BasePresenter<SplashContract.View>(
+    view
+), SplashContract.Presenter {
 
     /**
      * 初始化
