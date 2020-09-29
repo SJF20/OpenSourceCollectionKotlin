@@ -83,8 +83,8 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
             mViewModel?.mPageType = getInt(PAGE_TYPE, TODO_ADD)
             mViewModel?.mType = getInt(TYPE, TYPE_ALL)
 
-            val todoChildItemListStr = getString(TODO_CHILD_LIST_STR, EMPTY_ARRAY)
-            val todoChildItemList = GsonUtils.fromJson<List<TodoChildItem>>()
+//            val todoChildItemListStr = getString(TODO_CHILD_LIST_STR, EMPTY_ARRAY)
+//            val todoChildItemList = GsonUtils.fromJson<List<TodoChildItem>>()
         }
     }
 

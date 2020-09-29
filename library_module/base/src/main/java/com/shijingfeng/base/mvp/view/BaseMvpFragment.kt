@@ -49,7 +49,7 @@ abstract class BaseMvpFragment<V : ViewBinding, P : IPresenter> : BaseFragment()
         initData()
         initAction()
         mPresenter?.run {
-            if (this is BasePresenter<*>) {
+            if (this is BasePresenter<*, *>) {
                 if (!mHasInitialized) {
                     init()
                 }
@@ -62,9 +62,9 @@ abstract class BaseMvpFragment<V : ViewBinding, P : IPresenter> : BaseFragment()
      * 初始化 Presenter
      */
     private fun initPresenter() {
-        createPresenter().run {
+        createPresenter()?.run {
             mPresenter = this
-            if (this is BasePresenter<*>) {
+            if (this is BasePresenter<*, *>) {
                 //让 Presenter 拥有 Activity 的生命周期感应
                 lifecycle.addObserver(this)
             }
@@ -97,11 +97,11 @@ abstract class BaseMvpFragment<V : ViewBinding, P : IPresenter> : BaseFragment()
         super.onDestroy()
         //销毁Lifecycle
         mPresenter?.run {
-            if (this is BasePresenter<*>) {
+            if (this is BasePresenter<*, *>) {
+                onCleared()
                 lifecycle.removeObserver(this)
             }
         }
-        mPresenter = null
     }
 
 }

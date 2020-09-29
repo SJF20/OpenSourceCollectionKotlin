@@ -45,9 +45,9 @@ abstract class BaseMvpActivity<V : ViewBinding, P : IPresenter> : BaseNormalActi
      * 初始化 Presenter
      */
     private fun initPresenter() {
-        createPresenter().run {
+        createPresenter()?.run {
             mPresenter = this
-            if (this is BasePresenter<*>) {
+            if (this is BasePresenter<*, *>) {
                 //让 Presenter 拥有 Activity 的生命周期感应
                 lifecycle.addObserver(this)
             }
@@ -80,10 +80,10 @@ abstract class BaseMvpActivity<V : ViewBinding, P : IPresenter> : BaseNormalActi
         super.onDestroy()
         //销毁Lifecycle
         mPresenter?.run {
-            if (this is BasePresenter<*>) {
+            if (this is BasePresenter<*, *>) {
+                onCleared()
                 lifecycle.removeObserver(this)
             }
         }
-        mPresenter = null
     }
 }

@@ -65,9 +65,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      */
     private fun registerEventBus() {
         //绑定EventBus
-        if (this.javaClass.isAnnotationPresent(BindEventBus::class.java) && !EventBus.getDefault()
-                .isRegistered(this)
-        ) {
+        if (this.javaClass.isAnnotationPresent(BindEventBus::class.java) && !EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
     }
@@ -76,9 +74,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
      * 解注册EventBus
      */
     private fun unregisterEventBus() {
-        if (this.javaClass.isAnnotationPresent(BindEventBus::class.java) && EventBus.getDefault()
-                .isRegistered(this)
-        ) {
+        if (this.javaClass.isAnnotationPresent(BindEventBus::class.java) && EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this)
         }
     }

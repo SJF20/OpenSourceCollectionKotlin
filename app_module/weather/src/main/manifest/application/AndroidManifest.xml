@@ -49,6 +49,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 首页 -->
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask" />
 
         <!-- Bmob内容提供器 -->
         <provider

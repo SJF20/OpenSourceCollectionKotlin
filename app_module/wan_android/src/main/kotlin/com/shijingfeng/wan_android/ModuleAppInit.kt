@@ -1,6 +1,5 @@
 package com.shijingfeng.wan_android
 
-import android.view.View
 import androidx.annotation.Keep
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shijingfeng.base.base.application.application

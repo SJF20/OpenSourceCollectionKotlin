@@ -19,7 +19,7 @@ internal class ModuleAppInit : AppInit {
      */
     override fun onCreate() {
         super.onCreate()
-        e(LOG_LIFECYCLE, "wan_android ModuleAppInit onCreate")
+        e(LOG_LIFECYCLE, "weather ModuleAppInit onCreate")
     }
 
 }

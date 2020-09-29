@@ -3,7 +3,11 @@ package com.shijingfeng.base.mvp.presenter
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.shijingfeng.base.base.fragment.BaseFragment
+import com.shijingfeng.base.mvp.model.BaseModel
+import com.shijingfeng.base.mvp.model.IModel
 import com.shijingfeng.base.mvp.view.IView
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Function: MVP架构 Presenter层基类
@@ -11,12 +15,18 @@ import com.shijingfeng.base.mvp.view.IView
  * Description:
  * @author ShiJingFeng
  */
-abstract class BasePresenter<V : IView>(
-    view: V
+abstract class BasePresenter<V : IView, M : IModel> @JvmOverloads constructor(
+    view: V,
+    model: M? = null
 ) : DefaultLifecycleObserver {
 
+    /** Disposable容器  */
+    private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+
     /** View */
-    protected var mView: V? = view
+    protected val mView = view
+    /** Model */
+    protected val mModel = model
 
     /** 是否已经初始化  true 已经初始化  false 没有初始化  */
     var mHasInitialized: Boolean = false
@@ -29,6 +39,21 @@ abstract class BasePresenter<V : IView>(
     }
 
     /**
+     * 添加Disposable
+     * @param disposable Disposable
+     */
+    protected fun addDisposable(disposable: Disposable) {
+        mCompositeDisposable.add(disposable)
+    }
+
+    /**
+     * 清空Disposable
+     */
+    private fun clearDisposable() {
+        mCompositeDisposable.clear()
+    }
+
+    /**
      * 会在 Activity 或 Fragment 的 onCreate 方法完全执行完后执行
      */
     override fun onCreate(owner: LifecycleOwner) {
@@ -38,11 +63,17 @@ abstract class BasePresenter<V : IView>(
     }
 
     /**
-     * 会在 Activity 或 Fragment 的 onDestroy 方法中调用
+     * 清除数据
      */
-    override fun onDestroy(owner: LifecycleOwner) {
-        // 销毁 View层引用, 防止内存泄漏
-        mView = null
-        super.onDestroy(owner)
+    open fun onCleared() {
+        //取消所有异步任务
+        clearDisposable()
+        // 销毁 Model
+        mModel?.run {
+            if (this is BaseModel<*>) {
+                onCleared()
+            }
+        }
     }
+
 }

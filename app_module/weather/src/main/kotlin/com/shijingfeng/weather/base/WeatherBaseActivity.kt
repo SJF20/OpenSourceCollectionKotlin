@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.viewbinding.ViewBinding
 import com.shijingfeng.base.mvp.view.BaseMvpActivity
 import com.shijingfeng.base.mvp.presenter.BasePresenter
+import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.base.util.d
 import com.shijingfeng.weather.R
 
@@ -13,7 +14,7 @@ import com.shijingfeng.weather.R
  * Description:
  * @author ShiJingFeng
  */
-internal abstract class WeatherBaseActivity<V : ViewBinding, P : BasePresenter> : BaseMvpActivity<V, P>() {
+internal abstract class WeatherBaseActivity<V : ViewBinding, P : IPresenter> : BaseMvpActivity<V, P>() {
 
     /**
      * 初始化

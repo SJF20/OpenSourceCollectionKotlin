@@ -12,11 +12,11 @@ import kotlinx.coroutines.Job
  * @author ShiJingFeng
  */
 abstract class BaseModel<P : IPresenter>(
-    val presenter: P
+    presenter: P
 ) {
 
     /** Presenter */
-    protected var mPresenter: P? = presenter
+    protected val mPresenter = presenter
 
     /** Disposable 容器 */
     private val mCompositeDisposable by lazy { CompositeDisposable() }
@@ -42,14 +42,14 @@ abstract class BaseModel<P : IPresenter>(
     /**
      * 清空 Disposable
      */
-    fun clearDisposable() {
+    private fun clearDisposable() {
         mCompositeDisposable.clear()
     }
 
     /**
      * 清空 协程任务
      */
-    fun clearCoroutinesJob() {
+    private fun clearCoroutinesJob() {
         mCoroutinesJobList.forEach { job ->
             if (!job.isCancelled) {
                 job.cancel()

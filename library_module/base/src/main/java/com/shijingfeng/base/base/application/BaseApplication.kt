@@ -3,6 +3,7 @@ package com.shijingfeng.base.base.application
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.Utils
@@ -36,6 +37,8 @@ private val appInitInstanceList = mutableListOf<AppInit>()
 
 /** Application实例 */
 lateinit var application: BaseApplication
+
+var startTimestamp = 0L
 
 /**
  * Function:  Application基类
@@ -81,20 +84,34 @@ abstract class BaseApplication : Application() {
      * 主进程初始化
      */
     protected open fun mainProcessInit() {
+        //开启Log打印
+        enable(true)
         // 初始化万能工具类
         initUtils()
+        e("启动时间统计", "initUtils() 耗时: ${System.currentTimeMillis() - startTimestamp}")
+        startTimestamp = System.currentTimeMillis()
         // 初始化 ARouter 路由框架
         initARouter()
+        e("启动时间统计", "initARouter() 耗时: ${System.currentTimeMillis() - startTimestamp}")
+        startTimestamp = System.currentTimeMillis()
         // 初始化 LoadSir
         initLoadSir()
+        e("启动时间统计", "initLoadSir() 耗时: ${System.currentTimeMillis() - startTimestamp}")
+        startTimestamp = System.currentTimeMillis()
         // 初始化 RetrofitUrlManager
         initRetrofitUrlManager()
+        e("启动时间统计", "initRetrofitUrlManager() 耗时: ${System.currentTimeMillis() - startTimestamp}")
+        startTimestamp = System.currentTimeMillis()
 
         // 注册广播
         registerGlobalReceiver()
+        e("启动时间统计", "registerGlobalReceiver() 耗时: ${System.currentTimeMillis() - startTimestamp}")
+        startTimestamp = System.currentTimeMillis()
 
         // 开始 其他 module App 初始化
         startAppInit()
+        e("启动时间统计", "startAppInit() 耗时: ${System.currentTimeMillis() - startTimestamp}")
+        startTimestamp = System.currentTimeMillis()
     }
 
     /**
@@ -153,8 +170,6 @@ abstract class BaseApplication : Application() {
     private fun initUtils() {
         //初始化万能工具类 (神器)
         Utils.init(this)
-        //开启Log打印
-        enable(true)
     }
 
     /**

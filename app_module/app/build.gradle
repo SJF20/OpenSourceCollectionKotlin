@@ -248,6 +248,10 @@ dependencies {
     if (!rootProject.ext.isTodoApplication) {
         implementation project(path: ':todo')
     }
+    // 依赖 weather 库模块
+    if (!rootProject.ext.isWeatherApplication) {
+        implementation project(path: ':weather')
+    }
 
     // Bmob后端 SDK
     implementation rootProject.ext.dependencies["bmob-sdk"]

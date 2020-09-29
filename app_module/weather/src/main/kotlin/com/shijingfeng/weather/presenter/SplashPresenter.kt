@@ -17,7 +17,7 @@ import com.shijingfeng.weather.contract.SplashContract
  */
 internal class SplashPresenter(
     view: SplashContract.View
-) : BasePresenter<SplashContract.View>(
+) : BasePresenter<SplashContract.View, SplashContract.Model>(
     view
 ), SplashContract.Presenter {
 

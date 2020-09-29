@@ -5,12 +5,12 @@ import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.base.mvp.view.IView
 
 /**
- * Function: 启动页 契约类
- * Date: 2020/9/28 14:59
+ * Function: 首页 契约类
+ * Date: 2020/9/29 10:43
  * Description:
  * @author ShiJingFeng
  */
-internal interface SplashContract {
+internal interface MainContract {
 
     /**
      * View 层
