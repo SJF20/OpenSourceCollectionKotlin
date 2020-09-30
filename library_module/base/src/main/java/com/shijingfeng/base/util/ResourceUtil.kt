@@ -3,6 +3,7 @@
 package com.shijingfeng.base.util
 
 import android.content.res.Resources
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
@@ -78,10 +79,27 @@ fun getColorByIdName(colorResName: String): Int {
 
 /**
  * 通过 资源ID 获取 Drawable
+ *
  * @param drawableId Drawable Id
  * @return Drawable
  */
 fun getDrawableById(@DrawableRes drawableId: Int): Drawable? = ResourceUtils.getDrawable(drawableId)
+
+/**
+ * 通过 颜色资源ID 获取 Drawable
+ *
+ * @param colorId Color Id
+ * @return Drawable
+ */
+fun getDrawableByColorId(@ColorRes colorId: Int): Drawable? = ColorDrawable(getColorById(colorId))
+
+/**
+ * Color 转换为 Drawable
+ *
+ * @param color Color
+ * @return Drawable
+ */
+fun getDrawableByColor(@ColorInt color: Int): Drawable? = ColorDrawable(color)
 
 /**
  * 通过 资源名称 获取 Drawable

@@ -32,7 +32,7 @@ internal class SplashViewModel(
      * 跳转到 首页
      */
     private fun redirectToMain() {
-        runOnUiThread(1500) {
+        runOnUiThread {
             //跳转到首页
             navigation(path = ACTIVITY_APP_MAIN, bundle = Bundle().apply {
                 putBoolean(FINISH_PREVIOUS_ACTIVITY, true)

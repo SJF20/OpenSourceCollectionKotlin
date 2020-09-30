@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -74,18 +73,14 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      */
     override fun init(savedInstanceState: Bundle?) {
         super.init(savedInstanceState)
-        setContentView(getLayoutId())
+        val layoutId = getLayoutId()
+
+        if (layoutId != NO_LAYOUT) {
+            setContentView(layoutId)
+        }
         initParam()
         initData()
         initAction()
-    }
-
-    /**
-     * Activity处于前台且完全可见
-     */
-    override fun onStart() {
-        super.onStart()
-        initStatusBar()
     }
 
     /**

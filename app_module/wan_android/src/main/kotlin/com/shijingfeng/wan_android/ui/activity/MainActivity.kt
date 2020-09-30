@@ -361,7 +361,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      *
      * @return true 自定义设置  false 默认设置
      */
-    override fun isSetCustomStatusBar() = true
+    override fun isCustomStatusBar() = true
 
     /**
      * 设置 TabLayout 和 置顶按钮 的可见性

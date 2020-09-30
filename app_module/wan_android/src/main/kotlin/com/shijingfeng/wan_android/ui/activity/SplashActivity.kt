@@ -1,8 +1,10 @@
 package com.shijingfeng.wan_android.ui.activity
 
+import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
+import com.shijingfeng.base.common.constant.NO_LAYOUT
 import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.SRC
@@ -22,11 +24,19 @@ import com.shijingfeng.wan_android.view_model.SplashViewModel
 internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashBinding, SplashViewModel>() {
 
     /**
+     * 在 onCreate 方法执行前
+     */
+    override fun onCreateBefore(savedInstanceState: Bundle?) {
+        super.onCreateBefore(savedInstanceState)
+        setTheme(R.style.WanAndroidSplashTheme)
+    }
+
+    /**
      * 获取视图ID
      *
      * @return 视图ID
      */
-    override fun getLayoutId() = R.layout.activity_wan_android_splash
+    override fun getLayoutId() = NO_LAYOUT
 
     /**
      * 获取ViewModel
@@ -48,7 +58,7 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
      *
      * @return true 自定义设置  false 默认设置
      */
-    override fun isSetCustomStatusBar() = true
+    override fun isCustomStatusBar() = true
 
     /**
      * 获取资源 (用于切换主题的资源)

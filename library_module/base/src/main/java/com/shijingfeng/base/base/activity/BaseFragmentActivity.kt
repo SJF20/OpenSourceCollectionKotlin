@@ -1,6 +1,8 @@
 package com.shijingfeng.base.base.activity
 
 import android.os.Bundle
+import com.shijingfeng.base.R
+import com.shijingfeng.base.common.constant.NO_LAYOUT
 
 /**
  * Function: 实现 单Activity多Fragment 架构的 Activity 基类
@@ -16,8 +18,11 @@ abstract class BaseFragmentActivity : BaseActivity() {
      */
     override fun init(savedInstanceState: Bundle?) {
         super.init(savedInstanceState)
-        initStatusBar()
-        setContentView(getLayoutId())
+        val layoutId = getLayoutId()
+
+        if (layoutId != NO_LAYOUT) {
+            setContentView(layoutId)
+        }
         initParam()
         initData()
         initAction()

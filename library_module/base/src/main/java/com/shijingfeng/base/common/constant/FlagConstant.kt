@@ -105,3 +105,5 @@ const val DATA_SOURCE_LOCAL = 2
 
 /** Adapter Item 未知类型 */
 const val ADAPTER_TYPE_UNKNOWN = 0
+/** 没有布局 (用于Activity) */
+const val NO_LAYOUT = 0

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.R
 import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
@@ -36,8 +35,27 @@ abstract class BaseActivity : AppCompatActivity() {
      * 禁止子类覆盖，初始化操作请覆盖 [init]
      */
     final override fun onCreate(savedInstanceState: Bundle?) {
+        onCreateBefore(savedInstanceState)
         super.onCreate(savedInstanceState)
         init(savedInstanceState)
+    }
+
+    /**
+     * Activity处于前台且完全可见
+     */
+    override fun onStart() {
+        super.onStart()
+        initStatusBar()
+    }
+
+    /**
+     * 初始化状态栏
+     */
+    open fun initStatusBar() {
+        //设置默认状态栏背景颜色 为透明色
+        setStatusBarColor(this, R.color.transparency)
+        //设置默认状态栏字体颜色 为浅色
+        setStatusBarContentColor(this, isStatusBarContentDark())
     }
 
     /**
@@ -65,6 +83,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
+     * 在 onCreate 方法执行前
+     */
+    protected open fun onCreateBefore(savedInstanceState: Bundle?) {}
+
+    /**
      * 初始化
      */
     protected open fun init(savedInstanceState: Bundle?) {}
@@ -76,16 +99,6 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     @LayoutRes
     protected abstract fun getLayoutId(): Int
-
-    /**
-     * 初始化状态栏
-     */
-    protected fun initStatusBar() {
-        //设置默认状态栏背景颜色 为透明色
-        setStatusBarColor(this, R.color.transparency)
-        //设置默认状态栏字体颜色 为浅色
-        setStatusBarContentColor(this, isSetStatusBarContentDark())
-    }
 
     /**
      * 初始化参数
@@ -108,7 +121,7 @@ abstract class BaseActivity : AppCompatActivity() {
      * 是否设置状态栏内容颜色为深色
      * @return true 深色  false 浅色
      */
-    protected open fun isSetStatusBarContentDark() = false
+    protected open fun isStatusBarContentDark() = false
 
     /**
      * 获取屏幕方向

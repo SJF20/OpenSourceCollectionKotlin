@@ -1,18 +1,15 @@
 <resources>
     <!-- 工程主题 -->
     <style name="ProjectTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/GlobalActivityAnimation</item>
     </style>
 
     <!-- 解决启动页短暂白屏问题 -->
-    <style name="ProjectTheme.Launcher">
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowDisablePreview">true</item>
-    </style>
+<!--    <style name="ProjectTheme.Launcher">-->
+<!--        <item name="android:windowBackground">@null</item>-->
+<!--        <item name="android:windowDisablePreview">true</item>-->
+<!--    </style>-->
 
     <!-- 从底部弹出的Dialog 动画 -->
     <style name="bottom_dialog_anim" parent="android:Animation">
@@ -39,5 +36,9 @@
         <item name="android:activityCloseEnterAnimation">@anim/anim_activity_close_enter</item>
         <item name="android:activityCloseExitAnimation">@anim/anim_activity_close_exit</item>
     </style>
+
+<!--    <style name="LaunchAnimation" parent="@android:style/Animation.Activity">-->
+<!--        -->
+<!--    </style>-->
 
 </resources>

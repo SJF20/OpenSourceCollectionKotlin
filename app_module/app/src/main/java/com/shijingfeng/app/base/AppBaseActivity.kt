@@ -5,6 +5,8 @@ import androidx.databinding.ViewDataBinding
 import com.shijingfeng.app.R
 import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
+import com.shijingfeng.base.util.getDrawableByColorId
+import com.shijingfeng.base.util.getDrawableById
 
 /**
  * Function: app 模块 Activity 基类
@@ -28,7 +30,12 @@ internal abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewMod
     override fun initData() {
         super.initData()
         //Activity默认背景为白色
-        getContentView().setBackgroundResource(R.color.white)
+        getContentView().background = getActivityBackground()
     }
+
+    /**
+     * 获取 Activity 背景
+     */
+    protected open fun getActivityBackground() = getDrawableByColorId(R.color.white)
 
 }

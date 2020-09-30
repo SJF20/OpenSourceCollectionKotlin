@@ -1,8 +1,10 @@
 package com.shijingfeng.weather.ui.activity
 
+import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_SPLASH
 import com.shijingfeng.base.mvp.presenter.BasePresenter
+import com.shijingfeng.weather.R
 import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.contract.SplashContract
 import com.shijingfeng.weather.databinding.ActivityWeatherSplashBinding
@@ -16,6 +18,14 @@ import com.shijingfeng.weather.presenter.SplashPresenter
  */
 @Route(path = ACTIVITY_WEATHER_SPLASH)
 internal class SplashActivity : WeatherBaseActivity<ActivityWeatherSplashBinding, SplashContract.Presenter>(), SplashContract.View {
+
+    /**
+     * 在 onCreate 方法执行前
+     */
+    override fun onCreateBefore(savedInstanceState: Bundle?) {
+        super.onCreateBefore(savedInstanceState)
+        setTheme(R.style.WeatherSplashTheme)
+    }
 
     /**
      * 创建 ViewBinding

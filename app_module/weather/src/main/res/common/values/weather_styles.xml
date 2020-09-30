@@ -2,4 +2,12 @@
 <resources>
     <style name="WeatherTheme" parent="ProjectTheme">
     </style>
+    <!-- 解决启动页短暂白屏问题 -->
+    <style name="WeatherLauncher" parent="ProjectTheme">
+        <item name="android:windowBackground">@drawable/layer_list_weather_launch</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="WeatherSplashTheme" parent="ProjectTheme">
+        <item name="android:windowBackground">@drawable/layer_list_weather_launch</item>
+    </style>
 </resources>

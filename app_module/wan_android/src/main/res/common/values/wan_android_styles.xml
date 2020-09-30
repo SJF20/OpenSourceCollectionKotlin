@@ -2,4 +2,12 @@
 <resources>
     <style name="WanAndroidTheme" parent="ProjectTheme">
     </style>
+    <!-- 解决启动页短暂白屏问题 -->
+    <style name="WanAndroidLauncher" parent="ProjectTheme">
+        <item name="android:windowBackground">@drawable/layer_list_wan_android_launch</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="WanAndroidSplashTheme" parent="ProjectTheme">
+        <item name="android:windowBackground">@drawable/layer_list_wan_android_launch</item>
+    </style>
 </resources>

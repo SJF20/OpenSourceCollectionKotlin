@@ -42,7 +42,7 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
         //Activity默认背景为白色
         getContentView().setBackgroundResource(R.color.white)
         //设置状态栏背景色和高度
-        if (!isSetCustomStatusBar()) {
+        if (!isCustomStatusBar()) {
             val contentView = getContentView()
             val statusBarView = StatusBarView(this).apply {
                 id = R.id.status_bar_view
@@ -100,7 +100,7 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      * 是否自定义设置状态栏
      * @return true 自定义设置  false 默认设置
      */
-    protected open fun isSetCustomStatusBar() = false
+    protected open fun isCustomStatusBar() = false
 
     /**
      * 获取资源 (用于切换主题的资源)

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
+import com.shijingfeng.base.R
 import com.shijingfeng.base.base.activity.BaseNormalActivity
 import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 import com.shijingfeng.base.common.constant.*
@@ -55,12 +56,18 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
      * 初始化AAC组件
      */
     private fun initAAC() {
-        mDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        mViewModel = getViewModel()
-        getVariableSparseArray()?.run {
-            for (i in 0 until size()) {
-                mDataBinding.setVariable(keyAt(i), valueAt(i))
+        val layoutId = getLayoutId()
+
+        if (layoutId != NO_LAYOUT) {
+            mDataBinding = DataBindingUtil.setContentView(this, layoutId)
+            mViewModel = getViewModel()
+            getVariableSparseArray()?.run {
+                for (i in 0 until size()) {
+                    mDataBinding.setVariable(keyAt(i), valueAt(i))
+                }
             }
+        } else {
+            mViewModel = getViewModel()
         }
         //让 ViewModel 拥有 Activity 的生命周期感应
         mViewModel?.run {
@@ -210,7 +217,9 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     override fun onDestroy() {
         super.onDestroy()
         //销毁DataBinding
-        mDataBinding.unbind()
+        if (this::mDataBinding.isInitialized) {
+            mDataBinding.unbind()
+        }
         //销毁Lifecycle
         mViewModel?.run {
             lifecycle.removeObserver(this)

@@ -1,4 +1,12 @@
 <resources>
     <style name="AppTheme" parent="ProjectTheme">
     </style>
+    <!-- 解决启动页短暂白屏问题 -->
+    <style name="AppLauncher" parent="ProjectTheme">
+        <item name="android:windowBackground">@drawable/layer_list_app_launch</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="AppSplashTheme" parent="ProjectTheme">
+        <item name="android:windowBackground">@drawable/layer_list_app_launch</item>
+    </style>
 </resources>
