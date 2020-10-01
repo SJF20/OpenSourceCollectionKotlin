@@ -37,9 +37,9 @@ internal class AddUpdateTodoViewModel(
     /** 类型 */
     @TodoType var mType = TYPE_ALL
     /** 优先级 */
-    @TodoPriority private var mPriority = PRIORITY_NOT_IMPORTANT_NOT_URGENCY
+    @TodoPriority var mPriority = PRIORITY_NOT_IMPORTANT_NOT_URGENCY
     /** 待办日期 */
-    private var mDateStr = ""
+    var mDate = System.currentTimeMillis()
 
     /** 内容 */
     val mTodoChildList = mutableListOf<TodoChildItem>()

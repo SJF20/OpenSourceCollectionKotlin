@@ -35,6 +35,8 @@ internal const val TYPE = "type"
 internal const val PRIORITY = "priority"
 /** Map Key(String) Value(int) 排序 */
 internal const val ORDER_BY = "orderby"
+/** Map Key(String) Value(int) 日期 */
+internal const val DATE = "date"
 
 /** 状态: 待办 */
 internal const val STATUS_NEED_TO_DO = 0
@@ -80,3 +82,8 @@ internal const val ORDER_BY_CREATE_DATE_DESC = 4
 internal const val TODO_ADD = 0
 /** 更新待办事项 */
 internal const val TODO_UPDATE = 1
+
+/** Json字段名: type */
+internal const val JSON_FIELD_TYPE = "type"
+/** Json字段名: data */
+internal const val JSON_FIELD_DATA = "data"

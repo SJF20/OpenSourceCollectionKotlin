@@ -1,18 +1,22 @@
 package com.shijingfeng.todo.ui.activity
 
 import android.util.SparseArray
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.GsonUtils
 import com.shijingfeng.base.arouter.ACTIVITY_ADD_UPDATE_TODO
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
+import com.shijingfeng.base.common.constant.TITLE
+import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
+import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.adapter.TodoChildAdapter
 import com.shijingfeng.todo.annotation.define.TodoChildType.ITEM_TYPE_IMAGE
 import com.shijingfeng.todo.annotation.define.TodoChildType.ITEM_TYPE_TEXT
+import com.shijingfeng.todo.annotation.define.TodoPriority
 import com.shijingfeng.todo.annotation.define.TodoType
 import com.shijingfeng.todo.base.TodoBaseActivity
 import com.shijingfeng.todo.constant.*
@@ -24,6 +28,7 @@ import com.shijingfeng.todo.constant.TYPE_STUDY
 import com.shijingfeng.todo.constant.TYPE_WORK
 import com.shijingfeng.todo.databinding.ActivityTodoAddUpdateTodoBinding
 import com.shijingfeng.todo.entity.adapter.TodoChildItem
+import com.shijingfeng.todo.extension.convertToTodoChildItemList
 import com.shijingfeng.todo.source.network.getAddUpdateTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.getAddUpdateTodoRepositoryInstance
 import com.shijingfeng.todo.view_model.AddUpdateTodoViewModel
@@ -51,10 +56,9 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
         val repository = getAddUpdateTodoRepositoryInstance(
             networkSource = getAddUpdateTodoNetworkSourceInstance()
         )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
+        val factory = createCommonViewModelFactory(
+            repository = repository
+        )
 
         return createViewModel(AddUpdateTodoViewModel::class.java, factory)
     }
@@ -81,10 +85,14 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
         super.initParam()
         mDataBundle?.run {
             mViewModel?.mPageType = getInt(PAGE_TYPE, TODO_ADD)
+            mViewModel?.mTitle?.set(getString(TITLE, ""))
             mViewModel?.mType = getInt(TYPE, TYPE_ALL)
-
-//            val todoChildItemListStr = getString(TODO_CHILD_LIST_STR, EMPTY_ARRAY)
-//            val todoChildItemList = GsonUtils.fromJson<List<TodoChildItem>>()
+            mViewModel?.mPriority = getInt(PRIORITY, PRIORITY_NOT_IMPORTANT_NOT_URGENCY)
+            mViewModel?.mDate = getLong(DATE, System.currentTimeMillis())
+            mViewModel?.mTodoChildList?.run {
+                clear()
+                addAll(getString(TODO_CHILD_LIST_STR, EMPTY_ARRAY).convertToTodoChildItemList())
+            }
         }
     }
 
@@ -94,6 +102,8 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
     override fun initData() {
         super.initData()
         setType(mViewModel!!.mType)
+
+        setPriority(mViewModel!!.mPriority)
         mTodoChildAdapter = TodoChildAdapter(
             context = this,
             dataList = mTodoChildItemList,
@@ -150,6 +160,8 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
 
     /**
      * 设置类型
+     *
+     * @param type 类型
      */
     private fun setType(@TodoType type: Int) {
         mViewModel?.mType = type
@@ -163,6 +175,72 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
             // 生活
             TYPE_LIFE -> mDataBinding.tvType.text = getStringById(R.string.生活)
             else -> mDataBinding.tvType.text = getStringById(R.string.全部)
+        }
+    }
+
+
+    private fun setDate(date: Long) {
+
+    }
+
+    /**
+     * 设置优先级
+     *
+     * @param priority 优先级
+     */
+    private fun setPriority(@TodoPriority priority: Int) {
+        mViewModel?.mPriority = priority
+        when (priority) {
+            // 重要 紧急
+            PRIORITY_IMPORTANT_URGENCY -> {
+                mDataBinding.tvImportantLevel.setBackgroundResource(R.drawable.shape_priority_important)
+                mDataBinding.tvImportantLevel.setTextColor(getColorById(R.color.red))
+                mDataBinding.tvUrgencyLevel.setBackgroundResource(R.drawable.shape_priority_urgency)
+                mDataBinding.tvUrgencyLevel.setTextColor(getColorById(R.color.orange))
+            }
+            // 重要 不紧急
+            PRIORITY_IMPORTANT_NOT_URGENCY -> {
+                mDataBinding.tvImportantLevel.setBackgroundResource(R.drawable.shape_priority_important)
+                mDataBinding.tvImportantLevel.setTextColor(getColorById(R.color.red))
+                mDataBinding.tvUrgencyLevel.setBackgroundResource(R.drawable.shape_priority_normal)
+                mDataBinding.tvUrgencyLevel.setTextColor(getColorById(R.color.dim_grey))
+            }
+            // 不重要 紧急
+            PRIORITY_NOT_IMPORTANT_URGENCY -> {
+                mDataBinding.tvImportantLevel.setBackgroundResource(R.drawable.shape_priority_normal)
+                mDataBinding.tvImportantLevel.setTextColor(getColorById(R.color.dim_grey))
+                mDataBinding.tvUrgencyLevel.setBackgroundResource(R.drawable.shape_priority_urgency)
+                mDataBinding.tvUrgencyLevel.setTextColor(getColorById(R.color.orange))
+            }
+            // 不重要 不紧急
+            PRIORITY_NOT_IMPORTANT_NOT_URGENCY -> {
+                mDataBinding.tvImportantLevel.setBackgroundResource(R.drawable.shape_priority_normal)
+                mDataBinding.tvImportantLevel.setTextColor(getColorById(R.color.dim_grey))
+                mDataBinding.tvUrgencyLevel.setBackgroundResource(R.drawable.shape_priority_normal)
+                mDataBinding.tvUrgencyLevel.setTextColor(getColorById(R.color.dim_grey))
+            }
+            else -> {
+                mDataBinding.tvImportantLevel.setBackgroundResource(R.drawable.shape_priority_normal)
+                mDataBinding.tvImportantLevel.setTextColor(getColorById(R.color.dim_grey))
+                mDataBinding.tvUrgencyLevel.setBackgroundResource(R.drawable.shape_priority_normal)
+                mDataBinding.tvUrgencyLevel.setTextColor(getColorById(R.color.dim_grey))
+            }
+        }
+        when (priority) {
+            // 不重要不紧急
+            PRIORITY_NOT_IMPORTANT_NOT_URGENCY -> {
+
+            }
+            PRIORITY_IMPORTANT_NOT_URGENCY -> {
+
+            }
+            PRIORITY_NOT_IMPORTANT_URGENCY -> {
+
+            }
+            PRIORITY_IMPORTANT_URGENCY -> {
+
+            }
+            else -> {}
         }
     }
 
