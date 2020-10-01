@@ -50,7 +50,7 @@ internal class AddUpdateTodoViewModel(
     fun addTodo() {
         val title = mTitle.get()
 //        val content = mContent
-        val dateStr = if (mDateStr.isNullOrEmpty()) TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd") else mDateStr
+        val dateStr = TimeUtils.millis2String(mDate, "yyyy-MM-dd")
 
         if (title.isNullOrEmpty()) {
             ToastUtils.showShort(getStringById(R.string.标题不能为空))
