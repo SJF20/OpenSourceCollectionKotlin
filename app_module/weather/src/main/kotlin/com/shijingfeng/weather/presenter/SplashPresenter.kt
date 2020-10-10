@@ -22,6 +22,13 @@ internal class SplashPresenter(
 ), SplashContract.Presenter {
 
     /**
+     * 创建 Model
+     *
+     * @return Model
+     */
+    override fun createModel(): SplashContract.Model? = null
+
+    /**
      * 初始化
      */
     override fun init() {

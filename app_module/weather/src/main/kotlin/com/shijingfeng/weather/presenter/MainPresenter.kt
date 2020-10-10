@@ -15,6 +15,11 @@ internal class MainPresenter(
     view,
 ), MainContract.Presenter {
 
-
+    /**
+     * 创建 Model
+     *
+     * @return Model
+     */
+    override fun createModel(): MainContract.Model? = null
 
 }

@@ -17,7 +17,6 @@ import io.reactivex.disposables.Disposable
  */
 abstract class BasePresenter<V : IView, M : IModel> @JvmOverloads constructor(
     view: V,
-    model: M? = null
 ) : DefaultLifecycleObserver {
 
     /** Disposable容器  */
@@ -26,7 +25,7 @@ abstract class BasePresenter<V : IView, M : IModel> @JvmOverloads constructor(
     /** View */
     protected val mView = view
     /** Model */
-    protected val mModel = model
+    protected val mModel by lazy { createModel() }
 
     /** 是否已经初始化  true 已经初始化  false 没有初始化  */
     var mHasInitialized: Boolean = false
@@ -37,6 +36,13 @@ abstract class BasePresenter<V : IView, M : IModel> @JvmOverloads constructor(
     open fun init() {
         mHasInitialized = true
     }
+
+    /**
+     * 创建 Model
+     *
+     * @return Model
+     */
+    protected abstract fun createModel(): M?
 
     /**
      * 添加Disposable

@@ -264,6 +264,11 @@ dependencies {
     // Bmob后端 SDK
     implementation rootProject.ext.dependencies["bmob-sdk"]
 
+    if (!isApplication || !isWeatherApplication) {
+        // 依赖 location 模块
+        implementation project(path: ':location')
+    }
+
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]
     // ARouter 路由框架 注解执行器

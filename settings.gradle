@@ -17,6 +17,9 @@ project(':weather').projectDir = new File("${rootDir.getAbsolutePath()}/app_modu
 // 腾讯X5 模块
 include ':tencent_x5'
 project(':tencent_x5').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'tencent_x5')
+// 定位模块
+include ':location'
+project(':location').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'location')
 // 后台服务 模块
 include ':background_service'
 project(':background_service').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'background_service')

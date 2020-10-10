@@ -115,4 +115,8 @@ const val ACTIVITY_WEATHER_SPLASH = "/weather/activity/SplashActivity"
 /** 主页Activity */
 const val ACTIVITY_WEATHER_MAIN = "/weather/activity/MainActivity"
 
+// weather模块 Fragment
+/** 天气详情 Fragment */
+const val FRAGMENT_WEATHER_DETAIL = "/weather/fragment/DetailFragment"
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

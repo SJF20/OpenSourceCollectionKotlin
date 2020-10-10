@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/library_module/background_service" />
             <option value="$PROJECT_DIR$/library_module/base" />
             <option value="$PROJECT_DIR$/library_module/common" />
+            <option value="$PROJECT_DIR$/library_module/location" />
             <option value="$PROJECT_DIR$/library_module/skin_changer" />
             <option value="$PROJECT_DIR$/library_module/tencent_x5" />
             <option value="$PROJECT_DIR$/skin" />
