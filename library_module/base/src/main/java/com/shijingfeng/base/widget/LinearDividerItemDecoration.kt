@@ -18,7 +18,7 @@ import com.shijingfeng.base.util.getColorById
  * Description:
  * @author ShiJingFeng
  */
-class LinearDividerItemDecoration(
+class LinearDividerItemDecoration @JvmOverloads constructor(
     /** 分隔线颜色 */
     @ColorInt dividerColor: Int = getColorById(R.color.white_smoke),
     /** 分隔线高 */

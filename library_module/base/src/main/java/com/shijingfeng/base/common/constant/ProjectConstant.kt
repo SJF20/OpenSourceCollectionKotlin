@@ -29,8 +29,12 @@ const val PACKAGE_NAME_APP = "com.shijingfeng.app"
 const val PACKAGE_NAME_WAN_ANDROID = "com.shijingfeng.wan_android"
 /** todo模块 包名 */
 const val PACKAGE_NAME_TODO = "com.shijingfeng.todo"
+/** weather模块 包名 */
+const val PACKAGE_NAME_WEATHER = "com.shijingfeng.weather"
 /** tencent_x5 模块 包名 */
 const val PACKAGE_NAME_TENCENT_X5 = "com.shijingfeng.tencent_x5"
+/** location 模块 包名 */
+const val PACKAGE_NAME_LOCATION = "com.shijingfeng.location"
 /** background_service 模块 包名 */
 const val PACKAGE_NAME_BACKGROUND_SERVICE = "com.shijingfeng.background_service"
 /** common 模块 包名 */

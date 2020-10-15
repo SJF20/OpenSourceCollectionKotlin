@@ -112,8 +112,10 @@ const val FRAGMENT_TODO_LIST = "/todo/fragment/TodoListFragment"
 // weather模块 Activity
 /** 启动页 Activity  */
 const val ACTIVITY_WEATHER_SPLASH = "/weather/activity/SplashActivity"
-/** 主页Activity */
+/** 主页 Activity */
 const val ACTIVITY_WEATHER_MAIN = "/weather/activity/MainActivity"
+/** 城市管理 Activity */
+const val ACTIVITY_WEATHER_CITY_MANAGE = "/weather/activity/CityManageActivity"
 
 // weather模块 Fragment
 /** 天气详情 Fragment */

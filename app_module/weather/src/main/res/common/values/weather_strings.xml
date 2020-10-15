@@ -1,3 +1,30 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="weather_name">极简天气</string>
+    <string name="城市管理">城市管理</string>
+    <string name="搜索城市天气">搜索城市天气</string>
+    
+    <string name="晴">晴</string>
+    
+    <string name="多云">多云</string>
+    
+    <string name="阴">阴</string>
+    
+    <string name="霾">霾</string>
+    
+    <string name="雾">雾</string>
+    
+    <string name="浮尘">浮尘</string>
+    <string name="沙尘">沙尘</string>
+
+    <string name="大风">大风</string>
+    
+    <string name="小雨">小雨</string>
+    <string name="中雨">中雨</string>
+    <string name="大雨">大雨</string>
+    <string name="暴雨">暴雨</string>
+
+    <string name="小雪">小雪</string>
+    <string name="中雪">中雪</string>
+    <string name="大雪">大雪</string>
+    <string name="暴雪">暴雪</string>
 </resources>

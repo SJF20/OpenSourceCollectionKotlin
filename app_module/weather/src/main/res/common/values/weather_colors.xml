@@ -1,3 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 晴（白天） cloudRate < 0.2 -->
+    <color name="clear_day1">#FF0071D1</color>
+    <color name="clear_day2">#FF6DA6E4</color>
+    <!-- 晴（夜间）cloudRate < 0.2 -->
+    <color name="clear_night1">#FF061E74</color>
+    <color name="clear_night2">#FF275E9A</color>
+
+    <!-- 多云（白天）0.8 >= cloudRate > 0.2 -->
+    <color name="partly_cloudy_day1">#FF5C82C1</color>
+    <color name="partly_cloudy_day2">#FF95B1DB</color>
+    <!-- 多云（夜间）0.8 >= cloudRate > 0.2 -->
+    <color name="partly_cloudy_night1">#FF2C3A60</color>
+    <color name="partly_cloudy_night2">#FF4B6685</color>
+
+    <!-- 阴 cloudRate > 0.8 -->
+    <color name="cloudy1">#FF8FA3C0</color>
+    <color name="cloudy2">#FF8C9FB1</color>
+
+    <!-- 轻度雾霾 PM2.5 100~150 -->
+    <color name="light_haze1">#FF989898</color>
+    <color name="light_haze2">#FF4B4B4B</color>
+    <!-- 中度雾霾 PM2.5 150~200 -->
+    <color name="moderate_haze1">#FF989898</color>
+    <color name="moderate_haze2">#FF4B4B4B</color>
+    <!-- 重度雾霾 PM2.5 > 200 -->
+    <color name="heavy_haze1">#FF989898</color>
+    <color name="heavy_haze2">#FF4B4B4B</color>
+
+    <!-- 雾 -->
+    <color name="fog1">#FFA6B3C2</color>
+    <color name="fog2">#FF737F88</color>
+
+    <!-- 浮尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 < 6 m/s -->
+    <color name="dust1">#FFB99D79</color>
+    <color name="dust2">#FF6C5635</color>
+    <!-- 沙尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 > 6 m/s -->
+    <color name="sand1">#FFB99D79</color>
+    <color name="sand2">#FF6C5635</color>
+
+    <!-- 小雨 -->
+    <color name="light_rain1">#FF556782</color>
+    <color name="light_rain2">#FF7c8b99</color>
+    <!-- 中雨 -->
+    <color name="moderate_rain1">#FF3A4B65</color>
+    <color name="moderate_rain2">#FF495764</color>
+    <!-- 大雨 -->
+    <color name="heavy_rain1">#FF3B434E</color>
+    <color name="heavy_rain2">#FF565D66</color>
+    <!-- 暴雨 -->
+    <color name="storm_rain1">#FF3B434E</color>
+    <color name="storm_rain2">#FF565D66</color>
+
+    <!-- 小雪 -->
+    <color name="light_snow1">#FF6989BA</color>
+    <color name="light_snow2">#FF9DB0CE</color>
+    <!-- 中雪 -->
+    <color name="moderate_snow1">#FF8595AD</color>
+    <color name="moderate_snow2">#FF95A4BF</color>
+    <!-- 大雪 -->
+    <color name="heavy_snow1">#FF98A2BC</color>
+    <color name="heavy_snow2">#FFA7ADBF</color>
+    <!-- 暴雪 -->
+    <color name="storm_snow1">#FF98A2BC</color>
+    <color name="storm_snow2">#FFA7ADBF</color>
 </resources>

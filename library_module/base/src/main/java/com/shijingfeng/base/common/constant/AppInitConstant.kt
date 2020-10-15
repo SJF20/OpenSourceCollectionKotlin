@@ -19,8 +19,12 @@ const val APP_INIT_APP = "$PACKAGE_NAME_APP.$CLASS_SIMPLE_NAME"
 const val APP_INIT_WAN_ANDROID = "$PACKAGE_NAME_WAN_ANDROID.$CLASS_SIMPLE_NAME"
 /** todo模块 应用初始化类 全限定类名 */
 const val APP_INIT_TODO = "$PACKAGE_NAME_TODO.$CLASS_SIMPLE_NAME"
+/** weather模块 应用初始化类 全限定类名 */
+const val APP_INIT_WEATHER = "$PACKAGE_NAME_WEATHER.$CLASS_SIMPLE_NAME"
 /** tencent_x5 模块 应用初始化类 全限定类名 */
 const val APP_INIT_TENCENT_X5 = "$PACKAGE_NAME_TENCENT_X5.$CLASS_SIMPLE_NAME"
+/** location 模块 应用初始化类 全限定类名 */
+const val APP_INIT_LOCATION = "$PACKAGE_NAME_LOCATION.$CLASS_SIMPLE_NAME"
 /** background_service 模块 应用初始化类 全限定类名 */
 const val APP_INIT_BACKGROUND_SERVICE = "$PACKAGE_NAME_BACKGROUND_SERVICE.$CLASS_SIMPLE_NAME"
 /** common 模块 应用初始化类 全限定类名 */
