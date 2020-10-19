@@ -24,8 +24,8 @@ android {
             }
         }
 
-        // 开启MultiDex
-        multiDexEnabled = true
+        // 开启MultiDex  Android5.0(API 21)以上不需要了
+//        multiDexEnabled = true
         // background_service模块 独立混淆
         consumerProguardFiles 'proguard-rules.pro'
     }

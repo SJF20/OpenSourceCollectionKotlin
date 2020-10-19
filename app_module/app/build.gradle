@@ -68,9 +68,12 @@ android {
             abiFilters "armeabi-v7a"
         }
 
-        // 开启MultiDex
-        multiDexEnabled = true
+        // 开启MultiDex  Android5.0(API 21)以上不需要了
+//        multiDexEnabled = true
 //        consumerProguardFiles 'proguard-rules.pro'
+
+        // 设置App只支持中文
+        resConfigs "zh"
     }
     buildTypes {
         //正式模式
@@ -90,6 +93,9 @@ android {
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // Application Id 后缀
+            applicationIdSuffix '.release'
         }
         //调试模式
         debug {
@@ -108,6 +114,9 @@ android {
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // Application Id 后缀
+            applicationIdSuffix '.dev'
         }
     }
     //开启DataBinding (注意每个用到DataBinding的Module都需要打开) (用于 gradle tool 4.0 以上)
@@ -121,6 +130,7 @@ android {
 //    }
     //开启Java8
     compileOptions {
+        encoding = 'UTF-8'
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
@@ -227,6 +237,12 @@ android {
             }
         }
     }
+    // 不使用lint, 可极大减少编译时间(据说是减少80%, 但我测试了一下好像一点作用也没有), 如需使用lint, 请注释掉下面的代码
+//    tasks.whenTaskAdded { task ->
+//        if (task.name == "lint" || task.name == "lintVitalRelease") {
+//            task.enabled = false
+//        }
+//    }
 }
 
 dependencies {

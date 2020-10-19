@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.Keep
-import androidx.multidex.MultiDex
 import com.shijingfeng.base.common.global.sSophixHasInitialized
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixApplication
@@ -44,8 +43,8 @@ internal class WanAndroidSophixStubApplication : SophixApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        // 如果需要使用MultiDex，需要在此处调用。
-        MultiDex.install(this)
+        // 如果需要使用MultiDex，需要在此处调用。  Android5.0(API 21)以上不需要了
+//        MultiDex.install(this)
         // 初始化 Sophix (在 MultiDex.install(this); 之后调用)
         initSophix()
     }

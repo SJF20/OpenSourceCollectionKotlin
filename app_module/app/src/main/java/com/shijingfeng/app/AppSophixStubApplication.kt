@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.Keep
-import androidx.multidex.MultiDex
 import com.shijingfeng.base.base.application.startTimestamp
 import com.shijingfeng.base.common.global.sSophixHasInitialized
 import com.shijingfeng.base.util.e
@@ -51,8 +50,8 @@ internal class AppSophixStubApplication : SophixApplication() {
         enable(true)
         e("启动时间统计", "----开始统计----")
         startTimestamp = System.currentTimeMillis()
-        // 如果需要使用MultiDex，需要在此处调用。
-        MultiDex.install(this)
+        // 如果需要使用MultiDex，需要在此处调用。  Android5.0(API 21)以上不需要了
+//        MultiDex.install(this)
         e("启动时间统计", "MultiDex.install() 耗时: ${System.currentTimeMillis() - startTimestamp}")
         startTimestamp = System.currentTimeMillis()
         // 初始化 Sophix (在 MultiDex.install(this); 之后调用)

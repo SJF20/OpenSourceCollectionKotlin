@@ -72,8 +72,8 @@ android {
         ndk {
             abiFilters "armeabi-v7a"
         }
-        // 开启MultiDex
-        multiDexEnabled = true
+        // 开启MultiDex  Android5.0(API 21)以上不需要了
+//        multiDexEnabled = true
     }
 
     buildTypes {

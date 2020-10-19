@@ -83,8 +83,11 @@ android {
         ndk {
             abiFilters "armeabi-v7a"
         }
-        // 开启MultiDex
-        multiDexEnabled = true
+        // 开启MultiDex  Android5.0(API 21)以上不需要了
+//        multiDexEnabled = true
+
+        // 设置App只支持中文
+        resConfigs "zh"
     }
 
     buildTypes {
@@ -107,6 +110,9 @@ android {
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                 // 使用正式版签名配置签名
                 signingConfig signingConfigs.release
+
+                // Application Id 后缀
+                applicationIdSuffix '.release'
             } else {
                 // 使用库模式混淆文件
                 consumerProguardFiles 'consumer-rules.pro'
@@ -131,6 +137,9 @@ android {
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                 // 使用调试版签名配置签名
                 signingConfig signingConfigs.debug
+
+                // Application Id 后缀
+                applicationIdSuffix '.dev'
             } else {
                 // 使用库模式混淆文件
                 consumerProguardFiles 'consumer-rules.pro'
@@ -148,6 +157,7 @@ android {
 //    }
     //开启Java8
     compileOptions {
+        encoding = 'UTF-8'
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }

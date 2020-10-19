@@ -2,7 +2,6 @@ package com.shijingfeng.weather
 
 import android.content.Context
 import android.util.Log
-import androidx.multidex.MultiDex
 import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
@@ -24,8 +23,8 @@ internal class WeatherApplication : BaseApplication(), Configuration.Provider {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         // 因为 SophixStubApplication 中调用了 MultiDex.install(this) 为了防止重复调用，故从 BaseApplication 移到此处
-        // 初始化MultiDex
-        MultiDex.install(this)
+        // 初始化MultiDex  Android5.0(API 21)以上不需要了
+//        MultiDex.install(this)
     }
 
     /**

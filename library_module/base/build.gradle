@@ -32,8 +32,8 @@ android {
                 ]
             }
         }
-        // 开启MultiDex
-        multiDexEnabled = true
+        // 开启MultiDex  Android5.0(API 21)以上不需要了
+//        multiDexEnabled = true
         // base模块 独立混淆
         consumerProguardFiles 'proguard-rules.pro'
     }
@@ -178,8 +178,8 @@ dependencies {
     api rootProject.ext.androidx["junit-ext"]
     api rootProject.ext.androidx["junit-espresso-core"]
 
-    //MultiDex支持
-    api rootProject.ext.androidx["multidex"]
+    //MultiDex支持   Android5.0(API 21)以上不需要了
+//    api rootProject.ext.androidx["multidex"]
 
     //ConstraintLayout约束布局
     api rootProject.ext.androidx["constraintlayout"]
