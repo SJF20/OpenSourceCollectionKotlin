@@ -6,7 +6,6 @@ import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.mvp.presenter.BasePresenter
-import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.weather.contract.SplashContract
 
 /**
@@ -33,7 +32,14 @@ internal class SplashPresenter(
      */
     override fun init() {
         super.init()
-        runOnUiThread(1500) {
+        redirectToMain()
+    }
+
+    /**
+     * 跳转到 首页
+     */
+    private fun redirectToMain() {
+        runOnUiThread {
             //跳转到首页
             navigation(
                 path = ACTIVITY_WEATHER_MAIN,

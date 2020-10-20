@@ -11,6 +11,7 @@ import com.shijingfeng.base.common.constant.FINISH_FRONT_ALL_ACTIVITY
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.common.extension.finishPrevious
 import com.shijingfeng.base.common.extension.finishPreviousAll
+import com.shijingfeng.base.util.getDrawableByColorId
 import com.shijingfeng.base.util.setStatusBarColor
 import com.shijingfeng.base.util.setStatusBarContentColor
 
@@ -122,6 +123,11 @@ abstract class BaseActivity : AppCompatActivity() {
      * @return true 深色  false 浅色
      */
     protected open fun isStatusBarContentDark() = false
+
+    /**
+     * 获取 Activity 背景
+     */
+    protected open fun getActivityBackground() = getDrawableByColorId(R.color.white)
 
     /**
      * 获取屏幕方向

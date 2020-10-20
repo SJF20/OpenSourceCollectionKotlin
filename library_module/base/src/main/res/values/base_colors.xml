@@ -5,7 +5,6 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="project_theme_color">@color/red</color>
-    <color name="project_status_bar_default_color">@color/red</color>
 
     <color name="transparency">#00000000</color>
     <color name="translucence">#88000000</color>

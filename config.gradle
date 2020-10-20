@@ -3,11 +3,11 @@ ext {
     //false:作为Lib组件存在,  true:作为application存在, 用于全局控制 (总开关)
     isApplication = true
     //玩Android模块开关,  false:作为Lib组件存在， true:作为application存在
-    isWanAndroidApplication = false
+    isWanAndroidApplication = true
     //TODO模块开关,  false:作为Lib组件存在,  true:作为application存在
     isTodoApplication = false
     //天气模块开关,  false:作为Lib组件存在， true:作为application存在
-    isWeatherApplication = false
+    isWeatherApplication = true
 
     //android开发版本配置
     android = [

@@ -1,13 +1,12 @@
 package com.shijingfeng.weather.ui.activity
 
 import android.os.Bundle
+import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_SPLASH
-import com.shijingfeng.base.mvp.presenter.BasePresenter
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.contract.SplashContract
-import com.shijingfeng.weather.databinding.ActivityWeatherSplashBinding
 import com.shijingfeng.weather.presenter.SplashPresenter
 
 /**
@@ -17,7 +16,7 @@ import com.shijingfeng.weather.presenter.SplashPresenter
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_WEATHER_SPLASH)
-internal class SplashActivity : WeatherBaseActivity<ActivityWeatherSplashBinding, SplashContract.Presenter>(), SplashContract.View {
+internal class SplashActivity : WeatherBaseActivity<ViewBinding, SplashContract.Presenter>(), SplashContract.View {
 
     /**
      * 在 onCreate 方法执行前
@@ -30,7 +29,7 @@ internal class SplashActivity : WeatherBaseActivity<ActivityWeatherSplashBinding
     /**
      * 创建 ViewBinding
      */
-    override fun createViewBinding() = ActivityWeatherSplashBinding.inflate(layoutInflater)
+    override fun createViewBinding(): Nothing? = null
 
     /**
      * 创建 Presenter
@@ -38,5 +37,10 @@ internal class SplashActivity : WeatherBaseActivity<ActivityWeatherSplashBinding
      * @return Presenter
      */
     override fun createPresenter() = SplashPresenter(this)
+
+    /**
+     * 获取 Activity 背景
+     */
+    override fun getActivityBackground(): Nothing? = null
 
 }

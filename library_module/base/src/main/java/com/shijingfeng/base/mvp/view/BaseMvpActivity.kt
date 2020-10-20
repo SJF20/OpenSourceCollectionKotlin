@@ -35,7 +35,7 @@ abstract class BaseMvpActivity<V : ViewBinding, P : IPresenter> : BaseNormalActi
      * 初始化 ViewBinding
      */
     private fun initViewBinding() {
-        createViewBinding().apply {
+        createViewBinding()?.apply {
             mViewBinding = this
             setContentView(this.root)
         }
@@ -64,7 +64,7 @@ abstract class BaseMvpActivity<V : ViewBinding, P : IPresenter> : BaseNormalActi
     /**
      * 创建 ViewBinding
      */
-    protected abstract fun createViewBinding(): V
+    protected abstract fun createViewBinding(): V?
 
     /**
      * 创建 Presenter

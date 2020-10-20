@@ -81,10 +81,24 @@
 <!--                android:layout_height="match_parent"-->
 <!--                app:weatherType="HEAVY_SNOW" />-->
 
-            <com.shijingfeng.weather.widget.SnowView
+<!--            <com.shijingfeng.weather.widget.SnowView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:snowType="HEAVY_SNOW" />-->
+
+<!--            <com.shijingfeng.weather.widget.RainView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:rainType="HEAVY_RAIN" />-->
+
+<!--            <com.shijingfeng.weather.widget.SnowView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:snowType="STORM_SNOW" />-->
+
+            <com.shijingfeng.weather.widget.night_start.NightSunnyView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:snowType="HEAVY_SNOW" />
+                android:layout_height="match_parent" />
 
         </FrameLayout>
 

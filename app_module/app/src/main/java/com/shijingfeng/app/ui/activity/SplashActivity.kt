@@ -2,14 +2,10 @@ package com.shijingfeng.app.ui.activity
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.SparseArray
-import android.view.WindowManager
+import androidx.databinding.ViewDataBinding
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.BarUtils
-import com.shijingfeng.app.BR
 import com.shijingfeng.app.R
 import com.shijingfeng.app.base.AppBaseActivity
-import com.shijingfeng.app.databinding.ActivityAppSplashBinding
 import com.shijingfeng.app.source.local.getSplashLocalSourceInstance
 import com.shijingfeng.app.source.network.getSplashNetworkSourceInstance
 import com.shijingfeng.app.source.repository.getSplashRepositoryInstance
@@ -25,7 +21,7 @@ import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_APP_SPLASH)
-internal class SplashActivity : AppBaseActivity<ActivityAppSplashBinding, SplashViewModel>(){
+internal class SplashActivity : AppBaseActivity<ViewDataBinding, SplashViewModel>(){
 
     /**
      * 在 onCreate 方法执行前
@@ -62,9 +58,7 @@ internal class SplashActivity : AppBaseActivity<ActivityAppSplashBinding, Splash
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
      * @return DataBinding 变量SparseArray
      */
-    override fun getVariableSparseArray() = SparseArray<Any>().apply {
-        put(BR.splashViewModel, mViewModel)
-    }
+    override fun getVariableSparseArray(): Nothing? = null
 
     /**
      * 获取 Activity 背景

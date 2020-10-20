@@ -2,31 +2,26 @@ package com.shijingfeng.weather.widget
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Looper
-import android.os.Message
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
-import android.view.SurfaceHolder
-import android.view.SurfaceView
+import android.view.View
 import android.view.animation.LinearInterpolator
 import com.shijingfeng.base.base.application.application
-import com.shijingfeng.base.util.e
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.RainType
 import com.shijingfeng.weather.constant.HEAVY_RAIN
 import com.shijingfeng.weather.constant.LIGHT_RAIN
 import com.shijingfeng.weather.constant.MODERATE_RAIN
 import com.shijingfeng.weather.constant.STORM_RAIN
-import kotlin.Exception
 import kotlin.math.max
 import kotlin.random.Random
 
 /**
  * Function: 下雨 View
- * Date: 2020/10/12 15:50
+ * Date: 2020/10/15 17:54
  * Description:
  * @author ShiJingFeng
  */
@@ -36,83 +31,40 @@ internal class RainView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
-) : SurfaceView(
+) : View(
     context,
     attrs,
     defStyleAttr,
     defStyleRes
-), SurfaceHolder.Callback {
+) {
 
     /** 雨 类型 */
     @RainType private var mRainType = LIGHT_RAIN
+    /** 水滴 Bitmap */
+    private val mRainImage = BitmapFactory.decodeResource(application.resources, R.drawable.rain)
     /** 雨滴实体类 列表 */
     private val mRainList = mutableListOf<Rain>()
 
-    /** Surface Holder */
-    private val mSurfaceHolder = holder.apply {
-        setFormat(PixelFormat.TRANSLUCENT)
-        addCallback(this@RainView)
-    }
-
     /** 动画 */
-    private val mValueAnimator = ValueAnimator.ofFloat(0.0F, 1.0F).apply {
+    private val mValueAnimator = ValueAnimator.ofFloat(0F, 1F).apply {
         interpolator = LinearInterpolator()
         duration = 60 * 1000
         repeatCount = ValueAnimator.INFINITE
         repeatMode = ValueAnimator.RESTART
         addUpdateListener {
-            mDrawingHandler?.sendEmptyMessage(0)
+            invalidate()
         }
     }
-    /** 绘制 线程 */
-    private lateinit var mDrawingHandlerThread: HandlerThread
-    /** 绘制 Handler */
-    private var mDrawingHandler: Handler? = null
+
+    /** 画笔 */
+    private val mPaint = Paint()
 
     init {
-        isFocusable = true
-        isFocusableInTouchMode = true
-        setZOrderOnTop(true)
         context.obtainStyledAttributes(attrs, R.styleable.RainView).run {
             mRainType = getInt(R.styleable.RainView_rainType, LIGHT_RAIN)
             //一定要回收，否则会内存泄漏
             recycle()
         }
-    }
-
-    /**
-     * Surface创建
-     */
-    override fun surfaceCreated(holder: SurfaceHolder?) = init()
-
-    /**
-     * Surface尺寸改变，通常和 surfaceCreated 一起被调用
-     */
-    override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {}
-
-    /**
-     * Surface销毁，Activity或Fragment onStop onDestroy时候 和 锁屏时 会调用
-     */
-    override fun surfaceDestroyed(holder: SurfaceHolder?) = destroy()
-
-    /**
-     * 初始化
-     */
-    private fun init() {
-        initData()
-        mDrawingHandlerThread = object : HandlerThread("drawing_thread") {
-            override fun onLooperPrepared() {
-                super.onLooperPrepared()
-                mDrawingHandler = RainDrawingHandler(
-                    looper = looper,
-                    surfaceHolder = mSurfaceHolder,
-                    rainList = mRainList
-                )
-            }
-        }.apply {
-            start()
-        }
-        mValueAnimator.start()
     }
 
     /**
@@ -143,69 +95,7 @@ internal class RainView @JvmOverloads constructor(
                 ))
             }
         }
-    }
-
-    /**
-     * 销毁，防止内存泄漏
-     */
-    private fun destroy() {
-        mDrawingHandlerThread.quit()
-        mDrawingHandler?.removeCallbacksAndMessages(null)
-        mValueAnimator.cancel()
-    }
-
-    /** 雨 类型 */
-    var rainType
-        @RainType get() = this.mRainType
-        set(@RainType rainType) {
-            this.mRainType = rainType
-        }
-
-}
-
-/**
- * DrawingHandler
- */
-private class RainDrawingHandler(
-    looper: Looper,
-    surfaceHolder: SurfaceHolder,
-    rainList: List<Rain>
-) : Handler(looper) {
-
-    /** SurfaceView 帮助类 */
-    private val mSurfaceHolder = surfaceHolder
-    /** 水滴实体类 列表 */
-    private val mRainList = rainList
-
-    /** 水滴 Bitmap */
-    private val mRainImage = BitmapFactory.decodeResource(application.resources, R.drawable.rain)
-    /** 画笔 */
-    private val mPaint = Paint()
-
-    override fun handleMessage(msg: Message) {
-        super.handleMessage(msg)
-        draw()
-    }
-
-    /**
-     * 此处进行绘制，类似于 View 的 OnDraw(Canvas) 方法
-     */
-    private fun draw() {
-        var canvas: Canvas? = null
-
-        try {
-            canvas = mSurfaceHolder.lockCanvas()
-
-            // 还是上一个Canvas, 绘制的内容需要清空一下，防止绘制叠加
-            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-            drawRain(canvas)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            if (canvas != null) {
-                mSurfaceHolder.unlockCanvasAndPost(canvas)
-            }
-        }
+        mValueAnimator.start()
     }
 
     /**
@@ -247,12 +137,68 @@ private class RainDrawingHandler(
         }
     }
 
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        initData()
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        drawRain(canvas)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        onDestroy()
+    }
+
+    /**
+     * 对应 Activity或Fragment onStart()方法
+     * 用于恢复动画播放
+     */
+    fun onStart() {
+        mValueAnimator.resume()
+    }
+
+    /**
+     * 对应 Activity或Fragment onStop方法
+     * 用于暂停动画
+     */
+    fun onStop() {
+        mValueAnimator.pause()
+    }
+
+    /**
+     * 销毁，防止内存泄漏
+     */
+    private fun onDestroy() {
+        mValueAnimator.removeAllUpdateListeners()
+        mValueAnimator.removeAllListeners()
+        mValueAnimator.cancel()
+    }
+
+    /** 雨 类型 */
+    var rainType
+        @RainType get() = this.mRainType
+        set(@RainType rainType) {
+            this.mRainType = rainType
+        }
+
 }
 
 /**
  * 水滴实体类
  */
-private data class Rain(
+internal data class Rain(
+
+    /** 宽度 */
+    var width: Int,
+
+    /** 高度 */
+    var height: Int,
+
+    /** 雨 类型 */
+    @RainType var rainType: Int,
 
     /** x 坐标 */
     var x: Float = 0F,
@@ -269,21 +215,15 @@ private data class Rain(
     /** 透明度 */
     var alpha: Float = 0F,
 
-    /** 宽度 */
-    var width: Int = 0,
-
-    /** 高度 */
-    var height: Int = 0,
-
-    /** 雨 类型 */
-    @RainType var rainType: Int,
-
     var widthRatio: Float = 0F,
 
     var heightRatio: Float = 0F
 
 ) {
 
+    /**
+     * 初始化
+     */
     fun init(
         widthRatio: Float,
         heightRatio: Float
@@ -309,7 +249,7 @@ private data class Rain(
             else -> 1.0F
         }
         val random = 0.4F + 0.12F * Random.nextFloat() * 5F
-        
+
         this.scale = random * 1.2F
         this.speed = 30F * random * ratio * heightRatio
         this.alpha = random * 0.6F

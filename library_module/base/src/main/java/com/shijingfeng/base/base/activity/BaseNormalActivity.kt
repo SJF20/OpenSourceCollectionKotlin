@@ -96,6 +96,8 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
         if (this.javaClass.isAnnotationPresent(BindEventBus::class.java) && !EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
+        //Activity默认背景为白色
+        getContentView().background = getActivityBackground()
         //设置屏幕方向
         requestedOrientation = getScreenOrientation()
     }

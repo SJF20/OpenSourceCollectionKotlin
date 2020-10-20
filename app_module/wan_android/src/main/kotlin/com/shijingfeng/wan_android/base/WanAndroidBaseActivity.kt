@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
 import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
 import com.shijingfeng.base.util.d
+import com.shijingfeng.base.util.getDrawableByColorId
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.StatusBarView
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -39,8 +40,6 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      */
     override fun initData() {
         super.initData()
-        //Activity默认背景为白色
-        getContentView().setBackgroundResource(R.color.white)
         //设置状态栏背景色和高度
         if (!isCustomStatusBar()) {
             val contentView = getContentView()
@@ -80,7 +79,11 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
             }
         }
 
-        val flCommonTitleBar = mDataBinding.root.findViewById<View>(R.id.include_title_bar)
+        val flCommonTitleBar = if (isDataBindingInitialized()) {
+            mDataBinding.root.findViewById<View>(R.id.include_title_bar)
+        } else {
+            null
+        }
 
         // 设置标题栏背景颜色
         flCommonTitleBar?.run {

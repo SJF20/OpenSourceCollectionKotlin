@@ -8,20 +8,13 @@ import androidx.fragment.app.FragmentActivity
 import com.shijingfeng.base.annotation.RequestPermissions
 import com.shijingfeng.base.util.e
 import com.tbruyelle.rxpermissions2.RxPermissions
-import org.aspectj.lang.JoinPoint
-import org.aspectj.lang.ProceedingJoinPoint
-import org.aspectj.lang.annotation.After
-import org.aspectj.lang.annotation.Around
-import org.aspectj.lang.annotation.Aspect
-import org.aspectj.lang.annotation.Pointcut
-
 /**
  * Function: 权限 AOP
  * Date: 2020/7/30 15:37
  * Description:
  * @author ShiJingFeng
  */
-@Aspect
+//@Aspect
 class PermissionAspect {
 
     /**
@@ -29,43 +22,43 @@ class PermissionAspect {
      * "*" 代表一个元素(注意是一个元素不是一个字符), ".." 代表多个元素, "+" 代表该类和所有子类
      * target是被代理对象, this是代理对象
      */
-    @Pointcut("""
-        execution(@com.shijingfeng.base.annotation.RequestPermissions * *(..))
-        && @annotation(requestPermissions) 
-        && (target(androidx.fragment.app.FragmentActivity) || target(androidx.fragment.app.Fragment))
-    """)
+//    @Pointcut("""
+//        execution(@com.shijingfeng.base.annotation.RequestPermissions * *(..))
+//        && @annotation(requestPermissions)
+//        && (target(androidx.fragment.app.FragmentActivity) || target(androidx.fragment.app.Fragment))
+//    """)
     fun permissionPointCutMethod(requestPermissions: RequestPermissions?) {}
 
-    @SuppressLint("CheckResult")
-    @Around("permissionPointCutMethod(requestPermissions)")
-    fun permissionAroundMethod(joinPoint: ProceedingJoinPoint, requestPermissions: RequestPermissions?) {
-        try {
-            if (requestPermissions == null) {
-                joinPoint.proceed()
-                return
-            }
-            val permissions = requestPermissions.permissions
-            val activity = when (joinPoint.target) {
-                is FragmentActivity -> joinPoint.target as FragmentActivity
-                is Fragment -> (joinPoint.target as Fragment).activity!!
-                else -> return
-            }
-
-            if (!permissions.isNullOrEmpty()) {
-                RxPermissions(activity)
-                    .requestEachCombined(* permissions)
-                    .subscribe { permission ->
-                        if (permission.granted) {
-                            joinPoint.proceed()
-                        }
-                    }
-            } else {
-                joinPoint.proceed()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            joinPoint.proceed()
-        }
-    }
+//    @SuppressLint("CheckResult")
+//    @Around("permissionPointCutMethod(requestPermissions)")
+//    fun permissionAroundMethod(joinPoint: ProceedingJoinPoint, requestPermissions: RequestPermissions?) {
+//        try {
+//            if (requestPermissions == null) {
+//                joinPoint.proceed()
+//                return
+//            }
+//            val permissions = requestPermissions.permissions
+//            val activity = when (joinPoint.target) {
+//                is FragmentActivity -> joinPoint.target as FragmentActivity
+//                is Fragment -> (joinPoint.target as Fragment).activity!!
+//                else -> return
+//            }
+//
+//            if (!permissions.isNullOrEmpty()) {
+//                RxPermissions(activity)
+//                    .requestEachCombined(* permissions)
+//                    .subscribe { permission ->
+//                        if (permission.granted) {
+//                            joinPoint.proceed()
+//                        }
+//                    }
+//            } else {
+//                joinPoint.proceed()
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            joinPoint.proceed()
+//        }
+//    }
 
 }

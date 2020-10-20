@@ -24,18 +24,4 @@ internal abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewMod
         super.init(savedInstanceState)
     }
 
-    /**
-     * 初始化数据
-     */
-    override fun initData() {
-        super.initData()
-        //Activity默认背景为白色
-        getContentView().background = getActivityBackground()
-    }
-
-    /**
-     * 获取 Activity 背景
-     */
-    protected open fun getActivityBackground() = getDrawableByColorId(R.color.white)
-
 }

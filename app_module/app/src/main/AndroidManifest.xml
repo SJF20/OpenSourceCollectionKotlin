@@ -32,7 +32,7 @@
 
         <!-- 启动页 -->
         <activity android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppLauncher">
+            android:theme="@style/AppSplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,6 +53,12 @@
             android:exported="false"
             android:multiprocess="true"
             tools:node="remove" />
+
+        <!-- Bmob内容提供器 -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="${applicationId}.BmobContentProvider"
+            android:exported="false" />
 
     </application>
 

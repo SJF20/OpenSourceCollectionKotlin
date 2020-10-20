@@ -1,30 +1,28 @@
 package com.shijingfeng.weather.widget
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Looper
-import android.os.Message
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.SurfaceHolder
-import android.view.SurfaceView
+import android.view.View
 import android.view.animation.LinearInterpolator
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.SnowType
-import com.shijingfeng.weather.constant.*
+import com.shijingfeng.weather.constant.HEAVY_SNOW
 import com.shijingfeng.weather.constant.LIGHT_SNOW
+import com.shijingfeng.weather.constant.MODERATE_SNOW
+import com.shijingfeng.weather.constant.STORM_SNOW
 import kotlin.math.max
 import kotlin.math.sin
 import kotlin.random.Random
 
 /**
  * Function: 下雪 View
- * Date: 2020/10/15 16:36
+ * Date: 2020/10/16 12:56
  * Description:
  * @author ShiJingFeng
  */
@@ -34,95 +32,40 @@ internal class SnowView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
-) : SurfaceView(
+) : View(
     context,
     attrs,
     defStyleAttr,
     defStyleRes
-), SurfaceHolder.Callback {
-
-    companion object {
-        /** 绘制更新时间间隔(毫秒) */
-        private const val UPDATE_TIME_INTERVAL = 60L
-    }
+) {
 
     /** 雪 类型 */
     @SnowType private var mSnowType = LIGHT_SNOW
+    /** 雪花 Bitmap */
+    private val mSnowImage = BitmapFactory.decodeResource(application.resources, R.drawable.snow)
     /** 雪花实体类 列表 */
     private val mSnowList = mutableListOf<Snow>()
 
-    /** Surface Holder */
-    private val mSurfaceHolder = holder.apply {
-        setFormat(PixelFormat.TRANSLUCENT)
-        addCallback(this@SnowView)
-    }
-
-    private var mPreMillis = 0L
-
     /** 动画 */
-    private val mValueAnimator = ValueAnimator.ofFloat(0.0F, 1.0F).apply {
+    private val mValueAnimator = ValueAnimator.ofFloat(0F, 1F).apply {
         interpolator = LinearInterpolator()
         duration = 60 * 1000
         repeatCount = ValueAnimator.INFINITE
         repeatMode = ValueAnimator.RESTART
-        addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                mPreMillis = 0L
-            }
-        })
         addUpdateListener {
-            mDrawingHandler?.sendEmptyMessage(0)
+            invalidate()
         }
     }
-    /** 绘制 线程 */
-    private lateinit var mDrawingHandlerThread: HandlerThread
-    /** 绘制 Handler */
-    private var mDrawingHandler: Handler? = null
+
+    /** 画笔 */
+    private val mPaint = Paint()
 
     init {
-        isFocusable = true
-        isFocusableInTouchMode = true
-        setZOrderOnTop(true)
         context.obtainStyledAttributes(attrs, R.styleable.SnowView).run {
             mSnowType = getInt(R.styleable.SnowView_snowType, LIGHT_SNOW)
             //一定要回收，否则会内存泄漏
             recycle()
         }
-    }
-
-    /**
-     * Surface创建
-     */
-    override fun surfaceCreated(holder: SurfaceHolder?) = init()
-
-    /**
-     * Surface尺寸改变，通常和 surfaceCreated 一起被调用
-     */
-    override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {}
-
-    /**
-     * Surface销毁，Activity或Fragment onStop onDestroy时候 和 锁屏时 会调用
-     */
-    override fun surfaceDestroyed(holder: SurfaceHolder?) = destroy()
-
-    /**
-     * 初始化
-     */
-    private fun init() {
-        initData()
-        mDrawingHandlerThread = object : HandlerThread("drawing_thread") {
-            override fun onLooperPrepared() {
-                super.onLooperPrepared()
-                mDrawingHandler = SnowDrawingHandler(
-                    looper = looper,
-                    surfaceHolder = mSurfaceHolder,
-                    snowList = mSnowList
-                )
-            }
-        }.apply {
-            start()
-        }
-        mValueAnimator.start()
     }
 
     /**
@@ -153,69 +96,7 @@ internal class SnowView @JvmOverloads constructor(
                 ))
             }
         }
-    }
-
-    /**
-     * 销毁，防止内存泄漏
-     */
-    private fun destroy() {
-        mDrawingHandlerThread.quit()
-        mDrawingHandler?.removeCallbacksAndMessages(null)
-        mValueAnimator.cancel()
-    }
-
-    /** 雪 类型 */
-    var snowType
-        @SnowType get() = this.mSnowType
-        set(@SnowType snowType) {
-            this.mSnowType = snowType
-        }
-
-}
-
-/**
- * DrawingHandler
- */
-private class SnowDrawingHandler(
-    looper: Looper,
-    surfaceHolder: SurfaceHolder,
-    snowList: List<Snow>
-) : Handler(looper) {
-
-    /** SurfaceView 帮助类 */
-    private val mSurfaceHolder = surfaceHolder
-    /** 雪花实体类 列表 */
-    private val mSnowList = snowList
-
-    /** 雪花 Bitmap */
-    private val mSnowImage = BitmapFactory.decodeResource(application.resources, R.drawable.snow)
-    /** 画笔 */
-    private val mPaint = Paint()
-
-    override fun handleMessage(msg: Message) {
-        super.handleMessage(msg)
-        draw()
-    }
-
-    /**
-     * 此处进行绘制，类似于 View 的 OnDraw(Canvas) 方法
-     */
-    private fun draw() {
-        var canvas: Canvas? = null
-
-        try {
-            canvas = mSurfaceHolder.lockCanvas()
-
-            // 还是上一个Canvas, 绘制的内容需要清空一下，防止绘制叠加
-            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-            drawSnow(canvas)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            if (canvas != null) {
-                mSurfaceHolder.unlockCanvasAndPost(canvas)
-            }
-        }
+        mValueAnimator.start()
     }
 
     /**
@@ -258,12 +139,68 @@ private class SnowDrawingHandler(
         }
     }
 
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        initData()
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        drawSnow(canvas)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        onDestroy()
+    }
+
+    /**
+     * 对应 Activity或Fragment onStart()方法
+     * 用于恢复动画播放
+     */
+    fun onStart() {
+        mValueAnimator.resume()
+    }
+
+    /**
+     * 对应 Activity或Fragment onStop方法
+     * 用于暂停动画
+     */
+    fun onStop() {
+        mValueAnimator.pause()
+    }
+
+    /**
+     * 销毁，防止内存泄漏
+     */
+    private fun onDestroy() {
+        mValueAnimator.removeAllUpdateListeners()
+        mValueAnimator.removeAllListeners()
+        mValueAnimator.cancel()
+    }
+
+    /** 雪 类型 */
+    var snowType
+        @SnowType get() = this.mSnowType
+        set(@SnowType snowType) {
+            this.mSnowType = snowType
+        }
+
 }
 
 /**
  * 雪花实体类
  */
-private data class Snow(
+internal data class Snow(
+
+    /** 宽度 */
+    var width: Int,
+
+    /** 高度 */
+    var height: Int,
+
+    /** 雪 类型 */
+    @SnowType var snowType: Int,
 
     /** x 坐标 */
     var x: Float = 0F,
@@ -280,21 +217,15 @@ private data class Snow(
     /** 透明度 */
     var alpha: Float = 0F,
 
-    /** 宽度 */
-    var width: Int = 0,
-
-    /** 高度 */
-    var height: Int = 0,
-
-    /** 雪 类型 */
-    @SnowType var snowType: Int,
-
     var widthRatio: Float = 0F,
 
     var heightRatio: Float = 0F
 
 ) {
 
+    /**
+     * 初始化
+     */
     fun init(
         widthRatio: Float,
         heightRatio: Float

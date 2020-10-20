@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- 下雨 层 -->
+    <declare-styleable name="RainSurfaceView">
+        <!-- 雨 类型 -->
+        <attr name="rainSurfaceType" format="enum">
+            <!-- 小雨 -->
+            <enum name="LIGHT_RAIN" value="8" />
+            <!-- 中雨 -->
+            <enum name="MODERATE_RAIN" value="9" />
+            <!-- 大雨 -->
+            <enum name="HEAVY_RAIN" value="10" />
+            <!-- 暴雨 -->
+            <enum name="STORM_RAIN" value="11" />
+        </attr>
+    </declare-styleable>
     <!-- 下雨 层 -->
     <declare-styleable name="RainView">
         <!-- 雨 类型 -->
@@ -15,6 +30,20 @@
         </attr>
     </declare-styleable>
 
+    <!-- 下雪 层 -->
+    <declare-styleable name="SnowSurfaceView">
+        <!-- 雪 类型 -->
+        <attr name="snowSurfaceType" format="enum">
+            <!-- 小雪 -->
+            <enum name="LIGHT_SNOW" value="13" />
+            <!-- 中雪 -->
+            <enum name="MODERATE_SNOW" value="14" />
+            <!-- 大雪 -->
+            <enum name="HEAVY_SNOW" value="15" />
+            <!-- 暴雪 -->
+            <enum name="STORM_SNOW" value="16" />
+        </attr>
+    </declare-styleable>
     <!-- 下雪 层 -->
     <declare-styleable name="SnowView">
         <!-- 雪 类型 -->

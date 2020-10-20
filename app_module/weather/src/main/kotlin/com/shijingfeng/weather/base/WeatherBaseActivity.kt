@@ -24,13 +24,4 @@ internal abstract class WeatherBaseActivity<V : ViewBinding, P : IPresenter> : B
         d("页面", "weather 模块: " + this.javaClass.simpleName)
     }
 
-    /**
-     * 初始化数据
-     */
-    override fun initData() {
-        super.initData()
-        //Activity默认背景为白色
-        getContentView().setBackgroundResource(R.color.white)
-    }
-
 }

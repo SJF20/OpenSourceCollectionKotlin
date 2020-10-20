@@ -283,7 +283,7 @@ dependencies {
     api rootProject.ext.dependencies["sophix"]
 
     //Android AspectJ
-    api rootProject.ext.dependencies["aspectJ"]
+//    api rootProject.ext.dependencies["aspectJ"]
 
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]

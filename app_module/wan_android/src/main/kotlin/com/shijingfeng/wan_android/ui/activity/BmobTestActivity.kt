@@ -47,4 +47,10 @@ internal class BmobTestActivity : WanAndroidBaseActivity<ActivityWanAndroidBmobT
         super.initAction()
     }
 
+    /**
+     * 是否自定义设置状态栏
+     * @return true 自定义设置  false 默认设置
+     */
+    override fun isCustomStatusBar() = true
+
 }

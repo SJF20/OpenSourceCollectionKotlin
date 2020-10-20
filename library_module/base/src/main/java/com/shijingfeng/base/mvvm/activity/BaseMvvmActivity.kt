@@ -195,6 +195,11 @@ abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     }
 
     /**
+     * DataBinding是否初始化完毕
+     */
+    protected fun isDataBindingInitialized() = ::mDataBinding.isInitialized
+
+    /**
      * 创建ViewModel
      *
      * @param cls Activity Class

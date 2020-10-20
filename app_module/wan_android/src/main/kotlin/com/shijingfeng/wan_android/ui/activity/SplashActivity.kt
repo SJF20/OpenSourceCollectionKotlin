@@ -1,7 +1,9 @@
 package com.shijingfeng.wan_android.ui.activity
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
 import com.shijingfeng.base.common.constant.NO_LAYOUT
@@ -21,7 +23,7 @@ import com.shijingfeng.wan_android.view_model.SplashViewModel
  * @author ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SPLASH)
-internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashBinding, SplashViewModel>() {
+internal class SplashActivity : WanAndroidBaseActivity<ViewDataBinding, SplashViewModel>() {
 
     /**
      * 在 onCreate 方法执行前
@@ -43,9 +45,7 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
      *
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(SplashViewModel::class.java,
-        createCommonViewModelFactory()
-    )
+    override fun getViewModel() = createViewModel(SplashViewModel::class.java, createCommonViewModelFactory())
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
@@ -61,14 +61,8 @@ internal class SplashActivity : WanAndroidBaseActivity<ActivityWanAndroidSplashB
     override fun isCustomStatusBar() = true
 
     /**
-     * 获取资源 (用于切换主题的资源)
+     * 获取 Activity 背景
      */
-    override fun getResource() = mutableMapOf<View, List<SkinAttribute>>().apply {
-        this[mDataBinding.civLogo] = listOf(
-            SkinAttribute(
-                name = SRC,
-                data = getStringById(R.string.drawable_id_ic_wan_android_launcher_round)
-            )
-        )
-    }
+    override fun getActivityBackground(): Drawable? = null
+
 }

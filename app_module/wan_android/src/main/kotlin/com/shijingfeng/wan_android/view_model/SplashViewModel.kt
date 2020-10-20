@@ -1,7 +1,6 @@
 package com.shijingfeng.wan_android.view_model
 
 import android.os.Bundle
-import android.os.Handler
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
@@ -25,7 +24,14 @@ internal class SplashViewModel(
      */
     override fun init() {
         super.init()
-        runOnUiThread(1500) {
+        redirectToMain()
+    }
+
+    /**
+     * 跳转到 首页
+     */
+    private fun redirectToMain() {
+        runOnUiThread {
             //跳转到首页
             navigation(
                 path = ACTIVITY_WAN_ANDROID_MAIN,
@@ -35,4 +41,5 @@ internal class SplashViewModel(
             )
         }
     }
+
 }
