@@ -1,4 +1,4 @@
-package com.shijingfeng.weather.widget.night_start
+package com.shijingfeng.weather.widget.weather.night_start
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -6,6 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.blankj.utilcode.util.SizeUtils
 import kotlin.math.PI
 import kotlin.math.max
 import kotlin.math.tan
@@ -47,11 +48,11 @@ internal class NightSunnyView @JvmOverloads constructor(
     }
 
     /** 流星宽度 */
-    private val mMeteorWidth = 200F
+    private val mMeteorWidth = SizeUtils.dp2px(200F).toFloat()
     /** 流星高度 */
-    private val mMeteorHeight = 2F
+    private val mMeteorHeight = SizeUtils.dp2px(2F).toFloat()
     /**  */
-    private val mRadius = 10F
+    private val mRadius = SizeUtils.dp2px(10F).toFloat()
 
     /** 流星画笔 */
     private val mMeteorPaint = Paint()
@@ -68,17 +69,20 @@ internal class NightSunnyView @JvmOverloads constructor(
     private fun initData() {
         mStarList.clear()
         for (i in 0 until 100) {
-            mStarList.add(Star(
-                index = Random.nextInt(2)
-            ).init(width, height, width / 392F))
+            mStarList.add(
+                Star(
+                    index = Random.nextInt(2)
+                ).init(width, height, width / SizeUtils.dp2px(392F).toFloat()))
         }
         // 如需调整流星量 和 上下位置，可在此处改变 i 的数量 和 height
-        for (i in 0 until 10) {
-            mMeteorList.add(Meteor(
-                width = width,
-                height = height / 8,
-                widthRatio = width / 392F
-            ))
+        for (i in 0 until 4) {
+            mMeteorList.add(
+                Meteor(
+                    width = width,
+                    height = height,
+                    widthRatio = width / SizeUtils.dp2px(392F).toFloat()
+                )
+            )
         }
         mValueAnimator.start()
     }
@@ -147,7 +151,7 @@ internal class NightSunnyView @JvmOverloads constructor(
             0F, 0F, 1F, 0F, 0F,
             0F, 0F, 0F, star.alpha, 0F,
         ))
-        canvas.drawCircle(star.x, star.y, 3F, mStarPaint)
+        canvas.drawCircle(star.x, star.y, SizeUtils.dp2px(3F).toFloat(), mStarPaint)
         canvas.restore()
         star.move()
         //if (param == null) {
@@ -246,8 +250,8 @@ internal data class Meteor(
      * 重置数据
      */
     fun reset() {
-        translateX = width + Random.nextFloat() * 20F * width
         radians = -Random.nextFloat() * 0.07F - 0.05F
+        translateX = width + Random.nextFloat() * 20F * width
         translateY = Random.nextFloat() * 0.5F * height * widthRatio
     }
 
@@ -255,7 +259,7 @@ internal data class Meteor(
      * 移动
      */
     fun move() {
-        translateX -= 20F
+        translateX -= SizeUtils.dp2px(20F)
         if (translateX <= -width / widthRatio) {
             reset()
         }

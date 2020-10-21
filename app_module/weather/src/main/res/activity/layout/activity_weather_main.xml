@@ -96,9 +96,14 @@
 <!--                android:layout_height="match_parent"-->
 <!--                app:snowType="STORM_SNOW" />-->
 
-            <com.shijingfeng.weather.widget.night_start.NightSunnyView
+<!--            <com.shijingfeng.weather.widget.night_start.NightSunnyView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+
+            <com.shijingfeng.weather.widget.weather.cloud.CloudView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:cloudType="HEAVY_HAZE" />
 
         </FrameLayout>
 

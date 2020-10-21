@@ -1,4 +1,4 @@
-package com.shijingfeng.weather.widget
+package com.shijingfeng.weather.widget.weather
 
 import android.animation.*
 import android.content.Context
