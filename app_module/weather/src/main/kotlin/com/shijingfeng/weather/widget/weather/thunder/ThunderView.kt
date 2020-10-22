@@ -1,4 +1,4 @@
-package com.shijingfeng.weather.widget.weather
+package com.shijingfeng.weather.widget.weather.thunder
 
 import android.animation.*
 import android.content.Context
@@ -15,6 +15,7 @@ import kotlin.random.Random
  * Description:
  * @author ShiJingFeng
  */
+// FIXME 目前不需要，暂时未完成
 internal class ThunderView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
@@ -92,12 +93,14 @@ internal class ThunderView @JvmOverloads constructor(
         if (width != 0 && height != 0) {
             // 配置三个闪电信息
             for (i in 0..2) {
-                mThunderList.add(Thunder(
-                    image = mThunderImageList[Random.nextInt(5)],
-                    width = width,
-                    height = height,
-                    widthRatio = width / 392F
-                ))
+                mThunderList.add(
+                    Thunder(
+                        image = mThunderImageList[Random.nextInt(5)],
+                        width = width,
+                        height = height,
+                        widthRatio = width / 392F
+                    )
+                )
             }
         }
     }

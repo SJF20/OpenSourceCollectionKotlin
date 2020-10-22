@@ -1,7 +1,10 @@
 package com.shijingfeng.weather.ui.activity
 
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ClickUtils
+import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_CITY_MANAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_MAIN
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.contract.MainContract
 import com.shijingfeng.weather.databinding.ActivityWeatherMainBinding
@@ -27,5 +30,30 @@ internal class MainActivity : WeatherBaseActivity<ActivityWeatherMainBinding, Ma
      * @return Presenter
      */
     override fun createPresenter() = MainPresenter(this)
+
+    /**
+     * 初始化数据
+     */
+    override fun initData() {
+        super.initData()
+    }
+
+    /**
+     * 初始化事件
+     */
+    override fun initAction() {
+        super.initAction()
+        // 跳转到 地址管理 页面
+        ClickUtils.applySingleDebouncing(mViewBinding.ivAddArea) {
+            navigation(
+                activity = this,
+                path = ACTIVITY_WEATHER_CITY_MANAGE
+            )
+        }
+        // 跳转到 更多信息 页面
+        ClickUtils.applySingleDebouncing(mViewBinding.ivMore) {
+
+        }
+    }
 
 }

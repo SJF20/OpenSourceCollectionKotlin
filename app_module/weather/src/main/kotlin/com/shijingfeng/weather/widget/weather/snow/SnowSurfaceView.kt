@@ -1,5 +1,7 @@
-package com.shijingfeng.weather.widget.weather
+package com.shijingfeng.weather.widget.weather.snow
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
@@ -11,24 +13,21 @@ import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.animation.LinearInterpolator
+import com.blankj.utilcode.util.SizeUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
-import com.shijingfeng.weather.annotation.define.RainType
-import com.shijingfeng.weather.constant.HEAVY_RAIN
-import com.shijingfeng.weather.constant.LIGHT_RAIN
-import com.shijingfeng.weather.constant.MODERATE_RAIN
-import com.shijingfeng.weather.constant.STORM_RAIN
-import kotlin.Exception
-import kotlin.math.max
-import kotlin.random.Random
+import com.shijingfeng.weather.annotation.define.SnowType
+import com.shijingfeng.weather.constant.*
+import com.shijingfeng.weather.constant.LIGHT_SNOW
+import kotlin.math.sin
 
 /**
- * Function: 下雨 View
- * Date: 2020/10/12 15:50
+ * Function: 下雪 View
+ * Date: 2020/10/15 16:36
  * Description:
  * @author ShiJingFeng
  */
-internal class RainSurfaceView @JvmOverloads constructor(
+internal class SnowSurfaceView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
     attrs: AttributeSet? = null,
@@ -41,16 +40,18 @@ internal class RainSurfaceView @JvmOverloads constructor(
     defStyleRes
 ), SurfaceHolder.Callback {
 
-    /** 雨 类型 */
-    @RainType private var mRainType = LIGHT_RAIN
-    /** 雨滴实体类 列表 */
-    private val mRainList = mutableListOf<Rain>()
+    /** 雪 类型 */
+    @SnowType private var mSnowType = LIGHT_SNOW
+    /** 雪花实体类 列表 */
+    private val mSnowList = mutableListOf<Snow>()
 
     /** Surface Holder */
     private val mSurfaceHolder = holder.apply {
         setFormat(PixelFormat.TRANSLUCENT)
-        addCallback(this@RainSurfaceView)
+        addCallback(this@SnowSurfaceView)
     }
+
+    private var mPreMillis = 0L
 
     /** 动画 */
     private val mValueAnimator = ValueAnimator.ofFloat(0F, 1F).apply {
@@ -58,6 +59,11 @@ internal class RainSurfaceView @JvmOverloads constructor(
         duration = 60 * 1000
         repeatCount = ValueAnimator.INFINITE
         repeatMode = ValueAnimator.RESTART
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                mPreMillis = 0L
+            }
+        })
         addUpdateListener {
             mDrawingHandler?.sendEmptyMessage(0)
         }
@@ -71,8 +77,8 @@ internal class RainSurfaceView @JvmOverloads constructor(
         isFocusable = true
         isFocusableInTouchMode = true
         setZOrderOnTop(true)
-        context.obtainStyledAttributes(attrs, R.styleable.RainSurfaceView).run {
-            mRainType = getInt(R.styleable.RainSurfaceView_rainSurfaceType, LIGHT_RAIN)
+        context.obtainStyledAttributes(attrs, R.styleable.SnowSurfaceView).run {
+            mSnowType = getInt(R.styleable.SnowSurfaceView_snowSurfaceType, LIGHT_SNOW)
             //一定要回收，否则会内存泄漏
             recycle()
         }
@@ -101,11 +107,12 @@ internal class RainSurfaceView @JvmOverloads constructor(
         mDrawingHandlerThread = object : HandlerThread("drawing_thread") {
             override fun onLooperPrepared() {
                 super.onLooperPrepared()
-                mDrawingHandler = RainDrawingHandler(
-                    looper = looper,
-                    surfaceHolder = mSurfaceHolder,
-                    rainList = mRainList
-                )
+                mDrawingHandler =
+                    SnowDrawingHandler(
+                        looper = looper,
+                        surfaceHolder = mSurfaceHolder,
+                        snowList = mSnowList
+                    )
             }
         }.apply {
             start()
@@ -120,24 +127,25 @@ internal class RainSurfaceView @JvmOverloads constructor(
         val width = width
         val height = height
 
-        mRainList.clear()
+        mSnowList.clear()
         if (width != 0 && height != 0) {
-            val count = when (mRainType) {
-                LIGHT_RAIN -> 70
-                MODERATE_RAIN -> 100
-                HEAVY_RAIN,
-                STORM_RAIN -> 200
+            val count = when (mSnowType) {
+                LIGHT_SNOW -> 30
+                MODERATE_SNOW -> 100
+                HEAVY_SNOW,
+                STORM_SNOW -> 200
                 else -> 0
             }
 
             for (i in 0 until count) {
-                mRainList.add(Rain(
-                    width = width,
-                    height = height,
-                    rainType = mRainType
-                ).init(
-                    widthRatio = width / 392F,
-                    heightRatio = height / 817F
+                mSnowList.add(
+                    Snow(
+                        width = width,
+                        height = height,
+                        snowType = mSnowType
+                    ).init(
+                    widthRatio = width / SizeUtils.dp2px(392F).toFloat(),
+                    heightRatio = height / SizeUtils.dp2px(817F).toFloat()
                 ))
             }
         }
@@ -152,11 +160,11 @@ internal class RainSurfaceView @JvmOverloads constructor(
         mValueAnimator.cancel()
     }
 
-    /** 雨 类型 */
-    var rainType
-        @RainType get() = this.mRainType
-        set(@RainType rainType) {
-            this.mRainType = rainType
+    /** 雪 类型 */
+    var snowType
+        @SnowType get() = this.mSnowType
+        set(@SnowType snowType) {
+            this.mSnowType = snowType
         }
 
 }
@@ -164,19 +172,19 @@ internal class RainSurfaceView @JvmOverloads constructor(
 /**
  * DrawingHandler
  */
-private class RainDrawingHandler(
+private class SnowDrawingHandler(
     looper: Looper,
     surfaceHolder: SurfaceHolder,
-    rainList: List<Rain>
+    snowList: List<Snow>
 ) : Handler(looper) {
 
     /** SurfaceView 帮助类 */
     private val mSurfaceHolder = surfaceHolder
-    /** 水滴实体类 列表 */
-    private val mRainList = rainList
+    /** 雪花实体类 列表 */
+    private val mSnowList = snowList
 
-    /** 水滴 Bitmap */
-    private val mRainImage = BitmapFactory.decodeResource(application.resources, R.drawable.rain)
+    /** 雪花 Bitmap */
+    private val mSnowImage = BitmapFactory.decodeResource(application.resources, R.drawable.snow)
     /** 画笔 */
     private val mPaint = Paint()
 
@@ -196,7 +204,7 @@ private class RainDrawingHandler(
 
             // 还是上一个Canvas, 绘制的内容需要清空一下，防止绘制叠加
             canvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-            drawRain(canvas)
+            drawSnow(canvas)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -207,13 +215,13 @@ private class RainDrawingHandler(
     }
 
     /**
-     * 绘制下雨效果
+     * 绘制下雪效果
      */
-    private fun drawRain(canvas: Canvas?) {
+    private fun drawSnow(canvas: Canvas?) {
         if (canvas == null) return
 
-        mRainImage?.let { weatherImage ->
-            mRainList.forEach { element ->
+        mSnowImage?.let { weatherImage ->
+            mSnowList.forEach { element ->
                 move(element)
 
                 canvas.save()
@@ -231,15 +239,16 @@ private class RainDrawingHandler(
     }
 
     /**
-     * 移动水滴
+     * 移动雪花
      */
-    private fun move(rain: Rain) {
-        rain.run {
+    private fun move(snow: Snow) {
+        snow.run {
             val realHeight = if (scale == 0F) 0F else height / scale
 
             y += speed
+            x += sin(y / (SizeUtils.dp2px(300F).toFloat() + SizeUtils.dp2px(50F).toFloat() * alpha)) * (1F + 0.5F * alpha) * widthRatio
             if (y > realHeight) {
-                y = -mRainImage!!.height.toFloat()
+                y = -height * scale
                 reset()
             }
         }

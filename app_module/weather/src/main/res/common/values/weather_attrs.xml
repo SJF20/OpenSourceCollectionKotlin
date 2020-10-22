@@ -16,10 +16,40 @@
         </attr>
     </declare-styleable>
 
+    <!-- 下雨 层 -->
+    <declare-styleable name="RainSurfaceView">
+        <!-- 雨 类型 -->
+        <attr name="rainSurfaceType" format="enum">
+            <!-- 小雨 -->
+            <enum name="LIGHT_RAIN" value="8" />
+            <!-- 中雨 -->
+            <enum name="MODERATE_RAIN" value="9" />
+            <!-- 大雨 -->
+            <enum name="HEAVY_RAIN" value="10" />
+            <!-- 暴雨 -->
+            <enum name="STORM_RAIN" value="11" />
+        </attr>
+    </declare-styleable>
+
     <!-- 下雪 层 -->
     <declare-styleable name="SnowView">
         <!-- 雪 类型 -->
         <attr name="snowType" format="enum">
+            <!-- 小雪 -->
+            <enum name="LIGHT_SNOW" value="13" />
+            <!-- 中雪 -->
+            <enum name="MODERATE_SNOW" value="14" />
+            <!-- 大雪 -->
+            <enum name="HEAVY_SNOW" value="15" />
+            <!-- 暴雪 -->
+            <enum name="STORM_SNOW" value="16" />
+        </attr>
+    </declare-styleable>
+
+    <!-- 下雪 层 -->
+    <declare-styleable name="SnowSurfaceView">
+        <!-- 雪 类型 -->
+        <attr name="snowSurfaceType" format="enum">
             <!-- 小雪 -->
             <enum name="LIGHT_SNOW" value="13" />
             <!-- 中雪 -->
@@ -121,78 +151,28 @@
         </attr>
     </declare-styleable>
 
-    <!-- 下雨 层 -->
-    <declare-styleable name="RainSurfaceView">
-        <!-- 雨 类型 -->
-        <attr name="rainSurfaceType" format="enum">
-            <!-- 小雨 -->
-            <enum name="LIGHT_RAIN" value="8" />
-            <!-- 中雨 -->
-            <enum name="MODERATE_RAIN" value="9" />
-            <!-- 大雨 -->
-            <enum name="HEAVY_RAIN" value="10" />
-            <!-- 暴雨 -->
-            <enum name="STORM_RAIN" value="11" />
+    <!-- FlowLayout -->
+    <declare-styleable name="FlowLayout">
+        <!-- 排列方向 -->
+        <attr name="flowOrientation" format="enum">
+            <!-- 排列方向: 逐行排列, 可上下滚动 -->
+            <enum name="vertical" value="0" />
+            <!-- 排列方向: 逐列排列, 可左右滚动 -->
+            <enum name="horizontal" value="1" />
+        </attr>
+        <!-- Child所处的位置 -->
+        <attr name="flowGravity" format="enum">
+            <!-- Child所处的位置: {@link FlowOrientation#HORIZONTAL}: 水平居中  {@link FlowOrientation#VERTICAL}: 垂直居中 -->
+            <enum name="center" value="0" />
+            <!-- Child所处的位置: 顶部  用于{@link FlowOrientation#VERTICAL} -->
+            <enum name="top" value="1" />
+            <!-- Child所处的位置: 底部  用于{@link FlowOrientation#VERTICAL} -->
+            <enum name="bottom" value="2" />
+            <!-- Child所处的位置: 左部  用于{@link FlowOrientation#HORIZONTAL} -->
+            <enum name="left" value="3" />
+            <!-- Child所处的位置: 右部  用于{@link FlowOrientation#HORIZONTAL} -->
+            <enum name="right" value="4" />
         </attr>
     </declare-styleable>
 
-    <!-- 下雪 层 -->
-    <declare-styleable name="SnowSurfaceView">
-        <!-- 雪 类型 -->
-        <attr name="snowSurfaceType" format="enum">
-            <!-- 小雪 -->
-            <enum name="LIGHT_SNOW" value="13" />
-            <!-- 中雪 -->
-            <enum name="MODERATE_SNOW" value="14" />
-            <!-- 大雪 -->
-            <enum name="HEAVY_SNOW" value="15" />
-            <!-- 暴雪 -->
-            <enum name="STORM_SNOW" value="16" />
-        </attr>
-    </declare-styleable>
-
-    <declare-styleable name="RainSnowView2">
-        <attr name="weatherType" format="enum">
-            <!-- 晴（白天） cloudRate < 0.2 -->
-            <enum name="CLEAR_DAY" value="0" />
-            <!-- 晴（夜间）cloudRate < 0.2 -->
-            <enum name="CLEAR_NIGHT" value="1" />
-            <!-- 多云（白天）0.8 >= cloudRate > 0.2 -->
-            <enum name="PARTLY_CLOUDY_DAY" value="2" />
-            <!-- 多云（夜间）0.8 >= cloudRate > 0.2 -->
-            <enum name="PARTLY_CLOUDY_NIGHT" value="3" />
-            <!-- 阴 cloudRate > 0.8 -->
-            <enum name="CLOUDY" value="4" />
-            <!-- 轻度雾霾 PM2.5 100~150 -->
-            <enum name="LIGHT_HAZE" value="5" />
-            <!-- 中度雾霾 PM2.5 150~200 -->
-            <enum name="MODERATE_HAZE" value="6" />
-            <!-- 重度雾霾 PM2.5 > 200 -->
-            <enum name="HEAVY_HAZE" value="7" />
-            <!-- 小雨 -->
-            <enum name="LIGHT_RAIN" value="8" />
-            <!-- 中雨 -->
-            <enum name="MODERATE_RAIN" value="9" />
-            <!-- 大雨 -->
-            <enum name="HEAVY_RAIN" value="10" />
-            <!-- 暴雨 -->
-            <enum name="STORM_RAIN" value="11" />
-            <!-- 雾 -->
-            <enum name="FOG" value="12" />
-            <!-- 小雪 -->
-            <enum name="LIGHT_SNOW" value="13" />
-            <!-- 中雪 -->
-            <enum name="MODERATE_SNOW" value="14" />
-            <!-- 大雪 -->
-            <enum name="HEAVY_SNOW" value="15" />
-            <!-- 暴雪 -->
-            <enum name="STORM_SNOW" value="16" />
-            <!-- 浮尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 < 6 m/s -->
-            <enum name="DUST" value="17" />
-            <!-- 沙尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 > 6 m/s -->
-            <enum name="SAND" value="18" />
-            <!-- 大风 -->
-            <enum name="WIND" value="19" />
-        </attr>
-    </declare-styleable>
 </resources>

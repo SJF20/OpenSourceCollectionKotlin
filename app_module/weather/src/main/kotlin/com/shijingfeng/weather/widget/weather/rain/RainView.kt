@@ -1,4 +1,4 @@
-package com.shijingfeng.weather.widget.weather
+package com.shijingfeng.weather.widget.weather.rain
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -9,6 +9,8 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ThreadUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.RainType
@@ -28,6 +30,7 @@ import kotlin.random.Random
 internal class RainView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
+    @RainType rainType: Int? = null,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
@@ -39,7 +42,7 @@ internal class RainView @JvmOverloads constructor(
 ) {
 
     /** 雨 类型 */
-    @RainType private var mRainType = LIGHT_RAIN
+    @RainType private var mRainType: Int
     /** 水滴 Bitmap */
     private val mRainImage = BitmapFactory.decodeResource(application.resources, R.drawable.rain)
     /** 雨滴实体类 列表 */
@@ -65,6 +68,9 @@ internal class RainView @JvmOverloads constructor(
             //一定要回收，否则会内存泄漏
             recycle()
         }
+        if (rainType != null) {
+            mRainType = rainType
+        }
     }
 
     /**
@@ -85,13 +91,14 @@ internal class RainView @JvmOverloads constructor(
             }
 
             for (i in 0 until count) {
-                mRainList.add(Rain(
-                    width = width,
-                    height = height,
-                    rainType = mRainType
-                ).init(
-                    widthRatio = width / 392F,
-                    heightRatio = height / 817F
+                mRainList.add(
+                    Rain(
+                        width = width,
+                        height = height,
+                        rainType = mRainType
+                    ).init(
+                    widthRatio = width / SizeUtils.dp2px(392F).toFloat(),
+                    heightRatio = height / SizeUtils.dp2px(817F).toFloat()
                 ))
             }
         }
@@ -182,6 +189,11 @@ internal class RainView @JvmOverloads constructor(
         @RainType get() = this.mRainType
         set(@RainType rainType) {
             this.mRainType = rainType
+            if (ThreadUtils.isMainThread()) {
+                invalidate()
+            } else {
+                postInvalidate()
+            }
         }
 
 }
@@ -233,7 +245,7 @@ internal data class Rain(
 
         /// 雨 0.1 雪 0.5
         reset()
-        this.y = if (scale == 0F) 0F else Random.nextInt((800F / scale).toInt()).toFloat()
+        this.y = if (scale == 0F) 0F else Random.nextInt((SizeUtils.dp2px(800F).toFloat() / scale).toInt()).toFloat()
         return this
     }
 
@@ -251,7 +263,7 @@ internal data class Rain(
         val random = 0.4F + 0.12F * Random.nextFloat() * 5F
 
         this.scale = random * 1.2F
-        this.speed = 30F * random * ratio * heightRatio
+        this.speed = SizeUtils.dp2px(30F).toFloat() * random * ratio * heightRatio
         this.alpha = random * 0.6F
         this.x = if (scale == 0F) 0F else Random.nextInt((width * 1.2F / scale).toInt()).toFloat() - (width * 0.1F / scale).toInt()
     }

@@ -39,6 +39,8 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
+        <!-- 城市地址管理 页面 -->
+        <activity android:name=".ui.activity.CityManageActivity" />
 
         <!-- Bmob内容提供器 -->
         <provider

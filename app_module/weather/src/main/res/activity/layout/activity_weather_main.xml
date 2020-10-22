@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.shijingfeng.weather.widget.weather.WeatherView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:orientation="vertical">
+    app:weatherType="CLEAR_DAY">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/transparency"
-        tools:ignore="UselessParent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.shijingfeng.base.widget.StatusBarView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparency" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +22,6 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="15dp"
-            android:background="@color/red"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
@@ -41,7 +37,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -63,59 +61,26 @@
 
             </LinearLayout>
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/iv_more"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                tools:ignore="ContentDescription" />-->
+            <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_weather_more"
+                android:padding="5dp"
+                tools:tint="@color/black"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
-        <FrameLayout
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/dim_grey">
-
-<!--            <com.shijingfeng.weather.widget.RainSnowView2-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:weatherType="HEAVY_SNOW" />-->
-
-<!--            <com.shijingfeng.weather.widget.SnowView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:snowType="HEAVY_SNOW" />-->
-
-<!--            <com.shijingfeng.weather.widget.RainView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:rainType="HEAVY_RAIN" />-->
-
-<!--            <com.shijingfeng.weather.widget.SnowView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:snowType="STORM_SNOW" />-->
-
-<!--            <com.shijingfeng.weather.widget.night_start.NightSunnyView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-            <com.shijingfeng.weather.widget.weather.cloud.CloudView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cloudType="HEAVY_HAZE" />
-
-        </FrameLayout>
+            android:background="@color/transparency"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
 
     </LinearLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparency"
-        android:fadingEdge="none"
-        android:overScrollMode="never"
-        android:scrollbars="none" />
-
-</LinearLayout>
+</com.shijingfeng.weather.widget.weather.WeatherView>

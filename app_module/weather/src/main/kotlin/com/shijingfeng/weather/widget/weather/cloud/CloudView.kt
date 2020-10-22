@@ -5,6 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ThreadUtils
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.RainType
 import com.shijingfeng.weather.annotation.define.WeatherType
@@ -23,6 +24,7 @@ import com.shijingfeng.weather.constant.PARTLY_CLOUDY_NIGHT
 internal class CloudView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
+    @WeatherType cloudType: Int? = null,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
@@ -39,8 +41,7 @@ internal class CloudView @JvmOverloads constructor(
     }
 
     /** 天气 类型 */
-    @WeatherType
-    private var mCloudType = CLEAR_DAY
+    @WeatherType private var mCloudType: Int
 
     /** 云层 Bitmap */
     private val mCloudBitmap by lazy { BitmapFactory.decodeResource(resources, R.drawable.cloud) }
@@ -56,6 +57,9 @@ internal class CloudView @JvmOverloads constructor(
             //一定要回收，否则会内存泄漏
             recycle()
         }
+        if (cloudType != null) {
+            mCloudType = cloudType
+        }
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -65,23 +69,57 @@ internal class CloudView @JvmOverloads constructor(
         mPaint.colorFilter = null
 
         when (mCloudType) {
-            CLEAR_DAY -> drawClearDay(canvas)
+            // 晴（白天） cloudRate < 0.2
+            CLEAR_DAY,
+            // 大风
+            WIND -> drawClearDay(canvas)
+
+            // 多云（白天）0.8 >= cloudRate > 0.2
             PARTLY_CLOUDY_DAY -> drawPartlyCloudyDay(canvas)
+
+            // 多云（夜间）0.8 >= cloudRate > 0.2
             PARTLY_CLOUDY_NIGHT -> drawPartlyCloudyNight(canvas)
+
+            // 阴 cloudRate > 0.8
             CLOUDY -> drawCloudy(canvas)
+
+            // 小雨
             LIGHT_RAIN -> drawLightRain(canvas)
+
+            // 中雨
             MODERATE_RAIN -> drawModerateRain(canvas)
+
+            // 大雨
             HEAVY_RAIN,
+            // 暴雨
             STORM_RAIN -> drawHeavyRain(canvas)
+
+            // 小雪
             LIGHT_SNOW -> drawLightSnow(canvas)
+
+            // 中雪
             MODERATE_SNOW -> drawModerateSnow(canvas)
+
+            // 大雪
             HEAVY_SNOW,
+            // 暴雪
             STORM_SNOW -> drawHeavySnow(canvas)
+
+            // 雾
             FOG -> drawFog(canvas)
+
+            // 轻度雾霾 PM2.5 100~150
             LIGHT_HAZE,
+            // 中度雾霾 PM2.5 150~200
             MODERATE_HAZE,
+            // 重度雾霾 PM2.5 > 200
             HEAVY_HAZE -> drawHaze(canvas)
-            DUST -> drawDust(canvas)
+
+            // 浮尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 < 6 m/s
+            DUST,
+            // 沙尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 > 6 m/s
+            SAND -> drawDust(canvas)
+
             else -> {}
         }
     }
@@ -429,6 +467,11 @@ internal class CloudView @JvmOverloads constructor(
         @RainType get() = this.mCloudType
         set(@WeatherType cloudType) {
             this.mCloudType = cloudType
+            if (ThreadUtils.isMainThread()) {
+                invalidate()
+            } else {
+                postInvalidate()
+            }
         }
 
 }

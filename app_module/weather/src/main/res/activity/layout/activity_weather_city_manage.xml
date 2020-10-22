@@ -7,6 +7,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <com.shijingfeng.base.widget.StatusBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <include
         android:id="@+id/include_title_bar"
         layout="@layout/layout_weather_title_bar" />

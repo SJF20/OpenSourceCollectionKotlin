@@ -45,54 +45,56 @@ fun isSnow(@WeatherType weatherType: Int) = when (weatherType) {
 /**
  * 根据天气类型获取背景的颜色值
  */
-fun getColor(@WeatherType weatherType: Int) = when (weatherType) {
+fun getWeatherBgColor(@WeatherType weatherType: Int) = when (weatherType) {
     // 晴（白天） cloudRate < 0.2
-    CLEAR_DAY -> listOf(getColorById(R.color.clear_day1), getColorById(R.color.clear_day2))
+    CLEAR_DAY,
+    // 大风
+    WIND -> intArrayOf(getColorById(R.color.clear_day1), getColorById(R.color.clear_day2))
     // 晴（夜间）cloudRate < 0.2
-    CLEAR_NIGHT -> listOf(getColorById(R.color.clear_night1), getColorById(R.color.clear_night2))
+    CLEAR_NIGHT -> intArrayOf(getColorById(R.color.clear_night1), getColorById(R.color.clear_night2))
 
     // 多云（白天）0.8 >= cloudRate > 0.2
-    PARTLY_CLOUDY_DAY -> listOf(getColorById(R.color.partly_cloudy_day1), getColorById(R.color.partly_cloudy_day2))
+    PARTLY_CLOUDY_DAY -> intArrayOf(getColorById(R.color.partly_cloudy_day1), getColorById(R.color.partly_cloudy_day2))
     // 多云（夜间）0.8 >= cloudRate > 0.2
-    PARTLY_CLOUDY_NIGHT -> listOf(getColorById(R.color.partly_cloudy_night1), getColorById(R.color.partly_cloudy_night2))
+    PARTLY_CLOUDY_NIGHT -> intArrayOf(getColorById(R.color.partly_cloudy_night1), getColorById(R.color.partly_cloudy_night2))
 
     // 阴 cloudRate > 0.8
-    CLOUDY -> listOf(getColorById(R.color.cloudy1), getColorById(R.color.cloudy2))
+    CLOUDY -> intArrayOf(getColorById(R.color.cloudy1), getColorById(R.color.cloudy2))
 
     // 轻度雾霾 PM2.5 100~150
-    LIGHT_HAZE -> listOf(getColorById(R.color.light_haze1), getColorById(R.color.light_haze2))
+    LIGHT_HAZE -> intArrayOf(getColorById(R.color.light_haze1), getColorById(R.color.light_haze2))
     // 中度雾霾 PM2.5 150~200
-    MODERATE_HAZE -> listOf(getColorById(R.color.moderate_haze1), getColorById(R.color.moderate_haze2))
+    MODERATE_HAZE -> intArrayOf(getColorById(R.color.moderate_haze1), getColorById(R.color.moderate_haze2))
     // 重度雾霾 PM2.5 > 200
-    HEAVY_HAZE -> listOf(getColorById(R.color.heavy_haze1), getColorById(R.color.heavy_haze2))
+    HEAVY_HAZE -> intArrayOf(getColorById(R.color.heavy_haze1), getColorById(R.color.heavy_haze2))
 
     // 雾
-    FOG -> listOf(getColorById(R.color.fog1), getColorById(R.color.fog2))
+    FOG -> intArrayOf(getColorById(R.color.fog1), getColorById(R.color.fog2))
 
     // 浮尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 < 6 m/s
-    DUST -> listOf(getColorById(R.color.dust1), getColorById(R.color.dust2))
+    DUST -> intArrayOf(getColorById(R.color.dust1), getColorById(R.color.dust2))
     // 沙尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 > 6 m/s
-    SAND -> listOf(getColorById(R.color.sand1), getColorById(R.color.sand2))
+    SAND -> intArrayOf(getColorById(R.color.sand1), getColorById(R.color.sand2))
 
     // 小雨
-    LIGHT_RAIN -> listOf(getColorById(R.color.light_rain1), getColorById(R.color.light_rain2))
+    LIGHT_RAIN -> intArrayOf(getColorById(R.color.light_rain1), getColorById(R.color.light_rain2))
     // 中雨
-    MODERATE_RAIN -> listOf(getColorById(R.color.moderate_rain1), getColorById(R.color.moderate_rain2))
+    MODERATE_RAIN -> intArrayOf(getColorById(R.color.moderate_rain1), getColorById(R.color.moderate_rain2))
     // 大雨
-    HEAVY_RAIN -> listOf(getColorById(R.color.heavy_rain1), getColorById(R.color.heavy_rain2))
+    HEAVY_RAIN -> intArrayOf(getColorById(R.color.heavy_rain1), getColorById(R.color.heavy_rain2))
     // 暴雨
-    STORM_RAIN -> listOf(getColorById(R.color.storm_rain1), getColorById(R.color.storm_rain2))
+    STORM_RAIN -> intArrayOf(getColorById(R.color.storm_rain1), getColorById(R.color.storm_rain2))
 
     // 小雪
-    LIGHT_SNOW -> listOf(getColorById(R.color.light_snow1), getColorById(R.color.light_snow2))
+    LIGHT_SNOW -> intArrayOf(getColorById(R.color.light_snow1), getColorById(R.color.light_snow2))
     // 中雪
-    MODERATE_SNOW -> listOf(getColorById(R.color.moderate_snow1), getColorById(R.color.moderate_snow2))
+    MODERATE_SNOW -> intArrayOf(getColorById(R.color.moderate_snow1), getColorById(R.color.moderate_snow2))
     // 大雪
-    HEAVY_SNOW -> listOf(getColorById(R.color.heavy_snow1), getColorById(R.color.heavy_snow2))
+    HEAVY_SNOW -> intArrayOf(getColorById(R.color.heavy_snow1), getColorById(R.color.heavy_snow2))
     // 暴雪
-    STORM_SNOW -> listOf(getColorById(R.color.storm_snow1), getColorById(R.color.storm_snow2))
+    STORM_SNOW -> intArrayOf(getColorById(R.color.storm_snow1), getColorById(R.color.storm_snow2))
 
-    else -> listOf()
+    else -> intArrayOf(getColorById(R.color.white))
 }
 
 /**

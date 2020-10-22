@@ -1,4 +1,4 @@
-package com.shijingfeng.weather.widget.weather
+package com.shijingfeng.weather.widget.weather.snow
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -9,6 +9,8 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ThreadUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.SnowType
@@ -29,6 +31,7 @@ import kotlin.random.Random
 internal class SnowView @JvmOverloads constructor(
     /** Context环境  */
     context: Context,
+    @SnowType snowType: Int? = null,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
@@ -40,7 +43,7 @@ internal class SnowView @JvmOverloads constructor(
 ) {
 
     /** 雪 类型 */
-    @SnowType private var mSnowType = LIGHT_SNOW
+    @SnowType private var mSnowType: Int
     /** 雪花 Bitmap */
     private val mSnowImage = BitmapFactory.decodeResource(application.resources, R.drawable.snow)
     /** 雪花实体类 列表 */
@@ -66,6 +69,9 @@ internal class SnowView @JvmOverloads constructor(
             //一定要回收，否则会内存泄漏
             recycle()
         }
+        if (snowType != null) {
+            mSnowType = snowType
+        }
     }
 
     /**
@@ -86,13 +92,14 @@ internal class SnowView @JvmOverloads constructor(
             }
 
             for (i in 0 until count) {
-                mSnowList.add(Snow(
-                    width = width,
-                    height = height,
-                    snowType = mSnowType
-                ).init(
-                    widthRatio = width / 392F,
-                    heightRatio = height / 817F
+                mSnowList.add(
+                    Snow(
+                        width = width,
+                        height = height,
+                        snowType = mSnowType
+                    ).init(
+                    widthRatio = width / SizeUtils.dp2px(392F).toFloat(),
+                    heightRatio = height / SizeUtils.dp2px(817F).toFloat()
                 ))
             }
         }
@@ -130,8 +137,8 @@ internal class SnowView @JvmOverloads constructor(
         snow.run {
             val realHeight = if (scale == 0F) 0F else height / scale
 
+            x += sin(y / (SizeUtils.dp2px(300F).toFloat() + SizeUtils.dp2px(50F).toFloat() * alpha)) * (1F + 0.5F * alpha) * widthRatio
             y += speed
-            x += sin(y / (300F + 50F * alpha)) * (1F + 0.5F * alpha) * widthRatio
             if (y > realHeight) {
                 y = -height * scale
                 reset()
@@ -184,6 +191,11 @@ internal class SnowView @JvmOverloads constructor(
         @SnowType get() = this.mSnowType
         set(@SnowType snowType) {
             this.mSnowType = snowType
+            if (ThreadUtils.isMainThread()) {
+                invalidate()
+            } else {
+                postInvalidate()
+            }
         }
 
 }
@@ -235,7 +247,7 @@ internal data class Snow(
 
         /// 雨 0.1 雪 0.5
         reset()
-        this.y = if (scale == 0F) 0F else Random.nextInt((800F / scale).toInt()).toFloat()
+        this.y = if (scale == 0F) 0F else Random.nextInt((SizeUtils.dp2px(800F).toFloat() / scale).toInt()).toFloat()
         return this
     }
 
@@ -253,7 +265,7 @@ internal data class Snow(
         val random = 0.4F + 0.12F * Random.nextFloat() * 5F
 
         this.scale = random * 0.8F * heightRatio
-        this.speed = 8F * random * ratio * heightRatio
+        this.speed = SizeUtils.dp2px(8F).toFloat() * random * ratio * heightRatio
         this.alpha = random
         this.x = if (scale == 0F) 0F else Random.nextInt((width * 1.2F / scale).toInt()).toFloat() - (width * 0.1F / scale).toInt()
     }

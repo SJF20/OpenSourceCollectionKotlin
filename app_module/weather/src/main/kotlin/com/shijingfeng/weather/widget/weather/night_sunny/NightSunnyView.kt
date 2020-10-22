@@ -1,4 +1,4 @@
-package com.shijingfeng.weather.widget.weather.night_start
+package com.shijingfeng.weather.widget.weather.night_sunny
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -60,7 +60,7 @@ internal class NightSunnyView @JvmOverloads constructor(
     private val mStarPaint = Paint().apply {
         color = Color.WHITE
         style = Paint.Style.FILL
-        maskFilter = BlurMaskFilter(1F, BlurMaskFilter.Blur.NORMAL)
+        maskFilter = BlurMaskFilter(SizeUtils.dp2px(1F).toFloat(), BlurMaskFilter.Blur.NORMAL)
     }
 
     /**
