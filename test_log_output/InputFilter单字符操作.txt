@@ -1,0 +1,57 @@
+*******************************************************************************************************************************************************
+
+步骤:  A(输入) -> B(输入) -> C(输入) -> C(删除) -> B(删除) -> A(删除)
+
+*******************************************************************************************************************************************************
+
+2020-10-23 13:01:03.080 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: source: A
+2020-10-23 13:01:03.081 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: start: 0
+2020-10-23 13:01:03.081 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: end: 1
+2020-10-23 13:01:03.081 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dest: 
+2020-10-23 13:01:03.081 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dstart: 0
+2020-10-23 13:01:03.081 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dend: 0
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2020-10-23 13:05:33.714 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: source: B
+2020-10-23 13:05:33.714 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: start: 0
+2020-10-23 13:05:33.714 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: end: 1
+2020-10-23 13:05:33.714 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dest: A
+2020-10-23 13:05:33.714 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dstart: 1
+2020-10-23 13:05:33.714 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dend: 1
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2020-10-23 13:06:16.328 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: source: C
+2020-10-23 13:06:16.329 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: start: 0
+2020-10-23 13:06:16.329 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: end: 1
+2020-10-23 13:06:16.329 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dest: AB
+2020-10-23 13:06:16.329 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dstart: 2
+2020-10-23 13:06:16.329 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dend: 2
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2020-10-23 13:06:42.570 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: source: 
+2020-10-23 13:06:42.570 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: start: 0
+2020-10-23 13:06:42.570 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: end: 0
+2020-10-23 13:06:42.570 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dest: ABC
+2020-10-23 13:06:42.571 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dstart: 2
+2020-10-23 13:06:42.571 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dend: 3
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2020-10-23 13:08:13.010 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: source: 
+2020-10-23 13:08:13.010 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: start: 0
+2020-10-23 13:08:13.010 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: end: 0
+2020-10-23 13:08:13.010 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dest: AB
+2020-10-23 13:08:13.010 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dstart: 1
+2020-10-23 13:08:13.010 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dend: 2
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2020-10-23 13:09:40.354 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: source: 
+2020-10-23 13:09:40.354 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: start: 0
+2020-10-23 13:09:40.354 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: end: 0
+2020-10-23 13:09:40.354 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dest: A
+2020-10-23 13:09:40.354 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dstart: 0
+2020-10-23 13:09:40.354 2875-2875/com.shijingfeng.open_source_collection_kotlin E/InputFilter: dend: 1

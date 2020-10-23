@@ -7,8 +7,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
-import com.shijingfeng.base.util.EditTextInputFilterUtil
-import com.shijingfeng.base.util.createEditTextInputFilterUtil
+import com.shijingfeng.base.util.getProhibitSystemEmojiInputFilter
 
 /**
  * Function: EditText View适配器
@@ -63,6 +62,6 @@ fun filterEmoji(
     isFilterEmoji: Boolean
 ) {
     if (isFilterEmoji) {
-        editText.filters = arrayOf(createEditTextInputFilterUtil().getProhibitSystemEmojiInputFilter())
+        editText.filters = arrayOf(getProhibitSystemEmojiInputFilter())
     }
 }

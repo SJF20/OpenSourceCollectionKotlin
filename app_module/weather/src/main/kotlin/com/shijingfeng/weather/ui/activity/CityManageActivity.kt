@@ -3,6 +3,8 @@ package com.shijingfeng.weather.ui.activity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ClickUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_CITY_MANAGE
+import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_CITY_SEARCH
+import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.base.WeatherBaseActivity
@@ -55,7 +57,10 @@ internal class CityManageActivity : WeatherBaseActivity<ActivityWeatherCityManag
         ClickUtils.applySingleDebouncing(mViewBinding.includeTitleBar.ivBack) { finish() }
         // 跳转到 搜索地址 页面
         ClickUtils.applySingleDebouncing(mViewBinding.llSearch) {
-
+            navigation(
+                activity = this,
+                path = ACTIVITY_WEATHER_CITY_SEARCH
+            )
         }
     }
 }

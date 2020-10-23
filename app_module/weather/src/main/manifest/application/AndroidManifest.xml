@@ -55,6 +55,8 @@
             android:launchMode="singleTask" />
         <!-- 城市地址管理 页面 -->
         <activity android:name=".ui.activity.CityManageActivity" />
+        <!-- 城市搜索 页面 -->
+        <activity android:name=".ui.activity.CitySearchActivity" />
 
         <!-- Bmob内容提供器 -->
         <provider

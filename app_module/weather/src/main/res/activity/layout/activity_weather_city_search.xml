@@ -56,13 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:textSize="17sp"
             android:text="@string/取消"
-            android:textColor="@color/dodger_blue" />
+            android:textColor="@color/dodger_blue"
+            android:textSize="17sp" />
 
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_hot_city"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp">
@@ -75,18 +76,118 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/热门城市" />
+                android:text="@string/热门城市"
+                android:textSize="16sp" />
 
             <com.shijingfeng.weather.widget.FlowLayout
-                android:id="@+id/fl_hot_city_name"
-                android:layout_width="match_parent"
+                android:id="@+id/fl_hot_city"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                app:flowOrientation="vertical"
                 app:flowGravity="center"
+                app:flowOrientation="vertical"
                 app:itemSpacing="15dp"
-                app:lineSpacing="15dp" />
+                app:lineSpacing="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_hot_city_label_bg"
+                    android:paddingStart="15dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="@string/北京市" />
+
+            </com.shijingfeng.weather.widget.FlowLayout>
 
         </LinearLayout>
 
