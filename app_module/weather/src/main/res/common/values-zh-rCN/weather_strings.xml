@@ -3,29 +3,10 @@
     <string name="城市管理">城市管理</string>
     <string name="搜索城市天气">搜索城市天气</string>
     <string name="热门城市">热门城市</string>
-
-    <string name="北京市">北京市</string>
-    <string name="上海市">上海市</string>
-    <string name="广州市">广州市</string>
-    <string name="深圳市">深圳市</string>
-    <string name="珠海市">珠海市</string>
-    <string name="佛山市">佛山市</string>
-    <string name="南京市">南京市</string>
-    <string name="苏州市">苏州市</string>
-    <string name="厦门市">厦门市</string>
-    <string name="南宁市">南宁市</string>
-    <string name="成都市">成都市</string>
-    <string name="长沙市">长沙市</string>
-    <string name="福州市">福州市</string>
-    <string name="杭州市">杭州市</string>
-    <string name="武汉市">武汉市</string>
-    <string name="青岛市">青岛市</string>
-    <string name="西安市">西安市</string>
-    <string name="太原市">太原市</string>
-    <string name="石家庄市">石家庄市</string>
-    <string name="沈阳市">沈阳市</string>
-    <string name="重庆市">重庆市</string>
-    <string name="天津市">天津市</string>
+    <string name="搜索中" tools:ignore="TypographyEllipsis">搜索中...</string>
+    <string name="已添加">已添加</string>
+    <string name="取消">取消</string>
+    <string name="搜索">搜索</string>
 
     <string name="晴">晴</string>
 
@@ -51,4 +32,27 @@
     <string name="中雪">中雪</string>
     <string name="大雪">大雪</string>
     <string name="暴雪">暴雪</string>
+
+    <string name="北京市">北京市</string>
+    <string name="上海市">上海市</string>
+    <string name="广州市">广州市</string>
+    <string name="深圳市">深圳市</string>
+    <string name="珠海市">珠海市</string>
+    <string name="佛山市">佛山市</string>
+    <string name="南京市">南京市</string>
+    <string name="苏州市">苏州市</string>
+    <string name="厦门市">厦门市</string>
+    <string name="南宁市">南宁市</string>
+    <string name="成都市">成都市</string>
+    <string name="长沙市">长沙市</string>
+    <string name="福州市">福州市</string>
+    <string name="杭州市">杭州市</string>
+    <string name="武汉市">武汉市</string>
+    <string name="青岛市">青岛市</string>
+    <string name="西安市">西安市</string>
+    <string name="太原市">太原市</string>
+    <string name="石家庄市">石家庄市</string>
+    <string name="沈阳市">沈阳市</string>
+    <string name="重庆市">重庆市</string>
+    <string name="天津市">天津市</string>
 </resources>

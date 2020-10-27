@@ -285,6 +285,11 @@ dependencies {
     //Android AspectJ
 //    api rootProject.ext.dependencies["aspectJ"]
 
+    //JetPack DataStore (Preferences DataStore)
+    api rootProject.ext.dependencies["preferences_datastore"]
+    //JetPack DataStore (Proto DataStore)
+    api rootProject.ext.dependencies["proto_datastore"]
+
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器

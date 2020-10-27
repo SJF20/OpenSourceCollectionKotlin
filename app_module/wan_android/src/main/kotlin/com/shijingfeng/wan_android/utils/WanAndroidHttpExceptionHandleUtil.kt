@@ -40,7 +40,10 @@ internal fun handle(e: Throwable?): E {
     when(throwable) {
         //服务器异常
         is ServerException -> {
-            exception = E(throwable.errorCode, error = throwable)
+            exception = E(
+                errorCode = throwable.errorCode,
+                error = throwable
+            )
             //服务器异常
             if (throwable.errorCode == SERVER_NEED_LOGIN) {
                 exception.errorMsg = getStringById(R.string.需要登录)
@@ -58,19 +61,35 @@ internal fun handle(e: Throwable?): E {
         }
         //网络请求异常 (比如常见404 500之类的等)
         is retrofit2.HttpException -> {
-            exception = E(throwable.code(), getStringById(R.string.网络请求错误) + throwable.code(), throwable)
+            exception = E(
+                errorCode = throwable.code(),
+                errorMsg = getStringById(R.string.网络请求错误) + throwable.code(),
+                error = throwable
+            )
         }
         //解析异常
         is JsonParseException, is JSONException, is ParseException -> {
-            exception = E(PARSE_EXCEPTION, getStringById(R.string.解析错误), throwable)
+            exception = E(
+                errorCode = PARSE_EXCEPTION,
+                errorMsg = getStringById(R.string.解析错误),
+                error = throwable
+            )
         }
         //网络连接异常
         is ConnectException, is UnknownHostException, is SocketTimeoutException -> {
-            exception = E(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), throwable)
+            exception = E(
+                errorCode = NETWORK_EXCEPTION,
+                errorMsg = getStringById(R.string.网络连接错误),
+                error = throwable
+            )
         }
         //未知异常
         else -> {
-            exception = E(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), throwable)
+            exception = E(
+                errorCode = UNKNOWN_EXCEPTION,
+                errorMsg = getStringById(R.string.未知错误),
+                error = throwable
+            )
         }
     }
     if (!TextUtils.isEmpty(exception.errorMsg)) {

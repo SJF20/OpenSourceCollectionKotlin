@@ -12,6 +12,8 @@ import kotlin.Exception
  */
 open class E(
 
+    /** 用于区分属于哪个公司的接口产生的异常 */
+    val flag: String = "",
     /** 错误代码 */
     val errorCode: Int = UNKNOWN_EXCEPTION,
     /** 错误内容 */

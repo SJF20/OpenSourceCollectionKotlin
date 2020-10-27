@@ -1,20 +1,30 @@
 package com.shijingfeng.weather.ui.activity
 
-import android.text.InputFilter
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
+import androidx.annotation.IntRange
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.ClickUtils
+import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_CITY_SEARCH
-import com.shijingfeng.base.util.TextWatcherAdapter
-import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.getProhibitSystemEmojiInputFilter
-import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD
+import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD_MORE
+import com.shijingfeng.base.common.global.runOnUiThread
+import com.shijingfeng.base.util.*
 import com.shijingfeng.weather.R
+import com.shijingfeng.weather.adapter.CitySearchListAdapter
 import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.databinding.ActivityWeatherCitySearchBinding
+import com.shijingfeng.weather.entity.CitySearchInfoEntity
 import com.shijingfeng.weather.presenter.CitySearchPresenter
+import kotlinx.android.synthetic.main.activity_weather_city_search.*
+import java.lang.Thread.sleep
+import kotlin.Exception
 
 /**
  * Function: 城市搜索 页面
@@ -24,6 +34,46 @@ import com.shijingfeng.weather.presenter.CitySearchPresenter
  */
 @Route(path = ACTIVITY_WEATHER_CITY_SEARCH)
 internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearchBinding, CitySearchContract.Presenter>(), CitySearchContract.View {
+
+    /** 城市搜索信息列表 适配器 */
+    private lateinit var mCitySearchListAdapter: CitySearchListAdapter
+
+    /** 城市搜索信息列表 */
+    private val mCitySearchList = arrayListOf<CitySearchInfoEntity>()
+
+    /** 当前页码 */
+    private var mCurPage = FIRST_PAGE
+
+    /** 页面操作类型  */
+    @PageOperateType
+    private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
+
+    /** 当前是 取消搜索 还是 手动搜索   true: 手动搜索  false: 取消搜索 */
+    private var mCanSearch = false
+
+    /** 延时器 */
+    private val mDelayer = Delayer {
+        mCurPage = FIRST_PAGE
+        mPageOperateType = PAGE_OPERATE_TYPE_LOAD
+        search()
+    }
+
+    companion object {
+        /** 城市搜索页面 页码 从 1 开始 */
+        private const val FIRST_PAGE = 1
+
+        /** 热门城市列表 */
+        private const val HOT_CITY_LIST = 0
+
+        /** 城市搜索列表 */
+        private const val CITY_SEARCH_LIST = 1
+
+        /** 城市搜索列表 无数据 */
+        private const val CITY_SEARCH_NO_DATA = 2
+
+        /** 搜索间隔时间 默认 1000毫秒 (用于解决搜索框中快速增删导致频繁搜索) */
+        private const val SEARCH_DELAY_MILLI = 1000L
+    }
 
     /**
      * 创建 ViewBinding
@@ -54,12 +104,25 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
     /**
      * 初始化热门城市
      */
+    @SuppressLint("InflateParams")
     private fun initHotCity() {
-        mViewBinding.flHotCity.run {
-            addView(TextView(this@CitySearchActivity).apply {
-                text = getStringById(R.string.北京市)
+        registerLoadingView(mViewBinding.srlCityList, getString(R.string.搜索中))
+
+        for (hotCityName in getStringArrayById(R.array.hotCityNameList) ?: emptyArray()) {
+            val view = LayoutInflater.from(this@CitySearchActivity)
+                .inflate(R.layout.layout_hot_city_lable, null) as TextView
+
+            mViewBinding.flHotCity.addView(view.apply {
+                text = hotCityName
             })
         }
+
+        // 当不满 1 页时禁止开启上拉加载
+        mViewBinding.srlCityList.setEnableLoadMoreWhenContentNotFull(false)
+
+        mCitySearchListAdapter = CitySearchListAdapter(this, mCitySearchList)
+        mViewBinding.rvCityList.adapter = mCitySearchListAdapter
+        mViewBinding.rvCityList.layoutManager = LinearLayoutManager(this)
     }
 
     /**
@@ -67,24 +130,237 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
      */
     override fun initAction() {
         super.initAction()
+        // 搜索框过滤
         mViewBinding.etSearch.filters = arrayOf(
             // 过滤表情
             getProhibitSystemEmojiInputFilter()
         )
+        // 搜索框输入
         mViewBinding.etSearch.addTextChangedListener(object : TextWatcherAdapter {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val length = mViewBinding.etSearch.length()
-
-                if (length == 0) {
+                if (mViewBinding.etSearch.length() == 0) {
                     // 显示热门城市
-                    mViewBinding.rvCityList.visibility = GONE
-                    mViewBinding.nsvHotCity.visibility = VISIBLE
+                    mCanSearch = false
+                    mViewBinding.tvCancelOrSearch.text = getStringById(R.string.取消)
+                    mDelayer.dispose()
+                    setPageStatus(HOT_CITY_LIST)
                 } else {
                     // 显示搜索列表
-                    mViewBinding.nsvHotCity.visibility = GONE
-                    mViewBinding.rvCityList.visibility = VISIBLE
+                    mCanSearch = true
+                    mViewBinding.tvCancelOrSearch.text = getStringById(R.string.搜索)
+                    mDelayer.delay(SEARCH_DELAY_MILLI)
                 }
             }
         })
+        // 取消搜索 或 手动点击搜索
+        ClickUtils.applySingleDebouncing(mViewBinding.tvCancelOrSearch) {
+            if (mCanSearch) {
+                // 手动搜索
+                mCurPage = FIRST_PAGE
+                mPageOperateType = PAGE_OPERATE_TYPE_LOAD
+                showLoadingView()
+                search()
+            } else {
+                // 取消搜索
+                finish()
+            }
+        }
+        // 上拉加载监听
+        mViewBinding.srlCityList.setOnLoadMoreListener {
+            mPageOperateType = PAGE_OPERATE_TYPE_LOAD_MORE
+            search(page = mCurPage + 1)
+        }
     }
+
+    /**
+     * 设置页面状态
+     *
+     * @param status 页面状态
+     */
+    private fun setPageStatus(
+        @IntRange(from = HOT_CITY_LIST.toLong(), to = CITY_SEARCH_NO_DATA.toLong())
+        status: Int
+    ) {
+        e("测试", "status: ${status}")
+        when (status) {
+            // 热门城市列表
+            HOT_CITY_LIST -> {
+                mViewBinding.srlCityList.visibility = GONE
+                mViewBinding.includeNoData.visibility = GONE
+                mViewBinding.nsvHotCity.visibility = VISIBLE
+            }
+            // 城市搜索列表
+            CITY_SEARCH_LIST -> {
+                mViewBinding.nsvHotCity.visibility = GONE
+                mViewBinding.includeNoData.visibility = GONE
+                mViewBinding.srlCityList.visibility = VISIBLE
+            }
+            // 城市搜索列表 无数据
+            CITY_SEARCH_NO_DATA -> {
+//                mViewBinding.nsvHotCity.visibility = GONE
+//                mViewBinding.srlCityList.visibility = GONE
+//                mViewBinding.includeNoData.visibility = VISIBLE
+
+                nsv_hot_city.visibility = GONE
+                srl_city_list.visibility = GONE
+                include_no_data.visibility = VISIBLE
+            }
+            else -> {}
+        }
+    }
+
+    /**
+     * 搜索
+     *
+     * @param page 页码
+     */
+    @SuppressLint("SwitchIntDef")
+    private fun search(
+        page: Int = mCurPage
+    ) {
+        mPresenter?.search(
+            keywords = mViewBinding.etSearch.text.toString(),
+            page = page,
+            onSuccess = { citySearch ->
+                val dataList = citySearch.districts
+
+                when (mPageOperateType) {
+                    // 加载
+                    PAGE_OPERATE_TYPE_LOAD -> {
+                        mCitySearchList.clear()
+                        mCitySearchList.addAll(dataList)
+                        if (dataList.isEmpty()) {
+                            setPageStatus(CITY_SEARCH_NO_DATA)
+                        } else {
+                            mCitySearchListAdapter.notifyDataSetChanged()
+                            setPageStatus(CITY_SEARCH_LIST)
+                        }
+                        hideLoadingView()
+                    }
+                    // 上拉加载
+                    PAGE_OPERATE_TYPE_LOAD_MORE -> {
+                        val oldSize = mCitySearchList.size
+
+                        ++mCurPage
+                        if (dataList.isEmpty()) {
+                            mViewBinding.srlCityList.finishLoadMoreWithNoMoreData()
+                        } else {
+                            mViewBinding.srlCityList.finishLoadMore(true)
+                        }
+                        mCitySearchList.addAll(dataList)
+                        if (oldSize <= 0) {
+                            mCitySearchListAdapter.notifyDataSetChanged()
+                        } else {
+                            // oldSize - 1 是为了更新 oldSize下标位置 前面的Item下面的ItemDecoration
+                            // 单独使用 notifyItemChanged 是为了避免 RecyclerView item更新动画 不美观
+                            mCitySearchListAdapter.notifyItemChanged(oldSize - 1)
+                            mCitySearchListAdapter.notifyItemRangeInserted(
+                                oldSize,
+                                mCitySearchList.size
+                            )
+                        }
+                    }
+                    else -> {}
+                }
+            },
+            onFailure = {
+                when (mPageOperateType) {
+                    // 加载
+                    PAGE_OPERATE_TYPE_LOAD -> hideLoadingView()
+                    // 上拉加载
+                    PAGE_OPERATE_TYPE_LOAD_MORE -> mViewBinding.srlCityList.finishLoadMore(false)
+                    else -> {}
+                }
+            }
+        )
+    }
+
+    /**
+     * Activity销毁回调
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        mDelayer.dispose()
+    }
+}
+
+/**
+ * 延时器
+ */
+internal class Delayer(
+    callback: () -> Unit = {}
+) {
+
+    /** 结束时间戳(毫秒值) */
+    @Volatile
+    private var mEndMs = 0L
+
+    /** 回调函数 */
+    private var mCallback = callback
+
+    /** 延时线程 */
+    private var mThread: Thread? = null
+
+    /**
+     * 获取和设置结束时的时间戳(毫秒值)
+     */
+    var endMillis
+        get() = mEndMs
+        set(endMillis) {
+            this.mEndMs = endMillis
+        }
+
+    /**
+     * 获取和设置回调函数
+     */
+    var callback
+        get() = mCallback
+        set(callback) {
+            this.mCallback = callback
+        }
+
+    /**
+     * 延迟毫秒数
+     */
+    fun delay(delayMs: Long) {
+        val thread = mThread
+
+        mEndMs = System.currentTimeMillis() + delayMs
+        if (thread == null || !thread.isAlive) {
+            mThread = Thread {
+                mThread?.run {
+                    try {
+                        while (!isInterrupted) {
+                            val curMs = System.currentTimeMillis()
+
+                            if (curMs >= mEndMs) {
+                                interrupt()
+                                runOnUiThread {
+                                    mCallback.invoke()
+                                }
+                            } else {
+                                sleep(mEndMs - curMs)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }.apply {
+                start()
+            }
+        }
+    }
+
+    /**
+     * 销毁
+     */
+    fun dispose() {
+        mThread?.run {
+            if (!isInterrupted) {
+                interrupt()
+            }
+        }
+    }
+
 }

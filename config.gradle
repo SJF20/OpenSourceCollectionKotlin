@@ -70,7 +70,8 @@ ext {
             "arouter-compiler"                    : "1.2.2",
             "bmob"                                : "3.7.8",
             "sophix"                              : "3.2.14",
-            "aspectJ"                             : "1.9.5"
+//            "aspectJ"                             : "1.9.5",
+            "datastore"                           : "1.0.0-alpha02"
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -189,7 +190,11 @@ ext {
             //阿里 Sophix 热修复
             "sophix"                              : "com.aliyun.ams:alicloud-android-hotfix:${versions["sophix"]}",
             //Android AspectJ
-            "aspectJ"                             : "org.aspectj:aspectjrt:${versions["aspectJ"]}"
+//            "aspectJ"                             : "org.aspectj:aspectjrt:${versions["aspectJ"]}",
+            //JetPack DataStore (Preferences DataStore)
+            "preferences_datastore"               : "androidx.datastore:datastore-preferences:${versions["datastore"]}",
+            //JetPack DataStore (Proto DataStore)
+            "proto_datastore"                     : "androidx.datastore:datastore-core:${versions["datastore"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [

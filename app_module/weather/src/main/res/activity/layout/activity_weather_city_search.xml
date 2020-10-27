@@ -66,7 +66,8 @@
         android:id="@+id/nsv_hot_city"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,119 +88,48 @@
                 android:layout_marginTop="15dp"
                 app:flowGravity="center"
                 app:flowOrientation="vertical"
-                app:itemSpacing="15dp"
-                app:lineSpacing="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_hot_city_label_bg"
-                    android:paddingStart="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="15dp"
-                    android:paddingBottom="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="@string/北京市" />
-
-            </com.shijingfeng.weather.widget.FlowLayout>
+                app:flowRawSpace="15dp"
+                app:flowColumnSpace="15dp" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_city_list"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_city_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:fadingEdge="none"
-        android:overScrollMode="never"
-        android:scrollbars="none" />
+        app:srlEnableRefresh="false"
+        app:srlEnableLoadMore="true"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_city_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/include_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/暂无数据"
+            android:textColor="@color/dim_grey"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

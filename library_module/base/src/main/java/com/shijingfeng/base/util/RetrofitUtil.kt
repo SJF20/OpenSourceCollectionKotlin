@@ -56,16 +56,21 @@ object RetrofitUtil {
             .connectionPool(ConnectionPool(8, 15, TimeUnit.SECONDS))
             //缓存拦截器
             .addInterceptor(CacheInterceptor())
-            //数据拦截器
-            .addNetworkInterceptor(HttpLoggingInterceptor(HttpLogger()).apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
 //            .addInterceptor(new HeaderInterceptor(null))
             // 上传下载进度拦截器
             .addInterceptor(ProgressInterceptor())
+
+        if (BuildConfig.DEBUG) {
+            //数据拦截器
+            okHttpClientBuilder.addNetworkInterceptor(HttpLoggingInterceptor(HttpLogger()).apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+        }
+
         val okHttpClient = RetrofitUrlManager.getInstance()
             .with(okHttpClientBuilder)
             .build()
+
         return Retrofit.Builder()
             //默认 BaseUrl: 玩安卓域名 (只是占位用, 会被动态替换)
             .baseUrl(BASE_URL_VALUE_WAN_ANDROID)

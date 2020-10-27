@@ -10,7 +10,7 @@ import com.shijingfeng.base.mvp.view.IView
  * Description:
  * @author ShiJingFeng
  */
-interface CityManageContract {
+internal interface CityManageContract {
 
     /**
      * View 层

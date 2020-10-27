@@ -192,8 +192,12 @@ abstract class BaseApplication : Application() {
             //将每个 BaseUrl 进行初始化,运行时可以随时改变 DOMAIN_NAME 对应的值,从而达到切换 BaseUrl 的效果
             // 玩安卓 BaseUrl
             putDomain(BASE_URL_NAME_WAN_ANDROID, BASE_URL_VALUE_WAN_ANDROID)
+            // Weather BaseUrl
+            putDomain(BASE_URL_NAME_WEATHER, BASE_URL_VALUE_WEATHER)
             // 蒲公英 (用于检测版本更新 和 下载应用) BaseUrl
             putDomain(BASE_URL_NAME_PGYER, BASE_URL_VALUE_PGYER)
+            // 高德行政区域查询 BaseUrl Valu
+            putDomain(BASE_URL_NAME_AMAP_CITY_SEARCH, BASE_URL_VALUE_AMAP_CITY_SEARCH)
         }
     }
 

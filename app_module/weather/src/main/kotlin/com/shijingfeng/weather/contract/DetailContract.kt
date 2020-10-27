@@ -10,7 +10,7 @@ import com.shijingfeng.base.mvp.view.IView
  * Description:
  * @author ShiJingFeng
  */
-interface DetailContract {
+internal interface DetailContract {
 
     /**
      * View 层

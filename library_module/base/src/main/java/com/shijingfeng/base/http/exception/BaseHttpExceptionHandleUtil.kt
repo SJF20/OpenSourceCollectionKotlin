@@ -32,15 +32,35 @@ import java.net.UnknownHostException
 fun handle(e: Throwable): E {
     val exception = when (e) {
         //服务器异常
-        is ServerException -> E(e.errorCode, e.errorMsg, e)
+        is ServerException -> E(
+            errorCode = e.errorCode,
+            errorMsg = e.errorMsg,
+            error = e
+        )
         //网络请求异常 (比如常见404 500之类的等)
-        is retrofit2.HttpException -> E(e.code(), getStringById(R.string.网络请求错误) + e.code(), e)
+        is retrofit2.HttpException -> E(
+            errorCode = e.code(),
+            errorMsg = getStringById(R.string.网络请求错误) + e.code(),
+            error = e
+        )
         //解析异常
-        is JsonParseException, is JSONException, is ParseException -> E(PARSE_EXCEPTION, getStringById(R.string.解析错误), e)
+        is JsonParseException, is JSONException, is ParseException -> E(
+            errorCode = PARSE_EXCEPTION,
+            errorMsg = getStringById(R.string.解析错误),
+            error = e
+        )
         //网络连接异常
-        is ConnectException, is UnknownHostException, is SocketTimeoutException -> E(NETWORK_EXCEPTION, getStringById(R.string.网络连接错误), e)
+        is ConnectException, is UnknownHostException, is SocketTimeoutException -> E(
+            errorCode = NETWORK_EXCEPTION,
+            errorMsg = getStringById(R.string.网络连接错误),
+            error = e
+        )
         //未知异常
-        else -> E(UNKNOWN_EXCEPTION, getStringById(R.string.未知错误), e)
+        else -> E(
+            errorCode = UNKNOWN_EXCEPTION,
+            errorMsg = getStringById(R.string.未知错误),
+            error = e
+        )
     }
     if (!TextUtils.isEmpty(exception.errorMsg)) {
         ToastUtils.showShort(exception.errorMsg)
