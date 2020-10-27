@@ -149,6 +149,12 @@ class LoadingView private constructor(
     }
 
     /**
+     * 获取 View
+     */
+    val view: ViewGroup?
+        get() = mAttr.parent
+
+    /**
      * 构建器
      */
     class Builder private constructor() {

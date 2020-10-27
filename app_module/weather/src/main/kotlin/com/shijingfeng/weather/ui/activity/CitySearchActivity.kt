@@ -98,24 +98,10 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
      */
     override fun initData() {
         super.initData()
+        registerLoadingView(mViewBinding.flContent, getString(R.string.搜索中))
+
+        // 初始化热门城市
         initHotCity()
-    }
-
-    /**
-     * 初始化热门城市
-     */
-    @SuppressLint("InflateParams")
-    private fun initHotCity() {
-        registerLoadingView(mViewBinding.srlCityList, getString(R.string.搜索中))
-
-        for (hotCityName in getStringArrayById(R.array.hotCityNameList) ?: emptyArray()) {
-            val view = LayoutInflater.from(this@CitySearchActivity)
-                .inflate(R.layout.layout_hot_city_lable, null) as TextView
-
-            mViewBinding.flHotCity.addView(view.apply {
-                text = hotCityName
-            })
-        }
 
         // 当不满 1 页时禁止开启上拉加载
         mViewBinding.srlCityList.setEnableLoadMoreWhenContentNotFull(false)
@@ -123,6 +109,24 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
         mCitySearchListAdapter = CitySearchListAdapter(this, mCitySearchList)
         mViewBinding.rvCityList.adapter = mCitySearchListAdapter
         mViewBinding.rvCityList.layoutManager = LinearLayoutManager(this)
+    }
+
+    /**
+     * 初始化热门城市
+     */
+    @SuppressLint("InflateParams")
+    private fun initHotCity() {
+        for (hotCityName in getStringArrayById(R.array.hotCityNameList) ?: emptyArray()) {
+            val view = LayoutInflater.from(this@CitySearchActivity).inflate(R.layout.layout_hot_city_lable, null) as TextView
+
+            mViewBinding.flHotCity.addView(view.apply {
+                text = hotCityName
+            })
+            // 选中标签监听
+            ClickUtils.applySingleDebouncing(view) { view -> 
+
+            }
+        }
     }
 
     /**
@@ -158,6 +162,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                 // 手动搜索
                 mCurPage = FIRST_PAGE
                 mPageOperateType = PAGE_OPERATE_TYPE_LOAD
+                setForbidInput(true)
                 showLoadingView()
                 search()
             } else {
@@ -170,6 +175,10 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             mPageOperateType = PAGE_OPERATE_TYPE_LOAD_MORE
             search(page = mCurPage + 1)
         }
+        // 适配器监听
+        mCitySearchListAdapter.setOnItemEventListener { view, data, position, flag ->
+
+        }
     }
 
     /**
@@ -181,31 +190,49 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
         @IntRange(from = HOT_CITY_LIST.toLong(), to = CITY_SEARCH_NO_DATA.toLong())
         status: Int
     ) {
-        e("测试", "status: ${status}")
         when (status) {
             // 热门城市列表
-            HOT_CITY_LIST -> {
-                mViewBinding.srlCityList.visibility = GONE
-                mViewBinding.includeNoData.visibility = GONE
-                mViewBinding.nsvHotCity.visibility = VISIBLE
+            HOT_CITY_LIST -> mViewBinding.run {
+                srlCityList.visibility = GONE
+                includeNoData.visibility = GONE
+                nsvHotCity.visibility = VISIBLE
             }
             // 城市搜索列表
-            CITY_SEARCH_LIST -> {
-                mViewBinding.nsvHotCity.visibility = GONE
-                mViewBinding.includeNoData.visibility = GONE
-                mViewBinding.srlCityList.visibility = VISIBLE
+            CITY_SEARCH_LIST -> mViewBinding.run {
+                nsvHotCity.visibility = GONE
+                includeNoData.visibility = GONE
+                srlCityList.visibility = VISIBLE
             }
             // 城市搜索列表 无数据
-            CITY_SEARCH_NO_DATA -> {
-//                mViewBinding.nsvHotCity.visibility = GONE
-//                mViewBinding.srlCityList.visibility = GONE
-//                mViewBinding.includeNoData.visibility = VISIBLE
-
-                nsv_hot_city.visibility = GONE
-                srl_city_list.visibility = GONE
-                include_no_data.visibility = VISIBLE
+            CITY_SEARCH_NO_DATA -> mViewBinding.run {
+                nsvHotCity.visibility = GONE
+                srlCityList.visibility = GONE
+                includeNoData.visibility = VISIBLE
             }
             else -> {}
+        }
+    }
+
+    /**
+     * 是否禁止输入
+     *
+     * @param isForbid  true: 禁止输入  false: 可以输入
+     */
+    private fun setForbidInput(
+        isForbid: Boolean
+    ) {
+        mViewBinding.run {
+            if (isForbid) {
+                // 禁止输入
+                etSearch.clearFocus()
+                etSearch.isEnabled = false
+                tvCancelOrSearch.isEnabled = false
+            } else {
+                // 可以输入
+                etSearch.isEnabled = true
+                etSearch.requestFocus()
+                tvCancelOrSearch.isEnabled = true
+            }
         }
     }
 
@@ -235,6 +262,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                             mCitySearchListAdapter.notifyDataSetChanged()
                             setPageStatus(CITY_SEARCH_LIST)
                         }
+                        setForbidInput(false)
                         hideLoadingView()
                     }
                     // 上拉加载
@@ -266,7 +294,10 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             onFailure = {
                 when (mPageOperateType) {
                     // 加载
-                    PAGE_OPERATE_TYPE_LOAD -> hideLoadingView()
+                    PAGE_OPERATE_TYPE_LOAD -> {
+                        setForbidInput(false)
+                        hideLoadingView()
+                    }
                     // 上拉加载
                     PAGE_OPERATE_TYPE_LOAD_MORE -> mViewBinding.srlCityList.finishLoadMore(false)
                     else -> {}

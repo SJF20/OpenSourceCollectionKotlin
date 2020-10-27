@@ -31,7 +31,8 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="9dp">
+            android:paddingBottom="9dp"
+            android:focusableInTouchMode="true">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -42,11 +43,13 @@
 
             <EditText
                 android:id="@+id/et_search"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@null"
                 android:hint="@string/搜索城市天气"
+                android:importantForAutofill="no"
+                android:inputType="text"
                 android:textSize="17sp" />
 
         </LinearLayout>
@@ -62,74 +65,80 @@
 
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_hot_city"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:visibility="visible">
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_hot_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/热门城市"
+                    android:textSize="16sp" />
+
+                <com.shijingfeng.weather.widget.FlowLayout
+                    android:id="@+id/fl_hot_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    app:flowColumnSpace="15dp"
+                    app:flowGravity="center"
+                    app:flowOrientation="vertical"
+                    app:flowRawSpace="15dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_city_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:srlEnableLoadMore="true"
+            app:srlEnableRefresh="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_city_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <LinearLayout
+            android:id="@+id/include_no_data"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/热门城市"
-                android:textSize="16sp" />
-
-            <com.shijingfeng.weather.widget.FlowLayout
-                android:id="@+id/fl_hot_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                app:flowGravity="center"
-                app:flowOrientation="vertical"
-                app:flowRawSpace="15dp"
-                app:flowColumnSpace="15dp" />
+                android:text="@string/暂无数据"
+                android:textColor="@color/dim_grey"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/srl_city_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnableRefresh="false"
-        app:srlEnableLoadMore="true"
-        android:visibility="gone">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_city_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:fadingEdge="none"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-    <LinearLayout
-        android:id="@+id/include_no_data"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/暂无数据"
-            android:textColor="@color/dim_grey"
-            android:textSize="18sp"/>
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
