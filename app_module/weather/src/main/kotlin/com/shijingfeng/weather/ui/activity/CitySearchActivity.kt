@@ -21,6 +21,9 @@ import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.databinding.ActivityWeatherCitySearchBinding
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
+import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_COUNTRY
+import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_PROVINCE
+import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_STREET
 import com.shijingfeng.weather.presenter.CitySearchPresenter
 import kotlinx.android.synthetic.main.activity_weather_city_search.*
 import java.lang.Thread.sleep
@@ -109,12 +112,14 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
         registerLoadingView(mViewBinding.srlCityList, getString(R.string.搜索中))
 
         for (hotCityName in getStringArrayById(R.array.hotCityNameList) ?: emptyArray()) {
-            val view = LayoutInflater.from(this@CitySearchActivity)
-                .inflate(R.layout.layout_hot_city_lable, null) as TextView
+            val view = LayoutInflater.from(this@CitySearchActivity).inflate(R.layout.layout_hot_city_lable, null) as TextView
 
             mViewBinding.flHotCity.addView(view.apply {
                 text = hotCityName
             })
+            ClickUtils.applySingleDebouncing(view) {
+
+            }
         }
 
         // 当不满 1 页时禁止开启上拉加载
@@ -170,6 +175,9 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             mPageOperateType = PAGE_OPERATE_TYPE_LOAD_MORE
             search(page = mCurPage + 1)
         }
+        mCitySearchListAdapter.setOnItemEventListener { view, data, position, flag ->
+
+        }
     }
 
     /**
@@ -181,7 +189,6 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
         @IntRange(from = HOT_CITY_LIST.toLong(), to = CITY_SEARCH_NO_DATA.toLong())
         status: Int
     ) {
-        e("测试", "status: ${status}")
         when (status) {
             // 热门城市列表
             HOT_CITY_LIST -> {
@@ -222,7 +229,12 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             keywords = mViewBinding.etSearch.text.toString(),
             page = page,
             onSuccess = { citySearch ->
-                val dataList = citySearch.districts
+                val dataList = citySearch.districts.filter { citySearchInfo ->
+                    // 过滤 国，省级行政区，乡镇级行政区
+                    citySearchInfo.run {
+                        level != DISTRICTS_COUNTRY && level != DISTRICTS_PROVINCE && level != DISTRICTS_STREET
+                    }
+                }
 
                 when (mPageOperateType) {
                     // 加载
