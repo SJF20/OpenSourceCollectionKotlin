@@ -123,7 +123,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                 text = hotCityName
             })
             // 选中标签监听
-            ClickUtils.applySingleDebouncing(view) { view -> 
+            ClickUtils.applySingleDebouncing(view) { view ->
 
             }
         }
@@ -162,7 +162,6 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                 // 手动搜索
                 mCurPage = FIRST_PAGE
                 mPageOperateType = PAGE_OPERATE_TYPE_LOAD
-                setForbidInput(true)
                 showLoadingView()
                 search()
             } else {
@@ -190,6 +189,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
         @IntRange(from = HOT_CITY_LIST.toLong(), to = CITY_SEARCH_NO_DATA.toLong())
         status: Int
     ) {
+        e("测试", "status: ${status}")
         when (status) {
             // 热门城市列表
             HOT_CITY_LIST -> mViewBinding.run {
@@ -249,7 +249,12 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             keywords = mViewBinding.etSearch.text.toString(),
             page = page,
             onSuccess = { citySearch ->
-                val dataList = citySearch.districts
+                val dataList = citySearch.districts.filter { citySearchInfo ->
+                    // 过滤 国，省级行政区，乡镇级行政区
+                    citySearchInfo.run {
+                        level != DISTRICTS_COUNTRY && level != DISTRICTS_PROVINCE && level != DISTRICTS_STREET
+                    }
+                }
 
                 when (mPageOperateType) {
                     // 加载
