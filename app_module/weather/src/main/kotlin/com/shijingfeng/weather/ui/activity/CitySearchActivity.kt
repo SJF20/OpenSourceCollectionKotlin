@@ -21,6 +21,9 @@ import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.databinding.ActivityWeatherCitySearchBinding
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
+import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_COUNTRY
+import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_PROVINCE
+import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_STREET
 import com.shijingfeng.weather.presenter.CitySearchPresenter
 import kotlinx.android.synthetic.main.activity_weather_city_search.*
 import java.lang.Thread.sleep
@@ -162,6 +165,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                 // 手动搜索
                 mCurPage = FIRST_PAGE
                 mPageOperateType = PAGE_OPERATE_TYPE_LOAD
+                setForbidInput(true)
                 showLoadingView()
                 search()
             } else {
@@ -189,7 +193,6 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
         @IntRange(from = HOT_CITY_LIST.toLong(), to = CITY_SEARCH_NO_DATA.toLong())
         status: Int
     ) {
-        e("测试", "status: ${status}")
         when (status) {
             // 热门城市列表
             HOT_CITY_LIST -> mViewBinding.run {
