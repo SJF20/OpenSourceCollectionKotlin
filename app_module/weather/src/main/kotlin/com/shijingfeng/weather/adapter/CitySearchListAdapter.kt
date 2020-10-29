@@ -1,10 +1,12 @@
 package com.shijingfeng.weather.adapter
 
 import android.content.Context
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.weather.R
-import com.shijingfeng.weather.constant.CHOOSE_CITY
+import com.shijingfeng.weather.common.constant.CHOOSE_CITY
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
 
 /**
@@ -29,8 +31,10 @@ internal class CitySearchListAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: CitySearchInfoEntity, position: Int) {
+        // 城市名称
         holder.setText(R.id.tv_city_name, data.name)
-        // TODO 需要添加代码: 判断该城市是否已添加
+        // 是否已添加
+        holder.setVisibility(R.id.tv_added, if (data.isAdded) VISIBLE else GONE)
         holder.setOnClickListener(
             view = holder.itemView,
             listener = { view ->

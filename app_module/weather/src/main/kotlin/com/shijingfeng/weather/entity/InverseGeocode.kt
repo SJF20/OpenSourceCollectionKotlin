@@ -1,0 +1,136 @@
+package com.shijingfeng.weather.entity
+
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
+import com.google.gson.annotations.SerializedName
+import com.shijingfeng.base.base.entity.BaseEntity
+
+/**
+ * Function: 逆地理编码 实体类
+ * Date: 2020/10/29 17:07
+ * Description:
+ * @author ShiJingFeng
+ */
+internal class InverseGeocodeEntity(
+
+    /** 返回值为 0 或 1，0 表示请求失败；1 表示请求成功。 */
+    @SerializedName("status")
+    val status: String = "0",
+
+    /** 当 status 为 0 时，info 会返回具体错误原因，否则返回“OK”。详情可以参考 info状态表 [https://lbs.amap.com/api/webservice/guide/tools/info] */
+    @SerializedName("info")
+    val info: String = "",
+
+    /** 详情可以参考 info状态表 [https://lbs.amap.com/api/webservice/guide/tools/info] */
+    @SerializedName("infocode")
+    val infoCode: String = "0",
+
+    /** 信息列表 */
+    @SerializedName("regeocodes")
+    val dataList: List<InverseGeocodeInfoEntity> = emptyList(),
+
+) : BaseEntity()
+
+/**
+ * 逆地理编码信息 实体类
+ */
+internal class InverseGeocodeInfoEntity(
+
+    /** 格式化的地址 */
+    @SerializedName("formatted_address")
+    val formattedAddress: String = "",
+
+    /** 详情 */
+    @SerializedName("addressComponent")
+    val detail: InverseGeocodeInfoDetailEntity,
+
+) : BaseEntity()
+
+/**
+ * 逆地理编码信息详情 实体类
+ */
+internal class InverseGeocodeInfoDetailEntity(
+
+    /** 城市编码 例如：010 */
+    @SerializedName("citycode")
+    val cityCode: String = "",
+
+    /** 行政区编码(不是邮政编码) 例如：110108 */
+    @SerializedName("adcode")
+    val adCode: String = "",
+
+    /** 国家 国内地址默认返回中国  例如：中国 */
+    @SerializedName("country")
+    val countryElement: JsonElement = JsonPrimitive(""),
+
+    /** 坐标点所在省名称  例如：北京市 */
+    @SerializedName("province")
+    val provinceElement: JsonElement = JsonPrimitive(""),
+
+    /** 坐标点所在城市名称 请注意：当城市是省直辖县时返回为空，以及城市为北京、上海、天津、重庆四个直辖市时，该字段返回为空；请看省直辖县列表 [https://lbs.amap.com/faq/webservice/webservice-api/geocoding/43267]  */
+    @SerializedName("city")
+    val cityElement: JsonElement = JsonPrimitive(""),
+
+    /** 坐标点所在区  例如：海淀区 */
+    @SerializedName("district")
+    val districtElement: JsonElement = JsonPrimitive(""),
+
+) : BaseEntity() {
+
+    /**
+     * 获取 国家
+     */
+    val country: String by lazy {
+        if (countryElement.isJsonPrimitive) {
+            val jsonPrimitive = countryElement.asJsonPrimitive
+
+            if (jsonPrimitive.isString) {
+                jsonPrimitive.asString
+            }
+        }
+        ""
+    }
+
+    /**
+     * 获取 省，直辖市，自治区，特别行政区，台湾省
+     */
+    val province: String by lazy {
+        if (provinceElement.isJsonPrimitive) {
+            val jsonPrimitive = provinceElement.asJsonPrimitive
+
+            if (jsonPrimitive.isString) {
+                jsonPrimitive.asString
+            }
+        }
+        ""
+    }
+
+    /**
+     * 获取 市(地级市)
+     */
+    val city: String by lazy {
+        if (cityElement.isJsonPrimitive) {
+            val jsonPrimitive = cityElement.asJsonPrimitive
+
+            if (jsonPrimitive.isString) {
+                jsonPrimitive.asString
+            }
+        }
+        ""
+    }
+
+    /**
+     * 获取 县，县级市，市区
+     */
+    val district: String by lazy {
+        if (districtElement.isJsonPrimitive) {
+            val jsonPrimitive = districtElement.asJsonPrimitive
+
+            if (jsonPrimitive.isString) {
+                jsonPrimitive.asString
+            }
+        }
+        ""
+    }
+
+}

@@ -51,8 +51,7 @@ internal class CoinRankLocalSource : BaseLocalSource() {
      * @param onFailure 失败回调函数
      */
     fun getCoinRankList(onSuccess: onSuccess<CoinRankEntity?>, onFailure: onFailure) {
-        getRealmInstance()
-            .executeTransactionAsync { realm ->
+        getRealmInstance().executeTransactionAsync { realm ->
             try {
                 val results = realm.where<CoinRankRealm>().findAll()
                 val coinRank = CoinRankEntity()

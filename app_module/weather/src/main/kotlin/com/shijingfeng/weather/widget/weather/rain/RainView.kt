@@ -14,10 +14,10 @@ import com.blankj.utilcode.util.ThreadUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.RainType
-import com.shijingfeng.weather.constant.HEAVY_RAIN
-import com.shijingfeng.weather.constant.LIGHT_RAIN
-import com.shijingfeng.weather.constant.MODERATE_RAIN
-import com.shijingfeng.weather.constant.STORM_RAIN
+import com.shijingfeng.weather.common.constant.HEAVY_RAIN
+import com.shijingfeng.weather.common.constant.LIGHT_RAIN
+import com.shijingfeng.weather.common.constant.MODERATE_RAIN
+import com.shijingfeng.weather.common.constant.STORM_RAIN
 import kotlin.math.max
 import kotlin.random.Random
 
@@ -64,7 +64,9 @@ internal class RainView @JvmOverloads constructor(
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.RainView).run {
-            mRainType = getInt(R.styleable.RainView_rainType, LIGHT_RAIN)
+            mRainType = getInt(R.styleable.RainView_rainType,
+                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN
+            )
             //一定要回收，否则会内存泄漏
             recycle()
         }
@@ -83,10 +85,10 @@ internal class RainView @JvmOverloads constructor(
         mRainList.clear()
         if (width != 0 && height != 0) {
             val count = when (mRainType) {
-                LIGHT_RAIN -> 70
-                MODERATE_RAIN -> 100
-                HEAVY_RAIN,
-                STORM_RAIN -> 200
+                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN -> 70
+                _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_RAIN -> 100
+                _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_RAIN,
+                _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_RAIN -> 200
                 else -> 0
             }
 
@@ -254,10 +256,10 @@ internal data class Rain(
      */
     fun reset() {
         val ratio = when (rainType) {
-            LIGHT_RAIN -> 0.5F
-            MODERATE_RAIN -> 0.75F
-            HEAVY_RAIN,
-            STORM_RAIN -> 1.0F
+            _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN -> 0.5F
+            _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_RAIN -> 0.75F
+            _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_RAIN,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_RAIN -> 1.0F
             else -> 1.0F
         }
         val random = 0.4F + 0.12F * Random.nextFloat() * 5F

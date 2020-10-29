@@ -18,6 +18,7 @@ import com.shijingfeng.base.util.*
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.adapter.CitySearchListAdapter
 import com.shijingfeng.weather.base.WeatherBaseActivity
+import com.shijingfeng.weather.common.global.cityDataMap
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.databinding.ActivityWeatherCitySearchBinding
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
@@ -255,7 +256,10 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                 val dataList = citySearch.districts.filter { citySearchInfo ->
                     // 过滤 国，省级行政区，乡镇级行政区
                     citySearchInfo.run {
-                        level != DISTRICTS_COUNTRY && level != DISTRICTS_PROVINCE && level != DISTRICTS_STREET
+                        val pass = level != DISTRICTS_COUNTRY && level != DISTRICTS_PROVINCE && level != DISTRICTS_STREET
+
+                        citySearchInfo.isAdded = pass && cityDataMap.contains(citySearchInfo.adCode)
+                        pass
                     }
                 }
 

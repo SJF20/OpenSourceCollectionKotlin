@@ -21,22 +21,20 @@ import kotlin.Exception
 
 /** 应用初始化类 全限定类名 列表 */
 private val appInitClassNameList = arrayOf(
-    APP_INIT_APP,
-    APP_INIT_WAN_ANDROID,
-    APP_INIT_TODO,
-    APP_INIT_WEATHER,
-    APP_INIT_TENCENT_X5,
+    APP_INIT_COMMON,
     APP_INIT_LOCATION,
+    APP_INIT_TENCENT_X5,
     APP_INIT_BACKGROUND_SERVICE,
-    APP_INIT_COMMON
+    APP_INIT_WEATHER,
+    APP_INIT_TODO,
+    APP_INIT_WAN_ANDROID,
+    APP_INIT_APP,
 )
 /** 应用初始化类 列表 */
 private val appInitInstanceList = mutableListOf<AppInit>()
 
 /** Application实例 */
 lateinit var application: BaseApplication
-
-var startTimestamp = 0L
 
 /**
  * Function:  Application基类
@@ -74,7 +72,10 @@ abstract class BaseApplication : Application() {
         application = this
         // 主进程初始化
         if (isMainProcess()) {
+            // Application主进程初始化操作
             mainProcessInit()
+            // 开始 其他 module App 初始化
+            startAppInit()
         }
     }
 
@@ -86,34 +87,19 @@ abstract class BaseApplication : Application() {
         enable(true)
         // 初始化万能工具类
         initUtils()
-        e("启动时间统计", "initUtils() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 初始化 ARouter 路由框架
         initARouter()
-        e("启动时间统计", "initARouter() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 初始化 LoadSir
         initLoadSir()
-        e("启动时间统计", "initLoadSir() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 初始化 RetrofitUrlManager
         initRetrofitUrlManager()
-        e("启动时间统计", "initRetrofitUrlManager() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
 
         // 注册广播
         registerGlobalReceiver()
-        e("启动时间统计", "registerGlobalReceiver() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
-
-        // 开始 其他 module App 初始化
-        startAppInit()
-        e("启动时间统计", "startAppInit() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
     }
 
     /**
-     * 开始 其他 module App 初始化
+     * 开始 其他 module App 初始化 (晚于 应用模块的 Application)
      */
     private fun startAppInit() {
         // 生成实例列表

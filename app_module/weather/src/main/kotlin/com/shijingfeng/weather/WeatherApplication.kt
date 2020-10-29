@@ -7,6 +7,7 @@ import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
+import io.realm.Realm
 import java.util.concurrent.Executors
 
 /**
@@ -34,6 +35,8 @@ internal class WeatherApplication : BaseApplication(), Configuration.Provider {
         super.mainProcessInit()
         // 初始化 Bmob 后端
         initBmob()
+        //初始化 Realm 数据库
+        initRealm()
     }
 
     /**
@@ -51,6 +54,14 @@ internal class WeatherApplication : BaseApplication(), Configuration.Provider {
                 .setFileExpiration(1800)
                 .build()
         )
+    }
+
+    /**
+     * 初始化 Realm 数据库
+     */
+    private fun initRealm() {
+        // 初始化 Realm 数据库
+        Realm.init(this)
     }
 
     /**

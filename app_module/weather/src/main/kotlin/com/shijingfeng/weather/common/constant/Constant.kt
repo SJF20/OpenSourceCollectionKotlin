@@ -1,6 +1,6 @@
 /** 生成的 Java 类名 */
 @file:JvmName("Constant")
-package com.shijingfeng.weather.constant
+package com.shijingfeng.weather.common.constant
 
 /**
  * Function: 通用静态常量

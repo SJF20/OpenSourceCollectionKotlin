@@ -5,6 +5,27 @@ import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.WeatherType
+import com.shijingfeng.weather.common.constant.*
+import com.shijingfeng.weather.common.constant.CLEAR_DAY
+import com.shijingfeng.weather.common.constant.CLEAR_NIGHT
+import com.shijingfeng.weather.common.constant.CLOUDY
+import com.shijingfeng.weather.common.constant.DUST
+import com.shijingfeng.weather.common.constant.FOG
+import com.shijingfeng.weather.common.constant.HEAVY_HAZE
+import com.shijingfeng.weather.common.constant.HEAVY_RAIN
+import com.shijingfeng.weather.common.constant.HEAVY_SNOW
+import com.shijingfeng.weather.common.constant.LIGHT_HAZE
+import com.shijingfeng.weather.common.constant.LIGHT_RAIN
+import com.shijingfeng.weather.common.constant.LIGHT_SNOW
+import com.shijingfeng.weather.common.constant.MODERATE_HAZE
+import com.shijingfeng.weather.common.constant.MODERATE_RAIN
+import com.shijingfeng.weather.common.constant.MODERATE_SNOW
+import com.shijingfeng.weather.common.constant.PARTLY_CLOUDY_DAY
+import com.shijingfeng.weather.common.constant.PARTLY_CLOUDY_NIGHT
+import com.shijingfeng.weather.common.constant.SAND
+import com.shijingfeng.weather.common.constant.STORM_RAIN
+import com.shijingfeng.weather.common.constant.STORM_SNOW
+import com.shijingfeng.weather.common.constant.WIND
 import com.shijingfeng.weather.constant.*
 
 

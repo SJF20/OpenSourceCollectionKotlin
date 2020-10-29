@@ -52,7 +52,7 @@ internal data class CitySearchInfoEntity(
 
     /** 区域中心点 外国是数组(JsonArray), 其他是字符串(JsonPrimitive)  例子: "经度,纬度" */
     @SerializedName("center")
-    private val center: JsonElement,
+    val center: JsonElement,
 
     /**
      * 行政区划级别
@@ -67,7 +67,10 @@ internal data class CitySearchInfoEntity(
 
     /** 下一级 */
     @SerializedName("districts")
-    val districts: List<CitySearchInfoEntity> = emptyList()
+    val districts: List<CitySearchInfoEntity> = emptyList(),
+
+    /** 是否已添加 */
+    var isAdded: Boolean = false
 
 ) : BaseEntity() {
 

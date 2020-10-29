@@ -1,5 +1,5 @@
 @file:JvmName("RealmUtil")
-package com.shijingfeng.wan_android.utils
+package com.shijingfeng.weather.util
 
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -46,7 +46,7 @@ internal fun closeRealmInstance() {
 private fun createRealmInstance(): Realm {
     // Realm 数据库 配置
     val realmConfiguration = RealmConfiguration.Builder()
-        .name("wan_android.realm")
+        .name("weather.realm")
         .schemaVersion(0L)
         .build()
 

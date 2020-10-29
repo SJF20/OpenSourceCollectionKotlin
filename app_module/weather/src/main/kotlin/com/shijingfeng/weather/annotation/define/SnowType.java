@@ -5,10 +5,10 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static com.shijingfeng.weather.constant.WeatherConstant.HEAVY_SNOW;
-import static com.shijingfeng.weather.constant.WeatherConstant.LIGHT_SNOW;
-import static com.shijingfeng.weather.constant.WeatherConstant.MODERATE_SNOW;
-import static com.shijingfeng.weather.constant.WeatherConstant.STORM_SNOW;
+import static com.shijingfeng.weather.common.constant.WeatherConstant.HEAVY_SNOW;
+import static com.shijingfeng.weather.common.constant.WeatherConstant.LIGHT_SNOW;
+import static com.shijingfeng.weather.common.constant.WeatherConstant.MODERATE_SNOW;
+import static com.shijingfeng.weather.common.constant.WeatherConstant.STORM_SNOW;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
 import static java.lang.annotation.ElementType.METHOD;

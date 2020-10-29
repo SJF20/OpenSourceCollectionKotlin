@@ -14,10 +14,10 @@ import com.blankj.utilcode.util.ThreadUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.SnowType
-import com.shijingfeng.weather.constant.HEAVY_SNOW
-import com.shijingfeng.weather.constant.LIGHT_SNOW
-import com.shijingfeng.weather.constant.MODERATE_SNOW
-import com.shijingfeng.weather.constant.STORM_SNOW
+import com.shijingfeng.weather.common.constant.HEAVY_SNOW
+import com.shijingfeng.weather.common.constant.LIGHT_SNOW
+import com.shijingfeng.weather.common.constant.MODERATE_SNOW
+import com.shijingfeng.weather.common.constant.STORM_SNOW
 import kotlin.math.max
 import kotlin.math.sin
 import kotlin.random.Random
@@ -65,7 +65,9 @@ internal class SnowView @JvmOverloads constructor(
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.SnowView).run {
-            mSnowType = getInt(R.styleable.SnowView_snowType, LIGHT_SNOW)
+            mSnowType = getInt(R.styleable.SnowView_snowType,
+                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW
+            )
             //一定要回收，否则会内存泄漏
             recycle()
         }
@@ -84,10 +86,10 @@ internal class SnowView @JvmOverloads constructor(
         mSnowList.clear()
         if (width != 0 && height != 0) {
             val count = when (mSnowType) {
-                LIGHT_SNOW -> 30
-                MODERATE_SNOW -> 100
-                HEAVY_SNOW,
-                STORM_SNOW -> 200
+                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW -> 30
+                _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_SNOW -> 100
+                _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_SNOW,
+                _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_SNOW -> 200
                 else -> 0
             }
 
@@ -256,10 +258,10 @@ internal data class Snow(
      */
     fun reset() {
         val ratio = when (snowType) {
-            LIGHT_SNOW -> 0.5F
-            MODERATE_SNOW -> 0.75F
-            HEAVY_SNOW,
-            STORM_SNOW -> 1.0F
+            _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW -> 0.5F
+            _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_SNOW -> 0.75F
+            _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_SNOW,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_SNOW -> 1.0F
             else -> 1.0F
         }
         val random = 0.4F + 0.12F * Random.nextFloat() * 5F

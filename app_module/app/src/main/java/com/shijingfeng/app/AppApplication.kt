@@ -7,7 +7,6 @@ import cn.bmob.v3.BmobConfig
 import com.shijingfeng.background_service.work_manager.startCheckForHotfixPatchWorker
 import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
-import com.shijingfeng.base.base.application.startTimestamp
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.LOG_TENCENT_X5
@@ -36,25 +35,14 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         super.mainProcessInit()
         // 初始化 Bmob 后端
         initBmob()
-        e("启动时间统计", "initBmob() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 初始化腾讯X5
         initX5()
-        e("启动时间统计", "initX5() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 初始化 Realm 数据库
         initRealm()
-        e("启动时间统计", "initRealm() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 开启 检查更新 Worker
         startCheckForUpdateWorker()
-        e("启动时间统计", "startCheckForUpdateWorker() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
         // 开启 检查更新热修复补丁 Worker
         startCheckForHotfixPatchWorker()
-        e("启动时间统计", "startCheckForHotfixPatchWorker() 耗时: ${System.currentTimeMillis() - startTimestamp}")
-        startTimestamp = System.currentTimeMillis()
-        e("启动时间统计", "----结束统计----")
     }
 
     /**

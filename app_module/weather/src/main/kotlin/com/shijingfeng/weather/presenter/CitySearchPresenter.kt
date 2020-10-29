@@ -5,6 +5,7 @@ import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.mvp.presenter.BasePresenter
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.entity.CitySearchEntity
+import com.shijingfeng.weather.entity.realm.CityData
 import com.shijingfeng.weather.model.CitySearchModel
 
 /**
@@ -41,6 +42,30 @@ internal class CitySearchPresenter(
         onFailure: onFailure
     ) {
         mModel?.search(keywords, page, onSuccess, onFailure)
+    }
+
+    /**
+     * 获取城市数据(包括行政数据和天气数据)
+     *
+     * @param longitude 经度
+     * @param latitude 纬度
+     * @param onSuccess 成功回调
+     * @param onFailure 失败回调
+     */
+    override fun getCityData(
+        longitude: Double,
+        latitude: Double,
+        onSuccess: onSuccess<CityData>,
+        onFailure: onFailure
+    ) {
+
+    }
+
+    /**
+     * 通过经纬度获取地址
+     */
+    private fun getAddressByLngLat() {
+
     }
 
 }

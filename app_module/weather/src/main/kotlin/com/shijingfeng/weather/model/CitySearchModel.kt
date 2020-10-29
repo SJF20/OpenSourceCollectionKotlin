@@ -10,8 +10,10 @@ import com.shijingfeng.base.mvp.model.BaseModel
 import com.shijingfeng.base.util.RetrofitUtil
 import com.shijingfeng.base.util.e
 import com.shijingfeng.weather.api.CitySearchApi
+import com.shijingfeng.weather.common.constant.AMAP_SERVER_SUCCESS
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.entity.CitySearchEntity
+import com.shijingfeng.weather.entity.realm.CityData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -56,8 +58,34 @@ internal class CitySearchModel(
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ citySearch ->
-                    if ("1" == citySearch.status) {
-                        onSuccess.invoke(citySearch)
+                    if (citySearch.status == AMAP_SERVER_SUCCESS) {
+                        if (citySearch.districts.isEmpty()) {
+                            onSuccess.invoke(citySearch)
+                            return@subscribe
+                        }
+                        // 此处应加过滤逻辑 和 防止 下标没有对应(经纬度为空数组)
+                        val locationStr = StringBuilder()
+
+                        citySearch.districts.forEachIndexed { index, citySearchInfo ->
+                            if (citySearchInfo.center.isJsonPrimitive) {
+                                val jsonPrimitive = citySearchInfo.center.asJsonPrimitive
+
+                                if (index != 0) {
+                                    locationStr.append("|")
+                                }
+                                locationStr.append(jsonPrimitive.asString)
+                            }
+                        }
+
+                        mCitySearchApi.getAddressByLngLat(location = locationStr.toString())
+                            .subscribeOn(Schedulers.io())
+                            .unsubscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ inverseGeocode ->
+
+                            }, { throwable ->
+
+                            })
                     } else {
                         onFailure.invoke(handle(ServerException(citySearch.infoCode.toInt(), citySearch.info)))
                     }
@@ -65,6 +93,23 @@ internal class CitySearchModel(
                     onFailure.invoke(handle(throwable))
                 })
         )
+    }
+
+    /**
+     * 获取城市数据(包括行政数据和天气数据)
+     *
+     * @param longitude 经度
+     * @param latitude 纬度
+     * @param onSuccess 成功回调
+     * @param onFailure 失败回调
+     */
+    override fun getCityData(
+        longitude: Double,
+        latitude: Double,
+        onSuccess: onSuccess<CityData>,
+        onFailure: onFailure
+    ) {
+
     }
 
 }

@@ -15,10 +15,10 @@ import com.blankj.utilcode.util.SizeUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.RainType
-import com.shijingfeng.weather.constant.HEAVY_RAIN
-import com.shijingfeng.weather.constant.LIGHT_RAIN
-import com.shijingfeng.weather.constant.MODERATE_RAIN
-import com.shijingfeng.weather.constant.STORM_RAIN
+import com.shijingfeng.weather.common.constant.HEAVY_RAIN
+import com.shijingfeng.weather.common.constant.LIGHT_RAIN
+import com.shijingfeng.weather.common.constant.MODERATE_RAIN
+import com.shijingfeng.weather.common.constant.STORM_RAIN
 import kotlin.Exception
 
 /**
@@ -41,7 +41,8 @@ internal class RainSurfaceView @JvmOverloads constructor(
 ), SurfaceHolder.Callback {
 
     /** 雨 类型 */
-    @RainType private var mRainType = LIGHT_RAIN
+    @RainType private var mRainType =
+        _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN
     /** 雨滴实体类 列表 */
     private val mRainList = mutableListOf<Rain>()
 
@@ -71,7 +72,9 @@ internal class RainSurfaceView @JvmOverloads constructor(
         isFocusableInTouchMode = true
         setZOrderOnTop(true)
         context.obtainStyledAttributes(attrs, R.styleable.RainSurfaceView).run {
-            mRainType = getInt(R.styleable.RainSurfaceView_rainSurfaceType, LIGHT_RAIN)
+            mRainType = getInt(R.styleable.RainSurfaceView_rainSurfaceType,
+                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN
+            )
             //一定要回收，否则会内存泄漏
             recycle()
         }
@@ -123,10 +126,10 @@ internal class RainSurfaceView @JvmOverloads constructor(
         mRainList.clear()
         if (width != 0 && height != 0) {
             val count = when (mRainType) {
-                LIGHT_RAIN -> 70
-                MODERATE_RAIN -> 100
-                HEAVY_RAIN,
-                STORM_RAIN -> 200
+                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN -> 70
+                _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_RAIN -> 100
+                _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_RAIN,
+                _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_RAIN -> 200
                 else -> 0
             }
 

@@ -9,11 +9,27 @@ import com.blankj.utilcode.util.ThreadUtils
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.RainType
 import com.shijingfeng.weather.annotation.define.WeatherType
+import com.shijingfeng.weather.common.constant.*
+import com.shijingfeng.weather.common.constant.CLEAR_DAY
+import com.shijingfeng.weather.common.constant.CLOUDY
+import com.shijingfeng.weather.common.constant.DUST
+import com.shijingfeng.weather.common.constant.FOG
+import com.shijingfeng.weather.common.constant.HEAVY_HAZE
+import com.shijingfeng.weather.common.constant.HEAVY_RAIN
+import com.shijingfeng.weather.common.constant.HEAVY_SNOW
+import com.shijingfeng.weather.common.constant.LIGHT_HAZE
+import com.shijingfeng.weather.common.constant.LIGHT_RAIN
+import com.shijingfeng.weather.common.constant.LIGHT_SNOW
+import com.shijingfeng.weather.common.constant.MODERATE_HAZE
+import com.shijingfeng.weather.common.constant.MODERATE_RAIN
+import com.shijingfeng.weather.common.constant.MODERATE_SNOW
+import com.shijingfeng.weather.common.constant.PARTLY_CLOUDY_DAY
+import com.shijingfeng.weather.common.constant.PARTLY_CLOUDY_NIGHT
+import com.shijingfeng.weather.common.constant.SAND
+import com.shijingfeng.weather.common.constant.STORM_RAIN
+import com.shijingfeng.weather.common.constant.STORM_SNOW
+import com.shijingfeng.weather.common.constant.WIND
 import com.shijingfeng.weather.constant.*
-import com.shijingfeng.weather.constant.CLEAR_DAY
-import com.shijingfeng.weather.constant.LIGHT_RAIN
-import com.shijingfeng.weather.constant.PARTLY_CLOUDY_DAY
-import com.shijingfeng.weather.constant.PARTLY_CLOUDY_NIGHT
 
 /**
  * Function: 云层 View
@@ -72,7 +88,7 @@ internal class CloudView @JvmOverloads constructor(
             // 晴（白天） cloudRate < 0.2
             CLEAR_DAY,
             // 大风
-            WIND -> drawClearDay(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.WIND -> drawClearDay(canvas)
 
             // 多云（白天）0.8 >= cloudRate > 0.2
             PARTLY_CLOUDY_DAY -> drawPartlyCloudyDay(canvas)
@@ -81,44 +97,44 @@ internal class CloudView @JvmOverloads constructor(
             PARTLY_CLOUDY_NIGHT -> drawPartlyCloudyNight(canvas)
 
             // 阴 cloudRate > 0.8
-            CLOUDY -> drawCloudy(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.CLOUDY -> drawCloudy(canvas)
 
             // 小雨
             LIGHT_RAIN -> drawLightRain(canvas)
 
             // 中雨
-            MODERATE_RAIN -> drawModerateRain(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_RAIN -> drawModerateRain(canvas)
 
             // 大雨
-            HEAVY_RAIN,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_RAIN,
             // 暴雨
-            STORM_RAIN -> drawHeavyRain(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_RAIN -> drawHeavyRain(canvas)
 
             // 小雪
-            LIGHT_SNOW -> drawLightSnow(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW -> drawLightSnow(canvas)
 
             // 中雪
-            MODERATE_SNOW -> drawModerateSnow(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_SNOW -> drawModerateSnow(canvas)
 
             // 大雪
-            HEAVY_SNOW,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_SNOW,
             // 暴雪
-            STORM_SNOW -> drawHeavySnow(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_SNOW -> drawHeavySnow(canvas)
 
             // 雾
-            FOG -> drawFog(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.FOG -> drawFog(canvas)
 
             // 轻度雾霾 PM2.5 100~150
-            LIGHT_HAZE,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_HAZE,
             // 中度雾霾 PM2.5 150~200
-            MODERATE_HAZE,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_HAZE,
             // 重度雾霾 PM2.5 > 200
-            HEAVY_HAZE -> drawHaze(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_HAZE -> drawHaze(canvas)
 
             // 浮尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 < 6 m/s
-            DUST,
+            _root_ide_package_.com.shijingfeng.weather.common.constant.DUST,
             // 沙尘 aqi > 150，pm10 > 150，湿度 < 30%，风速 > 6 m/s
-            SAND -> drawDust(canvas)
+            _root_ide_package_.com.shijingfeng.weather.common.constant.SAND -> drawDust(canvas)
 
             else -> {}
         }
