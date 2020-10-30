@@ -18,15 +18,10 @@ import com.shijingfeng.base.util.*
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.adapter.CitySearchListAdapter
 import com.shijingfeng.weather.base.WeatherBaseActivity
-import com.shijingfeng.weather.common.global.cityDataMap
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.databinding.ActivityWeatherCitySearchBinding
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
-import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_COUNTRY
-import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_PROVINCE
-import com.shijingfeng.weather.entity.CitySearchInfoEntity.Companion.DISTRICTS_STREET
 import com.shijingfeng.weather.presenter.CitySearchPresenter
-import kotlinx.android.synthetic.main.activity_weather_city_search.*
 import java.lang.Thread.sleep
 import kotlin.Exception
 
@@ -253,15 +248,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             keywords = mViewBinding.etSearch.text.toString(),
             page = page,
             onSuccess = { citySearch ->
-                val dataList = citySearch.districts.filter { citySearchInfo ->
-                    // 过滤 国，省级行政区，乡镇级行政区
-                    citySearchInfo.run {
-                        val pass = level != DISTRICTS_COUNTRY && level != DISTRICTS_PROVINCE && level != DISTRICTS_STREET
-
-                        citySearchInfo.isAdded = pass && cityDataMap.contains(citySearchInfo.adCode)
-                        pass
-                    }
-                }
+                val dataList = citySearch.districts
 
                 when (mPageOperateType) {
                     // 加载

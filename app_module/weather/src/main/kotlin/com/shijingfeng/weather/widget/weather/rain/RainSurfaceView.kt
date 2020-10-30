@@ -42,7 +42,7 @@ internal class RainSurfaceView @JvmOverloads constructor(
 
     /** 雨 类型 */
     @RainType private var mRainType =
-        _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN
+        LIGHT_RAIN
     /** 雨滴实体类 列表 */
     private val mRainList = mutableListOf<Rain>()
 
@@ -73,7 +73,7 @@ internal class RainSurfaceView @JvmOverloads constructor(
         setZOrderOnTop(true)
         context.obtainStyledAttributes(attrs, R.styleable.RainSurfaceView).run {
             mRainType = getInt(R.styleable.RainSurfaceView_rainSurfaceType,
-                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN
+                LIGHT_RAIN
             )
             //一定要回收，否则会内存泄漏
             recycle()
@@ -126,10 +126,10 @@ internal class RainSurfaceView @JvmOverloads constructor(
         mRainList.clear()
         if (width != 0 && height != 0) {
             val count = when (mRainType) {
-                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_RAIN -> 70
-                _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_RAIN -> 100
-                _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_RAIN,
-                _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_RAIN -> 200
+                LIGHT_RAIN -> 70
+                MODERATE_RAIN -> 100
+                HEAVY_RAIN,
+                STORM_RAIN -> 200
                 else -> 0
             }
 

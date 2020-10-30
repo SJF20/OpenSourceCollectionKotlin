@@ -4,12 +4,20 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
+import com.shijingfeng.weather.common.constant.AMAP_CITY
+import com.shijingfeng.weather.common.constant.AMAP_COUNTRY
+import com.shijingfeng.weather.common.constant.AMAP_DISTRICT
+import com.shijingfeng.weather.common.constant.AMAP_PROVINCE
 
 /**
  * Function: 逆地理编码 实体类
  * Date: 2020/10/29 17:07
  * Description:
  * @author ShiJingFeng
+ */
+/**
+ * 逆地理编码 实体类
+ * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
 internal class InverseGeocodeEntity(
 
@@ -33,6 +41,7 @@ internal class InverseGeocodeEntity(
 
 /**
  * 逆地理编码信息 实体类
+ * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
 internal class InverseGeocodeInfoEntity(
 
@@ -48,6 +57,7 @@ internal class InverseGeocodeInfoEntity(
 
 /**
  * 逆地理编码信息详情 实体类
+ * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
 internal class InverseGeocodeInfoDetailEntity(
 
@@ -60,20 +70,20 @@ internal class InverseGeocodeInfoDetailEntity(
     val adCode: String = "",
 
     /** 国家 国内地址默认返回中国  例如：中国 */
-    @SerializedName("country")
-    val countryElement: JsonElement = JsonPrimitive(""),
+    @SerializedName(AMAP_COUNTRY)
+    private val countryJsonElement: JsonElement = JsonPrimitive(""),
 
     /** 坐标点所在省名称  例如：北京市 */
-    @SerializedName("province")
-    val provinceElement: JsonElement = JsonPrimitive(""),
+    @SerializedName(AMAP_PROVINCE)
+    private val provinceJsonElement: JsonElement = JsonPrimitive(""),
 
     /** 坐标点所在城市名称 请注意：当城市是省直辖县时返回为空，以及城市为北京、上海、天津、重庆四个直辖市时，该字段返回为空；请看省直辖县列表 [https://lbs.amap.com/faq/webservice/webservice-api/geocoding/43267]  */
-    @SerializedName("city")
-    val cityElement: JsonElement = JsonPrimitive(""),
+    @SerializedName(AMAP_CITY)
+    private val cityJsonElement: JsonElement = JsonPrimitive(""),
 
     /** 坐标点所在区  例如：海淀区 */
-    @SerializedName("district")
-    val districtElement: JsonElement = JsonPrimitive(""),
+    @SerializedName(AMAP_DISTRICT)
+    private val districtJsonElement: JsonElement = JsonPrimitive(""),
 
 ) : BaseEntity() {
 
@@ -81,56 +91,76 @@ internal class InverseGeocodeInfoDetailEntity(
      * 获取 国家
      */
     val country: String by lazy {
-        if (countryElement.isJsonPrimitive) {
-            val jsonPrimitive = countryElement.asJsonPrimitive
+        try {
+            if (countryJsonElement.isJsonPrimitive) {
+                val jsonPrimitive = countryJsonElement.asJsonPrimitive
 
-            if (jsonPrimitive.isString) {
-                jsonPrimitive.asString
+                if (jsonPrimitive.isString) {
+                    return@lazy jsonPrimitive.asString
+                }
             }
+            return@lazy ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return@lazy ""
         }
-        ""
     }
 
     /**
      * 获取 省，直辖市，自治区，特别行政区，台湾省
      */
     val province: String by lazy {
-        if (provinceElement.isJsonPrimitive) {
-            val jsonPrimitive = provinceElement.asJsonPrimitive
+        try {
+            if (provinceJsonElement.isJsonPrimitive) {
+                val jsonPrimitive = provinceJsonElement.asJsonPrimitive
 
-            if (jsonPrimitive.isString) {
-                jsonPrimitive.asString
+                if (jsonPrimitive.isString) {
+                    return@lazy jsonPrimitive.asString
+                }
             }
+            return@lazy ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return@lazy ""
         }
-        ""
     }
 
     /**
      * 获取 市(地级市)
      */
     val city: String by lazy {
-        if (cityElement.isJsonPrimitive) {
-            val jsonPrimitive = cityElement.asJsonPrimitive
+        try {
+            if (cityJsonElement.isJsonPrimitive) {
+                val jsonPrimitive = cityJsonElement.asJsonPrimitive
 
-            if (jsonPrimitive.isString) {
-                jsonPrimitive.asString
+                if (jsonPrimitive.isString) {
+                    return@lazy jsonPrimitive.asString
+                }
             }
+            return@lazy ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return@lazy ""
         }
-        ""
     }
 
     /**
      * 获取 县，县级市，市区
      */
     val district: String by lazy {
-        if (districtElement.isJsonPrimitive) {
-            val jsonPrimitive = districtElement.asJsonPrimitive
+        try {
+            if (districtJsonElement.isJsonPrimitive) {
+                val jsonPrimitive = districtJsonElement.asJsonPrimitive
 
-            if (jsonPrimitive.isString) {
-                jsonPrimitive.asString
+                if (jsonPrimitive.isString) {
+                    return@lazy jsonPrimitive.asString
+                }
             }
+            return@lazy ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return@lazy ""
         }
-        ""
     }
 
 }

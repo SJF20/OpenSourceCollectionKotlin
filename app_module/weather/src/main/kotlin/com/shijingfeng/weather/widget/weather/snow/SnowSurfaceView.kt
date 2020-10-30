@@ -17,8 +17,10 @@ import com.blankj.utilcode.util.SizeUtils
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.SnowType
-import com.shijingfeng.weather.constant.*
+import com.shijingfeng.weather.common.constant.HEAVY_SNOW
 import com.shijingfeng.weather.common.constant.LIGHT_SNOW
+import com.shijingfeng.weather.common.constant.MODERATE_SNOW
+import com.shijingfeng.weather.common.constant.STORM_SNOW
 import kotlin.math.sin
 
 /**
@@ -42,7 +44,7 @@ internal class SnowSurfaceView @JvmOverloads constructor(
 
     /** 雪 类型 */
     @SnowType private var mSnowType =
-        _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW
+        LIGHT_SNOW
     /** 雪花实体类 列表 */
     private val mSnowList = mutableListOf<Snow>()
 
@@ -80,7 +82,7 @@ internal class SnowSurfaceView @JvmOverloads constructor(
         setZOrderOnTop(true)
         context.obtainStyledAttributes(attrs, R.styleable.SnowSurfaceView).run {
             mSnowType = getInt(R.styleable.SnowSurfaceView_snowSurfaceType,
-                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW
+                LIGHT_SNOW
             )
             //一定要回收，否则会内存泄漏
             recycle()
@@ -133,10 +135,10 @@ internal class SnowSurfaceView @JvmOverloads constructor(
         mSnowList.clear()
         if (width != 0 && height != 0) {
             val count = when (mSnowType) {
-                _root_ide_package_.com.shijingfeng.weather.common.constant.LIGHT_SNOW -> 30
-                _root_ide_package_.com.shijingfeng.weather.common.constant.MODERATE_SNOW -> 100
-                _root_ide_package_.com.shijingfeng.weather.common.constant.HEAVY_SNOW,
-                _root_ide_package_.com.shijingfeng.weather.common.constant.STORM_SNOW -> 200
+                LIGHT_SNOW -> 30
+                MODERATE_SNOW -> 100
+                HEAVY_SNOW,
+                STORM_SNOW -> 200
                 else -> 0
             }
 

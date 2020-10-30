@@ -26,8 +26,6 @@ import com.shijingfeng.weather.common.constant.SAND
 import com.shijingfeng.weather.common.constant.STORM_RAIN
 import com.shijingfeng.weather.common.constant.STORM_SNOW
 import com.shijingfeng.weather.common.constant.WIND
-import com.shijingfeng.weather.constant.*
-
 
 /**
  * Function:

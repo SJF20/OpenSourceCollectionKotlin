@@ -31,8 +31,8 @@ internal class CitySearchListAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: CitySearchInfoEntity, position: Int) {
-        // 城市名称
-        holder.setText(R.id.tv_city_name, data.name)
+        // 城市名称 (包括上几级行政区的城市名称)
+        holder.setText(R.id.tv_city_name, if (data.cityFullName.isNotEmpty()) data.cityFullName else data.cityName)
         // 是否已添加
         holder.setVisibility(R.id.tv_added, if (data.isAdded) VISIBLE else GONE)
         holder.setOnClickListener(
