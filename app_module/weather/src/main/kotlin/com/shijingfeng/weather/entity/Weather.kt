@@ -12,38 +12,43 @@ import com.shijingfeng.base.base.entity.BaseEntity
 
 internal data class Weather(
 
+    /** 成功: ok  失败: failed */
     @SerializedName("status")
-    val status: String, // ok
+    val status: String = "", // ok
+
+    /** 当 status == "failed", error字段才有效 */
+    @SerializedName("error")
+    val error: String = "",
 
     @SerializedName("api_version")
-    val apiVersion: String, // v2.5
+    val apiVersion: String = "", // v2.5
 
     @SerializedName("api_status")
-    val apiStatus: String, // active
+    val apiStatus: String = "", // active
 
     @SerializedName("lang")
-    val lang: String, // zh_CN
+    val lang: String = "", // zh_CN
 
     @SerializedName("unit")
-    val unit: String, // metric
+    val unit: String = "", // metric
 
     @SerializedName("tzshift")
-    val tzshift: Int, // 28800
+    val tzshift: Int = 0, // 28800
 
     @SerializedName("timezone")
-    val timezone: String, // Asia/Shanghai
+    val timezone: String = "", // Asia/Shanghai
 
     @SerializedName("server_time")
-    val serverTime: Long, // 1602230981
+    val serverTime: Long = 0L, // 1602230981
 
     /** 经纬度位置: 数组下标0: 纬度  数组下标1: 经度 */
     @SerializedName("location")
-    val location: List<Double>, // [ 39.91488908, 116.40387397 ]
+    val location: List<Double> = listOf(0.0, 0.0), // [ 39.91488908, 116.40387397 ]
 
     @SerializedName("result")
     val result: WeatherResult,
 
-) : BaseEntity()
+    ) : BaseEntity()
 
 internal data class WeatherResult(
 

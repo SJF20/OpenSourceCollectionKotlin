@@ -19,7 +19,7 @@ import com.shijingfeng.weather.common.constant.AMAP_PROVINCE
  * 逆地理编码 实体类
  * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
-internal class InverseGeocodeEntity(
+internal data class InverseGeocodeEntity(
 
     /** 返回值为 0 或 1，0 表示请求失败；1 表示请求成功。 */
     @SerializedName("status")
@@ -43,7 +43,7 @@ internal class InverseGeocodeEntity(
  * 逆地理编码信息 实体类
  * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
-internal class InverseGeocodeInfoEntity(
+internal data class InverseGeocodeInfoEntity(
 
     /** 格式化的地址 */
     @SerializedName("formatted_address")
@@ -59,7 +59,7 @@ internal class InverseGeocodeInfoEntity(
  * 逆地理编码信息详情 实体类
  * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
-internal class InverseGeocodeInfoDetailEntity(
+internal data class InverseGeocodeInfoDetailEntity(
 
     /** 城市编码 例如：010 */
     @SerializedName("citycode")

@@ -1,6 +1,10 @@
 package com.shijingfeng.weather.adapter
 
 import android.content.Context
+import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StyleSpan
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.shijingfeng.base.base.adapter.BaseAdapter
@@ -31,8 +35,24 @@ internal class CitySearchListAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: CitySearchInfoEntity, position: Int) {
+        val startIndex: Int
+        val endIndex: Int
+        val cityNameSpannableString = if (data.cityFullName.isNotEmpty()) {
+            SpannableString(data.cityFullName).apply {
+                startIndex = data.cityNameIndex[0]
+                endIndex = startIndex + data.cityNameIndex[1]
+                setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        } else {
+            SpannableString(data.cityName).apply {
+                startIndex = 0
+                endIndex = data.cityName.length
+                setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        }
+
         // 城市名称 (包括上几级行政区的城市名称)
-        holder.setText(R.id.tv_city_name, if (data.cityFullName.isNotEmpty()) data.cityFullName else data.cityName)
+        holder.setText(R.id.tv_city_name, cityNameSpannableString)
         // 是否已添加
         holder.setVisibility(R.id.tv_added, if (data.isAdded) VISIBLE else GONE)
         holder.setOnClickListener(

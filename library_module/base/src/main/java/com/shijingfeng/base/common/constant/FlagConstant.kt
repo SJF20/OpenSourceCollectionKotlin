@@ -88,6 +88,10 @@ const val REMOVE = 5
 const val UPDATE = 6
 /** 数据操作: 清空 */
 const val CLEAR = 7
+/** 数据操作: 移动 */
+const val MOVE = 8
+/** 数据操作: 交换 */
+const val SWAP = 9
 
 /** 页面操作类型：加载数据  */
 const val PAGE_OPERATE_TYPE_LOAD = 1

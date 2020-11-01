@@ -8,6 +8,9 @@
     <string name="取消">取消</string>
     <string name="搜索">搜索</string>
 
+    <!-- 天气状况 相关字符串 -->
+    <string name="未知">未知</string>
+
     <string name="晴">晴</string>
     
     <string name="多云">多云</string>
@@ -33,6 +36,7 @@
     <string name="大雪">大雪</string>
     <string name="暴雪">暴雪</string>
 
+    <!-- 热门城市 相关字符串 -->
     <string name="北京市">北京市</string>
     <string name="上海市">上海市</string>
     <string name="广州市">广州市</string>

@@ -24,6 +24,7 @@ import static com.shijingfeng.weather.common.constant.WeatherConstant.PARTLY_CLO
 import static com.shijingfeng.weather.common.constant.WeatherConstant.SAND;
 import static com.shijingfeng.weather.common.constant.WeatherConstant.STORM_RAIN;
 import static com.shijingfeng.weather.common.constant.WeatherConstant.STORM_SNOW;
+import static com.shijingfeng.weather.common.constant.WeatherConstant.UNKNOWN_WEATHER;
 import static com.shijingfeng.weather.common.constant.WeatherConstant.WIND;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
@@ -39,6 +40,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @author ShiJingFeng
  */
 @IntDef({
+    // 未知天气类型
+    UNKNOWN_WEATHER,
     // 晴（白天） cloudRate < 0.2
     CLEAR_DAY,
     // 晴（夜间）cloudRate < 0.2

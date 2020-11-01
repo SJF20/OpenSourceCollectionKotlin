@@ -5,6 +5,7 @@ import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.mvp.presenter.BasePresenter
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.entity.CitySearchEntity
+import com.shijingfeng.weather.entity.Weather
 import com.shijingfeng.weather.entity.realm.CityData
 import com.shijingfeng.weather.model.CitySearchModel
 
@@ -62,10 +63,20 @@ internal class CitySearchPresenter(
     }
 
     /**
-     * 通过经纬度获取地址
+     * 获取天气数据
+     *
+     * @param longitude 经度
+     * @param latitude 纬度
+     * @param onSuccess 成功回调
+     * @param onFailure 失败回调
      */
-    private fun getAddressByLngLat() {
-
+    override fun getWeather(
+        longitude: Double,
+        latitude: Double,
+        onSuccess: onSuccess<Weather>,
+        onFailure: onFailure
+    ) {
+        mModel?.getWeather(longitude, latitude, onSuccess, onFailure)
     }
 
 }

@@ -24,7 +24,7 @@ data class ListDataChangeEvent<T> @JvmOverloads constructor(
     var extraData: Any? = null,
     /** 数据列表 (用于 刷新，添加 或 插入)  */
     var dataList: List<T>? = null,
-    /** 下标列表 (用于 删除 或 修改)  */
+    /** 下标列表 (用于 删除, 修改, 移动, 交换)  */
     var indexList: List<Int>? = null
 
 )

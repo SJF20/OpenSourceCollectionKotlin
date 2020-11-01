@@ -3,6 +3,7 @@ package com.shijingfeng.weather.api
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.weather.entity.CitySearchEntity
 import com.shijingfeng.weather.entity.InverseGeocodeEntity
+import com.shijingfeng.weather.entity.Weather
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -38,7 +39,7 @@ internal interface CitySearchApi {
     @GET("geocode/regeo")
     fun getAddressByLngLat(
         @Query("key") key: String = AMAP_SERVICE_KEY,
-        @Query("location") location: String,
+        @Query("location") lngLatBatchStr: String,
         @Query("extensions") extensions: String = "base",
         @Query("batch") batch: Boolean = true,
         @Query("output") output: String = "JSON"
@@ -57,6 +58,6 @@ internal interface CitySearchApi {
         @Path("token") token: String = CAI_YUN_WEATHER_KEY,
         @Path("longitude") longitude: Double,
         @Path("latitude") latitude: Double
-    )
+    ): Single<Weather>
 
 }

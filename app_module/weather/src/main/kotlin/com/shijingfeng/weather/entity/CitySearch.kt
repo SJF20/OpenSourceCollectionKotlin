@@ -15,7 +15,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * 城市查询实体
  * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
-internal class CitySearchEntity(
+internal data class CitySearchEntity(
 
     @SerializedName("status")
     val status: String = "0",
@@ -38,7 +38,7 @@ internal class CitySearchEntity(
  * 城市搜索信息数据
  * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
-internal class CitySearchInfoEntity(
+internal data class CitySearchInfoEntity(
 
     /** 城市编码, 省级(省, 自治区)是数组, 其他(直辖市, 特别行政区, 台湾省, 外国)是字符串, 需判断 是 JsonArray 还是 JsonPrimitive */
     @SerializedName("citycode")
@@ -67,15 +67,14 @@ internal class CitySearchInfoEntity(
     @SerializedName("level")
     val level: String = "",
 
-    /** 下一级 */
-    @SerializedName("districts")
-    val districts: List<CitySearchInfoEntity> = emptyList(),
-
     /** 是否已添加 */
     var isAdded: Boolean = false,
 
     /** 包括上几级行政区的城市名称 */
-    var cityFullName: String = ""
+    var cityFullName: String = "",
+
+    /** 城市名称 所在 包括上几级行政区的城市名称 的下标   0下标: 开始下标   1下标: 长度 */
+    val cityNameIndex: IntArray = intArrayOf(0, 0)
 
 ) : BaseEntity() {
 

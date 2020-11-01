@@ -9,9 +9,11 @@ import static com.shijingfeng.base.common.constant.FlagConstant.ADD;
 import static com.shijingfeng.base.common.constant.FlagConstant.CLEAR;
 import static com.shijingfeng.base.common.constant.FlagConstant.INSERT;
 import static com.shijingfeng.base.common.constant.FlagConstant.LOAD;
+import static com.shijingfeng.base.common.constant.FlagConstant.MOVE;
 import static com.shijingfeng.base.common.constant.FlagConstant.NONE;
 import static com.shijingfeng.base.common.constant.FlagConstant.REFRESH;
 import static com.shijingfeng.base.common.constant.FlagConstant.REMOVE;
+import static com.shijingfeng.base.common.constant.FlagConstant.SWAP;
 import static com.shijingfeng.base.common.constant.FlagConstant.UPDATE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
@@ -41,7 +43,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
     // 数据操作: 更新数据
     UPDATE,
     // 数据操作: 清空
-    CLEAR
+    CLEAR,
+    // 数据操作: 移动
+    MOVE,
+    // 数据操作: 交换
+    SWAP
 })
 @Target({
     // 类属性

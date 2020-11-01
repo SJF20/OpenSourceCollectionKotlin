@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.annotation.define.WeatherType
-import com.shijingfeng.weather.common.constant.*
 import com.shijingfeng.weather.common.constant.CLEAR_DAY
 import com.shijingfeng.weather.common.constant.CLEAR_NIGHT
 import com.shijingfeng.weather.common.constant.CLOUDY

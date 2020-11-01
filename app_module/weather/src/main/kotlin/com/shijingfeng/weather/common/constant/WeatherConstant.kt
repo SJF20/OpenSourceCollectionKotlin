@@ -9,6 +9,8 @@ package com.shijingfeng.weather.common.constant
  * @author ShiJingFeng
  */
 
+/** 未知天气类型 */
+internal const val UNKNOWN_WEATHER = -1
 /** 晴（白天） cloudRate < 0.2 */
 internal const val CLEAR_DAY = 0
 /** 晴（夜间）cloudRate < 0.2 */

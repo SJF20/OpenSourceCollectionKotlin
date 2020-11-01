@@ -6,6 +6,7 @@ import com.shijingfeng.base.mvp.model.IModel
 import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.base.mvp.view.IView
 import com.shijingfeng.weather.entity.CitySearchEntity
+import com.shijingfeng.weather.entity.Weather
 import com.shijingfeng.weather.entity.realm.CityData
 
 /**
@@ -58,6 +59,21 @@ internal interface CitySearchContract {
             onFailure: onFailure
         )
 
+        /**
+         * 获取天气数据
+         *
+         * @param longitude 经度
+         * @param latitude 纬度
+         * @param onSuccess 成功回调
+         * @param onFailure 失败回调
+         */
+        fun getWeather(
+            longitude: Double,
+            latitude: Double,
+            onSuccess: onSuccess<Weather>,
+            onFailure: onFailure
+        )
+
     }
 
     /**
@@ -92,6 +108,21 @@ internal interface CitySearchContract {
             longitude: Double,
             latitude: Double,
             onSuccess: onSuccess<CityData>,
+            onFailure: onFailure
+        )
+
+        /**
+         * 获取天气数据
+         *
+         * @param longitude 经度
+         * @param latitude 纬度
+         * @param onSuccess 成功回调
+         * @param onFailure 失败回调
+         */
+        fun getWeather(
+            longitude: Double,
+            latitude: Double,
+            onSuccess: onSuccess<Weather>,
             onFailure: onFailure
         )
 
