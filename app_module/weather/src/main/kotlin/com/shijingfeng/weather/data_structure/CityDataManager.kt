@@ -1,14 +1,11 @@
 package com.shijingfeng.weather.data_structure
 
-import com.blankj.utilcode.util.LogUtils
-import com.shijingfeng.base.common.constant.MOVE
 import com.shijingfeng.base.common.extension.move
 import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.common.extension.swap
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.base.http.exception.E
-import com.shijingfeng.weather.common.constant.*
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_ADD
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_MOVE
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_REMOVE
@@ -18,6 +15,7 @@ import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.event.CityDataChangeEvent
 import com.shijingfeng.weather.entity.realm.CityDataRealm
 import com.shijingfeng.weather.util.getRealmInstance
+import io.realm.RealmAsyncTask
 import io.realm.kotlin.where
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -33,6 +31,7 @@ internal class CityDataManager private constructor() {
 
     /** 城市数据 Map (Key: 城市代码, 对应高德中的adCode  Value: 城市数据), 因为散列表检索时间复杂度为O(1), 故用于检索城市数据 */
     private val mCityDataMap = hashMapOf<String, CityDataItem>()
+
     /** 城市数据列表 */
     private val mCityDataList = LinkedList<CityDataItem>()
 
@@ -68,9 +67,11 @@ internal class CityDataManager private constructor() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                     runOnUiThread {
-                        onFailure?.invoke(E(
-                            error = e
-                        ))
+                        onFailure?.invoke(
+                            E(
+                                error = e
+                            )
+                        )
                     }
                 }
             }
@@ -79,16 +80,16 @@ internal class CityDataManager private constructor() {
     }
 
     /**
-     * 通过ID 获取 下标
+     * 通过 城市代码 获取 下标
      */
     fun getIndex(
-        id: String
+        cityCode: String
     ): Int {
-        if (id.isEmpty()) {
+        if (cityCode.isEmpty()) {
             return -1
         }
         mCityDataList.forEachIndexed { index, cityData ->
-            if (id == cityData.getId()) {
+            if (cityCode == cityData.getId()) {
                 return index
             }
         }
@@ -96,15 +97,15 @@ internal class CityDataManager private constructor() {
     }
 
     /**
-     * 通过下标获取
+     * 通过 城市代码 获取 城市数据
      */
     fun getCityData(
-        id: String
+        cityCode: String
     ): CityDataItem? {
-        if (id.isEmpty()) {
+        if (cityCode.isEmpty()) {
             return null
         }
-        return mCityDataMap[id]
+        return mCityDataMap[cityCode]
     }
 
     /**
@@ -112,17 +113,39 @@ internal class CityDataManager private constructor() {
      * 注意: 严格来说，在外部不可以进行列表的增删，但是可以更新列表中的 [CityDataItem] 数据
      * 但 [CityDataItem] 已被设置为可读不可写, 故 [CityDataItem] 数据在外部也不可更新
      */
-    fun getCityDataList(): List<CityDataItem> = mCityDataList
+    val dataList: List<CityDataItem>
+        get() = mCityDataList
+
+    /**
+     * 城市数据列表中 是否包含 该城市代码的城市数据
+     *
+     * @param cityCode 城市代码
+     */
+    fun contains(
+        cityCode: String
+    ): Boolean {
+        if (cityCode.isEmpty()) {
+            return false
+        }
+
+        return mCityDataMap.contains(cityCode)
+    }
 
     /**
      * 添加
      *
      * @param cityData 要添加的数据
      * @param index 要插入到的下标 (默认添加到列表尾部)
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun add(
         cityData: CityDataItem,
-        index: Int = mCityDataList.size
+        index: Int = mCityDataList.size,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onFailure: onFailure? = null
     ) {
         // 0下标数据是当前定位的数据项，恒定在0下标位置
         if (index < 1 || index > mCityDataList.size) {
@@ -132,21 +155,64 @@ internal class CityDataManager private constructor() {
         if (!cityData.isValid()) {
             throw IllegalArgumentException("城市数据不完整")
         }
+        // 内存中缓存
         mCityDataList.add(index, cityData)
         mCityDataMap[cityData.cityCode] = cityData
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_ADD,
-            indexList = listOf(index)
-        ))
+
+        val cityDataRealm = CityDataRealm(
+            cityCode = cityData.cityCode,
+            longitude = cityData.longitude!!,
+            latitude = cityData.latitude!!,
+            cityName = cityData.cityName!!,
+            cityFullName = cityData.cityFullName!!,
+            weatherType = cityData.weatherType!!,
+            weatherDesc = cityData.weatherDesc!!,
+            curTemp = cityData.curTemp!!,
+            lowestTemp = cityData.lowestTemp!!,
+            highestTemp = cityData.highestTemp!!,
+            weatherData = cityData.weatherData!!
+        )
+
+        // 数据库中缓存
+        if (isAsync) {
+            // 异步添加
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.copyToRealmOrUpdate(cityDataRealm)
+            }, {
+                // 成功回调
+                onSuccess?.invoke(mCityDataList)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步添加
+            getRealmInstance().executeTransaction { realm ->
+                realm.copyToRealmOrUpdate(cityDataRealm)
+            }
+        }
+        // 通知视图更新
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_ADD,
+                indexList = listOf(index)
+            )
+        )
     }
 
     /**
      * 批量添加
      *
      * @param cityDataMap 城市数据Map,  Key: 索引下标  Value: 城市数据
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun add(
-        cityDataMap: Map<Int, CityDataItem>
+        cityDataMap: Map<Int, CityDataItem>,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onFailure: onFailure? = null
     ) {
         if (cityDataMap.isEmpty()) {
             throw IllegalArgumentException("城市数据列表不能为空列表")
@@ -171,6 +237,7 @@ internal class CityDataManager private constructor() {
             // 从大到小排序
             key2 - key1
         }
+        val cityDataRealmList = mutableListOf<CityDataRealm>()
 
         sortedCityDataMap.putAll(cityDataMap)
         sortedCityDataMap.forEach { entry ->
@@ -180,11 +247,44 @@ internal class CityDataManager private constructor() {
             indexList.add(index)
             mCityDataList.add(index, cityData)
             mCityDataMap[cityData.cityCode] = cityData
+            cityDataRealmList.add(CityDataRealm(
+                cityCode = cityData.cityCode,
+                longitude = cityData.longitude!!,
+                latitude = cityData.latitude!!,
+                cityName = cityData.cityName!!,
+                cityFullName = cityData.cityFullName!!,
+                weatherType = cityData.weatherType!!,
+                weatherDesc = cityData.weatherDesc!!,
+                curTemp = cityData.curTemp!!,
+                lowestTemp = cityData.lowestTemp!!,
+                highestTemp = cityData.highestTemp!!,
+                weatherData = cityData.weatherData!!
+            ))
         }
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_ADD,
-            indexList = indexList
-        ))
+
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.insertOrUpdate(cityDataRealmList)
+            }, {
+                // 成功回调
+                onSuccess?.invoke(mCityDataList)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步操作
+            getRealmInstance().executeTransaction { realm ->
+                realm.insertOrUpdate(cityDataRealmList)
+            }
+        }
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_ADD,
+                indexList = indexList
+            )
+        )
     }
 
     /**
@@ -192,10 +292,16 @@ internal class CityDataManager private constructor() {
      *
      * @param cityDataList 城市数据列表
      * @param index 要插入到的下标 (默认添加到列表尾部)
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun addAll(
         cityDataList: List<CityDataItem>,
-        index: Int = mCityDataList.size
+        index: Int = mCityDataList.size,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onFailure: onFailure? = null
     ) {
         // 0下标数据是当前定位的数据项，恒定在0下标位置
         if (index < 1 || index > mCityDataList.size) {
@@ -204,6 +310,7 @@ internal class CityDataManager private constructor() {
 
         val indexList = mutableListOf<Int>()
         var curIndex = index
+        val cityDataRealmList = mutableListOf<CityDataRealm>()
 
         // 过滤掉数据不完整的实体类
         cityDataList.forEach { cityData ->
@@ -212,12 +319,44 @@ internal class CityDataManager private constructor() {
             }
             indexList.add(curIndex++)
             mCityDataMap[cityData.cityCode] = cityData
+            cityDataRealmList.add(CityDataRealm(
+                cityCode = cityData.cityCode,
+                longitude = cityData.longitude!!,
+                latitude = cityData.latitude!!,
+                cityName = cityData.cityName!!,
+                cityFullName = cityData.cityFullName!!,
+                weatherType = cityData.weatherType!!,
+                weatherDesc = cityData.weatherDesc!!,
+                curTemp = cityData.curTemp!!,
+                lowestTemp = cityData.lowestTemp!!,
+                highestTemp = cityData.highestTemp!!,
+                weatherData = cityData.weatherData!!
+            ))
         }
         mCityDataList.addAll(index, cityDataList)
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_ADD,
-            indexList = indexList
-        ))
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.copyToRealmOrUpdate(cityDataRealmList)
+            }, {
+                // 成功回调
+                onSuccess?.invoke(mCityDataList)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步操作
+            getRealmInstance().executeTransaction { realm ->
+                realm.copyToRealmOrUpdate(cityDataRealmList)
+            }
+        }
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_ADD,
+                indexList = indexList
+            )
+        )
     }
 
     /**
@@ -225,10 +364,16 @@ internal class CityDataManager private constructor() {
      *
      * @param index 要更新的索引下标
      * @param cityData 要更新的数据实体类 (如果该实体类中某字段为 null , 则不更新此字段数据)
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun update(
         index: Int = -1,
-        cityData: CityDataItem
+        cityData: CityDataItem,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onFailure: onFailure? = null
     ) {
         if (index < 0 || index > mCityDataList.size - 1) {
             throw IllegalArgumentException("索引下标必须 大于等于0 或 小于列表的长度")
@@ -241,7 +386,7 @@ internal class CityDataManager private constructor() {
             latitude = cityData.latitude ?: oldCityData.latitude,
             cityName = cityData.cityName ?: oldCityData.cityName,
             cityFullName = cityData.cityFullName ?: oldCityData.cityFullName,
-            weatherType =  cityData.weatherType ?: oldCityData.weatherType,
+            weatherType = cityData.weatherType ?: oldCityData.weatherType,
             weatherDesc = cityData.weatherDesc ?: oldCityData.weatherDesc,
             curTemp = cityData.curTemp ?: oldCityData.curTemp,
             lowestTemp = cityData.lowestTemp ?: oldCityData.lowestTemp,
@@ -251,10 +396,29 @@ internal class CityDataManager private constructor() {
 
         mCityDataList[index] = newCityData
         mCityDataMap[oldCityData.cityCode] = newCityData
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_UPDATE,
-            indexList = listOf(index)
-        ))
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.insertOrUpdate(cityDataRealmList)
+            }, {
+                // 成功回调
+                onSuccess?.invoke(mCityDataList)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步操作
+            getRealmInstance().executeTransaction { realm ->
+                realm.copyToRealmOrUpdate(cityDataRealmList)
+            }
+        }
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_UPDATE,
+                indexList = listOf(index)
+            )
+        )
     }
 
     /**
@@ -286,7 +450,7 @@ internal class CityDataManager private constructor() {
                 latitude = cityData.latitude ?: oldCityData.latitude,
                 cityName = cityData.cityName ?: oldCityData.cityName,
                 cityFullName = cityData.cityFullName ?: oldCityData.cityFullName,
-                weatherType =  cityData.weatherType ?: oldCityData.weatherType,
+                weatherType = cityData.weatherType ?: oldCityData.weatherType,
                 weatherDesc = cityData.weatherDesc ?: oldCityData.weatherDesc,
                 curTemp = cityData.curTemp ?: oldCityData.curTemp,
                 lowestTemp = cityData.lowestTemp ?: oldCityData.lowestTemp,
@@ -298,10 +462,12 @@ internal class CityDataManager private constructor() {
             mCityDataList[index] = newCityData
             mCityDataMap[oldCityData.cityCode] = newCityData
         }
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_UPDATE,
-            indexList = indexList
-        ))
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_UPDATE,
+                indexList = indexList
+            )
+        )
     }
 
     /**
@@ -321,10 +487,12 @@ internal class CityDataManager private constructor() {
         }
 
         if (mCityDataList.move(oldIndex, newIndex)) {
-            EventBus.getDefault().post(CityDataChangeEvent(
-                type = CITY_DATA_OPERATE_MOVE,
-                indexList = listOf(oldIndex, newIndex)
-            ))
+            EventBus.getDefault().post(
+                CityDataChangeEvent(
+                    type = CITY_DATA_OPERATE_MOVE,
+                    indexList = listOf(oldIndex, newIndex)
+                )
+            )
         }
     }
 
@@ -368,10 +536,12 @@ internal class CityDataManager private constructor() {
                 indexList.add(newIndex)
             }
         }
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_MOVE,
-            indexList = indexList
-        ))
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_MOVE,
+                indexList = indexList
+            )
+        )
     }
 
     /**
@@ -389,17 +559,20 @@ internal class CityDataManager private constructor() {
             throw IllegalArgumentException("索引下标不能为0, 因为0下标数据是当前定位的数据项，恒定在0下标位置，禁止交换操作")
         }
         if (index1 < 0 || index1 > mCityDataList.size - 1
-            || index2 < 0 || index2 > mCityDataList.size - 1) {
+            || index2 < 0 || index2 > mCityDataList.size - 1
+        ) {
             throw IllegalArgumentException("索引下标超界")
         }
         if (mCityDataList.size < 2) {
             throw IllegalArgumentException("列表大小必须大于等于2")
         }
         if (mCityDataList.swap(index1, index2)) {
-            EventBus.getDefault().post(CityDataChangeEvent(
-                type = CITY_DATA_OPERATE_SWAP,
-                indexList = listOf(index1, index2)
-            ))
+            EventBus.getDefault().post(
+                CityDataChangeEvent(
+                    type = CITY_DATA_OPERATE_SWAP,
+                    indexList = listOf(index1, index2)
+                )
+            )
         }
     }
 
@@ -430,7 +603,8 @@ internal class CityDataManager private constructor() {
                 throw IllegalArgumentException("索引下标不能为0, 因为0下标数据是当前定位的数据项，恒定在0下标位置，禁止移动操作")
             }
             if (index1 < 0 || index1 > mCityDataList.size - 1
-                || index2 < 0 || index2 > mCityDataList.size - 1) {
+                || index2 < 0 || index2 > mCityDataList.size - 1
+            ) {
                 throw IllegalArgumentException("索引下标超界")
             }
             if (mCityDataList.size < 2) {
@@ -441,10 +615,12 @@ internal class CityDataManager private constructor() {
                 indexList.add(index2)
             }
         }
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_SWAP,
-            indexList = indexList
-        ))
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_SWAP,
+                indexList = indexList
+            )
+        )
     }
 
     /**
@@ -463,10 +639,12 @@ internal class CityDataManager private constructor() {
         val cityData = mCityDataList.removeAt(index)
 
         mCityDataMap.remove(cityData.cityCode)
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_REMOVE,
-            indexList = listOf(index)
-        ))
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_REMOVE,
+                indexList = listOf(index)
+            )
+        )
     }
 
     /**
@@ -499,10 +677,12 @@ internal class CityDataManager private constructor() {
 
             mCityDataMap.remove(cityData.cityCode)
         }
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_REMOVE,
-            indexList = validIndexList
-        ))
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_REMOVE,
+                indexList = validIndexList
+            )
+        )
     }
 
     /**
@@ -511,9 +691,11 @@ internal class CityDataManager private constructor() {
     fun clear() {
         mCityDataList.clear()
         mCityDataMap.clear()
-        EventBus.getDefault().post(CityDataChangeEvent(
-            type = CITY_DATA_OPERATE_REMOVE,
-        ))
+        EventBus.getDefault().post(
+            CityDataChangeEvent(
+                type = CITY_DATA_OPERATE_REMOVE,
+            )
+        )
     }
 
 }

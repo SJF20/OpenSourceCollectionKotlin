@@ -5,9 +5,9 @@ import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.mvp.model.IModel
 import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.base.mvp.view.IView
+import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.CitySearchEntity
 import com.shijingfeng.weather.entity.Weather
-import com.shijingfeng.weather.entity.realm.CityData
 
 /**
  * Function: 城市搜索 契约类
@@ -55,7 +55,7 @@ internal interface CitySearchContract {
         fun getCityData(
             longitude: Double,
             latitude: Double,
-            onSuccess: onSuccess<CityData>,
+            onSuccess: onSuccess<CityDataItem>,
             onFailure: onFailure
         )
 
@@ -107,7 +107,7 @@ internal interface CitySearchContract {
         fun getCityData(
             longitude: Double,
             latitude: Double,
-            onSuccess: onSuccess<CityData>,
+            onSuccess: onSuccess<CityDataItem>,
             onFailure: onFailure
         )
 

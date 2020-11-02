@@ -12,8 +12,6 @@ import com.blankj.utilcode.util.ClickUtils
 import com.google.gson.JsonPrimitive
 import com.shijingfeng.base.annotation.define.PageOperateType
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_CITY_SEARCH
-import com.shijingfeng.base.common.constant.ADD
-import com.shijingfeng.base.common.constant.MOVE
 import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD
 import com.shijingfeng.base.common.constant.PAGE_OPERATE_TYPE_LOAD_MORE
 import com.shijingfeng.base.common.global.runOnUiThread
@@ -24,16 +22,13 @@ import com.shijingfeng.weather.base.WeatherBaseActivity
 import com.shijingfeng.weather.common.constant.CHOOSE_CITY
 import com.shijingfeng.weather.common.constant.UNKNOWN_WEATHER
 import com.shijingfeng.weather.common.global.cityDataManager
-import com.shijingfeng.weather.common.global.cityDataMap
 import com.shijingfeng.weather.contract.CitySearchContract
 import com.shijingfeng.weather.databinding.ActivityWeatherCitySearchBinding
+import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
-import com.shijingfeng.weather.entity.event.CityDataChangeEvent
-import com.shijingfeng.weather.entity.realm.CityData
 import com.shijingfeng.weather.presenter.CitySearchPresenter
 import com.shijingfeng.weather.util.getWeatherDesc
 import com.shijingfeng.weather.util.getWeatherType
-import org.greenrobot.eventbus.EventBus
 import java.lang.Thread.sleep
 import kotlin.Exception
 
@@ -131,7 +126,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             val hotCityData = getHotCityData(hotCityName)
             val view = LayoutInflater.from(this@CitySearchActivity).inflate(R.layout.layout_hot_city_lable, null) as TextView
 
-            hotCityData.isAdded = cityDataMap.contains(hotCityData.adCode)
+            hotCityData.isAdded = cityDataManager?.contains(hotCityData.adCode) ?: false
             mViewBinding.flHotCity.addView(view.apply {
                 text = hotCityName
                 setBackgroundResource(if (hotCityData.isAdded) R.drawable.shape_hot_city_label_added_bg else R.drawable.shape_hot_city_label_bg)
@@ -502,54 +497,34 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             latitude = citySearchInfo.latitude,
             onSuccess = { weather ->
                 if (citySearchInfo.isAdded) {
-                    // 已添加
-                    // 原来的下标
-                    var oldIndex = -1
+                    // 已添加, 只需移动位置到 索引下标1 处
+                    val index = cityDataManager?.getIndex(citySearchInfo.adCode) ?: -1
 
-                    // 查找数据下标
-                    cityDataManager.forEachIndexed { index, cityData ->
-                        if (cityData.cityCode == citySearchInfo.adCode) {
-                            oldIndex = index
-                            return@forEachIndexed
-                        }
-                    }
-                    // 移动数据位置
-                    cityDataManager.move(
-                        oldIndex = oldIndex,
-                        newIndex = 1
-                    )
-                    // 下标为0时是当前位置的城市数据(恒定存在，不能被删除), 下标为1时就处于次顶部, 不需要改变位置
-                    if (oldIndex != 1) {
-                        // 已添加
-                        EventBus.getDefault().post(CityDataChangeEvent(
-                            type = MOVE,
-                            indexList = listOf(oldIndex, 1)
-                        ))
+                    if (index != -1) {
+                        // 移动数据位置
+                        cityDataManager?.move(
+                            oldIndex = index,
+                            newIndex = 1
+                        )
                     }
                 } else {
+                    // 未添加, 需要添加
                     // 天气类型
-                    val weatherType: Int
+                    var weatherType = UNKNOWN_WEATHER
                     // 天气描述 例如: 晴, 阴, 多云, 小雨
-                    val weatherDesc: String
+                    var weatherDesc = ""
                     // 当前温度
-                    val curTemp: Double
+                    var curTemp = 0.0
                     // 最低温度
-                    val lowestTemp: Double
+                    var lowestTemp = 0.0
                     // 最高温度
-                    val highestTemp: Double
+                    var highestTemp = 0.0
 
-                    if (weather.result.daily.skyCon.isEmpty()) {
-                        weatherType = UNKNOWN_WEATHER
-                        weatherDesc = ""
-                    } else {
+                    if (weather.result.daily.skyCon.isNotEmpty()) {
                         weatherType = getWeatherType(weatherTypeStr = weather.result.daily.skyCon[0].value)
                         weatherDesc = getWeatherDesc(weatherType)
                     }
-                    if (weather.result.daily.temperature.isEmpty()) {
-                        curTemp = 0.0
-                        lowestTemp = 0.0
-                        highestTemp = 0.0
-                    } else {
+                    if (weather.result.daily.temperature.isNotEmpty()) {
                         weather.result.daily.temperature[0].run {
                             curTemp = avg
                             lowestTemp = min
@@ -557,8 +532,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                         }
                     }
 
-                    // 未添加
-                    val cityData = CityData(
+                    val cityData = CityDataItem(
                         cityCode = citySearchInfo.adCode,
                         longitude = citySearchInfo.longitude,
                         latitude = citySearchInfo.latitude,
@@ -572,11 +546,10 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
                         weatherData = serialize(weather)
                     )
 
-                    cityDataManager.add(1, cityData)
-                    cityDataMap[cityData.cityCode] = cityData
-                    EventBus.getDefault().post(CityDataChangeEvent(
-                        type = ADD
-                    ))
+                    cityDataManager?.add(
+                        cityData = cityData,
+                        index = 1
+                    )
                 }
                 hideLoadingView()
                 // 选择完成，关掉此页面

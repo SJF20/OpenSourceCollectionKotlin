@@ -13,7 +13,6 @@ import com.shijingfeng.base.base.entity.BaseEntity
  */
 /**
  * 城市查询实体
- * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
 internal data class CitySearchEntity(
 
@@ -36,7 +35,6 @@ internal data class CitySearchEntity(
 
 /**
  * 城市搜索信息数据
- * 注意: data class 会导致 lazy字段 获取为null, 故不采用
  */
 internal data class CitySearchInfoEntity(
 

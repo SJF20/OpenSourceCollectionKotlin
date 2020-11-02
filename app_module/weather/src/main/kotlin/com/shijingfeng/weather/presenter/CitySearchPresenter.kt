@@ -4,9 +4,9 @@ import com.shijingfeng.base.common.extension.onFailure
 import com.shijingfeng.base.common.extension.onSuccess
 import com.shijingfeng.base.mvp.presenter.BasePresenter
 import com.shijingfeng.weather.contract.CitySearchContract
+import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.CitySearchEntity
 import com.shijingfeng.weather.entity.Weather
-import com.shijingfeng.weather.entity.realm.CityData
 import com.shijingfeng.weather.model.CitySearchModel
 
 /**
@@ -56,7 +56,7 @@ internal class CitySearchPresenter(
     override fun getCityData(
         longitude: Double,
         latitude: Double,
-        onSuccess: onSuccess<CityData>,
+        onSuccess: onSuccess<CityDataItem>,
         onFailure: onFailure
     ) {
 

@@ -14,12 +14,12 @@ import com.shijingfeng.weather.common.constant.AMAP_COUNTRY
 import com.shijingfeng.weather.common.constant.AMAP_PROVINCE
 import com.shijingfeng.weather.common.constant.AMAP_SERVER_SUCCESS
 import com.shijingfeng.weather.common.constant.AMAP_STREET
-import com.shijingfeng.weather.common.global.cityDataMap
+import com.shijingfeng.weather.common.global.cityDataManager
 import com.shijingfeng.weather.contract.CitySearchContract
+import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.CitySearchEntity
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
 import com.shijingfeng.weather.entity.Weather
-import com.shijingfeng.weather.entity.realm.CityData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -83,7 +83,7 @@ internal class CitySearchModel(
 
                                 if (pass) {
                                     // 是否已添加
-                                    isAdded = cityDataMap.contains(adCode)
+                                    isAdded = cityDataManager?.contains(adCode) ?: false
                                     newDistrictList.add(this)
                                     // 拼接经纬度，用于批量获取地址信息
                                     if (lngLatBatchBuilder.isNotEmpty()) {
@@ -207,7 +207,7 @@ internal class CitySearchModel(
     override fun getCityData(
         longitude: Double,
         latitude: Double,
-        onSuccess: onSuccess<CityData>,
+        onSuccess: onSuccess<CityDataItem>,
         onFailure: onFailure
     ) {
 
