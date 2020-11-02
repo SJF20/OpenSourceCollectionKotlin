@@ -23,50 +23,50 @@ internal open class CityDataRealm (
     @PrimaryKey
     @Required
     @RealmField(name = "city_code")
-    var cityCode: String = "",
+    var cityCode: String,
 
     /** 经度 */
     @RealmField(name = "longitude")
-    var longitude: Double = 0.0,
+    var longitude: Double,
 
     /** 纬度 */
     @RealmField(name = "latitude")
-    var latitude: Double = 0.0,
+    var latitude: Double,
 
     /** 城市名称 */
     @Required
     @RealmField(name = "city_name")
-    var cityName: String = "",
+    var cityName: String,
 
     /** 包括上几级行政区的城市名称 */
     @RealmField(name = "city_full_name")
-    var cityFullName: String = "",
+    var cityFullName: String,
 
     /** 天气状况 */
     @WeatherType
     @RealmField(name = "weather_type")
-    var weatherType: Int = UNKNOWN_WEATHER,
+    var weatherType: Int,
 
     /** 天气类型 文字描述 例如: 晴, 阴, 多云, 小雨 */
     @Required
     @RealmField(name = "weather_desc")
-    var weatherDesc: String = "",
+    var weatherDesc: String,
 
     /** 当前温度 */
     @RealmField(name = "cur_temp")
-    var curTemp: Double = 0.0,
+    var curTemp: Double,
 
     /** 当日最低温度 */
     @RealmField(name = "lowest_temp")
-    var lowestTemp: Double = 0.0,
+    var lowestTemp: Double,
 
     /** 当日最高温度 */
     @RealmField(name = "highest_temp")
-    var highestTemp: Double = 0.0,
+    var highestTemp: Double,
 
     /** 天气数据, 用作缓存, Json字符串 */
     @RealmField(name = "weather_data")
-    var weatherData: String = ""
+    var weatherData: String
 
 ) : RealmModel {
 

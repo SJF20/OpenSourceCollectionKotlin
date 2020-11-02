@@ -144,7 +144,7 @@ internal class CityDataManager private constructor() {
         cityData: CityDataItem,
         index: Int = mCityDataList.size,
         isAsync: Boolean = true,
-        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onSuccess: onSuccess<CityDataItem>? = null,
         onFailure: onFailure? = null
     ) {
         // 0下标数据是当前定位的数据项，恒定在0下标位置
@@ -159,28 +159,14 @@ internal class CityDataManager private constructor() {
         mCityDataList.add(index, cityData)
         mCityDataMap[cityData.cityCode] = cityData
 
-        val cityDataRealm = CityDataRealm(
-            cityCode = cityData.cityCode,
-            longitude = cityData.longitude!!,
-            latitude = cityData.latitude!!,
-            cityName = cityData.cityName!!,
-            cityFullName = cityData.cityFullName!!,
-            weatherType = cityData.weatherType!!,
-            weatherDesc = cityData.weatherDesc!!,
-            curTemp = cityData.curTemp!!,
-            lowestTemp = cityData.lowestTemp!!,
-            highestTemp = cityData.highestTemp!!,
-            weatherData = cityData.weatherData!!
-        )
-
         // 数据库中缓存
         if (isAsync) {
             // 异步添加
             getRealmInstance().executeTransactionAsync({ realm ->
-                realm.copyToRealmOrUpdate(cityDataRealm)
+                realm.insertOrUpdate(cityData.toCityDataRealm())
             }, {
                 // 成功回调
-                onSuccess?.invoke(mCityDataList)
+                onSuccess?.invoke(cityData)
             }, { throwable ->
                 // 失败回调
                 onFailure?.invoke(E(error = throwable))
@@ -188,10 +174,10 @@ internal class CityDataManager private constructor() {
         } else {
             // 同步添加
             getRealmInstance().executeTransaction { realm ->
-                realm.copyToRealmOrUpdate(cityDataRealm)
+                realm.insertOrUpdate(cityData.toCityDataRealm())
             }
         }
-        // 通知视图更新
+        // 通知各个页面视图更新
         EventBus.getDefault().post(
             CityDataChangeEvent(
                 type = CITY_DATA_OPERATE_ADD,
@@ -237,6 +223,7 @@ internal class CityDataManager private constructor() {
             // 从大到小排序
             key2 - key1
         }
+        val cityDataList = mutableListOf<CityDataItem>()
         val cityDataRealmList = mutableListOf<CityDataRealm>()
 
         sortedCityDataMap.putAll(cityDataMap)
@@ -247,19 +234,10 @@ internal class CityDataManager private constructor() {
             indexList.add(index)
             mCityDataList.add(index, cityData)
             mCityDataMap[cityData.cityCode] = cityData
-            cityDataRealmList.add(CityDataRealm(
-                cityCode = cityData.cityCode,
-                longitude = cityData.longitude!!,
-                latitude = cityData.latitude!!,
-                cityName = cityData.cityName!!,
-                cityFullName = cityData.cityFullName!!,
-                weatherType = cityData.weatherType!!,
-                weatherDesc = cityData.weatherDesc!!,
-                curTemp = cityData.curTemp!!,
-                lowestTemp = cityData.lowestTemp!!,
-                highestTemp = cityData.highestTemp!!,
-                weatherData = cityData.weatherData!!
-            ))
+            if (isAsync) {
+                cityDataList.add(cityData)
+            }
+            cityDataRealmList.add(cityData.toCityDataRealm())
         }
 
         if (isAsync) {
@@ -268,7 +246,7 @@ internal class CityDataManager private constructor() {
                 realm.insertOrUpdate(cityDataRealmList)
             }, {
                 // 成功回调
-                onSuccess?.invoke(mCityDataList)
+                onSuccess?.invoke(cityDataList)
             }, { throwable ->
                 // 失败回调
                 onFailure?.invoke(E(error = throwable))
@@ -319,28 +297,16 @@ internal class CityDataManager private constructor() {
             }
             indexList.add(curIndex++)
             mCityDataMap[cityData.cityCode] = cityData
-            cityDataRealmList.add(CityDataRealm(
-                cityCode = cityData.cityCode,
-                longitude = cityData.longitude!!,
-                latitude = cityData.latitude!!,
-                cityName = cityData.cityName!!,
-                cityFullName = cityData.cityFullName!!,
-                weatherType = cityData.weatherType!!,
-                weatherDesc = cityData.weatherDesc!!,
-                curTemp = cityData.curTemp!!,
-                lowestTemp = cityData.lowestTemp!!,
-                highestTemp = cityData.highestTemp!!,
-                weatherData = cityData.weatherData!!
-            ))
+            cityDataRealmList.add(cityData.toCityDataRealm())
         }
         mCityDataList.addAll(index, cityDataList)
         if (isAsync) {
             // 异步操作
             getRealmInstance().executeTransactionAsync({ realm ->
-                realm.copyToRealmOrUpdate(cityDataRealmList)
+                realm.insertOrUpdate(cityDataRealmList)
             }, {
                 // 成功回调
-                onSuccess?.invoke(mCityDataList)
+                onSuccess?.invoke(cityDataList)
             }, { throwable ->
                 // 失败回调
                 onFailure?.invoke(E(error = throwable))
@@ -348,7 +314,7 @@ internal class CityDataManager private constructor() {
         } else {
             // 同步操作
             getRealmInstance().executeTransaction { realm ->
-                realm.copyToRealmOrUpdate(cityDataRealmList)
+                realm.insertOrUpdate(cityDataRealmList)
             }
         }
         EventBus.getDefault().post(
@@ -372,7 +338,7 @@ internal class CityDataManager private constructor() {
         index: Int = -1,
         cityData: CityDataItem,
         isAsync: Boolean = true,
-        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onSuccess: onSuccess<CityDataItem>? = null,
         onFailure: onFailure? = null
     ) {
         if (index < 0 || index > mCityDataList.size - 1) {
@@ -399,10 +365,10 @@ internal class CityDataManager private constructor() {
         if (isAsync) {
             // 异步操作
             getRealmInstance().executeTransactionAsync({ realm ->
-                realm.insertOrUpdate(cityDataRealmList)
+                realm.insertOrUpdate(newCityData.toCityDataRealm())
             }, {
                 // 成功回调
-                onSuccess?.invoke(mCityDataList)
+                onSuccess?.invoke(newCityData)
             }, { throwable ->
                 // 失败回调
                 onFailure?.invoke(E(error = throwable))
@@ -410,7 +376,7 @@ internal class CityDataManager private constructor() {
         } else {
             // 同步操作
             getRealmInstance().executeTransaction { realm ->
-                realm.copyToRealmOrUpdate(cityDataRealmList)
+                realm.insertOrUpdate(newCityData.toCityDataRealm())
             }
         }
         EventBus.getDefault().post(
