@@ -883,7 +883,7 @@ internal class CityDataManager private constructor() {
     }
 
     /**
-     * 拉伸
+     * 拉伸 (不会出现 前面的值大于当前的值(最多等于) 和 当前值大于后面的值(最多等于), 所以不用考虑复杂的算法)
      *
      * @param curIndex 当前索引下标位置
      */
@@ -892,7 +892,7 @@ internal class CityDataManager private constructor() {
         val previous = mCityDataOrderNumberList[curIndex - 1]
         val next = mCityDataOrderNumberList[curIndex + 1]
 
-        if (current == previous) {
+        if (previous == current) {
             stretchForward(curIndex - 1)
         }
         if (current == next) {
