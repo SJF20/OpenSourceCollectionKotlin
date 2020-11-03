@@ -168,7 +168,7 @@ internal class CityDataManager private constructor() {
             throw IllegalArgumentException("城市数据不完整")
         }
 
-        val orderNumber = generateAndAddOrderNumber(index)
+        val indexSet = generateAndAddOrderNumber(index)
 
         // 内存中缓存
         mCityDataList.add(index, cityData)
@@ -178,7 +178,14 @@ internal class CityDataManager private constructor() {
         if (isAsync) {
             // 异步添加
             getRealmInstance().executeTransactionAsync({ realm ->
-                realm.insertOrUpdate(cityData.toCityDataRealm(orderNumber))
+                val cityDataRealmList = indexSet.map { index ->
+                    val cityDataItem = mCityDataList[index]
+                    val orderNumber = mCityDataOrderNumberList[index]
+
+                    cityDataItem.toCityDataRealm(orderNumber)
+                }
+
+                realm.insertOrUpdate(cityDataRealmList)
             }, {
                 // 成功回调
                 onSuccess?.invoke(cityData)
@@ -189,7 +196,14 @@ internal class CityDataManager private constructor() {
         } else {
             // 同步添加
             getRealmInstance().executeTransaction { realm ->
-                realm.insertOrUpdate(cityData.toCityDataRealm(orderNumber))
+                val cityDataRealmList = indexSet.map { index ->
+                    val cityDataItem = mCityDataList[index]
+                    val orderNumber = mCityDataOrderNumberList[index]
+
+                    cityDataItem.toCityDataRealm(orderNumber)
+                }
+
+                realm.insertOrUpdate(cityDataRealmList)
             }
         }
         // 通知各个页面视图更新
@@ -225,7 +239,7 @@ internal class CityDataManager private constructor() {
             key2 - key1
         }
         val cityDataList = mutableListOf<CityDataItem>()
-        val cityDataRealmList = mutableListOf<CityDataRealm>()
+        val cityDataRealmList = mutableSetOf<CityDataRealm>()
 
         sortedCityDataMap.putAll(cityDataMap)
         sortedCityDataMap.forEach { entry ->
@@ -241,7 +255,12 @@ internal class CityDataManager private constructor() {
                 throw IllegalArgumentException("城市数据不完整")
             }
 
-            val orderNumber = generateAndAddOrderNumber(index)
+            val partCityDataRealmList = generateAndAddOrderNumber(index).map { i ->
+                val cityDataItem = mCityDataList[i]
+                val orderNumber = mCityDataOrderNumberList[i]
+
+                cityDataItem.toCityDataRealm(orderNumber)
+            }
 
             indexList.add(index)
             mCityDataList.add(index, cityData)
@@ -249,7 +268,7 @@ internal class CityDataManager private constructor() {
             if (isAsync) {
                 cityDataList.add(cityData)
             }
-            cityDataRealmList.add(cityData.toCityDataRealm(orderNumber))
+            cityDataRealmList.addAll(partCityDataRealmList)
         }
 
         if (isAsync) {
@@ -300,18 +319,24 @@ internal class CityDataManager private constructor() {
 
         val indexList = mutableListOf<Int>()
         var curIndex = index
-        val cityDataRealmList = mutableListOf<CityDataRealm>()
+        val cityDataRealmList = mutableSetOf<CityDataRealm>()
 
         cityDataList.forEach { cityData ->
             if (!cityData.isValid()) {
                 throw IllegalArgumentException("城市数据不完整")
             }
-            val orderNumber = generateAndAddOrderNumber(curIndex)
+
+            val partCityDataRealmList = generateAndAddOrderNumber(curIndex).map { i ->
+                val cityDataItem = mCityDataList[i]
+                val orderNumber = mCityDataOrderNumberList[i]
+
+                cityDataItem.toCityDataRealm(orderNumber)
+            }
 
             indexList.add(curIndex)
             mCityDataMap[cityData.cityCode] = cityData
             mCityDataList.add(index, cityData)
-            cityDataRealmList.add(cityData.toCityDataRealm(orderNumber))
+            cityDataRealmList.addAll(partCityDataRealmList)
             ++curIndex
         }
         if (isAsync) {
@@ -847,10 +872,10 @@ internal class CityDataManager private constructor() {
      * @param curIndex 要添加到的索引下标位置
      * @return 生成的排序值
      */
-    private fun generateAndAddOrderNumber(curIndex: Int): Double {
+    private fun generateAndAddOrderNumber(curIndex: Int): Set<Int> {
         if (mCityDataOrderNumberList.size == 0) {
             mCityDataOrderNumberList.add(0.0)
-            return 0.0
+            return setOf(curIndex)
         }
         when (curIndex) {
             0 -> {
@@ -858,26 +883,28 @@ internal class CityDataManager private constructor() {
                 val orderNumber = mCityDataOrderNumberList[0] - 1.0
 
                 mCityDataOrderNumberList.add(0, orderNumber)
-                return orderNumber
+                return setOf(curIndex)
             }
             mCityDataOrderNumberList.size -> {
                 // 列表尾部添加
                 val orderNumber = mCityDataOrderNumberList[mCityDataOrderNumberList.size - 1] + 1.0
 
                 mCityDataOrderNumberList.add(orderNumber)
-                return orderNumber
+                return setOf(curIndex)
             }
             else -> {
+                val indexSet = mutableSetOf<Int>()
                 val previous = mCityDataOrderNumberList[curIndex - 1]
                 val next = mCityDataOrderNumberList[curIndex]
                 val avg = (previous + next) / 2.0
 
                 mCityDataOrderNumberList.add(curIndex, avg)
+                indexSet.add(curIndex)
                 if (avg == previous || avg == next) {
                     // 精度极度接近，以至于判断为相等, 需要拉伸
-                    stretch(curIndex)
+                    stretch(indexSet, curIndex)
                 }
-                return avg
+                return indexSet
             }
         }
     }
@@ -887,27 +914,29 @@ internal class CityDataManager private constructor() {
      *
      * @param curIndex 当前索引下标位置
      */
-    private fun stretch(curIndex: Int) {
+    private fun stretch(indexSet: MutableSet<Int>, curIndex: Int) {
         val current = mCityDataOrderNumberList[curIndex]
         val previous = mCityDataOrderNumberList[curIndex - 1]
         val next = mCityDataOrderNumberList[curIndex + 1]
 
         if (previous == current) {
-            stretchForward(curIndex - 1)
+            stretchForward(indexSet, curIndex - 1)
         }
         if (current == next) {
-            stretchBackward(curIndex + 1)
+            stretchBackward(indexSet, curIndex + 1)
         }
     }
 
     /**
      * 向前拉伸
      *
+     * @param indexSet 下标 Set
      * @param curIndex 向前步进的索引下标
      */
-    private fun stretchForward(curIndex: Int) {
+    private fun stretchForward(indexSet: MutableSet<Int>, curIndex: Int) {
         if (curIndex == 0) {
             mCityDataOrderNumberList[curIndex] = mCityDataOrderNumberList[curIndex] - 1.0
+            indexSet.add(curIndex)
             return
         }
 
@@ -916,20 +945,23 @@ internal class CityDataManager private constructor() {
         val next = mCityDataOrderNumberList[curIndex + 1]
         val avg = (previous + next) / 2.0
 
-        if (previous >= current || previous >= avg) {
-            stretchForward(curIndex - 1)
+        if (previous == current || previous == avg) {
+            stretchForward(indexSet, curIndex - 1)
         }
         mCityDataOrderNumberList[curIndex] = avg
+        indexSet.add(curIndex)
     }
 
     /**
      * 向后拉伸
      *
+     * @param indexSet 下标 Set
      * @param curIndex 向后步进的索引下标
      */
-    private fun stretchBackward(curIndex: Int) {
+    private fun stretchBackward(indexSet: MutableSet<Int>, curIndex: Int) {
         if (curIndex == dataList.size - 1) {
             mCityDataOrderNumberList[curIndex] = mCityDataOrderNumberList[curIndex] + 1.0
+            indexSet.add(curIndex)
             return
         }
 
@@ -938,10 +970,11 @@ internal class CityDataManager private constructor() {
         val next = mCityDataOrderNumberList[curIndex + 1]
         val avg = (previous + next) / 2.0
 
-        if (current >= next || avg >= next) {
-            stretchBackward(curIndex + 1)
+        if (current == next || avg == next) {
+            stretchBackward(indexSet, curIndex + 1)
         }
         mCityDataOrderNumberList[curIndex] = avg
+        indexSet.add(curIndex)
     }
 
 }
