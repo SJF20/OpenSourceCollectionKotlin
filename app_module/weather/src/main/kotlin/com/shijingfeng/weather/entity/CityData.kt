@@ -5,6 +5,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
 import com.shijingfeng.weather.annotation.define.WeatherType
 import com.shijingfeng.weather.common.constant.UNKNOWN_WEATHER
 import com.shijingfeng.weather.entity.realm.CityDataRealm
+import io.realm.annotations.RealmField
 
 /**
  * Function: 城市数据 实体类 (可读不可写)
@@ -57,7 +58,7 @@ internal data class CityDataItem(
 
     /** 天气数据, 用作缓存, Json字符串 */
     @SerializedName("weatherData")
-    val weatherData: String? = null
+    val weatherData: String? = null,
 
 ) : BaseEntity() {
     
@@ -87,8 +88,13 @@ internal data class CityDataItem(
     /**
      * 当前 城市数据实体类 转换为 城市数据数据库实体类 [CityDataRealm]
      * 深拷贝(当前对象只有 String, double, int 这三种类型，所以可以看作是深拷贝)
+     *
+     * @param orderNumber
+     *
      */
-    fun toCityDataRealm() = if (!isValid()) {
+    fun toCityDataRealm(
+        orderNumber: Double
+    ) = if (!isValid()) {
         throw IllegalArgumentException("该城市数据实体类部分数据没有, 故不能存到数据库中")
     } else {
         CityDataRealm(
@@ -102,7 +108,8 @@ internal data class CityDataItem(
             curTemp = this.curTemp!!,
             lowestTemp = this.lowestTemp!!,
             highestTemp = this.highestTemp!!,
-            weatherData = this.weatherData!!
+            weatherData = this.weatherData!!,
+            orderNumber = orderNumber
         )
     }
 

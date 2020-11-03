@@ -15,7 +15,7 @@ import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.event.CityDataChangeEvent
 import com.shijingfeng.weather.entity.realm.CityDataRealm
 import com.shijingfeng.weather.util.getRealmInstance
-import io.realm.RealmAsyncTask
+import io.realm.Sort
 import io.realm.kotlin.where
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -35,6 +35,15 @@ internal class CityDataManager private constructor() {
     /** 城市数据列表 */
     private val mCityDataList = LinkedList<CityDataItem>()
 
+    /**
+     * 城市数据 排序值 列表
+     * 当插入或删除时, 用于维护顺序 思路来源: [http://www.voidcn.com/article/p-wvwueflp-bvm.html], 如果失效查看此地址 [https://m.jb51.cc/mysql/434178.html]
+     * 注意: 但是有一个问题,如果你继续在同一区域插入数字,可能会导致 order_number 精度太接近,足够接近以至于不能彼此区分.
+     * 为避免这种情况,您的插入程序必须检查两个相邻的 order_number 是否过于接近.在这种情况下,它可以重新分配其他附近行的 order_number, “拉伸”上方和下方的订单号以“创建空间”以获得新值.
+     * 您还可以定期运行“清理”过程,并在表的整个或大部分中进行“拉伸”.
+     */
+    private val mCityDataOrderNumberList = LinkedList<Double>()
+
     companion object {
 
         /**
@@ -49,7 +58,10 @@ internal class CityDataManager private constructor() {
         ) {
             getRealmInstance().executeTransaction { realm ->
                 try {
-                    val cityDataResults = realm.where<CityDataRealm>().findAll()
+                    val cityDataResults = realm
+                        .where<CityDataRealm>()
+                        .sort("order_number", Sort.ASCENDING)
+                        .findAll()
                     val cityDataList = CityDataManager().apply {
                         mCityDataMap.clear()
                         mCityDataList.clear()
@@ -155,6 +167,9 @@ internal class CityDataManager private constructor() {
         if (!cityData.isValid()) {
             throw IllegalArgumentException("城市数据不完整")
         }
+
+        val orderNumber = generateAndAddOrderNumber(index)
+
         // 内存中缓存
         mCityDataList.add(index, cityData)
         mCityDataMap[cityData.cityCode] = cityData
@@ -163,7 +178,7 @@ internal class CityDataManager private constructor() {
         if (isAsync) {
             // 异步添加
             getRealmInstance().executeTransactionAsync({ realm ->
-                realm.insertOrUpdate(cityData.toCityDataRealm())
+                realm.insertOrUpdate(cityData.toCityDataRealm(orderNumber))
             }, {
                 // 成功回调
                 onSuccess?.invoke(cityData)
@@ -174,7 +189,7 @@ internal class CityDataManager private constructor() {
         } else {
             // 同步添加
             getRealmInstance().executeTransaction { realm ->
-                realm.insertOrUpdate(cityData.toCityDataRealm())
+                realm.insertOrUpdate(cityData.toCityDataRealm(orderNumber))
             }
         }
         // 通知各个页面视图更新
@@ -203,20 +218,6 @@ internal class CityDataManager private constructor() {
         if (cityDataMap.isEmpty()) {
             throw IllegalArgumentException("城市数据列表不能为空列表")
         }
-        // 检查下标有效性 和 数据完整性
-        cityDataMap.forEach { entry ->
-            val index = entry.key
-            val cityData = entry.value
-
-            // 0下标数据是当前定位的数据项，恒定在0下标位置
-            if (index < 1 || index > mCityDataList.size) {
-                throw IllegalArgumentException("索引下标必须 大于等于1 或 小于等于列表的长度")
-            }
-            // 数据不完整，则不添加
-            if (!cityData.isValid()) {
-                throw IllegalArgumentException("城市数据不完整")
-            }
-        }
 
         val indexList = mutableListOf<Int>()
         val sortedCityDataMap = TreeMap<Int, CityDataItem> { key1, key2 ->
@@ -231,13 +232,24 @@ internal class CityDataManager private constructor() {
             val index = entry.key
             val cityData = entry.value
 
+            // 0下标数据是当前定位的数据项，恒定在0下标位置
+            if (index < 1 || index > mCityDataList.size) {
+                throw IllegalArgumentException("索引下标必须 大于等于1 或 小于等于列表的长度")
+            }
+            // 数据不完整，则不添加
+            if (!cityData.isValid()) {
+                throw IllegalArgumentException("城市数据不完整")
+            }
+
+            val orderNumber = generateAndAddOrderNumber(index)
+
             indexList.add(index)
             mCityDataList.add(index, cityData)
             mCityDataMap[cityData.cityCode] = cityData
             if (isAsync) {
                 cityDataList.add(cityData)
             }
-            cityDataRealmList.add(cityData.toCityDataRealm())
+            cityDataRealmList.add(cityData.toCityDataRealm(orderNumber))
         }
 
         if (isAsync) {
@@ -290,16 +302,18 @@ internal class CityDataManager private constructor() {
         var curIndex = index
         val cityDataRealmList = mutableListOf<CityDataRealm>()
 
-        // 过滤掉数据不完整的实体类
         cityDataList.forEach { cityData ->
             if (!cityData.isValid()) {
                 throw IllegalArgumentException("城市数据不完整")
             }
-            indexList.add(curIndex++)
+            val orderNumber = generateAndAddOrderNumber(curIndex)
+
+            indexList.add(curIndex)
             mCityDataMap[cityData.cityCode] = cityData
-            cityDataRealmList.add(cityData.toCityDataRealm())
+            mCityDataList.add(index, cityData)
+            cityDataRealmList.add(cityData.toCityDataRealm(orderNumber))
+            ++curIndex
         }
-        mCityDataList.addAll(index, cityDataList)
         if (isAsync) {
             // 异步操作
             getRealmInstance().executeTransactionAsync({ realm ->
@@ -345,6 +359,7 @@ internal class CityDataManager private constructor() {
             throw IllegalArgumentException("索引下标必须 大于等于0 或 小于列表的长度")
         }
 
+        val cityDataOrderNumber = mCityDataOrderNumberList[index]
         val oldCityData = mCityDataList[index]
         val newCityData = CityDataItem(
             cityCode = oldCityData.cityCode,
@@ -365,7 +380,7 @@ internal class CityDataManager private constructor() {
         if (isAsync) {
             // 异步操作
             getRealmInstance().executeTransactionAsync({ realm ->
-                realm.insertOrUpdate(newCityData.toCityDataRealm())
+                realm.insertOrUpdate(newCityData.toCityDataRealm(cityDataOrderNumber))
             }, {
                 // 成功回调
                 onSuccess?.invoke(newCityData)
@@ -376,7 +391,7 @@ internal class CityDataManager private constructor() {
         } else {
             // 同步操作
             getRealmInstance().executeTransaction { realm ->
-                realm.insertOrUpdate(newCityData.toCityDataRealm())
+                realm.insertOrUpdate(newCityData.toCityDataRealm(cityDataOrderNumber))
             }
         }
         EventBus.getDefault().post(
@@ -391,15 +406,23 @@ internal class CityDataManager private constructor() {
      * 批量更新
      *
      * @param cityDataMap 城市数据Map,  Key: 索引下标  Value: 要更新的数据实体类 (如果该实体类中某字段为 null , 则不更新此字段数据)
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun update(
-        cityDataMap: Map<Int, CityDataItem>
+        cityDataMap: Map<Int, CityDataItem>,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<List<CityDataItem>>? = null,
+        onFailure: onFailure? = null
     ) {
         if (cityDataMap.isEmpty()) {
             throw IllegalArgumentException("城市数据散列表不能为空散列表")
         }
 
         val indexList = mutableListOf<Int>()
+        val cityDataList = mutableListOf<CityDataItem>()
+        val cityDataRealmList = mutableListOf<CityDataRealm>()
 
         cityDataMap.forEach { entry ->
             val index = entry.key
@@ -409,6 +432,7 @@ internal class CityDataManager private constructor() {
                 throw IllegalArgumentException("索引下标必须 大于等于0 或 小于列表的长度")
             }
 
+            val cityDataOrderNumber = mCityDataOrderNumberList[index]
             val oldCityData = mCityDataList[index]
             val newCityData = CityDataItem(
                 cityCode = oldCityData.cityCode,
@@ -427,6 +451,27 @@ internal class CityDataManager private constructor() {
             indexList.add(index)
             mCityDataList[index] = newCityData
             mCityDataMap[oldCityData.cityCode] = newCityData
+            if (isAsync) {
+                cityDataList.add(newCityData)
+            }
+            cityDataRealmList.add(newCityData.toCityDataRealm(cityDataOrderNumber))
+        }
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.insertOrUpdate(cityDataRealmList)
+            }, {
+                // 成功回调
+                onSuccess?.invoke(cityDataList)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步操作
+            getRealmInstance().executeTransaction { realm ->
+                realm.insertOrUpdate(cityDataRealmList)
+            }
         }
         EventBus.getDefault().post(
             CityDataChangeEvent(
@@ -452,7 +497,10 @@ internal class CityDataManager private constructor() {
             throw IllegalArgumentException("索引下标不能为0, 因为0下标数据是当前定位的数据项，恒定在0下标位置，禁止移动操作")
         }
 
-        if (mCityDataList.move(oldIndex, newIndex)) {
+        val isSucceed1 = mCityDataList.move(oldIndex, newIndex)
+        val isSucceed2 = mCityDataOrderNumberList.move(oldIndex, newIndex)
+
+        if (isSucceed1 && isSucceed2) {
             EventBus.getDefault().post(
                 CityDataChangeEvent(
                     type = CITY_DATA_OPERATE_MOVE,
@@ -497,7 +545,11 @@ internal class CityDataManager private constructor() {
             if (mCityDataList.size < 2) {
                 throw IllegalArgumentException("列表大小必须大于等于2")
             }
-            if (mCityDataList.move(oldIndex, newIndex)) {
+
+            val isSucceed1 = mCityDataList.move(oldIndex, newIndex)
+            val isSucceed2 = mCityDataOrderNumberList.move(oldIndex, newIndex)
+
+            if (isSucceed1 && isSucceed2) {
                 indexList.add(oldIndex)
                 indexList.add(newIndex)
             }
@@ -532,7 +584,11 @@ internal class CityDataManager private constructor() {
         if (mCityDataList.size < 2) {
             throw IllegalArgumentException("列表大小必须大于等于2")
         }
-        if (mCityDataList.swap(index1, index2)) {
+
+        val isSucceed1 = mCityDataList.swap(index1, index2)
+        val isSucceed2 = mCityDataOrderNumberList.swap(index1, index2)
+
+        if (isSucceed1 && isSucceed2) {
             EventBus.getDefault().post(
                 CityDataChangeEvent(
                     type = CITY_DATA_OPERATE_SWAP,
@@ -576,7 +632,11 @@ internal class CityDataManager private constructor() {
             if (mCityDataList.size < 2) {
                 throw IllegalArgumentException("列表大小必须大于等于2")
             }
-            if (mCityDataList.swap(index1, index2)) {
+
+            val isSucceed1 = mCityDataList.swap(index1, index2)
+            val isSucceed2 = mCityDataOrderNumberList.swap(index1, index2)
+
+            if (isSucceed1 && isSucceed2) {
                 indexList.add(index1)
                 indexList.add(index2)
             }
@@ -593,18 +653,48 @@ internal class CityDataManager private constructor() {
      * 通过下标索引 删除元素
      *
      * @param index 下标
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun removeAt(
         index: Int,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<CityDataItem>? = null,
+        onFailure: onFailure? = null
     ) {
         // 0下标数据是当前定位的数据项，恒定在0下标位置，禁止删除操作
         if (index < 1 || index > mCityDataList.size - 1) {
-            return
+            throw IllegalArgumentException("索引下标不能为0, 因为0下标数据是当前定位的数据项，恒定在0下标位置，禁止删除操作")
         }
 
         val cityData = mCityDataList.removeAt(index)
 
+        mCityDataOrderNumberList.removeAt(index)
         mCityDataMap.remove(cityData.cityCode)
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.where<CityDataRealm>()
+                    .equalTo("city_code", cityData.cityCode)
+                    .findAll()
+                    .deleteAllFromRealm()
+            }, {
+                // 成功回调
+                onSuccess?.invoke(cityData)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步操作
+            getRealmInstance().executeTransaction { realm ->
+                realm.where<CityDataRealm>()
+                    .equalTo("city_code", cityData.cityCode)
+                    .findAll()
+                    .deleteAllFromRealm()
+            }
+        }
         EventBus.getDefault().post(
             CityDataChangeEvent(
                 type = CITY_DATA_OPERATE_REMOVE,
@@ -617,51 +707,241 @@ internal class CityDataManager private constructor() {
      * 通过 多个下标索引 批量删除
      *
      * @param indexList 下标索引列表
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
     fun removeAt(
-        indexList: List<Int>
+        indexList: List<Int>,
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<List<String>>? = null,
+        onFailure: onFailure? = null
     ) {
         if (indexList.isEmpty()) {
             return
         }
 
-        val validIndexList = mutableListOf<Int>()
+        val cityCodeList = mutableListOf<String>()
 
-        // 过滤出有效的下标
-        indexList.forEach { index ->
-            if (index >= 1 && index <= mCityDataList.size - 1) {
-                validIndexList.add(index)
-            }
-        }
         // 对下标进行排序(从大到小), 用于从后到前删除，防止删除后下标对应的元素已改变
-        validIndexList.sortWith { o1, o2 ->
+        indexList.sortedWith { o1, o2 ->
             o2 - o1
         }
         // 批量删除数据
-        validIndexList.forEach { index ->
+        indexList.forEach { index ->
+            if (index < 1) {
+                throw IllegalArgumentException("索引下标不能为0, 因为0下标数据是当前定位的数据项，恒定在0下标位置，禁止删除操作")
+            }
+            if (index > mCityDataList.size - 1) {
+                throw IllegalArgumentException("下标越界")
+            }
+
             val cityData = mCityDataList.removeAt(index)
 
+            mCityDataOrderNumberList.removeAt(index)
             mCityDataMap.remove(cityData.cityCode)
+            cityCodeList.add(cityData.cityCode)
+        }
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                var realmQuery = realm.where<CityDataRealm>()
+
+                cityCodeList.forEachIndexed { index, cityCode ->
+                    realmQuery = if (index == cityCodeList.size - 1) {
+                        realmQuery.equalTo("city_code", cityCode)
+                    } else {
+                        realmQuery.equalTo("city_code", cityCode).or()
+                    }
+                }
+                // 注意，如果不加判断，如果要删除的城市数据为空, 那么会导致删除整个表的数据
+                if (cityCodeList.isNotEmpty()) {
+                    realmQuery
+                        .findAll()
+                        .deleteAllFromRealm()
+                }
+            }, {
+                // 成功回调
+                onSuccess?.invoke(cityCodeList)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        } else {
+            // 同步操作
+            getRealmInstance().executeTransaction { realm ->
+                var realmQuery = realm.where<CityDataRealm>()
+
+                cityCodeList.forEachIndexed { index, cityCode ->
+                    realmQuery = if (index == cityCodeList.size - 1) {
+                        realmQuery.equalTo("city_code", cityCode)
+                    } else {
+                        realmQuery.equalTo("city_code", cityCode).or()
+                    }
+                }
+                // 注意，如果不加判断，如果要删除的城市数据为空, 那么会导致删除整个表的数据
+                if (cityCodeList.isNotEmpty()) {
+                    realmQuery
+                        .findAll()
+                        .deleteAllFromRealm()
+                }
+            }
         }
         EventBus.getDefault().post(
             CityDataChangeEvent(
                 type = CITY_DATA_OPERATE_REMOVE,
-                indexList = validIndexList
+                indexList = indexList
             )
         )
     }
 
     /**
      * 清空城市数据
+     *
+     * @param isAsync 是否异步添加  true: 异步添加  false: 同步添加
+     * @param onSuccess 异步全部添加成功回调 (异步添加有效), 注意在回调中UI操作要判空处理
+     * @param onFailure 异步全部添加失败回调 (异步添加有效), 注意在回调中UI操作要判空处理
      */
-    fun clear() {
+    fun clear(
+        isAsync: Boolean = true,
+        onSuccess: onSuccess<Any?>? = null,
+        onFailure: onFailure? = null
+    ) {
+        val cityData = mCityDataList[0]
+
         mCityDataList.clear()
+        mCityDataOrderNumberList.clear()
         mCityDataMap.clear()
+
+        // 除了第一条数据，其他全部清空
+        mCityDataList.add(cityData)
+        mCityDataOrderNumberList.add(0.0)
+        mCityDataMap[cityData.cityCode] = cityData
+
+        if (isAsync) {
+            // 异步操作
+            getRealmInstance().executeTransactionAsync({ realm ->
+                realm.where<CityDataRealm>()
+                    .notEqualTo("city_code", cityData.cityCode)
+                    .findAll()
+                    .deleteAllFromRealm()
+            }, {
+                // 成功回调
+                onSuccess?.invoke(null)
+            }, { throwable ->
+                // 失败回调
+                onFailure?.invoke(E(error = throwable))
+            })
+        }
+
         EventBus.getDefault().post(
             CityDataChangeEvent(
                 type = CITY_DATA_OPERATE_REMOVE,
             )
         )
+    }
+
+    /**
+     * 生成排序值 并 添加到 [mCityDataOrderNumberList] 列表中
+     *
+     * @param curIndex 要添加到的索引下标位置
+     * @return 生成的排序值
+     */
+    private fun generateAndAddOrderNumber(curIndex: Int): Double {
+        if (mCityDataOrderNumberList.size == 0) {
+            mCityDataOrderNumberList.add(0.0)
+            return 0.0
+        }
+        when (curIndex) {
+            0 -> {
+                // 列表首部添加
+                val orderNumber = mCityDataOrderNumberList[0] - 1.0
+
+                mCityDataOrderNumberList.add(0, orderNumber)
+                return orderNumber
+            }
+            mCityDataOrderNumberList.size -> {
+                // 列表尾部添加
+                val orderNumber = mCityDataOrderNumberList[mCityDataOrderNumberList.size - 1] + 1.0
+
+                mCityDataOrderNumberList.add(orderNumber)
+                return orderNumber
+            }
+            else -> {
+                val previous = mCityDataOrderNumberList[curIndex - 1]
+                val next = mCityDataOrderNumberList[curIndex]
+                val avg = (previous + next) / 2.0
+
+                mCityDataOrderNumberList.add(curIndex, avg)
+                if (avg == previous || avg == next) {
+                    // 精度极度接近，以至于判断为相等, 需要拉伸
+                    stretch(curIndex)
+                }
+                return avg
+            }
+        }
+    }
+
+    /**
+     * 拉伸
+     *
+     * @param curIndex 当前索引下标位置
+     */
+    private fun stretch(curIndex: Int) {
+        val current = mCityDataOrderNumberList[curIndex]
+        val previous = mCityDataOrderNumberList[curIndex - 1]
+        val next = mCityDataOrderNumberList[curIndex + 1]
+
+        if (current == previous) {
+            stretchForward(curIndex - 1)
+        }
+        if (current == next) {
+            stretchBackward(curIndex + 1)
+        }
+    }
+
+    /**
+     * 向前拉伸
+     *
+     * @param curIndex 向前步进的索引下标
+     */
+    private fun stretchForward(curIndex: Int) {
+        if (curIndex == 0) {
+            mCityDataOrderNumberList[curIndex] = mCityDataOrderNumberList[curIndex] - 1.0
+            return
+        }
+
+        val previous = mCityDataOrderNumberList[curIndex - 1]
+        val current = mCityDataOrderNumberList[curIndex]
+        val next = mCityDataOrderNumberList[curIndex + 1]
+        val avg = (previous + next) / 2.0
+
+        if (previous >= current || previous >= avg) {
+            stretchForward(curIndex - 1)
+        }
+        mCityDataOrderNumberList[curIndex] = avg
+    }
+
+    /**
+     * 向后拉伸
+     *
+     * @param curIndex 向后步进的索引下标
+     */
+    private fun stretchBackward(curIndex: Int) {
+        if (curIndex == dataList.size - 1) {
+            mCityDataOrderNumberList[curIndex] = mCityDataOrderNumberList[curIndex] + 1.0
+            return
+        }
+
+        val previous = mCityDataOrderNumberList[curIndex - 1]
+        val current = mCityDataOrderNumberList[curIndex]
+        val next = mCityDataOrderNumberList[curIndex + 1]
+        val avg = (previous + next) / 2.0
+
+        if (current >= next || avg >= next) {
+            stretchBackward(curIndex + 1)
+        }
+        mCityDataOrderNumberList[curIndex] = avg
     }
 
 }

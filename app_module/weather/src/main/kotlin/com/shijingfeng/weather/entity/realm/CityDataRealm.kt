@@ -5,10 +5,7 @@ import com.shijingfeng.weather.annotation.define.WeatherType
 import com.shijingfeng.weather.common.constant.UNKNOWN_WEATHER
 import com.shijingfeng.weather.entity.CityDataItem
 import io.realm.RealmModel
-import io.realm.annotations.PrimaryKey
-import io.realm.annotations.RealmClass
-import io.realm.annotations.RealmField
-import io.realm.annotations.Required
+import io.realm.annotations.*
 
 /**
  * Function: 城市数据 Realm实体类 (包括 行政数据 和 天气数据)
@@ -66,7 +63,16 @@ internal open class CityDataRealm (
 
     /** 天气数据, 用作缓存, Json字符串 */
     @RealmField(name = "weather_data")
-    var weatherData: String
+    var weatherData: String,
+
+    /**
+     * 当插入或删除时, 用于维护顺序 思路来源: [http://www.voidcn.com/article/p-wvwueflp-bvm.html], 如果失效查看此地址 [https://m.jb51.cc/mysql/434178.html]
+     * 注意: 但是有一个问题,如果你继续在同一区域插入数字,可能会导致 order_number 精度太接近,足够接近以至于不能彼此区分.
+     * 为避免这种情况,您的插入程序必须检查两个相邻的 order_number 是否过于接近.在这种情况下,它可以重新分配其他附近行的 order_number, “拉伸”上方和下方的订单号以“创建空间”以获得新值.
+     * 您还可以定期运行“清理”过程,并在表的整个或大部分中进行“拉伸”.
+     */
+    @RealmField(name = "order_number")
+    var orderNumber: Double
 
 ) : RealmModel {
 
@@ -85,7 +91,7 @@ internal open class CityDataRealm (
         curTemp = this.curTemp,
         lowestTemp = this.lowestTemp,
         highestTemp = this.highestTemp,
-        weatherData = this.weatherData
+        weatherData = this.weatherData,
     )
 
 }
