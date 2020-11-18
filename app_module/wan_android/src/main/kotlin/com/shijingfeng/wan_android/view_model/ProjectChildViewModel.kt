@@ -18,6 +18,8 @@ import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.ProjectIndexEntity
+import com.shijingfeng.wan_android.source.network.getProjectChildNetworkSourceInstance
+import com.shijingfeng.wan_android.source.repository.getProjectChildRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.ProjectChildFragment
 import org.greenrobot.eventbus.EventBus
 
@@ -30,9 +32,7 @@ const val PROJECT_CHILD_FIRST_PAGE = 1
  * Description:
  * @author shijingfeng
  */
-internal class ProjectChildViewModel(
-    repository: ProjectChildRepository? = null
-) : WanAndroidBaseViewModel<ProjectChildRepository>(repository) {
+internal class ProjectChildViewModel : WanAndroidBaseViewModel<ProjectChildRepository>() {
 
     /** 当前页码  */
     private var mPage = PROJECT_CHILD_FIRST_PAGE
@@ -70,6 +70,14 @@ internal class ProjectChildViewModel(
 
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getProjectChildRepositoryInstance(
+        networkSource = getProjectChildNetworkSourceInstance()
+    )
 
     /**
      * 初始化

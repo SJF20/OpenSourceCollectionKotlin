@@ -16,7 +16,9 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
+import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.LoginRepository
+import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.utils.startTokenExpireAlarm
@@ -28,9 +30,7 @@ import org.greenrobot.eventbus.EventBus
  * Description:
  * @author ShiJingFeng
  */
-internal class LoginViewModel(
-    repository: LoginRepository? = null
-) : WanAndroidBaseViewModel<LoginRepository>(repository) {
+internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
 
     /** 用户名  */
     val mUsername = ObservableField("")
@@ -93,6 +93,14 @@ internal class LoginViewModel(
             mIsCleartextPassword.set(true)
         }
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getLoginRepositoryInstance(
+        networkSource = getLoginNetworkSourceInstance()
+    )
 
     /**
      * 登录

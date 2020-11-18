@@ -1,13 +1,9 @@
 package com.shijingfeng.wan_android.ui.activity
 
 import android.util.SparseArray
-import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_USER_INFO
 import com.shijingfeng.base.util.getStringById
-import com.shijingfeng.skin_changer.constant.BACK_GROUND
-import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
-import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity

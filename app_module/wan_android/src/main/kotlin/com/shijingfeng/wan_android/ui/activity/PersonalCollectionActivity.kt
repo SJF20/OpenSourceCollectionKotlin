@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -23,8 +22,6 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidPersonalCollectionBinding
-import com.shijingfeng.wan_android.source.network.getPersonalCollectionNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getPersonalCollectionRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.view_model.PersonalCollectionViewModel
 
@@ -59,17 +56,7 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): PersonalCollectionViewModel? {
-        val articleCollectedListRepository = getPersonalCollectionRepositoryInstance(
-            networkSource = getPersonalCollectionNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = articleCollectedListRepository
-            )
-
-        return createViewModel(PersonalCollectionViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(PersonalCollectionViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

@@ -7,7 +7,6 @@ import android.view.View.VISIBLE
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_LOGIN
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.TEXT_COLOR
@@ -16,10 +15,7 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidLoginBinding
-import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.view_model.LoginViewModel
-import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
 
 /**
  * Function: 登录 Activity
@@ -41,17 +37,7 @@ internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBin
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): LoginViewModel? {
-        val loginRepository: LoginRepository = getLoginRepositoryInstance(
-            networkSource = getLoginNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = loginRepository
-            )
-
-        return createViewModel(LoginViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(LoginViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

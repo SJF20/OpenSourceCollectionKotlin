@@ -13,7 +13,9 @@ import com.shijingfeng.todo.constant.TODO_ADD
 import com.shijingfeng.todo.constant.TYPE_ALL
 import com.shijingfeng.todo.entity.adapter.TodoChildItem
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
+import com.shijingfeng.todo.source.network.getAddUpdateTodoNetworkSourceInstance
 import com.shijingfeng.todo.source.repository.AddUpdateTodoRepository
+import com.shijingfeng.todo.source.repository.getAddUpdateTodoRepositoryInstance
 import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
 import org.greenrobot.eventbus.EventBus
 
@@ -23,11 +25,7 @@ import org.greenrobot.eventbus.EventBus
  * Description:
  * @author ShiJingFeng
  */
-internal class AddUpdateTodoViewModel(
-    repository: AddUpdateTodoRepository? = null
-) : TodoBaseViewModel<AddUpdateTodoRepository>(
-    repository
-) {
+internal class AddUpdateTodoViewModel : TodoBaseViewModel<AddUpdateTodoRepository>() {
 
     /** 页面类型 */
     var mPageType = TODO_ADD
@@ -43,6 +41,14 @@ internal class AddUpdateTodoViewModel(
 
     /** 内容 */
     val mTodoChildList = mutableListOf<TodoChildItem>()
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getAddUpdateTodoRepositoryInstance(
+        networkSource = getAddUpdateTodoNetworkSourceInstance()
+    )
 
     /**
      * 添加 待办事项

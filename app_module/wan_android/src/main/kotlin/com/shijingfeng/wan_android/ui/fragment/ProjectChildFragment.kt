@@ -66,17 +66,7 @@ internal class ProjectChildFragment : WanAndroidBaseFragment<FragmentWanAndroidP
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): ProjectChildViewModel? {
-        val projectChildRepository = getProjectChildRepositoryInstance(
-            networkSource = getProjectChildNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = projectChildRepository
-            )
-
-        return createViewModel(ProjectChildViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(ProjectChildViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

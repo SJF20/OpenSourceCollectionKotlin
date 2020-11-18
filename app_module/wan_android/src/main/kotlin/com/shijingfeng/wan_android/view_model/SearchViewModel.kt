@@ -25,7 +25,10 @@ import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
 import com.shijingfeng.wan_android.entity.SearchHotWordEntity
 import com.shijingfeng.wan_android.entity.SearchListEntity
+import com.shijingfeng.wan_android.source.local.getSearchLocalSourceInstance
+import com.shijingfeng.wan_android.source.network.getSearchNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.SearchRepository
+import com.shijingfeng.wan_android.source.repository.getSearchRepositoryInstance
 import okhttp3.internal.immutableListOf
 import java.util.*
 
@@ -38,9 +41,7 @@ const val SEARCH_LIST_FIRST_PAGE = 0
  * Description:
  * @author shijingfeng
  */
-internal class SearchViewModel(
-    repository: SearchRepository? = null
-) : WanAndroidBaseViewModel<SearchRepository>(repository) {
+internal class SearchViewModel : WanAndroidBaseViewModel<SearchRepository>() {
 
     /** 搜索热词 数据列表  */
     val mSearchHotWordList = mutableListOf<SearchHotWordEntity>()
@@ -53,17 +54,13 @@ internal class SearchViewModel(
     var mSearchHistoryLoadServiceStatus = LOAD_SERVICE_SEARCH_HISTORY_SUCCESS
 
     /** 搜索热词 LoadService LiveData Event */
-    val mSearchHotWordLoadServiceStatusEvent =
-        SingleLiveEvent<Int>()
+    val mSearchHotWordLoadServiceStatusEvent = SingleLiveEvent<Int>()
     /** 搜索历史 LoadService LiveData Event */
-    val mSearchHistoryLoadServiceStatusEvent =
-        SingleLiveEvent<Int>()
+    val mSearchHistoryLoadServiceStatusEvent = SingleLiveEvent<Int>()
     /** 搜索热词 列表数据改变 LiveData Event */
-    val mSearchHotWordListEvent =
-        SingleLiveEvent<List<SearchHotWordEntity>>()
+    val mSearchHotWordListEvent = SingleLiveEvent<List<SearchHotWordEntity>>()
     /** 搜索历史 列表数据改变 LiveData Event */
-    val mSearchHistoryListEvent =
-        SingleLiveEvent<ListDataChangeEvent<SearchHistoryItem>>()
+    val mSearchHistoryListEvent = SingleLiveEvent<ListDataChangeEvent<SearchHistoryItem>>()
 
     /** 搜索输入框 */
     val mSearchInput = ObservableField("")
@@ -121,6 +118,15 @@ internal class SearchViewModel(
         showSearchHistoryCallback(LOAD_SERVICE_SEARCH_HISTORY_LOADING)
         getSearchHistoryList()
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getSearchRepositoryInstance(
+        localSource = getSearchLocalSourceInstance(),
+        networkSource = getSearchNetworkSourceInstance()
+    )
 
     /**
      * 初始化

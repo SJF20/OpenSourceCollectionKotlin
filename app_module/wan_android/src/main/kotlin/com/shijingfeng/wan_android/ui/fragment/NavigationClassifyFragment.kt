@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -21,8 +20,6 @@ import com.shijingfeng.wan_android.adapter.NavigationClassifyAdapter
 import com.shijingfeng.wan_android.common.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidNavigationClassifyBinding
 import com.shijingfeng.wan_android.entity.NavigationClassifyArticle
-import com.shijingfeng.wan_android.source.network.getNavigationClassifyNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getNavigationClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.NavigationClassifyViewModel
 
 /**
@@ -45,17 +42,7 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): NavigationClassifyViewModel? {
-        val navigationClassifyRepository = getNavigationClassifyRepositoryInstance(
-            networkSource = getNavigationClassifyNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = navigationClassifyRepository
-            )
-
-        return createViewModel(NavigationClassifyViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(NavigationClassifyViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

@@ -24,6 +24,8 @@ import com.shijingfeng.todo.ui.activity.MAIN_DONE
 import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
 import com.shijingfeng.todo.constant.PAGE_TYPE
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
+import com.shijingfeng.todo.source.network.getTodoListNetworkSourceInstance
+import com.shijingfeng.todo.source.repository.getTodoListRepositoryInstance
 import com.shijingfeng.todo.ui.activity.MAIN_ALL
 import com.shijingfeng.todo.ui.activity.MAIN_NONE
 import org.greenrobot.eventbus.EventBus
@@ -37,11 +39,7 @@ internal const val TO_DO_LIST_FIRST_PAGE = 1
  * Description:
  * @author ShiJingFeng
  */
-internal class TodoListViewModel(
-    repository: TodoListRepository? = null
-) : TodoBaseViewModel<TodoListRepository>(
-    repository
-) {
+internal class TodoListViewModel : TodoBaseViewModel<TodoListRepository>() {
 
     /** 当前页码  */
     private var mPage = TO_DO_LIST_FIRST_PAGE
@@ -77,6 +75,14 @@ internal class TodoListViewModel(
 
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getTodoListRepositoryInstance(
+        networkSource = getTodoListNetworkSourceInstance()
+    )
 
     /**
      * 初始化

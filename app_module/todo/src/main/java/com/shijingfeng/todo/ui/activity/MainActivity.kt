@@ -92,18 +92,7 @@ internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainView
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): MainViewModel? {
-        val repository = getMainRepositoryInstance(
-            localSource = getMainLocalSourceInstance(),
-            networkSource = getMainNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-
-        return createViewModel(MainViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(MainViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

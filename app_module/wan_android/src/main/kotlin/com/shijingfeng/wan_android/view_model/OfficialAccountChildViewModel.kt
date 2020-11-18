@@ -17,7 +17,9 @@ import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
+import com.shijingfeng.wan_android.source.network.getOfficialAccountChildNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.OfficialAccountChildRepository
+import com.shijingfeng.wan_android.source.repository.getOfficialAccountChildRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.OfficialAccountChildFragment
 import org.greenrobot.eventbus.EventBus
 
@@ -30,9 +32,7 @@ const val OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE = 1
  * Description:
  * @author shijingfeng
  */
-internal class OfficialAccountChildViewModel(
-    repository: OfficialAccountChildRepository? = null
-) : WanAndroidBaseViewModel<OfficialAccountChildRepository>(repository) {
+internal class OfficialAccountChildViewModel : WanAndroidBaseViewModel<OfficialAccountChildRepository>() {
 
     /** 当前页码  */
     private var mPage = OFFICIAL_ACCOUNT_CHILD_FIRST_PAGE
@@ -70,6 +70,14 @@ internal class OfficialAccountChildViewModel(
 
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getOfficialAccountChildRepositoryInstance(
+        networkSource = getOfficialAccountChildNetworkSourceInstance()
+    )
 
     /**
      * 初始化

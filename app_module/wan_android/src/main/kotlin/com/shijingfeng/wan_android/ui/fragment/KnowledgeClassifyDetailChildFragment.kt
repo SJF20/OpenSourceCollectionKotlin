@@ -17,7 +17,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL_CHILD
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
@@ -43,8 +42,6 @@ import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyDetailChildItem
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyChildren
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
-import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyChildNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyDetailChildViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -72,17 +69,7 @@ internal class KnowledgeClassifyDetailChildFragment : WanAndroidBaseFragment<Fra
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): KnowledgeClassifyDetailChildViewModel? {
-        val knowledgeClassifyChildRepository = getKnowledgeClassifyChildRepositoryInstance(
-            networkSource = getKnowledgeClassifyChildNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = knowledgeClassifyChildRepository
-            )
-
-        return createViewModel(KnowledgeClassifyDetailChildViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(KnowledgeClassifyDetailChildViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

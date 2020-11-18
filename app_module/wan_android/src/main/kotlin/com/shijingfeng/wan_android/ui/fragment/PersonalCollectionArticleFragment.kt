@@ -17,7 +17,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_ARTICLE
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
@@ -32,8 +31,6 @@ import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidPersonalCollectionArticleBinding
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
-import com.shijingfeng.wan_android.source.network.getPersonalCollectionArticleNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getPersonalCollectionArticleRepositoryInstance
 import com.shijingfeng.wan_android.view_model.PersonalCollectionArticleViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -66,17 +63,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): PersonalCollectionArticleViewModel? {
-        val personalCollectionArticleRepository = getPersonalCollectionArticleRepositoryInstance(
-            networkSource = getPersonalCollectionArticleNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = personalCollectionArticleRepository
-            )
-
-        return createViewModel(PersonalCollectionArticleViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(PersonalCollectionArticleViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

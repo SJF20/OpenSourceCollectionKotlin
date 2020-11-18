@@ -62,9 +62,7 @@ internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClass
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(ClassifyViewModel::class.java,
-        createCommonViewModelFactory()
-    )
+    override fun getViewModel() = createViewModel(ClassifyViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

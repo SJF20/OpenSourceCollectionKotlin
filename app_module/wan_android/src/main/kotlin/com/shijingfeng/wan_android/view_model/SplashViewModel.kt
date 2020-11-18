@@ -13,11 +13,13 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-internal class SplashViewModel(
-    repository: BaseRepository<*, *>? = null
-) : WanAndroidBaseViewModel<BaseRepository<*, *>>(
-    repository = repository
-) {
+internal class SplashViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository(): Nothing? = null
 
     /**
      * 初始化

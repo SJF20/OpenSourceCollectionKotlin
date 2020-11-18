@@ -12,7 +12,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT_CHILD
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
@@ -36,8 +35,6 @@ import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.OfficialAccountChildItem
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
-import com.shijingfeng.wan_android.source.network.getOfficialAccountChildNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getOfficialAccountChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountChildViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -66,17 +63,7 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): OfficialAccountChildViewModel? {
-        val officialAccountChildRepository = getOfficialAccountChildRepositoryInstance(
-            networkSource = getOfficialAccountChildNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = officialAccountChildRepository
-            )
-
-        return createViewModel(OfficialAccountChildViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(OfficialAccountChildViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

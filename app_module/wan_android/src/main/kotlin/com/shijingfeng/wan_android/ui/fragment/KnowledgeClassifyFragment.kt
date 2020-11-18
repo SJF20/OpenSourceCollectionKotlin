@@ -11,7 +11,6 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.wan_android.BR
@@ -23,8 +22,6 @@ import com.shijingfeng.wan_android.common.constant.TAB_LAYOUT_VISIBILITY
 import com.shijingfeng.wan_android.common.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidKnowledgeClassifyBinding
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
-import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyRepositoryInstance
 import com.shijingfeng.wan_android.view_model.KnowledgeClassifyViewModel
 
 /**
@@ -47,17 +44,7 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): KnowledgeClassifyViewModel? {
-        val knowledgeClassifyRepository = getKnowledgeClassifyRepositoryInstance(
-            networkSource = getKnowledgeClassifyNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = knowledgeClassifyRepository
-            )
-
-        return createViewModel(KnowledgeClassifyViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(KnowledgeClassifyViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

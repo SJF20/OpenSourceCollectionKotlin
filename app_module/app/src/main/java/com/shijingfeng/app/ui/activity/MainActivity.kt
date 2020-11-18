@@ -2,7 +2,6 @@ package com.shijingfeng.app.ui.activity
 
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Bundle
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View

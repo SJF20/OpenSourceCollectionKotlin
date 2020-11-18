@@ -14,7 +14,9 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
+import com.shijingfeng.wan_android.source.network.getPersonalCollectionArticleNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionArticleRepository
+import com.shijingfeng.wan_android.source.repository.getPersonalCollectionArticleRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionArticleFragment
 import okhttp3.internal.immutableListOf
 import org.greenrobot.eventbus.EventBus
@@ -29,9 +31,7 @@ const val PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE = 0
  * Description:
  * @author ShiJingFeng
  */
-internal class PersonalCollectionArticleViewModel(
-    repository: PersonalCollectionArticleRepository? = null
-) : WanAndroidBaseViewModel<PersonalCollectionArticleRepository>(repository) {
+internal class PersonalCollectionArticleViewModel : WanAndroidBaseViewModel<PersonalCollectionArticleRepository>() {
 
     /** 当前页码  */
     private var mPage = PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE
@@ -56,6 +56,14 @@ internal class PersonalCollectionArticleViewModel(
     val mOnRefreshListener = OnRefreshListener { refresh() }
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getPersonalCollectionArticleRepositoryInstance(
+        networkSource = getPersonalCollectionArticleNetworkSourceInstance()
+    )
 
     /**
      * 初始化

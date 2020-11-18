@@ -1,9 +1,11 @@
 package com.shijingfeng.app.view_model
 
 import android.os.Bundle
-import android.os.Handler
 import com.shijingfeng.app.base.AppBaseViewModel
+import com.shijingfeng.app.source.local.getSplashLocalSourceInstance
+import com.shijingfeng.app.source.network.getSplashNetworkSourceInstance
 import com.shijingfeng.app.source.repository.SplashRepository
+import com.shijingfeng.app.source.repository.getSplashRepositoryInstance
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
 import com.shijingfeng.base.common.constant.FINISH_PREVIOUS_ACTIVITY
 import com.shijingfeng.base.common.global.runOnUiThread
@@ -14,11 +16,16 @@ import com.shijingfeng.base.common.global.runOnUiThread
  * Description:
  * @author ShiJingFeng
  */
-internal class SplashViewModel(
-    repository: SplashRepository? = null
-) : AppBaseViewModel<SplashRepository>(
-    repository
-) {
+internal class SplashViewModel : AppBaseViewModel<SplashRepository>() {
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getSplashRepositoryInstance(
+        localSource = getSplashLocalSourceInstance(),
+        networkSource = getSplashNetworkSourceInstance()
+    )
 
     /**
      * 初始化

@@ -7,6 +7,8 @@ import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
 import com.shijingfeng.wan_android.source.repository.OfficialAccountRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.shijingfeng.base.common.constant.*
+import com.shijingfeng.wan_android.source.network.getOfficialAccountNetworkSourceInstance
+import com.shijingfeng.wan_android.source.repository.getOfficialAccountRepositoryInstance
 
 /**
  * Function: 公众号 ViewModel
@@ -14,9 +16,7 @@ import com.shijingfeng.base.common.constant.*
  * Description:
  * @author ShiJingFeng
  */
-internal class OfficialAccountViewModel(
-    repository: OfficialAccountRepository? = null
-) : WanAndroidBaseViewModel<OfficialAccountRepository>(repository) {
+internal class OfficialAccountViewModel : WanAndroidBaseViewModel<OfficialAccountRepository>() {
 
     /** 当前 Fragment Item Position */
     var mCurrentFragmentPosition = 0
@@ -35,6 +35,14 @@ internal class OfficialAccountViewModel(
         showCallback(LOAD_SERVICE_LOADING)
         getOfficialAccountIndex()
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getOfficialAccountRepositoryInstance(
+        networkSource = getOfficialAccountNetworkSourceInstance()
+    )
 
     /**
      * 初始化

@@ -42,17 +42,7 @@ internal class SplashActivity : AppBaseActivity<ViewDataBinding, SplashViewModel
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): SplashViewModel? {
-        val repository = getSplashRepositoryInstance(
-            localSource = getSplashLocalSourceInstance(),
-            networkSource = getSplashNetworkSourceInstance()
-        )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
-
-        return createViewModel(SplashViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(SplashViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

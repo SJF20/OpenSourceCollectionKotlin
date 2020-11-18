@@ -4,7 +4,6 @@ import android.util.SparseArray
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.entity.SkinAttribute
@@ -12,9 +11,6 @@ import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidRegisterBinding
-import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.RegisterRepository
-import com.shijingfeng.wan_android.source.repository.getRegisterRepositoryInstance
 import com.shijingfeng.wan_android.view_model.RegisterViewModel
 
 /**
@@ -38,17 +34,7 @@ internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegist
      *
      * @return ViewModel
      */
-    override fun getViewModel(): RegisterViewModel? {
-        val registerRepository: RegisterRepository = getRegisterRepositoryInstance(
-            networkSource = getRegisterNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = registerRepository
-            )
-
-        return createViewModel(RegisterViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(RegisterViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

@@ -29,7 +29,7 @@ internal class CacheInterceptor : Interceptor {
             val maxAge = 60
 
             return response.newBuilder()
-                //HTTP1.1已废弃
+                //Pragma HTTP1.1已废弃
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")
                 //缓存使用者无限制，且生命周期60秒
@@ -46,7 +46,7 @@ internal class CacheInterceptor : Interceptor {
             val maxStale = 60 * 60 * 24 * 3
 
             return response.newBuilder()
-                //HTTP1.1已废弃
+                //Pragma HTTP1.1已废弃
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")
                 //只使用缓存，使用3天以内的缓存

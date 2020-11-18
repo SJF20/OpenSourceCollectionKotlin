@@ -10,7 +10,10 @@ import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.CoinRankItem
+import com.shijingfeng.wan_android.source.local.getCoinRankLocalSourceInstance
+import com.shijingfeng.wan_android.source.network.getCoinRankNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.CoinRankRepository
+import com.shijingfeng.wan_android.source.repository.getCoinRankRepositoryInstance
 import java.util.*
 
 /** 第一页 页码  */
@@ -24,11 +27,7 @@ const val COIN_RANK_EACH_PAGE_COUNT = 30
  * Description:
  * @author ShiJingFeng
  */
-internal class CoinRankViewModel(
-    repository: CoinRankRepository? = null
-) : WanAndroidBaseViewModel<CoinRankRepository>(
-    repository
-) {
+internal class CoinRankViewModel : WanAndroidBaseViewModel<CoinRankRepository>() {
 
     /** 当前页码  */
     private var mPage = COIN_RANK_FIRST_PAGE
@@ -56,6 +55,15 @@ internal class CoinRankViewModel(
     val mOnRefreshListener = OnRefreshListener { refresh() }
     /** 上拉加载 */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getCoinRankRepositoryInstance(
+        localSource = getCoinRankLocalSourceInstance(),
+        networkSource = getCoinRankNetworkSourceInstance()
+    )
 
     /**
      * 初始化

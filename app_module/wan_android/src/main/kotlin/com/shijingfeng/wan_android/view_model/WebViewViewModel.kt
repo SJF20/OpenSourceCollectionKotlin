@@ -6,7 +6,9 @@ import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent
+import com.shijingfeng.wan_android.source.network.getWebViewNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.WebViewRepository
+import com.shijingfeng.wan_android.source.repository.getWebViewRepositoryInstance
 import com.shijingfeng.wan_android.ui.activity.WebViewActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -16,9 +18,7 @@ import org.greenrobot.eventbus.EventBus
  * Description:
  * @author ShiJingFeng
  */
-internal class WebViewViewModel(
-    repository: WebViewRepository? = null
-) : WanAndroidBaseViewModel<WebViewRepository>(repository) {
+internal class WebViewViewModel : WanAndroidBaseViewModel<WebViewRepository>() {
 
     /** 上一个页面的全限定名称  */
     var mFromName = ""
@@ -26,6 +26,14 @@ internal class WebViewViewModel(
     var mUrl = ""
     /** 标题  */
     var mTitle = ""
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getWebViewRepositoryInstance(
+        networkSource = getWebViewNetworkSourceInstance()
+    )
 
     /**
      * 收藏

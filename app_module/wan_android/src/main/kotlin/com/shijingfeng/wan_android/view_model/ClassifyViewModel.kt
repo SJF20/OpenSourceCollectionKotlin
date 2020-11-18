@@ -9,6 +9,12 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-internal class ClassifyViewModel(
-    repository: BaseRepository<*, *>? = null
-) : WanAndroidBaseViewModel<BaseRepository<*, *>>()
+internal class ClassifyViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository(): Nothing? = null
+
+}

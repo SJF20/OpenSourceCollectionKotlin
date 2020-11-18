@@ -14,7 +14,9 @@ import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.CoinRecordItem
+import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.CoinRecordRepository
+import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
 
 /** 第一页 页码  */
 const val COIN_RECORD_FIRST_PAGE = 1
@@ -25,11 +27,7 @@ const val COIN_RECORD_FIRST_PAGE = 1
  * Description:
  * @author ShiJingFeng
  */
-internal class CoinRecordViewModel(
-    repository: CoinRecordRepository? = null
-) : WanAndroidBaseViewModel<CoinRecordRepository>(
-    repository = repository
-) {
+internal class CoinRecordViewModel : WanAndroidBaseViewModel<CoinRecordRepository>() {
 
     /** 当前页码  */
     private var mPage = COIN_RECORD_FIRST_PAGE
@@ -76,6 +74,14 @@ internal class CoinRecordViewModel(
 
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getCoinRecordRepositoryInstance(
+        networkSource = getCoinRecordNetworkSourceInstance()
+    )
 
     /**
      * 初始化

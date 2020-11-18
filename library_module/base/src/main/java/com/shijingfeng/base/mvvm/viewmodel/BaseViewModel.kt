@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.SparseArray
 import android.util.SparseIntArray
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.R.string.再按一次退出应用
@@ -32,8 +29,14 @@ import org.greenrobot.eventbus.EventBus
  * @author ShiJingFeng
  */
 abstract class BaseViewModel<R : BaseRepository<*, *>>(
-    protected var mRepository: R? = null
+    savedStateHandle: SavedStateHandle? = null
 ) : ViewModel(), DefaultLifecycleObserver {
+
+    /** Repository */
+    protected val mRepository: R? by lazy { getRepository() }
+
+    /** SavedStateHandle 参考: [https://zhuanlan.zhihu.com/p/143115298]*/
+    protected val mSavedStateHandle = savedStateHandle
 
     /** 常用的 LiveData Event 管理器  */
     private val mLiveDataEventManager by lazy { LiveDataEventManager() }
@@ -51,7 +54,7 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     @RefreshLoadMoreStatus var mRefreshLoadMoreStatus = REFRESH_LOAD_MORE_NONE
 
     /** 连续双击退出应用  */
-    protected var mExitApp: Boolean = false
+    private var mExitApp: Boolean = false
 
     /** 是否已经初始化  true 已经初始化  false 没有初始化  */
     var mHasInitialized: Boolean = false
@@ -59,6 +62,12 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     init {
         registerEventBus()
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    protected abstract fun getRepository() : R?
 
     /**
      * 注册EventBus

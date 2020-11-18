@@ -71,17 +71,7 @@ internal class TodoListFragment : TodoBaseFragment<FragmentTodoTodoListBinding, 
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): TodoListViewModel? {
-        val repository = getTodoListRepositoryInstance(
-            networkSource = getTodoListNetworkSourceInstance()
-        )
-
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-        return createViewModel(TodoListViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(TodoListViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

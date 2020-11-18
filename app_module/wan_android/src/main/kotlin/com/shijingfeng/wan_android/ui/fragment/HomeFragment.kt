@@ -16,7 +16,6 @@ import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
@@ -44,9 +43,6 @@ import com.shijingfeng.wan_android.entity.HomeArticleItem
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.source.local.getHomeLocalSourceInstance
-import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.view_model.HomeViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -79,18 +75,7 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): HomeViewModel? {
-        val homeRepository = getHomeRepositoryInstance(
-            localSource = getHomeLocalSourceInstance(),
-            networkSource = getHomeNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = homeRepository
-            )
-
-        return createViewModel(HomeViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(HomeViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

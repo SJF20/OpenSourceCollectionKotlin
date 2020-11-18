@@ -33,7 +33,6 @@ import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -52,9 +51,6 @@ import com.shijingfeng.wan_android.databinding.ActivityWanAndroidMainBinding
 import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
-import com.shijingfeng.wan_android.source.local.getMainLocalSourceInstance
-import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.*
 import com.shijingfeng.wan_android.ui.fragment.createClassifyFragment
 import com.shijingfeng.wan_android.ui.fragment.createHomeFragment
@@ -115,18 +111,7 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): MainViewModel? {
-        val mainRepository = getMainRepositoryInstance(
-            localSource = getMainLocalSourceInstance(),
-            networkSource = getMainNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = mainRepository
-            )
-
-        return createViewModel(MainViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(MainViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

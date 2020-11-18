@@ -15,7 +15,6 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PROJECT
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
 import com.shijingfeng.base.util.getColorById
@@ -29,8 +28,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.PROJECT_INDEX_STR
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidProjectBinding
 import com.shijingfeng.wan_android.entity.ProjectIndexEntity
-import com.shijingfeng.wan_android.source.network.getProjectNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getProjectRepositoryInstance
 import com.shijingfeng.wan_android.view_model.ProjectViewModel
 
 /**
@@ -60,17 +57,7 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): ProjectViewModel? {
-        val repository = getProjectRepositoryInstance(
-            networkSource = getProjectNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-
-        return createViewModel(ProjectViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(ProjectViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

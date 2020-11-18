@@ -10,11 +10,15 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-internal class AboutUsViewModel(
-    repository: BaseRepository<*, *>? = null
-) : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
+internal class AboutUsViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 
     /** 返回  */
     val mBackClickListener = View.OnClickListener { finish() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository(): Nothing? = null
 
 }

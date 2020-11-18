@@ -10,7 +10,9 @@ import com.shijingfeng.base.common.extension.finishPrevious
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
+import com.shijingfeng.wan_android.source.network.getRegisterNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.RegisterRepository
+import com.shijingfeng.wan_android.source.repository.getRegisterRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import java.util.*
@@ -21,9 +23,7 @@ import java.util.*
  * Description:
  * @author ShiJingFeng
  */
-internal class RegisterViewModel(
-    repository: RegisterRepository? = null
-) : WanAndroidBaseViewModel<RegisterRepository>(repository) {
+internal class RegisterViewModel : WanAndroidBaseViewModel<RegisterRepository>() {
 
     /** 用户名  */
     val mUsername = ObservableField("")
@@ -46,6 +46,14 @@ internal class RegisterViewModel(
     val mClearConfirmPasswordClickListener = View.OnClickListener { mConfirmPassword.set("") }
     /** 注册  */
     val mRegisterClickListener = View.OnClickListener { register() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getRegisterRepositoryInstance(
+        networkSource = getRegisterNetworkSourceInstance()
+    )
 
     /**
      * 注册

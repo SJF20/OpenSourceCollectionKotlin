@@ -182,7 +182,7 @@ abstract class BaseApplication : Application() {
             putDomain(BASE_URL_NAME_WEATHER, BASE_URL_VALUE_WEATHER)
             // 蒲公英 (用于检测版本更新 和 下载应用) BaseUrl
             putDomain(BASE_URL_NAME_PGYER, BASE_URL_VALUE_PGYER)
-            // 高德行政区域查询 BaseUrl Valu
+            // 高德行政区域查询 BaseUrl Value
             putDomain(BASE_URL_NAME_AMAP_CITY_SEARCH, BASE_URL_VALUE_AMAP_CITY_SEARCH)
         }
     }

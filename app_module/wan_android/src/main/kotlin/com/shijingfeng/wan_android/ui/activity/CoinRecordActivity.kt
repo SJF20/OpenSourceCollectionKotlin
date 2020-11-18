@@ -12,7 +12,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ClickUtils
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_COIN_RECORD
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
@@ -23,8 +22,6 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.CoinRecordAdapter
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidCoinRecordBinding
-import com.shijingfeng.wan_android.source.network.getCoinRecordNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getCoinRecordRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.view_model.CoinRecordViewModel
 
@@ -51,17 +48,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): CoinRecordViewModel? {
-        val coinRecordRepository = getCoinRecordRepositoryInstance(
-            networkSource = getCoinRecordNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = coinRecordRepository
-            )
-
-        return createViewModel(CoinRecordViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(CoinRecordViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

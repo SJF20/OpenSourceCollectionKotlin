@@ -2,15 +2,10 @@ package com.shijingfeng.wan_android.ui.activity
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SPLASH
 import com.shijingfeng.base.common.constant.NO_LAYOUT
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
-import com.shijingfeng.base.util.getStringById
-import com.shijingfeng.skin_changer.constant.SRC
-import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSplashBinding
@@ -45,7 +40,7 @@ internal class SplashActivity : WanAndroidBaseActivity<ViewDataBinding, SplashVi
      *
      * @return ViewModel
      */
-    override fun getViewModel() = createViewModel(SplashViewModel::class.java, createCommonViewModelFactory())
+    override fun getViewModel() = createViewModel(SplashViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

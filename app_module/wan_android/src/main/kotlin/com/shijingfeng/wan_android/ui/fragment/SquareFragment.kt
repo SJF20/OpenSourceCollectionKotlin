@@ -12,7 +12,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_SQUARE
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
@@ -32,8 +31,6 @@ import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.SquareItem
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
-import com.shijingfeng.wan_android.source.network.getSquareNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getSquareRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SquareViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -66,17 +63,7 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): SquareViewModel? {
-        val repository = getSquareRepositoryInstance(
-            networkSource = getSquareNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-
-        return createViewModel(SquareViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(SquareViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

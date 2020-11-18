@@ -15,7 +15,6 @@ import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
 import com.shijingfeng.base.common.global.runOnUiThread
@@ -30,8 +29,6 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseFragment
 import com.shijingfeng.wan_android.common.constant.OFFICIAL_ACCOUNT_INDEX_STR
 import com.shijingfeng.wan_android.databinding.FragmentWanAndroidOfficialAccountBinding
 import com.shijingfeng.wan_android.entity.OfficialAccountIndexEntity
-import com.shijingfeng.wan_android.source.network.getOfficialAccountNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getOfficialAccountRepositoryInstance
 import com.shijingfeng.wan_android.view_model.OfficialAccountViewModel
 
 /**
@@ -61,17 +58,7 @@ internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndro
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): OfficialAccountViewModel? {
-        val repository = getOfficialAccountRepositoryInstance(
-            networkSource = getOfficialAccountNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-
-        return createViewModel(OfficialAccountViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(OfficialAccountViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

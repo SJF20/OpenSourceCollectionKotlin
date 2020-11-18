@@ -10,7 +10,10 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.common.constant.RESULT_ARTICLE_COLLECTED_LIST
 import com.shijingfeng.wan_android.common.constant.RESULT_COIN_RECORD
+import com.shijingfeng.wan_android.source.local.getMainLocalSourceInstance
+import com.shijingfeng.wan_android.source.network.getMainNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.MainRepository
+import com.shijingfeng.wan_android.source.repository.getMainRepositoryInstance
 import com.shijingfeng.wan_android.ui.activity.MAIN_HOME
 import com.shijingfeng.wan_android.utils.localLogout
 
@@ -20,16 +23,13 @@ import com.shijingfeng.wan_android.utils.localLogout
  * Description:
  * @author ShiJingFeng
  */
-internal class MainViewModel(
-    repository: MainRepository? = null
-) : WanAndroidBaseViewModel<MainRepository>(repository) {
+internal class MainViewModel : WanAndroidBaseViewModel<MainRepository>() {
 
     /** 当前 TabLayout 和 ViewPager 下标  */
     var mCurPosition = MAIN_HOME
 
     /** 显示 退出登录确认对话框 Event */
-    val mShowLogoutDialogEvent =
-        SingleLiveEvent<Any?>()
+    val mShowLogoutDialogEvent = SingleLiveEvent<Any?>()
 
     /** 侧边栏 Header 点击事件 */
     val mHeaderClickListener = OnClickListener {
@@ -89,6 +89,15 @@ internal class MainViewModel(
     val mLogoutClickListener = OnClickListener {
         mShowLogoutDialogEvent.call()
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getMainRepositoryInstance(
+        localSource = getMainLocalSourceInstance(),
+        networkSource = getMainNetworkSourceInstance()
+    )
 
     /**
      * 退出登录

@@ -8,7 +8,9 @@ import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.NavigationClassifyEntity
+import com.shijingfeng.wan_android.source.network.getNavigationClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.NavigationClassifyRepository
+import com.shijingfeng.wan_android.source.repository.getNavigationClassifyRepositoryInstance
 
 /**
  * Function: 导航分类 ViewModel
@@ -16,9 +18,7 @@ import com.shijingfeng.wan_android.source.repository.NavigationClassifyRepositor
  * Description:
  * @author ShiJingFeng
  */
-internal class NavigationClassifyViewModel(
-    repository: NavigationClassifyRepository? = null
-) : WanAndroidBaseViewModel<NavigationClassifyRepository>(repository) {
+internal class NavigationClassifyViewModel : WanAndroidBaseViewModel<NavigationClassifyRepository>() {
 
     /** 页面操作类型  */
     @PageOperateType
@@ -41,6 +41,14 @@ internal class NavigationClassifyViewModel(
     }
     /** 下拉刷新  */
     val mOnRefreshListener = OnRefreshListener { refresh() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getNavigationClassifyRepositoryInstance(
+        networkSource = getNavigationClassifyNetworkSourceInstance()
+    )
 
     /**
      * 初始化

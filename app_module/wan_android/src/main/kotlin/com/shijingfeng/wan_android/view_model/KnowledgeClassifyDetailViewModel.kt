@@ -22,4 +22,10 @@ internal class KnowledgeClassifyDetailViewModel : WanAndroidBaseViewModel<BaseRe
     /** 返回  */
     var mBackListener = OnClickListener { finish() }
 
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository(): Nothing? = null
+
 }

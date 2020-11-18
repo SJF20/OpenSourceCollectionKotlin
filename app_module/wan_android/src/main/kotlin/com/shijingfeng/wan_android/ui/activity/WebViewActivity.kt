@@ -28,7 +28,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.getStatusBarHeight
@@ -45,8 +44,6 @@ import com.shijingfeng.wan_android.common.constant.SCROLL_TO_DOWN
 import com.shijingfeng.wan_android.common.constant.SCROLL_TO_UP
 import com.shijingfeng.wan_android.common.constant.TITLE_BAR_HEIGHT
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidWebViewBinding
-import com.shijingfeng.wan_android.source.network.getWebViewNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getWebViewRepositoryInstance
 import com.shijingfeng.wan_android.view_model.WebViewViewModel
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
@@ -103,17 +100,7 @@ internal class WebViewActivity : WanAndroidBaseActivity<ActivityWanAndroidWebVie
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): WebViewViewModel? {
-        val webViewRepository = getWebViewRepositoryInstance(
-            networkSource = getWebViewNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = webViewRepository
-            )
-
-        return createViewModel(WebViewViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(WebViewViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

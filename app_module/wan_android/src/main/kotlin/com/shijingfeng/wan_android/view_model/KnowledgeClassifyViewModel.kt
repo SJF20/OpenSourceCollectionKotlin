@@ -8,7 +8,9 @@ import com.shijingfeng.base.entity.event.live_data.ListDataChangeEvent
 import com.shijingfeng.base.mvvm.livedata.SingleLiveEvent
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
+import com.shijingfeng.wan_android.source.network.getKnowledgeClassifyNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.KnowledgeClassifyRepository
+import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyRepositoryInstance
 
 /**
  * Function: 知识体系 ViewModel
@@ -16,9 +18,7 @@ import com.shijingfeng.wan_android.source.repository.KnowledgeClassifyRepository
  * Description:
  * @author ShiJingFeng
  */
-internal class KnowledgeClassifyViewModel(
-    repository: KnowledgeClassifyRepository? = null
-) : WanAndroidBaseViewModel<KnowledgeClassifyRepository>(repository) {
+internal class KnowledgeClassifyViewModel : WanAndroidBaseViewModel<KnowledgeClassifyRepository>() {
 
     /** 页面操作类型  */
     @PageOperateType
@@ -41,6 +41,14 @@ internal class KnowledgeClassifyViewModel(
     }
     /** 下拉刷新  */
     val mOnRefreshListener = OnRefreshListener { refresh() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getKnowledgeClassifyRepositoryInstance(
+        networkSource = getKnowledgeClassifyNetworkSourceInstance()
+    )
 
     /**
      * 初始化

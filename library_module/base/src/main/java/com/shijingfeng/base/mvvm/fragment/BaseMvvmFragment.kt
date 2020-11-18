@@ -11,11 +11,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
+import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.base.fragment.BaseFragment
+import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.widget.dialog.LoadingDialog
@@ -214,22 +217,25 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
     }
 
     /**
-     * 创建ViewModel
-     *
-     * @param cls Activity Class
-     * @param <T> 泛型
-     * @return ViewModel子类
-     */
-    fun <T : ViewModel> createViewModel(cls: Class<T>): T = ViewModelProvider(this).get(cls)
-
-    /**
      * 工厂模式创建ViewModel
      *
      * @param cls Activity Class
      * @param factory 工厂
      * @return ViewModel子类
      */
-    fun createViewModel(cls: Class<VM>, factory: ViewModelProvider.Factory): VM = ViewModelProvider(this, factory).get(cls)
+    fun createViewModel(
+        cls: Class<VM>,
+        factory: ViewModelProvider.Factory? = null
+    ): VM = if (factory == null) {
+        ViewModelProvider(this).get(cls)
+    } else {
+        ViewModelProvider(this, factory).get(cls)
+    }
+
+    /**
+     * 创建 SavedStateViewModel (用于当程序在后台被杀死时，ViewModel还能保存数据)
+     */
+    fun createSavedStateViewModel(cls: Class<VM>): VM = ViewModelProvider(this, SavedStateViewModelFactory(application, this)).get(cls)
 
     /**
      * Fragment View 销毁回调

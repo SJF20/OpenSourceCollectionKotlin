@@ -98,6 +98,8 @@ ext {
             "lifecycle-common-java8"               : "androidx.lifecycle:lifecycle-common-java8:${versions["lifecycle"]}",
             // optional - ReactiveStreams support for LiveData
             "lifecycle-reactivestreams"            : "androidx.lifecycle:lifecycle-reactivestreams:${versions["lifecycle"]}",
+            // Saved State ViewModel
+            "lifecycle-viewmodel-savedstate"       : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions["lifecycle"]}",
 
             // Navigation (Fragment导航)
             "navigation-fragment-ktx"              : "androidx.navigation:navigation-fragment-ktx:${versions["navigation"]}",

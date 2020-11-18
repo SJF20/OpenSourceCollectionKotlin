@@ -7,6 +7,8 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.source.repository.ProjectRepository
 import com.kingja.loadsir.callback.Callback.OnReloadListener
 import com.shijingfeng.wan_android.entity.ProjectIndexEntity
+import com.shijingfeng.wan_android.source.network.getProjectNetworkSourceInstance
+import com.shijingfeng.wan_android.source.repository.getProjectRepositoryInstance
 
 /**
  * Function: 项目 ViewModel
@@ -14,9 +16,7 @@ import com.shijingfeng.wan_android.entity.ProjectIndexEntity
  * Description:
  * @author ShiJingFeng
  */
-internal class ProjectViewModel(
-    repository: ProjectRepository? = null
-) : WanAndroidBaseViewModel<ProjectRepository>(repository) {
+internal class ProjectViewModel : WanAndroidBaseViewModel<ProjectRepository>() {
 
     /** 当前 Fragment Item Position */
     var mCurrentFragmentPosition = 0
@@ -35,6 +35,14 @@ internal class ProjectViewModel(
         showCallback(LOAD_SERVICE_LOADING)
         getProjectIndex()
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getProjectRepositoryInstance(
+        networkSource = getProjectNetworkSourceInstance()
+    )
 
     /**
      * 初始化

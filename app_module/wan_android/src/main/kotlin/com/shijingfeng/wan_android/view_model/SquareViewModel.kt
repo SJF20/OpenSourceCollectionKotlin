@@ -16,7 +16,9 @@ import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.SquareItem
+import com.shijingfeng.wan_android.source.network.getSquareNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.SquareRepository
+import com.shijingfeng.wan_android.source.repository.getSquareRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.SquareFragment
 import org.greenrobot.eventbus.EventBus
 
@@ -29,9 +31,7 @@ const val SQUARE_FIRST_PAGE = 0
  * Description:
  * @author ShiJingFeng
  */
-internal class SquareViewModel(
-    repository: SquareRepository? = null
-) : WanAndroidBaseViewModel<SquareRepository>(repository) {
+internal class SquareViewModel : WanAndroidBaseViewModel<SquareRepository>() {
 
     /** 当前页码  */
     private var mPage = SQUARE_FIRST_PAGE
@@ -64,6 +64,14 @@ internal class SquareViewModel(
 
     /** 上拉加载 */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getSquareRepositoryInstance(
+        networkSource = getSquareNetworkSourceInstance()
+    )
 
     /**
      * 初始化

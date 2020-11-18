@@ -12,9 +12,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
  * Description:
  * @author ShiJingFeng
  */
-internal class MainViewModel(
-    repository: BaseRepository<*, *>? = null
-) : AppBaseViewModel<BaseRepository<*, *>>(repository = repository) {
+internal class MainViewModel : AppBaseViewModel<BaseRepository<*, *>>() {
 
     /** 跳转到 wan_android 模块 主页 */
     val mWanAndroidMainListener = View.OnClickListener {
@@ -25,5 +23,11 @@ internal class MainViewModel(
     val mWeatherMainListener = View.OnClickListener {
         navigation(path = ACTIVITY_WEATHER_MAIN)
     }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository(): Nothing? = null
 
 }

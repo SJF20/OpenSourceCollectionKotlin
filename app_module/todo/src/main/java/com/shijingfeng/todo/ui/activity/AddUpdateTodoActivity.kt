@@ -1,14 +1,11 @@
 package com.shijingfeng.todo.ui.activity
 
 import android.util.SparseArray
-import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.GsonUtils
 import com.shijingfeng.base.arouter.ACTIVITY_ADD_UPDATE_TODO
 import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
 import com.shijingfeng.base.common.constant.TITLE
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.BR
@@ -29,10 +26,7 @@ import com.shijingfeng.todo.constant.TYPE_WORK
 import com.shijingfeng.todo.databinding.ActivityTodoAddUpdateTodoBinding
 import com.shijingfeng.todo.entity.adapter.TodoChildItem
 import com.shijingfeng.todo.extension.convertToTodoChildItemList
-import com.shijingfeng.todo.source.network.getAddUpdateTodoNetworkSourceInstance
-import com.shijingfeng.todo.source.repository.getAddUpdateTodoRepositoryInstance
 import com.shijingfeng.todo.view_model.AddUpdateTodoViewModel
-import okhttp3.internal.EMPTY_BYTE_ARRAY
 
 /**
  * Function: 添加 待办事项 Activity
@@ -52,16 +46,7 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): AddUpdateTodoViewModel? {
-        val repository = getAddUpdateTodoRepositoryInstance(
-            networkSource = getAddUpdateTodoNetworkSourceInstance()
-        )
-        val factory = createCommonViewModelFactory(
-            repository = repository
-        )
-
-        return createViewModel(AddUpdateTodoViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(AddUpdateTodoViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

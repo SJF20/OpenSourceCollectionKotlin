@@ -14,7 +14,9 @@ import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
 import com.shijingfeng.wan_android.entity.SearchListItem
+import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.SearchListRepository
+import com.shijingfeng.wan_android.source.repository.getSearchListRepositoryInstance
 import com.shijingfeng.wan_android.ui.activity.SearchListActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -24,9 +26,7 @@ import org.greenrobot.eventbus.EventBus
  * Description:
  * @author shijingfeng
  */
-internal class SearchListViewModel(
-    repository: SearchListRepository? = null
-) : WanAndroidBaseViewModel<SearchListRepository>(repository) {
+internal class SearchListViewModel : WanAndroidBaseViewModel<SearchListRepository>() {
 
     /** 当前页码  */
     private var mPage = SEARCH_LIST_FIRST_PAGE + 1
@@ -48,6 +48,14 @@ internal class SearchListViewModel(
 
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { getSearchData(mPage + 1) }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getSearchListRepositoryInstance(
+        networkSource = getSearchListNetworkSourceInstance()
+    )
 
     /**
      * 获取搜索数据

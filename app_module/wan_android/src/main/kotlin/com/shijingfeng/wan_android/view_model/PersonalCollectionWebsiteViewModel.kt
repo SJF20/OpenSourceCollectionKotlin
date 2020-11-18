@@ -13,7 +13,9 @@ import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.entity.event.WebsiteCollectionEvent
 import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
+import com.shijingfeng.wan_android.source.network.getPersonalCollectionWebsiteNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.PersonalCollectionWebsiteRepository
+import com.shijingfeng.wan_android.source.repository.getPersonalCollectionWebsiteRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.PersonalCollectionWebsiteFragment
 import okhttp3.internal.immutableListOf
 import org.greenrobot.eventbus.EventBus
@@ -25,9 +27,7 @@ import java.util.ArrayList
  * Description:
  * @author ShiJingFeng
  */
-internal class PersonalCollectionWebsiteViewModel(
-    repository: PersonalCollectionWebsiteRepository? = null
-) : WanAndroidBaseViewModel<PersonalCollectionWebsiteRepository>(repository) {
+internal class PersonalCollectionWebsiteViewModel : WanAndroidBaseViewModel<PersonalCollectionWebsiteRepository>() {
 
     /** 页面操作类型  */
     @PageOperateType private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
@@ -48,6 +48,14 @@ internal class PersonalCollectionWebsiteViewModel(
     }
     /** 下拉刷新  */
     val mOnRefreshListener = OnRefreshListener { refresh() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getPersonalCollectionWebsiteRepositoryInstance(
+        networkSource = getPersonalCollectionWebsiteNetworkSourceInstance()
+    )
 
     /**
      * 初始化

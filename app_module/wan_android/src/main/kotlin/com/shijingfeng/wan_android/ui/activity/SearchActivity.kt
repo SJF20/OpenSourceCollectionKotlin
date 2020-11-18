@@ -14,7 +14,6 @@ import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.layout
@@ -37,9 +36,6 @@ import com.shijingfeng.wan_android.common.constant.REMOVE_SEARCH_HISTORY_ITEM
 import com.shijingfeng.wan_android.common.constant.SEARCH
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchBinding
 import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
-import com.shijingfeng.wan_android.source.local.getSearchLocalSourceInstance
-import com.shijingfeng.wan_android.source.network.getSearchNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getSearchRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SearchViewModel
 
 /**
@@ -63,18 +59,7 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): SearchViewModel? {
-        val repository = getSearchRepositoryInstance(
-            localSource = getSearchLocalSourceInstance(),
-            networkSource = getSearchNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-
-        return createViewModel(SearchViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(SearchViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

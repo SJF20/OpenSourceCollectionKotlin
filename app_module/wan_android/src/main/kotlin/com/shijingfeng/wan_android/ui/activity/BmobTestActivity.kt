@@ -24,13 +24,13 @@ internal class BmobTestActivity : WanAndroidBaseActivity<ActivityWanAndroidBmobT
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel() = null
+    override fun getViewModel(): Nothing? = null
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map
      * @return DataBinding 变量SparseArray
      */
-    override fun getVariableSparseArray() = null
+    override fun getVariableSparseArray(): Nothing? = null
 
     /**
      * 初始化数据

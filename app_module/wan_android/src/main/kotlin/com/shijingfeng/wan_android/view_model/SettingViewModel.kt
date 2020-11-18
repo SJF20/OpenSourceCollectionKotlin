@@ -11,9 +11,7 @@ import com.shijingfeng.wan_android.utils.ThemeUtil
  * Description:
  * @author ShiJingFeng
  */
-internal class SettingViewModel(
-    repository: BaseRepository<*, *>? = null
-) : WanAndroidBaseViewModel<BaseRepository<*, *>>(repository = repository) {
+internal class SettingViewModel: WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 
     /** 当前选择的主题(临时存储) RGB颜色字符串 */
     var mCurThemeColor = ThemeUtil.curThemeColor
@@ -22,5 +20,11 @@ internal class SettingViewModel(
 
     /** 返回  */
     val mBackClickListener = View.OnClickListener { finish() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository(): Nothing? = null
 
 }

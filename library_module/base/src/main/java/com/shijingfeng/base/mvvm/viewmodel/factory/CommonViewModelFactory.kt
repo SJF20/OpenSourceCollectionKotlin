@@ -9,8 +9,7 @@ import kotlin.Exception
 /** 简单工厂模式创建实例 */
 fun createCommonViewModelFactory(
     repository: BaseRepository<*, *>? = null
-) =
-    CommonViewModelFactory(repository)
+) = CommonViewModelFactory(repository)
 
 /**
  * Function: 通用 ViewModel 工厂

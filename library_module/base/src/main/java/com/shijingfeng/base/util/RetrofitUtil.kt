@@ -13,6 +13,7 @@ import com.shijingfeng.base.http.interceptor.ProgressInterceptor
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

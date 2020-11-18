@@ -219,6 +219,8 @@ dependencies {
     api rootProject.ext.androidx["lifecycle-common-java8"]
     // optional - ReactiveStreams support for LiveData
     api rootProject.ext.androidx["lifecycle-reactivestreams"]
+    // Saved State ViewModel
+    api rootProject.ext.androidx["lifecycle-viewmodel-savedstate"]
 
     // Navigation (Fragment导航)
     api rootProject.ext.androidx["navigation-fragment-ktx"]

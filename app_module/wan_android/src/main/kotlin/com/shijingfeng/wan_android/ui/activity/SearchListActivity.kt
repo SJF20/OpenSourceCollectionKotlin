@@ -16,7 +16,6 @@ import com.google.gson.reflect.TypeToken
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH_LIST
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
@@ -38,8 +37,6 @@ import com.shijingfeng.wan_android.common.constant.SEARCH_HOT_WORD
 import com.shijingfeng.wan_android.common.constant.SEARCH_LIST_STR
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSearchListBinding
 import com.shijingfeng.wan_android.entity.SearchListItem
-import com.shijingfeng.wan_android.source.network.getSearchListNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getSearchListRepositoryInstance
 import com.shijingfeng.wan_android.view_model.SearchListViewModel
 
 /**
@@ -58,17 +55,7 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
      * 获取ViewModel
      * @return ViewModel
      */
-    override fun getViewModel(): SearchListViewModel? {
-        val repository = getSearchListRepositoryInstance(
-            networkSource = getSearchListNetworkSourceInstance()
-        )
-        val factory =
-            createCommonViewModelFactory(
-                repository = repository
-            )
-
-        return createViewModel(SearchListViewModel::class.java, factory)
-    }
+    override fun getViewModel() = createViewModel(SearchListViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

@@ -16,7 +16,10 @@ import com.shijingfeng.wan_android.common.constant.KEY_ARTICLE_ID
 import com.shijingfeng.wan_android.common.constant.KEY_COLLECTED
 import com.shijingfeng.wan_android.entity.adapter.HomeItem
 import com.shijingfeng.wan_android.entity.event.ArticleCollectionEvent
+import com.shijingfeng.wan_android.source.local.getHomeLocalSourceInstance
+import com.shijingfeng.wan_android.source.network.getHomeNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.HomeRepository
+import com.shijingfeng.wan_android.source.repository.getHomeRepositoryInstance
 import com.shijingfeng.wan_android.ui.fragment.HomeFragment
 import org.greenrobot.eventbus.EventBus
 
@@ -29,9 +32,7 @@ const val HOME_FIRST_PAGE = 0
  * Description:
  * @author ShiJingFeng
  */
-internal class HomeViewModel(
-    repository: HomeRepository? = null
-) : WanAndroidBaseViewModel<HomeRepository>(repository) {
+internal class HomeViewModel : WanAndroidBaseViewModel<HomeRepository>() {
 
     /** 当前页码  */
     private var mPage = HOME_FIRST_PAGE
@@ -61,6 +62,15 @@ internal class HomeViewModel(
     val mOnRefreshListener = OnRefreshListener { refresh() }
     /** 上拉加载  */
     val mOnLoadMoreListener = OnLoadMoreListener { loadMore() }
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getHomeRepositoryInstance(
+        localSource = getHomeLocalSourceInstance(),
+        networkSource = getHomeNetworkSourceInstance()
+    )
 
     /**
      * 初始化
