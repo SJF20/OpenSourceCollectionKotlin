@@ -45,12 +45,8 @@ internal class LoginRepository(
      * 登录
      *
      * @param postMap  数据
-     * @param onSuccess 成功回调函数
-     * @param onFailure 失败回调函数
      */
-    fun login(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
-        mNetworkSource?.login(postMap, onSuccess, onFailure)
-    }
+    suspend fun login(postMap: Map<String, Any>): UserInfoEntity? = mNetworkSource?.login(postMap)
 
     /**
      * 获取 积分信息

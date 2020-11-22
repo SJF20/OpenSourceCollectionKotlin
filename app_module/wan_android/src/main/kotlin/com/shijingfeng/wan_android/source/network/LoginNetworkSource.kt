@@ -12,8 +12,7 @@ import com.shijingfeng.wan_android.source.network.api.CoinApi
 import com.shijingfeng.wan_android.source.network.api.UserApi
 import com.shijingfeng.wan_android.utils.apiRequest
 import com.shijingfeng.wan_android.utils.handle
-import kotlinx.coroutines.*
-import java.lang.Exception
+import kotlin.Exception
 
 /** 单例实例 */
 @Volatile
@@ -50,25 +49,21 @@ internal class LoginNetworkSource : BaseNetworkSource() {
     /**
      * 登录
      * @param postMap 数据
-     * @param onSuccess 成功回调监听
-     * @param onFailure 失败回调监听
      */
-    fun login(postMap: Map<String, Any>, onSuccess: onSuccess<UserInfoEntity?>, onFailure: onFailure) {
-        addCoroutinesJob(
-            GlobalScope.launch(Dispatchers.Main) {
-                try {
-                    val result = mUserApi.login(postMap)
+    suspend fun login(postMap: Map<String, Any>): UserInfoEntity? {
+        return try {
+            val result = mUserApi.login(postMap)
 
-                    if (result.code == SERVER_SUCCESS) {
-                        onSuccess(result.data)
-                    } else {
-                        onFailure(handle(ServerException(result.code, result.msg)))
-                    }
-                } catch (e: Exception) {
-                    onFailure(handle(e))
-                }
+            if (result.code == SERVER_SUCCESS) {
+                result.data
+            } else {
+                handle(ServerException(result.code, result.msg))
+                null
             }
-        )
+        } catch (e: Exception) {
+            handle(e)
+            null
+        }
     }
 
     /**

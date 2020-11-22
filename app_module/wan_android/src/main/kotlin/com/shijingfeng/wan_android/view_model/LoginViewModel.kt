@@ -8,6 +8,7 @@ import android.view.View.*
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
 import com.shijingfeng.base.util.getDrawableById
@@ -22,6 +23,8 @@ import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.utils.startTokenExpireAlarm
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -108,10 +111,12 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
     private fun login() {
         showLoadingView()
 
-        mRepository?.login(HashMap<String, Any>(2).apply {
-            put("username", mUsername.get() ?: "")
-            put("password", mPassword.get() ?: "")
-        }, onSuccess = onSuccessCompleted@{ userInfo ->
+        viewModelScope.launch(context = Dispatchers.Main) {
+            val userInfo = mRepository?.login(HashMap<String, Any>(2).apply {
+                put("username", mUsername.get() ?: "")
+                put("password", mPassword.get() ?: "")
+            })
+
             if (userInfo != null) {
                 // 登录信息存储到本地
                 UserUtil.login(userInfo)
@@ -122,12 +127,9 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
             } else {
                 //关闭加载中弹框
                 hideLoadingView()
-                ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
+//                ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
             }
-        }, onFailure = {
-            //关闭加载中弹框
-            hideLoadingView()
-        })
+        }
     }
 
     /**
