@@ -13,6 +13,8 @@ import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.common.R
 import com.shijingfeng.common.base.CommonBaseViewModel
 import com.shijingfeng.common.entity.ViewOriginalImageItem
+import com.shijingfeng.common.source.network.getViewOriginalImageNetworkSourceInstance
+import com.shijingfeng.common.source.repository.getViewOriginalImageRepositoryInstance
 import okhttp3.ResponseBody
 
 /**
@@ -21,9 +23,7 @@ import okhttp3.ResponseBody
  * Description:
  * @author ShiJingFeng
  */
-internal class ViewOriginalImageViewModel(
-    repository: ViewOriginalImageRepository? = null
-) : CommonBaseViewModel<ViewOriginalImageRepository>(repository) {
+internal class ViewOriginalImageViewModel : CommonBaseViewModel<ViewOriginalImageRepository>() {
 
     /** 上一个页面的全限定名称 */
     lateinit var mFromName: String
@@ -33,8 +33,15 @@ internal class ViewOriginalImageViewModel(
     var mCurrentPosition = 0
 
     /** 保存图片 LiveEvent */
-    val mSaveImageLiveEvent =
-        SingleLiveEvent<ResponseBody?>()
+    val mSaveImageLiveEvent = SingleLiveEvent<ResponseBody?>()
+
+    /**
+     * 获取 Repository
+     * @return Repository
+     */
+    override fun getRepository() = getViewOriginalImageRepositoryInstance(
+        networkSource = getViewOriginalImageNetworkSourceInstance()
+    )
 
     /**
      * 下载图片

@@ -50,21 +50,7 @@ internal class LoginNetworkSource : BaseNetworkSource() {
      * 登录
      * @param postMap 数据
      */
-    suspend fun login(postMap: Map<String, Any>): UserInfoEntity? {
-        return try {
-            val result = mUserApi.login(postMap)
-
-            if (result.code == SERVER_SUCCESS) {
-                result.data
-            } else {
-                handle(ServerException(result.code, result.msg))
-                null
-            }
-        } catch (e: Exception) {
-            handle(e)
-            null
-        }
-    }
+    suspend fun login(postMap: Map<String, Any>) = apiRequest(mUserApi.login(postMap))
 
     /**
      * 获取 积分信息

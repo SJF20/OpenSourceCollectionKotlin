@@ -1,8 +1,6 @@
 package com.shijingfeng.wan_android.view_model
 
-import android.app.Activity
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.View.*
 import androidx.databinding.ObservableBoolean
@@ -11,21 +9,22 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
+import com.shijingfeng.base.common.extension.currentCoroutine
+import com.shijingfeng.base.common.extension.currentCoroutineName
+import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
-import com.shijingfeng.wan_android.entity.event.CoinInfoEvent
-import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance
 import com.shijingfeng.wan_android.source.repository.LoginRepository
 import com.shijingfeng.wan_android.source.repository.getLoginRepositoryInstance
 import com.shijingfeng.wan_android.utils.CoinUtil
 import com.shijingfeng.wan_android.utils.UserUtil
 import com.shijingfeng.wan_android.utils.startTokenExpireAlarm
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.EventBus
+import kotlinx.coroutines.*
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.ContinuationInterceptor
 
 /**
  * Function: 登录ViewModel
@@ -111,23 +110,33 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
     private fun login() {
         showLoadingView()
 
-        viewModelScope.launch(context = Dispatchers.Main) {
-            val userInfo = mRepository?.login(HashMap<String, Any>(2).apply {
-                put("username", mUsername.get() ?: "")
-                put("password", mPassword.get() ?: "")
-            })
+        val coroutineContext = Dispatchers.Main + CoroutineName("登录接口请求") + LoginContinuationInterceptor()
 
-            if (userInfo != null) {
-                // 登录信息存储到本地
-                UserUtil.login(userInfo)
-                // 开启 检查 玩Android Token 是否过期 定时器
-                startTokenExpireAlarm()
-                // 登录完成后 获取 积分信息
-                getCoinInfo()
-            } else {
+        viewModelScope.launch(context = coroutineContext) {
+            try {
+                val userInfo = mRepository?.login(HashMap<String, Any>(2).apply {
+                    put("username", mUsername.get() ?: "")
+                    put("password", mPassword.get() ?: "")
+                })
+
+                e("测试", "当前协程: ${currentCoroutine()}")
+                e("测试", "当前协程名称: ${currentCoroutineName()}")
+                if (userInfo != null) {
+                    // 登录信息存储到本地
+                    UserUtil.login(userInfo)
+                    // 开启 检查 玩Android Token 是否过期 定时器
+                    startTokenExpireAlarm()
+                    // 登录完成后 获取 积分信息
+                    getCoinInfo()
+                } else {
+                    //关闭加载中弹框
+                    hideLoadingView()
+                    ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
+                }
+            } catch (e: Exception) {
                 //关闭加载中弹框
                 hideLoadingView()
-//                ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
+                ToastUtils.showShort(getStringById(R.string.服务器出错登录失败))
             }
         }
     }
@@ -149,6 +158,35 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
             // 关闭登录页面
             finish()
         })
+    }
+
+}
+
+/**
+ * 登录接口请求拦截器
+ */
+internal class LoginContinuationInterceptor : ContinuationInterceptor {
+
+    override val key = ContinuationInterceptor
+
+    override fun <T> interceptContinuation(continuation: Continuation<T>) = LoginContinuation(continuation)
+
+}
+
+/**
+ * 登录接口请求拦截器执行者
+ */
+internal class LoginContinuation<T>(
+    continuation: Continuation<T>
+) : Continuation<T> {
+
+    private val mContinuation = continuation
+
+    override val context = mContinuation.context
+
+    override fun resumeWith(result: Result<T>) {
+        e("测试", "协程: $mContinuation 协程环境: $context  是否成功: ${result.isSuccess}")
+        mContinuation.resumeWith(result)
     }
 
 }

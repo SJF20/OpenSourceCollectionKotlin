@@ -6,13 +6,9 @@ import androidx.databinding.ViewDataBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.app.R
 import com.shijingfeng.app.base.AppBaseActivity
-import com.shijingfeng.app.source.local.getSplashLocalSourceInstance
-import com.shijingfeng.app.source.network.getSplashNetworkSourceInstance
-import com.shijingfeng.app.source.repository.getSplashRepositoryInstance
 import com.shijingfeng.app.view_model.SplashViewModel
 import com.shijingfeng.base.arouter.ACTIVITY_APP_SPLASH
 import com.shijingfeng.base.common.constant.NO_LAYOUT
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 
 /**
  * Function: 启动页 Activity

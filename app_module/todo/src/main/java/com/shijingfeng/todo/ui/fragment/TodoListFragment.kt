@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.FRAGMENT_TODO_LIST
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.todo.R
@@ -26,8 +25,6 @@ import com.shijingfeng.todo.databinding.FragmentTodoTodoListBinding
 import com.shijingfeng.todo.entity.adapter.TodoListItem
 import com.shijingfeng.todo.entity.event.DataUpdateEvent
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
-import com.shijingfeng.todo.source.network.getTodoListNetworkSourceInstance
-import com.shijingfeng.todo.source.repository.getTodoListRepositoryInstance
 import com.shijingfeng.todo.ui.activity.MAIN_ALL
 import com.shijingfeng.todo.ui.activity.MAIN_NONE
 import com.shijingfeng.todo.view_model.TodoListViewModel

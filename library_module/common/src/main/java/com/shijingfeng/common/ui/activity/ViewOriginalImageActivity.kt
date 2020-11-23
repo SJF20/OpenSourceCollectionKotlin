@@ -7,8 +7,6 @@ import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.SparseArray
@@ -26,17 +24,12 @@ import com.google.gson.reflect.TypeToken
 import com.shijingfeng.common.adapter.ViewOriginalImageAdapter
 import com.shijingfeng.base.annotation.NeedPermissions
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.common.entity.ViewOriginalImageItem
-import com.shijingfeng.common.source.network.getViewOriginalImageNetworkSourceInstance
-import com.shijingfeng.common.source.repository.getViewOriginalImageRepositoryInstance
-import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.common.viewmodel.ViewOriginalImageViewModel
 import com.shijingfeng.base.widget.dialog.CommonDialog
-import com.shijingfeng.base.widget.dialog.LoadingDialog
 import com.shijingfeng.common.BR
 import com.shijingfeng.common.R
 import com.shijingfeng.common.base.CommonBaseActivity
@@ -73,17 +66,7 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
      *
      * @return ViewModel
      */
-    override fun getViewModel(): ViewOriginalImageViewModel? {
-        val viewOriginalImageRepository = getViewOriginalImageRepositoryInstance(
-            networkSource = getViewOriginalImageNetworkSourceInstance()
-        )
-        val viewOriginalViewModelFactory =
-            createCommonViewModelFactory(
-                repository = viewOriginalImageRepository
-            )
-
-        return createViewModel(ViewOriginalImageViewModel::class.java, viewOriginalViewModelFactory)
-    }
+    override fun getViewModel() = createViewModel(ViewOriginalImageViewModel::class.java)
 
     /**
      * 初始化 DataBinding 变量ID 和 变量实体类 Map

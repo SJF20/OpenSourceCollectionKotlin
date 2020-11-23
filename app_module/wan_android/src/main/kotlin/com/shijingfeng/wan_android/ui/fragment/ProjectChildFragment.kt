@@ -12,7 +12,6 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PROJECT_CHILD
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getPositionById
@@ -36,8 +35,6 @@ import com.shijingfeng.wan_android.entity.event.UserInfoEvent
 import com.shijingfeng.wan_android.entity.ProjectChildItem
 import com.shijingfeng.wan_android.entity.ProjectIndexEntity
 import com.shijingfeng.wan_android.entity.event.ThemeEvent
-import com.shijingfeng.wan_android.source.network.getProjectChildNetworkSourceInstance
-import com.shijingfeng.wan_android.source.repository.getProjectChildRepositoryInstance
 import com.shijingfeng.wan_android.view_model.ProjectChildViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

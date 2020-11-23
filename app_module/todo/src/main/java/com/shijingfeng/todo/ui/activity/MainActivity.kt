@@ -21,7 +21,6 @@ import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_TODO_MAIN
 import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.base.adapter.OnFragmentCreate
-import com.shijingfeng.base.mvvm.viewmodel.factory.createCommonViewModelFactory
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getDimensionById
 import com.shijingfeng.base.util.getStatusBarHeight
@@ -40,9 +39,6 @@ import com.shijingfeng.todo.constant.TYPE_STUDY
 import com.shijingfeng.todo.constant.TYPE_WORK
 import com.shijingfeng.todo.databinding.ActivityTodoMainBinding
 import com.shijingfeng.todo.entity.event.FilterConditionEvent
-import com.shijingfeng.todo.source.local.getMainLocalSourceInstance
-import com.shijingfeng.todo.source.network.getMainNetworkSourceInstance
-import com.shijingfeng.todo.source.repository.getMainRepositoryInstance
 import com.shijingfeng.todo.ui.fragment.createEmptyFragment
 import com.shijingfeng.todo.ui.fragment.createTodoListFragment
 import com.shijingfeng.todo.view_model.MainViewModel

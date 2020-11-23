@@ -9,6 +9,4 @@ import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
  * Description:
  * @author ShiJingFeng
  */
-internal abstract class CommonBaseViewModel<R : BaseRepository<*, *>>(
-    repository: R? = null
-) : BaseViewModel<R>(repository)
+internal abstract class CommonBaseViewModel<R : BaseRepository<*, *>> : BaseViewModel<R>()
