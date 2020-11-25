@@ -45,7 +45,7 @@ fun layout(linearLayout: LinearLayout, childViewList: List<View?>, totalWidth: I
         viewWidth = if (view.measuredState == MATCH_PARENT) {
             totalWidth
         } else {
-            val widthMeausreSpec = View.MeasureSpec.makeMeasureSpec(
+            val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(
                 (1 shl 30) - 1,
                 View.MeasureSpec.AT_MOST
             )
@@ -54,7 +54,7 @@ fun layout(linearLayout: LinearLayout, childViewList: List<View?>, totalWidth: I
                 View.MeasureSpec.AT_MOST
             )
 
-            view.measure(widthMeausreSpec, heightMeasureSpec)
+            view.measure(widthMeasureSpec, heightMeasureSpec)
             view.measuredWidth
         }
 
