@@ -1,10 +1,14 @@
 package com.shijingfeng.app.view_model
 
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.viewModelScope
 import com.shijingfeng.app.base.AppBaseViewModel
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WEATHER_MAIN
 import com.shijingfeng.base.base.repository.BaseRepository
+import com.shijingfeng.base.util.e
+import kotlinx.coroutines.*
 
 /**
  * Function: 主页 ViewModel

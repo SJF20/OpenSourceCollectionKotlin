@@ -3,7 +3,6 @@ package com.shijingfeng.weather.base
 import android.os.Bundle
 import androidx.viewbinding.ViewBinding
 import com.shijingfeng.base.mvp.view.BaseMvpFragment
-import com.shijingfeng.base.mvp.presenter.BasePresenter
 import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.base.util.d
 

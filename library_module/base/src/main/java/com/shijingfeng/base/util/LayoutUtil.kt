@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Function: 固定宽 栅格布局 工具类

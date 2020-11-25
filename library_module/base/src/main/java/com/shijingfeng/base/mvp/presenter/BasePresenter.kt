@@ -8,6 +8,8 @@ import com.shijingfeng.base.mvp.model.IModel
 import com.shijingfeng.base.mvp.view.IView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.*
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Function: MVP架构 Presenter层基类
@@ -15,9 +17,9 @@ import io.reactivex.disposables.Disposable
  * Description:
  * @author ShiJingFeng
  */
-abstract class BasePresenter<V : IView, M : IModel> @JvmOverloads constructor(
+abstract class BasePresenter<V : IView, M : IModel> constructor(
     view: V,
-) : DefaultLifecycleObserver {
+) : DefaultLifecycleObserver, CoroutineScope by view {
 
     /** Disposable容器  */
     private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }

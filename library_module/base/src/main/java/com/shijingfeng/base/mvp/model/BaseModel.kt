@@ -1,8 +1,10 @@
 package com.shijingfeng.base.mvp.model
 
+import androidx.lifecycle.DefaultLifecycleObserver
 import com.shijingfeng.base.mvp.presenter.IPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
 /**
@@ -13,7 +15,7 @@ import kotlinx.coroutines.Job
  */
 abstract class BaseModel<P : IPresenter>(
     presenter: P
-) {
+) : DefaultLifecycleObserver, CoroutineScope by presenter {
 
     /** Presenter */
     protected val mPresenter = presenter

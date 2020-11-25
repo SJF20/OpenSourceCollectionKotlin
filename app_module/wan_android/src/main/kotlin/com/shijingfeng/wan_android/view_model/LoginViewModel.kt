@@ -9,11 +9,7 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
-import com.shijingfeng.base.common.extension.currentCoroutine
-import com.shijingfeng.base.common.extension.currentCoroutineName
-import com.shijingfeng.base.util.e
-import com.shijingfeng.base.util.getDrawableById
-import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.util.*
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
 import com.shijingfeng.wan_android.source.network.getLoginNetworkSourceInstance

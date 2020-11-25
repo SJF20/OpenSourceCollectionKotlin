@@ -11,9 +11,7 @@ import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
-import com.shijingfeng.base.R
 import com.shijingfeng.base.base.activity.BaseNormalActivity
-import com.shijingfeng.base.base.repository.BaseRepository
 import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.widget.dialog.LoadingDialog
