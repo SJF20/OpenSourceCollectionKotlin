@@ -19,6 +19,7 @@ buildscript {
         maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
     }
     dependencies {
+        // Android 插件
         classpath 'com.android.tools.build:gradle:4.0.2'
         // Kotlin 插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"

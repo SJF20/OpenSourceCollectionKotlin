@@ -115,8 +115,6 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
                     put("password", mPassword.get() ?: "")
                 })
 
-                e("测试", "当前协程: ${currentCoroutine()}")
-                e("测试", "当前协程名称: ${currentCoroutineName()}")
                 if (userInfo != null) {
                     // 登录信息存储到本地
                     UserUtil.login(userInfo)
@@ -181,7 +179,6 @@ internal class LoginContinuation<T>(
     override val context = mContinuation.context
 
     override fun resumeWith(result: Result<T>) {
-        e("测试", "协程: $mContinuation 协程环境: $context  是否成功: ${result.isSuccess}")
         mContinuation.resumeWith(result)
     }
 

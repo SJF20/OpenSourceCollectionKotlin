@@ -1,6 +1,8 @@
 package com.shijingfeng.base.base.application
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
@@ -66,12 +68,13 @@ abstract class BaseApplication : Application() {
      * 注意 多进程 会创建多个Application对象，则 onCreate() 会执行多次
      * 多进程中 变量在相应的进程内存中
      */
-    final override fun onCreate() {
+    override fun onCreate() {
         super.onCreate()
         // 每个进程都有单独的内存区域, application不相同，也不会覆盖
         application = this
+        Log.e("测试", "onCreate 当前进程名: $currentProcessName")
         // 主进程初始化
-        if (isMainProcess()) {
+        if (isMainProcess) {
             // Application主进程初始化操作
             mainProcessInit()
             // 开始 其他 module App 初始化

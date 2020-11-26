@@ -8,14 +8,22 @@ import com.shijingfeng.background_service.work_manager.startCheckForHotfixPatchW
 import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
+import com.shijingfeng.base.common.constant.UMENG_PUSH_APP_KEY
+import com.shijingfeng.base.common.constant.UMENG_PUSH_MESSAGE_SECRET
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.LOG_TENCENT_X5
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
+import com.umeng.commonsdk.UMConfigure
+import com.umeng.message.IUmengRegisterCallback
+import com.umeng.message.PushAgent
 import io.realm.Realm
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Executors
+
+/** 友盟推送 PushAgent */
+internal lateinit var pushAgent: PushAgent
 
 /**
  * Function: App 模块 Application
@@ -33,6 +41,8 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
      */
     override fun mainProcessInit() {
         super.mainProcessInit()
+        // 初始化友盟推送
+        initUmengPush()
         // 初始化 Bmob 后端
         initBmob()
         // 初始化腾讯X5
@@ -60,6 +70,35 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
                 .setFileExpiration(1800)
                 .build()
         )
+    }
+
+    /**
+     * 初始化友盟推送
+     */
+    private fun initUmengPush() {
+        // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+        // 参数一：当前上下文context；
+        // 参数二：应用申请的Appkey（需替换）；
+        // 参数三：渠道名称；
+        // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+        // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+        UMConfigure.init(
+            this,
+            UMENG_PUSH_APP_KEY,
+            "Umeng",
+            UMConfigure.DEVICE_TYPE_PHONE,
+            UMENG_PUSH_MESSAGE_SECRET
+        )
+        pushAgent = PushAgent.getInstance(this)
+        pushAgent.register(object : IUmengRegisterCallback {
+            override fun onSuccess(deviceToken: String?) {
+                Log.e("测试", "deviceToken: $deviceToken")
+            }
+
+            override fun onFailure(s1: String?, s2: String?) {
+                Log.e("测试", "友盟推送注册失败: s1:${s1}     s2: ${s2}")
+            }
+        })
     }
 
     /**

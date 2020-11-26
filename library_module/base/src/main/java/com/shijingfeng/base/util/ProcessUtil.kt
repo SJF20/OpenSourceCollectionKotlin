@@ -22,28 +22,30 @@ import java.io.FileReader
 /**
  * 是否运行在主进程
  */
-fun isMainProcess() = application.packageName == getCurrentProcessName()
+val isMainProcess
+    get() = application.packageName == currentProcessName
 
 /**
  * 获取当前进程名
  */
-fun getCurrentProcessName(): String {
-    var name = getCurrentProcessNameByFile()
+val currentProcessName: String
+    get() {
+        var name = getCurrentProcessNameByFile()
 
-    if (!TextUtils.isEmpty(name)) {
-        return name!!
+        if (!TextUtils.isEmpty(name)) {
+            return name!!
+        }
+
+        name = getCurrentProcessNameByAms()
+
+        if (!TextUtils.isEmpty(name)) {
+            return name!!
+        }
+
+        name = getCurrentProcessNameByReflect()
+
+        return name ?: ""
     }
-
-    name = getCurrentProcessNameByAms()
-
-    if (!TextUtils.isEmpty(name)) {
-        return name!!
-    }
-
-    name = getCurrentProcessNameByReflect()
-
-    return name!!
-}
 
 /**
  * 通过文件 获取当前进程名
