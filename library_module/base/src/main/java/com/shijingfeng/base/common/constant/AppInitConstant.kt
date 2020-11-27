@@ -12,6 +12,8 @@ package com.shijingfeng.base.common.constant
 
 /** 初始化的类名 */
 private const val CLASS_SIMPLE_NAME = "ModuleAppInit"
+/** 分发器名称 */
+private const val DISPATCHER_SIMPLE_NAME = "Dispatcher"
 
 /** app 模块 应用初始化类 全限定类名 */
 const val APP_INIT_APP = "$PACKAGE_NAME_APP.$CLASS_SIMPLE_NAME"

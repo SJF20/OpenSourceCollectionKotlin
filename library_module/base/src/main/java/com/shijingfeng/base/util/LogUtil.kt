@@ -2,6 +2,7 @@
 package com.shijingfeng.base.util
 
 import android.util.Log
+import com.shijingfeng.base.BuildConfig
 
 /**
  * Function: 日志工具类
@@ -10,7 +11,7 @@ import android.util.Log
  * @author ShiJingFeng
  */
 
-private var sEnable = false
+private var sEnable = BuildConfig.DEBUG
 
 /** 测试相关日志 */
 const val LOG_TEST = "log_test"
@@ -22,14 +23,6 @@ const val LOG_UMENG = "log_umeng"
 const val LOG_WAN_ANDROID_SKIN = "log_wan_android_skin"
 /** 生命周期函数相关日志 */
 const val LOG_LIFECYCLE = "log_lifecycle"
-
-/**
- * 是否开启日志
- * @param enable true 开启  false 关闭
- */
-fun enable(enable: Boolean) {
-    sEnable = enable
-}
 
 /**
  * 日志级别：verbose

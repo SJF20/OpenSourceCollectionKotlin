@@ -15,6 +15,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <!-- 友盟统计会用到, 通过获取位置信息，为开发者提供反作弊功能，剔除作弊设备；同时校正用户的地域分布数据，使报表数据更加准确 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <!--
     allowBackup: 是否开启应用备份功能(有安全漏洞，建议关闭) (true<默认>: 开启  false: 关闭)
     supportsRtl: true: Api17及以上使用系统设置的方向 RTL 或 LTR  false<默认>: 使用从左到右的方向(LTR)

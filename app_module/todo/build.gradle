@@ -1,5 +1,5 @@
 //控制组件模式和集成模式
-if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+if (isApplication && isTodoApplication) {
     apply plugin: 'com.android.application'
     // 应用 Android AspectJ 插件
 //    apply plugin: 'android-aspectjx'
@@ -43,18 +43,18 @@ android {
         }
     }
 
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+        if (isApplication && isTodoApplication) {
             //Application模式下 设置applicationId
-            applicationId rootProject.ext.android.applicationId
+            applicationId APPLICATION_ID
         }
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -91,7 +91,7 @@ android {
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
             shrinkResources false
             // 判断是 应用模式 还是 库模式
-            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+            if (isApplication && isTodoApplication) {
                 // 使用应用模式混淆文件
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                 // 使用正式版签名配置签名
@@ -115,7 +115,7 @@ android {
             // 移除无用的resource文件 (如果为true, 那么 getIdentifier(根据资源ID字符串获取资源) 可能获取不到(资源被删除了))
             shrinkResources false
             //应用模式下, 使用调试版签名配置签名
-            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+            if (isApplication && isTodoApplication) {
                 // 使用应用模式混淆文件
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                 signingConfig signingConfigs.debug
@@ -227,7 +227,7 @@ android {
 
     sourceSets {
         main {
-            if (rootProject.ext.isApplication && rootProject.ext.isTodoApplication) {
+            if (isApplication && isTodoApplication) {
                 manifest.srcFile 'src/main/manifest/application/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/manifest/library/AndroidManifest.xml'

@@ -9,23 +9,21 @@ ext {
     //天气模块开关,  false:作为Lib组件存在， true:作为application存在
     isWeatherApplication = true
 
-    //android开发版本配置
-    android = [
-            // 编译SDK版本
-            compileSdkVersion : COMPILE_SDK_VERSION as int,
-            // 构建工具版本 (默认是 String 类型，所以 as String 可以去掉)
-            buildToolsVersion : BUILD_TOOLS_VERSION as String,
-            // 应用唯一ID (默认是 String 类型，所以 as String 可以去掉)
-            applicationId     : APPLICATION_ID as String,
-            // 最小支持SDK版本 (int 或 Integer 都可以)
-            minSdkVersion     : MIN_SDK_VERSION as int,
-            // 目标支持SDK版本 (int 或 Integer 都可以)
-            targetSdkVersion  : TARGET_SDK_VERSION as int,
-            // 应用版本号 (int 或 Integer 都可以)
-            versionCode       : VERSION_CODE as int,
-            // 应用版本名 (默认是 String 类型，所以 as String 可以去掉)
-            versionName       : VERSION_NAME as String,
-    ]
+    // 编译SDK版本
+    COMPILE_SDK_VERSION = _COMPILE_SDK_VERSION as int
+    // 构建工具版本 (默认是 String 类型，所以 as String 可以去掉)
+    BUILD_TOOLS_VERSION = _BUILD_TOOLS_VERSION as String
+    // 应用唯一ID (默认是 String 类型，所以 as String 可以去掉)
+    APPLICATION_ID = _APPLICATION_ID as String
+    // 最小支持SDK版本 (int 或 Integer 都可以)
+    MIN_SDK_VERSION = _MIN_SDK_VERSION as int
+    // 目标支持SDK版本 (int 或 Integer 都可以)
+    TARGET_SDK_VERSION = _TARGET_SDK_VERSION as int
+    // 应用版本号 (int 或 Integer 都可以)
+    VERSION_CODE = _VERSION_CODE as int
+    // 应用版本名 (默认是 String 类型，所以 as String 可以去掉)
+    VERSION_NAME = _VERSION_NAME as String
+
     //version配置 (依赖更新: 2020/8/27 周四 23:15)
     versions = [
             "kotlin-stdlib-jdk7"                  : "1.4.0",
@@ -217,7 +215,13 @@ ext {
                                                        "com.umeng.umsdk:agoo-accs:3.3.9.7-open",
                                                        "com.umeng.umsdk:agoo_networksdk:3.5.5",
                                                        "com.umeng.umsdk:agoo_tlog:3.0.0.17",
-                                                       "com.umeng.umsdk:agoo_tnet4android:3.1.14.9"
+                                                       "com.umeng.umsdk:agoo_tnet4android:3.1.14.9",
+
+                                                       //特别提醒：如您不在U-App的集成中加入OAID库，可能会导致U-App面向Android Q系统的新增、启动、活跃、留存等指标减少，因此，建议您接入OAID库。
+                                                       "com.umeng.umsdk:oaid_lenovo:1.0.0",
+                                                       "com.umeng.umsdk:oaid_mi:1.0.0",
+                                                       "com.umeng.umsdk:oaid_oppo:1.0.4",
+                                                       "com.umeng.umsdk:oaid_vivo:1.0.0.1"
                                                     ]
     ]
     //依赖第三方配置 注解执行器

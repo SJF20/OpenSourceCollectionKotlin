@@ -85,8 +85,6 @@ abstract class BaseApplication : Application() {
      * 主进程初始化
      */
     protected open fun mainProcessInit() {
-        //开启Log打印
-        enable(true)
         // 初始化万能工具类
         initUtils()
         // 初始化 ARouter 路由框架

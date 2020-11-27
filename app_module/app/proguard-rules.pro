@@ -197,7 +197,7 @@
 -keep public class * extends org.xmlpull.**
 -keep interface org.xmlpull.** {*;}
 
-# 友盟推送相关 混淆
+# 友盟相关 混淆
 -dontwarn com.umeng.**
 -dontwarn com.taobao.**
 -dontwarn anet.channel.**
@@ -207,7 +207,6 @@
 -dontwarn com.xiaomi.**
 -dontwarn com.huawei.**
 -dontwarn com.meizu.**
-
 -keepattributes *Annotation*
 -keep class com.taobao.** {*;}
 -keep class org.android.** {*;}
@@ -222,4 +221,26 @@
 -keep class com.ta.**{*;}
 -keep public class **.R$*{
    public static final int *;
+}
+-keep class com.uc.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep class com.zui.** {*;}
+-keep class com.miui.** {*;}
+-keep class com.heytap.** {*;}
+-keep class a.** {*;}
+-keep class com.vivo.** {*;}
+-keep public class com.shijingfeng.open_source_collection_kotlin.R$*{
+public static final int *;
+}
+-keep public class com.shijingfeng.open_source_collection_kotlin.debug.R$*{
+public static final int *;
+}
+-keep public class com.shijingfeng.open_source_collection_kotlin.release.R$*{
+public static final int *;
 }
