@@ -1,7 +1,7 @@
 ext {
 
     //false:作为Lib组件存在,  true:作为application存在, 用于全局控制 (总开关)
-    isApplication = true
+    isApplication = false
     //玩Android模块开关,  false:作为Lib组件存在， true:作为application存在
     isWanAndroidApplication = true
     //TODO模块开关,  false:作为Lib组件存在,  true:作为application存在
@@ -196,7 +196,29 @@ ext {
             //JetPack DataStore (Preferences DataStore)
             "preferences_datastore"               : "androidx.datastore:datastore-preferences:${versions["datastore"]}",
             //JetPack DataStore (Proto DataStore)
-            "proto_datastore"                     : "androidx.datastore:datastore-core:${versions["datastore"]}"
+            "proto_datastore"                     : "androidx.datastore:datastore-core:${versions["datastore"]}",
+            //友盟相关依赖
+            "umeng"                               : [
+                                                       //基础组件库依赖(必须) Push 6.2.0版本必须升级新版本Common SDK
+                                                       "com.umeng.umsdk:common:9.3.0",
+                                                       //和 阿里Sophix热修复 依赖冲突
+                                                       //"com.umeng.umsdk:utdid:1.5.2",
+                                                       "com.umeng.umsdk:asms:1.1.3",
+                                                       "com.umeng.umsdk:crash:0.0.5",
+
+                                                       //友盟push相关依赖(必须)
+                                                       "com.umeng.umsdk:push:6.2.0",
+
+                                                       "com.umeng.umsdk:alicloud-httpdns:1.2.5",
+                                                       //和 阿里Sophix热修复 依赖冲突
+                                                       //"com.umeng.umsdk:alicloud-utils:1.1.5",
+                                                       "com.umeng.umsdk:alicloud_beacon:1.0.1",
+
+                                                       "com.umeng.umsdk:agoo-accs:3.3.9.7-open",
+                                                       "com.umeng.umsdk:agoo_networksdk:3.5.5",
+                                                       "com.umeng.umsdk:agoo_tlog:3.0.0.17",
+                                                       "com.umeng.umsdk:agoo_tnet4android:3.1.14.9"
+                                                    ]
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [

@@ -16,6 +16,8 @@ private var sEnable = false
 const val LOG_TEST = "log_test"
 /** 腾讯X5相关日志 */
 const val LOG_TENCENT_X5 = "log_tencent_x5"
+/** 友盟相关日志 */
+const val LOG_UMENG = "log_umeng"
 /** 玩Android皮肤相关日志 */
 const val LOG_WAN_ANDROID_SKIN = "log_wan_android_skin"
 /** 生命周期函数相关日志 */

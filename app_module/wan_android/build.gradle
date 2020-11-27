@@ -173,15 +173,15 @@ android {
     realm {
         kotlinExtensionsEnabled = true
     }
-    if (isApplication && isWanAndroidApplication) {
-        // 解决 AspectJ 一系列问题
+//    if (isApplication && isWanAndroidApplication) {
+//        // 解决 AspectJ 一系列问题
 //        aspectjx{
 //            // 目前已知问题: kotlin-gradle-plugin 和 kotlin-stdlib-jdk7  1.4.0会报 zip is empty, 而1.3.72则没问题
 //            // 关闭AspectJX功能
 //            enabled false
 //            exclude 'androidx', "com.google", "io.realm", "leakcanary"
 //        }
-    }
+//    }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {
         preDexLibraries = false

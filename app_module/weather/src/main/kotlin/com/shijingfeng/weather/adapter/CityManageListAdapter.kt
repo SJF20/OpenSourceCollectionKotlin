@@ -5,7 +5,7 @@ import com.shijingfeng.base.base.adapter.BaseAdapter
 import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.common.global.cityDataManager
-import com.shijingfeng.weather.entity.realm.CityData
+import com.shijingfeng.weather.entity.CityDataItem
 
 /**
  * Function: 城市管理 列表适配器
@@ -15,10 +15,10 @@ import com.shijingfeng.weather.entity.realm.CityData
  */
 internal class CityManageListAdapter(
     context: Context
-) : BaseAdapter<CityData>(
+) : BaseAdapter<CityDataItem>(
     context = context,
     layoutId = R.layout.adapter_item_city_manage_list,
-    dataList = cityDataManager
+    dataList = cityDataManager?.dataList
 ) {
 
     /**
@@ -27,7 +27,7 @@ internal class CityManageListAdapter(
      * @param data 数据
      * @param position 下标位置
      */
-    override fun convert(holder: CommonViewHolder, data: CityData, position: Int) {
+    override fun convert(holder: CommonViewHolder, data: CityDataItem, position: Int) {
         TODO("Not yet implemented")
     }
 }

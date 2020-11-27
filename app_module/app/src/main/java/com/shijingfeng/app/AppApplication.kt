@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
+import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.background_service.work_manager.startCheckForHotfixPatchWorker
 import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
@@ -12,6 +13,7 @@ import com.shijingfeng.base.common.constant.UMENG_PUSH_APP_KEY
 import com.shijingfeng.base.common.constant.UMENG_PUSH_MESSAGE_SECRET
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.LOG_TENCENT_X5
+import com.shijingfeng.base.util.LOG_UMENG
 import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
@@ -89,16 +91,17 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
             UMConfigure.DEVICE_TYPE_PHONE,
             UMENG_PUSH_MESSAGE_SECRET
         )
-        pushAgent = PushAgent.getInstance(this)
-        pushAgent.register(object : IUmengRegisterCallback {
-            override fun onSuccess(deviceToken: String?) {
-                Log.e("测试", "deviceToken: $deviceToken")
-            }
+        pushAgent = PushAgent.getInstance(this).apply {
+            register(object : IUmengRegisterCallback {
+                override fun onSuccess(deviceToken: String?) {
+                    e(LOG_UMENG, "deviceToken: $deviceToken")
+                }
 
-            override fun onFailure(s1: String?, s2: String?) {
-                Log.e("测试", "友盟推送注册失败: s1:${s1}     s2: ${s2}")
-            }
-        })
+                override fun onFailure(s1: String?, s2: String?) {
+                    e(LOG_UMENG, "友盟推送注册失败: s1:${s1}     s2: ${s2}")
+                }
+            })
+        }
     }
 
     /**

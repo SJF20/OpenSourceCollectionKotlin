@@ -3,7 +3,7 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        kotlin_version = '1.3.72'
+        kotlin_version = '1.4.10'
     }
 
     // gradle脚本执行所需依赖仓库
@@ -22,7 +22,7 @@ buildscript {
         // Android 插件
         classpath 'com.android.tools.build:gradle:4.0.2'
         // Kotlin 插件
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // ARouter 使用 Gradle 插件实现路由表的自动加载
         classpath "com.alibaba:arouter-register:1.0.2"
         // Realm 数据库 插件 版本
@@ -30,7 +30,7 @@ buildscript {
         // 阿里云 emas-services插件
         classpath 'com.aliyun.ams:emas-services:1.0.1'
         // Android AspectJ (AspectJ对各个插件版本和依赖的包相关性很大，动不动就报错，生产环境的App慎用)
-        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
+//        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
     }
 }
 

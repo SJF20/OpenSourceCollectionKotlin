@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.Keep
 import com.shijingfeng.base.common.global.sSophixHasInitialized
-import com.shijingfeng.base.util.enable
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixApplication
 import com.taobao.sophix.SophixEntry

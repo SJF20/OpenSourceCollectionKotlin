@@ -2,8 +2,8 @@ package com.shijingfeng.base.base.application
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
@@ -72,7 +72,6 @@ abstract class BaseApplication : Application() {
         super.onCreate()
         // 每个进程都有单独的内存区域, application不相同，也不会覆盖
         application = this
-        Log.e("测试", "onCreate 当前进程名: $currentProcessName")
         // 主进程初始化
         if (isMainProcess) {
             // Application主进程初始化操作
