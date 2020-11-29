@@ -10,6 +10,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/annotation_process_module/apt_annotation" />
+            <option value="$PROJECT_DIR$/annotation_process_module/apt_processor" />
             <option value="$PROJECT_DIR$/app_module/app" />
             <option value="$PROJECT_DIR$/app_module/todo" />
             <option value="$PROJECT_DIR$/app_module/wan_android" />

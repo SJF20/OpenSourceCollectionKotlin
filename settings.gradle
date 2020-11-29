@@ -33,6 +33,14 @@ project(':base').projectDir = new File("${rootDir.getAbsolutePath()}/library_mod
 include ':skin_changer'
 project(':skin_changer').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'skin_changer')
 
+// Apt处理模块
+// Apt注解
+include ':apt_annotation'
+project(":apt_annotation").projectDir = new File("${rootDir.getAbsolutePath()}/annotation_process_module", "apt_annotation")
+// Apt处理器
+include ':apt_processor'
+project(":apt_processor").projectDir = new File("${rootDir.getAbsolutePath()}/annotation_process_module", "apt_processor")
+
 // 皮肤资源模块
 include ':skin'
 
