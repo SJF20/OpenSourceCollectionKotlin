@@ -279,9 +279,6 @@ dependencies {
         implementation dependStr
     }
 
-    implementation project(":apt_annotation")
-    kapt project(":apt_processor")
-
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
 }
