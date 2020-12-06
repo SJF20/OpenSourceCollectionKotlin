@@ -10,6 +10,7 @@ import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.LOG_TENCENT_X5
 import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.isMainProcess
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
 import io.realm.Realm
@@ -38,16 +39,18 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
     }
 
     /**
-     * 主进程初始化
+     * 初始化
      */
-    override fun mainProcessInit() {
-        super.mainProcessInit()
-        // 初始化 Bmob 后端
-        initBmob()
-        // 初始化腾讯X5
-        initX5()
-        //初始化 Realm 数据库
-        initRealm()
+    override fun init() {
+        super.init()
+        if (isMainProcess) {
+            // 初始化 Bmob 后端
+            initBmob()
+            // 初始化腾讯X5
+            initX5()
+            //初始化 Realm 数据库
+            initRealm()
+        }
     }
 
     /**

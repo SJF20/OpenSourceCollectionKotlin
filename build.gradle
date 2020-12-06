@@ -1,6 +1,9 @@
 //从config.gradle中加载依赖配置版本
 apply from: "config.gradle"
 
+// ARouter路由表的自动加载 (和Realm冲突, 会导致Realm数据库发生改变，抛出需要数据库合并升级错误, 具体原因未知)
+//apply plugin: 'com.alibaba.arouter'
+
 buildscript {
     ext {
         kotlin_version = '1.4.20'

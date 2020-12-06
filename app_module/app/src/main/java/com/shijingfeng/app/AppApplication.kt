@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.work.Configuration
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
-import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.background_service.work_manager.startCheckForHotfixPatchWorker
 import com.shijingfeng.background_service.work_manager.startCheckForUpdateWorker
 import com.shijingfeng.base.base.application.BaseApplication
@@ -15,6 +14,7 @@ import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
 import com.shijingfeng.base.util.LOG_TENCENT_X5
 import com.shijingfeng.base.util.LOG_UMENG
 import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.isMainProcess
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
 import com.umeng.commonsdk.UMConfigure
@@ -39,39 +39,24 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
     private var mX5InitSuccess = false
 
     /**
-     * 主进程初始化
+     * 初始化
      */
-    override fun mainProcessInit() {
-        super.mainProcessInit()
+    override fun init() {
+        super.init()
         // 初始化友盟推送
         initUmengPush()
-        // 初始化 Bmob 后端
-        initBmob()
-        // 初始化腾讯X5
-        initX5()
-        // 初始化 Realm 数据库
-        initRealm()
-        // 开启 检查更新 Worker
-        startCheckForUpdateWorker()
-        // 开启 检查更新热修复补丁 Worker
-        startCheckForHotfixPatchWorker()
-    }
-
-    /**
-     * 初始化 Bmob 后端
-     */
-    private fun initBmob() {
-        Bmob.initialize(
-            BmobConfig.Builder(this)
-                .setApplicationId(BMOB_APP_KEY)
-                //请求超时时间（单位为秒）：默认15s
-                .setConnectTimeout(20)
-                //文件分片上传时每片的大小（单位字节），默认512 * 1024
-                .setUploadBlockSize(512 * 1024)
-                //文件的过期时间(单位为秒)：默认1800s
-                .setFileExpiration(1800)
-                .build()
-        )
+        if (isMainProcess) {
+            // 初始化 Bmob 后端
+            initBmob()
+            // 初始化腾讯X5
+            initX5()
+            // 初始化 Realm 数据库
+            initRealm()
+            // 开启 检查更新 Worker
+            startCheckForUpdateWorker()
+            // 开启 检查更新热修复补丁 Worker
+            startCheckForHotfixPatchWorker()
+        }
     }
 
     /**
@@ -103,6 +88,23 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
                 }
             })
         }
+    }
+
+    /**
+     * 初始化 Bmob 后端
+     */
+    private fun initBmob() {
+        Bmob.initialize(
+            BmobConfig.Builder(this)
+                .setApplicationId(BMOB_APP_KEY)
+                //请求超时时间（单位为秒）：默认15s
+                .setConnectTimeout(20)
+                //文件分片上传时每片的大小（单位字节），默认512 * 1024
+                .setUploadBlockSize(512 * 1024)
+                //文件的过期时间(单位为秒)：默认1800s
+                .setFileExpiration(1800)
+                .build()
+        )
     }
 
     /**

@@ -1,0 +1,1 @@
+D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\annotation_process_module\apt_annotation\build\classes\kotlin\main\com\shijingfeng\apt_annotation\ModuleDispatcher.class;D:\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\annotation_process_module\apt_annotation\build\classes\kotlin\main\com\shijingfeng\apt_annotation\ModuleDispatcherKt.class

@@ -1,9 +1,8 @@
 package com.shijingfeng.base.base.application
 
 import android.app.Application
-import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blankj.utilcode.util.ToastUtils
+import com.alibaba.android.arouter.utils.ClassUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
@@ -18,8 +17,8 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.*
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
+import java.io.File
 import java.util.*
-import kotlin.Exception
 
 /** 应用初始化类 全限定类名 列表 */
 private val appInitClassNameList = arrayOf(
@@ -68,34 +67,46 @@ abstract class BaseApplication : Application() {
      * 注意 多进程 会创建多个Application对象，则 onCreate() 会执行多次
      * 多进程中 变量在相应的进程内存中
      */
-    override fun onCreate() {
+    final override fun onCreate() {
         super.onCreate()
         // 每个进程都有单独的内存区域, application不相同，也不会覆盖
         application = this
-        // 主进程初始化
+        // Application主进程初始化操作
+        init()
         if (isMainProcess) {
-            // Application主进程初始化操作
-            mainProcessInit()
-            // 开始 其他 module App 初始化
+            // 开始 其他 module App 初始化 (在主进程中初始化)
             startAppInit()
         }
     }
 
     /**
-     * 主进程初始化
+     * 初始化
      */
-    protected open fun mainProcessInit() {
-        // 初始化万能工具类
-        initUtils()
-        // 初始化 ARouter 路由框架
-        initARouter()
-        // 初始化 LoadSir
-        initLoadSir()
-        // 初始化 RetrofitUrlManager
-        initRetrofitUrlManager()
+    protected open fun init() {
+        if (isMainProcess) {
+            // 初始化万能工具类
+            initUtils()
+            // 初始化 ARouter 路由框架
+            initARouter()
+            // 初始化 LoadSir
+            initLoadSir()
+            // 初始化 RetrofitUrlManager
+            initRetrofitUrlManager()
 
-        // 注册广播
-        registerGlobalReceiver()
+            // 注册广播
+            registerGlobalReceiver()
+
+            val applicationInfo = this.packageManager.getApplicationInfo(packageName, 0)
+            val sourceApk = File(applicationInfo.sourceDir)
+
+            e("测试", "sourceApk 路径: ${sourceApk.absolutePath}")
+            e("测试", "sourceApk 名称: ${sourceApk.name}")
+            e("测试", "------开始打印路径------")
+            ClassUtils.getSourcePaths(this)?.forEach { path ->
+                e("测试", path ?: "null")
+            }
+            e("测试", "------结束打印路径------")
+        }
     }
 
     /**
@@ -116,9 +127,15 @@ abstract class BaseApplication : Application() {
         // 按照优先级排列 (从高到低)
         appInitInstanceList.sortWith(Comparator { o1, o2 ->
             when {
-                o1.getPriority() < o2.getPriority() -> { 1 }
-                o1.getPriority() > o2.getPriority() -> { -1 }
-                else -> { 0 }
+                o1.getPriority() < o2.getPriority() -> {
+                    1
+                }
+                o1.getPriority() > o2.getPriority() -> {
+                    -1
+                }
+                else -> {
+                    0
+                }
             }
         })
         // 调用 onCreate方法，开始初始化

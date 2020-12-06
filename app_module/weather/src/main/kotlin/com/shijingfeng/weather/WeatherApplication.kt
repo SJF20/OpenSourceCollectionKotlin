@@ -7,6 +7,7 @@ import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
+import com.shijingfeng.base.util.isMainProcess
 import io.realm.Realm
 import java.util.concurrent.Executors
 
@@ -29,14 +30,16 @@ internal class WeatherApplication : BaseApplication(), Configuration.Provider {
     }
 
     /**
-     * 主进程初始化
+     * 初始化
      */
-    override fun mainProcessInit() {
-        super.mainProcessInit()
-        // 初始化 Bmob 后端
-        initBmob()
-        //初始化 Realm 数据库
-        initRealm()
+    override fun init() {
+        super.init()
+        if (isMainProcess) {
+            // 初始化 Bmob 后端
+            initBmob()
+            //初始化 Realm 数据库
+            initRealm()
+        }
     }
 
     /**
