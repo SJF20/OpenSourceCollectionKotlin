@@ -60,7 +60,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        //配置阿里 ARouter 路由
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [

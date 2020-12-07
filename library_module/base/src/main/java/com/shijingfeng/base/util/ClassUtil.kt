@@ -7,6 +7,10 @@ import android.content.Context.MODE_PRIVATE
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.annotation.AnyThread
+import androidx.annotation.WorkerThread
+import com.shijingfeng.base.thread_executor.getCustomThreadExecutorInstance
+import dalvik.system.DexFile
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -32,6 +36,14 @@ private const val KEY_DEX_NUMBER = "dex.number"
 private const val VM_WITH_MULTIDEX_VERSION_MAJOR = 2
 private const val VM_WITH_MULTIDEX_VERSION_MINOR = 1
 
+/**
+ * 通过包名获取App内文件名
+ * 注意: 该操作是耗时操作
+ * 如果获取的文件是Java类文件，则可以直接通过发射加载类
+ * 如果是Kotlin文件, 则需要特殊处理
+ */
+// TODO 可以考虑使用协程
+@WorkerThread
 fun getFileNameByPackageName(
     context: Context,
     packageName: String
@@ -46,58 +58,41 @@ fun getFileNameByPackageName(
     val synchronizer = CountDownLatch(sourcePathList.size)
 
     sourcePathList.forEach { path ->
+        getCustomThreadExecutorInstance().execute {
+            var dexFile: DexFile? = null
 
+            try {
+                dexFile = if (path.endsWith(EXTRACTED_SUFFIX)) {
+                    DexFile.loadDex(path, "$path.tmp", 0)
+                } else {
+                    DexFile(path)
+                }
+
+                dexFile?.entries()?.run {
+                    while (hasMoreElements()) {
+                        val className = nextElement()
+
+                        if (className.startsWith(packageName)) {
+                            classNameSet.add(className)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                try {
+                    dexFile?.close()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    synchronizer.countDown()
+                }
+            }
+        }
     }
+    synchronizer.await()
+    return classNameSet
 }
-
-//    public static Set<String> getFileNameByPackageName(Context context, final String packageName) throws PackageManager.NameNotFoundException, IOException, InterruptedException {
-//        final Set<String> classNames = new HashSet<>();
-//
-//        List<String> paths = getSourcePaths(context);
-//        final CountDownLatch parserCtl = new CountDownLatch(paths.size());
-//
-//        for (final String path : paths) {
-//            DefaultPoolExecutor.getInstance().execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    DexFile dexfile = null;
-//
-//                    try {
-//                        if (path.endsWith(EXTRACTED_SUFFIX)) {
-//                            //NOT use new DexFile(path), because it will throw "permission error in /data/dalvik-cache"
-//                            dexfile = DexFile.loadDex(path, path + ".tmp", 0);
-//                        } else {
-//                            dexfile = new DexFile(path);
-//                        }
-//
-//                        Enumeration<String> dexEntries = dexfile.entries();
-//                        while (dexEntries.hasMoreElements()) {
-//                            String className = dexEntries.nextElement();
-//                            if (className.startsWith(packageName)) {
-//                                classNames.add(className);
-//                            }
-//                        }
-//                    } catch (Throwable ignore) {
-//                        Log.e("ARouter", "Scan map file in dex files made error.", ignore);
-//                    } finally {
-//                        if (null != dexfile) {
-//                            try {
-//                                dexfile.close();
-//                            } catch (Throwable ignore) {
-//                            }
-//                        }
-//
-//                        parserCtl.countDown();
-//                    }
-//                }
-//            });
-//        }
-//
-//        parserCtl.await();
-//
-//        Log.d(Consts.TAG, "Filter " + classNames.size() + " classes by packageName <" + packageName + ">");
-//        return classNames;
-//    }
 
 /**
  * 获取apk路径列表(分包后会有多个文件)
