@@ -11,6 +11,7 @@ import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
 import com.shijingfeng.base.thread_executor.getCustomThreadExecutorInstance
 import dalvik.system.DexFile
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -42,32 +43,36 @@ private const val VM_WITH_MULTIDEX_VERSION_MINOR = 1
  * 如果获取的文件是Java类文件，则可以直接通过发射加载类
  * 如果是Kotlin文件, 则需要特殊处理
  */
-// TODO 可以考虑使用协程
-@WorkerThread
-fun getFileNameByPackageName(
+suspend fun getFileNameByPackageName(
     context: Context,
     packageName: String
-): Set<String> {
+): Set<String> = withContext(context = Dispatchers.IO) {
     val classNameSet = mutableSetOf<String>()
     val sourcePathList = getSourcePathList(context)
 
     if (sourcePathList.isEmpty()) {
-        return classNameSet
+        return@withContext classNameSet
     }
 
-    val synchronizer = CountDownLatch(sourcePathList.size)
+    val deferredList = mutableListOf<Deferred<Any>>()
 
     sourcePathList.forEach { path ->
-        getCustomThreadExecutorInstance().execute {
+        // 注意: context 使用 getCustomThreadExecutorInstance().asCoroutineDispatcher() 会导致弹出警告 Inappropriate blocking method call
+        // 故使用 Dispatchers.IO
+        val deferred = async(context = Dispatchers.IO) {
+            @Suppress("DEPRECATION")
             var dexFile: DexFile? = null
 
             try {
                 dexFile = if (path.endsWith(EXTRACTED_SUFFIX)) {
+                    @Suppress("DEPRECATION")
                     DexFile.loadDex(path, "$path.tmp", 0)
                 } else {
+                    @Suppress("DEPRECATION")
                     DexFile(path)
                 }
 
+                @Suppress("DEPRECATION")
                 dexFile?.entries()?.run {
                     while (hasMoreElements()) {
                         val className = nextElement()
@@ -81,17 +86,21 @@ fun getFileNameByPackageName(
                 e.printStackTrace()
             } finally {
                 try {
+                    @Suppress("DEPRECATION")
                     dexFile?.close()
                 } catch (e: Exception) {
                     e.printStackTrace()
-                } finally {
-                    synchronizer.countDown()
                 }
             }
+            return@async
         }
+
+        deferredList.add(deferred)
     }
-    synchronizer.await()
-    return classNameSet
+    deferredList.forEach { deferred ->
+        deferred.await()
+    }
+    return@withContext classNameSet
 }
 
 /**

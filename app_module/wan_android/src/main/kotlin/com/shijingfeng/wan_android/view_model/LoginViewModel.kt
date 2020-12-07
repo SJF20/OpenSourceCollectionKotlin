@@ -9,6 +9,7 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_REGISTER
+import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.util.*
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
@@ -108,6 +109,12 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
 
         val coroutineContext = Dispatchers.Main + CoroutineName("登录接口请求") + LoginContinuationInterceptor()
 
+        viewModelScope.launch {
+            val dataSet = getFileNameByPackageName(
+                context = application,
+                packageName = ""
+            )
+        }
         viewModelScope.launch(context = coroutineContext) {
             try {
                 val userInfo = mRepository?.login(HashMap<String, Any>(2).apply {
