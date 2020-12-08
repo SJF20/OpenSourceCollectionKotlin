@@ -12,10 +12,12 @@ import androidx.annotation.WorkerThread
 import com.shijingfeng.base.thread_executor.getCustomThreadExecutorInstance
 import dalvik.system.DexFile
 import kotlinx.coroutines.*
+import org.junit.Test
 import java.io.File
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.regex.Pattern
 import java.util.regex.Pattern.compile
 
@@ -43,9 +45,11 @@ private const val VM_WITH_MULTIDEX_VERSION_MINOR = 1
  * 如果获取的文件是Java类文件，则可以直接通过发射加载类
  * 如果是Kotlin文件, 则需要特殊处理
  */
+@WorkerThread
+@Suppress("DEPRECATION")
 suspend fun getFileNameByPackageName(
     context: Context,
-    packageName: String
+    packageName: String,
 ): Set<String> = withContext(context = Dispatchers.IO) {
     val classNameSet = mutableSetOf<String>()
     val sourcePathList = getSourcePathList(context)
@@ -59,20 +63,18 @@ suspend fun getFileNameByPackageName(
     sourcePathList.forEach { path ->
         // 注意: context 使用 getCustomThreadExecutorInstance().asCoroutineDispatcher() 会导致弹出警告 Inappropriate blocking method call
         // 故使用 Dispatchers.IO
+        // 注意: async{}.await() 和 val result = async{} result.await() 不一样
+        // 前者会阻塞, 导致后面的代码暂停执行, 而后者不会
         val deferred = async(context = Dispatchers.IO) {
-            @Suppress("DEPRECATION")
             var dexFile: DexFile? = null
 
             try {
                 dexFile = if (path.endsWith(EXTRACTED_SUFFIX)) {
-                    @Suppress("DEPRECATION")
                     DexFile.loadDex(path, "$path.tmp", 0)
                 } else {
-                    @Suppress("DEPRECATION")
                     DexFile(path)
                 }
 
-                @Suppress("DEPRECATION")
                 dexFile?.entries()?.run {
                     while (hasMoreElements()) {
                         val className = nextElement()
@@ -86,17 +88,17 @@ suspend fun getFileNameByPackageName(
                 e.printStackTrace()
             } finally {
                 try {
-                    @Suppress("DEPRECATION")
                     dexFile?.close()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+                return@async
             }
-            return@async
         }
 
         deferredList.add(deferred)
     }
+
     deferredList.forEach { deferred ->
         deferred.await()
     }

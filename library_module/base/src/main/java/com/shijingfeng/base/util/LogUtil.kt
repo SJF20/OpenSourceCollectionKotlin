@@ -23,6 +23,8 @@ const val LOG_UMENG = "log_umeng"
 const val LOG_WAN_ANDROID_SKIN = "log_wan_android_skin"
 /** 生命周期函数相关日志 */
 const val LOG_LIFECYCLE = "log_lifecycle"
+/** 异常相关日志 */
+const val LOG_EXCEPTION = "log_exception"
 
 /**
  * 日志级别：verbose

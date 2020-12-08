@@ -109,12 +109,6 @@ internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
 
         val coroutineContext = Dispatchers.Main + CoroutineName("登录接口请求") + LoginContinuationInterceptor()
 
-        viewModelScope.launch {
-            val dataSet = getFileNameByPackageName(
-                context = application,
-                packageName = ""
-            )
-        }
         viewModelScope.launch(context = coroutineContext) {
             try {
                 val userInfo = mRepository?.login(HashMap<String, Any>(2).apply {
