@@ -12,13 +12,18 @@ import com.shijingfeng.app.R
 import com.shijingfeng.app.base.AppBaseActivity
 import com.shijingfeng.app.databinding.ActivityAppMainBinding
 import com.shijingfeng.app.view_model.MainViewModel
+import com.shijingfeng.apt_api.manager.getActivityReceiverList
+import com.shijingfeng.apt_api.manager.getApplicationReceiverList
 import com.shijingfeng.base.arouter.ACTIVITY_APP_MAIN
+import com.shijingfeng.base.util.LOG_TEST
+import com.shijingfeng.base.util.e
 import com.shijingfeng.tencent_x5.util.setDefaultX5WebSettings
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.*
 import kotlinx.android.synthetic.main.activity_app_main.*
+import kotlinx.coroutines.launch
 
 /**
  * Function: 主页
@@ -55,6 +60,13 @@ internal class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewMo
      */
     override fun initData() {
         super.initData()
+        launch {
+            val applicationReceiverList = getApplicationReceiverList(application)
+            val activityReceiverList = getActivityReceiverList(application)
+
+            e(LOG_TEST, "applicationReceiverList: ${applicationReceiverList.joinToString(", ") { it::class.java.name }}")
+            e(LOG_TEST, "activityReceiverList: ${activityReceiverList.joinToString(", ") {it::class.java.name}}")
+        }
 //        Handler().postDelayed({
 //            initX5WebView()
 //        }, 500)

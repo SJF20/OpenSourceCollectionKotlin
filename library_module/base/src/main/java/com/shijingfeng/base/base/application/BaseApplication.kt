@@ -9,6 +9,8 @@ import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.shijingfeng.apt_api.ApplicationReceiverManager
+import com.shijingfeng.apt_api.manager.getActivityReceiverList
 import com.shijingfeng.base.BuildConfig.DEBUG
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
@@ -95,17 +97,6 @@ abstract class BaseApplication : Application() {
 
             // 注册广播
             registerGlobalReceiver()
-
-            val applicationInfo = this.packageManager.getApplicationInfo(packageName, 0)
-            val sourceApk = File(applicationInfo.sourceDir)
-
-            e("测试", "sourceApk 路径: ${sourceApk.absolutePath}")
-            e("测试", "sourceApk 名称: ${sourceApk.name}")
-            e("测试", "------开始打印路径------")
-            ClassUtils.getSourcePaths(this)?.forEach { path ->
-                e("测试", path ?: "null")
-            }
-            e("测试", "------结束打印路径------")
         }
     }
 

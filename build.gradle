@@ -13,6 +13,8 @@ buildscript {
     repositories {
         google()
         jcenter()
+        // 自己实现的Gradle Plugin, 本地地址: 工程目录下的 gradle_plugin_generate 文件夹
+        maven { url uri('./gradle_plugin_generate/') }
         maven { url "https://jitpack.io" }
         maven { url "https://maven.aliyun.com/nexus/content/repositories/releases" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
@@ -32,6 +34,8 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:7.0.0"
         // 阿里云 emas-services插件
         classpath 'com.aliyun.ams:emas-services:1.0.1'
+        // 自己实现的Gradle Plugin
+        classpath "com.shijingfeng:apt_gradle_plugin:1.0.0"
         // Android AspectJ (AspectJ对各个插件版本和依赖的包相关性很大，动不动就报错，生产环境的App慎用)
 //        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
     }

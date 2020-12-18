@@ -2,6 +2,7 @@ package com.shijingfeng.wan_android
 
 import androidx.annotation.Keep
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.shijingfeng.apt_data.annotations.ApplicationReceiver
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.LOG_LIFECYCLE
@@ -25,6 +26,7 @@ import java.io.FileOutputStream
  * @author ShiJingFeng
  */
 @Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
+@ApplicationReceiver
 internal class ModuleAppInit : AppInit {
 
     /**

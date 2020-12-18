@@ -64,13 +64,14 @@ android {
             annotationProcessorOptions {
                 arguments = [
                    // 配置 ARouter Module 名称
-                   AROUTER_MODULE_NAME     : project.getName(),
+                   "AROUTER_MODULE_NAME"     : project.getName(),
                    // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
                    "room.schemaLocation"   : "$projectDir/schemas".toString(),
                    // Room 启用 Gradle 增量注释处理器  true:启用  false:关闭
                    "room.incremental"      : "true",
                    // Room 配置 Room 以重新编写查询，使其顶部星形投影在展开后仅包含 DAO 方法返回类型中定义的列。
                    "room.expandProjection" : "true",
+                   "MODULE_NAME"           : project.getName()
                 ]
             }
         }

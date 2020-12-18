@@ -58,10 +58,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        //配置阿里 ARouter 路由
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments = [
+                        //配置阿里 ARouter 路由
+                        "AROUTER_MODULE_NAME" : project.getName(),
+                        "MODULE_NAME"         : project.getName()
+                ]
             }
         }
 
