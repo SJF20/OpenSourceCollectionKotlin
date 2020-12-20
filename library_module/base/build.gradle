@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// Realm 数据库 插件
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -23,6 +25,7 @@ android {
                 arguments = [
                         // 配置 ARouter Module 名称
                         AROUTER_MODULE_NAME    : project.getName(),
+                        MODULE_NAME            : project.getName(),
                         // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
                         "room.schemaLocation"  : "$projectDir/schemas".toString(),
                         // Room 启用 Gradle 增量注释处理器  true:启用  false:关闭
@@ -93,6 +96,10 @@ android {
     //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
     androidExtensions {
         experimental = true
+    }
+    //Realm 开启 Kotlin 支持
+    realm {
+        kotlinExtensionsEnabled = true
     }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {
@@ -296,6 +303,9 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
+
+    api 'com.shijingfeng.auto:apt_api:1.0'
+    kapt 'com.shijingfeng.auto:apt_processor:1.0'
 }
 
 //获取实时时间

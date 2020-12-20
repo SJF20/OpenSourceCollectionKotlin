@@ -1,7 +1,9 @@
 package com.shijingfeng.wan_android
 
+import android.app.Application
 import androidx.annotation.Keep
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.shijingfeng.apt_api.listener.ApplicationListener
 import com.shijingfeng.apt_data.annotations.ApplicationReceiver
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.interfaces.AppInit
@@ -27,13 +29,13 @@ import java.io.FileOutputStream
  */
 @Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
 @ApplicationReceiver
-internal class ModuleAppInit : AppInit {
+internal class ModuleAppInit : AppInit, ApplicationListener {
 
     /**
      * 初始化 (对应 Application OnCreate())
      */
-    override fun onCreate() {
-        super.onCreate()
+    override fun onCreate(application: Application) {
+        super<ApplicationListener>.onCreate(application)
         e(LOG_LIFECYCLE, "wan_android ModuleAppInit onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()

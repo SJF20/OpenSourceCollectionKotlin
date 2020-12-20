@@ -9,8 +9,6 @@ if (isApplication && isWeatherApplication) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-// Realm 数据库 插件
-apply plugin: 'realm-android'
 
 android {
     //签名配置
@@ -64,6 +62,7 @@ android {
                 arguments = [
                         // 配置 ARouter Module 名称
                         AROUTER_MODULE_NAME     : project.getName(),
+                        MODULE_NAME             : project.getName()
                 ]
             }
         }
@@ -145,10 +144,6 @@ android {
     //支持 ViewHolder 中使用 Kotlin 的 findViewById 简写
     androidExtensions {
         experimental = true
-    }
-    //Realm 开启 Kotlin 支持
-    realm {
-        kotlinExtensionsEnabled = true
     }
     //避免项目中存在相同的jar包，导致运行失败
     dexOptions {
@@ -279,6 +274,7 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["room"]
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
+    kapt 'com.shijingfeng.auto:apt_processor:1.0'
 }
 
 //获取构建时间

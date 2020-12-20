@@ -59,8 +59,8 @@ android {
             annotationProcessorOptions {
                 arguments = [
                         //配置阿里 ARouter 路由
-                        "AROUTER_MODULE_NAME" : project.getName(),
-                        "MODULE_NAME"         : project.getName()
+                        AROUTER_MODULE_NAME : project.getName(),
+                        MODULE_NAME         : project.getName()
                 ]
             }
         }
@@ -286,6 +286,7 @@ dependencies {
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
+    kapt 'com.shijingfeng.auto:apt_processor:1.0'
 }
 
 //获取构建时间

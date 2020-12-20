@@ -20,7 +20,11 @@ android {
         //配置阿里 ARouter 路由
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments = [
+                        // 配置 ARouter Module 名称
+                        AROUTER_MODULE_NAME    : project.getName(),
+                        MODULE_NAME            : project.getName()
+                ]
             }
         }
 
