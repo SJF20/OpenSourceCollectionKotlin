@@ -23,6 +23,7 @@ android {
                 arguments = [
                         // 配置 ARouter Module 名称
                         AROUTER_MODULE_NAME    : project.getName(),
+                        // 实现的注解执行器 配置 Module 名称
                         MODULE_NAME            : project.getName()
                 ]
             }
@@ -170,6 +171,8 @@ dependencies {
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
+    // 自己实现的注解执行器
+    kapt rootProject.ext.annotationProcessor["auto"]
 }
 
 //获取实时时间

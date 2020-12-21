@@ -66,6 +66,7 @@ ext {
             "smartrefresh"                        : "1.1.1",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
+            "auto"                                : "1.0",
             "bmob"                                : "3.7.8",
             "sophix"                              : "3.2.14",
 //            "aspectJ"                             : "1.9.5",
@@ -222,7 +223,9 @@ ext {
                                                        "com.umeng.umsdk:oaid_mi:1.0.0",
                                                        "com.umeng.umsdk:oaid_oppo:1.0.4",
                                                        "com.umeng.umsdk:oaid_vivo:1.0.0.1"
-                                                    ]
+                                                    ],
+            // 自己实现的自动框架api
+            "auto"                                : "com.shijingfeng.auto:apt_api:${versions["auto"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [
@@ -232,5 +235,7 @@ ext {
             "room"                           : "androidx.room:room-compiler:${versions["room"]}",
             // ARouter 路由框架注解执行器
             "arouter"                        : "com.alibaba:arouter-compiler:${versions["arouter-compiler"]}",
+            // 自己实现的注解执行器
+            "auto"                           : "com.shijingfeng.auto:apt_processor:${versions["auto"]}"
     ]
 }

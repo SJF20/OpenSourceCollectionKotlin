@@ -6,7 +6,7 @@ apply from: "config.gradle"
 
 buildscript {
     ext {
-        kotlin_version = '1.4.20'
+        kotlin_version = '1.4.21'
     }
 
     // gradle脚本执行所需依赖仓库
@@ -14,7 +14,6 @@ buildscript {
         google()
         jcenter()
         // 自己实现的Gradle Plugin, 本地地址: 工程目录下的 gradle_plugin_generate 文件夹
-//        maven { url uri('./gradle_plugin_generate/') }
         maven { url "https://jitpack.io" }
         maven { url "https://maven.aliyun.com/nexus/content/repositories/releases" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
@@ -27,7 +26,7 @@ buildscript {
     }
     dependencies {
         // Android 插件
-        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.android.tools.build:gradle:4.2.0-beta02'
         // Kotlin 插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // ARouter 使用 Gradle 插件实现路由表的自动加载
@@ -38,7 +37,6 @@ buildscript {
         classpath 'com.aliyun.ams:emas-services:1.0.1'
         // 自己实现的Gradle Plugin
         classpath "com.shijingfeng.auto:auto_gradle_plugin:1.0"
-//        classpath "com.shijingfeng:apt_gradle_plugin:1.0.0"
         // Android AspectJ (AspectJ对各个插件版本和依赖的包相关性很大，动不动就报错，生产环境的App慎用)
 //        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
     }

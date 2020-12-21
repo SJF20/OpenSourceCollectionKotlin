@@ -3,6 +3,8 @@ if (isApplication && isWanAndroidApplication) {
     apply plugin: 'com.android.application'
     // 阿里云 EMAS 插件 (阿里Sophix热修复会用到)
     apply plugin: 'com.aliyun.ams.emas-services'
+    // 自己实现的Gradle Plugin
+    apply plugin: 'apt_gradle_plugin_custom_plugin'
     // 应用 Android AspectJ 插件
 //    apply plugin: 'android-aspectjx'
 } else {
@@ -63,6 +65,7 @@ android {
                 arguments = [
                    // 配置 ARouter Module 名称
                    AROUTER_MODULE_NAME     : project.getName(),
+                   // 实现的注解执行器 配置 Module 名称
                    MODULE_NAME             : project.getName(),
                    // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
                    "room.schemaLocation"   : "$projectDir/schemas".toString(),
@@ -308,7 +311,8 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["room"]
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-    kapt 'com.shijingfeng.auto:apt_processor:1.0'
+    // 自己实现的注解执行器
+    kapt rootProject.ext.annotationProcessor["auto"]
 }
 
 //获取构建时间

@@ -60,6 +60,7 @@ android {
                 arguments = [
                         //配置阿里 ARouter 路由
                         AROUTER_MODULE_NAME : project.getName(),
+                        // 实现的注解执行器 配置 Module 名称
                         MODULE_NAME         : project.getName()
                 ]
             }
@@ -286,7 +287,8 @@ dependencies {
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-    kapt 'com.shijingfeng.auto:apt_processor:1.0'
+    // 自己实现的注解执行器
+    kapt rootProject.ext.annotationProcessor["auto"]
 }
 
 //获取构建时间

@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.7">
+    <bytecodeTargetLevel target="1.8">
       <module name="apt_annotation" target="1.7" />
       <module name="apt_processor" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.app" target="1.8" />
       <module name="OpenSourceCollectionKotlin.apt_processor" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.background_service" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.base" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.common" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.location" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.skin" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.skin_changer" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.tencent_x5" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.todo" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.wan_android" target="1.8" />
-      <module name="OpenSourceCollectionKotlin.weather" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

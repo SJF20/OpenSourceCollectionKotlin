@@ -25,6 +25,7 @@ android {
                 arguments = [
                         // 配置 ARouter Module 名称
                         AROUTER_MODULE_NAME    : project.getName(),
+                        // 实现的注解执行器 配置 Module 名称
                         MODULE_NAME            : project.getName(),
                         // Room 配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。如需了解详情，请参阅 https://developer.android.com/training/data-storage/room/migrating-db-versions#export-schema
                         "room.schemaLocation"  : "$projectDir/schemas".toString(),
@@ -299,13 +300,15 @@ dependencies {
     //JetPack DataStore (Proto DataStore)
     api rootProject.ext.dependencies["proto_datastore"]
 
+    // 自己实现的自动框架api
+    api rootProject.ext.dependencies["auto"]
+
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-
-    api 'com.shijingfeng.auto:apt_api:1.0'
-    kapt 'com.shijingfeng.auto:apt_processor:1.0'
+    // 自己实现的注解执行器
+    kapt rootProject.ext.annotationProcessor["auto"]
 }
 
 //获取实时时间
