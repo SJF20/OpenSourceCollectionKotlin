@@ -1,6 +1,9 @@
 package com.shijingfeng.weather
 
+import android.app.Application
 import androidx.annotation.Keep
+import com.shijingfeng.apt_api.listener.ApplicationListener
+import com.shijingfeng.apt_data.annotations.ApplicationReceiver
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
@@ -14,14 +17,15 @@ import com.shijingfeng.weather.data_structure.CityDataManager
  * @author ShiJingFeng
  */
 @Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
-internal class ModuleAppInit : AppInit {
+@ApplicationReceiver
+internal class WeatherModuleAppInit : ApplicationListener {
 
     /**
      * 初始化 (对应 Application OnCreate())
      */
-    override fun onCreate() {
-        super.onCreate()
-        e(LOG_LIFECYCLE, "weather ModuleAppInit onCreate")
+    override fun onCreate(application: Application) {
+        super.onCreate(application)
+        e(LOG_LIFECYCLE, "weather receiver onCreate")
         CityDataManager.init(onSuccess = {
             cityDataManager = it
         })

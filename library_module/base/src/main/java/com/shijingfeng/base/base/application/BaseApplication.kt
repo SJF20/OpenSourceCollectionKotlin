@@ -2,15 +2,13 @@ package com.shijingfeng.base.base.application
 
 import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
-import com.alibaba.android.arouter.utils.ClassUtils
 import com.blankj.utilcode.util.Utils
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.shijingfeng.apt_api.ApplicationReceiverManager
-import com.shijingfeng.apt_api.manager.getActivityReceiverList
+import com.shijingfeng.apt_api.manager.getApplicationReceiverList
 import com.shijingfeng.base.BuildConfig.DEBUG
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
@@ -18,23 +16,10 @@ import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
-import java.io.File
 import java.util.*
-
-/** 应用初始化类 全限定类名 列表 */
-private val appInitClassNameList = arrayOf(
-    APP_INIT_COMMON,
-    APP_INIT_LOCATION,
-    APP_INIT_TENCENT_X5,
-    APP_INIT_BACKGROUND_SERVICE,
-    APP_INIT_WEATHER,
-    APP_INIT_TODO,
-    APP_INIT_WAN_ANDROID,
-    APP_INIT_APP,
-)
-/** 应用初始化类 列表 */
-private val appInitInstanceList = mutableListOf<AppInit>()
 
 /** Application实例 */
 lateinit var application: BaseApplication
@@ -105,33 +90,12 @@ abstract class BaseApplication : Application() {
      */
     private fun startAppInit() {
         // 生成实例列表
-        appInitClassNameList.forEach { className ->
-            try {
-                val cls = Class.forName(className)
-                val appInit = cls.newInstance() as AppInit
+        GlobalScope.launch {
+            val applicationList = getApplicationReceiverList(this@BaseApplication)
 
-                appInitInstanceList.add(appInit)
-            } catch (exception: Exception) {
-                exception.printStackTrace()
+            applicationList.forEach { applicationReceiver ->
+                applicationReceiver.onCreate(this@BaseApplication)
             }
-        }
-        // 按照优先级排列 (从高到低)
-        appInitInstanceList.sortWith(Comparator { o1, o2 ->
-            when {
-                o1.getPriority() < o2.getPriority() -> {
-                    1
-                }
-                o1.getPriority() > o2.getPriority() -> {
-                    -1
-                }
-                else -> {
-                    0
-                }
-            }
-        })
-        // 调用 onCreate方法，开始初始化
-        appInitInstanceList.forEach { instance ->
-            instance.onCreate()
         }
     }
 

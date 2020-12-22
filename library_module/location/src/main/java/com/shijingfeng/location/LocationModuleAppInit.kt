@@ -1,4 +1,4 @@
-package com.shijingfeng.app
+package com.shijingfeng.location
 
 import android.app.Application
 import androidx.annotation.Keep
@@ -7,6 +7,7 @@ import com.shijingfeng.apt_data.annotations.ApplicationReceiver
 import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
+import com.shijingfeng.location.util.BaiduLocationUtil
 
 /**
  * Function: 模块 Application初始化 (类名不要变化(反射的缘故), 除非包括其他模块全局更改类名为同一个 并在 base模块中更改反射类名)
@@ -16,14 +17,15 @@ import com.shijingfeng.base.util.e
  */
 @Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
 @ApplicationReceiver
-internal class ModuleAppInit : AppInit, ApplicationListener {
+internal class LocationModuleAppInit : ApplicationListener {
 
     /**
      * 初始化 (对应 Application OnCreate())
      */
     override fun onCreate(application: Application) {
-        super<ApplicationListener>.onCreate(application)
-        e(LOG_LIFECYCLE, "app ModuleAppInit onCreate")
+        super.onCreate(application)
+        e(LOG_LIFECYCLE, "location Receiver onCreate")
+        BaiduLocationUtil.getInstance().init()
     }
 
 }

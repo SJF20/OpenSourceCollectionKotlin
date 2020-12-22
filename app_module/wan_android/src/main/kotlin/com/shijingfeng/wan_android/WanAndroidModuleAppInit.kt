@@ -29,14 +29,14 @@ import java.io.FileOutputStream
  */
 @Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
 @ApplicationReceiver
-internal class ModuleAppInit : AppInit, ApplicationListener {
+internal class WanAndroidModuleAppInit : ApplicationListener {
 
     /**
      * 初始化 (对应 Application OnCreate())
      */
     override fun onCreate(application: Application) {
-        super<ApplicationListener>.onCreate(application)
-        e(LOG_LIFECYCLE, "wan_android ModuleAppInit onCreate")
+        super.onCreate(application)
+        e(LOG_LIFECYCLE, "wan_android receiver onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()
         // 复制 asset目录中 玩Android skin文件 到本地内部存储目录中
