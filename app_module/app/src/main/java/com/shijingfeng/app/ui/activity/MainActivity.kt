@@ -60,13 +60,6 @@ internal class MainActivity : AppBaseActivity<ActivityAppMainBinding, MainViewMo
      */
     override fun initData() {
         super.initData()
-        launch {
-            val applicationReceiverList = getApplicationReceiverList(application)
-            val activityReceiverList = getActivityReceiverList(application)
-
-            e(LOG_TEST, "applicationReceiverList: ${applicationReceiverList.joinToString(", ") { it::class.java.name }}")
-            e(LOG_TEST, "activityReceiverList: ${activityReceiverList.joinToString(", ") {it::class.java.name}}")
-        }
 //        Handler().postDelayed({
 //            initX5WebView()
 //        }, 500)
