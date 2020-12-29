@@ -1,10 +1,9 @@
 package com.shijingfeng.todo
 
-import android.app.Application
 import androidx.annotation.Keep
-import com.shijingfeng.apt_api.listener.ApplicationListener
-import com.shijingfeng.apt_data.annotations.ApplicationReceiver
-import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
+import com.shijingfeng.apt_data.interfaces.ModuleEventListener
+import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
 
@@ -14,16 +13,18 @@ import com.shijingfeng.base.util.e
  * Description:
  * @author ShiJingFeng
  */
-@Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
-@ApplicationReceiver
-internal class TodoModuleAppInit : ApplicationListener {
+@Keep // TodoModuleAppInit是通过反射调用，所以应防止被混淆
+@ModuleEventReceiver(
+    group = DISPATCHER_GROUP_APPLICATION
+)
+internal class TodoModuleAppInit : ModuleEventListener {
 
     /**
-     * 初始化 (对应 Application OnCreate())
+     * 接收回调
      */
-    override fun onCreate(application: Application) {
-        super.onCreate(application)
+    override fun onReceive(data: Map<String, Any>): Boolean {
         e(LOG_LIFECYCLE, "todo receiver onCreate")
+        return super.onReceive(data)
     }
 
 }

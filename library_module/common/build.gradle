@@ -171,8 +171,8 @@ dependencies {
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-    // 自己实现的注解执行器
-    kapt rootProject.ext.annotationProcessor["auto"]
+    // 模块事件分发器 注解执行器
+    kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }
 
 //获取实时时间

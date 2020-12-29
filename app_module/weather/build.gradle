@@ -3,8 +3,8 @@ if (isApplication && isWeatherApplication) {
     apply plugin: 'com.android.application'
     // 阿里云 EMAS 插件 (阿里Sophix热修复会用到)
     apply plugin: 'com.aliyun.ams.emas-services'
-    // 自己实现的Gradle Plugin
-    apply plugin: 'apt_gradle_plugin_custom_plugin'
+    // 模块事件分发器 Gradle插件
+    apply plugin: 'module-event-dispatcher'
 } else {
     apply plugin: 'com.android.library'
 }
@@ -277,8 +277,8 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["room"]
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-    // 自己实现的注解执行器
-    kapt rootProject.ext.annotationProcessor["auto"]
+    // 模块事件分发器 注解执行器
+    kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }
 
 //获取构建时间

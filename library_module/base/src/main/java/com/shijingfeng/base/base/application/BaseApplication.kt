@@ -8,13 +8,13 @@ import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.shijingfeng.apt_api.manager.getApplicationReceiverList
+import com.shijingfeng.apt_api.manager.dispatch
+import com.shijingfeng.apt_api.manager.staticInit
 import com.shijingfeng.base.BuildConfig.DEBUG
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.interfaces.AppInit
 import com.shijingfeng.base.util.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -61,8 +61,10 @@ abstract class BaseApplication : Application() {
         // Application主进程初始化操作
         init()
         if (isMainProcess) {
+            // 模块事件分发器初始化
+            staticInit()
             // 开始 其他 module App 初始化 (在主进程中初始化)
-            startAppInit()
+            dispatch(DISPATCHER_GROUP_APPLICATION)
         }
     }
 
@@ -82,20 +84,6 @@ abstract class BaseApplication : Application() {
 
             // 注册广播
             registerGlobalReceiver()
-        }
-    }
-
-    /**
-     * 开始 其他 module App 初始化 (晚于 应用模块的 Application)
-     */
-    private fun startAppInit() {
-        // 生成实例列表
-        GlobalScope.launch {
-            val applicationList = getApplicationReceiverList(this@BaseApplication)
-
-            applicationList.forEach { applicationReceiver ->
-                applicationReceiver.onCreate(this@BaseApplication)
-            }
         }
     }
 

@@ -1,12 +1,11 @@
 package com.shijingfeng.wan_android
 
-import android.app.Application
 import androidx.annotation.Keep
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.shijingfeng.apt_api.listener.ApplicationListener
-import com.shijingfeng.apt_data.annotations.ApplicationReceiver
+import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
+import com.shijingfeng.apt_data.interfaces.ModuleEventListener
 import com.shijingfeng.base.base.application.application
-import com.shijingfeng.base.interfaces.AppInit
+import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
 import com.shijingfeng.base.util.LOG_LIFECYCLE
 import com.shijingfeng.base.util.e
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
@@ -27,15 +26,16 @@ import java.io.FileOutputStream
  * Description:
  * @author ShiJingFeng
  */
-@Keep // ModuleAppInit是通过反射调用，所以应防止被混淆
-@ApplicationReceiver
-internal class WanAndroidModuleAppInit : ApplicationListener {
+@Keep // WanAndroidModuleAppInit是通过反射调用，所以应防止被混淆
+@ModuleEventReceiver(
+    group = DISPATCHER_GROUP_APPLICATION
+)
+internal class WanAndroidModuleAppInit : ModuleEventListener {
 
     /**
-     * 初始化 (对应 Application OnCreate())
+     * 接收回调
      */
-    override fun onCreate(application: Application) {
-        super.onCreate(application)
+    override fun onReceive(data: Map<String, Any>): Boolean {
         e(LOG_LIFECYCLE, "wan_android receiver onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()
@@ -43,6 +43,7 @@ internal class WanAndroidModuleAppInit : ApplicationListener {
         copySkinFileToLocal()
         // 初始化换肤框架
         initSkinChanger()
+        return super.onReceive(data)
     }
 
     /**

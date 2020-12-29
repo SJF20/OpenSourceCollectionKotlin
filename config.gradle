@@ -66,7 +66,7 @@ ext {
             "smartrefresh"                        : "1.1.1",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
-            "auto"                                : "1.0",
+            "module_event_dispatcher"             : "1.0.0",
             "bmob"                                : "3.7.8",
             "sophix"                              : "3.2.14",
 //            "aspectJ"                             : "1.9.5",
@@ -225,7 +225,7 @@ ext {
                                                        "com.umeng.umsdk:oaid_vivo:1.0.0.1"
                                                     ],
             // 自己实现的自动框架api
-            "auto"                                : "com.shijingfeng.auto:apt_api:${versions["auto"]}"
+            "module_event_dispatcher"             : "com.shijingfeng.module_event_dispatcher:apt_api:${versions["module_event_dispatcher"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [
@@ -236,6 +236,6 @@ ext {
             // ARouter 路由框架注解执行器
             "arouter"                        : "com.alibaba:arouter-compiler:${versions["arouter-compiler"]}",
             // 自己实现的注解执行器
-            "auto"                           : "com.shijingfeng.auto:apt_processor:${versions["auto"]}"
+            "module_event_dispatcher"        : "com.shijingfeng.module_event_dispatcher:apt_processor:${versions["module_event_dispatcher"]}"
     ]
 }
