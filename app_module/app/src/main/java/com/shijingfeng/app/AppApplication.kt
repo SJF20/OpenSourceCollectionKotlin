@@ -84,7 +84,7 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
                 }
 
                 override fun onFailure(s1: String?, s2: String?) {
-                    e(LOG_UMENG, "友盟推送注册失败: s1:${s1}     s2: ${s2}")
+                    e(LOG_UMENG, "友盟推送注册失败: s1:${s1}     s2: $s2")
                 }
             })
         }

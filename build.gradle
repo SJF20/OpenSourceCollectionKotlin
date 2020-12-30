@@ -1,8 +1,8 @@
 //从config.gradle中加载依赖配置版本
 apply from: "config.gradle"
 
-// ARouter路由表的自动加载 (和Realm冲突, 会导致Realm数据库发生改变，抛出需要数据库合并升级错误, 具体原因未知)
-//apply plugin: 'com.alibaba.arouter'
+// ARouter路由表的自动加载
+apply plugin: 'com.alibaba.arouter'
 
 buildscript {
     ext {
@@ -31,7 +31,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // ARouter 使用 Gradle 插件实现路由表的自动加载
         classpath "com.alibaba:arouter-register:1.0.2"
-        // Realm 数据库 插件 版本
+        // Realm 数据库 插件 版本 最新版本10.0.1(只支持Java, Kotlin不支持)
+        //noinspection GradleDependency
         classpath "io.realm:realm-gradle-plugin:7.0.0"
         // 阿里云 emas-services插件
         classpath 'com.aliyun.ams:emas-services:1.0.1'

@@ -61,7 +61,7 @@ abstract class BaseApplication : Application() {
         // Application主进程初始化操作
         init()
         if (isMainProcess) {
-            // 模块事件分发器初始化
+            // 模块事件分发器初始化 (使用Gradle插件)
             staticInit()
             // 开始 其他 module App 初始化 (在主进程中初始化)
             dispatch(DISPATCHER_GROUP_APPLICATION)
