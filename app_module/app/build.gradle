@@ -53,6 +53,11 @@ android {
         versionCode VERSION_CODE
         versionName VERSION_NAME
 
+        //构建时间戳
+        buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
+        // 模块名称
+        buildConfigField "String", "MODULE_NAME", "\"" + project.getName() + "\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -84,11 +89,6 @@ android {
     buildTypes {
         //正式模式
         release {
-            //正式模式
-            buildConfigField "boolean", "IS_DEBUG", "false"
-            //正式版构建时间
-            buildConfigField "String", "buildTime", "\"" + System.currentTimeMillis() + "\""
-
             //使用正式版签名配置签名
             signingConfig signingConfigs.release
 
@@ -105,11 +105,6 @@ android {
         }
         //调试模式
         debug {
-            //调试模式
-            buildConfigField "boolean", "IS_DEBUG", "true"
-            //调试版构建时间
-            buildConfigField "String", "buildTime", "\"" + System.currentTimeMillis() + "\""
-
             //使用调试版签名配置签名
             signingConfig signingConfigs.debug
 
@@ -239,7 +234,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (output.outputFile != null && outputFileName.endsWith(".apk")) {
-                outputFileName = "open_source_collection_kotlin_v${variant.versionName}_${getBuildDate()}.apk"
+                outputFileName = "open_source_collection_kotlin_v${variant.versionName}_${getDateStr()}.apk"
             }
         }
     }
@@ -291,9 +286,9 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }
 
-//获取构建时间
-private static def getBuildDate() {
-    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("Asia/Beijing"))
+//获取日期字符串
+private static def getDateStr() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Beijing"))
 }
 
 //读取项目中的keystore.properties签名文件，安全

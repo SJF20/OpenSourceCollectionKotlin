@@ -38,8 +38,7 @@ internal class CoinRankViewModel : WanAndroidBaseViewModel<CoinRankRepository>()
     var mCoinRankItemList = ArrayList<CoinRankItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent =
-        SingleLiveEvent<ListDataChangeEvent<CoinRankItem>>()
+    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<CoinRankItem>>()
 
     /** 返回  */
     val mBackClickListener = View.OnClickListener { finish() }

@@ -47,7 +47,7 @@ android {
     buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        if (isApplication && isTodoApplication) {
+        if (isApplication && isWeatherApplication) {
             //Application模式下 设置applicationId
             applicationId APPLICATION_ID
         }
@@ -55,6 +55,11 @@ android {
         targetSdkVersion TARGET_SDK_VERSION
         versionCode VERSION_CODE
         versionName VERSION_NAME
+
+        //构建时间戳
+        buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
+        // 模块名称
+        buildConfigField "String", "MODULE_NAME", "\"" + project.getName() + "\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -84,11 +89,6 @@ android {
     buildTypes {
         //正式模式
         release {
-            //正式模式
-            buildConfigField "boolean", "IS_DEBUG", "false"
-            //正式版构建时间
-            buildConfigField "String", "buildTime", "\"" + System.currentTimeMillis() + "\""
-
             //是否开启混淆
             minifyEnabled true
             //Zipalign优化
@@ -108,11 +108,6 @@ android {
         }
         //调试模式
         debug {
-            //调试模式
-            buildConfigField "boolean", "IS_DEBUG", "true"
-            //调试版构建时间
-            buildConfigField "String", "buildTime", "\"" + System.currentTimeMillis() + "\""
-
             //是否开启混淆，开启之后不能debug
             minifyEnabled false
             //Zipalign优化
@@ -247,7 +242,7 @@ android {
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
                 if (output.outputFile != null && outputFileName.endsWith(".apk")) {
-                    outputFileName = "weather_v${variant.versionName}_${getBuildDate()}.apk"
+                    outputFileName = "weather_v${variant.versionName}_${getDateStr()}.apk"
                 }
             }
         }
@@ -281,9 +276,9 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }
 
-//获取构建时间
-private static def getBuildDate() {
-    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("Asia/Beijing"))
+//获取日期字符串
+private static def getDateStr() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Beijing"))
 }
 
 //读取项目中的keystore.properties签名文件，安全

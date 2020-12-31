@@ -28,7 +28,7 @@ internal abstract class CommonBaseActivity<V : ViewDataBinding, VM : CommonBaseV
     override fun initData() {
         super.initData()
         //Activity默认背景为白色
-        getContentView().setBackgroundResource(R.color.white)
+        mContentView.setBackgroundResource(R.color.white)
     }
 
 }

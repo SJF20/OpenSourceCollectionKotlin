@@ -32,6 +32,9 @@ abstract class BaseActivity : AppCompatActivity() {
     /** 是否是第一次完成进入动画  true 是  false 否 */
     private var mIsFistEnterCompleted = true
 
+    /** ContentView */
+    val mContentView: ViewGroup by lazy { findViewById(android.R.id.content) }
+
     /**
      * 禁止子类覆盖，初始化操作请覆盖 [init]
      */
@@ -136,33 +139,31 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open fun getScreenOrientation() = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
     /**
-     * 获取 ContentView
-     *
-     * @return ContentView
-     */
-    fun getContentView(): ViewGroup = findViewById(android.R.id.content)
-
-    /**
      * 跳转Activity页面
      * @param cls 要跳转到的页面反射Class
      * @param bundle 携带的数据
      * @param requestCode 请求码
      */
-    fun startActivity(cls: Class<*>, bundle: Bundle? = null, requestCode: Int = -1) {
-        startActivityForResult(Intent().apply {
-            setClass(this@BaseActivity, cls)
-            if (bundle != null) {
-                putExtras(bundle)
-            }
-        }, requestCode)
-    }
+    fun startActivity(
+        cls: Class<*>,
+        bundle: Bundle? = null,
+        requestCode: Int = -1
+    ) = startActivityForResult(Intent().apply {
+        setClass(this@BaseActivity, cls)
+        if (bundle != null) {
+            putExtras(bundle)
+        }
+    }, requestCode)
 
     /**
      * 关闭Activity (自定义 Activity 关闭动画)
      * @param enterAnim 前一个 Activity 进入动画
      * @param exitAnim 当前要销毁的 Activity 退出动画
      */
-    fun finish(enterAnim: Int, exitAnim: Int) {
+    fun finish(
+        enterAnim: Int,
+        exitAnim: Int
+    ) {
         finish()
         overridePendingTransition(enterAnim, exitAnim)
     }

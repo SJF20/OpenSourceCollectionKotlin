@@ -40,8 +40,7 @@ internal class CoinRecordViewModel : WanAndroidBaseViewModel<CoinRecordRepositor
     var mCoinRecordItemList = mutableListOf<CoinRecordItem>()
 
     /** 列表数据改变 LiveData Event  */
-    var mListDataChangeEvent =
-        SingleLiveEvent<ListDataChangeEvent<CoinRecordItem>>()
+    var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<CoinRecordItem>>()
 
     /** 返回 */
     val mBackClickListener = View.OnClickListener { finish() }

@@ -42,7 +42,7 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
         super.initData()
         //设置状态栏背景色和高度
         if (!isCustomStatusBar()) {
-            val contentView = getContentView()
+            val contentView = mContentView
             val statusBarView = StatusBarView(this).apply {
                 id = R.id.status_bar_view
                 setResource(this, listOf(

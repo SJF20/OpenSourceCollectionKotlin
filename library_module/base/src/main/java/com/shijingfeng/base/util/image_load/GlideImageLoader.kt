@@ -12,9 +12,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.shijingfeng.base.annotation.define.GlideOutputType
 import com.shijingfeng.base.listener.Target
-import com.shijingfeng.sjf_banner.library.util.CastUtil
-import java.lang.reflect.Field
-import java.lang.reflect.TypeVariable
+import com.shijingfeng.base.util.cast
 
 /** Glide输出源: Drawable */
 const val AS_DRAWABLE = 1
@@ -163,11 +161,11 @@ class GlideImageLoader : ImageLoader() {
         val requestManager = Glide.with(context)
 
         val requestBuilder: RequestBuilder<Any> = when (outputType) {
-            AS_DRAWABLE -> CastUtil.cast(requestManager.asDrawable())
-            AS_BITMAP -> CastUtil.cast(requestManager.asBitmap())
-            AS_GIF -> CastUtil.cast(requestManager.asGif())
-            AS_FILE -> CastUtil.cast(requestManager.asFile())
-            else -> CastUtil.cast(requestManager.asDrawable())
+            AS_DRAWABLE -> cast(requestManager.asDrawable())
+            AS_BITMAP -> cast(requestManager.asBitmap())
+            AS_GIF -> cast(requestManager.asGif())
+            AS_FILE -> cast(requestManager.asFile())
+            else -> cast(requestManager.asDrawable())
         }
 
         requestBuilder
@@ -189,7 +187,7 @@ class GlideImageLoader : ImageLoader() {
                     resource: Any,
                     transition: Transition<in Any>?
                 ) {
-                    target.onLoadFinished(CastUtil.cast(resource))
+                    target.onLoadFinished(cast(resource))
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {

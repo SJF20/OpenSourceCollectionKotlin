@@ -7,6 +7,7 @@ import com.shijingfeng.base.mvp.presenter.IPresenter
 import com.shijingfeng.base.mvp.view.IView
 import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.CitySearchEntity
+import com.shijingfeng.weather.entity.CitySearchInfoEntity
 import com.shijingfeng.weather.entity.Weather
 
 /**
@@ -28,6 +29,15 @@ internal interface CitySearchContract {
      * Presenter 层
      */
     interface Presenter : IPresenter {
+
+        /**
+         * 获取热门城市数据
+         *
+         * @param cityName 城市名称
+         */
+        fun getHotCityData(
+            cityName: String
+        ): CitySearchInfoEntity
 
         /**
          * 搜索

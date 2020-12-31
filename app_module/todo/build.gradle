@@ -58,6 +58,11 @@ android {
         versionCode VERSION_CODE
         versionName VERSION_NAME
 
+        //构建时间戳
+        buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
+        // 模块名称
+        buildConfigField "String", "MODULE_NAME", "\"" + project.getName() + "\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -85,11 +90,6 @@ android {
     buildTypes {
         //正式模式
         release {
-            //正式模式
-            buildConfigField "boolean", "IS_DEBUG", "false"
-            //正式版构建时间
-            buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
-
             //是否开启混淆
             minifyEnabled true
             //Zipalign优化
@@ -109,11 +109,6 @@ android {
         }
         //调试模式
         debug {
-            //调试模式
-            buildConfigField "boolean", "IS_DEBUG", "true"
-            //调试版构建时间
-            buildConfigField "String", "buildTime", "\"" + getRealTime() + "\""
-
             //是否开启混淆，开启之后不能debug
             minifyEnabled false
             //Zipalign优化
@@ -231,25 +226,44 @@ android {
 //        ignore 'TypographyQuotes'
     }
 
+    // 使用 Apache http网络请求库
+    useLibrary 'org.apache.http.legacy'
+
     sourceSets {
         main {
-            if (isApplication && isTodoApplication) {
+            // 清单文件目录
+            if (isApplication && isWeatherApplication) {
                 manifest.srcFile 'src/main/manifest/application/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/manifest/library/AndroidManifest.xml'
             }
+            // lib库目录
             jniLibs.srcDirs = ['libs']
-            java {
-                srcDirs('src/main/java', 'src/main/kotlin')
-            }
-            resources {
-                srcDirs('src/main/res')
-            }
+            // 代码目录
+            java.srcDirs = [
+                    'src/main/java',
+                    'src/main/kotlin'
+            ]
+            // 资源目录
+            res.srcDirs = [
+                    'src/main/res/activity',
+                    'src/main/res/fragment',
+                    'src/main/res/adapter',
+                    'src/main/res/common',
+                    'src/main/res',
+            ]
         }
     }
 
-    sourceSets.all { set ->
-        println "${set.name} 的文件是 ${set.java.srcDirs}"
+    if (isApplication && isTodoApplication) {
+        // 重命名生成的apk名称
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                if (output.outputFile != null && outputFileName.endsWith(".apk")) {
+                    outputFileName = "todo_v${variant.versionName}_${getDateStr()}.apk"
+                }
+            }
+        }
     }
 
 }
@@ -268,9 +282,9 @@ dependencies {
     kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }
 
-//获取实时时间
-private static def getRealTime() {
-    return System.currentTimeMillis().toString()
+//获取日期字符串
+private static def getDateStr() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("Asia/Beijing"))
 }
 
 //读取项目中的keystore.properties签名文件，安全

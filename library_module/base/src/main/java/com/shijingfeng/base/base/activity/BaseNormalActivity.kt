@@ -97,7 +97,7 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
             EventBus.getDefault().register(this)
         }
         //Activity默认背景为白色
-        getContentView().background = getActivityBackground()
+        mContentView.background = getActivityBackground()
         //设置屏幕方向
         requestedOrientation = getScreenOrientation()
     }
@@ -322,16 +322,12 @@ abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope(
      * 添加Disposable
      * @param disposable Disposable
      */
-    protected fun addDisposable(disposable: Disposable) {
-        mCompositeDisposable.add(disposable)
-    }
+    protected fun addDisposable(disposable: Disposable) = mCompositeDisposable.add(disposable)
 
     /**
      * 清空Disposable
      */
-    private fun clearDisposable() {
-        mCompositeDisposable.clear()
-    }
+    protected fun clearDisposable() = mCompositeDisposable.clear()
 
     /**
      * Activity销毁回调

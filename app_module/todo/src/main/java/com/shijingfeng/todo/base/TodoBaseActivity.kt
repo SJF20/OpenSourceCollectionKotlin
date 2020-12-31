@@ -28,7 +28,7 @@ internal abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewM
     override fun initData() {
         super.initData()
         //Activity默认背景为白色
-        getContentView().setBackgroundResource(R.color.white)
+        mContentView.setBackgroundResource(R.color.white)
     }
 
 }

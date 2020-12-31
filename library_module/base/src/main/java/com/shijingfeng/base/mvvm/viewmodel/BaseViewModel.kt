@@ -38,9 +38,6 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     /** SavedStateHandle 参考: [https://zhuanlan.zhihu.com/p/143115298]*/
     protected val mSavedStateHandle = savedStateHandle
 
-    /** 常用的 LiveData Event 管理器  */
-    private val mLiveDataEventManager by lazy { LiveDataEventManager() }
-
     /** Disposable容器  */
     private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
@@ -58,6 +55,9 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
 
     /** 是否已经初始化  true 已经初始化  false 没有初始化  */
     var mHasInitialized: Boolean = false
+
+    /** 常用的 LiveData Event 管理器  */
+    val liveDataEventManager by lazy { LiveDataEventManager() }
 
     init {
         registerEventBus()
@@ -87,12 +87,6 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
             EventBus.getDefault().unregister(this)
         }
     }
-
-    /**
-     * 获取 LiveData Event 管理器
-     */
-    val liveDataEventManager: LiveDataEventManager
-        get() = mLiveDataEventManager
 
     /**
      * LoadSir 切换状态
@@ -287,100 +281,34 @@ abstract class BaseViewModel<R : BaseRepository<*, *>>(
     class LiveDataEventManager {
 
         /** 跳转 Activity  */
-        private val mStartActivityEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
+        val startActivityEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
 
         /** 页面跳转  */
-        private val mNavigationEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
+        val navigationEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
 
         /** 关闭 Activity  */
-        private val mFinishEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
+        val finishEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
 
         /** Activity setResult设置返回响应  */
-        private val mSetResultEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
+        val setResultEvent by lazy { SingleLiveEvent<SparseArray<Any?>>() }
 
         /** 显示加载中 Dialog  */
-        private val mShowLoadingDialogEvent by lazy { SingleLiveEvent<String?>() }
+        val showLoadingDialogEvent by lazy { SingleLiveEvent<String?>() }
 
         /** 隐藏加载中 Dialog  */
-        private val mHideLoadingDialogEvent by lazy { SingleLiveEvent<Any?>() }
+        val hideLoadingDialogEvent by lazy { SingleLiveEvent<Any?>() }
 
         /** 显示 LoadingView */
-        private val mShowLoadingViewEvent by lazy { SingleLiveEvent<String?>() }
+        val showLoadingViewEvent by lazy { SingleLiveEvent<String?>() }
 
         /** 隐藏 LoadingView */
-        private val mHideLoadingViewEvent by lazy { SingleLiveEvent<Any?>() }
+        val hideLoadingViewEvent by lazy { SingleLiveEvent<Any?>() }
 
         /** LoadService 状态 LiveData Event  */
-        private val mLoadServiceStatusEvent by lazy { MutableLiveData<Int>() }
+        val loadServiceStatusEvent by lazy { MutableLiveData<Int>() }
 
         /** 刷新 或 上拉加载 状态 LiveData Event  */
-        private val mRefreshLoadMoreStatusEvent by lazy { MutableLiveData<Int>() }
-
-        /**
-         * 获取 跳转 Activity SingleLiveEvent
-         * @return 跳转 Activity SingleLiveEvent
-         */
-        val startActivityEvent
-            get() = mStartActivityEvent
-
-        /**
-         * 获取 跳转页面 SingleLiveEvent
-         * @return 跳转页面 SingleLiveEvent
-         */
-        val navigationEvent
-            get() = mNavigationEvent
-
-        /**
-         * 获取 关闭销毁Activity SingleLiveEvent
-         * @return 关闭销毁Activity SingleLiveEvent
-         */
-        val finishEvent
-            get() = mFinishEvent
-
-        /**
-         * 获取 Activity setResult设置返回响应 SingleLiveEvent
-         * @return Activity setResult设置返回响应 SingleLiveEvent
-         */
-        val setResultEvent
-            get() = mSetResultEvent
-
-        /**
-         * 获取 显示加载中Dialog SingleLiveEvent
-         * @return 显示加载中Dialog SingleLiveEvent
-         */
-        val showLoadingDialogEvent
-            get() = mShowLoadingDialogEvent
-
-        /**
-         * 获取 隐藏加载中Dialog SingleLiveEvent
-         * @return 隐藏加载中Dialog SingleLiveEvent
-         */
-        val hideLoadingDialogEvent
-            get() = mHideLoadingDialogEvent
-
-        /**
-         * 获取 显示 LoadingView SingleLiveEvent
-         */
-        val showLoadingViewEvent
-            get() = mShowLoadingViewEvent
-
-        /**
-         * 获取 隐藏 LoadingView SingleLiveEvent
-         */
-        val hideLoadingViewEvent
-            get() = mHideLoadingViewEvent
-
-        /**
-         * 获取 LoadService 状态 LiveData Event
-         */
-        val loadServiceStatusEvent
-            get() = mLoadServiceStatusEvent
-
-        /**
-         * 获取 刷新 或 上拉加载 状态 LiveData Event
-         */
-        val refreshLoadMoreStatusEvent
-            get() = mRefreshLoadMoreStatusEvent
+        val refreshLoadMoreStatusEvent by lazy { MutableLiveData<Int>() }
 
     }
 

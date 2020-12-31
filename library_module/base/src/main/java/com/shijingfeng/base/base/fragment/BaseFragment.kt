@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.view.*
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -149,6 +150,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * 获取视图ID
      * @return 视图ID
      */
+    @LayoutRes
     protected abstract fun getLayoutId(): Int
 
     /**
@@ -294,15 +296,17 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * @param bundle 携带的数据
      * @param requestCode 请求码
      */
-    protected fun startActivity(cls: Class<*>, bundle: Bundle? = null, requestCode: Int = -1) {
-        activity?.let { activity ->
-            startActivityForResult(Intent().apply {
-                setClass(activity, cls)
-                if (bundle != null) {
-                    putExtras(bundle)
-                }
-            }, requestCode)
-        }
+    protected fun startActivity(
+        cls: Class<*>,
+        bundle: Bundle? = null,
+        requestCode: Int = -1
+    ) = activity?.let { activity ->
+        startActivityForResult(Intent().apply {
+            setClass(activity, cls)
+            if (bundle != null) {
+                putExtras(bundle)
+            }
+        }, requestCode)
     }
 
     /**
@@ -443,16 +447,12 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
      * 添加Disposable
      * @param disposable Disposable
      */
-    protected fun addDisposable(disposable: Disposable) {
-        mCompositeDisposable.add(disposable)
-    }
+    protected fun addDisposable(disposable: Disposable) = mCompositeDisposable.add(disposable)
 
     /**
      * 清空Disposable
      */
-    private fun clearDisposable() {
-        mCompositeDisposable.clear()
-    }
+    protected fun clearDisposable() = mCompositeDisposable.clear()
 
     /**
      * 设置回调监听器

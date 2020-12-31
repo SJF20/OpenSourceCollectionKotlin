@@ -197,7 +197,11 @@
 -keep public class * extends org.xmlpull.**
 -keep interface org.xmlpull.** {*;}
 
+#############################################start
+#
 # 友盟相关 混淆
+#
+#############################################
 -dontwarn com.umeng.**
 -dontwarn com.taobao.**
 -dontwarn anet.channel.**

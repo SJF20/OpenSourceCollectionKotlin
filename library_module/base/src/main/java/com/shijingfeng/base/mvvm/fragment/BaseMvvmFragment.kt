@@ -110,7 +110,7 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
      */
     protected open fun initObserver() {
         //切换Activity
-        mViewModel?.liveDataEventManager?.startActivityEvent?.observe(viewLifecycleOwner, Observer<SparseArray<Any?>>{ sparseArray ->
+        mViewModel?.liveDataEventManager?.startActivityEvent?.observe(viewLifecycleOwner) { sparseArray ->
             sparseArray?.run {
                 val cls = get(KEY_CLASS) as Class<*>
                 val bundle = get(KEY_BUNDLE) as? Bundle?
@@ -118,9 +118,9 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
 
                 startActivity(cls, bundle, requestCode)
             }
-        })
+        }
         //通过 ARouter 切换 Activity
-        mViewModel?.liveDataEventManager?.navigationEvent?.observe(viewLifecycleOwner, Observer<SparseArray<Any?>> { sparseArray ->
+        mViewModel?.liveDataEventManager?.navigationEvent?.observe(viewLifecycleOwner) { sparseArray ->
             sparseArray?.run {
                 val path = get(KEY_PATH) as String
                 val bundle = get(KEY_BUNDLE) as? Bundle?
@@ -140,9 +140,9 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
                     navigation(activity, requestCode, navigationCallback)
                 }
             }
-        })
+        }
         //关闭销毁Activity
-        mViewModel?.liveDataEventManager?.finishEvent?.observe(viewLifecycleOwner, Observer<SparseArray<Any?>> { sparseArray ->
+        mViewModel?.liveDataEventManager?.finishEvent?.observe(viewLifecycleOwner) { sparseArray ->
             activity?.finish()
             sparseArray?.get(KEY_ANIM_SPARSE_ARRAY)?.run {
                 val animSparseArray: SparseIntArray = this as SparseIntArray
@@ -151,47 +151,47 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
 
                 activity?.overridePendingTransition(enterAnim, exitAnim)
             }
-        })
+        }
         //Activity setResult设置返回响应
-        mViewModel?.liveDataEventManager?.setResultEvent?.observe(viewLifecycleOwner, Observer<SparseArray<Any?>> { sparseArray ->
+        mViewModel?.liveDataEventManager?.setResultEvent?.observe(viewLifecycleOwner) { sparseArray ->
             sparseArray?.run {
                 val resultCode = get(KEY_RESULT_CODE, Activity.RESULT_CANCELED) as Int
                 val resultData = get(KEY_RESULT_DATA, null) as Intent?
 
                 activity?.setResult(resultCode, resultData)
             }
-        })
+        }
 
         //显示加载中提示对话框
-        mViewModel?.liveDataEventManager?.showLoadingDialogEvent?.observe(viewLifecycleOwner, Observer<String?> { hint ->
+        mViewModel?.liveDataEventManager?.showLoadingDialogEvent?.observe(viewLifecycleOwner) { hint ->
             LoadingDialog.getInstance()
                 .setHintText(hint)
                 .show(activity)
-        })
+        }
         //隐藏加载中提示对话框
-        mViewModel?.liveDataEventManager?.hideLoadingDialogEvent?.observe(viewLifecycleOwner, Observer<Any?> {
+        mViewModel?.liveDataEventManager?.hideLoadingDialogEvent?.observe(viewLifecycleOwner) {
             LoadingDialog.getInstance().hide()
-        })
+        }
         // 显示 LoadingView
-        mViewModel?.liveDataEventManager?.showLoadingViewEvent?.observe(viewLifecycleOwner, Observer<String?> { hintText ->
+        mViewModel?.liveDataEventManager?.showLoadingViewEvent?.observe(viewLifecycleOwner) { hintText ->
             showLoadingView(hintText)
-        })
+        }
         // 隐藏 LoadingView
-        mViewModel?.liveDataEventManager?.hideLoadingViewEvent?.observe(viewLifecycleOwner, Observer<Any?> {
+        mViewModel?.liveDataEventManager?.hideLoadingViewEvent?.observe(viewLifecycleOwner) {
             hideLoadingView()
-        })
+        }
 
         //LoadService 状态 LiveData Event监听器
         if (mLoadService != null && activity != null) {
-            mViewModel?.liveDataEventManager?.loadServiceStatusEvent?.observe(requireActivity(), Observer { status ->
+            mViewModel?.liveDataEventManager?.loadServiceStatusEvent?.observe(requireActivity()) { status ->
                 showCallback(status)
-            })
+            }
         }
         //SmartRefreshLayout 状态 LiveData Event监听器
         if (mSmartRefreshLayout != null && activity != null) {
-            mViewModel?.liveDataEventManager?.refreshLoadMoreStatusEvent?.observe(requireActivity(), Observer { status ->
+            mViewModel?.liveDataEventManager?.refreshLoadMoreStatusEvent?.observe(requireActivity()) { status ->
                 updateRefreshLoadMoreStatus(status)
-            })
+            }
         }
     }
 
