@@ -92,17 +92,17 @@ internal class SnowSurfaceView @JvmOverloads constructor(
     /**
      * Surface创建
      */
-    override fun surfaceCreated(holder: SurfaceHolder?) = init()
+    override fun surfaceCreated(holder: SurfaceHolder) = init()
 
     /**
      * Surface尺寸改变，通常和 surfaceCreated 一起被调用
      */
-    override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {}
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
 
     /**
      * Surface销毁，Activity或Fragment onStop onDestroy时候 和 锁屏时 会调用
      */
-    override fun surfaceDestroyed(holder: SurfaceHolder?) = destroy()
+    override fun surfaceDestroyed(holder: SurfaceHolder) = destroy()
 
     /**
      * 初始化
