@@ -35,7 +35,7 @@ internal class CoinRankViewModel : WanAndroidBaseViewModel<CoinRankRepository>()
     @PageOperateType
     private var mPageOperateType = PAGE_OPERATE_TYPE_LOAD
     /** 积分排行榜 数据列表  */
-    var mCoinRankItemList = ArrayList<CoinRankItem>()
+    val mCoinRankItemList = ArrayList<CoinRankItem>()
 
     /** 列表数据改变 LiveData Event  */
     var mListDataChangeEvent = SingleLiveEvent<ListDataChangeEvent<CoinRankItem>>()
