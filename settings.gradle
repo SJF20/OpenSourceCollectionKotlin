@@ -35,6 +35,10 @@ project(':skin_changer').projectDir = new File("${rootDir.getAbsolutePath()}/lib
 
 // 皮肤资源模块
 include ':skin'
+// 适配器基类模块
+include ':base_adapter'
+project(':base_adapter').projectDir = new File("${rootDir.getAbsolutePath()}/library_module", 'base_adapter')
+
 
 // 工程名称
 rootProject.name='OpenSourceCollectionKotlin'

@@ -13,7 +13,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        // 自己实现的Gradle Plugin, 本地地址: 工程目录下的 gradle_plugin_generate 文件夹
         maven { url "https://jitpack.io" }
         maven { url "https://maven.aliyun.com/nexus/content/repositories/releases" }
         maven { url 'https://dl.bintray.com/umsdk/release' }

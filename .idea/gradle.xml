@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/app_module/weather" />
             <option value="$PROJECT_DIR$/library_module/background_service" />
             <option value="$PROJECT_DIR$/library_module/base" />
+            <option value="$PROJECT_DIR$/library_module/base_adapter" />
             <option value="$PROJECT_DIR$/library_module/common" />
             <option value="$PROJECT_DIR$/library_module/location" />
             <option value="$PROJECT_DIR$/library_module/skin_changer" />
