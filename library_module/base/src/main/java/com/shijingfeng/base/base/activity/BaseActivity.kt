@@ -19,7 +19,7 @@ import com.shijingfeng.base.util.setStatusBarContentColor
  * Function: Activity 基类
  * Date: 2020/3/21 12:51
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseActivity : AppCompatActivity() {
 

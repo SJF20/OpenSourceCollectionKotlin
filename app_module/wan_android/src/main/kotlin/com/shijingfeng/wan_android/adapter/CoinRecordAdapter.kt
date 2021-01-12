@@ -10,7 +10,7 @@ import com.shijingfeng.wan_android.entity.CoinRecordItem
  * Function: 积分记录 Adapter
  * Date: 2020/2/3 21:48
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRecordAdapter(
     context: Context,

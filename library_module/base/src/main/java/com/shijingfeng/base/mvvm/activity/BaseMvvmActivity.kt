@@ -20,7 +20,7 @@ import com.shijingfeng.base.widget.dialog.LoadingDialog
  * Function: MVVM架构 Activity 基类
  * Date: 2020/3/21 10:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseMvvmActivity<V : ViewDataBinding, VM : BaseViewModel<*>> : BaseNormalActivity() {
 

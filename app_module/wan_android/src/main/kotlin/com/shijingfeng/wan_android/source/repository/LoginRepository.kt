@@ -33,7 +33,7 @@ internal fun getLoginRepositoryInstance(
  * Function: 登录Activity 数据管理类
  * Date: 2020/2/4 18:35
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class LoginRepository(
     networkSource: LoginNetworkSource? = null

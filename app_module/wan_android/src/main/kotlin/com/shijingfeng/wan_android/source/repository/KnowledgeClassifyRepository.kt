@@ -32,7 +32,7 @@ internal fun getKnowledgeClassifyRepositoryInstance(
  * Function: 知识体系 一级数据 仓库
  * Date: 2020/4/21 20:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class KnowledgeClassifyRepository(
     networkSource: KnowledgeClassifyNetworkSource? = null

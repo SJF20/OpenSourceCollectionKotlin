@@ -21,7 +21,7 @@ import java.net.UnknownHostException
  * Function: HTTP异常 控制 工具类
  * Date: 2020/1/29 22:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

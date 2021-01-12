@@ -10,7 +10,7 @@ import com.shijingfeng.common.R
  * Function: common 模块 Activity 基类
  * Date: 2020/3/22 10:13
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class CommonBaseActivity<V : ViewDataBinding, VM : CommonBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 

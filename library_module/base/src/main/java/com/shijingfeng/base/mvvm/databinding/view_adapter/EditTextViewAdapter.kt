@@ -13,7 +13,7 @@ import com.shijingfeng.base.util.getProhibitSystemEmojiInputFilter
  * Function: EditText View适配器
  * Date: 2020/1/27 14:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

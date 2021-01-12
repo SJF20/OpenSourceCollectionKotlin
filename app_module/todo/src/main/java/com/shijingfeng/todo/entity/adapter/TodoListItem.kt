@@ -9,7 +9,7 @@ import com.shijingfeng.todo.constant.STATUS_DONE
  * Function: 主页 -> 待办 分组后的 实体类 Item
  * Date: 2020/9/11 22:11
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class TodoListItem(
 

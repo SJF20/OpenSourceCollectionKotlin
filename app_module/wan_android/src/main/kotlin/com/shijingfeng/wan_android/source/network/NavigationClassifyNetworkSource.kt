@@ -31,7 +31,7 @@ internal fun getNavigationClassifyNetworkSourceInstance(): NavigationClassifyNet
  * Function: 导航分类数据 网络源
  * Date: 2020/4/21 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class NavigationClassifyNetworkSource : BaseNetworkSource() {
 

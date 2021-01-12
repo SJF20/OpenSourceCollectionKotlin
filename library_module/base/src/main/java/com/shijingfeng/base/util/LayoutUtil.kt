@@ -15,7 +15,7 @@ import kotlin.coroutines.suspendCoroutine
  * Function: 固定宽 栅格布局 工具类
  * Date: 2020/2/2 21:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

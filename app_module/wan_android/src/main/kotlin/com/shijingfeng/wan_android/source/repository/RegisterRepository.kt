@@ -33,7 +33,7 @@ internal fun getRegisterRepositoryInstance(
  * Function: 注册页面 仓库
  * Date: 2020/2/5 15:48
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class RegisterRepository(
     networkSource: RegisterNetworkSource? = null

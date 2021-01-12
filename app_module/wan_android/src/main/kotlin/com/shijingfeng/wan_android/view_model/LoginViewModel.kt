@@ -27,7 +27,7 @@ import kotlin.coroutines.ContinuationInterceptor
  * Function: 登录ViewModel
  * Date: 2020/2/4 18:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class LoginViewModel : WanAndroidBaseViewModel<LoginRepository>() {
 

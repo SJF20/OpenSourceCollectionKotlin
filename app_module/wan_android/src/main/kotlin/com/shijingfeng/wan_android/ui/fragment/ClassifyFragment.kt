@@ -40,7 +40,7 @@ private const val FRAGMENT_COUNT = 2
  * Function: 分类 Fragment
  * Date: 2020/2/12 16:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_CLASSIFY)
 internal class ClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidClassifyBinding, ClassifyViewModel>() {

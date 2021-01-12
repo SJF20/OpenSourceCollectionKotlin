@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.common.constant
  * Function: 标志 静态常量
  * Date: 2020/2/3 15:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** Bundle Key(String) Value(String)  知识体系 一级数据 实体类 序列化后的字符串 */

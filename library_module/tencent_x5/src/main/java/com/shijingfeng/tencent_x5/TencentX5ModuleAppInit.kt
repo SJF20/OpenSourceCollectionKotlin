@@ -11,7 +11,7 @@ import com.shijingfeng.base.util.e
  * Function: 模块 Application初始化
  * Date: 2020/5/25 22:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Keep // TencentX5ModuleAppInit是通过反射调用，所以应防止被混淆
 @ModuleEventReceiver(

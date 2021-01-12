@@ -23,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView
  * Function: 主题颜色 全局类
  * Date: 2020/5/30 23:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 主题颜色 列表 */

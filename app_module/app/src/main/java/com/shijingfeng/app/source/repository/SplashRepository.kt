@@ -35,7 +35,7 @@ internal fun getSplashRepositoryInstance(
  * Function: 启动页 仓库
  * Date: 2020/5/23 15:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SplashRepository(
     localSource: SplashLocalSource? = null,

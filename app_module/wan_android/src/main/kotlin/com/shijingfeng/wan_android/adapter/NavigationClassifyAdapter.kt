@@ -20,7 +20,7 @@ import java.util.*
  * Function: 导航分类 RecyclerView适配器
  * Date: 2020/2/4 15:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class NavigationClassifyAdapter(
     context: Context,

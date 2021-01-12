@@ -13,7 +13,7 @@ import com.shijingfeng.wan_android.database.room.entity.HomeBannerLocal
  * Function: 首页 轮播图 Item DAO
  * Date: 2020/5/10 16:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 //@Dao
 internal interface HomeBannerDao {

@@ -30,7 +30,7 @@ const val HOME_FIRST_PAGE = 0
  * Function: 首页 ViewModel
  * Date: 2020/2/12 13:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HomeViewModel : WanAndroidBaseViewModel<HomeRepository>() {
 

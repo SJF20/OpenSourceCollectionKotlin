@@ -15,7 +15,7 @@ import com.shijingfeng.base.common.extension.onItemEvent
  * Function: 通用 Paging分页加载 Adapter
  * Date: 2020/1/27 13:58
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BasePagedListAdapter<T : BaseEntity>: PagedListAdapter<T, CommonViewHolder> {
 

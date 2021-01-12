@@ -10,7 +10,7 @@ import java.io.IOException
  * Function: 下载进度 ResponseBody
  * Date: 2020/1/23 16:11
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ProgressResponseBody(
     private val mResponseBody: ResponseBody,

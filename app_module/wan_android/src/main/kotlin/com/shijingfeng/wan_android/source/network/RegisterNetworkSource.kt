@@ -33,7 +33,7 @@ internal fun getRegisterNetworkSourceInstance(): RegisterNetworkSource {
  * Function: 注册页面 网络源
  * Date: 2020/2/5 12:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class RegisterNetworkSource : BaseNetworkSource() {
 

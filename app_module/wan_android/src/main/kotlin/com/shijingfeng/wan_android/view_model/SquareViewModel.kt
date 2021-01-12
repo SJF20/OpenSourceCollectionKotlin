@@ -29,7 +29,7 @@ const val SQUARE_FIRST_PAGE = 0
  * Function: 广场 ViewModel
  * Date: 2020/2/12 17:06
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SquareViewModel : WanAndroidBaseViewModel<SquareRepository>() {
 

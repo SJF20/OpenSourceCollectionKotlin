@@ -6,7 +6,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 主页 -> 待办 实体类
  * Date: 2020/5/21 15:02
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoGroupListItem(
 

@@ -16,7 +16,7 @@ import com.shijingfeng.base.util.getColorById
  * Function: 水平列表分隔线 ItemDecoration
  * Date: 2020/3/17 23:07
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class LinearDividerItemDecoration @JvmOverloads constructor(
     /** 分隔线颜色 */

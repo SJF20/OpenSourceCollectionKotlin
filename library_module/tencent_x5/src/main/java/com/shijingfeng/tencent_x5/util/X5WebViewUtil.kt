@@ -15,7 +15,7 @@ import com.tencent.smtt.sdk.WebSettings
  * Function: 腾讯X5 WebView 工具类
  * Date: 2020/2/2 21:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

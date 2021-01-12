@@ -15,7 +15,7 @@ import com.shijingfeng.todo.ui.activity.MAIN_NONE
  * Function: 筛选条件 Event
  * Date: 2020/9/11 13:41
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class FilterConditionEvent(
 

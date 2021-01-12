@@ -6,7 +6,7 @@ package com.shijingfeng.base.common.constant
  * Function: SharePreference 键 静态常量
  * Date: 2020/2/3 15:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** SP 玩安卓 App Name  */

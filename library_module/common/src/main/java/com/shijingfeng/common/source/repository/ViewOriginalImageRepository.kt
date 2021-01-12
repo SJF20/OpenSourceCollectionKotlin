@@ -35,7 +35,7 @@ internal fun getViewOriginalImageRepositoryInstance(
  * Function: 查看大图 仓库
  * Date: 2020/1/29 13:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ViewOriginalImageRepository(
     networkSource: ViewOriginalImageNetworkSource? = null

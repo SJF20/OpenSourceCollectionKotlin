@@ -10,7 +10,7 @@ import com.shijingfeng.wan_android.common.constant.*
  * Function: 首页 轮播图 Item 本地 实体类
  * Date: 2020/5/10 14:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 //@Entity(tableName = HOME_BANNER_TABLE_NAME)
 internal data class HomeBannerLocal (

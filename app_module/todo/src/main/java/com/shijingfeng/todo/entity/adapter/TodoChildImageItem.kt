@@ -6,7 +6,7 @@ import com.shijingfeng.todo.entity.Image
  * Function: 图片 Item
  * Date: 2020/9/17 20:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoChildImageItem(
 

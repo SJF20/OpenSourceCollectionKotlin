@@ -11,7 +11,7 @@ import io.realm.annotations.RealmField
  * Function: 城市数据 实体类 (可读不可写)
  * Date: 2020/11/1 10:09
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class CityDataItem(
 

@@ -5,7 +5,7 @@ package com.shijingfeng.base.common.constant
  * Function: 错误 Code 静态字符常量
  * Date: 2020/1/18 19:11
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 未知异常  */

@@ -22,7 +22,7 @@ import com.shijingfeng.wan_android.common.global.skinChangerManager
  * Function: wan_android 模块 Fragment 基类
  * Date: 2020/2/3 14:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class WanAndroidBaseFragment<V : ViewDataBinding, VM : WanAndroidBaseViewModel<*>> : BaseMvvmFragment<V, VM>(), ISkinChanger {
 

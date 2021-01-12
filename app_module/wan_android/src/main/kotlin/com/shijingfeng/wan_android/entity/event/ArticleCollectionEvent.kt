@@ -4,7 +4,7 @@ package com.shijingfeng.wan_android.entity.event
  * Function: 文章收藏相关 Event
  * Date: 2020/2/3 19:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class ArticleCollectionEvent(
 

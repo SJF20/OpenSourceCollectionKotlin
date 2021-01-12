@@ -28,7 +28,7 @@ import com.shijingfeng.base.util.image_load.getImageLoaderInstance
  * Function: 通用ViewHolder
  * Date: 2020/1/23 21:57
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class CommonViewHolder private constructor (
     private val mContext: Context,

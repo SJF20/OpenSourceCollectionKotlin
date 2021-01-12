@@ -25,7 +25,7 @@ import java.util.ArrayList
  * Function: 我的收藏 -> 网站收藏 ViewModel
  * Date: 2020/3/25 23:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class PersonalCollectionWebsiteViewModel : WanAndroidBaseViewModel<PersonalCollectionWebsiteRepository>() {
 

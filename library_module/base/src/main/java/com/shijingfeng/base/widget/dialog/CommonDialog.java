@@ -25,7 +25,7 @@ import static com.shijingfeng.base.util.WindowUtil.setWindowOutsideBackground;
  * Author: ShiJingFeng
  * Date: 2019/11/5 10:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public class CommonDialog {
 

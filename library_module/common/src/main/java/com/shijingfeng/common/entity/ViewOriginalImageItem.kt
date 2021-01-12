@@ -5,7 +5,7 @@ package com.shijingfeng.common.entity
  * Date: 2020/1/11 12:10
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 data class ViewOriginalImageItem (
 

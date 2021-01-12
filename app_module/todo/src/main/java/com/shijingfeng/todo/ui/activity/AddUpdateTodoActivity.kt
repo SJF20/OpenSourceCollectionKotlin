@@ -32,7 +32,7 @@ import com.shijingfeng.todo.view_model.AddUpdateTodoViewModel
  * Function: 添加 待办事项 Activity
  * Date: 2020/5/17 16:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_ADD_UPDATE_TODO)
 internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTodoBinding, AddUpdateTodoViewModel>() {

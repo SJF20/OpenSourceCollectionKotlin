@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.entity.PersonalCollectionArticleItem
  * Function: 我的收藏 -> 收藏文章列表 适配器
  * Date: 2020/2/3 20:03
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class PersonalCollectionArticleAdapter(
     context: Context,

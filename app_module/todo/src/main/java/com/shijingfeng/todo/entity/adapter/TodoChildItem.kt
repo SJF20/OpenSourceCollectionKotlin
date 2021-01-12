@@ -8,7 +8,7 @@ import com.shijingfeng.todo.annotation.define.TodoChildType.*
  * Function: TodoChild实体类 抽象基类
  * Date: 2020/9/17 17:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class TodoChildItem : BaseEntity() {
 

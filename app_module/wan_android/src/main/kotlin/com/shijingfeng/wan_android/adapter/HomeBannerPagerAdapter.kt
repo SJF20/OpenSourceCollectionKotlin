@@ -14,7 +14,7 @@ import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
  * Function: 首页轮播图ViewPager适配器
  * Date: 2020/2/3 22:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HomeBannerPagerAdapter(
     context: Context,

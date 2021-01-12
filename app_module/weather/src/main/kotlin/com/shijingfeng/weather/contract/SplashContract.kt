@@ -8,7 +8,7 @@ import com.shijingfeng.base.mvp.view.IView
  * Function: 启动页 契约类
  * Date: 2020/9/28 14:59
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface SplashContract {
 

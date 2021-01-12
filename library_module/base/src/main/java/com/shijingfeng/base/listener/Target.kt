@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
  * Function: ImageLoader 加载回调接口
  * Date: 2020/1/22 20:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 interface Target<R> {
 

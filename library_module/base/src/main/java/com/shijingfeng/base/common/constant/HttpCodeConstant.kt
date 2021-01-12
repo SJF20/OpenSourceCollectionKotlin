@@ -6,7 +6,7 @@ package com.shijingfeng.base.common.constant
  * Date: 2020/1/9 16:45
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 const val HTTP_BAD_REQUEST = 400

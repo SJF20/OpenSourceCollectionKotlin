@@ -18,7 +18,7 @@ typealias OnFragmentDestroy = (position: Int) -> Unit
  * Function: 通用 ViewPager FragmentPagerAdapter
  * Date: 2020/1/27 10:43
  * Description: FragmentPagerAdapter(mFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) 会调用setMaxLifecycle (Fragment fragment, Lifecycle.State state)，而不会调用setUserVisibleHint
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseFragmentPagerAdapter<T : BaseFragment>(
 

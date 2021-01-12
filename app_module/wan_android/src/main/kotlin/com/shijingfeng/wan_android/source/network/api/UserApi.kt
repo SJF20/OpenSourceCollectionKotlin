@@ -11,7 +11,7 @@ import retrofit2.http.*
  * Function: 用户 Api
  * Date: 2020/2/4 16:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface UserApi {
 

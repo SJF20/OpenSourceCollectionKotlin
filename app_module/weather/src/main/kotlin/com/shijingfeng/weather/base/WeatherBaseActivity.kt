@@ -10,7 +10,7 @@ import com.shijingfeng.base.util.d
  * Function: weather 模块 Activity 基类
  * Date: 2020/2/3 14:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class WeatherBaseActivity<V : ViewBinding, P : IPresenter> : BaseMvpActivity<V, P>() {
 

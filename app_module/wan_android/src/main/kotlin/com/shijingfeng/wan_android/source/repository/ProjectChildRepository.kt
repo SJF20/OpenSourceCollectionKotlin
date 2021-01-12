@@ -32,7 +32,7 @@ internal fun getProjectChildRepositoryInstance(
  * Function: 项目 二级数据 仓库
  * Date: 20-4-29 下午9:53
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class ProjectChildRepository(
     networkSource: ProjectChildNetworkSource? = null

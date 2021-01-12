@@ -10,7 +10,7 @@ import io.realm.annotations.*
  * Function: 城市数据 Realm实体类 (包括 行政数据 和 天气数据)
  * Date: 2020/10/29 13:47
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @RealmClass(name = "city_data")
 internal open class CityDataRealm(

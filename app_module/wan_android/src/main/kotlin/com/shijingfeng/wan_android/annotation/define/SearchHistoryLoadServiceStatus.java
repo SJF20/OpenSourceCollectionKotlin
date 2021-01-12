@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 20-5-4 下午2:37
  * Description:
  *
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @IntDef({
     // 搜索历史 LoadService状态: 成功

@@ -9,7 +9,7 @@ import com.alibaba.android.arouter.facade.template.IProvider
  * Date: 2020/1/14 19:51
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 interface LoginInterceptProvider : IProvider {
 

@@ -7,7 +7,7 @@ import com.shijingfeng.skin_changer.entity.SkinAttribute
  * Function:
  * Date: 2020/9/8 13:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 interface ISkinChanger {
 

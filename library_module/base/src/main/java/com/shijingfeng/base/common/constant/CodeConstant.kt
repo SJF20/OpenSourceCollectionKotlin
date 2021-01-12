@@ -5,7 +5,7 @@ package com.shijingfeng.base.common.constant
  * Function: Activity请求Code 和 权限请求Code 静态常量字符串
  * Date: 2020/1/18 19:01
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** Request Code: 相册  */

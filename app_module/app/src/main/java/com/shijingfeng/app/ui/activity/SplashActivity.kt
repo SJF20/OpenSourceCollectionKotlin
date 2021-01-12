@@ -14,7 +14,7 @@ import com.shijingfeng.base.common.constant.NO_LAYOUT
  * Function: 启动页 Activity
  * Date: 2020/3/16 13:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_APP_SPLASH)
 internal class SplashActivity : AppBaseActivity<ViewDataBinding, SplashViewModel>(){

@@ -18,7 +18,7 @@ import com.shijingfeng.wan_android.utils.UserUtil
  * Function: wan_android 模块 登录拦截 Provider
  * Date: 2020/2/3 15:14
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = PROVIDER_WAN_ANDROID_LOGIN_INTERCEPT)
 internal class WanAndroidLoginInterceptProvider : LoginInterceptProvider {

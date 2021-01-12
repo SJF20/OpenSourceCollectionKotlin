@@ -22,7 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Author: ShiJingFeng
  * Date: 2019/10/11 12:44
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public final class CustomGsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 

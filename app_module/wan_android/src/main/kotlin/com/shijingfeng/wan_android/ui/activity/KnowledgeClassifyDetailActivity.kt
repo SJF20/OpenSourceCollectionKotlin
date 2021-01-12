@@ -37,7 +37,7 @@ import com.shijingfeng.wan_android.view_model.KnowledgeClassifyDetailViewModel
  * Function: 知识体系 详细数据 Activity
  * Date: 20-4-25 下午4:05
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL)
 internal class KnowledgeClassifyDetailActivity : WanAndroidBaseActivity<ActivityWanAndroidKnowledgeClassifyDetailBinding, KnowledgeClassifyDetailViewModel>() {

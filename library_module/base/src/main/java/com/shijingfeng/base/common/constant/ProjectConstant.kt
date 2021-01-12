@@ -5,7 +5,7 @@ package com.shijingfeng.base.common.constant
  * Function: 工程 相关 静态常量
  * Date: 2020/5/25 22:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** app Group 名字  */

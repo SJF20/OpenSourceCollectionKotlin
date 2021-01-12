@@ -33,7 +33,7 @@ internal fun getOfficialAccountChildRepositoryInstance(
  * Function: 公众号 二级数据 仓库
  * Date: 2020/4/30 16:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class OfficialAccountChildRepository(
     networkSource: OfficialAccountChildNetworkSource? = null

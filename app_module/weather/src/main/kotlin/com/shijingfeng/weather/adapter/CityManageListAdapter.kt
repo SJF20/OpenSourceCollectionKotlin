@@ -11,7 +11,7 @@ import com.shijingfeng.weather.entity.CityDataItem
  * Function: 城市管理 列表适配器
  * Date: 2020/10/31 16:48
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CityManageListAdapter(
     context: Context

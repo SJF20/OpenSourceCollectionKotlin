@@ -56,7 +56,7 @@ internal fun createHomeFragment() = HomeFragment()
  * Function: 首页 Fragment
  * Date: 2020/2/12 14:05
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_HOME)
 @BindEventBus

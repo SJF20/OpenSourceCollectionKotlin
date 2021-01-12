@@ -11,7 +11,7 @@ import com.shijingfeng.skin_changer.global.toJsonString
  * Function:
  * Date: 2020/9/8 17:36
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

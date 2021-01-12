@@ -10,7 +10,7 @@ import com.shijingfeng.todo.R
  * Function: todo模块 Activity 基类
  * Date: 2020/3/18 22:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class TodoBaseActivity<V : ViewDataBinding, VM : TodoBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 

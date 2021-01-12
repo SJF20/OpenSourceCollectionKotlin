@@ -14,7 +14,7 @@ import okhttp3.HttpUrl;
  * Author: ShiJingFeng
  * Date: 2019/10/12 13:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public class MemoryCookieStore implements CookieStore {
 

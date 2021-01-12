@@ -25,7 +25,7 @@ internal fun getMainLocalSourceInstance(): MainLocalSource {
  * Function: 主页 本地源
  * Date: 2020/5/17 16:34
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class MainLocalSource : BaseLocalSource() {
 

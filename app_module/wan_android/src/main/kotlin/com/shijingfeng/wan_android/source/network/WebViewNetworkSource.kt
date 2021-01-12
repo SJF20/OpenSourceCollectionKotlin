@@ -30,7 +30,7 @@ internal fun getWebViewNetworkSourceInstance(): WebViewNetworkSource {
  * Function: WebView容器 网络源
  * Date: 2020/2/12 10:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WebViewNetworkSource : BaseNetworkSource() {
 

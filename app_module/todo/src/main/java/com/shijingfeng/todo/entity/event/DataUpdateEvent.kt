@@ -9,7 +9,7 @@ import com.shijingfeng.todo.ui.activity.MAIN_ALL
  * Function: 数据更新 Event
  * Date: 2020/9/13 16:37
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class DataUpdateEvent(
 

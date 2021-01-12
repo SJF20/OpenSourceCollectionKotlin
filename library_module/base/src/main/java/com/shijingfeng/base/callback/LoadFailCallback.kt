@@ -7,7 +7,7 @@ import com.shijingfeng.base.R
  * Function: 网络中断 Callback
  * Date: 2020/1/18 18:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class LoadFailCallback : Callback() {
 

@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 首页Banner数据 实体类
  * Date: 2020/2/3 19:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class HomeBannerItem(
 

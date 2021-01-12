@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/9/16 22:33
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     IsoscelesTriangleViewStyle.STYLE_TOP_TO_BOTTOM,

@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 项目 索引数据 实体类
  * Date: 20-4-29 下午8:43
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal data class ProjectIndexEntity(
 

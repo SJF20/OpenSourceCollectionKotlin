@@ -10,7 +10,7 @@ import com.shijingfeng.base.util.cast
  * Function: Gson 类型处理 Factory (用于空处理，类型纠正)
  * Date: 2020/5/16 22:09
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class TypeHandleAdapterFactory : TypeAdapterFactory {
 

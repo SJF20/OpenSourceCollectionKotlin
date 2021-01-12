@@ -12,7 +12,7 @@ import com.shijingfeng.base.R
  * Function: 加载中 Callback
  * Date: 2020/1/18 18:10
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class LoadingCallback : Callback() {
 

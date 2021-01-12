@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.common.constant
  * Function: Api 相关 静态字符串
  * Date: 20-4-6 下午10:07
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 
 /** 主页 -> 侧边栏 -> 关于我们 URL */

@@ -6,7 +6,7 @@ import android.graphics.Bitmap
  * Function: 图片实体类
  * Date: 2020/9/17 20:35
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class Image(
     /** 图片类型 */

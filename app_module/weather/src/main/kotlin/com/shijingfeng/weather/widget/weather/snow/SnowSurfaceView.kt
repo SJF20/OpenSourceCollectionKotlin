@@ -27,7 +27,7 @@ import kotlin.math.sin
  * Function: 下雪 View
  * Date: 2020/10/15 16:36
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SnowSurfaceView @JvmOverloads constructor(
     /** Context环境  */

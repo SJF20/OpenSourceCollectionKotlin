@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
  * Function: Retrofit工具类
  * Date: 2020/1/29 21:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 object RetrofitUtil {
 

@@ -9,7 +9,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 城市查询 实体类
  * Date: 2020/10/26 15:43
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 /**
  * 城市查询实体

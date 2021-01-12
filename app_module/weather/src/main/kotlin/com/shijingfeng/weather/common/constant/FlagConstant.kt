@@ -6,7 +6,7 @@ package com.shijingfeng.weather.common.constant
  * Function: 标志相关 静态常量
  * Date: 2020/11/1 12:45
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 城市数据操作: 无操作 */

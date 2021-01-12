@@ -8,7 +8,7 @@ import com.shijingfeng.base.util.cast
  * Function: Repository基类
  * Date: 2020/1/17 19:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseRepository<L : BaseLocalSource, N : BaseNetworkSource>(
     // 本地源

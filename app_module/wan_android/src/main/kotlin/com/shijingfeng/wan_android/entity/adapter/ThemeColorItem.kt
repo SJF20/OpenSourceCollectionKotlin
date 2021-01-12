@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 主题颜色 实体类
  * Date: 2020/5/31 11:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class ThemeColorItem(
     // 颜色值

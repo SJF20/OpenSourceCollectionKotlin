@@ -25,7 +25,7 @@ const val COIN_RANK_EACH_PAGE_COUNT = 30
  * Function: 积分排行榜 ViewModel
  * Date: 2020/3/12 22:43
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRankViewModel : WanAndroidBaseViewModel<CoinRankRepository>() {
 

@@ -36,7 +36,7 @@ import com.shijingfeng.weather.widget.weather.snow.SnowView
  * Function:
  * Date: 2020/10/21 17:10
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WeatherView @JvmOverloads constructor(
     /** Context环境  */

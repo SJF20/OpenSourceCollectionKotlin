@@ -35,17 +35,17 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:7.0.0"
         // 阿里云 emas-services插件
         classpath 'com.aliyun.ams:emas-services:1.0.1'
-        // 自己实现的Gradle Plugin
+        // 模块事件分发器 Gradle Plugin
         classpath "com.shijingfeng.module_event_dispatcher:auto_gradle_plugin:1.0.0"
         // Android AspectJ (AspectJ对各个插件版本和依赖的包相关性很大，动不动就报错，生产环境的App慎用)
 //        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
+        // 上传到Bintray远程仓库所需要的插件
+        classpath 'com.github.panpf.bintray-publish:bintray-publish:1.0.0'
     }
 }
 
 // 会遍历所有的 Module(概念对应Gradle的 project)
-subprojects {
-//    logger.quiet("子模块名称: " + project.getClass().getName() + " | " + project.name)
-
+subprojects { sub ->
     // 项目本身需要的依赖仓库
     repositories {
         google()
@@ -59,6 +59,24 @@ subprojects {
         maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
         //模块事件分发器 maven仓库地址
         maven { url 'https://dl.bintray.com/shijingfeng2019/module_event_dispatcher/' }
+    }
+    //在project进行配置前调用，child project必须在root project中设置才会生效，root project必须在settings.gradle中设置才会生效
+    sub.beforeEvaluate { pjt ->
+        println("模块 $pjt.name 开始配置")
+    }
+    //在project配置完成后调用
+    sub.afterEvaluate { pjt ->
+        println("模块 $pjt.name 配置完成")
+    }
+    // 用于上传到Bintray
+    tasks.withType(Javadoc) {
+        // Java文档检查开启  true:开启  false:关闭
+        enabled = true
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/8/docs/api"
+        }
     }
 }
 

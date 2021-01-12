@@ -20,7 +20,7 @@ import retrofit2.Converter;
  * Author: ShiJingFeng
  * Date: 2019/10/11 12:46
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public final class CustomGsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
 

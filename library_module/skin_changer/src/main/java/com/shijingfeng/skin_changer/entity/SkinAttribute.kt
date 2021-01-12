@@ -8,7 +8,7 @@ import com.shijingfeng.skin_changer.constant.TINT
  * Function: 对应 xml 中的 属性
  * Date: 2020/7/22 13:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 data class SkinAttribute(
 

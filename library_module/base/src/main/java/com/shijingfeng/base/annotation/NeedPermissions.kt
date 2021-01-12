@@ -5,7 +5,7 @@ package com.shijingfeng.base.annotation
  * Author: ShiJingFeng
  * Date: 2019/11/15 13:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

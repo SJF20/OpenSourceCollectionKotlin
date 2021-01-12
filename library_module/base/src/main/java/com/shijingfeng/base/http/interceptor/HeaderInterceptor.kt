@@ -7,7 +7,7 @@ import okhttp3.Response
  * Function: Header OkHttp拦截器
  * Date: 2020/1/22 22:11
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HeaderInterceptor constructor(
     private val mHeaderMap: Map<String, String>

@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_weather_title_bar.view.*
  * Function: 城市管理 Activity
  * Date: 2020/10/12 11:08
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WEATHER_CITY_MANAGE)
 internal class CityManageActivity : WeatherBaseActivity<ActivityWeatherCityManageBinding, CityManageContract.Presenter>(), CityManageContract.View {

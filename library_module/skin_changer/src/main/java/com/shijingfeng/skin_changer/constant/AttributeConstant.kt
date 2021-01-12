@@ -6,7 +6,7 @@ package com.shijingfeng.skin_changer.constant
  * Function: 属性相关的静态常量
  * Date: 2020/7/23 10:04
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 对应xml属性: android:background */

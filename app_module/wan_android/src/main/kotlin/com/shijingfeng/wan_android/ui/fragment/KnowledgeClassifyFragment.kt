@@ -33,7 +33,7 @@ internal fun createKnowledgeClassifyFragment() = KnowledgeClassifyFragment()
  * Function: 知识体系 Fragment
  * Date: 2020/4/21 20:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY)
 internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidKnowledgeClassifyBinding, KnowledgeClassifyViewModel>() {

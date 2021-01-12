@@ -9,7 +9,7 @@ import com.bumptech.glide.load.model.UnitModelLoader
  * Function: 全局静态变量
  * Date: 2020/5/11 16:05
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 主线程 Handler */

@@ -14,7 +14,7 @@ import com.shijingfeng.base.common.constant.FROM_ACTIVITY_NAME
  * Date: 2020/1/14 8:43
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = PROVIDER_BASE_COMMON_PRETREATMENT_SERVICE)
 internal class PretreatmentServiceImpl : PretreatmentService {

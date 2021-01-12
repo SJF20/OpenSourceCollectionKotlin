@@ -9,7 +9,7 @@ import com.google.gson.stream.JsonWriter
  * Function: Gson String 类型 适配器
  * Date: 2020/5/16 22:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class StringTypeAdapter : TypeAdapter<String>() {
 

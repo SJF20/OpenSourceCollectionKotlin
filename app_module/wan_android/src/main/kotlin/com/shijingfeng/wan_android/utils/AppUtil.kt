@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.utils
  * Function: 应用相关 工具类
  * Date: 2020/5/25 12:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

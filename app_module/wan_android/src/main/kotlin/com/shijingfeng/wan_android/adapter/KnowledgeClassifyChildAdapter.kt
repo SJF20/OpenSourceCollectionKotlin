@@ -22,7 +22,7 @@ import com.shijingfeng.wan_android.entity.KnowledgeClassifyDetailChildItem
  * Function: 知识体系 二级数据 RecyclerView 适配器
  * Date: 2020/2/4 13:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class KnowledgeClassifyChildAdapter(
     context: Context,

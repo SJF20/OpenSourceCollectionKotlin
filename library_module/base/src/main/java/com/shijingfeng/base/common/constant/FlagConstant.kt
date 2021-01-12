@@ -6,7 +6,7 @@ package com.shijingfeng.base.common.constant
  * Author: ShiJingFeng
  * Date: 2019/12/27 16:51
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** SparseArray Key(int) Value(Integer) Activity setResult中的resultCode  */

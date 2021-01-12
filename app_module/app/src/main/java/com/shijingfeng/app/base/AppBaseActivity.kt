@@ -9,7 +9,7 @@ import com.shijingfeng.base.util.d
  * Function: app 模块 Activity 基类
  * Date: 2020/2/2 22:30
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewModel<*>> : BaseMvvmActivity<V, VM>() {
 

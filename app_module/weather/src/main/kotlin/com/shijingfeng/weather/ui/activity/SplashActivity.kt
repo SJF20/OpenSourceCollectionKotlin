@@ -13,7 +13,7 @@ import com.shijingfeng.weather.presenter.SplashPresenter
  * Function: 启动页 Activity
  * Date: 2020/9/27 16:23
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WEATHER_SPLASH)
 internal class SplashActivity : WeatherBaseActivity<ViewBinding, SplashContract.Presenter>(), SplashContract.View {

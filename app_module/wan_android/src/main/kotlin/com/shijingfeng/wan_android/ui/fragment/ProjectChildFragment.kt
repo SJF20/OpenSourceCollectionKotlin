@@ -50,7 +50,7 @@ internal fun createProjectChildFragment(bundle: Bundle) = ProjectChildFragment()
  * Function: 项目 二级数据 Fragment
  * Date: 20-4-29 下午10:29
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @BindEventBus
 @Route(path = FRAGMENT_WAN_ANDROID_PROJECT_CHILD)

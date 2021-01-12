@@ -31,7 +31,7 @@ internal fun getSearchListNetworkSourceInstance(): SearchListNetworkSource {
  * Function: 搜索列表 网络源
  * Date: 20-5-3 下午8:46
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchListNetworkSource : BaseNetworkSource() {
 

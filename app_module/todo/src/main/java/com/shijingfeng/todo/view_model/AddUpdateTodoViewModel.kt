@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.EventBus
  * Function:
  * Date: 2020/9/17 10:34
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class AddUpdateTodoViewModel : TodoBaseViewModel<AddUpdateTodoRepository>() {
 

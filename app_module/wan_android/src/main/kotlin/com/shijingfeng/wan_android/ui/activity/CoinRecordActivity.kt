@@ -29,7 +29,7 @@ import com.shijingfeng.wan_android.view_model.CoinRecordViewModel
  * Function: 积分记录 Activity
  * Date: 2020/3/16 21:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_COIN_RECORD)
 internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinRecordBinding, CoinRecordViewModel>() {

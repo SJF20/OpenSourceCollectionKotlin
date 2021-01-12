@@ -10,7 +10,7 @@ import java.nio.charset.Charset
  * Function: Log数据 OkHttp拦截器
  * Date: 2020/1/22 22:18
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class LogInterceptor : Interceptor {
 

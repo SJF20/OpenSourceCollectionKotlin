@@ -15,7 +15,7 @@ import java.util.*
  * Function: 分享相关 工具类
  * Date: 20-4-6 下午1:01
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 
 /** 分享标题 */

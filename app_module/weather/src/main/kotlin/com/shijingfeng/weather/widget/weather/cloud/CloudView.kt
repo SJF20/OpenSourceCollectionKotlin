@@ -34,7 +34,7 @@ import com.shijingfeng.weather.common.constant.WIND
  * Function: 云层 View
  * Date: 2020/10/21 11:09
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CloudView @JvmOverloads constructor(
     /** Context环境  */

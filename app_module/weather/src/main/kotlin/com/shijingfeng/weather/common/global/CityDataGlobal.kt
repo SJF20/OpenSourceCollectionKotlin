@@ -8,7 +8,7 @@ import com.shijingfeng.weather.data_structure.CityDataManager
  * Function: 城市数据 Global
  * Date: 2020/10/29 13:34
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 城市数据列表包装类, 可以用于做适配器列表, 数据更新操作时该包装类会通过EventBus通知页面更新视图 */

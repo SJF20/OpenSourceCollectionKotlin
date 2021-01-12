@@ -16,7 +16,7 @@ import com.shijingfeng.base.annotation.define.IsoscelesTriangleViewStyle.*
  * Function: 三角形 View (用于下拉选择箭头)
  * Date: 2020/9/16 22:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class IsoscelesTriangleView @JvmOverloads constructor(
     /** Context环境  */

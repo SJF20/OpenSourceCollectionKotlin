@@ -31,7 +31,7 @@ internal fun getPersonalCollectionWebsiteNetworkSourceInstance(): PersonalCollec
  * Function: 我的收藏 -> 网站收藏 网络源
  * Date: 2020/3/24 22:59
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class PersonalCollectionWebsiteNetworkSource : BaseNetworkSource() {
 

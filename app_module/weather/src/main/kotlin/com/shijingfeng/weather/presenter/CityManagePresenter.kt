@@ -8,7 +8,7 @@ import com.shijingfeng.weather.model.CityManageModel
  * Function: 城市管理 Presenter
  * Date: 2020/10/12 11:03
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CityManagePresenter(
     view: CityManageContract.View

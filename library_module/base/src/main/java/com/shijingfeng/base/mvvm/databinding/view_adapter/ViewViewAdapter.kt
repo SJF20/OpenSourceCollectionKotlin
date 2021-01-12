@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.ClickUtils
  * Function: View View适配器
  * Date: 2020/1/27 16:02
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 @BindingAdapter(

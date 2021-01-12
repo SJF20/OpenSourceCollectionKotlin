@@ -11,7 +11,7 @@ import kotlinx.coroutines.Job
  * Function: MVP架构 Model层基类
  * Date: 2020/9/28 17:35
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseModel<P : IPresenter>(
     presenter: P

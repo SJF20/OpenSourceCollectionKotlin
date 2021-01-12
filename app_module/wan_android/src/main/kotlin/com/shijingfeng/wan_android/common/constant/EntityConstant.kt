@@ -4,7 +4,7 @@ package com.shijingfeng.wan_android.common.constant
  * Function: 实体类 常量
  * Date: 2020/5/10 17:06
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

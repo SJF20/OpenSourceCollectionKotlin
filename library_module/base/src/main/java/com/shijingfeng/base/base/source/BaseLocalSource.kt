@@ -6,7 +6,7 @@ import com.shijingfeng.base.util.cast
  * Function: 本地资源 基类
  * Date: 2020/1/17 19:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseLocalSource {
 

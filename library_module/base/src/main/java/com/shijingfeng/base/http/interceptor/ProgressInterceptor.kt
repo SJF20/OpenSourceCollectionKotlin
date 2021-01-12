@@ -9,7 +9,7 @@ import okhttp3.Response
  * Function: 进度拦截器
  * Date: 2020/1/23 15:47
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ProgressInterceptor : Interceptor {
 

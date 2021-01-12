@@ -20,7 +20,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/10/14 17:02
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     LIGHT_RAIN,

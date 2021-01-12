@@ -14,7 +14,7 @@ import com.shijingfeng.base.base.application.application
  * Function: 资源工具类
  * Date: 2020/2/2 21:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 资源类型: Color(颜色) */

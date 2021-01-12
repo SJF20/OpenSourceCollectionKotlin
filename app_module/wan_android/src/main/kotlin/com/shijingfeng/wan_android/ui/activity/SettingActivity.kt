@@ -40,7 +40,7 @@ import org.greenrobot.eventbus.EventBus
  * Function: 系统设置 Activity
  * Date: 2020/5/30 23:01
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SETTING)
 internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettingBinding, SettingViewModel>() {

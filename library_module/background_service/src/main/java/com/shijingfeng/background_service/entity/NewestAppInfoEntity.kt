@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 最新 App 版本信息 实体类
  * Date: 2020/5/24 10:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class NewestAppInfoEntity(
 

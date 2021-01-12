@@ -10,7 +10,7 @@ import retrofit2.http.Url
  * Function: 通用 Retrofit Api
  * Date: 2020/1/23 20:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface Api {
 

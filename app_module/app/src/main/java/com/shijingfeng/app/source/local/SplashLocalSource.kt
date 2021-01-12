@@ -25,7 +25,7 @@ internal fun getSplashLocalSourceInstance(): SplashLocalSource {
  * Function: 启动页 本地源
  * Date: 2020/5/23 15:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SplashLocalSource : BaseLocalSource() {
 

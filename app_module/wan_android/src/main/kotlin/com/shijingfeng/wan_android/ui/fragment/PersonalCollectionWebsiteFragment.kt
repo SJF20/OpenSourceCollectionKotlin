@@ -50,7 +50,7 @@ internal fun createPersonalCollectionWebsiteFragment() = PersonalCollectionWebsi
  * Function: 我的收藏 -> 收藏网站列表 Fragment
  * Date: 2020/3/26 20:57
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_WEBSITE)
 @BindEventBus

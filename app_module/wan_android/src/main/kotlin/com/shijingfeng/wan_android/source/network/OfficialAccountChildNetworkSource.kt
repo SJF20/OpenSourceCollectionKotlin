@@ -32,7 +32,7 @@ internal fun getOfficialAccountChildNetworkSourceInstance(): OfficialAccountChil
  * Function: 公众号 二级数据 网络源
  * Date: 2020/4/21 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class OfficialAccountChildNetworkSource : BaseNetworkSource() {
 

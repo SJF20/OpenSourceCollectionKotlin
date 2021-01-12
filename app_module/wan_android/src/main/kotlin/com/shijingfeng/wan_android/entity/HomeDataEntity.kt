@@ -9,7 +9,7 @@ import okhttp3.internal.immutableListOf
  * Function: 首页数据 聚合
  * Date: 2020/2/4 16:04
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class HomeDataEntity(
 

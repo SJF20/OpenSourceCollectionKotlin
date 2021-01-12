@@ -10,7 +10,7 @@ import com.shijingfeng.wan_android.entity.CoinRankItem
  * Function: 积分排行榜 列表适配器
  * Date: 2020/2/3 21:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRankAdapter(
     context: Context,

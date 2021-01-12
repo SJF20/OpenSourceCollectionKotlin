@@ -30,7 +30,7 @@ import java.util.*
  * Function: 广场 列表适配器
  * Date: 2020/2/3 21:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SquareAdapter(
     context: Context,

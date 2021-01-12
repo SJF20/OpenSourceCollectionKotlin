@@ -25,7 +25,7 @@ import kotlin.random.Random
  * Function: 下雨 View
  * Date: 2020/10/15 17:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class RainView @JvmOverloads constructor(
     /** Context环境  */

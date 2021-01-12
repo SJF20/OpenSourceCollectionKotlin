@@ -17,7 +17,7 @@ import com.shijingfeng.weather.model.CitySearchModel
  * Function: 城市搜索 Presenter
  * Date: 2020/10/22 17:18
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CitySearchPresenter(
     view: CitySearchContract.View

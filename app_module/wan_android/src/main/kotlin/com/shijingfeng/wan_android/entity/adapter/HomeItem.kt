@@ -11,7 +11,7 @@ import com.shijingfeng.wan_android.entity.HomeArticleItem
  * Function: 首页 适配器Item 实体抽象类
  * Date: 2020/2/3 19:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class HomeItem : BaseEntity() {
 

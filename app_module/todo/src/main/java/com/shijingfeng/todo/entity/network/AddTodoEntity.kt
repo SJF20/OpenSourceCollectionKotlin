@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 添加 待办事项 实体类
  * Date: 2020/9/17 10:39
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class AddTodoEntity(
 

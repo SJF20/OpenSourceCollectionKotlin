@@ -16,7 +16,7 @@ import com.shijingfeng.todo.entity.adapter.TodoChildTextItem
  * Function: 通用 扩展类
  * Date: 2020/9/18 17:18
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

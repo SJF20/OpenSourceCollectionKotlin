@@ -21,8 +21,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 20-4-7 下午11:20
  * Description:
  *
- * @author ShiJingFeng
- * @author shijingfeng
+ * Author: ShiJingFeng
+ * Author: shijingfeng
  */
 @IntDef({
     /** 下拉刷新 和 上拉加载 无操作 */

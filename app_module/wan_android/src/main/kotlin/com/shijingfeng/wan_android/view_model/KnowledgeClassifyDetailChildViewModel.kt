@@ -30,7 +30,7 @@ const val KNOWLEDGE_CLASSIFY_CHILD_FIRST_PAGE = 0
  * Function: 知识体系 二级数据 ViewModel
  * Date: 2020/4/21 20:30
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class KnowledgeClassifyDetailChildViewModel : WanAndroidBaseViewModel<KnowledgeClassifyDetailChildRepository>() {
 

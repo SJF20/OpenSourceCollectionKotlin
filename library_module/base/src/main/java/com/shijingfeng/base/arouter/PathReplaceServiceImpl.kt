@@ -12,7 +12,7 @@ import java.util.*
  * Date: 2020/1/13 11:56
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = PROVIDER_BASE_COMMON_PATH_REPLACE_SERVICE)
 internal class PathReplaceServiceImpl : PathReplaceService {

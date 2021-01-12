@@ -10,7 +10,7 @@ import com.shijingfeng.base.common.extension.onItemEvent
  * Function: 通用 PagerAdapter
  * Date: 2020/1/27 14:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 open class CommonPagerAdapter<T>(
     protected val mContext: Context,

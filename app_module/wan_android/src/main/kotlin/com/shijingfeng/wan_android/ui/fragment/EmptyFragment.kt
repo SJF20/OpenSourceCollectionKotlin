@@ -14,7 +14,7 @@ internal fun createEmptyFragment() = EmptyFragment()
  * Function: 空 Fragment (用于 条件都不满足的情况下的 占位 Fragment, 为了保证不崩溃)
  * Date: 2020/4/17 17:21
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class EmptyFragment : WanAndroidBaseFragment<FragmentWanAndroidNullBinding, WanAndroidBaseViewModel<*>>() {
 

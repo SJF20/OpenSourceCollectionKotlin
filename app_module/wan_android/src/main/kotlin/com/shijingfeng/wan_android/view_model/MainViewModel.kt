@@ -21,7 +21,7 @@ import com.shijingfeng.wan_android.utils.localLogout
  * Function: 主页 ViewModel
  * Date: 2020/2/10 16:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class MainViewModel : WanAndroidBaseViewModel<MainRepository>() {
 

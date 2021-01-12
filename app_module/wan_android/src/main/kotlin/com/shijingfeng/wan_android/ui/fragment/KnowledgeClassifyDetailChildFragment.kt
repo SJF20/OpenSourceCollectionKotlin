@@ -57,7 +57,7 @@ internal fun createKnowledgeClassifyDetailChildFragment(bundle: Bundle) = Knowle
  * Function: 知识体系 二级数据 Fragment
  * Date: 20-4-25 下午9:41
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @BindEventBus
 @Route(path = FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL_CHILD)

@@ -15,7 +15,7 @@ fun createCommonViewModelFactory(
  * Function: 通用 ViewModel 工厂
  * Date: 2020/1/22 19:36
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class CommonViewModelFactory internal constructor(
     private var mRepository: BaseRepository<*, *>? = null

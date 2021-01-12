@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.utils.ThemeUtil
  * Function: 系统设置 ViewModel
  * Date: 2020/5/30 22:57
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SettingViewModel: WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 

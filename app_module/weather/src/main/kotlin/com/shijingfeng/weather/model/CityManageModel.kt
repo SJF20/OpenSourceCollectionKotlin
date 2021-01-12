@@ -7,7 +7,7 @@ import com.shijingfeng.weather.contract.CityManageContract
  * Function: 城市管理 Model
  * Date: 2020/10/12 11:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CityManageModel(
     presenter: CityManageContract.Presenter

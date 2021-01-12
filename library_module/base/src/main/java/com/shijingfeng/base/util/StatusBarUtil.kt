@@ -13,7 +13,7 @@ import com.shijingfeng.base.base.application.application
  * Function: 状态栏工具类
  * Date: 2020/1/18 16:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

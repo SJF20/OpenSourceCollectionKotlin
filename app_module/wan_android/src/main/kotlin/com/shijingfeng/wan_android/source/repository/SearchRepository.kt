@@ -38,7 +38,7 @@ internal fun getSearchRepositoryInstance(
  * Function: 搜索 仓库
  * Date: 20-5-3 下午9:09
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchRepository(
     localSource: SearchLocalSource? = null,

@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 公众号 索引数据 实体类
  * Date: 2020/4/29 17:01
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class OfficialAccountIndexEntity(
 

@@ -11,7 +11,7 @@ import retrofit2.http.*
  * Function: 城市搜索 Api
  * Date: 2020/10/27 14:57
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface CitySearchApi {
 

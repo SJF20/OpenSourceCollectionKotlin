@@ -13,7 +13,7 @@ import com.shijingfeng.weather.common.constant.AMAP_PROVINCE
  * Function: 逆地理编码 实体类
  * Date: 2020/10/29 17:07
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 /**
  * 逆地理编码 实体类

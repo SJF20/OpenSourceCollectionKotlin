@@ -20,7 +20,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/9/11 15:52
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     // 默认不操作，为原来的 (用于EventBus Event)

@@ -41,7 +41,7 @@ fun unregisterWanAndroidTokenExpiredReceiver() {
  * Function: 玩Android Token失效 BroadcastReceiver
  * Date: 2020/5/26 11:39
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WanAndroidTokenExpiredReceiver : BroadcastReceiver() {
 

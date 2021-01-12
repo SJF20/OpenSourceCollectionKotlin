@@ -10,7 +10,7 @@ import com.shijingfeng.skin_changer.global.appContext
  * Function: Toast工具类
  * Date: 2020/7/20 15:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/7/23 14:58
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     // 插件式换肤

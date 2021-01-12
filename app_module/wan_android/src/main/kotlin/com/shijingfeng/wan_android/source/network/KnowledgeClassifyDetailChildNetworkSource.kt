@@ -32,7 +32,7 @@ internal fun getKnowledgeClassifyChildNetworkSourceInstance(): KnowledgeClassify
  * Function: 知识体系 二级数据 网络源
  * Date: 2020/4/21 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class KnowledgeClassifyDetailChildNetworkSource : BaseNetworkSource() {
 

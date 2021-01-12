@@ -30,7 +30,7 @@ internal fun getMainNetworkSourceInstance(): MainNetworkSource {
  * Function: 主页 Activity 网络源
  * Date: 2020/2/10 16:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class MainNetworkSource : BaseNetworkSource() {
 

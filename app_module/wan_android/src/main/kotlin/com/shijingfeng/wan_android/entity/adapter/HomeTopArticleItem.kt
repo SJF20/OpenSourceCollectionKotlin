@@ -8,7 +8,7 @@ import java.util.*
  * Function: 设置置顶文章 Item
  * Date: 2020/2/3 19:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HomeTopArticleItem(
 

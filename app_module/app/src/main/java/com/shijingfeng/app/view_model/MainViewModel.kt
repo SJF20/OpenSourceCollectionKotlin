@@ -10,7 +10,7 @@ import com.shijingfeng.base.base.repository.BaseRepository
  * Function: 主页 ViewModel
  * Date: 2020/3/16 13:39
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class MainViewModel : AppBaseViewModel<BaseRepository<*, *>>() {
 

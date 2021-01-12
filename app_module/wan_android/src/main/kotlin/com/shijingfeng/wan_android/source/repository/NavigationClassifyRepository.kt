@@ -32,7 +32,7 @@ internal fun getNavigationClassifyRepositoryInstance(
  * Function:
  * Date: 2020/4/21 22:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class NavigationClassifyRepository(
     networkSource: NavigationClassifyNetworkSource? = null

@@ -41,7 +41,7 @@ fun unregisterAppUpgradeReceiver() {
  * Function: 应用升级 Broadcast Receiver (在哪个进程中注册，onReceiver会执行在哪个进程, 可以同时在多个进程中注册)
  * Date: 2020/5/29 22:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class AppUpgradeReceiver : BroadcastReceiver() {
 

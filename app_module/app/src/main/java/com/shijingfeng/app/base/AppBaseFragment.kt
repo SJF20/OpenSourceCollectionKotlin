@@ -9,7 +9,7 @@ import com.shijingfeng.base.util.d
  * Function: app 模块 Fragment 基类
  * Date: 2020/2/2 22:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class AppBaseFragment<V : ViewDataBinding, VM : AppBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
 

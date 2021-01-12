@@ -10,7 +10,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 通用多类型Item RecyclerView 适配器
  * Date: 2020/1/27 10:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseMultiItemAdapter<T : BaseEntity>(
     context: Context,

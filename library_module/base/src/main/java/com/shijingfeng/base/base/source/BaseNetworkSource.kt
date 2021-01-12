@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
  * Function: 网络资源 基类
  * Date: 2020/1/17 19:41
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseNetworkSource {
 

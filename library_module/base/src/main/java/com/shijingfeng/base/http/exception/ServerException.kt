@@ -6,7 +6,7 @@ import kotlin.Exception
  * Function: 服务器 异常
  * Date: 2020/1/22 20:34
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class ServerException(
 

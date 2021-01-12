@@ -15,7 +15,7 @@ import org.greenrobot.eventbus.EventBus
  * Function: 积分工具类
  * Date: 2020/2/3 16:09
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal object CoinUtil {
 

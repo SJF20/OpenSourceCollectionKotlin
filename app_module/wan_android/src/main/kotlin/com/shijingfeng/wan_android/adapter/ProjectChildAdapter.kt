@@ -22,7 +22,7 @@ import com.shijingfeng.wan_android.entity.ProjectChildItem
  * Function: 项目 二级数据 列表适配器
  * Date: 20-5-3 下午5:01
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class ProjectChildAdapter(
     context: Context,

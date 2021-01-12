@@ -45,7 +45,7 @@ private fun init(): WanAndroidDatabase {
  * Function: wan_android 模块 数据库
  * Date: 2020/5/10 14:37
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 //@Database(
 //    entities = [

@@ -37,7 +37,7 @@ internal fun getLoginNetworkSourceInstance(): LoginNetworkSource {
  * Function: 登录Activity 网络数据操作实现类
  * Date: 2020/2/4 16:16
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class LoginNetworkSource : BaseNetworkSource() {
 

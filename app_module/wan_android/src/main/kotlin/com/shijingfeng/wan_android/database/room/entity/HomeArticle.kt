@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.common.constant.*
  * Function: 首页 文章 Item 本地 实体类
  * Date: 2020/5/10 14:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

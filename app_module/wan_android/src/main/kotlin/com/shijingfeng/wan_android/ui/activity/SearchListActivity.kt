@@ -43,7 +43,7 @@ import com.shijingfeng.wan_android.view_model.SearchListViewModel
  * Function: 搜索列表 Activity
  * Date: 2020/5/5 21:59
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SEARCH_LIST)
 internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchListBinding, SearchListViewModel>() {

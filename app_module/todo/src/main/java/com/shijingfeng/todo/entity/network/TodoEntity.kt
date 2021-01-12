@@ -8,7 +8,7 @@ import com.shijingfeng.todo.entity.adapter.TodoListItem
  * Function: 主页 -> 待办 实体类
  * Date: 2020/5/19 21:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

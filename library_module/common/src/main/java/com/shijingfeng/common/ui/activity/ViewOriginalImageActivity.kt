@@ -43,7 +43,7 @@ import java.io.InputStream
  * Function: 查看原图 Activity
  * Date: 2020/1/29 9:40
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @NeedPermissions
 @Route(path = ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE)

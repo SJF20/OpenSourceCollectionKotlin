@@ -13,7 +13,7 @@ import retrofit2.http.*
  * Function: 收藏 API
  * Date: 2020/2/12 10:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface CollectionApi {
 

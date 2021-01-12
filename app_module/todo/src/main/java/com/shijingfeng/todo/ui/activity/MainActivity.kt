@@ -60,7 +60,7 @@ internal const val MAIN_DONE = 1
  * Function: 主页 Activity
  * Date: 2020/3/18 23:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_TODO_MAIN)
 internal class MainActivity : TodoBaseActivity<ActivityTodoMainBinding, MainViewModel>() {

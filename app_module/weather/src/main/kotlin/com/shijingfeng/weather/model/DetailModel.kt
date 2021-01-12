@@ -7,7 +7,7 @@ import com.shijingfeng.weather.contract.DetailContract
  * Function: 天气详情 Model
  * Date: 2020/10/9 13:05
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class DetailModel(
     presenter: DetailContract.Presenter

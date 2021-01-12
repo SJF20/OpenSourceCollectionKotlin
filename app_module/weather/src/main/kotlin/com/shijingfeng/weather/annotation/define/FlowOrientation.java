@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/9/24 16:05
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     FlowOrientation.FLOW_ORIENTATION_HORIZONTAL,

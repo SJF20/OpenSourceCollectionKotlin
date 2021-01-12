@@ -18,7 +18,7 @@ import kotlin.math.max
  * Function: 逐行排列 逐列排列 布局
  * Date: 2020/9/24 10:48
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class FlowLayout @JvmOverloads constructor(
     /** Context环境  */

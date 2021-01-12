@@ -20,7 +20,7 @@ import com.shijingfeng.base.util.getStringById
  * Function: Loading View
  * Date: 2020/8/22 10:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class LoadingView private constructor(
     private val mAttr: Attr

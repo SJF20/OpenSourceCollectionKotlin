@@ -17,7 +17,7 @@ import com.shijingfeng.wan_android.database.room.entity.HomeTopArticleTagLocal
  * Function: 首页 置顶文章 Item DAO
  * Date: 2020/5/10 16:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 //@Dao
 internal interface HomeTopArticleDao {

@@ -37,7 +37,7 @@ internal fun getHomeLocalSourceInstance(): HomeLocalSource {
  * Function: 首页 本地源
  * Date: 2020/5/10 20:38
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HomeLocalSource : BaseLocalSource() {
 

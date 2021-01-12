@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.ConvertUtils
  * Function: 数据 静态常量
  * Date: 2020/2/3 15:51
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 标题栏高度  */

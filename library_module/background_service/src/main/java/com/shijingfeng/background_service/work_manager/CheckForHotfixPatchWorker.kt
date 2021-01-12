@@ -46,7 +46,7 @@ fun cancelCheckForHotfixPatchWorker() {
  * Function: 检查更新热修复补丁 Worker
  * Date: 2020/7/17 22:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CheckForHotfixPatchWorker(
     context: Context,

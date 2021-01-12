@@ -8,7 +8,7 @@ import com.shijingfeng.base.mvp.view.IView
  * Function: 城市管理 契约类
  * Date: 2020/10/9 12:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface CityManageContract {
 

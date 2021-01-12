@@ -15,7 +15,7 @@ import kotlin.coroutines.suspendCoroutine
  * Function: MVP架构 Presenter层基类
  * Date: 2020/9/28 11:08
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BasePresenter<V : IView, M : IModel> constructor(
     view: V,

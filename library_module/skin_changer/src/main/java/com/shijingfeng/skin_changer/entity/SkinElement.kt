@@ -6,7 +6,7 @@ import android.view.View
  * Function: 对应 xml 中的 元素
  * Date: 2020/7/22 13:37
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 data class SkinElement(
     /** View */

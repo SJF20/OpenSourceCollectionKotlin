@@ -29,7 +29,7 @@ import java.util.concurrent.Executors
  * Function: SkinChanger 管理器
  * Date: 2020/7/21 9:40
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class SkinChangerManager private constructor(
     variable: Variable,

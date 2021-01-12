@@ -17,7 +17,7 @@ import com.shijingfeng.weather.entity.CitySearchInfoEntity
  * Function: 城市搜索列表 适配器
  * Date: 2020/10/26 16:41
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CitySearchListAdapter(
     context: Context,

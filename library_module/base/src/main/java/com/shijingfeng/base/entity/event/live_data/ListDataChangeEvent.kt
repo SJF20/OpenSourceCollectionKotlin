@@ -10,7 +10,7 @@ import com.shijingfeng.base.common.constant.ORDER_REVERSED
  * Author: ShiJingFeng
  * Date: 2019/12/7 14:59
  * Description: @JvmOverloads注解用于生成多个重载函数的java文件
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 data class ListDataChangeEvent<T> @JvmOverloads constructor(
 

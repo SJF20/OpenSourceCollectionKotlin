@@ -52,7 +52,7 @@ fun unregisterCheckForUpdateReceiver() {
  * Function: 检查更新 Broadcast Receiver (在哪个进程中注册，onReceiver会执行在哪个进程, 可以同时在多个进程中注册)
  * Date: 2020/5/24 15:07
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CheckForUpdateReceiver : BroadcastReceiver() {
 

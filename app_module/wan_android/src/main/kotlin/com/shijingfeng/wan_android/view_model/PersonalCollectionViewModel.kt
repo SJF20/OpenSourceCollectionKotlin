@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.ui.fragment.HomeFragment
  * Function: 我的收藏 ViewModel
  * Date: 2020/3/22 19:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class PersonalCollectionViewModel : WanAndroidBaseViewModel<PersonalCollectionRepository>() {
 

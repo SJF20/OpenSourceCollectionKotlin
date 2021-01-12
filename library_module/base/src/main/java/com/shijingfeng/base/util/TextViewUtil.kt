@@ -8,7 +8,7 @@ import android.text.TextWatcher
  * Function: TextView 相关 工具类
  * Date: 2020/10/22 17:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

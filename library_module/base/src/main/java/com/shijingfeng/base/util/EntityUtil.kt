@@ -8,7 +8,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 实体操作 工具类
  * Date: 2020/3/28 9:44
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

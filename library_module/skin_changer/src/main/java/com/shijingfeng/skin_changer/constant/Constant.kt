@@ -6,7 +6,7 @@ package com.shijingfeng.skin_changer.constant
  * Function: 皮肤相关的静态数据
  * Date: 2020/7/20 13:40
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** SkinChanger SharedPreferences 名字 */

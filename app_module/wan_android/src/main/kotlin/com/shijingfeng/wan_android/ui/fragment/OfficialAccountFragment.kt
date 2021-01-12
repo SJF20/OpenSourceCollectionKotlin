@@ -40,7 +40,7 @@ internal fun createOfficialAccountFragment() = OfficialAccountFragment()
  * Function: 公众号 Fragment
  * Date: 2020/2/12 17:02
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT)
 internal class OfficialAccountFragment : WanAndroidBaseFragment<FragmentWanAndroidOfficialAccountBinding, OfficialAccountViewModel>() {

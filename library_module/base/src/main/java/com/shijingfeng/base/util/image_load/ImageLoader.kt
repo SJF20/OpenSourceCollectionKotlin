@@ -22,7 +22,7 @@ fun getImageLoaderInstance() = INSTANCE
  * Function: 图片加载器
  * Date: 2020/1/23 21:16
  * Description: (用于屏蔽具体图片加载框架)
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class ImageLoader {
 

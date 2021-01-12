@@ -26,7 +26,7 @@ import kotlin.random.Random
  * Function: 下雪 View
  * Date: 2020/10/16 12:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SnowView @JvmOverloads constructor(
     /** Context环境  */

@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.entity.ResultEntity
  * Function: 协程 工具类
  * Date: 2020/11/23 10:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal fun <T> apiRequest(
     result: ResultEntity<T>,

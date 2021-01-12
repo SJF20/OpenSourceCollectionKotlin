@@ -6,7 +6,7 @@ import android.view.KeyEvent
  * Function: 模拟 Activity OnKeyDown
  * Date: 2020/3/21 21:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface KeyDownMonitor {
 

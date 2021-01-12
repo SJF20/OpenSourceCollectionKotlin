@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.EventBus
  * Function: ViewModel基类
  * Date: 2020/1/17 19:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseViewModel<R : BaseRepository<*, *>>(
     savedStateHandle: SavedStateHandle? = null

@@ -8,7 +8,7 @@ import com.shijingfeng.base.mvp.view.IView
  * Function: 首页 契约类
  * Date: 2020/9/29 10:43
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface MainContract {
 

@@ -31,7 +31,7 @@ internal lateinit var pushAgent: PushAgent
  * Function: App 模块 Application
  * Date: 2020/2/2 22:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class AppApplication : BaseApplication(), Configuration.Provider {
 

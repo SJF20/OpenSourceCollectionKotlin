@@ -44,7 +44,7 @@ internal fun createSquareFragment() = SquareFragment()
  * Function: 广场 Fragment
  * Date: 2020/2/12 17:07
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_SQUARE)
 @BindEventBus

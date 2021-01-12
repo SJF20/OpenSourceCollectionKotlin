@@ -21,7 +21,7 @@ import com.shijingfeng.wan_android.view_model.LoginViewModel
  * Function: 登录 Activity
  * Date: 2020/2/4 20:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_LOGIN)
 internal class LoginActivity : WanAndroidBaseActivity<ActivityWanAndroidLoginBinding, LoginViewModel>() {

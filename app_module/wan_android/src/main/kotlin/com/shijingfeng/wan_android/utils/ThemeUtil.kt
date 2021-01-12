@@ -12,7 +12,7 @@ import com.shijingfeng.wan_android.common.constant.THEME_NAME
  * Function: 主题 工具类
  * Date: 2020/5/31 16:37
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal object ThemeUtil {
 

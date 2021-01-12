@@ -8,7 +8,7 @@ import com.shijingfeng.base.BuildConfig
  * Function: 日志工具类
  * Date: 2020/1/18 16:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 private var sEnable = BuildConfig.DEBUG

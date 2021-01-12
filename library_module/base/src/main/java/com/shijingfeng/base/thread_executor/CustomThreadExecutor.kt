@@ -33,7 +33,7 @@ internal fun getCustomThreadExecutorInstance(): CustomThreadExecutor {
  * Function: 自定义线程池
  * Date: 2020/12/7 11:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class CustomThreadExecutor @JvmOverloads constructor(
     corePoolSize: Int = DEFAULT_THREAD_COUNT,

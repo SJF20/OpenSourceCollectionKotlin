@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets
  * Function: 安全 工具类
  * Date: 2020/2/2 21:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 仅支持16位密码  */

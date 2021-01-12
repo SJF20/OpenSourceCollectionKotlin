@@ -48,7 +48,7 @@ import java.io.File
  * Function: Fragment 基类
  * Date: 2020/3/21 13:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, CoroutineScope by MainScope() {
 
@@ -114,6 +114,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         super.onViewCreated(view, savedInstanceState)
         if (!isEnableLazyLoad()) {
             init(savedInstanceState)
+            mHasCreated = true
         }
     }
 
@@ -125,6 +126,7 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         mIsVisible = true
         if (isEnableLazyLoad() && !mHasCreated) {
             init()
+            mHasCreated = true
         }
         //初始化状态栏
         initStatusBar()
@@ -143,7 +145,6 @@ abstract class BaseFragment : Fragment(), KeyDownMonitor, BackPressMonitor, Coro
         initParam()
         initData()
         initAction()
-        mHasCreated = true
     }
 
     /**

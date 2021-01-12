@@ -45,7 +45,7 @@ import java.util.*
  * Function: 首页 列表适配器
  * Date: 2020/2/3 21:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HomeAdapter(
     context: Context,

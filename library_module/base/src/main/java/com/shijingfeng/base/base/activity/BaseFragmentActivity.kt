@@ -8,7 +8,7 @@ import com.shijingfeng.base.common.constant.NO_LAYOUT
  * Function: 实现 单Activity多Fragment 架构的 Activity 基类
  * Date: 2020/3/21 12:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseFragmentActivity : BaseActivity() {
 

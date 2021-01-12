@@ -6,7 +6,7 @@ package com.shijingfeng.weather.common.constant
  * Function: 通用静态常量
  * Date: 2020/10/26 16:47
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 选择城市 */

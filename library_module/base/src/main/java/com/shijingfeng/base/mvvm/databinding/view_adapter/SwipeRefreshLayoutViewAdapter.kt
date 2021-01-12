@@ -10,7 +10,7 @@ import com.shijingfeng.base.common.extension.onSwipeRefresh
  * Function: 下拉刷新 View适配器
  * Date: 2020/1/27 15:59
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

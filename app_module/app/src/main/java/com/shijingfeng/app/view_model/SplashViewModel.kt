@@ -14,7 +14,7 @@ import com.shijingfeng.base.common.global.runOnUiThread
  * Function: 启动页 ViewModel
  * Date: 2020/3/16 13:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SplashViewModel : AppBaseViewModel<SplashRepository>() {
 

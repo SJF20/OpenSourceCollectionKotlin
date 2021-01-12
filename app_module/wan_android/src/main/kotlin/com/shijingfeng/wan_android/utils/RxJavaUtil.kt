@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
  * Function: RxJava 工具类
  * Date: 2020/3/19 12:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

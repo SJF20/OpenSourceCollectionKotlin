@@ -12,7 +12,7 @@ import retrofit2.http.*
  * Function: 搜索相关 Api
  * Date: 20-5-3 下午8:48
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal interface SearchApi {
 

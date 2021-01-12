@@ -23,7 +23,7 @@ import com.shijingfeng.skin_changer.global.getSkinType
  * Function: 资源管理器
  * Date: 2020/7/20 13:34
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class ResourcesManager(
     /** Resources 资源类 */

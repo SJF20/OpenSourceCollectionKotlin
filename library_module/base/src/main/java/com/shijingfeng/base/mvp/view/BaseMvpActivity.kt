@@ -10,7 +10,7 @@ import com.shijingfeng.base.mvp.presenter.IPresenter
  * Function: MVP架构 View层 Activity基类
  * Date: 2020/9/28 10:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseMvpActivity<V : ViewBinding, P : IPresenter> : BaseNormalActivity() {
 

@@ -19,7 +19,7 @@ import com.shijingfeng.wan_android.view_model.AboutUsViewModel
  * Function: 主页 -> 侧边栏 -> 关于我们 Activity
  * Date: 20-4-6 下午11:00
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_ABOUT_US)
 internal class AboutUsActivity : WanAndroidBaseActivity<ActivityWanAndroidAboutUsBinding, AboutUsViewModel>() {

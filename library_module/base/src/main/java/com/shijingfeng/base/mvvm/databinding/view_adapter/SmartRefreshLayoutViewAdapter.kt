@@ -11,7 +11,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
  * Function: SmartRefreshLayout View适配器
  * Date: 2020/1/27 14:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

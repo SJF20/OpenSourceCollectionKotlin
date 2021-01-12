@@ -7,7 +7,7 @@ import com.shijingfeng.wan_android.entity.PersonalCollectionWebsiteEntity
  * Function: 网站收藏相关 Event
  * Date: 2020/2/3 19:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class WebsiteCollectionEvent(
 

@@ -31,7 +31,7 @@ import com.shijingfeng.weather.common.constant.WIND
  * Function:
  * Date: 2020/10/12 17:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

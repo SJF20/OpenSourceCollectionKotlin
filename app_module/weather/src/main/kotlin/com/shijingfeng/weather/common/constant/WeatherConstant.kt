@@ -6,7 +6,7 @@ package com.shijingfeng.weather.common.constant
  * Function: 天气相关静态字符串
  * Date: 2020/10/14 14:44
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 未知天气类型 */

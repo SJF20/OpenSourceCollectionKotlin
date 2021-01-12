@@ -14,7 +14,7 @@ import com.shijingfeng.base.base.application.application
  * Function: WebView工具类
  * Date: 2020/2/2 21:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

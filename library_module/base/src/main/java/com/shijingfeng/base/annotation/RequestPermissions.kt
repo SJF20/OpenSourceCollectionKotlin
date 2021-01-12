@@ -4,7 +4,7 @@ package com.shijingfeng.base.annotation
  * Function: 请求权限 注解
  * Date: 2020/7/31 12:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)

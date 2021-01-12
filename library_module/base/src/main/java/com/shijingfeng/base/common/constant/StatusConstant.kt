@@ -6,7 +6,7 @@ package com.shijingfeng.base.common.constant
  * Author: ShiJingFeng
  * Date: 2019/12/7 14:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** LoadService状态: 成功  */

@@ -27,7 +27,7 @@ import com.shijingfeng.base.widget.dialog.LoadingDialog
  * Function: MVVM架构 Fragment 基类
  * Date: 2020/3/21 21:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : BaseFragment() {
 
@@ -80,7 +80,6 @@ abstract class BaseMvvmFragment<V : ViewDataBinding, VM : BaseViewModel<*>> : Ba
                 viewModel.init()
             }
         }
-        mHasCreated = true
     }
 
     /**

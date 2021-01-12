@@ -18,7 +18,7 @@ import com.shijingfeng.wan_android.utils.ThemeUtil
  * Function: 主题颜色 适配器
  * Date: 2020/5/31 11:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ThemeColorAdapter(
     context: Context

@@ -29,7 +29,7 @@ const val PERSONAL_COLLECTION_ARTICLE_FIRST_PAGE = 0
  * Function: 我的收藏 -> 收藏文章列表 ViewModel
  * Date: 2020/3/24 22:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class PersonalCollectionArticleViewModel : WanAndroidBaseViewModel<PersonalCollectionArticleRepository>() {
 

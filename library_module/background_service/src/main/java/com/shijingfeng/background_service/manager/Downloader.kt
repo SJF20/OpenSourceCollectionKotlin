@@ -16,7 +16,7 @@ import java.util.concurrent.*
  * Function: 下载管理器
  * Date: 2020/5/27 21:40
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class Downloader private constructor(
     /** 构建器 */

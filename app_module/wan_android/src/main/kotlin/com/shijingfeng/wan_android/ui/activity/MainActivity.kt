@@ -86,7 +86,7 @@ private const val FRAGMENT_COUNT = 5
  * Function: 首页 Activity
  * Date: 2020/2/11 13:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @BindEventBus
 @Route(path = ACTIVITY_WAN_ANDROID_MAIN)

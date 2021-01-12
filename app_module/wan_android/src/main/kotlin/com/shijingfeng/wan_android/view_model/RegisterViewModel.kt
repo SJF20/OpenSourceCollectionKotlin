@@ -21,7 +21,7 @@ import java.util.*
  * Function: 注册页面 ViewModel
  * Date: 2020/2/5 15:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class RegisterViewModel : WanAndroidBaseViewModel<RegisterRepository>() {
 

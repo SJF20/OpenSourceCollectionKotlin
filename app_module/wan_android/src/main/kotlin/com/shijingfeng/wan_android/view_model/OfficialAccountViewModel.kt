@@ -14,7 +14,7 @@ import com.shijingfeng.wan_android.source.repository.getOfficialAccountRepositor
  * Function: 公众号 ViewModel
  * Date: 2020/2/12 17:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class OfficialAccountViewModel : WanAndroidBaseViewModel<OfficialAccountRepository>() {
 

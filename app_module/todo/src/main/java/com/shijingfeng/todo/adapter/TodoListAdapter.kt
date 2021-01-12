@@ -20,7 +20,7 @@ import com.shijingfeng.todo.entity.adapter.TodoListItem
  * Function: 主页 -> 待办 分组后的 适配器
  * Date: 2020/5/19 21:08
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoListAdapter(
     context: Context,

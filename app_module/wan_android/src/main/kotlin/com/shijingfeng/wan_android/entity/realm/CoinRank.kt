@@ -10,7 +10,7 @@ import io.realm.annotations.Required
  * Function: 积分排行榜 Realm 实体类 集合
  * Date: 2020/5/11 14:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @RealmClass(name = "coin_rank")
 internal open class CoinRankRealm(

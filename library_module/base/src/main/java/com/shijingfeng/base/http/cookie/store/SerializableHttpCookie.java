@@ -12,7 +12,7 @@ import okhttp3.Cookie;
  * Author: ShiJingFeng
  * Date: 2019/10/12 13:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public class SerializableHttpCookie implements Serializable {
     private static final long serialVersionUID = 6374381323722046732L;

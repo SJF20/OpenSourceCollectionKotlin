@@ -13,7 +13,7 @@ import kotlin.random.Random
  * Function: 雷电 View
  * Date: 2020/10/16 13:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 // FIXME 目前不需要，暂时未完成
 internal class ThunderView @JvmOverloads constructor(

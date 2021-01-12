@@ -19,7 +19,7 @@ import com.shijingfeng.todo.entity.adapter.TodoChildTextItem
  * Function: Item Child 适配器
  * Date: 2020/9/17 22:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoChildAdapter(
     context: Context,

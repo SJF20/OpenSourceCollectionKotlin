@@ -32,7 +32,7 @@ internal fun getSearchListRepositoryInstance(
  * Function: 搜索列表 仓库
  * Date: 20-5-3 下午9:09
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchListRepository(
     networkSource: SearchListNetworkSource? = null

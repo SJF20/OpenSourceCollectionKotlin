@@ -17,7 +17,7 @@ import retrofit2.http.Query
  * Function: 文章 API
  * Date: 2020/2/12 10:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface ArticleApi {
 

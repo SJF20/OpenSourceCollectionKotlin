@@ -15,7 +15,7 @@ private const val DISK_CACHE_SIZE_BYTES: Long = 1024L * 1024L * 500L
  * Function: 自定义 Glide
  * Date: 2020/1/23 21:03
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @GlideModule
 class CustomGlide : AppGlideModule() {

@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 积分信息 实体类
  * Date: 2020/2/3 16:10
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class CoinInfoEntity(
 

@@ -7,7 +7,7 @@ import com.shijingfeng.base.util.*
  * Author: ShiJingFeng
  * Date: 2019/11/14 10:43
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseEntity {
 

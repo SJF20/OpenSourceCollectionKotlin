@@ -9,7 +9,7 @@ import com.google.gson.stream.JsonWriter
  * Function: Gson Int 类型 适配器
  * Date: 2020/5/16 22:05
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class IntTypeAdapter : TypeAdapter<Int>() {
 

@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 20-4-7 下午10:11
  * Description:
  *
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @IntDef({
     // Glide输出源: Drawable

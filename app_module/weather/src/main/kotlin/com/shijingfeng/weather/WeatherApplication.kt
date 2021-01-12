@@ -15,7 +15,7 @@ import java.util.concurrent.Executors
  * Function: 天气 Application (只有设置为 application 单独调试时，才会调用)
  * Date: 2020/9/27 17:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WeatherApplication : BaseApplication(), Configuration.Provider {
 

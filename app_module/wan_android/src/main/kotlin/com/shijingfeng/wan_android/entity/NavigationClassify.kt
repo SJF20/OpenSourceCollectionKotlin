@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 导航数据 实体类 集合
  * Date: 2020/2/4 15:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

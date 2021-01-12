@@ -21,7 +21,7 @@ import kotlin.math.sqrt
  * Function:
  * Date: 2020/8/13 17:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class MarkerView @JvmOverloads constructor(
     /** Context环境  */

@@ -8,7 +8,7 @@ import java.io.File
  * Function: 目录 静态常量
  * Date: 2020/1/18 19:02
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 内部存储 -> 应用私有目录 -> file目录  /data/data/<application package>/files/ */

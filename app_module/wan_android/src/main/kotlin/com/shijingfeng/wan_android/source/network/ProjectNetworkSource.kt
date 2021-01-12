@@ -31,7 +31,7 @@ internal fun getProjectNetworkSourceInstance(): ProjectNetworkSource {
  * Function: 项目 网络源
  * Date: 2020/4/21 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ProjectNetworkSource : BaseNetworkSource() {
 

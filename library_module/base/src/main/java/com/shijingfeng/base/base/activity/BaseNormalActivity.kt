@@ -42,7 +42,7 @@ import com.shijingfeng.base.widget.LoadingView
  * Function: 通用的 Activity 基类
  * Date: 2020/3/21 10:48
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseNormalActivity : BaseActivity(), CoroutineScope by MainScope() {
 

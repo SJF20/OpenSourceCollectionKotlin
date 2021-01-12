@@ -39,7 +39,7 @@ internal fun getHomeRepositoryInstance(
  * Function: 首页 仓库
  * Date: 2020/2/12 13:21
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class HomeRepository(
     localSource: HomeLocalSource? = null,

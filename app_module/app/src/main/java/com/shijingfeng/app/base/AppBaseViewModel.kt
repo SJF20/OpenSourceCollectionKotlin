@@ -7,6 +7,6 @@ import com.shijingfeng.base.mvvm.viewmodel.BaseViewModel
  * Function: app 模块 ViewModel 基类
  * Date: 2020/2/2 22:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class AppBaseViewModel<R : BaseRepository<*, *>> : BaseViewModel<R>()

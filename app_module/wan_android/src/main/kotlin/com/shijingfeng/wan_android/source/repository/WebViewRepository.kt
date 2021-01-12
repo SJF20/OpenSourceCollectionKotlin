@@ -33,7 +33,7 @@ internal fun getWebViewRepositoryInstance(
  * Function: WebView容器 仓库
  * Date: 2020/3/24 11:41
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WebViewRepository(
     networkSource: WebViewNetworkSource? = null

@@ -37,7 +37,7 @@ internal const val TO_DO_LIST_FIRST_PAGE = 1
  * Function: 主页 -> 待办 ViewModel
  * Date: 2020/5/19 9:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoListViewModel : TodoBaseViewModel<TodoListRepository>() {
 

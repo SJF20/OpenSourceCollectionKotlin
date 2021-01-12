@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.source.repository.getNavigationClassifyReposi
  * Function: 导航分类 ViewModel
  * Date: 2020/4/21 20:30
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class NavigationClassifyViewModel : WanAndroidBaseViewModel<NavigationClassifyRepository>() {
 

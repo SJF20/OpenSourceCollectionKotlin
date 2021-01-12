@@ -37,7 +37,7 @@ private const val FRAGMENT_COUNT = 2
  * Function: 我的收藏 Activity
  * Date: 2020/3/22 20:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION)
 internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAndroidPersonalCollectionBinding, PersonalCollectionViewModel>() {

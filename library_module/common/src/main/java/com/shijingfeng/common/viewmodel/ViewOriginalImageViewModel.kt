@@ -21,7 +21,7 @@ import okhttp3.ResponseBody
  * Function: 查看原图 ViewModel
  * Date: 2020/1/29 9:41
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ViewOriginalImageViewModel : CommonBaseViewModel<ViewOriginalImageRepository>() {
 

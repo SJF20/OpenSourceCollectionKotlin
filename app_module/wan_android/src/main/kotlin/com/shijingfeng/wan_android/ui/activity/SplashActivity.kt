@@ -15,7 +15,7 @@ import com.shijingfeng.wan_android.view_model.SplashViewModel
  * Function: 启动页 Activity
  * Date: 2020/2/4 21:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SPLASH)
 internal class SplashActivity : WanAndroidBaseActivity<ViewDataBinding, SplashViewModel>() {

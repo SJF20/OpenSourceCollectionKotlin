@@ -12,7 +12,7 @@ import kotlin.Exception
  * Function: 扩展函数, 别名 等扩展操作
  * Date: 2020/7/22 15:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

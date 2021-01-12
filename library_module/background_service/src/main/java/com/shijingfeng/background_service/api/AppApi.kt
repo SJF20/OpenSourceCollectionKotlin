@@ -12,7 +12,7 @@ import retrofit2.http.*
  * Function: App 操作相关 Api
  * Date: 2020/5/23 23:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface AppApi {
 

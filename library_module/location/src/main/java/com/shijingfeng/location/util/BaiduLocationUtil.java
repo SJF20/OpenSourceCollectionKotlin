@@ -24,7 +24,7 @@ import static com.shijingfeng.location.constant.Constant.LONGITUDE;
  * Author: ShiJingFeng
  * Date: 2020/3/23 12:30
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public class BaiduLocationUtil {
 

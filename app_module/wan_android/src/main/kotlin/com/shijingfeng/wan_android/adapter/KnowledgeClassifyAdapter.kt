@@ -20,7 +20,7 @@ import java.util.*
  * Function: 知识体系 RecyclerView适配器
  * Date: 2020/2/4 11:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class KnowledgeClassifyAdapter(
     context: Context,

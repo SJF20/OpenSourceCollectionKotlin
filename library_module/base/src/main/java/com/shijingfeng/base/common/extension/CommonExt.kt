@@ -10,7 +10,7 @@ import com.shijingfeng.base.http.exception.E
  * Function: 通用 扩展类
  * Date: 2020/2/13 22:16
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 成功回调 */

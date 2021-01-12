@@ -12,7 +12,7 @@ import com.shijingfeng.todo.ui.activity.MAIN_NEED_TO_DO
  * Function: 主页 ViewModel
  * Date: 2020/3/18 23:01
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class MainViewModel : TodoBaseViewModel<MainRepository>() {
 

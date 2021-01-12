@@ -8,7 +8,7 @@ import java.io.File
  * Function: wan_android模块相关 目录 静态常量
  * Date: 2020/7/19 17:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 内部存储 -> 应用私有目录 -> skin目录  /data/data/<application package>/files/skin/ */

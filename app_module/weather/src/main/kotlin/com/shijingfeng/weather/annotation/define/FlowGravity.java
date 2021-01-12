@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/9/24 15:47
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     FlowGravity.FLOW_GRAVITY_CENTER,

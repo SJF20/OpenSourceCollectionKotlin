@@ -5,7 +5,7 @@ package com.shijingfeng.base.common.constant
  * Function: 配置相关 静态字符串
  * Date: 2020/5/23 23:56
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 蒲公英 App Key (用于检测版本更新 和 下载应用) */

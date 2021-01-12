@@ -10,7 +10,7 @@ import com.shijingfeng.base.util.d
  * Function: weather 模块 Fragment 基类
  * Date: 2020/2/3 14:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class WeatherBaseFragment<V : ViewBinding, P : IPresenter> : BaseMvpFragment<V, P>() {
 

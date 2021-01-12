@@ -42,7 +42,7 @@ import com.shijingfeng.wan_android.view_model.SearchViewModel
  * Function: 搜索 Activity
  * Date: 20-5-4 下午5:40
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_SEARCH)
 internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchBinding, SearchViewModel>() {

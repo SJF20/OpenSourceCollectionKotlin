@@ -22,7 +22,7 @@ import com.shijingfeng.base.util.image_load.getImageLoaderInstance
  * Function: TextView 富文本 图片获取器
  * Date: 20-4-7 上午10:51
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 class RichTextImageGetter(
     private val mContext: Context,

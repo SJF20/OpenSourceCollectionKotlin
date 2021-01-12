@@ -23,7 +23,7 @@ import com.shijingfeng.todo.entity.Image.Companion.IMAGE_TYPE_NETWORK
  * Function: Item Grandchild 适配器
  * Date: 2020/9/17 22:31
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoGrandchildImageAdapter(
     context: Context,

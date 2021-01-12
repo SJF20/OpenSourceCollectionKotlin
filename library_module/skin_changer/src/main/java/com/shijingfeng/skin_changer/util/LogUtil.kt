@@ -9,7 +9,7 @@ import com.shijingfeng.skin_changer.BuildConfig
  * Function: 日志工具类
  * Date: 2020/7/20 15:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** SkinChanger 日志 */

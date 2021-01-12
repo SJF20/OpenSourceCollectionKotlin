@@ -28,7 +28,7 @@ lateinit var application: BaseApplication
  * Function:  Application基类
  * Date: 2020/1/18 16:38
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseApplication : Application() {
 

@@ -14,7 +14,7 @@ import com.shijingfeng.base.common.constant.GROUP_WAN_ANDROID
  * Function: 登录拦截器
  * Date: 2020/1/28 10:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Interceptor(priority = 1, name = "登录拦截")
 internal class LoginInterceptor : IInterceptor {

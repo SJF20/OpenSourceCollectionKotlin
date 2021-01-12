@@ -12,7 +12,7 @@ import retrofit2.http.Headers
  * Function: 轮播图 Api
  * Date: 2020/2/12 10:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface BannerApi {
 

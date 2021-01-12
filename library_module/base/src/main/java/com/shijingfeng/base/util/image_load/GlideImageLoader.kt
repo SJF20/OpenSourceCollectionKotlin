@@ -27,7 +27,7 @@ const val AS_FILE = 4
  * Function: Glide 图片加载器
  * Date: 2020/1/23 21:36
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class GlideImageLoader : ImageLoader() {
 

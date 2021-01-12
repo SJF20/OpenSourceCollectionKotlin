@@ -12,7 +12,7 @@ import com.shijingfeng.base.util.getStringById
  * Function: 全局降级 Service (项目中只允许有一个 DegradeService 子类, 否则执行最新加载的那一个)
  * Date: 2020/1/28 10:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = PROVIDER_BASE_COMMON_DEGRADE_SERVICE)
 internal class DegradeServiceImpl : DegradeService {

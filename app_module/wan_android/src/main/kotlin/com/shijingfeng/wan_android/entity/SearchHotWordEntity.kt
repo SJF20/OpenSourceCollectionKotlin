@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 搜索热词 实体类
  * Date: 20-5-3 下午10:07
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal data class SearchHotWordEntity(
 

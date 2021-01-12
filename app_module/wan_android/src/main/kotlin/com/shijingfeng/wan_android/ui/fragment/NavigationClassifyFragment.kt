@@ -31,7 +31,7 @@ internal fun createNavigationClassifyFragment() = NavigationClassifyFragment()
  * Function: 导航分类 Fragment
  * Date: 2020/4/21 20:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_KNOWLEDGE_CLASSIFY)
 internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAndroidNavigationClassifyBinding, NavigationClassifyViewModel>() {

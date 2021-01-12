@@ -9,7 +9,7 @@ import java.util.*
  * Function: 首页 文章 实体类 集合
  * Date: 2020/2/3 19:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

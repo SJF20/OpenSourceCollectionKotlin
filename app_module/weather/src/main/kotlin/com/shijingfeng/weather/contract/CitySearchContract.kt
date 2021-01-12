@@ -14,7 +14,7 @@ import com.shijingfeng.weather.entity.Weather
  * Function: 城市搜索 契约类
  * Date: 2020/10/9 12:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface CitySearchContract {
 

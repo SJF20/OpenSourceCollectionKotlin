@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
  * Function: 自定义可点击的ImageSpan
  * Date: 2020/2/2 20:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public abstract class ClickableImageSpan extends ImageSpan {
 

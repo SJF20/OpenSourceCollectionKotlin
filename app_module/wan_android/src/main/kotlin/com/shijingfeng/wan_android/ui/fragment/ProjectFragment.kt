@@ -39,7 +39,7 @@ internal fun createProjectFragment() = ProjectFragment()
  * Function: 项目 Fragment
  * Date: 2020/2/12 17:11
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_PROJECT)
 internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjectBinding, ProjectViewModel>() {

@@ -36,7 +36,7 @@ import kotlin.Exception
  * Function: 城市搜索 页面
  * Date: 2020/10/22 17:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WEATHER_CITY_SEARCH)
 internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearchBinding, CitySearchContract.Presenter>(), CitySearchContract.View {

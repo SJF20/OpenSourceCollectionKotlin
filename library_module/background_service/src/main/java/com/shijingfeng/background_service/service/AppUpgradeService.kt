@@ -59,7 +59,7 @@ fun stopAppUpgradeService() {
  * Function: 应用升级 Service
  * Date: 2020/5/27 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class AppUpgradeService : Service() {
 

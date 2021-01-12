@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 天气 实体类
  * Date: 2020/10/9 16:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 internal data class Weather(

@@ -13,7 +13,7 @@ import com.shijingfeng.wan_android.entity.adapter.SearchHistoryItem
  * Function: 搜索页面 -> 搜索历史 适配器
  * Date: 2020/5/5 17:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SearchHistoryAdapter(
     context: Context,

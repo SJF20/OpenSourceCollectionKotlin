@@ -33,7 +33,7 @@ internal fun getCoinRecordRepositoryInstance(
  * Function: 积分记录 Repository
  * Date: 2020/3/16 21:47
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRecordRepository(
     networkSource: CoinRecordNetworkSource? = null

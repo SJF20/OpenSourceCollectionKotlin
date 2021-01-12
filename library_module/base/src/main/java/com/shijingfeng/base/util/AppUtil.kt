@@ -14,7 +14,7 @@ import kotlin.system.exitProcess
  * Function: 应用操作相关 工具类
  * Date: 2020/5/24 21:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

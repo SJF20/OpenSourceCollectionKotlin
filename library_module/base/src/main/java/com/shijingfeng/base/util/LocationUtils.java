@@ -29,7 +29,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
  * Date: 2020/10/28 21:24
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public final class LocationUtils {
 

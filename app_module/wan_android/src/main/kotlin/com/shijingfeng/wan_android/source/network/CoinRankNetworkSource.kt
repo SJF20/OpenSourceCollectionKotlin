@@ -32,7 +32,7 @@ internal fun getCoinRankNetworkSourceInstance(): CoinRankNetworkSource {
  * Function: 积分排行榜 网络源
  * Date: 2020/3/12 22:25
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRankNetworkSource : BaseNetworkSource() {
 

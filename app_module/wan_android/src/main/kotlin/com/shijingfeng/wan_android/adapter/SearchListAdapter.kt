@@ -27,7 +27,7 @@ import java.util.ArrayList
  * Function: 搜索列表 适配器
  * Date: 2020/5/6 11:04
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SearchListAdapter(
     context: Context,

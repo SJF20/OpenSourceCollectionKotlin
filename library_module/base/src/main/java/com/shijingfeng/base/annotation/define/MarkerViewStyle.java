@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/8/27 15:55
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     MarkerViewStyle.STYLE_TRIANGLE,

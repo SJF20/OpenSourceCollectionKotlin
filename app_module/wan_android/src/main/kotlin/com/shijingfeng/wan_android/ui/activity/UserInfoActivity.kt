@@ -14,7 +14,7 @@ import com.shijingfeng.wan_android.view_model.UserInfoViewModel
  * Function: 用户信息 Activity
  * Date: 20-4-6 下午11:00
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_USER_INFO)
 internal class UserInfoActivity : WanAndroidBaseActivity<ActivityWanAndroidUserInfoBinding, UserInfoViewModel>() {

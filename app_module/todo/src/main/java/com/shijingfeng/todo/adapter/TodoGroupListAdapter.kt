@@ -15,7 +15,7 @@ import com.shijingfeng.todo.entity.adapter.TodoListItem
  * Function: 主页 -> 待办 适配器
  * Date: 2020/5/21 15:17
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class TodoGroupListAdapter(
     context: Context,

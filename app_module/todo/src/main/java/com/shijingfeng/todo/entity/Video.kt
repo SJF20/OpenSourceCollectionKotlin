@@ -4,7 +4,7 @@ package com.shijingfeng.todo.entity
  * Function:
  * Date: 2020/9/17 20:58
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class Video(
 

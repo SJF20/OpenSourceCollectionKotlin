@@ -25,7 +25,7 @@ import kotlin.IllegalArgumentException
  * Function: 城市数据 管理器
  * Date: 2020/10/31 16:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CityDataManager private constructor() {
 

@@ -25,7 +25,7 @@ const val COIN_RECORD_FIRST_PAGE = 1
  * Function: 积分记录 ViewModel
  * Date: 2020/3/16 21:51
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRecordViewModel : WanAndroidBaseViewModel<CoinRecordRepository>() {
 

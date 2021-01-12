@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 我的收藏 -> 网站收藏列表 实体类
  * Date: 2020/3/25 22:37
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class PersonalCollectionWebsiteEntity(
 

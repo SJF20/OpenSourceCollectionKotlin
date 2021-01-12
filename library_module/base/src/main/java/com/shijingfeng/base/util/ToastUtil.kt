@@ -8,7 +8,7 @@ import com.shijingfeng.base.BuildConfig
  * Function: 吐司 工具类
  * Date: 20-4-25 上午10:05
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 
 /**

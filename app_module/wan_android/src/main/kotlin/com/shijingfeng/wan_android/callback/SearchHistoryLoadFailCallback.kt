@@ -7,7 +7,7 @@ import com.shijingfeng.wan_android.R
  * Function: 搜索页面 -> 搜索历史 -> 加载失败 Callback
  * Date: 20-5-4 下午11:06
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchHistoryLoadFailCallback : Callback() {
 

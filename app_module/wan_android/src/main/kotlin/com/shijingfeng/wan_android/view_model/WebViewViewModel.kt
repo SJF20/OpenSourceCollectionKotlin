@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus
  * Function: 通用 WebView ViewModel
  * Date: 2020/3/13 20:02
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WebViewViewModel : WanAndroidBaseViewModel<WebViewRepository>() {
 

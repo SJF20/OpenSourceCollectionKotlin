@@ -6,7 +6,7 @@ package com.shijingfeng.location.constant
  * Function: 静态常量
  * Date: 2020/10/10 16:39
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 经度 */

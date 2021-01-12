@@ -17,7 +17,7 @@ import com.shijingfeng.wan_android.view_model.COIN_RECORD_FIRST_PAGE
  * Function: 积分 Api
  * Date: 2020/2/10 16:22
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface CoinApi {
 

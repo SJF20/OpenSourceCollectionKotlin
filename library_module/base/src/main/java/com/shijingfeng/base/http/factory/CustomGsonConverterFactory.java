@@ -17,7 +17,7 @@ import retrofit2.Retrofit;
  * Author: ShiJingFeng
  * Date: 2019/10/11 12:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public final class CustomGsonConverterFactory extends Converter.Factory {
 

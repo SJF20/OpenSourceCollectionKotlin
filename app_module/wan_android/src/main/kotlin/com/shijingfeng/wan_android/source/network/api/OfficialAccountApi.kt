@@ -14,7 +14,7 @@ import retrofit2.http.Path
  * Function: 公众号 相关 Api
  * Date: 2020/4/29 16:55
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface OfficialAccountApi {
 

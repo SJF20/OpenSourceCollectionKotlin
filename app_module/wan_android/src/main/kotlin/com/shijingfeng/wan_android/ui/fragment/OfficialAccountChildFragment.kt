@@ -50,7 +50,7 @@ internal fun createOfficialAccountChildFragment(bundle: Bundle) = OfficialAccoun
  * Function: 公众号 文章列表 Fragment
  * Date: 2020/4/29 16:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @BindEventBus
 @Route(path = FRAGMENT_WAN_ANDROID_OFFICIAL_ACCOUNT_CHILD)

@@ -9,7 +9,7 @@ import android.view.WindowManager
  * Function: Window 工具类
  * Date: 2020/1/18 22:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

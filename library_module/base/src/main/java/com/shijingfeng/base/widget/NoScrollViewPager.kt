@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager
  * Function: 禁止滑动 ViewPager
  * Date: 2020/2/2 20:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class NoScrollViewPager @JvmOverloads constructor(
     context: Context,

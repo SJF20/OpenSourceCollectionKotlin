@@ -13,7 +13,7 @@ import retrofit2.http.Path
  * Function: 广场相关 Api
  * Date: 2020/5/7 15:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface SquareApi {
 

@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
  * Function: 全局协程异常捕获器
  * Date: 2020/12/8 14:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class GlobalExceptionCatcher : CoroutineExceptionHandler {
 

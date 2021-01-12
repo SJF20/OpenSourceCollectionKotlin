@@ -17,7 +17,7 @@ import com.shijingfeng.wan_android.view_model.RegisterViewModel
  * Function: 注册 Activity
  * Date: 2020/2/5 16:23
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_REGISTER)
 internal class RegisterActivity: WanAndroidBaseActivity<ActivityWanAndroidRegisterBinding, RegisterViewModel>() {

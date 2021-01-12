@@ -14,7 +14,7 @@ import com.shijingfeng.wan_android.source.repository.getProjectRepositoryInstanc
  * Function: 项目 ViewModel
  * Date: 2020/2/12 17:10
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ProjectViewModel : WanAndroidBaseViewModel<ProjectRepository>() {
 

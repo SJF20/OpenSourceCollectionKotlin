@@ -26,7 +26,7 @@ import com.shijingfeng.wan_android.view_model.CoinRankViewModel
  * Function: 积分排行榜 页面
  * Date: 2020/3/12 22:46
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WAN_ANDROID_COIN_RANK)
 internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinRankBinding, CoinRankViewModel>() {

@@ -10,7 +10,7 @@ import androidx.databinding.BindingAdapter
  * Function: TextView View适配器
  * Date: 2020/1/27 16:01
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

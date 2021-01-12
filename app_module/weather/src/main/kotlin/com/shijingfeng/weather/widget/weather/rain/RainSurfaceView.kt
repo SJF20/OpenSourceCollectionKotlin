@@ -25,7 +25,7 @@ import kotlin.Exception
  * Function: 下雨 View
  * Date: 2020/10/12 15:50
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class RainSurfaceView @JvmOverloads constructor(
     /** Context环境  */

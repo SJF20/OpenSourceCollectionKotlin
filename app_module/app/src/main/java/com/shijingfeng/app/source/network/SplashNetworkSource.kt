@@ -25,7 +25,7 @@ internal fun getSplashNetworkSourceInstance(): SplashNetworkSource {
  * Function: 启动页 网络源
  * Date: 2020/5/23 15:51
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SplashNetworkSource : BaseNetworkSource() {
 

@@ -37,7 +37,7 @@ internal fun getCoinRankLocalSourceInstance(): CoinRankLocalSource {
  * Function: 积分排行榜 本地源
  * Date: 2020/5/11 14:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRankLocalSource : BaseLocalSource() {
 

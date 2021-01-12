@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.databinding.ActivityWanAndroidBmobTestBinding
  * Function: Bmob测试 Activity
  * Date: 2020/5/23 14:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class BmobTestActivity : WanAndroidBaseActivity<ActivityWanAndroidBmobTestBinding, WanAndroidBaseViewModel<*>>() {
 

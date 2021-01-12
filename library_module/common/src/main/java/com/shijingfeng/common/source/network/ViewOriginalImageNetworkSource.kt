@@ -38,7 +38,7 @@ internal fun getViewOriginalImageNetworkSourceInstance(): ViewOriginalImageNetwo
  * Function: 查看大图 网络源
  * Date: 2020/1/29 20:03
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ViewOriginalImageNetworkSource : BaseNetworkSource() {
 

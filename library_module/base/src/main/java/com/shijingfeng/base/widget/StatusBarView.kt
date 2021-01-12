@@ -10,7 +10,7 @@ import com.shijingfeng.base.util.*
  * Function: 自定义动态状态栏布局
  *
  * SkinCompatViewGroup: 换肤框架需处理自定义View 详情: https://github.com/ximsfei/Android-skin-support
- * @author shijingfeng
+ * Author: shijingfeng
  * @date 19-1-22
  */
 class StatusBarView @JvmOverloads constructor(

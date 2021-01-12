@@ -23,7 +23,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * Author: ShiJingFeng
  * Date: 2019/11/11 14:54
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 public class LoadingDialog {
 

@@ -7,7 +7,7 @@ import com.shijingfeng.base.R
  * Function: 暂无数据 Callback
  * Date: 2020/1/18 18:03
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class EmptyCallback : Callback() {
 

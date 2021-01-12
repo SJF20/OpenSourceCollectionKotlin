@@ -13,7 +13,7 @@ import com.shijingfeng.base.mvp.presenter.IPresenter
  * Function: MVP架构 View层 Fragment基类
  * Date: 2020/9/28 11:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseMvpFragment<V : ViewBinding, P : IPresenter> : BaseFragment() {
 
@@ -55,7 +55,6 @@ abstract class BaseMvpFragment<V : ViewBinding, P : IPresenter> : BaseFragment()
                 }
             }
         }
-        mHasCreated = true
     }
 
     /**

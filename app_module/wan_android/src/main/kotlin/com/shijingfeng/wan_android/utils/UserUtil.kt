@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus
  * Function: 用户工具类
  * Date: 2020/2/3 15:19
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal object UserUtil {
 

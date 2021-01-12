@@ -7,7 +7,7 @@ import com.shijingfeng.skin_changer.global.addIfNotExist
  * Function: Activity 管理器
  * Date: 2020/7/22 16:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ActivityManager {
 

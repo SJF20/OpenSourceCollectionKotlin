@@ -8,7 +8,7 @@ import java.util.ArrayList
  * Function: 广场 实体类
  * Date: 2020/5/7 14:57
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class SquareEntity(
 

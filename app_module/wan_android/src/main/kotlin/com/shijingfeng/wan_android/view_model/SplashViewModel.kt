@@ -11,7 +11,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Function: 启动页 ViewModel
  * Date: 2020/2/4 21:11
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SplashViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 

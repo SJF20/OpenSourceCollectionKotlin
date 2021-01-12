@@ -32,7 +32,7 @@ internal fun getPersonalCollectionArticleNetworkSourceInstance(): PersonalCollec
  * Function: 我的收藏 -> 收藏文章列表 网络源
  * Date: 2020/3/24 22:59
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class PersonalCollectionArticleNetworkSource : BaseNetworkSource() {
 

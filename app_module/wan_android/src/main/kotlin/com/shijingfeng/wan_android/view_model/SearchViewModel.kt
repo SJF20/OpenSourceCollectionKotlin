@@ -39,7 +39,7 @@ const val SEARCH_LIST_FIRST_PAGE = 0
  * Function: 搜索列表 ViewModel
  * Date: 20-5-3 下午9:26
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchViewModel : WanAndroidBaseViewModel<SearchRepository>() {
 

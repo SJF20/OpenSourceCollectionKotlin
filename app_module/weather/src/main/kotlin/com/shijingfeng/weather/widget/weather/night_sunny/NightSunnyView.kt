@@ -16,7 +16,7 @@ import kotlin.random.Random
  * Function: 夜晚晴 View
  * Date: 2020/10/16 16:15
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class NightSunnyView @JvmOverloads constructor(
     /** Context环境  */

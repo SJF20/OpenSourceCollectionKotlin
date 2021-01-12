@@ -10,7 +10,7 @@ import com.shijingfeng.base.util.e
  * Function: Activity 相关 扩展函数
  * Date: 2020/9/10 13:26
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

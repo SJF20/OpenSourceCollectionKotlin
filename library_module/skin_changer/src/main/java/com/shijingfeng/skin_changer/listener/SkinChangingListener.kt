@@ -4,7 +4,7 @@ package com.shijingfeng.skin_changer.listener
  * Function: 皮肤切换 回调监听器
  * Date: 2020/7/23 12:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 interface SkinChangingListener {
 

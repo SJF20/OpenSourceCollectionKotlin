@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Function: 用户信息 ViewModel
  * Date: 2020/2/12 17:06
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class UserInfoViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 

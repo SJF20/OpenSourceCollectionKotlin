@@ -6,7 +6,7 @@ package com.shijingfeng.weather.common.constant
  * Function: 高德相关 静态常量
  * Date: 2020/10/30 15:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 高德行政区: 国家 */

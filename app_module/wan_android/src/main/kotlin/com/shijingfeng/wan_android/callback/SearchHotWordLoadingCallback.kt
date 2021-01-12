@@ -7,7 +7,7 @@ import com.shijingfeng.wan_android.R
  * Function: 搜索页面 -> 热门搜索 -> 加载中 Callback
  * Date: 20-5-4 下午11:06
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchHotWordLoadingCallback : Callback() {
 

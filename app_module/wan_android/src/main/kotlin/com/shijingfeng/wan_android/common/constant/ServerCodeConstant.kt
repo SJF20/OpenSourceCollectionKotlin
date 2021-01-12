@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.common.constant
  * Function: 服务端状态码 静态常量
  * Date: 2020/2/3 15:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 请求成功  */

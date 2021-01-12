@@ -16,7 +16,7 @@ import com.shijingfeng.wan_android.source.repository.getKnowledgeClassifyReposit
  * Function: 知识体系 ViewModel
  * Date: 2020/4/21 20:30
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class KnowledgeClassifyViewModel : WanAndroidBaseViewModel<KnowledgeClassifyRepository>() {
 

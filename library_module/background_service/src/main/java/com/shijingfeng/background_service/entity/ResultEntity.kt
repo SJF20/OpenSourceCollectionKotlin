@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
  * Function: 请求服务器返回的结果
  * Date: 2020/2/4 16:08
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class ResultEntity<T>(
 

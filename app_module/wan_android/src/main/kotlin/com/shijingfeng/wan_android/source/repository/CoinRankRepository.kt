@@ -42,7 +42,7 @@ internal fun getCoinRankRepositoryInstance(
  * Function: 积分排名 Repository
  * Date: 2020/3/12 22:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CoinRankRepository(
     localSource: CoinRankLocalSource? = null,

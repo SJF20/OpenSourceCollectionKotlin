@@ -8,7 +8,7 @@ import java.util.*
  * Function: 我的收藏 -> 文章收藏列表 实体类 集合
  * Date: 2020/2/3 20:04
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

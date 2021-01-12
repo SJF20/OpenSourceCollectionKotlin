@@ -17,7 +17,7 @@ private const val TAG = "SingleLiveEvent"
  * Function: A lifecycle-aware observable that sends only new updates after subscription, used for events like navigation and Snackbar messages (防止循环更新).
  * Date: 2020/1/29 9:29
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 

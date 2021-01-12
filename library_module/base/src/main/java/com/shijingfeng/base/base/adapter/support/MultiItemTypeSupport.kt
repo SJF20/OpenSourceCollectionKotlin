@@ -7,7 +7,7 @@ import com.shijingfeng.base.base.entity.BaseEntity
  * Function: 多种Item类型支持
  * Date: 2020/1/23 20:58
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 interface MultiItemTypeSupport<T : BaseEntity> {
 

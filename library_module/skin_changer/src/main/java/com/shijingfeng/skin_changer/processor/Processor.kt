@@ -24,7 +24,7 @@ import org.json.JSONObject
  * Function: 处理器
  * Date: 2020/7/22 13:40
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class Processor(
     /** 主题渠道 */

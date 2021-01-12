@@ -20,7 +20,7 @@ import com.shijingfeng.common.R
  * Function: 查看原图 ViewPager 适配器
  * Date: 2020/1/27 14:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class ViewOriginalImageAdapter(
     context: Context,

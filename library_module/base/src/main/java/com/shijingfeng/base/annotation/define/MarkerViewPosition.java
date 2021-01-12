@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/8/14 17:10
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     MarkerViewPosition.POSITION_LEFT_TOP,

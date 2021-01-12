@@ -33,7 +33,7 @@ internal fun getMainRepositoryInstance(
  * Function: 主页 仓库
  * Date: 2020/5/17 16:33
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class MainRepository(
     localSource: MainLocalSource? = null,

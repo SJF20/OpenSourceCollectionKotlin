@@ -8,7 +8,7 @@ import java.util.*
  * Function: 用户信息实体类
  * Date: 2020/2/3 15:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class UserInfoEntity(
 

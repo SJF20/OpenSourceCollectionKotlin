@@ -6,7 +6,7 @@ package com.shijingfeng.wan_android.common.constant
  * Author: ShiJingFeng
  * Date: 2019/12/7 14:12
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 搜索热词 LoadService状态: 成功  */

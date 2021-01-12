@@ -30,7 +30,7 @@ const val PROJECT_CHILD_FIRST_PAGE = 1
  * Function: 项目 二级数据 ViewModel
  * Date: 20-4-29 下午10:17
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class ProjectChildViewModel : WanAndroidBaseViewModel<ProjectChildRepository>() {
 

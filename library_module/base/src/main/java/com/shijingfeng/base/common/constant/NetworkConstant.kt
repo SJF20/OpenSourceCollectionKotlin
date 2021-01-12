@@ -6,7 +6,7 @@ package com.shijingfeng.base.common.constant
  * Author: ShiJingFeng
  * Date: 2019/10/11 18:24
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** BaseUrl动态替换 Header Name  */

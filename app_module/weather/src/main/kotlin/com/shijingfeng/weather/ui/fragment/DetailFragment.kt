@@ -11,7 +11,7 @@ import com.shijingfeng.weather.presenter.DetailPresenter
  * Function: 天气详情 Fragment
  * Date: 2020/10/9 11:39
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WEATHER_DETAIL)
 internal class DetailFragment : WeatherBaseFragment<FragmentWeatherDetailBinding, DetailContract.Presenter>(), DetailContract.View {

@@ -9,7 +9,7 @@ import com.shijingfeng.base.common.constant.DATA_SOURCE_NETWORK
  * Function: 积分排行榜 实体类 集合
  * Date: 2020/2/3 21:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

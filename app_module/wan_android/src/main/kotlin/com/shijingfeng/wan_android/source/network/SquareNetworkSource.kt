@@ -32,7 +32,7 @@ internal fun getSquareNetworkSourceInstance(): SquareNetworkSource {
  * Function: 广场 网络源
  * Date: 2020/4/21 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SquareNetworkSource : BaseNetworkSource() {
 

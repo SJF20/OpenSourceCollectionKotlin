@@ -7,7 +7,7 @@ import com.shijingfeng.weather.common.constant.*
  * Function: 城市数据 Event (数据已改变, 只用于通知适配器更新视图)
  * Date: 2020/10/30 21:20
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class CityDataChangeEvent(
 

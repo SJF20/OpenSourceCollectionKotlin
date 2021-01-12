@@ -44,7 +44,7 @@ internal fun createPersonalCollectionArticleFragment() = PersonalCollectionArtic
  * Function: 我的收藏 -> 收藏文章列表 Fragment
  * Date: 2020/3/24 22:53
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = FRAGMENT_WAN_ANDROID_PERSONAL_COLLECTION_ARTICLE)
 @BindEventBus

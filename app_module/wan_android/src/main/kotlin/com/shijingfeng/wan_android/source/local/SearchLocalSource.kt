@@ -37,7 +37,7 @@ internal fun getSearchLocalSourceInstance(): SearchLocalSource {
  * Function: 搜索 本地源
  * Date: 20-5-3 下午8:46
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchLocalSource : BaseLocalSource() {
 

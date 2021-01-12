@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/9/11 15:53
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     // 待办

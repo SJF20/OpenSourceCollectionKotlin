@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.EventBus
  * Function: 搜索列表 ViewModel
  * Date: 20-5-3 下午9:26
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class SearchListViewModel : WanAndroidBaseViewModel<SearchListRepository>() {
 

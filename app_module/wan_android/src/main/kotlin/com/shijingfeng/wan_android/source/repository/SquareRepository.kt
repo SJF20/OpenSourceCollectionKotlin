@@ -32,7 +32,7 @@ internal fun getSquareRepositoryInstance(
  * Function: 广场 仓库
  * Date: 2020/5/7 15:34
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SquareRepository(
     networkSource: SquareNetworkSource? = null

@@ -14,7 +14,7 @@ import com.shijingfeng.weather.presenter.MainPresenter
  * Function: 首页 Activity
  * Date: 2020/9/29 10:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @Route(path = ACTIVITY_WEATHER_MAIN)
 internal class MainActivity : WeatherBaseActivity<ActivityWeatherMainBinding, MainContract.Presenter>(), MainContract.View {

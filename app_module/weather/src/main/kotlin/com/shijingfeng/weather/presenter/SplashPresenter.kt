@@ -12,7 +12,7 @@ import com.shijingfeng.weather.contract.SplashContract
  * Function: 启动页 Presenter
  * Date: 2020/9/28 15:08
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class SplashPresenter(
     view: SplashContract.View

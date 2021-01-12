@@ -5,7 +5,7 @@ package com.shijingfeng.base.common.constant
  * Function: Notification 相关 静态字符串
  * Date: 2020/5/24 13:27
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 通知渠道 ID: 应用更新提示 */

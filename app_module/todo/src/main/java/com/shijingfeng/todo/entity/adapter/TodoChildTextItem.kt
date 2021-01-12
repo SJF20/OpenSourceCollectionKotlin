@@ -4,7 +4,7 @@ package com.shijingfeng.todo.entity.adapter
  * Function: 文本 Item
  * Date: 2020/9/17 17:28
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal data class TodoChildTextItem(
 

@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers
  * Function: 城市搜索 Model
  * Date: 2020/10/22 17:16
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CitySearchModel(
     presenter: CitySearchContract.Presenter

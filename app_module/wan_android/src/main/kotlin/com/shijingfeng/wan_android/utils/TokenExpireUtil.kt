@@ -22,7 +22,7 @@ import okhttp3.Request
  * Function: 玩安卓 Token 过期检查 工具类
  * Date: 2020/5/26 13:48
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** 玩Android Token 失效时间 */

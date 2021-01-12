@@ -9,7 +9,7 @@ import com.shijingfeng.wan_android.entity.KnowledgeClassifyEntity
  * Function: 知识体系 详细数据 ViewModel
  * Date: 20-4-25 下午4:00
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 internal class KnowledgeClassifyDetailViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 

@@ -4,7 +4,7 @@ package com.shijingfeng.base.interfaces
  * Function: 模拟 Activity OnBackPressed
  * Date: 2020/3/21 13:52
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal interface BackPressMonitor {
 

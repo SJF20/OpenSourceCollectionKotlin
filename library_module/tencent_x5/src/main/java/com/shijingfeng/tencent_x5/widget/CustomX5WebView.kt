@@ -8,7 +8,7 @@ import com.tencent.smtt.sdk.WebView
  * Function: 自定义腾讯X5WebView (用于解决 API23 以下 onScrollListener无法使用问题)
  * Date: 2020/2/2 20:40
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class CustomX5WebView @JvmOverloads constructor(
     context: Context,

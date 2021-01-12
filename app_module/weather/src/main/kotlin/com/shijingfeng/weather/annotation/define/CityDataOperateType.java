@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Date: 2020/11/1 12:47
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @IntDef({
     // 城市数据操作: 无操作

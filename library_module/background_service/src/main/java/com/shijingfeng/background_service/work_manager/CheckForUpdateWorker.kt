@@ -68,7 +68,7 @@ fun cancelCheckForUpdateWorker() {
  * Function: 检查更新 Worker
  * Date: 2020/5/23 17:45
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class CheckForUpdateWorker(
     context: Context,

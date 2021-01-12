@@ -11,7 +11,7 @@ import java.lang.reflect.Type
  * Function: Json转换工具类
  * Date: 2020/1/29 9:57
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** Gson实例  */

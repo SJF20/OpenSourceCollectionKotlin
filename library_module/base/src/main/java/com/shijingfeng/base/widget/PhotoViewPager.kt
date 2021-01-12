@@ -9,7 +9,7 @@ import androidx.viewpager.widget.ViewPager
  * Function: PhotoView ViewPager
  * Date: 2020/1/29 10:40
  * Description: 用于解决 ViewPager 嵌套 PhotoView 发生异常
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 class PhotoViewPager @JvmOverloads constructor(
     context: Context,

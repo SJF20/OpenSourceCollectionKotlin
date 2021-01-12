@@ -17,7 +17,7 @@ import com.shijingfeng.base.util.e
  * Function: 富文本 TextView
  * Date: 20-4-7 上午9:47
  * Description:
- * @author shijingfeng
+ * Author: shijingfeng
  */
 class RichTextView @JvmOverloads constructor(
     /** Context环境  */

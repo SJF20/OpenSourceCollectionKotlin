@@ -8,7 +8,7 @@ import java.util.*
  * Function: 积分记录 实体类 集合
  * Date: 2020/2/3 21:42
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

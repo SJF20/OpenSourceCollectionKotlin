@@ -12,7 +12,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
  * Function: 权限 AOP
  * Date: 2020/7/30 15:37
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 //@Aspect
 class PermissionAspect {

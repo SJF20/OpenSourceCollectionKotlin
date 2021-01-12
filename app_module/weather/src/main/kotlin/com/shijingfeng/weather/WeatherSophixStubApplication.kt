@@ -27,7 +27,7 @@ import com.taobao.sophix.SophixManager
  * Date: 2020/7/17 12:18
  * Description:
  *
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class WeatherSophixStubApplication : SophixApplication() {
 

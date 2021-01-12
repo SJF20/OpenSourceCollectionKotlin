@@ -60,7 +60,7 @@ private val TITLE_BAR_VISIBILITY_SCROLL_DISTANCE = TITLE_BAR_HEIGHT * 3
  * Function: WebView容器 Activity
  * Date: 2020/3/13 20:05
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 @BindEventBus
 @Route(path = ACTIVITY_WAN_ANDROID_WEB_VIEW)

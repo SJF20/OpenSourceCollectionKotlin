@@ -12,7 +12,7 @@ import com.shijingfeng.base.common.extension.onItemEvent
  * Function: 通用 RecyclerView Adapter
  * Date: 2020/1/24 10:13
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 abstract class BaseAdapter<T : BaseEntity>(
     context: Context,

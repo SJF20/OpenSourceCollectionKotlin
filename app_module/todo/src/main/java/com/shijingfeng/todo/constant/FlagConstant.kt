@@ -6,7 +6,7 @@ package com.shijingfeng.todo.constant
  * Function: Todo模块 全局静态常量
  * Date: 2020/5/19 21:00
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /** OnItemEventListener Flag: TabLayout可见性  */

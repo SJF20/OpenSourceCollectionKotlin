@@ -25,7 +25,7 @@ import java.net.UnknownHostException
  * Function: wan_android模块 HTTP异常 控制 工具类
  * Date: 2020/2/3 16:16
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 
 /**

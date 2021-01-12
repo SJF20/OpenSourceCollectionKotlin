@@ -31,7 +31,7 @@ internal fun getOfficialAccountNetworkSourceInstance(): OfficialAccountNetworkSo
  * Function: 公众号 网络源
  * Date: 2020/4/21 20:32
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class OfficialAccountNetworkSource : BaseNetworkSource() {
 

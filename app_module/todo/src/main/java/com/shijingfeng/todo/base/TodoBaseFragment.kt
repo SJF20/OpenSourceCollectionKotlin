@@ -9,7 +9,7 @@ import com.shijingfeng.base.util.d
  * Function: todo模块 Fragment 基类
  * Date: 2020/3/18 22:59
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal abstract class TodoBaseFragment<V : ViewDataBinding, VM : TodoBaseViewModel<*>> : BaseMvvmFragment<V, VM>() {
 

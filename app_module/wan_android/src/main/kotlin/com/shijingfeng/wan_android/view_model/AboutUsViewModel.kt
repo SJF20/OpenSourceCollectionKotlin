@@ -8,7 +8,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseViewModel
  * Function: 主页 -> 侧边栏 -> 关于我们 ViewModel
  * Date: 2020/2/12 17:06
  * Description:
- * @author ShiJingFeng
+ * Author: ShiJingFeng
  */
 internal class AboutUsViewModel : WanAndroidBaseViewModel<BaseRepository<*, *>>() {
 
