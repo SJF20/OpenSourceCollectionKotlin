@@ -32,11 +32,11 @@ buildscript {
         classpath "com.alibaba:arouter-register:1.0.2"
         // Realm 数据库 插件 版本 最新版本10.0.1(只支持Java, Kotlin不支持)
         //noinspection GradleDependency
-        classpath "io.realm:realm-gradle-plugin:7.0.0"
+        classpath "io.realm:realm-gradle-plugin:10.0.1"
         // 阿里云 emas-services插件
         classpath 'com.aliyun.ams:emas-services:1.0.1'
         // 模块事件分发器 Gradle Plugin
-        classpath "com.shijingfeng.module_event_dispatcher:auto_gradle_plugin:1.0.0"
+        classpath "com.shijingfeng.module_event_dispatcher:auto_gradle_plugin:1.0.1"
         // Android AspectJ (AspectJ对各个插件版本和依赖的包相关性很大，动不动就报错，生产环境的App慎用)
 //        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
         // 上传到Bintray远程仓库所需要的插件

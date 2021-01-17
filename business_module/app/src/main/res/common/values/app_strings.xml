@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">开源集合</string>
+
+    <string name="开源集合有新版本了">开源集合有新版本了~</string>
+    <string name="暂无详细描述">暂无详细描述</string>
+    <string name="是">是</string>
+    <string name="否">否</string>
+    <string name="文件已存在">文件已存在</string>
+    <string name="下载失败">下载失败</string>
+    <string name="没有数据">没有数据</string>
+    <string name="应用下载中" tools:ignore="TypographyEllipsis">应用下载中...</string>
+    <string name="应用安装失败">应用安装失败</string>
+    <string name="安装包下载失败">安装包下载失败</string>
+</resources>

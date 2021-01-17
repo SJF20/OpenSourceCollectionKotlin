@@ -10,16 +10,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app_module/app" />
-            <option value="$PROJECT_DIR$/app_module/todo" />
-            <option value="$PROJECT_DIR$/app_module/wan_android" />
-            <option value="$PROJECT_DIR$/app_module/weather" />
-            <option value="$PROJECT_DIR$/library_module/background_service" />
-            <option value="$PROJECT_DIR$/library_module/base" />
-            <option value="$PROJECT_DIR$/library_module/common" />
-            <option value="$PROJECT_DIR$/library_module/location" />
-            <option value="$PROJECT_DIR$/library_module/skin_changer" />
-            <option value="$PROJECT_DIR$/library_module/tencent_x5" />
+            <option value="$PROJECT_DIR$/business_module/app" />
+            <option value="$PROJECT_DIR$/business_module/todo" />
+            <option value="$PROJECT_DIR$/business_module/wan_android" />
+            <option value="$PROJECT_DIR$/business_module/weather" />
+            <option value="$PROJECT_DIR$/function_module/base" />
+            <option value="$PROJECT_DIR$/function_module/location" />
+            <option value="$PROJECT_DIR$/function_module/network" />
+            <option value="$PROJECT_DIR$/function_module/skin_changer" />
+            <option value="$PROJECT_DIR$/function_module/tencent_x5" />
+            <option value="$PROJECT_DIR$/function_module/view_original_image" />
             <option value="$PROJECT_DIR$/skin" />
           </set>
         </option>
