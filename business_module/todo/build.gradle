@@ -15,30 +15,28 @@ apply plugin: 'kotlin-kapt'
 android {
     //签名配置
     signingConfigs {
-        debug {
-            final Properties properties = getKeyStoreProperties()
+        final def properties = getKeyStoreProperties()
 
+        debug {
             if (properties != null && !properties.isEmpty()) {
-                storeFile file(properties.getProperty("DEBUG_KEY_STORE_FILE"))
-                storePassword properties.getProperty("DEBUG_KEY_STORE_PASSWORD")
-                keyAlias properties.getProperty("DEBUG_KEY_ALIAS")
-                keyPassword properties.getProperty("DEBUG_KEY_PASSWORD")
+                storeFile file(rootDir.path + File.separator + properties["DEBUG_KEY_STORE_FILE_NAME"])
+                storePassword properties["DEBUG_KEY_STORE_PASSWORD"]
+                keyAlias properties["DEBUG_KEY_ALIAS"]
+                keyPassword properties["DEBUG_KEY_PASSWORD"]
             } else {
                 // gradle run 控制台 打印 ERROR级别 日志
-                project.logger.log(LogLevel.ERROR, "todo模块 Debug签名配置文件未发现!")
+                project.logger.log(LogLevel.ERROR, "${project.name}模块 Debug签名配置文件未发现!")
             }
         }
         release {
-            final Properties properties = getKeyStoreProperties()
-
             if (properties != null && !properties.isEmpty()) {
-                storeFile file(properties["RELEASE_KEY_STORE_FILE"])
+                storeFile file(rootDir.path + File.separator + properties["RELEASE_KEY_STORE_FILE_NAME"])
                 storePassword properties["RELEASE_KEY_STORE_PASSWORD"]
                 keyAlias properties["RELEASE_KEY_ALIAS"]
                 keyPassword properties["RELEASE_KEY_PASSWORD"]
             } else {
                 // gradle run 控制台 打印 ERROR级别 日志
-                project.logger.log(LogLevel.ERROR, "todo模块 Release签名配置文件未发现!")
+                project.logger.log(LogLevel.ERROR, "${project.name}模块 Release签名配置文件未发现!")
             }
         }
     }
@@ -284,11 +282,11 @@ private static def getDateStr() {
 }
 
 //读取项目中的keystore.properties签名文件，安全
-private static Properties getKeyStoreProperties() {
-    final File propertiesFile = new File("..\\keystore.properties")
-    final Properties properties = new Properties()
+private def getKeyStoreProperties() {
+    final def propertiesFile = file(rootDir.path + File.separator + "keystore.properties")
+    final def properties = new Properties()
 
-    if (propertiesFile.exists()) {
+    if (propertiesFile.exists() && propertiesFile.canRead()) {
         properties.load(new FileInputStream(propertiesFile))
     }
     return properties
