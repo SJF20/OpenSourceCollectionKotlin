@@ -7,14 +7,7 @@ import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
 import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
-import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
-import com.shijingfeng.base.util.LOG_TENCENT_X5
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.isMainProcess
-import com.shijingfeng.tencent_x5.global.isX5Inited
-import com.tencent.smtt.sdk.QbSdk
-import io.realm.Realm
-import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Executors
 
 /**
@@ -43,8 +36,6 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
         if (isMainProcess) {
             // 初始化 Bmob 后端
             initBmob()
-            //初始化 Realm 数据库
-            initRealm()
         }
     }
 
@@ -63,14 +54,6 @@ internal class WanAndroidApplication : BaseApplication(), Configuration.Provider
                 .setFileExpiration(1800)
                 .build()
         )
-    }
-
-    /**
-     * 初始化 Realm 数据库
-     */
-    private fun initRealm() {
-        // 初始化 Realm 数据库
-        Realm.init(this)
     }
 
     /**

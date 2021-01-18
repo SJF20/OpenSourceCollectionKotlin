@@ -6,11 +6,11 @@ import com.shijingfeng.network.extension.onFailure
 import com.shijingfeng.network.extension.onSuccess
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.network.http.exception.E
-import com.shijingfeng.base.util.closeRealmInstance
-import com.shijingfeng.base.util.getRealmInstance
+import com.shijingfeng.realm.entity.CoinRankRealm
+import com.shijingfeng.realm.util.closeRealmInstance
+import com.shijingfeng.realm.util.getRealmInstance
 import com.shijingfeng.wan_android.entity.CoinRankEntity
 import com.shijingfeng.wan_android.entity.CoinRankItem
-import com.shijingfeng.base.entity.realm.CoinRankRealm
 import io.realm.kotlin.where
 import java.util.concurrent.Executors
 

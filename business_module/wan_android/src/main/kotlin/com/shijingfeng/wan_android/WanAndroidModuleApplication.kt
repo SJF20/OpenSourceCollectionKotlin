@@ -11,6 +11,7 @@ import com.shijingfeng.base.util.e
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.constant.TINT
 import com.shijingfeng.skin_changer.manager.SkinChangerManager
+import com.shijingfeng.wan_android.BuildConfig.MODULE_NAME
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_ASSETS_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_PACKAGE
@@ -21,12 +22,12 @@ import java.io.File
 import java.io.FileOutputStream
 
 /**
- * Function: 模块 Application初始化 (类名不要变化(反射的缘故), 除非包括其他模块全局更改类名为同一个 并在 base模块中更改反射类名)
+ * Function: 模块 Application初始化
  * Date: 2020/5/25 22:12
  * Description:
  * Author: ShiJingFeng
  */
-@Keep // WanAndroidModuleAppInit是通过反射调用，所以应防止被混淆
+@Keep // 因此类通过反射调用，所以应防止被混淆
 @ModuleEventReceiver(
     group = DISPATCHER_GROUP_APPLICATION
 )
@@ -36,7 +37,7 @@ internal class WanAndroidModuleApplication : ModuleEventListener {
      * 接收回调
      */
     override fun onReceive(data: Map<String, Any>): Boolean {
-        e(LOG_LIFECYCLE, "wan_android receiver onCreate")
+        e(LOG_LIFECYCLE, "$MODULE_NAME ModuleApplication onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()
         // 复制 asset目录中 玩Android skin文件 到本地内部存储目录中

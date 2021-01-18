@@ -2,7 +2,7 @@
 @file:JvmName("CityDataExt")
 package com.shijingfeng.weather.common.kotlin_extention
 
-import com.shijingfeng.base.entity.realm.CityDataRealm
+import com.shijingfeng.realm.entity.CityDataRealm
 import com.shijingfeng.weather.entity.CityDataItem
 
 /**

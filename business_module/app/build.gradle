@@ -61,8 +61,6 @@ android {
                 arguments = [
                         //配置阿里 ARouter 路由
                         AROUTER_MODULE_NAME : project.getName(),
-                        // 实现的注解执行器 配置 Module 名称
-                        MODULE_NAME         : project.getName()
                 ]
             }
         }
@@ -253,6 +251,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
+    // 依赖 realm 模块
+    implementation project(path: ':realm')
     // 依赖 location 模块
     implementation project(path: ':location')
     // 依赖 tencent_x5 模块
@@ -286,8 +286,6 @@ dependencies {
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-    // 模块事件分发器 注解执行器
-    kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }
 
 //获取日期字符串

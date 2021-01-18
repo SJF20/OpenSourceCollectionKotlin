@@ -10,18 +10,12 @@ import com.shijingfeng.base.base.application.BaseApplication
 import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.common.constant.UMENG_PUSH_APP_KEY
 import com.shijingfeng.base.common.constant.UMENG_PUSH_MESSAGE_SECRET
-import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
-import com.shijingfeng.base.util.LOG_TENCENT_X5
 import com.shijingfeng.base.util.LOG_UMENG
 import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.isMainProcess
-import com.shijingfeng.tencent_x5.global.isX5Inited
-import com.tencent.smtt.sdk.QbSdk
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
-import io.realm.Realm
-import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.Executors
 
 /** 友盟推送 PushAgent */
@@ -45,8 +39,6 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         if (isMainProcess) {
             // 初始化 Bmob 后端
             initBmob()
-            // 初始化 Realm 数据库
-            initRealm()
             // 开启 检查更新 Worker
             startCheckForUpdateWorker()
             // 开启 检查更新热修复补丁 Worker
@@ -100,14 +92,6 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
                 .setFileExpiration(1800)
                 .build()
         )
-    }
-
-    /**
-     * 初始化 Realm 数据库
-     */
-    private fun initRealm() {
-        // 初始化 Realm 数据库
-        Realm.init(this)
     }
 
     /**

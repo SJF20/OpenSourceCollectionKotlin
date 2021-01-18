@@ -6,6 +6,7 @@ import com.shijingfeng.network.extension.onSuccess
 import com.shijingfeng.base.common.kotlin_extension.swap
 import com.shijingfeng.base.common.global.runOnUiThread
 import com.shijingfeng.network.http.exception.E
+import com.shijingfeng.realm.entity.CityDataRealm
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_ADD
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_MOVE
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_REMOVE
@@ -13,8 +14,7 @@ import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_SWAP
 import com.shijingfeng.weather.common.constant.CITY_DATA_OPERATE_UPDATE
 import com.shijingfeng.weather.entity.CityDataItem
 import com.shijingfeng.weather.entity.event.CityDataChangeEvent
-import com.shijingfeng.base.entity.realm.CityDataRealm
-import com.shijingfeng.base.util.getRealmInstance
+import com.shijingfeng.realm.util.getRealmInstance
 import com.shijingfeng.weather.common.kotlin_extention.toCityDataItem
 import com.shijingfeng.weather.common.kotlin_extention.toCityDataRealm
 import io.realm.Sort

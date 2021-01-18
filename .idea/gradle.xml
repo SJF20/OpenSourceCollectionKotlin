@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/function_module/base" />
             <option value="$PROJECT_DIR$/function_module/location" />
             <option value="$PROJECT_DIR$/function_module/network" />
+            <option value="$PROJECT_DIR$/function_module/realm" />
             <option value="$PROJECT_DIR$/function_module/skin_changer" />
             <option value="$PROJECT_DIR$/function_module/tencent_x5" />
             <option value="$PROJECT_DIR$/function_module/view_original_image" />

@@ -14,6 +14,9 @@ include ':weather'
 project(':weather').projectDir = new File("${rootDir.getAbsolutePath()}/business_module", 'weather')
 
 // 库模块
+// Realm数据库 模块
+include ':realm'
+project(':realm').projectDir = new File("${rootDir.getAbsolutePath()}/function_module", 'realm')
 // 腾讯X5 模块
 include ':tencent_x5'
 project(':tencent_x5').projectDir = new File("${rootDir.getAbsolutePath()}/function_module", 'tencent_x5')

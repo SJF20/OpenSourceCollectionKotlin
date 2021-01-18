@@ -28,8 +28,6 @@ android {
                 arguments = [
                         // 配置 ARouter Module 名称
                         AROUTER_MODULE_NAME    : project.getName(),
-                        // 实现的注解执行器 配置 Module 名称
-                        MODULE_NAME            : project.getName()
                 ]
             }
         }
@@ -152,7 +150,21 @@ android {
 
     sourceSets {
         main {
+            // lib库目录
             jniLibs.srcDirs = ['libs']
+            // 代码目录
+            java.srcDirs = [
+                    'src/main/java',
+                    'src/main/kotlin'
+            ]
+            // 资源目录
+            res.srcDirs = [
+                    'src/main/res/activity',
+                    'src/main/res/fragment',
+                    'src/main/res/adapter',
+                    'src/main/res/common',
+                    'src/main/res',
+            ]
         }
     }
 
@@ -168,6 +180,4 @@ dependencies {
 
     // ARouter 路由框架 注解执行器
     kapt rootProject.ext.annotationProcessor["arouter"]
-    // 模块事件分发器 注解执行器
-    kapt rootProject.ext.annotationProcessor["module_event_dispatcher"]
 }

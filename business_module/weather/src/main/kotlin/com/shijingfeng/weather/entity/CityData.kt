@@ -2,7 +2,6 @@ package com.shijingfeng.weather.entity
 
 import com.google.gson.annotations.SerializedName
 import com.shijingfeng.base.base.entity.BaseEntity
-import com.shijingfeng.base.entity.realm.CityDataRealm
 import com.shijingfeng.weather.annotation.define.WeatherType
 
 /**

@@ -140,7 +140,21 @@ android {
 
     sourceSets {
         main {
+            // lib库目录
             jniLibs.srcDirs = ['libs']
+            // 代码目录
+            java.srcDirs = [
+                    'src/main/java',
+                    'src/main/kotlin'
+            ]
+            // 资源目录
+            res.srcDirs = [
+                    'src/main/res/activity',
+                    'src/main/res/fragment',
+                    'src/main/res/adapter',
+                    'src/main/res/common',
+                    'src/main/res',
+            ]
         }
     }
 }
