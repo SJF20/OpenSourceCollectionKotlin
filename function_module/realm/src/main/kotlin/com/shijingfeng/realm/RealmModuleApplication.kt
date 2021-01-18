@@ -3,11 +3,13 @@ package com.shijingfeng.realm
 import android.app.Application
 import androidx.annotation.Keep
 import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
+import com.shijingfeng.apt_data.constant.PRIORITY_HIGH
+import com.shijingfeng.apt_data.constant.PRIORITY_MEDIUM
 import com.shijingfeng.apt_data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_DATA_KEY_APPLICATION
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
-import com.shijingfeng.base.util.LOG_LIFECYCLE
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
+import com.shijingfeng.base.util.d
 import com.shijingfeng.realm.BuildConfig.MODULE_NAME
 import io.realm.Realm
 
@@ -19,7 +21,7 @@ import io.realm.Realm
  */
 @Keep // 因此类通过反射调用，所以应防止被混淆
 @ModuleEventReceiver(
-    group = DISPATCHER_GROUP_APPLICATION
+    group = DISPATCHER_GROUP_APPLICATION,
 )
 internal class RealmModuleApplication : ModuleEventListener {
 
@@ -27,7 +29,7 @@ internal class RealmModuleApplication : ModuleEventListener {
      * 接收回调
      */
     override fun onReceive(data: Map<String, Any>): Boolean {
-        e(LOG_LIFECYCLE, "$MODULE_NAME ModuleApplication onCreate")
+        d(MODULE_EVENT_DISPATCHER, "$MODULE_NAME ModuleApplication onCreate")
         val application = data[DISPATCHER_DATA_KEY_APPLICATION] as Application
 
         // 初始化 Realm 数据库

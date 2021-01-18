@@ -15,14 +15,16 @@ private var sEnable = BuildConfig.DEBUG
 
 /** 测试相关日志 */
 const val LOG_TEST = "log_test"
+/** 追踪页面相关日志 */
+const val LOG_PAGE = "log_page"
 /** 腾讯X5相关日志 */
 const val LOG_TENCENT_X5 = "log_tencent_x5"
 /** 友盟相关日志 */
 const val LOG_UMENG = "log_umeng"
 /** 玩Android皮肤相关日志 */
 const val LOG_WAN_ANDROID_SKIN = "log_wan_android_skin"
-/** 生命周期函数相关日志 */
-const val LOG_LIFECYCLE = "log_lifecycle"
+/** 模块事件分发器相关日志 */
+const val MODULE_EVENT_DISPATCHER = "log_module_event_dispatcher"
 /** 异常相关日志 */
 const val LOG_EXCEPTION = "log_exception"
 

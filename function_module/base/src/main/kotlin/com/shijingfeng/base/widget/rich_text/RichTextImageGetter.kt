@@ -13,7 +13,6 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.shijingfeng.base.R
 import com.shijingfeng.base.listener.Target
-import com.shijingfeng.base.util.e
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.base.util.image_load.AS_BITMAP
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance

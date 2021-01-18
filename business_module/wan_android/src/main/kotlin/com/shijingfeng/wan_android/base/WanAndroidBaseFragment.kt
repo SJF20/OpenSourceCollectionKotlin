@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
 import com.shijingfeng.base.mvvm.fragment.BaseMvvmFragment
+import com.shijingfeng.base.util.LOG_PAGE
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.StatusBarView
@@ -15,6 +16,7 @@ import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.skin_changer.interfaces.ISkinChanger
 import com.shijingfeng.skin_changer.util.setResource
+import com.shijingfeng.wan_android.BuildConfig.MODULE_NAME
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.global.skinChangerManager
 
@@ -30,7 +32,7 @@ internal abstract class WanAndroidBaseFragment<V : ViewDataBinding, VM : WanAndr
      * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法
      */
     override fun init(savedInstanceState: Bundle?) {
-        d("页面", "wan_android 模块: " + this.javaClass.simpleName)
+        d(LOG_PAGE, "$MODULE_NAME 模块 Fragment: " + this.javaClass.simpleName)
         super.init(savedInstanceState)
     }
 

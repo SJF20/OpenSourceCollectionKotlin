@@ -11,7 +11,7 @@ import com.shijingfeng.base.common.constant.BMOB_APP_KEY
 import com.shijingfeng.base.common.constant.UMENG_PUSH_APP_KEY
 import com.shijingfeng.base.common.constant.UMENG_PUSH_MESSAGE_SECRET
 import com.shijingfeng.base.util.LOG_UMENG
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.isMainProcess
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
@@ -67,11 +67,11 @@ internal class AppApplication : BaseApplication(), Configuration.Provider {
         pushAgent = PushAgent.getInstance(this).apply {
             register(object : IUmengRegisterCallback {
                 override fun onSuccess(deviceToken: String?) {
-                    e(LOG_UMENG, "deviceToken: $deviceToken")
+                    d(LOG_UMENG, "deviceToken: $deviceToken")
                 }
 
                 override fun onFailure(s1: String?, s2: String?) {
-                    e(LOG_UMENG, "友盟推送注册失败: s1:${s1}     s2: $s2")
+                    d(LOG_UMENG, "友盟推送注册失败: s1:${s1}     s2: $s2")
                 }
             })
         }

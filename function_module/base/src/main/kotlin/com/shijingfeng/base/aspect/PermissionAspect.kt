@@ -1,13 +1,7 @@
 package com.shijingfeng.base.aspect
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.shijingfeng.base.annotation.RequestPermissions
-import com.shijingfeng.base.util.e
-import com.tbruyelle.rxpermissions2.RxPermissions
+
 /**
  * Function: 权限 AOP
  * Date: 2020/7/30 15:37

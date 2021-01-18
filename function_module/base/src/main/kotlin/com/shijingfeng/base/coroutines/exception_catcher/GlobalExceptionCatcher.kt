@@ -1,7 +1,7 @@
 package com.shijingfeng.base.coroutines.exception_catcher
 
 import com.shijingfeng.base.util.LOG_EXCEPTION
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.d
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlin.coroutines.CoroutineContext
 
@@ -16,6 +16,6 @@ class GlobalExceptionCatcher : CoroutineExceptionHandler {
     override val key: CoroutineContext.Key<*> = CoroutineExceptionHandler
 
     override fun handleException(context: CoroutineContext, exception: Throwable) {
-        e(LOG_EXCEPTION, "全局协程异常捕获器: context: $context  exception: $exception")
+        d(LOG_EXCEPTION, "全局协程异常捕获器: context: $context  exception: $exception")
     }
 }

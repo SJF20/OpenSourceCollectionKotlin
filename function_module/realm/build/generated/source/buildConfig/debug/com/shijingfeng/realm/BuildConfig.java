@@ -10,6 +10,6 @@ public final class BuildConfig {
   public static final int VERSION_CODE = 1;
   public static final String VERSION_NAME = "1.0.0";
   // Fields from default config.
-  public static final long BUILD_TIMESTAMP = 1610959599061L;
+  public static final long BUILD_TIMESTAMP = 1610983002720L;
   public static final String MODULE_NAME = "realm";
 }

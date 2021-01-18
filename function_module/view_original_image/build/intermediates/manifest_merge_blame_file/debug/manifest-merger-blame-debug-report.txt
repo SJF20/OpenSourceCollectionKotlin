@@ -25,16 +25,18 @@
 15-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:8:22-77
 16
 17    <application
-17-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:10:5-17:19
-18        android:networkSecurityConfig="@xml/network_security_config"
-18-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:11:9-69
-19        tools:ignore="UnusedAttribute" >
-19-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:12:9-39
-20
-21        <!-- 查看大图 Activity -->
-22        <activity android:name="com.shijingfeng.view_original_image.ui.activity.ViewOriginalImageActivity" />
-22-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:15:9-110
-22-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:15:19-107
-23    </application>
-24
-25</manifest>
+17-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:10:5-18:19
+18        android:allowBackup="false"
+18-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:11:9-36
+19        android:networkSecurityConfig="@xml/network_security_config"
+19-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:12:9-69
+20        tools:ignore="UnusedAttribute" >
+20-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:13:9-39
+21
+22        <!-- 查看大图 Activity -->
+23        <activity android:name="com.shijingfeng.view_original_image.ui.activity.ViewOriginalImageActivity" />
+23-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:16:9-110
+23-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\view_original_image\src\main\AndroidManifest.xml:16:19-107
+24    </application>
+25
+26</manifest>

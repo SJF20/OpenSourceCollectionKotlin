@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.databinding.ViewDataBinding
 import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
+import com.shijingfeng.base.util.LOG_PAGE
 import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getDrawableByColorId
 import com.shijingfeng.base.util.getStringById
@@ -16,6 +17,7 @@ import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.skin_changer.interfaces.ISkinChanger
 import com.shijingfeng.skin_changer.util.setResource
+import com.shijingfeng.wan_android.BuildConfig.MODULE_NAME
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.global.skinChangerManager
 
@@ -32,7 +34,7 @@ internal abstract class WanAndroidBaseActivity<V : ViewDataBinding, VM : WanAndr
      */
     override fun init(savedInstanceState: Bundle?) {
         super.init(savedInstanceState)
-        d("页面", "wan_android 模块: " + this.javaClass.simpleName)
+        d(LOG_PAGE, "$MODULE_NAME 模块 Activity: " + this.javaClass.simpleName)
     }
 
     /**

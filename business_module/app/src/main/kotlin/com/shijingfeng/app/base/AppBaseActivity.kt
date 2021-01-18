@@ -2,7 +2,9 @@ package com.shijingfeng.app.base
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import com.shijingfeng.app.BuildConfig.MODULE_NAME
 import com.shijingfeng.base.mvvm.activity.BaseMvvmActivity
+import com.shijingfeng.base.util.LOG_PAGE
 import com.shijingfeng.base.util.d
 
 /**
@@ -17,7 +19,7 @@ internal abstract class AppBaseActivity<V : ViewDataBinding, VM : AppBaseViewMod
      * 初始化
      */
     override fun init(savedInstanceState: Bundle?) {
-        d("页面", "app 模块: " + this.javaClass.simpleName)
+        d(LOG_PAGE, "$MODULE_NAME 模块 Activity: " + this.javaClass.simpleName)
         super.init(savedInstanceState)
     }
 

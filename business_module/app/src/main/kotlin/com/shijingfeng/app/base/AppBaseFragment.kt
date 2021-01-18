@@ -2,7 +2,9 @@ package com.shijingfeng.app.base
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import com.shijingfeng.app.BuildConfig.MODULE_NAME
 import com.shijingfeng.base.mvvm.fragment.BaseMvvmFragment
+import com.shijingfeng.base.util.LOG_PAGE
 import com.shijingfeng.base.util.d
 
 /**
@@ -17,7 +19,7 @@ internal abstract class AppBaseFragment<V : ViewDataBinding, VM : AppBaseViewMod
      * 因为有懒加载的缘故 子类初始化需要时重载init方法，禁止重载onViewCreated方法进行添加额外的初始化方法
      */
     override fun init(savedInstanceState: Bundle?) {
-        d("页面", "app 模块: " + this.javaClass.simpleName)
+        d(LOG_PAGE, "$MODULE_NAME 模块 Fragment: " + this.javaClass.simpleName)
         super.init(savedInstanceState)
     }
 

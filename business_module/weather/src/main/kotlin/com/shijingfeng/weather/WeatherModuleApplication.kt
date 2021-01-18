@@ -4,8 +4,8 @@ import androidx.annotation.Keep
 import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
 import com.shijingfeng.apt_data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
-import com.shijingfeng.base.util.LOG_LIFECYCLE
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
+import com.shijingfeng.base.util.d
 import com.shijingfeng.weather.BuildConfig.MODULE_NAME
 import com.shijingfeng.weather.common.global.cityDataManager
 import com.shijingfeng.weather.data_structure.CityDataManager
@@ -26,7 +26,7 @@ internal class WeatherModuleApplication : ModuleEventListener {
      * 接收回调
      */
     override fun onReceive(data: Map<String, Any>): Boolean {
-        e(LOG_LIFECYCLE, "$MODULE_NAME ModuleApplication onCreate")
+        d(MODULE_EVENT_DISPATCHER, "$MODULE_NAME ModuleApplication onCreate")
         CityDataManager.init(onSuccess = {
             cityDataManager = it
         })

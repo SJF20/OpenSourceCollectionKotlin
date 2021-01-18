@@ -7,9 +7,9 @@ import com.shijingfeng.apt_data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_DATA_KEY_APPLICATION
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
-import com.shijingfeng.base.util.LOG_LIFECYCLE
+import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
 import com.shijingfeng.base.util.LOG_TENCENT_X5
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.d
 import com.shijingfeng.tencent_x5.BuildConfig.MODULE_NAME
 import com.shijingfeng.tencent_x5.global.isX5Inited
 import com.tencent.smtt.sdk.QbSdk
@@ -34,7 +34,7 @@ internal class TencentX5ModuleApplication : ModuleEventListener {
      * 接收回调
      */
     override fun onReceive(data: Map<String, Any>): Boolean {
-        e(LOG_LIFECYCLE, "$MODULE_NAME ModuleApplication onCreate")
+        d(MODULE_EVENT_DISPATCHER, "$MODULE_NAME ModuleApplication onCreate")
         val application = data[DISPATCHER_DATA_KEY_APPLICATION] as Application
 
         // 初始化腾讯X5
@@ -58,9 +58,9 @@ internal class TencentX5ModuleApplication : ModuleEventListener {
             override fun onViewInitFinished(success: Boolean) {
                 mX5InitSuccess = success
                 if (success) {
-                    e(LOG_TENCENT_X5, "腾讯X5内核加载成功")
+                    d(LOG_TENCENT_X5, "腾讯X5内核加载成功")
                 } else {
-                    e(LOG_TENCENT_X5, "腾讯X5内核加载失败")
+                    d(LOG_TENCENT_X5, "腾讯X5内核加载失败")
                 }
             }
 
@@ -68,7 +68,7 @@ internal class TencentX5ModuleApplication : ModuleEventListener {
              * x5內核初始化完成回调
              */
             override fun onCoreInitFinished() {
-                e(LOG_TENCENT_X5, "腾讯X5内核初始化完毕")
+                d(LOG_TENCENT_X5, "腾讯X5内核初始化完毕")
                 isX5Inited = true
                 EventBus.getDefault().post(X5InitedEvent(mX5InitSuccess))
             }

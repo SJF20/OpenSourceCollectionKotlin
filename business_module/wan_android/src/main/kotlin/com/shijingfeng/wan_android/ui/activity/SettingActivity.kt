@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable
 import android.util.SparseArray
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,11 +14,9 @@ import com.blankj.utilcode.util.ToastUtils
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SETTING
 import com.shijingfeng.base.common.constant.SELECTED
 import com.shijingfeng.base.util.LOG_WAN_ANDROID_SKIN
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.d
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.dialog.CommonDialog
-import com.shijingfeng.skin_changer.constant.BACK_GROUND
-import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.skin_changer.listener.SkinChangingListener
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -145,21 +142,21 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
                 skinChangingCallback = object : SkinChangingListener {
                     override fun onStart() {
                         super.onStart()
-                        e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤开始")
+                        d(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤开始")
                     }
 
                     override fun onError(e: Throwable?) {
                         super.onError(e)
                         if (e != null) {
-                            e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败:  msg: ${e.message}  cause: ${e.cause}")
+                            d(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败:  msg: ${e.message}  cause: ${e.cause}")
                         } else {
-                            e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败")
+                            d(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤失败")
                         }
                     }
 
                     override fun onCompleted() {
                         super.onCompleted()
-                        e(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤成功")
+                        d(LOG_WAN_ANDROID_SKIN, "插件式更换皮肤成功")
                     }
                 }
             )

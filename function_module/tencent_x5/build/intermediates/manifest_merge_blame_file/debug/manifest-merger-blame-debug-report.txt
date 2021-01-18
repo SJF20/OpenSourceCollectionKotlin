@@ -15,23 +15,5 @@
 13    <uses-permission android:name="android.permission.INTERNET" />
 13-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:6:5-67
 13-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:6:22-64
-14    <!-- 网络状态权限 -->
-15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-15-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:8:5-79
-15-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:8:22-76
-16    <!-- WIFI状态权限 -->
-17    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-17-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:10:5-76
-17-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:10:22-73
-18
-19    <application
-19-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:12:5-16:19
-20        android:allowBackup="false"
-20-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:13:9-36
-21        android:networkSecurityConfig="@xml/network_security_config"
-21-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:14:9-69
-22        tools:ignore="UnusedAttribute" >
-22-->D:\Data\Projects\AndroidProjects\Personal\OpenSourceCollectionKotlin\function_module\tencent_x5\src\main\AndroidManifest.xml:15:9-39
-23    </application>
-24
-25</manifest>
+14
+15</manifest>

@@ -6,8 +6,8 @@ import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
 import com.shijingfeng.apt_data.interfaces.ModuleEventListener
 import com.shijingfeng.base.base.application.application
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
-import com.shijingfeng.base.util.LOG_LIFECYCLE
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
+import com.shijingfeng.base.util.d
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.constant.TINT
 import com.shijingfeng.skin_changer.manager.SkinChangerManager
@@ -37,7 +37,7 @@ internal class WanAndroidModuleApplication : ModuleEventListener {
      * 接收回调
      */
     override fun onReceive(data: Map<String, Any>): Boolean {
-        e(LOG_LIFECYCLE, "$MODULE_NAME ModuleApplication onCreate")
+        d(MODULE_EVENT_DISPATCHER, "$MODULE_NAME ModuleApplication onCreate")
         // 检查 玩安卓 Token 是否过期
         checkTokenExpire()
         // 复制 asset目录中 玩Android skin文件 到本地内部存储目录中

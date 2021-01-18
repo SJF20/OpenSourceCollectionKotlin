@@ -4,8 +4,8 @@ import androidx.annotation.Keep
 import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
 import com.shijingfeng.apt_data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
-import com.shijingfeng.base.util.LOG_LIFECYCLE
-import com.shijingfeng.base.util.e
+import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
+import com.shijingfeng.base.util.d
 import com.shijingfeng.network.BuildConfig.MODULE_NAME
 import com.shijingfeng.network.constant.*
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
@@ -28,7 +28,7 @@ internal class NetworkModuleApplication : ModuleEventListener {
      * @return false: 阻止事件向后面的接收器分发
      */
     override fun onReceive(data: Map<String, Any>): Boolean {
-        e(LOG_LIFECYCLE, "$MODULE_NAME ModuleApplication onCreate")
+        d(MODULE_EVENT_DISPATCHER, "$MODULE_NAME ModuleApplication onCreate")
         // 初始化 RetrofitUrlManager
         initRetrofitUrlManager()
         return super.onReceive(data)
