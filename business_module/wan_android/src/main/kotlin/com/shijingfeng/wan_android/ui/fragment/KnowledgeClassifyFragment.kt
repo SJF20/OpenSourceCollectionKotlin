@@ -119,7 +119,7 @@ internal class KnowledgeClassifyFragment : WanAndroidBaseFragment<FragmentWanAnd
             }
 
         })
-        mKnowledgeClassifyAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mKnowledgeClassifyAdapter?.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 // 查看知识体系详情
                 VIEW_KNOWLEDGE_CLASSIFY_DETAIL -> {

@@ -8,8 +8,8 @@ import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.shijingfeng.apt_api.manager.dispatch
-import com.shijingfeng.apt_api.manager.staticInit
+import com.shijingfeng.module_event_dispatcher.api.manager.dispatch
+import com.shijingfeng.module_event_dispatcher.api.manager.staticInit
 import com.shijingfeng.base.BuildConfig.DEBUG
 import com.shijingfeng.base.callback.EmptyCallback
 import com.shijingfeng.base.callback.LoadFailCallback

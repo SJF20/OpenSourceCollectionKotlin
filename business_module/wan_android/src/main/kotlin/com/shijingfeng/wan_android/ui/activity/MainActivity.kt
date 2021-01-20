@@ -27,14 +27,14 @@ import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.StringUtils
 import com.google.android.material.tabs.TabLayout
-import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_MAIN
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_SEARCH
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base_adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base_adapter.kotlin_extension.onFragmentCreate
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.entity.SkinAttribute
@@ -611,11 +611,11 @@ internal class MainActivity : WanAndroidBaseActivity<ActivityWanAndroidMainBindi
  */
 internal class MainFragmentPagerAdapter(
     fragmentManager: FragmentManager,
-    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>
+    onFragmentCreate: onFragmentCreate<WanAndroidBaseFragment<*, *>>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = true,
-    mOnFragmentCreate = onFragmentCreate
+    banDestroyed = true,
+    onFragmentCreate = onFragmentCreate
 ) {
 
     /**

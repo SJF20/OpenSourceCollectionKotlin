@@ -14,11 +14,11 @@ import com.shijingfeng.base.annotation.BindEventBus
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_HOME
 import com.shijingfeng.base.arouter.navigation
-import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
+import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
 import com.shijingfeng.sjf_banner.library.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -172,9 +172,9 @@ internal class HomeFragment : WanAndroidBaseFragment<FragmentWanAndroidHomeBindi
             }
 
         })
-        mHomeAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mHomeAdapter?.onItemEvent = onItemEvent@{ _, data, position, flag ->
             if (data == null) {
-                return@setOnItemEventListener
+                return@onItemEvent
             }
 
             when (flag) {

@@ -3,8 +3,8 @@ package com.shijingfeng.wan_android.adapter
 import android.content.Context
 import android.text.TextUtils
 import android.view.View.OnClickListener
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.library.SwipeRemoveLayout
 import com.shijingfeng.wan_android.R
@@ -55,7 +55,7 @@ internal class PersonalCollectionArticleAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position,
+                    onItemEvent?.invoke(v, data, position,
                         VIEW_ARTICLE_DETAIL
                     )
                 }
@@ -65,7 +65,7 @@ internal class PersonalCollectionArticleAdapter(
                 viewId = R.id.btn_uncollected,
                 listener = OnClickListener{ v ->
                     swipeRemoveLayout?.close()
-                    mOnItemEvent?.invoke(v, data, position,
+                    onItemEvent?.invoke(v, data, position,
                         ARTICLE_ITEM_UNCOLLECTED
                     )
                 }

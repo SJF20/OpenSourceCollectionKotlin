@@ -66,11 +66,12 @@ ext {
             "smartrefresh"                        : "1.1.1",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
-            "module_event_dispatcher"             : "1.0.1",
+            "module_event_dispatcher"             : "1.0.4",
             "bmob"                                : "3.7.8",
             "sophix"                              : "3.2.14",
 //            "aspectJ"                             : "1.9.5",
-            "datastore"                           : "1.0.0-alpha02"
+            "datastore"                           : "1.0.0-alpha02",
+            "base_adapter"                        : "1.0.1"
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -224,8 +225,10 @@ ext {
                                                        "com.umeng.umsdk:oaid_oppo:1.0.4",
                                                        "com.umeng.umsdk:oaid_vivo:1.0.0.1"
                                                     ],
-            // 自己实现的自动框架api
-            "module_event_dispatcher"             : "com.shijingfeng.module_event_dispatcher:apt_api:${versions["module_event_dispatcher"]}"
+            // 模块事件分发器
+            "module_event_dispatcher"             : "com.shijingfeng.module_event_dispatcher:api:${versions["module_event_dispatcher"]}",
+            // 适配器基类
+            "base_adapter"                        : "com.shijingfeng.open_source:base_adapter:${versions["base_adapter"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [
@@ -235,7 +238,7 @@ ext {
             "room"                           : "androidx.room:room-compiler:${versions["room"]}",
             // ARouter 路由框架注解执行器
             "arouter"                        : "com.alibaba:arouter-compiler:${versions["arouter-compiler"]}",
-            // 自己实现的注解执行器
+            // 模块事件分发器 注解执行器
             "module_event_dispatcher"        : "com.shijingfeng.module_event_dispatcher:apt_processor:${versions["module_event_dispatcher"]}"
     ]
 }

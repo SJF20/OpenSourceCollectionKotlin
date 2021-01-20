@@ -117,7 +117,7 @@ internal class NavigationClassifyFragment : WanAndroidBaseFragment<FragmentWanAn
             }
 
         })
-        mNavigationClassifyAdapter?.setOnItemEventListener { _, data, _, flag ->
+        mNavigationClassifyAdapter?.onItemEvent = { _, data, _, flag ->
             when (flag) {
                 // 查看导航分类详情
                 VIEW_NAVIGATION_CLASSIFY_DETAIL -> {

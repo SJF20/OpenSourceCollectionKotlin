@@ -9,8 +9,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.layout
@@ -76,7 +76,7 @@ internal class SearchListAdapter(
             setOnClickListener(
                 viewId = R.id.ll_article_content,
                 listener = View.OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, holder.adapterPosition,
+                    onItemEvent?.invoke(v, data, holder.adapterPosition,
                         VIEW_ARTICLE_DETAIL
                     )
                 }
@@ -87,7 +87,7 @@ internal class SearchListAdapter(
                 listener = View.OnClickListener { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition,
+                    onItemEvent?.invoke(v, isChecked, holder.adapterPosition,
                         ARTICLE_ITEM_COLLECTION
                     )
                 }
@@ -103,7 +103,7 @@ internal class SearchListAdapter(
         llTagList?.removeAllViews()
         // 添加 普通标签TextView 列表
         for (homeArticleItemTag in tagList) {
-            tagViewList.add(TextView(mContext).apply {
+            tagViewList.add(TextView(context).apply {
                 height = ConvertUtils.dp2px(23f)
                 setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
                 gravity = Gravity.CENTER
@@ -171,7 +171,7 @@ internal class SearchListAdapter(
                                 listener = View.OnClickListener { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEvent?.invoke(v, isChecked, position,
+                                    onItemEvent?.invoke(v, isChecked, position,
                                         ARTICLE_ITEM_COLLECTION
                                     )
                                 }

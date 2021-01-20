@@ -2,8 +2,8 @@ package com.shijingfeng.tencent_x5
 
 import android.app.Application
 import androidx.annotation.Keep
-import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
-import com.shijingfeng.apt_data.interfaces.ModuleEventListener
+import com.shijingfeng.module_event_dispatcher.data.annotations.ModuleEventReceiver
+import com.shijingfeng.module_event_dispatcher.data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_DATA_KEY_APPLICATION
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
 import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent

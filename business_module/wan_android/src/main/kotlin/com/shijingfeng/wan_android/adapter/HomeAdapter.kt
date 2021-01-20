@@ -13,10 +13,10 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils.dp2px
-import com.shijingfeng.base.base.adapter.BaseMultiItemAdapter
-import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.*
+import com.shijingfeng.base_adapter.BaseMultiItemAdapter
+import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
 import com.shijingfeng.sjf_banner.library.banner.entity.BaseIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.entity.CombineIndicatorData
 import com.shijingfeng.sjf_banner.library.banner.entity.ShapeIndicatorData
@@ -131,7 +131,7 @@ internal class HomeAdapter(
                                 listener = OnClickListener { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEvent?.invoke(v, isChecked, position,
+                                    onItemEvent?.invoke(v, isChecked, position,
                                         ARTICLE_ITEM_COLLECTION
                                     )
                                 }
@@ -231,10 +231,10 @@ internal class HomeAdapter(
             .setPaddingEnd(dp2px(10f))
             .setBackground(getDrawableById(R.color.home_banner_title_bg))
             .setIndicatorDataList(indicatorDataList)
-        val pagerAdapter = HomeBannerPagerAdapter(mContext, homeBannerList)
+        val pagerAdapter = HomeBannerPagerAdapter(context, homeBannerList)
 
         pagerAdapter.setOnItemEventListener { view: View, any: Any, pos: Int, flag: String ->
-            mOnItemEvent?.invoke(view, any, pos, flag)
+            onItemEvent?.invoke(view, any, pos, flag)
         }
         bannerView
             ?.setPagerAdapter(pagerAdapter)
@@ -306,7 +306,7 @@ internal class HomeAdapter(
             setOnClickListener(
                 viewId = R.id.ll_top_article_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, homeSetToTopItem, holder.adapterPosition,
+                    onItemEvent?.invoke(v, homeSetToTopItem, holder.adapterPosition,
                         VIEW_ARTICLE_DETAIL
                     )
                 }
@@ -317,7 +317,7 @@ internal class HomeAdapter(
                 listener = OnClickListener { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition,
+                    onItemEvent?.invoke(v, isChecked, holder.adapterPosition,
                         ARTICLE_ITEM_COLLECTION
                     )
                 }
@@ -333,7 +333,7 @@ internal class HomeAdapter(
         llTagList?.removeAllViews()
         // 添加 普通标签TextView 列表
         for (homeArticleItemTag in tagList) {
-            tagViewList.add(TextView(mContext).apply {
+            tagViewList.add(TextView(context).apply {
                 height = ConvertUtils.dp2px(23f)
                 setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
                 gravity = Gravity.CENTER
@@ -423,7 +423,7 @@ internal class HomeAdapter(
             setOnClickListener(
                 viewId = R.id.ll_article_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, homeArticleItem, holder.adapterPosition,
+                    onItemEvent?.invoke(v, homeArticleItem, holder.adapterPosition,
                         VIEW_ARTICLE_DETAIL
                     )
                 }
@@ -434,7 +434,7 @@ internal class HomeAdapter(
                 listener = OnClickListener { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition,
+                    onItemEvent?.invoke(v, isChecked, holder.adapterPosition,
                         ARTICLE_ITEM_COLLECTION
                     )
                 }
@@ -450,7 +450,7 @@ internal class HomeAdapter(
         llTagList?.removeAllViews()
         // 添加 普通标签TextView 列表
         for (homeArticleItemTag in tagList) {
-            tagViewList.add(TextView(mContext).apply {
+            tagViewList.add(TextView(context).apply {
                 height = ConvertUtils.dp2px(23f)
                 setPadding(ConvertUtils.dp2px(5f), 0, ConvertUtils.dp2px(5f), 0)
                 gravity = Gravity.CENTER

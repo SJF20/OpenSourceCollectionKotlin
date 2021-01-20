@@ -3,11 +3,11 @@ package com.shijingfeng.todo.ui.activity
 import android.util.SparseArray
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.base.arouter.ACTIVITY_ADD_UPDATE_TODO
-import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
 import com.shijingfeng.base.common.constant.EMPTY_ARRAY
 import com.shijingfeng.base.common.constant.TITLE
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
 import com.shijingfeng.todo.BR
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.adapter.TodoChildAdapter
@@ -125,7 +125,7 @@ internal class AddUpdateTodoActivity : TodoBaseActivity<ActivityTodoAddUpdateTod
      */
     override fun initAction() {
         super.initAction()
-        mTodoChildAdapter?.setOnItemEventListener { view, data, position, flag ->
+        mTodoChildAdapter?.onItemEvent = { view, data, position, flag ->
             when (flag) {
                 // 删除Item
                 REMOVE_ITEM -> {

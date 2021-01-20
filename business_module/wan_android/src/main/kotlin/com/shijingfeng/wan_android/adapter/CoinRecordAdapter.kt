@@ -1,8 +1,8 @@
 package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.entity.CoinRecordItem
 

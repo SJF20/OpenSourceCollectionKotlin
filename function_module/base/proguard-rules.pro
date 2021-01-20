@@ -178,54 +178,6 @@
 
 #############################################start
 #
-# OkHttp网络加载框架
-#
-############################################
-
-# https://github.com/square/okhttp
-# okhttp
--keepattributes Signature
--keepattributes *Annotation*
--keep class com.squareup.okhttp.* { *; }
--keep interface com.squareup.okhttp.** { *; }
--dontwarn com.squareup.okhttp.**
-
-# okhttp 3
--keepattributes Signature
--keepattributes *Annotation*
--keep class okhttp3.** { *; }
--keep interface okhttp3.** { *; }
--dontwarn okhttp3.**
-
-# Okio
--dontwarn com.squareup.**
--dontwarn okio.**
--keep public class org.codehaus.* { *; }
--keep public class java.nio.* { *; }
-
-#############################################start
-#
-# Retrofit网络加载框架
-#
-############################################
-
-# https://square.github.io/retrofit
-# Retrofit
--dontwarn retrofit.**
--keep class retrofit.** { *; }
--keepattributes Signature
--keepattributes Exceptions
-
-# Retrofit2
--keep class retrofit2.** { *; }
--dontwarn retrofit2.**
--keepattributes Signature
--keepattributes Exceptions
--dontwarn okio.**
--dontwarn javax.annotation.**
-
-#############################################start
-#
 # RxJava网络加载框架
 #
 ############################################
@@ -243,22 +195,6 @@
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 -dontnote rx.internal.util.PlatformDependent
-
-#############################################start
-#
-# Realm数据库
-#
-############################################
-
-# https://github.com/realm/realm-java/issues/4909
--keep class io.realm.annotations.RealmModule
--keep @io.realm.annotations.RealmModule class *
--keep class io.realm.internal.Keep
--keep @io.realm.internal.Keep class *
--dontwarn javax.**
--dontwarn io.realm.**
--keepnames public class * extends io.realm.RealmObject
--keep public class * extends io.realm.RealmObject { *; }
 
 #############################################start
 #
@@ -313,3 +249,14 @@
 -keep class com.android.internal.http.multipart.**{*;}
 -keep class org.apache.commons.**{*;}
 -keep class org.apache.http.**{*;}
+
+#############################################start
+#
+# 模块事件分发器
+#
+#############################################
+
+# 模块事件分发器 生成的类文件 反混淆
+-keep class com.shijingfeng.module_event_dispatcher.auto_generate.**{*;}
+# 模块事件分发器 实现 ModuleEventListener 的类反混淆
+-keep class * implements com.shijingfeng.module_event_dispatcher.data.interfaces.ModuleEventListener

@@ -102,7 +102,7 @@ internal class CoinRankActivity : WanAndroidBaseActivity<ActivityWanAndroidCoinR
         ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
-        mCoinRankAdapter?.setOnItemEventListener { _, _, _, _ -> }
+        mCoinRankAdapter?.onItemEvent = { _, _, _, _ -> }
     }
 
     /**

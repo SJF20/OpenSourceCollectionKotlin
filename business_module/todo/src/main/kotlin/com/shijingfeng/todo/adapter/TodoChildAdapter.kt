@@ -2,9 +2,9 @@ package com.shijingfeng.todo.adapter
 
 import android.content.Context
 import android.view.View
-import com.shijingfeng.base.base.adapter.BaseMultiItemAdapter
-import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseMultiItemAdapter
+import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.annotation.define.TodoChildType.ITEM_TYPE_IMAGE
 import com.shijingfeng.todo.annotation.define.TodoChildType.ITEM_TYPE_TEXT
@@ -50,7 +50,7 @@ internal class TodoChildAdapter(
                     add(Image())
                 }
                 val adapter = TodoGrandchildImageAdapter(
-                    context = mContext,
+                    context = context,
                     dataList = imageList,
                     multiItemTypeSupport = object : MultiItemTypeSupport<Image> {
 
@@ -98,7 +98,7 @@ internal class TodoChildAdapter(
         holder.setOnClickListener(
             viewId = R.id.iv_remove,
             listener = View.OnClickListener { view ->
-                mOnItemEvent?.invoke(view, data, position, REMOVE_ITEM)
+                onItemEvent?.invoke(view, data, position, REMOVE_ITEM)
             }
         )
     }

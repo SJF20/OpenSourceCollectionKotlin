@@ -1,10 +1,10 @@
 package com.shijingfeng.todo.adapter
 
 import android.content.Context
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
+import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.constant.STATUS_DONE
 import com.shijingfeng.todo.constant.STATUS_NEED_TO_DO
@@ -33,7 +33,7 @@ internal class TodoGroupListAdapter(
      * @param position 下标位置
      */
     override fun convert(holder: CommonViewHolder, data: TodoGroupListItem, position: Int) {
-        val adapter = TodoListAdapter(mContext, data.todoItemList, object : MultiItemTypeSupport<TodoListItem> {
+        val adapter = TodoListAdapter(context, data.todoItemList, object : MultiItemTypeSupport<TodoListItem> {
 
             /**
              * 根据 Item类型 获取 Layout Id
@@ -68,8 +68,8 @@ internal class TodoGroupListAdapter(
             itemDecorationList = listOf(LinearDividerItemDecoration())
         )
 
-        adapter.setOnItemEventListener { view, childData, childPosition, flag ->
-            mOnItemEvent?.invoke(view, childData, childPosition, flag)
+        adapter.onItemEvent = { view, childData, childPosition, flag ->
+            onItemEvent?.invoke(view, childData, childPosition, flag)
         }
     }
 

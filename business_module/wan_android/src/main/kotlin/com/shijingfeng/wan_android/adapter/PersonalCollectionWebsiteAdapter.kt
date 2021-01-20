@@ -2,8 +2,8 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.view.View.OnClickListener
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.VIEW_WEBSITE_DETAIL
 import com.shijingfeng.wan_android.common.constant.WEBSITE_ITEM_EDIT
@@ -42,7 +42,7 @@ internal class PersonalCollectionWebsiteAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position,
+                    onItemEvent?.invoke(v, data, position,
                         VIEW_WEBSITE_DETAIL
                     )
                 }
@@ -51,7 +51,7 @@ internal class PersonalCollectionWebsiteAdapter(
             setOnClickListener(
                 viewId = R.id.btn_edit,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position,
+                    onItemEvent?.invoke(v, data, position,
                         WEBSITE_ITEM_EDIT
                     )
                 }
@@ -60,7 +60,7 @@ internal class PersonalCollectionWebsiteAdapter(
             setOnClickListener(
                 viewId = R.id.btn_uncollected,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data.getId(), position,
+                    onItemEvent?.invoke(v, data.getId(), position,
                         WEBSITE_ITEM_UNCOLLECTED
                     )
                 }

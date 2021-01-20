@@ -5,10 +5,13 @@ import android.text.TextUtils
 import android.view.View.OnClickListener
 import android.widget.CheckBox
 import android.widget.CompoundButton
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import android.widget.ImageView
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base.util.image_load.ImageLoader
+import com.shijingfeng.base.util.image_load.getImageLoaderInstance
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.PART_UPDATE_COLLECTION_STATUS
@@ -48,7 +51,7 @@ internal class ProjectChildAdapter(
 
         holder.run {
             // 图片
-            setImagePath(R.id.iv_image, imagePath)
+            getImageLoaderInstance().displayImage(context, getView(R.id.iv_image)!!, imagePath)
             // 原作者 或 转载人
             setText(R.id.tv_author, if (TextUtils.isEmpty(author)) shareUser else author)
             // 文章日期 或 转载日期
@@ -77,7 +80,7 @@ internal class ProjectChildAdapter(
             setOnClickListener(
                 viewId = R.id.ll_article_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, holder.adapterPosition,
+                    onItemEvent?.invoke(v, data, holder.adapterPosition,
                         VIEW_ARTICLE_DETAIL
                     )
                 }
@@ -88,7 +91,7 @@ internal class ProjectChildAdapter(
                 listener = OnClickListener { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition,
+                    onItemEvent?.invoke(v, isChecked, holder.adapterPosition,
                         ARTICLE_ITEM_COLLECTION
                     )
                 }
@@ -140,7 +143,7 @@ internal class ProjectChildAdapter(
                                 listener = OnClickListener { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEvent?.invoke(v, isChecked, position,
+                                    onItemEvent?.invoke(v, isChecked, position,
                                         ARTICLE_ITEM_COLLECTION
                                     )
                                 }

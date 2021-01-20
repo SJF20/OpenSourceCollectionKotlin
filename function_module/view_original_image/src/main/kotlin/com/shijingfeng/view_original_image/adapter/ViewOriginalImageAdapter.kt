@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.blankj.utilcode.util.ClickUtils
 import com.github.chrisbanes.photoview.PhotoView
-import com.shijingfeng.base.base.adapter.CommonPagerAdapter
 import com.shijingfeng.base.common.constant.CLICK
 import com.shijingfeng.base.common.constant.LONG_CLICK
 import com.shijingfeng.base.util.image_load.AS_DRAWABLE
 import com.shijingfeng.base.util.image_load.AS_GIF
 import com.shijingfeng.view_original_image.entity.ViewOriginalImageItem
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
+import com.shijingfeng.base_adapter.CommonPagerAdapter
 
 /**
  * Function: 查看原图 ViewPager 适配器
@@ -32,24 +32,24 @@ internal class ViewOriginalImageAdapter(
      * @return 初始化生成的View对象
      */
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val data = mDataList!![position]
-        val photoView = PhotoView(mContext)
+        val data = dataList!![position]
+        val photoView = PhotoView(context)
         val imagePath = data.imagePath
         val outputType = if (imagePath.endsWith(".gif", true)) AS_GIF else AS_DRAWABLE
 
         getImageLoaderInstance().displayImage(
-            context = mContext,
+            context = context,
             imageView = photoView,
             imagePath = data.imagePath,
             outputType = outputType
         )
         // 点击
         ClickUtils.applySingleDebouncing(photoView) { v ->
-            mOnItemEvent?.invoke(v, data, position, CLICK)
+            onItemEvent?.invoke(v, data, position, CLICK)
         }
         // 长按
         photoView.setOnLongClickListener onLongClickLabel@{ v ->
-            mOnItemEvent?.invoke(v, data, position, LONG_CLICK)
+            onItemEvent?.invoke(v, data, position, LONG_CLICK)
             return@onLongClickLabel true
         }
 

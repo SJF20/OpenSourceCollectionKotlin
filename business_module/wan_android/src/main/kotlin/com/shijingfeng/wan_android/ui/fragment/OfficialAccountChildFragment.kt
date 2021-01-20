@@ -154,7 +154,7 @@ internal class OfficialAccountChildFragment : WanAndroidBaseFragment<FragmentWan
             }
 
         })
-        mOfficialAccountChildAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mOfficialAccountChildAdapter?.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 // 查看文章详情
                 VIEW_ARTICLE_DETAIL -> {

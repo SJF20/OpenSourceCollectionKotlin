@@ -1,8 +1,8 @@
 package com.shijingfeng.weather.adapter
 
 import android.content.Context
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.common.global.cityDataManager
 import com.shijingfeng.weather.entity.CityDataItem

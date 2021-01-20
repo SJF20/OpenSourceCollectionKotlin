@@ -296,6 +296,9 @@ dependencies {
     // 模块事件分发器
     api rootProject.ext.dependencies["module_event_dispatcher"]
 
+    // 适配器基类
+    api rootProject.ext.dependencies["base_adapter"]
+
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]
     //ARouter 路由框架 注解执行器

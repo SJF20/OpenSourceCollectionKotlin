@@ -113,7 +113,7 @@ internal class SearchActivity : WanAndroidBaseActivity<ActivityWanAndroidSearchB
      */
     override fun initAction() {
         super.initAction()
-        mSearchHistoryAdapter?.setOnItemEventListener { _, data, _, flag ->
+        mSearchHistoryAdapter?.onItemEvent = { _, data, _, flag ->
             when (flag) {
                 // 搜索
                 SEARCH -> {

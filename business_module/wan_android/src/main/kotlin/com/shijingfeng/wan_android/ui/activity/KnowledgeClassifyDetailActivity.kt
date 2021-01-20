@@ -11,15 +11,14 @@ import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_KNOWLEDGE_CLASSIFY_DETAIL
-import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.base.common.constant.CURRENT_POSITION
 import com.shijingfeng.base.common.constant.EMPTY_OBJECT
 import com.shijingfeng.base.util.deserialize
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
+import com.shijingfeng.base_adapter.BaseFragmentPagerAdapter
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
-import com.shijingfeng.skin_changer.constant.BACK_GROUND_TINT
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
@@ -190,7 +189,7 @@ internal class KnowledgeClassifyDetailFragmentPagerAdapter(
     private val mKnowledgeClassify: KnowledgeClassifyEntity
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = false
+    banDestroyed = false
 ) {
 
     /**

@@ -3,9 +3,9 @@ package com.shijingfeng.todo.adapter
 import android.content.Context
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import com.shijingfeng.base.base.adapter.BaseMultiItemAdapter
-import com.shijingfeng.base.base.adapter.support.MultiItemTypeSupport
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseMultiItemAdapter
+import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.todo.R
 import com.shijingfeng.todo.constant.*
 import com.shijingfeng.todo.constant.PRIORITY_IMPORTANT_NOT_URGENCY
@@ -75,7 +75,7 @@ internal class TodoListAdapter(
         holder.setOnClickListener(
             viewId = R.id.btn_delete,
             listener = { view ->
-                mOnItemEvent?.invoke(view, data, position, REMOVE_ITEM)
+                onItemEvent?.invoke(view, data, position, REMOVE_ITEM)
             }
         )
         when(data.getType()) {
@@ -84,14 +84,14 @@ internal class TodoListAdapter(
                 holder.setOnClickListener(
                     viewId = R.id.btn_complete,
                     listener = { view ->
-                        mOnItemEvent?.invoke(view, data, position, TODO_COMPLETED)
+                        onItemEvent?.invoke(view, data, position, TODO_COMPLETED)
                     }
                 )
                 // 查看 待办 详情
                 holder.setOnClickListener(
                     viewId = R.id.fl_content,
                     listener = { v ->
-                        mOnItemEvent?.invoke(v, data, position, VIEW_TODO_DETAIL)
+                        onItemEvent?.invoke(v, data, position, VIEW_TODO_DETAIL)
                     }
                 )
             }
@@ -100,14 +100,14 @@ internal class TodoListAdapter(
                 holder.setOnClickListener(
                     viewId = R.id.btn_recall,
                     listener = { view ->
-                        mOnItemEvent?.invoke(view, data, position, TODO_RECALL)
+                        onItemEvent?.invoke(view, data, position, TODO_RECALL)
                     }
                 )
                 // 查看 完成 详情
                 holder.setOnClickListener(
                     viewId = R.id.fl_content,
                     listener = { v ->
-                        mOnItemEvent?.invoke(v, data, position, VIEW_TODO_DETAIL)
+                        onItemEvent?.invoke(v, data, position, VIEW_TODO_DETAIL)
                     }
                 )
             }

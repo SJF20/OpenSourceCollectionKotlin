@@ -25,6 +25,7 @@ import com.shijingfeng.wan_android.base.WanAndroidBaseActivity
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_FILE
 import com.shijingfeng.wan_android.common.constant.WAN_ANDROID_SKIN_PACKAGE
 import com.shijingfeng.wan_android.common.global.skinChangerManager
+import com.shijingfeng.wan_android.common.global.themeColorList
 import com.shijingfeng.wan_android.common.global.themeColorNameList
 import com.shijingfeng.wan_android.databinding.ActivityWanAndroidSettingBinding
 import com.shijingfeng.wan_android.entity.adapter.ThemeColorItem
@@ -94,8 +95,26 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
         val rvThemeColor = view.findViewById<RecyclerView>(R.id.rv_theme_color)
         val tvCancel = view.findViewById<TextView>(R.id.tv_cancel)
         val tvEnsure = view.findViewById<TextView>(R.id.tv_ensure)
+        var preChoosePosition = -1
+        val dataList = themeColorList.mapIndexed { index, color ->
+            var isSelected = false
 
-        val themeColorAdapter = ThemeColorAdapter(this)
+            if (!isSelected) {
+                if (ThemeUtil.curThemeColor == color) {
+                    isSelected = true
+                    preChoosePosition = index
+                }
+            }
+            ThemeColorItem(
+                color = color,
+                isSelected = isSelected
+            )
+        }
+        val themeColorAdapter = ThemeColorAdapter(
+            context = this,
+            dataList = dataList,
+            preChoosePosition = preChoosePosition
+        )
 
         rvThemeColor.adapter = themeColorAdapter
         rvThemeColor.layoutManager = GridLayoutManager(this, 4)
@@ -111,7 +130,7 @@ internal class SettingActivity : WanAndroidBaseActivity<ActivityWanAndroidSettin
             .setCancelable(true)
             .show()
 
-        themeColorAdapter.setOnItemEventListener { _, data, position, flag ->
+        themeColorAdapter.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 // 单选选择
                 SELECTED -> {

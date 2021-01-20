@@ -13,13 +13,13 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayout
 import com.kingja.loadsir.core.LoadSir
 import com.shijingfeng.base.arouter.FRAGMENT_WAN_ANDROID_PROJECT
-import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
-import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.common.constant.LOAD
 import com.shijingfeng.base.common.constant.LOAD_SERVICE_LOADING
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.util.serialize
+import com.shijingfeng.base_adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base_adapter.kotlin_extension.onFragmentCreate
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
@@ -222,13 +222,13 @@ internal class ProjectFragment : WanAndroidBaseFragment<FragmentWanAndroidProjec
 internal class ProjectFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     /** Fragment 创建回调 */
-    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>,
+    onFragmentCreate: onFragmentCreate<WanAndroidBaseFragment<*, *>>,
     /** 知识体系　一级 Item 实体类　*/
     private val mProjectIndexList: List<ProjectIndexEntity>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = false,
-    mOnFragmentCreate = onFragmentCreate
+    banDestroyed = false,
+    onFragmentCreate = onFragmentCreate
 ) {
 
     /**

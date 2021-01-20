@@ -136,7 +136,7 @@ internal class TodoListFragment : TodoBaseFragment<FragmentTodoTodoListBinding, 
                 )
             }
         })
-        mTodoGroupListAdapter?.setOnItemEventListener { view, data, position, flag ->
+        mTodoGroupListAdapter?.onItemEvent = { view, data, position, flag ->
             when (flag) {
                 // 删除 Item
                 REMOVE_ITEM -> {

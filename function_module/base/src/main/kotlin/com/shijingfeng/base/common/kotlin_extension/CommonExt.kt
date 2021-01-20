@@ -1,5 +1,5 @@
 /** 生成的 Java 类名 */
-@file:JvmName("CommonExtension")
+@file:JvmName("CommonExt")
 package com.shijingfeng.base.common.kotlin_extension
 
 import android.view.View

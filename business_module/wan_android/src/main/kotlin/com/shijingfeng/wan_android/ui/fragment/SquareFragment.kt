@@ -130,7 +130,7 @@ internal class SquareFragment : WanAndroidBaseFragment<FragmentWanAndroidSquareB
             }
 
         })
-        mSquareAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mSquareAdapter?.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 //查看文章详情
                 VIEW_ARTICLE_DETAIL -> {

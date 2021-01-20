@@ -122,7 +122,7 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
     @SuppressLint("DefaultLocale")
     override fun initAction() {
         super.initAction()
-        mViewOriginalImageAdapter.setOnItemEventListener { _, data, _, flag ->
+        mViewOriginalImageAdapter.onItemEvent = { _, data, _, flag ->
             when (flag) {
                 // 点击查看大图
                 CLICK -> finish(0, R.anim.anim_activity_close_exit_view_original_image)

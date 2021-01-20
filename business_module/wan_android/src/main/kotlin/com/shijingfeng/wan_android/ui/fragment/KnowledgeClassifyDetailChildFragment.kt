@@ -152,7 +152,7 @@ internal class KnowledgeClassifyDetailChildFragment : WanAndroidBaseFragment<Fra
         ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
-        mKnowledgeClassifyChildAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mKnowledgeClassifyChildAdapter?.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 // 查看二级数据文章详情
                 VIEW_ARTICLE_DETAIL -> {

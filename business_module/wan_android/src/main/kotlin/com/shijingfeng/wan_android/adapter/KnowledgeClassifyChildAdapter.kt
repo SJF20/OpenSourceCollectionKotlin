@@ -5,8 +5,8 @@ import android.text.TextUtils
 import android.view.View.OnClickListener
 import android.widget.CheckBox
 import android.widget.CompoundButton
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.cast
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.wan_android.R
@@ -71,7 +71,7 @@ internal class KnowledgeClassifyChildAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position,
+                    onItemEvent?.invoke(v, data, position,
                         VIEW_ARTICLE_DETAIL
                     )
                 }
@@ -82,7 +82,7 @@ internal class KnowledgeClassifyChildAdapter(
                 listener = OnClickListener { v ->
                     val isChecked = (v as CompoundButton).isChecked
 
-                    mOnItemEvent?.invoke(v, isChecked, holder.adapterPosition,
+                    onItemEvent?.invoke(v, isChecked, holder.adapterPosition,
                         ARTICLE_ITEM_COLLECTION
                     )
                 }
@@ -133,7 +133,7 @@ internal class KnowledgeClassifyChildAdapter(
                                 listener = OnClickListener { v ->
                                     val isChecked = (v as CompoundButton).isChecked
 
-                                    mOnItemEvent?.invoke(v, isChecked, position,
+                                    onItemEvent?.invoke(v, isChecked, position,
                                         ARTICLE_ITEM_COLLECTION
                                     )
                                 }

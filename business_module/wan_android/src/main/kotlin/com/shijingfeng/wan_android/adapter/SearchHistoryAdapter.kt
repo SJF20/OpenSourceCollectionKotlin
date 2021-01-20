@@ -2,8 +2,8 @@ package com.shijingfeng.wan_android.adapter
 
 import android.content.Context
 import android.view.View
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.REMOVE_SEARCH_HISTORY_ITEM
 import com.shijingfeng.wan_android.common.constant.SEARCH
@@ -39,7 +39,7 @@ internal class SearchHistoryAdapter(
             setOnClickListener(
                 view = itemView,
                 listener = View.OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data.name, position,
+                    onItemEvent?.invoke(v, data.name, position,
                         SEARCH
                     )
                 }
@@ -48,7 +48,7 @@ internal class SearchHistoryAdapter(
             setOnClickListener(
                 viewId = R.id.iv_remove,
                 listener = View.OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, position,
+                    onItemEvent?.invoke(v, data, position,
                         REMOVE_SEARCH_HISTORY_ITEM
                     )
                 }

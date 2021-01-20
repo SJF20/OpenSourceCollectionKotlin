@@ -185,7 +185,7 @@ internal class CitySearchActivity : WeatherBaseActivity<ActivityWeatherCitySearc
             search(page = mCurPage + 1)
         }
         // 适配器监听
-        mCitySearchListAdapter.setOnItemEventListener { view, data, position, flag ->
+        mCitySearchListAdapter.onItemEvent = { view, data, position, flag ->
             when (flag) {
                 CHOOSE_CITY -> {
                     val citySearchInfo = data as CitySearchInfoEntity

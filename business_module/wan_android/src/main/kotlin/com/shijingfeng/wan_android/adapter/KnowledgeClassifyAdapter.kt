@@ -8,8 +8,8 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.VIEW_KNOWLEDGE_CLASSIFY_DETAIL
@@ -44,7 +44,7 @@ internal class KnowledgeClassifyAdapter(
             setOnClickListener(
                 viewId = R.id.ll_content,
                 listener = View.OnClickListener { v ->
-                    mOnItemEvent?.invoke(v, data, 0,
+                    onItemEvent?.invoke(v, data, 0,
                         VIEW_KNOWLEDGE_CLASSIFY_DETAIL
                     )
                 }
@@ -62,13 +62,13 @@ internal class KnowledgeClassifyAdapter(
                 val children = data.childrenList[i]
                 val name = children.name
 
-                viewList.add(TextView(mContext).apply {
+                viewList.add(TextView(context).apply {
                     text = name
                     setPadding(ConvertUtils.dp2px(15F), ConvertUtils.dp2px(7F), ConvertUtils.dp2px(15F), ConvertUtils.dp2px(7F))
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
                     // 查看 知识标签 详情
                     ClickUtils.applySingleDebouncing(this) {
-                        mOnItemEvent?.invoke(this, data, i,
+                        onItemEvent?.invoke(this, data, i,
                             VIEW_KNOWLEDGE_CLASSIFY_DETAIL
                         )
                     }

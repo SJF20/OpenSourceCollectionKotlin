@@ -7,8 +7,8 @@ import android.text.Spanned
 import android.text.style.StyleSpan
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.weather.R
 import com.shijingfeng.weather.common.constant.CHOOSE_CITY
 import com.shijingfeng.weather.entity.CitySearchInfoEntity
@@ -58,7 +58,7 @@ internal class CitySearchListAdapter(
         holder.setOnClickListener(
             view = holder.itemView,
             listener = { view ->
-                mOnItemEvent?.invoke(view, data, position, CHOOSE_CITY)
+                onItemEvent?.invoke(view, data, position, CHOOSE_CITY)
             }
         )
     }

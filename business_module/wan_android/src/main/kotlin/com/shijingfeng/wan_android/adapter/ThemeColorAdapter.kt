@@ -5,8 +5,8 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.common.constant.SELECTED
 import com.shijingfeng.base.util.getDrawableById
 import com.shijingfeng.wan_android.R
@@ -21,31 +21,18 @@ import com.shijingfeng.wan_android.utils.ThemeUtil
  * Author: ShiJingFeng
  */
 internal class ThemeColorAdapter(
-    context: Context
+    context: Context,
+    dataList: List<ThemeColorItem>,
+    /** 前一个选中的 Position */
+    preChoosePosition: Int = -1
 ) : BaseAdapter<ThemeColorItem>(
     context = context,
-    layoutId = R.layout.adapter_item_theme_color
+    layoutId = R.layout.adapter_item_theme_color,
+    dataList = dataList
 ) {
 
     /** 前一个选中的 Position */
-    private var mPreChoosePosition = -1
-
-    init {
-        mDataList = themeColorList.mapIndexed { index, color ->
-            var isSelected = false
-
-            if (!isSelected) {
-                if (ThemeUtil.curThemeColor == color) {
-                    isSelected = true
-                    mPreChoosePosition = index
-                }
-            }
-            ThemeColorItem(
-                color = color,
-                isSelected = isSelected
-            )
-        }
-    }
+    private var mPreChoosePosition = preChoosePosition
 
     /**
      * 用户自定义处理数据 (单个Item内 全局刷新)
@@ -78,14 +65,14 @@ internal class ThemeColorAdapter(
                 }
                 // 更新前一个位置
                 if (mPreChoosePosition != -1) {
-                    mDataList!![mPreChoosePosition].isSelected = false
+                    dataList!![mPreChoosePosition].isSelected = false
                     notifyItemChanged(mPreChoosePosition)
                 }
                 mPreChoosePosition = position
                 // 更新当前位置
                 data.isSelected = true
                 notifyItemChanged(position)
-                mOnItemEvent?.invoke(v, data, position, SELECTED)
+                onItemEvent?.invoke(v, data, position, SELECTED)
             }
         )
     }

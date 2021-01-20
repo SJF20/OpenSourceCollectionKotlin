@@ -154,7 +154,7 @@ internal class ProjectChildFragment : WanAndroidBaseFragment<FragmentWanAndroidP
             }
 
         })
-        mProjectChildAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mProjectChildAdapter?.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 // 查看文章详情
                 VIEW_ARTICLE_DETAIL -> {

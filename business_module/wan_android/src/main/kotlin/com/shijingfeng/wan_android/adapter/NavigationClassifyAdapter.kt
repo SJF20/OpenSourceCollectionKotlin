@@ -8,8 +8,8 @@ import android.widget.TextView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.shijingfeng.base.base.adapter.BaseAdapter
-import com.shijingfeng.base.base.adapter.viewholder.CommonViewHolder
+import com.shijingfeng.base_adapter.BaseAdapter
+import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.layout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.VIEW_NAVIGATION_CLASSIFY_DETAIL
@@ -50,7 +50,7 @@ internal class NavigationClassifyAdapter(
             for (navigationClassifyArticle in data.articleList) {
                 val name: String = navigationClassifyArticle.title
 
-                viewList.add(TextView(mContext).apply {
+                viewList.add(TextView(context).apply {
                     text = name
                     setPadding(
                         ConvertUtils.dp2px(15f),
@@ -61,7 +61,7 @@ internal class NavigationClassifyAdapter(
                     setBackgroundResource(R.drawable.shape_classify_child_bg)
                     // 查看 导航标签 详情
                     ClickUtils.applySingleDebouncing(this) {
-                        mOnItemEvent?.invoke(this, navigationClassifyArticle, position,
+                        onItemEvent?.invoke(this, navigationClassifyArticle, position,
                             VIEW_NAVIGATION_CLASSIFY_DETAIL
                         )
                     }

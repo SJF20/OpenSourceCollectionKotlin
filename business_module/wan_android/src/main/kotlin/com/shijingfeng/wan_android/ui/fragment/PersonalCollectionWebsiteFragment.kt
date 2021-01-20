@@ -144,7 +144,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
         ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
-        mPersonalCollectionWebsiteAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mPersonalCollectionWebsiteAdapter?.onItemEvent = onItemEvent@{ _, data, position, flag ->
             mCurrentPosition = position
             when (flag) {
                 // 查看网站详情
@@ -154,7 +154,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
                     val title = personalCollectionWebsite.name
 
                     if (activity == null) {
-                        return@setOnItemEventListener
+                        return@onItemEvent
                     }
                     navigation(
                         activity = activity,
@@ -167,7 +167,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
                 }
                 // 网站编辑
                 WEBSITE_ITEM_EDIT -> {
-                    mPersonalCollectionWebsite = mViewModel?.mWebsiteCollectedListItemList?.get(mCurrentPosition) ?: return@setOnItemEventListener
+                    mPersonalCollectionWebsite = mViewModel?.mWebsiteCollectedListItemList?.get(mCurrentPosition) ?: return@onItemEvent
                     showEditDialog()
                 }
                 // 网站取消收藏
@@ -304,7 +304,7 @@ internal class PersonalCollectionWebsiteFragment : WanAndroidBaseFragment<Fragme
         mEditContentView.findViewById<TextView>(R.id.et_website_title).text = mPersonalCollectionWebsite.name
         mEditContentView.findViewById<TextView>(R.id.et_website_link).text = mPersonalCollectionWebsite.link
 
-        mEditDialog = CommonDialog.Builder(activity!!)
+        mEditDialog = CommonDialog.Builder(requireActivity())
             .setContentView(mEditContentView)
             .setWindowWidth(SizeUtils.dp2px(350F))
             .setGravity(Gravity.TOP, 0, SizeUtils.dp2px(45F))

@@ -125,7 +125,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
         ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
-        mPersonalCollectionArticleAdapter?.setOnItemEventListener { _, data, _, flag ->
+        mPersonalCollectionArticleAdapter?.onItemEvent = onItemEvent@{ _, data, _, flag ->
             when (flag) {
                 // 查看文章详情
                 VIEW_ARTICLE_DETAIL -> {
@@ -134,7 +134,7 @@ internal class PersonalCollectionArticleFragment : WanAndroidBaseFragment<Fragme
                     val title = personalCollectionArticleItem.title
 
                     if (activity == null) {
-                        return@setOnItemEventListener
+                        return@onItemEvent
                     }
                     navigation(
                         activity = activity,

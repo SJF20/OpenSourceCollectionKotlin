@@ -131,7 +131,7 @@ internal class SearchListActivity : WanAndroidBaseActivity<ActivityWanAndroidSea
         ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
-        mSearchListAdapter?.setOnItemEventListener { _, data, position, flag ->
+        mSearchListAdapter?.onItemEvent = { _, data, position, flag ->
             when (flag) {
                 // 查看搜索详情
                 VIEW_SEARCH_DETAIL -> {

@@ -117,7 +117,7 @@ internal class CoinRecordActivity : WanAndroidBaseActivity<ActivityWanAndroidCoi
         ClickUtils.applySingleDebouncing(mDataBinding.fabToTop) {
             scrollToTop()
         }
-        mCoinRecordAdapter?.setOnItemEventListener { _: View?, _: Any?, _: Int, _: String? -> }
+        mCoinRecordAdapter?.onItemEvent = { _: View?, _: Any?, _: Int, _: String? -> }
     }
 
     /**

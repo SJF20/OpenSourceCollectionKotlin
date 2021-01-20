@@ -11,10 +11,10 @@ import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayout
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_PERSONAL_COLLECTION
-import com.shijingfeng.base.base.adapter.BaseFragmentPagerAdapter
-import com.shijingfeng.base.base.adapter.OnFragmentCreate
 import com.shijingfeng.base.util.getColorById
 import com.shijingfeng.base.util.getStringById
+import com.shijingfeng.base_adapter.BaseFragmentPagerAdapter
+import com.shijingfeng.base_adapter.kotlin_extension.onFragmentCreate
 import com.shijingfeng.skin_changer.constant.BACK_GROUND
 import com.shijingfeng.skin_changer.entity.SkinAttribute
 import com.shijingfeng.wan_android.BR
@@ -183,11 +183,11 @@ internal class PersonalCollectionActivity : WanAndroidBaseActivity<ActivityWanAn
  */
 internal class PersonalCollectionFragmentPagerAdapter(
     fragmentManager: FragmentManager,
-    onFragmentCreate: OnFragmentCreate<WanAndroidBaseFragment<*, *>>
+    onFragmentCreate: onFragmentCreate<WanAndroidBaseFragment<*, *>>
 ) : BaseFragmentPagerAdapter<WanAndroidBaseFragment<*, *>>(
     fragmentManager = fragmentManager,
-    mBanDestroyed = true,
-    mOnFragmentCreate = onFragmentCreate
+    banDestroyed = true,
+    onFragmentCreate = onFragmentCreate
 ) {
 
     /**

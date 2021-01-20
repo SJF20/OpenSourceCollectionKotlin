@@ -2,9 +2,9 @@ package com.shijingfeng.realm
 
 import android.app.Application
 import androidx.annotation.Keep
-import com.shijingfeng.apt_data.annotations.ModuleEventReceiver
-import com.shijingfeng.apt_data.constant.PRIORITY_HIGH
-import com.shijingfeng.apt_data.interfaces.ModuleEventListener
+import com.shijingfeng.module_event_dispatcher.data.annotations.ModuleEventReceiver
+import com.shijingfeng.module_event_dispatcher.data.constant.PRIORITY_HIGH
+import com.shijingfeng.module_event_dispatcher.data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_DATA_KEY_APPLICATION
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
 import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
