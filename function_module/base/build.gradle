@@ -184,9 +184,10 @@ dependencies {
     api rootProject.ext.kotlin["kotlinx-coroutines-android"]
 
     api rootProject.ext.androidx["appcompat"]
-    api rootProject.ext.androidx["junit"]
-    api rootProject.ext.androidx["junit-ext"]
-    api rootProject.ext.androidx["junit-espresso-core"]
+
+    testApi rootProject.ext.androidx["junit"]
+    androidTestApi rootProject.ext.androidx["junit-ext"]
+    androidTestApi rootProject.ext.androidx["junit-espresso-core"]
 
     //MultiDex支持   Android5.0(API 21)以上不需要了
 //    api rootProject.ext.androidx["multidex"]
@@ -194,6 +195,9 @@ dependencies {
     //ConstraintLayout约束布局
     api rootProject.ext.androidx["constraintlayout"]
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Mockito framework（单元测试框架, 用于模拟一些依赖对象，以达到隔离依赖的效果）
+    testApi rootProject.ext.dependencies["mockito-core"]
 
     //Leak Canary 内存泄漏检测框架
     debugApi rootProject.ext.dependencies["leakcanary-android"]

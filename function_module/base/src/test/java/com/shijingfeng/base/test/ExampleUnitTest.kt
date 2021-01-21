@@ -1,4 +1,4 @@
-package com.shijingfeng.base
+package com.shijingfeng.base.test
 
 import org.junit.Test
 

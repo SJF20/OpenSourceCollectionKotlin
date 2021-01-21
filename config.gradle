@@ -33,6 +33,7 @@ ext {
             "junit"                               : "4.13",
             "junit-ext"                           : "1.1.2",
             "junit-espresso-core"                 : "3.3.0",
+            "mockito"                             : "3.7.7",
             "constraintlayout"                    : "2.0.1",
             "multidex"                            : "2.0.1",
             "lifecycle"                           : "2.2.0",
@@ -130,6 +131,8 @@ ext {
     ]
     //依赖第三方配置
     dependencies = [
+            //Mockito framework（单元测试框架, 用于模拟一些依赖对象，以达到隔离依赖的效果）
+            "mockito-core"                         : "org.mockito:mockito-core:${versions["mockito"]}",
             //LeakCanary 内存泄漏检测框架
             "leakcanary-android"                  : "com.squareup.leakcanary:leakcanary-android:${versions["leakcanary"]}",
             "leakcanary-android-no-op"            : "com.squareup.leakcanary:leakcanary-android-no-op:${versions["leakcanary-no-op"]}",

@@ -2,11 +2,9 @@
 package com.shijingfeng.base.util
 
 import android.app.ActivityManager
-import android.app.Application
 import android.content.Context
 import android.os.Process
 import android.text.TextUtils
-import com.blankj.utilcode.util.Utils
 import com.shijingfeng.base.base.application.application
 import java.io.BufferedReader
 import java.io.File
