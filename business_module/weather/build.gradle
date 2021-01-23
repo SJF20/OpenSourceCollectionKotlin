@@ -3,6 +3,8 @@ if (isApplication && isWeatherApplication) {
     apply plugin: 'com.android.application'
     // 模块事件分发器 Gradle插件
     apply plugin: 'module-event-dispatcher'
+    // 应用 Android AspectJ 插件
+//    apply plugin: 'android-aspectjx'
 } else {
     apply plugin: 'com.android.library'
 }

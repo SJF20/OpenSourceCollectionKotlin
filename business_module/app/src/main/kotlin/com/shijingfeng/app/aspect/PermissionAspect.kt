@@ -1,6 +1,14 @@
-package com.shijingfeng.base.aspect
+package com.shijingfeng.app.aspect
 
+import android.annotation.SuppressLint
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.shijingfeng.base.annotation.RequestPermissions
+import com.tbruyelle.rxpermissions2.RxPermissions
+//import org.aspectj.lang.ProceedingJoinPoint
+//import org.aspectj.lang.annotation.Around
+//import org.aspectj.lang.annotation.Aspect
+//import org.aspectj.lang.annotation.Pointcut
 
 /**
  * Function: 权限 AOP
@@ -34,7 +42,7 @@ class PermissionAspect {
 //            val permissions = requestPermissions.permissions
 //            val activity = when (joinPoint.target) {
 //                is FragmentActivity -> joinPoint.target as FragmentActivity
-//                is Fragment -> (joinPoint.target as Fragment).activity!!
+//                is Fragment -> (joinPoint.target as Fragment).requireActivity()
 //                else -> return
 //            }
 //

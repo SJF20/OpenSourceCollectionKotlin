@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.google.gson.reflect.TypeToken
 import com.shijingfeng.view_original_image.adapter.ViewOriginalImageAdapter
 import com.shijingfeng.base.annotation.NeedPermissions
+import com.shijingfeng.base.annotation.RequestPermissions
 import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.deserialize
@@ -198,50 +199,55 @@ internal class ViewOriginalImageActivity : CommonBaseActivity<ActivityCommonView
 
         //下载图片
         contentView.tv_download_img.setOnClickListener {
-            val data = mViewModel?.mDataList?.get(mViewModel?.mCurrentPosition ?: 0)
-            val imageUrl = data?.imagePath ?: ""
-
             mLongClickDialog?.hide()
-            addDisposable(
-                mRxPermissions!!
-                    .requestEach(WRITE_EXTERNAL_STORAGE)
-                    .subscribe { permission ->
-                        when {
-                            permission.granted -> {
-                                //下载图片
-                                mViewModel?.downloadImage(imageUrl)
-                            }
-                            permission.shouldShowRequestPermissionRationale -> {
-                                ToastUtils.showShort(getStringById(R.string.外部存储权限授予失败))
-                            }
-                            else -> {
-                                AlertDialog.Builder(this)
-                                    .setMessage(getStringById(R.string.设置页面开启外部存储权限))
-                                    .setPositiveButton(
-                                        getStringById(R.string.去设置)
-                                    ) { _: DialogInterface?, _: Int ->
-                                        val settingIntent = Intent()
-                                        settingIntent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                        settingIntent.data = Uri.fromParts(
-                                            "package",
-                                            packageName,
-                                            null
-                                        )
-                                        settingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(settingIntent)
-                                    }
-                                    .setOnDismissListener(null)
-                                    .setCancelable(false)
-                                    .show()
-                            }
-                        }
-                    }
-            )
+            downloadImage()
         }
         //取消
         contentView.tv_cancel.setOnClickListener {
             mLongClickDialog?.hide()
         }
+    }
+
+    @RequestPermissions([WRITE_EXTERNAL_STORAGE])
+    private fun downloadImage() {
+        val data = mViewModel?.mDataList?.get(mViewModel?.mCurrentPosition ?: 0)
+        val imageUrl = data?.imagePath ?: ""
+
+        addDisposable(
+            mRxPermissions!!
+                .requestEach(WRITE_EXTERNAL_STORAGE)
+                .subscribe { permission ->
+                    when {
+                        permission.granted -> {
+                            //下载图片
+                            mViewModel?.downloadImage(imageUrl)
+                        }
+                        permission.shouldShowRequestPermissionRationale -> {
+                            ToastUtils.showShort(getStringById(R.string.外部存储权限授予失败))
+                        }
+                        else -> {
+                            AlertDialog.Builder(this)
+                                .setMessage(getStringById(R.string.设置页面开启外部存储权限))
+                                .setPositiveButton(
+                                    getStringById(R.string.去设置)
+                                ) { _: DialogInterface?, _: Int ->
+                                    val settingIntent = Intent()
+                                    settingIntent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                                    settingIntent.data = Uri.fromParts(
+                                        "package",
+                                        packageName,
+                                        null
+                                    )
+                                    settingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(settingIntent)
+                                }
+                                .setOnDismissListener(null)
+                                .setCancelable(false)
+                                .show()
+                        }
+                    }
+                }
+        )
     }
 
     /**
