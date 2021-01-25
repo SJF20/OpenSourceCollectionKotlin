@@ -13,9 +13,13 @@ import java.io.IOException
  * @author ShiJingFeng
  */
 internal class ProgressRequestBody(
-    private val mRequestBody: RequestBody,
-    private val mTag: String? = null
+    requestBody: RequestBody,
+    tag: String? = null
 ) : RequestBody() {
+
+    private val mRequestBody = requestBody
+    /** 唯一标识 */
+    private val mTag = tag
 
     override fun writeTo(sink: BufferedSink) {
         val bufferedSink = readSink(sink).buffer()

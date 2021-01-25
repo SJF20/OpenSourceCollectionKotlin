@@ -13,9 +13,13 @@ import java.io.IOException
  * @author ShiJingFeng
  */
 internal class ProgressResponseBody(
-    private val mResponseBody: ResponseBody,
-    private val mTag: String? = null
+    responseBody: ResponseBody,
+    tag: String? = null
 ) : ResponseBody() {
+
+    private val mResponseBody = responseBody
+    /** 唯一标识 */
+    private val mTag = tag
 
     override fun source(): BufferedSource {
         return readSource(mResponseBody.source()).buffer()
