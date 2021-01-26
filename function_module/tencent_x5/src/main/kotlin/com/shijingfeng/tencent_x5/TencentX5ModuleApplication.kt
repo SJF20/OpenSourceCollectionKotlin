@@ -6,7 +6,7 @@ import com.shijingfeng.module_event_dispatcher.data.annotations.ModuleEventRecei
 import com.shijingfeng.module_event_dispatcher.data.interfaces.ModuleEventListener
 import com.shijingfeng.base.common.constant.DISPATCHER_DATA_KEY_APPLICATION
 import com.shijingfeng.base.common.constant.DISPATCHER_GROUP_APPLICATION
-import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
+import com.shijingfeng.tencent_x5.entity.event.X5InitedEvent
 import com.shijingfeng.base.util.MODULE_EVENT_DISPATCHER
 import com.shijingfeng.base.util.LOG_TENCENT_X5
 import com.shijingfeng.base.util.d

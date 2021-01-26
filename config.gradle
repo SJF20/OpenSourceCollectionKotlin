@@ -67,12 +67,14 @@ ext {
             "smartrefresh"                        : "1.1.1",
             "arouter"                             : "1.5.0",
             "arouter-compiler"                    : "1.2.2",
-            "module_event_dispatcher"             : "1.0.4",
             "bmob"                                : "3.7.8",
             "sophix"                              : "3.2.14",
 //            "aspectJ"                             : "1.9.5",
             "datastore"                           : "1.0.0-alpha02",
-            "base_adapter"                        : "1.0.1"
+            "module_event_dispatcher"             : "1.0.4",
+            "base_adapter"                        : "1.0.1",
+            "swipe_remove"                        : "1.0.0",
+            "sjf_banner"                          : "1.0.0"
     ]
     kotlin = [
             "kotlin-stdlib-jdk7"         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin-stdlib-jdk7"]}",
@@ -231,7 +233,11 @@ ext {
             // 模块事件分发器
             "module_event_dispatcher"             : "com.shijingfeng.module_event_dispatcher:api:${versions["module_event_dispatcher"]}",
             // 适配器基类
-            "base_adapter"                        : "com.shijingfeng.open_source:base_adapter:${versions["base_adapter"]}"
+            "base_adapter"                        : "com.shijingfeng.open_source:base_adapter:${versions["base_adapter"]}",
+            // 侧滑删除控件
+            "swipe_remove"                        : "com.shijingfeng.open_source:swipe_remove:${versions["swipe_remove"]}",
+            // 轮播图控件
+            "sjf_banner"                              : "com.shijingfeng.open_source:sjf_banner:${versions["sjf_banner"]}"
     ]
     //依赖第三方配置 注解执行器
     annotationProcessor = [

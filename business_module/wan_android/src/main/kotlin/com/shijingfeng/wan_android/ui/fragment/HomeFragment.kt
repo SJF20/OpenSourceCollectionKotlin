@@ -19,7 +19,7 @@ import com.shijingfeng.base.common.constant.*
 import com.shijingfeng.base.util.getPositionById
 import com.shijingfeng.base.widget.LinearDividerItemDecoration
 import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
-import com.shijingfeng.sjf_banner.library.banner.view.BannerView
+import com.shijingfeng.sjf_banner.banner.view.BannerView
 import com.shijingfeng.wan_android.BR
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.adapter.HomeAdapter

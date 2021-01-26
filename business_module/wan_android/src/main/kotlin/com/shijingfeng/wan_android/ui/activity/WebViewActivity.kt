@@ -29,7 +29,7 @@ import com.shijingfeng.base.arouter.ACTIVITY_COMMON_VIEW_ORIGINAL_IMAGE
 import com.shijingfeng.base.arouter.ACTIVITY_WAN_ANDROID_WEB_VIEW
 import com.shijingfeng.base.arouter.navigation
 import com.shijingfeng.base.common.constant.*
-import com.shijingfeng.base.entity.event.event_bus.X5InitedEvent
+import com.shijingfeng.tencent_x5.entity.event.X5InitedEvent
 import com.shijingfeng.base.util.getStatusBarHeight
 import com.shijingfeng.base.util.serialize
 import com.shijingfeng.base.util.shareText

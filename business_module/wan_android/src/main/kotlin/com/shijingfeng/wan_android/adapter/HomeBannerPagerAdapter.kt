@@ -6,7 +6,7 @@ import android.widget.ImageView
 import com.blankj.utilcode.util.ClickUtils
 import com.blankj.utilcode.util.ConvertUtils
 import com.shijingfeng.base.util.image_load.getImageLoaderInstance
-import com.shijingfeng.sjf_banner.library.banner.adapter.BaseBannerPagerAdapter
+import com.shijingfeng.sjf_banner.banner.adapter.BaseBannerPagerAdapter
 import com.shijingfeng.wan_android.common.constant.VIEW_BANNER_DETAIL
 import com.shijingfeng.wan_android.entity.adapter.HomeBannerItem
 

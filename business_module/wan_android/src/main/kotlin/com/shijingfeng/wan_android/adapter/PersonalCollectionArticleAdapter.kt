@@ -6,7 +6,7 @@ import android.view.View.OnClickListener
 import com.shijingfeng.base_adapter.BaseAdapter
 import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.getStringById
-import com.shijingfeng.library.SwipeRemoveLayout
+import com.shijingfeng.swipe_remove.SwipeRemoveLayout
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_UNCOLLECTED
 import com.shijingfeng.wan_android.common.constant.VIEW_ARTICLE_DETAIL

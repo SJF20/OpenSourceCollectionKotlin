@@ -299,9 +299,12 @@ dependencies {
 
     // 模块事件分发器
     api rootProject.ext.dependencies["module_event_dispatcher"]
-
     // 适配器基类
     api rootProject.ext.dependencies["base_adapter"]
+    // 侧滑删除控件
+    api rootProject.ext.dependencies["swipe_remove"]
+    // 轮播图控件
+    api rootProject.ext.dependencies["sjf_banner"]
 
     //Room 数据库存储 注解执行器
     kapt rootProject.ext.annotationProcessor["room"]

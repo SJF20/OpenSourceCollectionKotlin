@@ -17,11 +17,11 @@ import com.shijingfeng.base_adapter.viewholder.CommonViewHolder
 import com.shijingfeng.base.util.*
 import com.shijingfeng.base_adapter.BaseMultiItemAdapter
 import com.shijingfeng.base_adapter.support.MultiItemTypeSupport
-import com.shijingfeng.sjf_banner.library.banner.entity.BaseIndicatorData
-import com.shijingfeng.sjf_banner.library.banner.entity.CombineIndicatorData
-import com.shijingfeng.sjf_banner.library.banner.entity.ShapeIndicatorData
-import com.shijingfeng.sjf_banner.library.banner.entity.TitleIndicatorData
-import com.shijingfeng.sjf_banner.library.banner.view.BannerView
+import com.shijingfeng.sjf_banner.banner.entity.BaseIndicatorData
+import com.shijingfeng.sjf_banner.banner.entity.CombineIndicatorData
+import com.shijingfeng.sjf_banner.banner.entity.ShapeIndicatorData
+import com.shijingfeng.sjf_banner.banner.entity.TitleIndicatorData
+import com.shijingfeng.sjf_banner.banner.view.BannerView
 import com.shijingfeng.wan_android.R
 import com.shijingfeng.wan_android.common.constant.ARTICLE_ITEM_COLLECTION
 import com.shijingfeng.wan_android.common.constant.HOME_ARTICLE
