@@ -2,6 +2,7 @@ package com.shijingfeng.app.ui.activity
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.shijingfeng.app.R
@@ -9,6 +10,7 @@ import com.shijingfeng.app.base.AppBaseActivity
 import com.shijingfeng.app.view_model.SplashViewModel
 import com.shijingfeng.base.arouter.ACTIVITY_APP_SPLASH
 import com.shijingfeng.base.common.constant.NO_LAYOUT
+import kotlinx.coroutines.*
 
 /**
  * Function: 启动页 Activity

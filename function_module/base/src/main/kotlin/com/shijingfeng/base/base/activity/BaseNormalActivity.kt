@@ -37,6 +37,7 @@ import com.shijingfeng.base.callback.LoadFailCallback
 import com.shijingfeng.base.callback.LoadingCallback
 import com.shijingfeng.base.util.getStringById
 import com.shijingfeng.base.widget.LoadingView
+import kotlinx.coroutines.launch
 
 /**
  * Function: 通用的 Activity 基类

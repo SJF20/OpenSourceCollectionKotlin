@@ -232,14 +232,14 @@ android {
         }
     }
 
-    // 重命名生成的apk名称
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            if (output.outputFile != null && outputFileName.endsWith(".apk")) {
-                outputFileName = "open_source_collection_kotlin_v${variant.versionName}_${getDateStr()}.apk"
-            }
-        }
-    }
+//    // 重命名生成的apk名称
+//    applicationVariants.all { variant ->
+//        variant.outputs.all { output ->
+//            if (output.outputFile != null && outputFileName.endsWith(".apk")) {
+//                outputFileName = "open_source_collection_kotlin_v${variant.versionName}_${getDateStr()}.apk"
+//            }
+//        }
+//    }
     // 不使用lint, 可极大减少编译时间(据说是减少80%, 但我测试了一下好像一点作用也没有), 如需使用lint, 请注释掉下面的代码
 //    tasks.whenTaskAdded { task ->
 //        if (task.name == "lint" || task.name == "lintVitalRelease") {
